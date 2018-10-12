@@ -4,7 +4,7 @@ Spasm is a libary to develop single page webassembly applications in D.
 
 It uses D's compile time feature to generate optimized rendering code, so your users don't have to.
 
-Not only are your applications fast, they are also small. The todo-mvc example project is only 5985 (wasm) + 2205 (html+js) bytes when gzipped.
+Not only are your applications fast, they are also small. The todo-mvc example project is only 5995 (wasm) + 2199 (html+js) bytes when gzipped.
 
 # Limitations
 
