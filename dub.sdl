@@ -1,5 +1,5 @@
 name "spasm"
-description "A wasm library for writing single page applications"
+description "A framework for writing single page applications"
 authors "Sebastiaan Koppe"
 copyright "Copyright © 2018, Sebastiaan Koppe"
 license "mit"
