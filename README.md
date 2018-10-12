@@ -21,6 +21,8 @@ run `dub build --compiler=ldc2 --build=release` to compile your application, the
 
 You can also `npm run start` to start a webpack development server that serves your application on localhost:3000
 
+* Note: I could not get it to build on my aged mac (el capitan). Instead I use docker to run ldc in ubuntu.
+
 # Example
 
 There is todo-mvc example project in this repo. It implements the famous [todo mvc application](http://todomvc.com). 
@@ -161,12 +163,9 @@ The second piece is the `update` template function, this function uses static in
 Here we show how lists are implemented.
 
 ```d
-class Item {
+struct Item {
   mixin Node!"li";
   @prop string innerText;
-  this(string text) {
-    this.innerText = text;
-  }
 }
 struct Button {
   mixin Node!"button";
@@ -181,24 +180,23 @@ struct App {
   @child Button button;
   @child UnorderedList!Item items;
   @connect!"button.click" void click() {
-    items.put(new Item("Item"));
+    Item* item = allocator.make!Item;
+    item.innerText = "Item";
+    items.put(item);
   }
 }
 mixin Spa!App;
 ```
 
-We added an `UnorderedList!Item` child. This is a standard component and renders an `<ul>` node with children. Here the Item Component is converted into a class. (this is necessary because of how the callbacks mechanism works with arrays. If it were a struct the runtime has to reassign callback pointers any time the list changes, or use a second indirection layer.)
+We added an `UnorderedList!Item` child. This is a standard component and renders an `<ul>` node with children.
 
 Here we show how to do event listeners on arrays.
 
 ```d
-class Item {
+struct Item {
   mixin Node!"li";
   @prop string innerText;
   mixin Slot!"click";
-  this(string text) {
-    this.innerText = text;
-  }
   @callback void onClick(MouseEvent event) {
     this.emit!(click);
   }
@@ -216,7 +214,9 @@ struct App {
   @child Button button;
   @child UnorderedList!Item list;
   @connect!"button.click" void click() {
-    list.put(new Item("Item"));
+    Item* item = allocator.make!Item;
+    item.innerText = "Item";
+    list.put(item);
   }
   @connect!("list.items","click") void itemClick(size_t idx) {
   }
@@ -231,14 +231,11 @@ This is works with a simple pointer range search in the array. It introduces no 
 In this example we show how we can use standard range algorithms to transform arrays.
 
 ```d
-class Item {
+struct Item {
   mixin Node!"li";
   @prop string innerText;
   mixin Slot!"click";
   @style!"active" bool active = false;
-  this(string text) {
-    this.innerText = text;
-  }
   @callback void onClick(MouseEvent event) {
     this.emit!(click);
   }
@@ -265,7 +262,9 @@ struct App {
     this.update!(onlyActive)(!onlyActive);
   }
   @connect!"addButton.click" void addClick() {
-    items.put(new Item("Item"));
+    Item* item = allocator.make!Item;
+    item.innerText = "Item";
+    items.put(item);
     this.update!(items);
   }
   @connect!("list.items","click") void itemClick(size_t idx) {
