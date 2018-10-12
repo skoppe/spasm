@@ -1,0 +1,7 @@
+{
+	"fileVersion": 1,
+	"versions": {
+		"spasm": {"path":"../.."},
+		"stdx-allocator": "2.77.3"
+	}
+}

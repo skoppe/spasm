@@ -1,0 +1,10 @@
+{
+	"fileVersion": 1,
+	"versions": {
+		"asdf": "0.3.0",
+		"libinputvisitor": "1.2.2",
+		"sdlang-d": "0.10.4",
+		"taggedalgebraic": "0.10.11",
+		"unit-threaded": "0.7.52"
+	}
+}

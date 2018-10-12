@@ -1,0 +1,6 @@
+{
+	"fileVersion": 1,
+	"versions": {
+		"stdx-allocator": "2.77.3"
+	}
+}

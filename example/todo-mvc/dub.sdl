@@ -1,0 +1,6 @@
+name "todo-mvc-spasm-example"
+description "A minimal D application."
+authors "Sebastiaan Koppe"
+copyright "Copyright © 2018, Sebastiaan Koppe"
+license "mit"
+dependency "spasm" path="../.."
