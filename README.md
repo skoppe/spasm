@@ -1,14 +1,10 @@
 # Spasm
 
-Spasm is a libary to develop single page webassembly applications in D.
+Spasm is a libary to develop single page applications in D that compile to webassembly.
 
-It uses D's compile time feature to generate optimized rendering code, so your users don't have to.
+It uses D's compile time feature to generate optimized rendering code specific for your application.
 
-Not only are your applications fast, they are also small. The todo-mvc example project is only 5995 (wasm) + 2199 (html+js) bytes when gzipped.
-
-# Limitations
-
-This project uses betterC mode, which means no d runtime. This also means some phobos packages don't work, as well as some d features which rely on the d runtime.
+Not only are your applications fast, they are also small. The [todo-mvc example](https://skoppe.github.io/spasm/examples/todo-mvc/) project is only 5995 (wasm) + 2199 (html+js) bytes when gzipped.
 
 # How to start
 
@@ -17,29 +13,32 @@ This project uses betterC mode, which means no d runtime. This also means some p
 - run `dub run spasm:bootstrap-webpack` to generate the webpack/dev-server boilerplate
 - start writing!
 
-Add any css/js you need to the index.template.html
+Add any css/js you need to the index.template.html, or you can use any of the myriad features of webpack to include what you need.
 
 # How to compile your application
 
-run `dub build --compiler=ldc2 --build=release` to compile your application, then run `npx webpack` to generate the index.html.
+run `dub build --compiler=ldc2 --build=release` to compile your application, then run `npx webpack` to generate the `index.html`.
 
-Or run `npm run start` to start a webpack development server that serves your application on localhost:3000
+You can also `npm run start` to start a webpack development server that serves your application on localhost:3000
 
 # Example
 
-There is todo-mvc example project in this repo. It implements the todo mvc application (see: http://todomvc.com). 
+There is todo-mvc example project in this repo. It implements the famous [todo mvc application](http://todomvc.com). 
+
+# Limitations
+
+This project uses betterC, which means there is no D runtime. This also means that most phobos functions don't work, as well any D features that rely on the D runtime. If you get any weird errors, this is probably the reason why.
 
 # WIP
 
-CSS stylesets are currently disabled.
-
-Memory deallocation. Currently no memory is freed.
-
-The generated webassembly binaries needs manual stripping to reduce code bloat.
+- CSS stylesets are currently disabled.
+- Currently no memory is freed.
+- The generated webassembly binaries needs manual stripping to reduce code bloat.
+- Most js host api's are missing (xhr, localstorage, etc.).
 
 # How it works
 
-Each html element is mapped to a D struct. Each html attribute, property, eventlistener and children nodes are (annotated) members of that struct.
+Each html element is mapped to a D struct. Each attribute, property, eventlistener and any children nodes are (annotated) members of that struct.
 
 Here is an example of rendering a div node.
 ```d
@@ -49,7 +48,7 @@ struct App {
 mixin Spa!App;
 ```
 
-The mixin ensures the app is connected to emscripten and will render it on startup.
+The mixin ensures the app is rendered and integrates with the js runtime code.
 
 The following example shows how to set properties on the rendered node.
 
@@ -92,8 +91,8 @@ Now we add a event listener to the button.
 ```d
 struct Button {
   mixin Node!"button";
-  @prop innerText = "Click me!";
   mixin Slot!"click";
+  @prop innerText = "Click me!";
   @callback void onClick(MouseEvent event) {
     this.emit(click);
   }
@@ -105,9 +104,9 @@ struct App {
 mixin Spa!App;
 ```
 
-The Slot mixin expands to a delegate which provides a slot for other component to register themselves in. The separation between the slot and the callback function is on purpose. It provides isolation from dom events and it simplifies event listeners on arrays (doesn't require keying).
+The `onClick` function is called whenever an onclick event is generated on the dom node.
 
-Also, you can have multiple slots that you can trigger conditionally, e.g. on which key the user pressed. In the app.d file in the repo this is used on the input components to differentiate between escape and enter being pressed.
+In order to propagate events between structs - often you have a parent component that has logic - a `Slot!click` is mixed into the struct. The separation between the slot and the callback function is on purpose. It provides isolation from dom events and it simplifies event listeners on arrays (doesn't require keying).
 
 Here we connect the slot from the App.
 
@@ -157,7 +156,7 @@ The result is when the button is clicked the text is changed into "Clicked!".
 
 We have inserted a `string innerText` field into App, and made the one in Button a pointer. During the first rendering any pointers from a struct will be assigned to their parent. This approach is chosen due to its low performance impact (just a extra pointer to store) and simplicity (no need to pass prop structs between components).
 
-The second piece is the `update` template function, this function uses static introspection to determine exactly what to update (in this example a call to the innerText of the dom node of the button). This is almost always inlined in the resulting wasm code. Here we deviate the most from traditional virtual-dom approaches. Instead of completely rendering the App component and diffing the result, the `update` template function knows exactly what to update.
+The second piece is the `update` template function, this function uses static introspection to determine exactly what to update. This is almost always inlined in the resulting wasm code. Here we deviate the most from traditional virtual-dom approaches. Instead of completely rendering the App component and diffing the result, the `update` template function knows exactly what to update.
 
 Here we show how lists are implemented.
 
@@ -189,8 +188,6 @@ mixin Spa!App;
 ```
 
 We added an `UnorderedList!Item` child. This is a standard component and renders an `<ul>` node with children. Here the Item Component is converted into a class. (this is necessary because of how the callbacks mechanism works with arrays. If it were a struct the runtime has to reassign callback pointers any time the list changes, or use a second indirection layer.)
-
-The UnorderedList uses `alias this` subtyping to expose its internal `std.array.Appender` and we have access to its underlying array, where we can add and remote items from.
 
 Here we show how to do event listeners on arrays.
 
@@ -263,7 +260,7 @@ struct App {
   @child Button toggleButton = {innerText: "Only Active"};
   @child UnorderedList!Item list;
   bool onlyActive;
-  Appender!(Item[]) items;
+  DynamicArray!(Item*) items;
   @connect!"toggleButton.click" void toggleClick() {
     this.update!(onlyActive)(!onlyActive);
   }
@@ -272,12 +269,12 @@ struct App {
     this.update!(items);
   }
   @connect!("list.items","click") void itemClick(size_t idx) {
-    list.items.data[idx].toggle();
+    list.items[idx].toggle();
     this.update!(items);
   }
-  auto transform(ref Appender!(Item[]) items, bool onlyActive) {
+  auto transform(ref DynamicArray!(Item*) items, bool onlyActive) {
     import std.algorithm : filter;
-    items.data.filter!(i=>(i.active || !onlyActive)).update(list);
+    items[].filter!(i=>(i.active || !onlyActive)).update(list);
   }
 }
 mixin Spa!App;
@@ -291,7 +288,7 @@ We reused the Button component in the App for a Toggle, using D's struct initial
 
 We added the `onlyActive` bool and this is updated by clicking on the toggleButton.
 
-We also added an `Appender!(Item[]) items` field. This will contain our complete list and the UnorderedList's appender will only contain the items we want.
+We also added an `DynamicArray!(Item*) items` field. This will contain our complete list and the UnorderedList's appender will only contain the items we want.
 
 The `itemClick` function is updated to call the items toggle function and updates the items.
 
