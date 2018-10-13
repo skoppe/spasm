@@ -13,13 +13,13 @@ Not only are your applications fast, they are also small. The [todo-mvc example]
 - run `dub run spasm:bootstrap-webpack` to generate the webpack/dev-server boilerplate
 - start writing!
 
-Add any css/js you need to the index.template.html, or you can use any of the myriad features of webpack to include what you need.
+Add any extra css/js you need to the `index.template.html`, or you can use any of the myriad features of webpack to include what you need.
 
 # How to compile your application
 
 run `dub build --compiler=ldc2 --build=release` to compile your application, then run `npx webpack` to generate the `index.html`.
 
-You can also `npm run start` to start a webpack development server that serves your application on localhost:3000
+You can also `npm run start` to start a webpack development server that serves your application on localhost:3000 (it builds anytime the `app.js` or `index.template.html` changes).
 
 * Note: I could not get it to build on my aged mac (el capitan). Instead I use docker to run ldc in ubuntu.
 
@@ -115,8 +115,8 @@ Here we connect the slot from the App.
 ```d
 struct Button {
   mixin Node!"button";
-  @prop innerText = "Click me!";
   mixin Slot!"click";
+  @prop innerText = "Click me!";
   @callback void onClick(MouseEvent event) {
     this.emit(click);
   }
@@ -137,8 +137,8 @@ In the next example we show how to propagate properties from one component down 
 ```d
 struct Button {
   mixin Node!"button";
+  mixin Slot!"click"
   @prop string* innerText;
-  mixin Slot!"click";
   @callback void onClick(MouseEvent event) {
     this.emit!(click);
   }
@@ -169,8 +169,8 @@ struct Item {
 }
 struct Button {
   mixin Node!"button";
-  @prop string innerText = "Add";
   mixin Slot!"click";
+  @prop string innerText = "Add";
   @callback void onClick(MouseEvent event) {
     this.emit!(click);
   }
@@ -195,16 +195,16 @@ Here we show how to do event listeners on arrays.
 ```d
 struct Item {
   mixin Node!"li";
-  @prop string innerText;
   mixin Slot!"click";
+  @prop string innerText;
   @callback void onClick(MouseEvent event) {
     this.emit!(click);
   }
 }
 struct Button {
   mixin Node!"button";
-  @prop string innerText = "Add";
   mixin Slot!"click";
+  @prop string innerText = "Add";
   @callback void onClick(MouseEvent event) {
     this.emit!(click);
   }
@@ -233,8 +233,8 @@ In this example we show how we can use standard range algorithms to transform ar
 ```d
 struct Item {
   mixin Node!"li";
-  @prop string innerText;
   mixin Slot!"click";
+  @prop string innerText;
   @style!"active" bool active = false;
   @callback void onClick(MouseEvent event) {
     this.emit!(click);
@@ -245,8 +245,8 @@ struct Item {
 }
 struct Button {
   mixin Node!"button";
-  @prop string innerText = "Add";
   mixin Slot!"click";
+  @prop string innerText = "Add";
   @callback void onClick(MouseEvent event) {
     this.emit!(click);
   }
@@ -328,9 +328,9 @@ struct App {
 }
 @styleset!(AppStyle)
 struct Button {
+  mixin Event!"click";
   @style!"button" mixin Node!"button";
   @style!"toggle" bool toggle;
-  mixin Event!"click";
   @callback void onClick(MouseEvent event) {
     this.click.emit;
   }
