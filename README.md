@@ -13,7 +13,7 @@ Not only are your applications fast, they are also small. The [todo-mvc example]
 - run `dub run spasm:bootstrap-webpack` to generate the webpack/dev-server boilerplate
 - start writing!
 
-Add any extra css/js you need to the `index.template.html`, or you can use any of the myriad features of webpack to include what you need.
+You can add any extra css/js you'll need to the `index.template.html`, or you can use any of the myriad features of webpack to include what you need.
 
 # How to compile your application
 
@@ -33,7 +33,7 @@ This project uses betterC, which means there is no D runtime. This also means th
 
 # WIP
 
-- CSS stylesets are currently disabled.
+- Generated CSS stylesets from D are currently disabled.
 - Currently no memory is freed.
 - The generated webassembly binaries needs manual stripping to reduce code bloat.
 - Most js host api's are missing (xhr, localstorage, etc.).
