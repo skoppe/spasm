@@ -1,8 +1,6 @@
-function abort(what,file,line) {
-    throw `ABORT: $what @ $file:$line`;
-}
+import spasm from './spasm.js';
 
-export const nodes = { 0: null };
+const nodes = { 0: null };
 let lastPtr = 0;
 
 const addPtr = (node) => {
@@ -19,25 +17,6 @@ function getTagFromType(type) {
 }
 
 let events = ['click','change','input','keydown','dblclick','blur'];
-const utf8Decoder = new TextDecoder('utf-8');
-let exports;
-let memory;
-let instance;
-const utf8Encoder = new TextEncoder();
-
-function decodeStr(len, offset) {
-    return utf8Decoder.decode(new DataView(memory.base.buffer,offset,len));
-}
-
-function encodeStrIn(u8ptr, str) {
-    const encodedString = utf8Encoder.encode(str);
-    const buffer = instance.exports.allocString(encodedString.length);
-    const asBytes = new Uint8Array(memory.base.buffer, buffer, encodedString.length);
-    memory.heap32[u8ptr / 4] = encodedString.length;
-    memory.heap32[(u8ptr / 4)+1] = buffer;
-    asBytes.set(encodedString);
-    return u8ptr;
-}
 
 let currentEvent= null;
 
@@ -45,16 +24,12 @@ function eventHandler(event) {
     const id = event.target.wasmId;
     const ctx = event.target.wasmEvents[event.type];
     currentEvent = event;
-    instance.exports.domEvent(id, ctx.ctx, ctx.fun, ctx.eventType);
+    spasm.instance.exports.domEvent(id, ctx.ctx, ctx.fun, ctx.eventType);
     currentEvent = null;
 }
 
-const jsExports = {
-    env: {
-        onOutOfMemoryError: () => abort("Out of memory exception"),
-        _d_assert: (file,line) => abort("assert",file,line),
-        doLog: arg => console.log(arg),
-        memory: new WebAssembly.Memory({initial:16*16, maximum:16*16}),
+export default {
+    jsExports: {
         appendChild: function(parent, child) {
             nodes[parent].appendChild(nodes[child]);
         },
@@ -64,20 +39,20 @@ const jsExports = {
         addCss: function(cssLen, cssOffset) {
             var style = document.createElement('style');
             style.type = 'text/css';
-            style.innerHTML = decodeStr(cssLen, cssOffset);
+            style.innerHTML = spasm.decodeStr(cssLen, cssOffset);
             document.getElementsByTagName('head')[0].appendChild(style);
         },
         addClass: function(node, classLen, classOffset) {
-            nodes[node].classList.add(decodeStr(classLen, classOffset));
+            nodes[node].classList.add(spasm.decodeStr(classLen, classOffset));
         },
         removeClass: function(node, classLen, classOffset) {
-            nodes[node].classList.remove(decodeStr(classLen, classOffset));
+            nodes[node].classList.remove(spasm.decodeStr(classLen, classOffset));
         },
         changeClass: function(node, classLen, classOffset, on) {
             if (on)
-                nodes[node].classList.add(decodeStr(classLen, classOffset));
+                nodes[node].classList.add(spasm.decodeStr(classLen, classOffset));
             else
-                nodes[node].classList.remove(decodeStr(classLen, classOffset));
+                nodes[node].classList.remove(spasm.decodeStr(classLen, classOffset));
         },
         unmount: function(childPtr) {
             var child = nodes[childPtr];
@@ -101,11 +76,11 @@ const jsExports = {
             nodes[nodePtr].setSelectionRange(start, end);
         },
         innerText: function(nodePtr,textLen, textOffset) {
-            nodes[nodePtr].innerText = decodeStr(textLen,textOffset);
+            nodes[nodePtr].innerText = spasm.decodeStr(textLen,textOffset);
         },
         setAttribute: function(node, attrLen, attrOffset, valueLen, valueOffset) {
-            const attr = decodeStr(attrLen,attrOffset);
-            const value = decodeStr(valueLen,valueOffset);
+            const attr = spasm.decodeStr(attrLen,attrOffset);
+            const value = spasm.decodeStr(valueLen,valueOffset);
             nodes[node].setAttribute(attr, value);
         },
         addEventListener: function(nodePtr, listenerType, ctx, fun, eventType) {
@@ -119,61 +94,40 @@ const jsExports = {
             node.addEventListener(listenerTypeStr, eventHandler);
         },
         getEventBool: function(propLen, propOffset) {
-            return !!currentEvent[decodeStr(propLen,propOffset)];
+            return !!currentEvent[spasm.decodeStr(propLen,propOffset)];
         },
         getEventInt: function(propLen,propOffset) {
-            return 0+currentEvent[decodeStr(propLen,propOffset)];
+            return 0+currentEvent[spasm.decodeStr(propLen,propOffset)];
         },
         getEventString: function(resultRaw, propLen,propOffset) {
-            return encodeStrIn(resultRaw, currentEvent[decodeStr(propLen,propOffset)]);
-        },
-        _d_dynamic_cast: function() {
-            console.log(arguments)
+            return spasm.encodeStrIn(resultRaw, currentEvent[spasm.decodeStr(propLen,propOffset)]);
         },
         setPropertyBool: function(nodePtr, propLen, propOffset, value) {
             const node = nodes[nodePtr];
-            const prop = decodeStr(propLen, propOffset);
+            const prop = spasm.decodeStr(propLen, propOffset);
             if (node && node[prop] !== undefined)
                 node[prop] = !!value;
         },
         setProperty: function(nodePtr, propLen, propOffset, valueLen, valueOffset) {
             const node = nodes[nodePtr];
-            const prop = decodeStr(propLen, propOffset);
+            const prop = spasm.decodeStr(propLen, propOffset);
             if (node && node[prop] !== undefined) {
-                node[prop] = decodeStr(valueLen, valueOffset);
+                node[prop] = spasm.decodeStr(valueLen, valueOffset);
             }
         },
         getPropertyBool: function(nodePtr, propLen, propOffset) {
             const node = nodes[nodePtr];
-            const prop = decodeStr(propLen, propOffset);
+            const prop = spasm.decodeStr(propLen, propOffset);
             if (!node || node[prop] === undefined)
                 return false;
             return !!node[prop];
         },
         getProperty: function(resultRaw, nodePtr, propLen, propOffset) {
             const node = nodes[nodePtr];
-            const prop = decodeStr(propLen, propOffset);
+            const prop = spasm.decodeStr(propLen, propOffset);
             if (!node || node[prop] === undefined)
-                return encodeStrIn(resultRaw,"");
-            return encodeStrIn(resultRaw,node[prop]);
+                return spasm.encodeStrIn(resultRaw,"");
+            return spasm.encodeStrIn(resultRaw,node[prop]);
         },
-        doLog: function(val) {
-            console.log(val);
-        },
-        __assert: function(){},
-        _Unwind_Resume: function() {
-            console.log(arguments);
-        }
     }
 }
-
-memory = {
-    base: jsExports.env.memory,
-    heap32: new Uint32Array(jsExports.env.memory.buffer)
-};
-
-WebAssembly.instantiateStreaming(fetch('@@targetProjectName@@'), jsExports)
-    .then(obj => {
-        instance = obj.instance;
-        obj.instance.exports._start();
-    });

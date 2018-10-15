@@ -6,14 +6,14 @@ const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin
 const RawBundlerPlugin = require('webpack-raw-bundler');
 
 module.exports = {
-    entry: './app.js',
+    entry: './spasm/entry.js',
     mode: "production",
     plugins: [
-      new HtmlWebpackPlugin({
-          title: 'Caching',
-          inlineSource: '.(js|css)$',
-          template: './index.template.html'
-      }),
+        new HtmlWebpackPlugin({
+            title: 'Caching',
+            inlineSource: '.(js|css)$',
+            template: './spasm/index.template.html'
+        }),
         new HtmlWebpackInlineSourcePlugin(),
     ],
     module: {
