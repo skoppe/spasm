@@ -24,11 +24,33 @@ void alloc_init() {
 __gshared Region!(NullAllocator)* allocator = &regionAllocator;
 
 template make(T) {
-  T* make(A)(A allocator) {
-    void[] raw = allocator.allocate(T.sizeof);
-    auto t = cast(T*)raw.ptr;
-    *t = T.init;
-    return t;
+  import spasm.types;
+  static if (is(T == Item[], Item)) {
+    Item[] make(A)(A allocator, size_t size) {
+      void[] raw = allocator.allocate(Item.sizeof * size);
+      auto t = cast(Item*) raw.ptr;
+      return t[0 .. size];
+    }
+  } else static if (is(T == Item[size], Item, size_t size)) {
+    Item[] make(A)(A allocator)
+    {
+      void[] raw = allocator.allocate(Item.sizeof * size);
+      auto t = cast(Item*) raw.ptr;
+      return t[0..size];
+    }
+  }
+  else
+  {
+    T* make(A, Args...)(A allocator, Args args)
+    {
+      void[] raw = allocator.allocate(T.sizeof);
+      auto t = cast(T*) raw.ptr;
+      *t = T.init;
+      static if (Args.length) {
+        *t = T(args);
+      }
+      return t;
+    }
   }
 }
 
@@ -200,4 +222,6 @@ void _d_array_slice_copy(void* dst, size_t dstlen, void* src, size_t srclen)
       assert(0);
 }
 
+ void _d_arraybounds(string file, int line) {
+ }
 }

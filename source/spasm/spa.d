@@ -1,6 +1,8 @@
 module spasm.spa;
 
 pragma(LDC_no_moduleinfo);
+pragma(LDC_no_typeinfo);
+
 import ldc.attributes;
 public import spasm.types;
 public import spasm.dom;
@@ -13,8 +15,8 @@ extern(C) {
   JsHandle getRoot();
 }
 
-@assumeUsed
 extern(C)
+export
 ubyte* allocString(uint bytes) {
   import spasm.rt.memory;
   void[] raw = allocator.allocate(bytes);
@@ -29,9 +31,9 @@ void initialize() {
 mixin template Spa(Application) {
   import ldc.attributes;
   __gshared Application application;
-  @assumeUsed
   pragma(mangle, "_start")
   extern(C)
+  export
   void _start() {
     initialize();
     JsHandle root = getRoot();

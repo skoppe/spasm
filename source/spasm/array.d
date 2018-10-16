@@ -1,5 +1,8 @@
 module spasm.array;
 
+pragma(LDC_no_moduleinfo);
+pragma(LDC_no_typeinfo);
+
 import spasm.event;
 import spasm.node;
 import spasm.ct;
@@ -82,7 +85,12 @@ struct Updater(T) {
     }
   }
   ~this() {
-    list.shrinkTo(idx);
+    if (idx < list.items.length)
+      foreach (i; list.items[idx .. $]) {
+        if (i.node.marked)
+          unmount(*i);
+      }
+    list.items.shrinkTo(idx);
   }
   void put(Item)(Item* t) {
     size_t i = idx++;
@@ -127,12 +135,13 @@ struct Updater(T) {
   }
 }
 
-bool removeItem(T)(ref DynamicArray!(T) app, size_t idx) {
+import std.traits : hasMember, isPointer;
+bool removeItem(T)(ref T app, size_t idx) { //}if (hasMember!(T, "remove")) {
   app.remove(idx);
   return true;
 }
 
-bool removeItem(T)(ref DynamicArray!(T) app, ref T t) {
+bool removeItem(T,U)(ref T app, ref U t) if (isPointer!(U)) {
   import std.algorithm : countUntil, remove;
   auto idx = app[0..$].countUntil(t);
   if (idx == -1)
@@ -150,7 +159,7 @@ struct List(T, string tag) {
   void shrinkTo(size_t size) {
     if (size < items.length)
       foreach(i; items[size..$]) {
-        if (i.node.marked)
+        // if (i.node.marked)
           unmount(*i);
       }
     items.shrinkTo(size);

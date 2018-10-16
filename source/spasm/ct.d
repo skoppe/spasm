@@ -1,6 +1,10 @@
 module spasm.ct;
 
-template getName(alias sym) {
+pragma(LDC_no_moduleinfo);
+pragma(LDC_no_typeinfo);
+
+template getName(alias sym)
+{
   enum getName = __traits(identifier, sym);
 }
 

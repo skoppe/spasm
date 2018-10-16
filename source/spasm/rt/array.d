@@ -18,6 +18,84 @@ import spasm.rt.memory;
  *     supportGC = true if the container should support holding references to
  *         GC-allocated memory.
  */
+
+struct PointerArray(T) if (is(T : U*, U)) {
+  private DynamicArray!(void*) array;
+  alias array this;
+  /// Slice operator overload
+  pragma(inline, true) auto opSlice(this This)() @nogc
+  {
+    return opSlice!(This)(0, l);
+  }
+
+  /// ditto
+  pragma(inline, true) auto opSlice(this This)(size_t a, size_t b) @nogc
+  {
+    alias ET = ContainerElementType!(This, T);
+    return cast(ET[]) array.arr[a .. b];
+  }
+
+  /// Index operator overload
+  pragma(inline, true) auto opIndex(this This)(size_t i) @nogc
+  {
+    return cast(T)array[i];
+  }
+
+  void insertBack(T value) {
+    array.insertBack(cast(void*)value);
+  }
+
+  void shrinkTo(int idx) {
+    array.shrinkTo(idx);
+  }
+
+  alias insert = insertBack;
+
+  /// ditto
+  alias insertAnywhere = insertBack;
+
+  /// ditto
+  alias put = insertBack;
+
+  /// Index assignment support
+  void opIndexAssign(T value, size_t i) @nogc
+  {
+    array.arr[i] = cast(void*)value;
+  }
+
+  /// Slice assignment support
+  void opSliceAssign(T value) @nogc
+  {
+    array.arr[0 .. l] = cast(void*)value;
+  }
+
+  /// ditto
+  void opSliceAssign(T value, size_t i, size_t j) @nogc
+  {
+    array.arr[i .. j] = cast(void*)value;
+  }
+  auto ref T front() pure @property
+  {
+    return cast(T)array.front();
+  }
+
+  /// Returns: the back element of the DynamicArray.
+  auto ref T back() pure @property
+  {
+    return cast(T)array.back();
+  }
+
+  size_t length() const nothrow pure @property @safe @nogc
+  {
+    return array.l;
+  }
+  /// Ditto
+  alias opDollar = length;
+
+  void remove(const size_t i) {
+    array.remove(i);
+  }
+}
 struct DynamicArray(T)
 {
 	this(this) @disable;
@@ -338,7 +416,7 @@ struct DynamicArray(T)
 	auto ptr(this This)() @nogc @property
 	{
 		alias ET = ContainerElementType!(This, T);
-		return cast(ET*) arr.ptr;
+		return cast(ET) arr.ptr;
 	}
 
 	/// Returns: the front element of the DynamicArray.

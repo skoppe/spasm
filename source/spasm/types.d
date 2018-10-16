@@ -1,6 +1,8 @@
 module spasm.types;
 
 pragma(LDC_no_moduleinfo);
+pragma(LDC_no_typeinfo);
+
 alias Handle = uint;
 alias JsHandle = uint;
 alias EventHandle = uint;
@@ -128,8 +130,12 @@ enum ListenerType {
   change = 1,
   input = 2,
   keydown = 3,
-  dblclick = 4,
-  blur = 5
+  keyup = 4,
+  dblclick = 5,
+  blur = 6,
+  mousemove = 7,
+  mouseup = 8,
+  mousedown = 9
 }
 
 enum EventType {

@@ -21,6 +21,7 @@ private extern(C) {
   void insertBefore(JsHandle parentPtr, JsHandle childPtr, JsHandle sibling);
   void setAttribute(JsHandle nodePtr, string attr, string value);
   void setPropertyBool(JsHandle nodePtr, string attr, bool value);
+  void setPropertyInt(JsHandle nodePtr, string attr, int value);
   void innerText(JsHandle nodePtr, string text);
   void addCss(string css);
   void removeClass(JsHandle node, string className);
@@ -29,20 +30,27 @@ private extern(C) {
 
 extern(C) {
   string getProperty(JsHandle node, string prop);
+  int getPropertyInt(JsHandle node, string prop);
   bool getPropertyBool(JsHandle node, string prop);
   void focus(JsHandle node);
   void setSelectionRange(JsHandle node, uint start, uint end);
 }
 
+__gshared JsHandle document = 0;
+
 void unmount(T)(auto ref T t) if (hasMember!(T, "node")) {
   unmount(t.node.node);
-  t.node.mounted = false;
+  static if (hasMember!(T, "node"))
+    t.node.mounted = false;
+  t.propagateOnUnmount();
  }
 
 auto removeChild(T)(auto ref T t) if (hasMember!(T,"node")) {
   removeChild(t.node.node);
-  t.node.mounted = false;
- }
+  static if (hasMember!(T, "node"))
+    t.node.mounted = false;
+  t.propagateOnUnmount();
+}
 
 auto focus(T)(auto ref T t) if (hasMember!(T,"node")) {
   t.node.node.focus();
@@ -54,8 +62,10 @@ auto renderBefore(T, Ts...)(JsHandle parent, auto ref T t, JsHandle sibling, aut
   renderIntoNode(parent, t, ts);
   static if (hasMember!(T, "node")) {
     parent.insertBefore(t.node.node, sibling);
-    t.node.mounted = true;
   }
+  static if (hasMember!(T, "node"))
+    t.node.mounted = true;
+  t.propagateOnMount();
 }
 
 auto render(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) {
@@ -64,8 +74,30 @@ auto render(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) {
   renderIntoNode(parent, t, ts);
   static if (hasMember!(T, "node")) {
     parent.appendChild(t.node.node);
-    t.node.mounted = true;
   }
+  static if (hasMember!(T, "node"))
+    t.node.mounted = true;
+  t.propagateOnMount();
+}
+
+import std.traits : isFunction;
+auto propagateOnMount(T)(auto ref T t) {
+  static foreach (c; getChildren!T)
+    __traits(getMember, t, c).propagateOnMount();
+  // static if (hasMember!(T, "node"))
+    // t.node.mounted = true;
+  static if (hasMember!(T, "onMount") && isFunction!(T.onMount))
+    t.onMount();
+}
+
+auto propagateOnUnmount(T)(auto ref T t)
+{
+  static foreach (c; getChildren!T)
+    __traits(getMember, t, c).propagateOnMount();
+  // static if (hasMember!(T, "node"))
+    // t.node.mounted = false;
+  static if (hasMember!(T, "onUnmount") && isFunction!(T.onUnmount))
+    t.onUnmount();
 }
 
 auto remount(string field, Parent)(auto ref Parent parent) {
@@ -110,9 +142,14 @@ auto isChildVisible(string child, Parent)(auto ref Parent parent) {
       // TODO: static assert sym is callable
       static foreach(v; vs) {{
         static if (is(v == visible!name, string name) && child == name) {
-          auto result = callMember!(__traits(identifier, sym))(parent);
-          if (result == false)
-            return false;
+          static if (is(typeof(sym) == bool)) {
+            if (!__traits(getMember, parent, __traits(identifier,sym)))
+              return false;
+          } else {
+            auto result = callMember!(__traits(identifier, sym))(parent);
+            if (result == false)
+              return false;
+          }
         }
         }}
     }}
@@ -287,6 +324,14 @@ template update(alias field) {
         __gshared static string className = GetCssClassName!(Parent, style);
         parent.node.changeClass(className,t);
       }
+      static if (hasUDA!(field, visible)) {
+        alias udas = getUDAs!(field, visible);
+        static foreach (uda; udas) {
+          static if (is(uda : visible!elem, alias elem)) {
+            setVisible!(elem)(parent, __traits(getMember, parent, __traits(identifier, field)));
+          }
+        }
+      }
     }
     static foreach(i; __traits(allMembers, Parent)) {{
         alias sym = AliasSeq!(__traits(getMember, parent, i))[0];
@@ -366,13 +411,16 @@ auto setAttributeTyped(string name, T)(JsHandle node, auto ref T t) {
 }
 
 auto setPropertyTyped(string name, T)(JsHandle node, auto ref T t) {
-  import std.traits : isPointer;
+  import std.traits : isPointer, isNumeric;
   static if (isPointer!T) {
     node.setPropertyTyped!name(*t);
   }
   else static if (is(T == bool))
     node.setPropertyBool(name, t);
-  else {
+  else static if (isNumeric!(T))
+    node.setPropertyInt(name, t);
+  else
+  {
     static if (__traits(compiles, __traits(getMember, api, name)))
       __traits(getMember, api, name)(node, t);
     else

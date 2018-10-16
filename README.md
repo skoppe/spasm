@@ -224,7 +224,7 @@ struct App {
 mixin Spa!App;
 ```
 
-In the `@connect` annotation we split the part to the underlying Appender in `UnorderedList` and the path to the slot from the Item component. Plus there is an extra argument signifying the index of the item in the array.
+In the `@connect` annotation we split the part to the underlying DynamicArray in `UnorderedList` and the path to the slot from the Item component. Plus there is an extra argument signifying the index of the item in the array.
 
 This is works with a simple pointer range search in the array. It introduces no memory overhead or keying.
 

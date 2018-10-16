@@ -7,6 +7,7 @@ private extern(C) {
   bool getEventBool(string prop);
   uint getEventInt(string prop);
   string getEventString(string prop);
+  void removeEventListener(JsHandle node, ListenerType type, uint ctx, uint fun, EventType type);
   void addEventListener(JsHandle node, ListenerType type, uint ctx, uint fun, EventType type);
 }
 enum eventemitter;
@@ -41,7 +42,10 @@ struct InputEvent {
 }
 
 struct MouseEvent {
-  
+  mixin IntProperty!("x");
+  mixin IntProperty!("y");
+  mixin IntProperty!("offsetX");
+  mixin IntProperty!("offsetY");
 }
 
 template ToEvent(EventType type) {
@@ -74,18 +78,45 @@ EventType toEventType(Node)(ListenerType listener) {
       return EventType.input;
     case change:
       return EventType.event;
+    case keyup:
+      return EventType.keyboard;
     case keydown:
       return EventType.keyboard;
     case dblclick:
       return EventType.mouse;
     case blur:
       return EventType.event;
+    case mouseup:
+    case mousedown:
+    case mousemove:
+      return EventType.mouse;
       }
   }
 }
 
 template toListenerType(string t) {
   mixin("enum toListenerType = ListenerType."~t~";");
+}
+
+auto removeEventListenerTyped(string name, T)(JsHandle node, auto ref T t) {
+  import std.traits : fullyQualifiedName, Parameters;
+  import std.algorithm : findSplitAfter;
+  import spasm.ct : toLower;
+  // TODO: really want to use std.uni.toLower here but prevented by https://issues.dlang.org/show_bug.cgi?id=19268
+  enum type = toLower!(name[2..$]);
+  enum listenerType = toListenerType!type;
+  auto delPtr = &__traits(getMember, t, name);
+  enum eventType = listenerType.toEventType!T;
+  alias Event = ToEvent!eventType;
+  alias delParams = Parameters!(typeof(delPtr));
+  static if (delParams.length != 1)
+    static assert(false, "Expected 1 param of type "~Event.stringof~" in "~fullyQualifiedName!T~"."~name);
+  else static if (!is(delParams[0] == Event))
+    static assert(false,
+        "Expected param 1 of type " ~ Event.stringof ~ " instead of "
+        ~ delParams[0].stringof ~ " in ..." ~ name); // TODO: next line is not working so using ... instead. Due to bug https://issues.dlang.org/show_bug.cgi?id=19268
+    // static assert(false, "Expected param 1 of type "~Event.stringof~" instead of "~delParams[0].stringof~" in "~fullyQualifiedName!T~"."~name);
+  removeEventListener(node, listenerType, toTuple(delPtr).expand, eventType);
 }
 
 auto addEventListenerTyped(string name, T)(JsHandle node, auto ref T t) {
@@ -142,7 +173,7 @@ auto emit(EventEmitter emitter, size_t addr) {
 }
 
 extern(C)
-@assumeUsed
+export
 void domEvent(JsHandle node, uint ctx, uint fun, EventType type) {
   // NOTE: since all the Event structs (MouseEvent, KeyboardEvent)
   // are all just empty structs with only static functions,

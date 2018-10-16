@@ -43,7 +43,7 @@ void main(string[] args)
   write("spasm/modules/dom.js", domjs);
   if (exists("index.template.html"))
     rename("index.template.html","spasm/index.template.html");
-  else
+  else if (!exists("spasm/index.template.html"))
     write("spasm/index.template.html",indexhtml);
   write("dev-server.js",devserver);
   write("package.json",packagejson);

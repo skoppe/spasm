@@ -140,8 +140,6 @@ struct Footer {
     @style!"todo-count" mixin Node!"span";
     int* count;
     @prop string innerHTML(int* count) {
-      // TODO: fix this
-      // return "BlaBla";
       return text("<strong>", *count, "</strong> ", *count > 1 ? "items" : "item", " left");
     }
   }

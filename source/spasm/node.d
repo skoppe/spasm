@@ -1,5 +1,8 @@
 module spasm.node;
 
+pragma(LDC_no_moduleinfo);
+pragma(LDC_no_typeinfo);
+
 import spasm.types;
 
 template getChildren(Parent) {
@@ -16,6 +19,7 @@ template getChildren(Parent) {
   import std.meta : Filter;
   alias getChildren = Filter!(isChild, members);
 }
+
 
 struct NamedJsHandle(string tag) {
   // import std.bitmanip : bitfields;
