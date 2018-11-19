@@ -23,7 +23,6 @@ template extractEventPaths(T, Ts...) {
     alias recur = extractEventPaths!(typeof(__traits(getMember, T, NextT)), AliasSeq!(Ts, NextT));
   }
   template prefixNames(string Event) {
-    // TODO: fix
     import spasm.ct : tuple;
     enum prefixNames = tuple(Ts, Event);
   }
@@ -159,8 +158,7 @@ struct List(T, string tag) {
   void shrinkTo(size_t size) {
     if (size < items.length)
       foreach(i; items[size..$]) {
-        // if (i.node.marked)
-          unmount(*i);
+        unmount(*i);
       }
     items.shrinkTo(size);
   }

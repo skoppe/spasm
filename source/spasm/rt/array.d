@@ -8,17 +8,11 @@
 module spasm.rt.array;
 import spasm.rt.memory;
 
-/**
- * Array that is able to grow itself when items are appended to it. Uses
- * malloc/free/realloc to manage its storage.
+/* an optimized version of DynamicArray when T is an pointer
  *
- * Params:
- *     T = the array element type
- *     Allocator = the allocator to use. Defaults to `Mallocator`.
- *     supportGC = true if the container should support holding references to
- *         GC-allocated memory.
+ * to reduce template bloat all PointerArray!T* are backed by a
+ * DynamicArray!(void*)
  */
-
 struct PointerArray(T) if (is(T : U*, U)) {
   private DynamicArray!(void*) array;
   alias array this;
@@ -96,6 +90,17 @@ struct PointerArray(T) if (is(T : U*, U)) {
     array.remove(i);
   }
 }
+/**
+ * Array that is able to grow itself when items are appended to it. Uses
+ * malloc/free/realloc to manage its storage.
+ *
+ * Params:
+ *     T = the array element type
+ *     Allocator = the allocator to use. Defaults to `Mallocator`.
+ *     supportGC = true if the container should support holding references to
+ *         GC-allocated memory.
+ */
+
 struct DynamicArray(T)
 {
 	this(this) @disable;

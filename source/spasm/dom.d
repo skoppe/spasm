@@ -62,9 +62,8 @@ auto renderBefore(T, Ts...)(JsHandle parent, auto ref T t, JsHandle sibling, aut
   renderIntoNode(parent, t, ts);
   static if (hasMember!(T, "node")) {
     parent.insertBefore(t.node.node, sibling);
-  }
-  static if (hasMember!(T, "node"))
     t.node.mounted = true;
+  }
   t.propagateOnMount();
 }
 
@@ -74,9 +73,8 @@ auto render(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) {
   renderIntoNode(parent, t, ts);
   static if (hasMember!(T, "node")) {
     parent.appendChild(t.node.node);
-  }
-  static if (hasMember!(T, "node"))
     t.node.mounted = true;
+  }
   t.propagateOnMount();
 }
 
@@ -488,13 +486,3 @@ template join(Seq...) {
     }
   }
 }
-
-// template getMemberTuple(alias member, T...) {
-//   import std.meta : staticMap, AliasSeq;
-//   // import std.typecons : tuple;
-//   // TODO: this fails when s == an UFCS function...
-//   template addMember(alias s) { enum addMember = "member."~s; }
-//   alias list = staticMap!(addMember, T);
-//   mixin("alias getMemberTuple = AliasSeq!("~join!list~");");
-// }
-

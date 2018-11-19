@@ -9,7 +9,7 @@ template getChildren(Parent) {
   import std.traits : hasUDA;
   import std.meta : AliasSeq;
   import std.traits : FieldNameTuple;
-  alias members = FieldNameTuple!Parent;//AliasSeq!(__traits(allMembers, Parent));
+  alias members = FieldNameTuple!Parent;
   template isChild(string member) {
     static if (__traits(compiles, __traits(getMember, Parent, member)))
       enum isChild = hasUDA!(__traits(getMember, Parent, member), child);
@@ -22,13 +22,9 @@ template getChildren(Parent) {
 
 
 struct NamedJsHandle(string tag) {
-  // import std.bitmanip : bitfields;
   JsHandle node = uint.max;
-  // mixin(bitfields!(bool, "mounted", 1,
-  //                  bool, "marked",  1,
   bool mounted;
   bool marked;
-  //                  uint, "",        6));
   alias node this;
 }
 

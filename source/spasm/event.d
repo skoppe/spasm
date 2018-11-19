@@ -98,6 +98,7 @@ template toListenerType(string t) {
   mixin("enum toListenerType = ListenerType."~t~";");
 }
 
+// TODO: please combine with function below
 auto removeEventListenerTyped(string name, T)(JsHandle node, auto ref T t) {
   import std.traits : fullyQualifiedName, Parameters;
   import std.algorithm : findSplitAfter;

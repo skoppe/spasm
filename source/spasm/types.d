@@ -125,6 +125,7 @@ enum attr;
 struct connect(field...) {};
 struct visible(alias condition) {};
 
+// TODO: implement others as well
 enum ListenerType {
   click = 0,
   change = 1,

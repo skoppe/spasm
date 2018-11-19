@@ -46,6 +46,8 @@ template from(string moduleName)
   mixin("import from = " ~ moduleName ~ ";");
 }
 
+// NOTE: below is mainly stuff from phobos modified a tiny bit for betterC
+
 template toLower(string str)
 {
   static if (str.length == 0)
