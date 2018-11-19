@@ -57,7 +57,7 @@ auto focus(T)(auto ref T t) if (hasMember!(T,"node")) {
  }
 
 auto renderBefore(T, Ts...)(JsHandle parent, auto ref T t, JsHandle sibling, auto ref Ts ts) {
-  if (parent == JsHandle.max)
+  if (parent == invalidHandle)
     return;
   renderIntoNode(parent, t, ts);
   static if (hasMember!(T, "node")) {
@@ -68,7 +68,7 @@ auto renderBefore(T, Ts...)(JsHandle parent, auto ref T t, JsHandle sibling, aut
 }
 
 auto render(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) {
-  if (parent == JsHandle.max)
+  if (parent == invalidHandle)
     return;
   renderIntoNode(parent, t, ts);
   static if (hasMember!(T, "node")) {
@@ -179,7 +179,7 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) {
   import std.conv : text;
   enum hasNode = hasMember!(T, "node");
   static if (hasNode)
-    bool shouldRender = t.node.node == JsHandle.max;
+    bool shouldRender = t.node.node == invalidHandle;
   else
     bool shouldRender = true;
   if (shouldRender) {
@@ -434,17 +434,11 @@ auto applyStyles(T, styles...)(JsHandle node) {
 
 JsHandle createNode(T)(JsHandle parent, ref T t) {
   enum hasNode = hasMember!(T, "node");
-  static if (hasNode) {
-    static if (is(typeof(t.node) : NamedJsHandle!tag, alias tag)) {
-      mixin("NodeType n = NodeType."~tag~";");
-      return createElement(n);
-    } else {
-      static assert(false,"node field is invalid type");
-    }
+  static if (hasNode && is(typeof(t.node) : NamedJsHandle!tag, alias tag)) {
+    mixin("NodeType n = NodeType." ~ tag ~ ";");
+    return createElement(n);
   } else
     return parent;
-  // assert(0);
-  // return parent;
 }
 
 template indexOfPred(alias Pred, TList...) {

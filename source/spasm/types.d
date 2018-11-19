@@ -5,6 +5,7 @@ pragma(LDC_no_typeinfo);
 
 alias Handle = uint;
 alias JsHandle = uint;
+enum JsHandle invalidHandle = 0;
 alias EventHandle = uint;
 
 enum NodeType {

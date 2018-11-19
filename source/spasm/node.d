@@ -22,7 +22,7 @@ template getChildren(Parent) {
 
 
 struct NamedJsHandle(string tag) {
-  JsHandle node = uint.max;
+  JsHandle node = invalidHandle;
   bool mounted;
   bool marked;
   alias node this;
