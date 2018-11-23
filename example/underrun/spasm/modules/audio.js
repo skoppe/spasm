@@ -18,7 +18,7 @@ export default {
             return destination.__handle;
         },
         audioBufferSourceNodeLoopSet(ctx, loop) {
-            objects[ctx].loop = undefined;
+            objects[ctx].loop = !!loop;
         },
         audioBufferSourceNodeConnect(node, destination) {
             objects[node].connect(objects[destination]);
