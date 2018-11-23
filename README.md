@@ -4,7 +4,7 @@ Spasm is a libary to develop single page applications in D that compile to webas
 
 It uses D's compile time feature to generate optimized rendering code specific for your application.
 
-Not only are your applications fast, they are also small. The [todo-mvc example](https://skoppe.github.io/spasm/examples/todo-mvc/) project is only 5995 (wasm) + 2199 (html+js) bytes when gzipped.
+Not only are your applications fast, they are also small. The [todo-mvc example](https://skoppe.github.io/spasm/examples/todo-mvc/) project is only 5797 (wasm) + 2199 (html+js) bytes when gzipped.
 
 # How to start
 
@@ -17,7 +17,7 @@ You can add any extra css/js you'll need to the `index.template.html`, or you ca
 
 # How to compile your application
 
-run `dub build --compiler=ldc2 --build=release` to compile your application, then run `npx webpack` to generate the `index.html`.
+Make sure to have ldc 1.12 installed and run `dub build --compiler=ldc2 --build=release` to compile your application, then run `npx webpack` to generate the `index.html`.
 
 You can also `npm run start` to start a webpack development server that serves your application on localhost:3000 (it builds anytime the `app.js` or `index.template.html` changes).
 
