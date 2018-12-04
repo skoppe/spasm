@@ -9,7 +9,7 @@ import spasm.dom;
 import spasm.rt.memory;
 import game.audio;
 
-extern(C) void load_image(string name, uint ctx, uint fun);
+extern(C) void load_image(string name, void delegate (JsHandle) cb);
 extern(C) void load_level(uint id, ubyte[] level, uint ctx, uint fun);
 extern(C) void scheduleFrame(uint ctx, uint fun);
 
@@ -30,7 +30,7 @@ struct Game {
     renderer.renderer_init(w,h);
     width = w;
     height = h;
-    load_image("q2", toTuple(&this.textureLoaded).expand);
+    load_image("q2", &this.textureLoaded);
     // TODO: simplify this manual call into addEventListenerTyped(&onKeydown)
     document.addEventListenerTyped!"onKeydown"(this);
     document.addEventListenerTyped!"onKeyup"(this);
@@ -77,7 +77,7 @@ struct Game {
     mouseX = cast(int)(width * (cast(double)event.offsetX)/clientWidth);
     mouseY = cast(int)(height * (cast(double)event.offsetY)/clientHeight);
   }
-  void textureLoaded(JsHandle image) {
+  extern(C) void textureLoaded(JsHandle image) {
     gTerminal.hide();
     renderer.renderer_bind_image(image);
     loadLevel();

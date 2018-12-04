@@ -17,15 +17,19 @@ You can add any extra css/js you'll need to the `index.template.html`, or you ca
 
 # How to compile your application
 
-Make sure to have ldc 1.12 installed and run `dub build --compiler=ldc2 --build=release` to compile your application, then run `npx webpack` to generate the `index.html`.
+Make sure to have ldc 1.12 installed. Also, make sure that ``ldc2 --version`` returns the `wasm32` among its target types. If not, you may need to install ldc from official sources or run one in docker.
+
+Run `dub build --compiler=ldc2 --build=release` to compile your application, then run `npx webpack` to generate the `index.html`.
 
 You can also `npm run start` to start a webpack development server that serves your application on localhost:3000 (it builds anytime the `app.js` or `index.template.html` changes).
 
 * Note: I could not get it to build on my aged mac (el capitan). Instead I use docker to run ldc in ubuntu.
 
-# Example
+# Examples
 
-There is todo-mvc example project in this repo. It implements the famous [todo mvc application](http://todomvc.com). 
+There is todo-mvc example project in this repo. It implements the famous [todo mvc application](http://todomvc.com).
+
+I also took the time to port underun, a js13k competition game written by Dominic Szablewski. You can play the D version [here](https://skoppe.github.io/spasm/examples/underrun/).
 
 # Limitations
 
