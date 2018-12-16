@@ -1,6 +1,6 @@
 import spasm from './spasm.js';
 
-const nodes = { 0: null };
+const nodes = { 0: document };
 let lastPtr = 0;
 
 const addPtr = (node) => {
@@ -16,19 +16,22 @@ function getTagFromType(type) {
     return tags[type];
 }
 
-let events = ['click','change','input','keydown','dblclick','blur'];
+let events = ['click','change','input','keydown','keyup','dblclick','blur','mousemove','mouseup','mousedown'];
 
 let currentEvent= null;
 
 function eventHandler(event) {
-    const id = event.target.wasmId;
-    const ctx = event.target.wasmEvents[event.type];
+    const id = event.currentTarget.wasmId;
+    const handlers = event.currentTarget.wasmEvents[event.type];
+    const cbs = handlers.cbs;
     currentEvent = event;
-    spasm.instance.exports.domEvent(id, ctx.ctx, ctx.fun, ctx.eventType);
+    cbs.forEach(cb=>spasm.instance.exports.domEvent(id, cb.ctx, cb.fun, handlers.eventType));
     currentEvent = null;
 }
 
-export default {
+const exp = {
+    nodes,
+    addPtr,
     jsExports: {
         appendChild: function(parent, child) {
             nodes[parent].appendChild(nodes[child]);
@@ -90,8 +93,22 @@ export default {
                 var nodeEvents = node.wasmEvents = {};
             else
                 var nodeEvents = nodes[nodePtr].wasmEvents;
-            nodeEvents[listenerTypeStr] = {ctx: ctx, fun: fun, eventType: eventType};
-            node.addEventListener(listenerTypeStr, eventHandler);
+            if (nodeEvents[listenerTypeStr] && nodeEvents[listenerTypeStr].cbs.length > 0) {
+                nodeEvents[listenerTypeStr].cbs.push({ctx:ctx,fun:fun});
+            } else {
+                nodeEvents[listenerTypeStr] = {cbs:[{ctx: ctx, fun: fun}], eventType: eventType};
+                node.addEventListener(listenerTypeStr, eventHandler);
+            }
+        },
+        removeEventListener: function(nodePtr, listenerType, ctx, fun, eventType) {
+            var listenerTypeStr = events[listenerType];
+            var node = nodes[nodePtr];
+            if (node.wasmEvents === undefined)
+                return;
+            var nodeEvents = nodes[nodePtr].wasmEvents;
+            if (nodeEvents[listenerTypeStr] && nodeEvents[listenerTypeStr].cbs.length > 0) {
+                nodeEvents[listenerTypeStr].cbs = nodeEvents[listenerTypeStr].cbs.filter(cb=>!(cb.ctx==ctx && cb.fun==fun));
+            }
         },
         getEventBool: function(propLen, propOffset) {
             return !!currentEvent[spasm.decodeStr(propLen,propOffset)];
@@ -106,7 +123,10 @@ export default {
             const node = nodes[nodePtr];
             const prop = spasm.decodeStr(propLen, propOffset);
             if (node && node[prop] !== undefined)
-                node[prop] = !!value;
+                node[prop] = value;
+        },
+        setPropertyInt: function(nodePtr, propLen, propOffset, value) {
+            exp.jsExports.setPropertyBool(nodePtr, propLen, propOffset, value);
         },
         setProperty: function(nodePtr, propLen, propOffset, valueLen, valueOffset) {
             const node = nodes[nodePtr];
@@ -114,6 +134,13 @@ export default {
             if (node && node[prop] !== undefined) {
                 node[prop] = spasm.decodeStr(valueLen, valueOffset);
             }
+        },
+        getPropertyInt: function(nodePtr, propLen, propOffset) {
+            const node = nodes[nodePtr];
+            const prop = spasm.decodeStr(propLen, propOffset);
+            if (!node || node[prop] === undefined)
+                return false;
+            return +node[prop];
         },
         getPropertyBool: function(nodePtr, propLen, propOffset) {
             const node = nodes[nodePtr];
@@ -131,3 +158,5 @@ export default {
         },
     }
 }
+
+export default exp;
