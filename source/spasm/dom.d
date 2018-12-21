@@ -283,6 +283,15 @@ template updateChildren(string field) {
   }
 }
 
+auto update(T)(ref T node) if (hasMember!(T, "node")){
+  struct Inner {
+    auto opDispatch(string name, T)(auto ref T t) const {
+      mixin("node.update!(node." ~ name ~ ")(t);");
+    }
+  }
+  return Inner();
+}
+
 void update(Range, Sink)(Range source, ref Sink sink) {
   import std.range : ElementType;
   import std.algorithm : copy;

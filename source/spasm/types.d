@@ -137,7 +137,8 @@ enum ListenerType {
   blur = 6,
   mousemove = 7,
   mouseup = 8,
-  mousedown = 9
+  mousedown = 9,
+  keypress = 10
 }
 
 enum EventType {

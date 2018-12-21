@@ -79,8 +79,8 @@ EventType toEventType(Node)(ListenerType listener) {
     case change:
       return EventType.event;
     case keyup:
-      return EventType.keyboard;
     case keydown:
+    case keypress:
       return EventType.keyboard;
     case dblclick:
       return EventType.mouse;

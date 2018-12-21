@@ -33,9 +33,9 @@ struct App {
   void updateItems() {
     import std.algorithm : count;
     main.update!(main.items);
-    this.update!(this.size)(main.items.length);
-    this.update!(this.count)(main.items[].count!(i=>!i.checked));
-    this.update!(this.completed)(main.items.length - this.count);
+    this.update.size = main.items.length;
+    this.update.count = main.items[].count!(i=>!i.checked);
+    this.update.completed = main.items.length - this.count;
   }
   @connect!"main.toggleAll.input.toggle" void toggle() {
     bool checked = main.toggleAll.input.node.getPropertyBool("checked");
@@ -46,9 +46,9 @@ struct App {
     import spasm.rt.memory;
     Item* item = allocator.make!Item;
     item.innerText = header.field.value;
+    header.field.update!(header.field.value)("");
     main.items.put(item);
     updateItems();
-    header.field.update!(header.field.value)("");
   }
   @connect!("main.list.items","view.button.click") void removeItem(size_t idx) {
     main.items.removeItem(idx);
@@ -194,7 +194,7 @@ struct Input {
   mixin Slot!"input";
   @prop string value;
   @attr string placeholder = "What needs to be done?";
-  @callback void onKeyDown(KeyboardEvent event) {
+  @callback void onKeyPress(KeyboardEvent event) {
     value = node.getProperty("value");
     if (event.key == "Enter")
       this.emit(enter);

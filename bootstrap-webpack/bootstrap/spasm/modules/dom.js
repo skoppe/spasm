@@ -16,7 +16,7 @@ function getTagFromType(type) {
     return tags[type];
 }
 
-let events = ['click','change','input','keydown','keyup','dblclick','blur','mousemove','mouseup','mousedown'];
+let events = ['click','change','input','keydown','keyup','dblclick','blur','mousemove','mouseup','mousedown','keypress'];
 
 let currentEvent= null;
 
