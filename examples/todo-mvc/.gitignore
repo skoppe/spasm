@@ -4,7 +4,7 @@ __dummy.html
 *.o
 *.obj
 __test__*__
-todo-mvc-spasm-example
+todo-mvc-spasm-example*
 node_modules
 index.html
 package-lock.json

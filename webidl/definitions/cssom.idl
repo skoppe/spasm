@@ -1,0 +1,21 @@
+typedef DOMString CSSOMString;
+
+[Exposed=Window]
+interface MediaList {
+  stringifier attribute [TreatNullAs=EmptyString] CSSOMString mediaText;
+  readonly attribute unsigned long length;
+  getter CSSOMString? item(unsigned long index);
+  void appendMedium(CSSOMString medium);
+  void deleteMedium(CSSOMString medium);
+};
+
+[Exposed=Window]
+interface StyleSheet {
+  readonly attribute CSSOMString type;
+  readonly attribute USVString? href;
+  readonly attribute (Element or ProcessingInstruction)? ownerNode;
+  readonly attribute StyleSheet? parentStyleSheet;
+  readonly attribute DOMString? title;
+  [SameObject, PutForwards=mediaText] readonly attribute MediaList media;
+  attribute boolean disabled;
+};

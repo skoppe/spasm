@@ -4,3 +4,6 @@ __dummy.html
 *.o
 *.obj
 __test__*__
+underrun*
+main.js
+node_modules

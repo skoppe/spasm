@@ -1,0 +1,21 @@
+name "spasm-bindings"
+description "A minimal D application."
+authors "Sebastiaan Koppe"
+copyright "Copyright © 2018, Sebastiaan Koppe"
+license "proprietary"
+dependency "pegged" version="~>0.4.4"
+dependency "webidl-grammar" version="~>0.0.6"
+dependency "openmethods" version="~>1.1.1"
+configuration "executable" {
+    targetType "executable"
+}
+
+configuration "unittest" {
+    dependency "unit-threaded" version="*"
+
+    targetType "executable"
+    mainSourceFile "bin/ut.d"
+    excludedSourceFiles "source/app.d"
+    targetType "executable"
+    preBuildCommands "dub run unit-threaded -c gen_ut_main -- -f bin/ut.d"
+}
