@@ -1,6 +1,6 @@
 # Spasm
 
-Spasm is a libary to develop single page applications in D that compile to webassembly.
+Spasm is a library to develop single page applications in D that compile to webassembly.
 
 It uses D's compile time feature to generate optimized rendering code specific for your application.
 
@@ -170,7 +170,7 @@ mixin Spa!App;
 
 The result is when the button is clicked the text is changed into "Clicked!". 
 
-We have inserted a `string innerText` field into App, and made the one in Button a pointer. During the first rendering any pointers from a struct will be assigned to their parent. This approach is chosen due to its low performance impact (just a extra pointer to store) and simplicity (no need to pass prop structs between components).
+We have inserted a `string innerText` field into App, and made the one in Button a pointer. When a struct is rendered for the first time, spasm will assign any pointers to the equivalent member of their parent. This approach is chosen due to its low performance impact (just a extra pointer to store) and simplicity (no need to pass prop structs between components).
 
 The second piece is the `update` template function, this function uses static introspection to determine exactly what to update. This is almost always inlined in the resulting wasm code. Here we deviate the most from traditional virtual-dom approaches. Instead of completely rendering the App component and diffing the result, the `update` template function knows exactly what to update.
 
