@@ -1384,3 +1384,14 @@ export default {
   }
 }");
 }
+
+@("callback.sumtype")
+unittest {
+  auto gen = getGenerator(q{
+      callback OnErrorEventHandlerNonNull = any ((Event or DOMString) event, optional DOMString source, optional unsigned long lineno, optional unsigned long colno, optional any error);
+    });
+  auto funcs = gen.semantics.toIr();
+  gen.generateDBindings.shouldBeLike(q{
+      alias OnErrorEventHandlerNonNull = Any delegate(SumType!(Event, string), string, uint, uint, Any);
+    });
+}

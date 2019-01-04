@@ -1008,7 +1008,7 @@ struct HTMLCollection {
     return HTMLCollection_namedItem_getter(handle, name);
   }
 }
-alias MutationCallback = void delegate(sequence, MutationObserver);
+alias MutationCallback = void delegate(Sequence!(MutationRecord), MutationObserver);
 struct MutationObserver {
   JsHandle handle;
   alias handle this;

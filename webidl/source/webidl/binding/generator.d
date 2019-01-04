@@ -301,7 +301,8 @@ class CallbackNode : Node {
     a.put("void");
   } else
     node.result.generateDType(a, Context(semantics));
-  a.putLn([" delegate(", node.args.extractTypeNames.joiner(", ").text, ");"]);
+  auto types = node.args.extractTypes.map!(arg => arg.generateDType(Context(semantics))).joiner(", ").text;
+  a.putLn([" delegate(", types, ");"]);
 }
 
 

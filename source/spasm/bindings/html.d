@@ -181,7 +181,7 @@ enum BinaryType {
   blob,
   arraybuffer
 }
-alias BlobCallback = void delegate(Blob);
+alias BlobCallback = void delegate(Optional!(Blob));
 struct BroadcastChannel {
   EventTarget _parent;
   alias _parent this;
@@ -791,7 +791,7 @@ struct FocusOptions {
     return FocusOptions_preventScroll_Get(handle);
   }
 }
-alias FrameRequestCallback = void delegate(DOMHighResTimeStamp);
+alias FrameRequestCallback = void delegate(double);
 alias FunctionStringCallback = void delegate(string);
 struct HTMLAllCollection {
   JsHandle handle;
@@ -4674,7 +4674,7 @@ enum OffscreenRenderingContextId {
 alias OnBeforeUnloadEventHandler = Optional!(OnBeforeUnloadEventHandlerNonNull);
 alias OnBeforeUnloadEventHandlerNonNull = Optional!(string) delegate(Event);
 alias OnErrorEventHandler = Optional!(OnErrorEventHandlerNonNull);
-alias OnErrorEventHandlerNonNull = Any delegate((, string, unsigned, unsigned, Any);
+alias OnErrorEventHandlerNonNull = Any delegate(SumType!(Event, string), string, uint, uint, Any);
 struct PageTransitionEvent {
   Event _parent;
   alias _parent this;
