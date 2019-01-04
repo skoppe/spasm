@@ -97,10 +97,10 @@ struct AudioBuffer {
   Float32Array getChannelData(uint channel) {
     return Float32Array(AudioBuffer_getChannelData(handle, channel));
   }
-  void copyFromChannel(Float32Array destination, uint channelNumber, uint startInChannel = 0) {
+  void copyFromChannel(Float32Array destination, uint channelNumber, uint startInChannel /* = 0 */) {
     AudioBuffer_copyFromChannel(handle, destination.handle, channelNumber, startInChannel);
   }
-  void copyToChannel(Float32Array source, uint channelNumber, uint startInChannel = 0) {
+  void copyToChannel(Float32Array source, uint channelNumber, uint startInChannel /* = 0 */) {
     AudioBuffer_copyToChannel(handle, source.handle, channelNumber, startInChannel);
   }
 }
@@ -159,7 +159,7 @@ struct AudioBufferSourceNode {
   double loopEnd() {
     return AudioBufferSourceNode_loopEnd_Get(handle);
   }
-  void start(double when = 0, double offset, double duration) {
+  void start(double when /* = 0 */, double offset, double duration) {
     AudioBufferSourceNode_start(handle, when, offset, duration);
   }
 }
@@ -310,10 +310,10 @@ struct AudioListener {
 struct AudioNode {
   EventTarget _parent;
   alias _parent this;
-  AudioNode connect(AudioNode destinationNode, uint output = 0, uint input = 0) {
+  AudioNode connect(AudioNode destinationNode, uint output /* = 0 */, uint input /* = 0 */) {
     return AudioNode(AudioNode_connect__JsHandle_uint_uint(handle, destinationNode.handle, output, input));
   }
-  void connect(AudioParam destinationParam, uint output = 0) {
+  void connect(AudioParam destinationParam, uint output /* = 0 */) {
     AudioNode_connect__JsHandle_uint(handle, destinationParam.handle, output);
   }
   void disconnect() {
@@ -545,10 +545,10 @@ struct AudioScheduledSourceNode {
   EventHandler onended() {
     return AudioScheduledSourceNode_onended_Get(handle);
   }
-  void start(double when = 0) {
+  void start(double when /* = 0 */) {
     AudioScheduledSourceNode_start(handle, when);
   }
-  void stop(double when = 0) {
+  void stop(double when /* = 0 */) {
     AudioScheduledSourceNode_stop(handle, when);
   }
 }
@@ -688,10 +688,10 @@ struct BaseAudioContext {
   AudioBufferSourceNode createBufferSource() {
     return AudioBufferSourceNode(BaseAudioContext_createBufferSource(handle));
   }
-  ChannelMergerNode createChannelMerger(uint numberOfInputs = 6) {
+  ChannelMergerNode createChannelMerger(uint numberOfInputs /* = 6 */) {
     return ChannelMergerNode(BaseAudioContext_createChannelMerger(handle, numberOfInputs));
   }
-  ChannelSplitterNode createChannelSplitter(uint numberOfOutputs = 6) {
+  ChannelSplitterNode createChannelSplitter(uint numberOfOutputs /* = 6 */) {
     return ChannelSplitterNode(BaseAudioContext_createChannelSplitter(handle, numberOfOutputs));
   }
   ConstantSourceNode createConstantSource() {
@@ -700,7 +700,7 @@ struct BaseAudioContext {
   ConvolverNode createConvolver() {
     return ConvolverNode(BaseAudioContext_createConvolver(handle));
   }
-  DelayNode createDelay(double maxDelayTime = 1.0) {
+  DelayNode createDelay(double maxDelayTime /* = 1.0 */) {
     return DelayNode(BaseAudioContext_createDelay(handle, maxDelayTime));
   }
   DynamicsCompressorNode createDynamicsCompressor() {
@@ -721,7 +721,7 @@ struct BaseAudioContext {
   PeriodicWave createPeriodicWave(Sequence!(float) real_, Sequence!(float) imag, PeriodicWaveConstraints constraints) {
     return PeriodicWave(BaseAudioContext_createPeriodicWave(handle, real_.handle, imag.handle, constraints.handle));
   }
-  ScriptProcessorNode createScriptProcessor(uint bufferSize = 0, uint numberOfInputChannels = 2, uint numberOfOutputChannels = 2) {
+  ScriptProcessorNode createScriptProcessor(uint bufferSize /* = 0 */, uint numberOfInputChannels /* = 2 */, uint numberOfOutputChannels /* = 2 */) {
     return ScriptProcessorNode(BaseAudioContext_createScriptProcessor(handle, bufferSize, numberOfInputChannels, numberOfOutputChannels));
   }
   StereoPannerNode createStereoPanner() {

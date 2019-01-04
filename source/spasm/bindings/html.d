@@ -273,10 +273,10 @@ struct CanvasRenderingContext2D {
   void rect(double x, double y, double w, double h) {
     CanvasPath_rect(handle, x, y, w, h);
   }
-  void arc(double x, double y, double radius, double startAngle, double endAngle, bool anticlockwise = false) {
+  void arc(double x, double y, double radius, double startAngle, double endAngle, bool anticlockwise /* = false */) {
     CanvasPath_arc(handle, x, y, radius, startAngle, endAngle, anticlockwise);
   }
-  void ellipse(double x, double y, double radiusX, double radiusY, double rotation, double startAngle, double endAngle, bool anticlockwise = false) {
+  void ellipse(double x, double y, double radiusX, double radiusY, double rotation, double startAngle, double endAngle, bool anticlockwise /* = false */) {
     CanvasPath_ellipse(handle, x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise);
   }
   void setLineDash(Sequence!(double) segments) {
@@ -333,10 +333,10 @@ struct CanvasRenderingContext2D {
   void beginPath() {
     CanvasDrawPath_beginPath(handle);
   }
-  void fill(CanvasFillRule fillRule = "nonzero") {
+  void fill(CanvasFillRule fillRule /* = "nonzero" */) {
     CanvasDrawPath_fill(handle, fillRule);
   }
-  void fill(Path2D path, CanvasFillRule fillRule = "nonzero") {
+  void fill(Path2D path, CanvasFillRule fillRule /* = "nonzero" */) {
     CanvasDrawPath_fill(handle, path.handle, fillRule);
   }
   void stroke() {
@@ -345,16 +345,16 @@ struct CanvasRenderingContext2D {
   void stroke(Path2D path) {
     CanvasDrawPath_stroke(handle, path.handle);
   }
-  void clip(CanvasFillRule fillRule = "nonzero") {
+  void clip(CanvasFillRule fillRule /* = "nonzero" */) {
     CanvasDrawPath_clip(handle, fillRule);
   }
-  void clip(Path2D path, CanvasFillRule fillRule = "nonzero") {
+  void clip(Path2D path, CanvasFillRule fillRule /* = "nonzero" */) {
     CanvasDrawPath_clip(handle, path.handle, fillRule);
   }
-  bool isPointInPath(double x, double y, CanvasFillRule fillRule = "nonzero") {
+  bool isPointInPath(double x, double y, CanvasFillRule fillRule /* = "nonzero" */) {
     return CanvasDrawPath_isPointInPath(handle, x, y, fillRule);
   }
-  bool isPointInPath(Path2D path, double x, double y, CanvasFillRule fillRule = "nonzero") {
+  bool isPointInPath(Path2D path, double x, double y, CanvasFillRule fillRule /* = "nonzero" */) {
     return CanvasDrawPath_isPointInPath(handle, path.handle, x, y, fillRule);
   }
   bool isPointInStroke(double x, double y) {
@@ -1155,7 +1155,7 @@ struct HTMLCanvasElement {
   uint height() {
     return HTMLCanvasElement_height_Get(handle);
   }
-  Optional!(RenderingContext) getContext(string contextId, Any options = null) {
+  Optional!(RenderingContext) getContext(string contextId, Any options /* = null */) {
     return HTMLCanvasElement_getContext(handle, contextId, options.handle);
   }
   USVString toDataURL(string type, Any quality) {
@@ -2203,10 +2203,10 @@ struct HTMLInputElement {
   uint width() {
     return HTMLInputElement_width_Get(handle);
   }
-  void stepUp(int n = 1) {
+  void stepUp(int n /* = 1 */) {
     HTMLInputElement_stepUp(handle, n);
   }
-  void stepDown(int n = 1) {
+  void stepDown(int n /* = 1 */) {
     HTMLInputElement_stepDown(handle, n);
   }
   bool willValidate() {
@@ -2254,7 +2254,7 @@ struct HTMLInputElement {
   void setRangeText(string replacement) {
     HTMLInputElement_setRangeText__string(handle, replacement);
   }
-  void setRangeText(string replacement, uint start, uint end, SelectionMode selectionMode = "preserve") {
+  void setRangeText(string replacement, uint start, uint end, SelectionMode selectionMode /* = "preserve" */) {
     HTMLInputElement_setRangeText__string_uint_uint_SelectionMode(handle, replacement, start, end, selectionMode);
   }
   void setSelectionRange(uint start, uint end, string direction) {
@@ -2660,7 +2660,7 @@ struct HTMLMediaElement {
   TextTrackList textTracks() {
     return TextTrackList(HTMLMediaElement_textTracks_Get(handle));
   }
-  TextTrack addTextTrack(TextTrackKind kind, string label = "", string language = "") {
+  TextTrack addTextTrack(TextTrackKind kind, string label /* = "" */, string language /* = "" */) {
     return TextTrack(HTMLMediaElement_addTextTrack(handle, kind, label, language));
   }
 }
@@ -3002,7 +3002,7 @@ struct HTMLOptionsCollection {
   void opDispatch(uint index)(Optional!(HTMLOptionElement) option) {
     HTMLOptionsCollection_setter__uint_optional_JsHandle(handle, index, !option.empty, option.value.handle);
   }
-  void add(SumType!(HTMLOptionElement, HTMLOptGroupElement) element, Optional!(SumType!(HTMLElement, int)) before = no!(SumType!(HTMLElement, int))) {
+  void add(SumType!(HTMLOptionElement, HTMLOptGroupElement) element, Optional!(SumType!(HTMLElement, int)) before /* = no!(SumType!(HTMLElement, int)) */) {
     HTMLOptionsCollection_add(handle, element, !before.empty, before.value);
   }
   void remove(int index) {
@@ -3295,7 +3295,7 @@ struct HTMLSelectElement {
   Optional!(HTMLOptionElement) namedItem(string name) {
     return HTMLSelectElement_namedItem(handle, name);
   }
-  void add(SumType!(HTMLOptionElement, HTMLOptGroupElement) element, Optional!(SumType!(HTMLElement, int)) before = no!(SumType!(HTMLElement, int))) {
+  void add(SumType!(HTMLOptionElement, HTMLOptGroupElement) element, Optional!(SumType!(HTMLElement, int)) before /* = no!(SumType!(HTMLElement, int)) */) {
     HTMLSelectElement_add(handle, element, !before.empty, before.value);
   }
   void remove() {
@@ -3609,7 +3609,7 @@ struct HTMLTableElement {
   HTMLCollection rows() {
     return HTMLCollection(HTMLTableElement_rows_Get(handle));
   }
-  HTMLTableRowElement insertRow(int index = -1) {
+  HTMLTableRowElement insertRow(int index /* = -1 */) {
     return HTMLTableRowElement(HTMLTableElement_insertRow(handle, index));
   }
   void deleteRow(int index) {
@@ -3682,7 +3682,7 @@ struct HTMLTableRowElement {
   HTMLCollection cells() {
     return HTMLCollection(HTMLTableRowElement_cells_Get(handle));
   }
-  HTMLTableCellElement insertCell(int index = -1) {
+  HTMLTableCellElement insertCell(int index /* = -1 */) {
     return HTMLTableCellElement(HTMLTableRowElement_insertCell(handle, index));
   }
   void deleteCell(int index) {
@@ -3725,7 +3725,7 @@ struct HTMLTableSectionElement {
   HTMLCollection rows() {
     return HTMLCollection(HTMLTableSectionElement_rows_Get(handle));
   }
-  HTMLTableRowElement insertRow(int index = -1) {
+  HTMLTableRowElement insertRow(int index /* = -1 */) {
     return HTMLTableRowElement(HTMLTableSectionElement_insertRow(handle, index));
   }
   void deleteRow(int index) {
@@ -3910,7 +3910,7 @@ struct HTMLTextAreaElement {
   void setRangeText(string replacement) {
     HTMLTextAreaElement_setRangeText__string(handle, replacement);
   }
-  void setRangeText(string replacement, uint start, uint end, SelectionMode selectionMode = "preserve") {
+  void setRangeText(string replacement, uint start, uint end, SelectionMode selectionMode /* = "preserve" */) {
     HTMLTextAreaElement_setRangeText__string_uint_uint_SelectionMode(handle, replacement, start, end, selectionMode);
   }
   void setSelectionRange(uint start, uint end, string direction) {
@@ -4076,7 +4076,7 @@ struct History {
   Any state() {
     return Any(History_state_Get(handle));
   }
-  void go(int delta = 0) {
+  void go(int delta /* = 0 */) {
     History_go(handle, delta);
   }
   void back() {
@@ -4085,10 +4085,10 @@ struct History {
   void forward() {
     History_forward(handle);
   }
-  void pushState(Any data, string title, Optional!(USVString) url = no!(USVString)) {
+  void pushState(Any data, string title, Optional!(USVString) url /* = no!(USVString) */) {
     History_pushState(handle, data.handle, title, !url.empty, url.value.handle);
   }
-  void replaceState(Any data, string title, Optional!(USVString) url = no!(USVString)) {
+  void replaceState(Any data, string title, Optional!(USVString) url /* = no!(USVString) */) {
     History_replaceState(handle, data.handle, title, !url.empty, url.value.handle);
   }
 }
@@ -4314,7 +4314,7 @@ struct MessageEvent {
   FrozenArray!(MessagePort) ports() {
     return FrozenArray!(MessagePort)(MessageEvent_ports_Get(handle));
   }
-  void initMessageEvent(string type, bool bubbles = false, bool cancelable = false, Any data = null, USVString origin = "", string lastEventId = "", Optional!(MessageEventSource) source = no!(MessageEventSource), Sequence!(MessagePort) ports = []) {
+  void initMessageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, Any data /* = null */, USVString origin /* = "" */, string lastEventId /* = "" */, Optional!(MessageEventSource) source /* = no!(MessageEventSource) */, Sequence!(MessagePort) ports /* = [] */) {
     MessageEvent_initMessageEvent(handle, type, bubbles, cancelable, data.handle, origin.handle, lastEventId, !source.empty, source.value, ports.handle);
   }
 }
@@ -4498,7 +4498,7 @@ struct OffscreenCanvas {
   ulong height() {
     return OffscreenCanvas_height_Get(handle);
   }
-  Optional!(OffscreenRenderingContext) getContext(OffscreenRenderingContextId contextId, Any options = null) {
+  Optional!(OffscreenRenderingContext) getContext(OffscreenRenderingContextId contextId, Any options /* = null */) {
     return OffscreenCanvas_getContext(handle, contextId, options.handle);
   }
   ImageBitmap transferToImageBitmap() {
@@ -4538,10 +4538,10 @@ struct OffscreenCanvasRenderingContext2D {
   void rect(double x, double y, double w, double h) {
     CanvasPath_rect(handle, x, y, w, h);
   }
-  void arc(double x, double y, double radius, double startAngle, double endAngle, bool anticlockwise = false) {
+  void arc(double x, double y, double radius, double startAngle, double endAngle, bool anticlockwise /* = false */) {
     CanvasPath_arc(handle, x, y, radius, startAngle, endAngle, anticlockwise);
   }
-  void ellipse(double x, double y, double radiusX, double radiusY, double rotation, double startAngle, double endAngle, bool anticlockwise = false) {
+  void ellipse(double x, double y, double radiusX, double radiusY, double rotation, double startAngle, double endAngle, bool anticlockwise /* = false */) {
     CanvasPath_ellipse(handle, x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise);
   }
   void setLineDash(Sequence!(double) segments) {
@@ -4586,10 +4586,10 @@ struct OffscreenCanvasRenderingContext2D {
   void beginPath() {
     CanvasDrawPath_beginPath(handle);
   }
-  void fill(CanvasFillRule fillRule = "nonzero") {
+  void fill(CanvasFillRule fillRule /* = "nonzero" */) {
     CanvasDrawPath_fill(handle, fillRule);
   }
-  void fill(Path2D path, CanvasFillRule fillRule = "nonzero") {
+  void fill(Path2D path, CanvasFillRule fillRule /* = "nonzero" */) {
     CanvasDrawPath_fill(handle, path.handle, fillRule);
   }
   void stroke() {
@@ -4598,16 +4598,16 @@ struct OffscreenCanvasRenderingContext2D {
   void stroke(Path2D path) {
     CanvasDrawPath_stroke(handle, path.handle);
   }
-  void clip(CanvasFillRule fillRule = "nonzero") {
+  void clip(CanvasFillRule fillRule /* = "nonzero" */) {
     CanvasDrawPath_clip(handle, fillRule);
   }
-  void clip(Path2D path, CanvasFillRule fillRule = "nonzero") {
+  void clip(Path2D path, CanvasFillRule fillRule /* = "nonzero" */) {
     CanvasDrawPath_clip(handle, path.handle, fillRule);
   }
-  bool isPointInPath(double x, double y, CanvasFillRule fillRule = "nonzero") {
+  bool isPointInPath(double x, double y, CanvasFillRule fillRule /* = "nonzero" */) {
     return CanvasDrawPath_isPointInPath(handle, x, y, fillRule);
   }
-  bool isPointInPath(Path2D path, double x, double y, CanvasFillRule fillRule = "nonzero") {
+  bool isPointInPath(Path2D path, double x, double y, CanvasFillRule fillRule /* = "nonzero" */) {
     return CanvasDrawPath_isPointInPath(handle, path.handle, x, y, fillRule);
   }
   bool isPointInStroke(double x, double y) {
@@ -4719,10 +4719,10 @@ struct Path2D {
   void rect(double x, double y, double w, double h) {
     CanvasPath_rect(handle, x, y, w, h);
   }
-  void arc(double x, double y, double radius, double startAngle, double endAngle, bool anticlockwise = false) {
+  void arc(double x, double y, double radius, double startAngle, double endAngle, bool anticlockwise /* = false */) {
     CanvasPath_arc(handle, x, y, radius, startAngle, endAngle, anticlockwise);
   }
-  void ellipse(double x, double y, double radiusX, double radiusY, double rotation, double startAngle, double endAngle, bool anticlockwise = false) {
+  void ellipse(double x, double y, double radiusX, double radiusY, double rotation, double startAngle, double endAngle, bool anticlockwise /* = false */) {
     CanvasPath_ellipse(handle, x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise);
   }
 }
@@ -4751,7 +4751,7 @@ struct Plugin {
 struct PluginArray {
   JsHandle handle;
   alias handle this;
-  void refresh(bool reload = false) {
+  void refresh(bool reload /* = false */) {
     PluginArray_refresh(handle, reload);
   }
   uint length() {
@@ -4912,7 +4912,7 @@ struct StorageEvent {
   Optional!(Storage) storageArea() {
     return StorageEvent_storageArea_Get(handle);
   }
-  void initStorageEvent(string type, bool bubbles = false, bool cancelable = false, Optional!(string) key = no!(string), Optional!(string) oldValue = no!(string), Optional!(string) newValue = no!(string), USVString url = "", Optional!(Storage) storageArea = no!(Storage)) {
+  void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, Optional!(string) key /* = no!(string) */, Optional!(string) oldValue /* = no!(string) */, Optional!(string) newValue /* = no!(string) */, USVString url /* = "" */, Optional!(Storage) storageArea /* = no!(Storage) */) {
     StorageEvent_initStorageEvent(handle, type, bubbles, cancelable, !key.empty, key.value, !oldValue.empty, oldValue.value, !newValue.empty, newValue.value, url.handle, !storageArea.empty, storageArea.value.handle);
   }
 }
@@ -5420,7 +5420,7 @@ struct Window {
   Optional!(Element) frameElement() {
     return Window_frameElement_Get(handle);
   }
-  Optional!(WindowProxy) open(USVString url = "about:blank", string target = "_blank", string features = "") {
+  Optional!(WindowProxy) open(USVString url /* = "about:blank" */, string target /* = "_blank" */, string features /* = "" */) {
     return Window_open(handle, url.handle, target, features);
   }
   Object opIndex(string name) {
@@ -5441,16 +5441,16 @@ struct Window {
   void alert(string message) {
     Window_alert__string(handle, message);
   }
-  bool confirm(string message = "") {
+  bool confirm(string message /* = "" */) {
     return Window_confirm(handle, message);
   }
-  Optional!(string) prompt(string message = "", string default_ = "") {
+  Optional!(string) prompt(string message /* = "" */, string default_ /* = "" */) {
     return Window_prompt(handle, message, default_);
   }
   void print() {
     Window_print(handle);
   }
-  void postMessage(Any message, USVString targetOrigin, Sequence!(Object) transfer = []) {
+  void postMessage(Any message, USVString targetOrigin, Sequence!(Object) transfer /* = [] */) {
     Window_postMessage__any_string_sequence_object(handle, message.handle, targetOrigin.handle, transfer.handle);
   }
   void postMessage(Any message, WindowPostMessageOptions options) {
@@ -5498,16 +5498,16 @@ struct Window {
   ByteString atob(string data) {
     return ByteString(WindowOrWorkerGlobalScope_atob(handle, data));
   }
-  int setTimeout(TimerHandler handler, int timeout = 0, Any arguments) {
+  int setTimeout(TimerHandler handler, int timeout /* = 0 */, Any arguments) {
     return WindowOrWorkerGlobalScope_setTimeout(handle, handler, timeout, arguments.handle);
   }
-  void clearTimeout(int handle = 0) {
+  void clearTimeout(int handle /* = 0 */) {
     WindowOrWorkerGlobalScope_clearTimeout(handle, handle);
   }
-  int setInterval(TimerHandler handler, int timeout = 0, Any arguments) {
+  int setInterval(TimerHandler handler, int timeout /* = 0 */, Any arguments) {
     return WindowOrWorkerGlobalScope_setInterval(handle, handler, timeout, arguments.handle);
   }
-  void clearInterval(int handle = 0) {
+  void clearInterval(int handle /* = 0 */) {
     WindowOrWorkerGlobalScope_clearInterval(handle, handle);
   }
   void queueMicrotask(VoidFunction callback) {
@@ -5699,16 +5699,16 @@ struct WorkerGlobalScope {
   ByteString atob(string data) {
     return ByteString(WindowOrWorkerGlobalScope_atob(handle, data));
   }
-  int setTimeout(TimerHandler handler, int timeout = 0, Any arguments) {
+  int setTimeout(TimerHandler handler, int timeout /* = 0 */, Any arguments) {
     return WindowOrWorkerGlobalScope_setTimeout(handle, handler, timeout, arguments.handle);
   }
-  void clearTimeout(int handle = 0) {
+  void clearTimeout(int handle /* = 0 */) {
     WindowOrWorkerGlobalScope_clearTimeout(handle, handle);
   }
-  int setInterval(TimerHandler handler, int timeout = 0, Any arguments) {
+  int setInterval(TimerHandler handler, int timeout /* = 0 */, Any arguments) {
     return WindowOrWorkerGlobalScope_setInterval(handle, handler, timeout, arguments.handle);
   }
-  void clearInterval(int handle = 0) {
+  void clearInterval(int handle /* = 0 */) {
     WindowOrWorkerGlobalScope_clearInterval(handle, handle);
   }
   void queueMicrotask(VoidFunction callback) {

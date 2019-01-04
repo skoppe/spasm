@@ -151,28 +151,28 @@ struct DOMMatrix {
   DOMMatrix preMultiplySelf(DOMMatrixInit other) {
     return DOMMatrix(DOMMatrix_preMultiplySelf(handle, other.handle));
   }
-  DOMMatrix translateSelf(double tx = 0, double ty = 0, double tz = 0) {
+  DOMMatrix translateSelf(double tx /* = 0 */, double ty /* = 0 */, double tz /* = 0 */) {
     return DOMMatrix(DOMMatrix_translateSelf(handle, tx, ty, tz));
   }
-  DOMMatrix scaleSelf(double scaleX = 1, double scaleY, double scaleZ = 1, double originX = 0, double originY = 0, double originZ = 0) {
+  DOMMatrix scaleSelf(double scaleX /* = 1 */, double scaleY, double scaleZ /* = 1 */, double originX /* = 0 */, double originY /* = 0 */, double originZ /* = 0 */) {
     return DOMMatrix(DOMMatrix_scaleSelf(handle, scaleX, scaleY, scaleZ, originX, originY, originZ));
   }
-  DOMMatrix scale3dSelf(double scale = 1, double originX = 0, double originY = 0, double originZ = 0) {
+  DOMMatrix scale3dSelf(double scale /* = 1 */, double originX /* = 0 */, double originY /* = 0 */, double originZ /* = 0 */) {
     return DOMMatrix(DOMMatrix_scale3dSelf(handle, scale, originX, originY, originZ));
   }
-  DOMMatrix rotateSelf(double rotX = 0, double rotY, double rotZ) {
+  DOMMatrix rotateSelf(double rotX /* = 0 */, double rotY, double rotZ) {
     return DOMMatrix(DOMMatrix_rotateSelf(handle, rotX, rotY, rotZ));
   }
-  DOMMatrix rotateFromVectorSelf(double x = 0, double y = 0) {
+  DOMMatrix rotateFromVectorSelf(double x /* = 0 */, double y /* = 0 */) {
     return DOMMatrix(DOMMatrix_rotateFromVectorSelf(handle, x, y));
   }
-  DOMMatrix rotateAxisAngleSelf(double x = 0, double y = 0, double z = 0, double angle = 0) {
+  DOMMatrix rotateAxisAngleSelf(double x /* = 0 */, double y /* = 0 */, double z /* = 0 */, double angle /* = 0 */) {
     return DOMMatrix(DOMMatrix_rotateAxisAngleSelf(handle, x, y, z, angle));
   }
-  DOMMatrix skewXSelf(double sx = 0) {
+  DOMMatrix skewXSelf(double sx /* = 0 */) {
     return DOMMatrix(DOMMatrix_skewXSelf(handle, sx));
   }
-  DOMMatrix skewYSelf(double sy = 0) {
+  DOMMatrix skewYSelf(double sy /* = 0 */) {
     return DOMMatrix(DOMMatrix_skewYSelf(handle, sy));
   }
   DOMMatrix invertSelf() {
@@ -412,31 +412,31 @@ struct DOMMatrixReadOnly {
   bool isIdentity() {
     return DOMMatrixReadOnly_isIdentity_Get(handle);
   }
-  DOMMatrix translate(double tx = 0, double ty = 0, double tz = 0) {
+  DOMMatrix translate(double tx /* = 0 */, double ty /* = 0 */, double tz /* = 0 */) {
     return DOMMatrix(DOMMatrixReadOnly_translate(handle, tx, ty, tz));
   }
-  DOMMatrix scale(double scaleX = 1, double scaleY, double scaleZ = 1, double originX = 0, double originY = 0, double originZ = 0) {
+  DOMMatrix scale(double scaleX /* = 1 */, double scaleY, double scaleZ /* = 1 */, double originX /* = 0 */, double originY /* = 0 */, double originZ /* = 0 */) {
     return DOMMatrix(DOMMatrixReadOnly_scale(handle, scaleX, scaleY, scaleZ, originX, originY, originZ));
   }
-  DOMMatrix scaleNonUniform(double scaleX = 1, double scaleY = 1) {
+  DOMMatrix scaleNonUniform(double scaleX /* = 1 */, double scaleY /* = 1 */) {
     return DOMMatrix(DOMMatrixReadOnly_scaleNonUniform(handle, scaleX, scaleY));
   }
-  DOMMatrix scale3d(double scale = 1, double originX = 0, double originY = 0, double originZ = 0) {
+  DOMMatrix scale3d(double scale /* = 1 */, double originX /* = 0 */, double originY /* = 0 */, double originZ /* = 0 */) {
     return DOMMatrix(DOMMatrixReadOnly_scale3d(handle, scale, originX, originY, originZ));
   }
-  DOMMatrix rotate(double rotX = 0, double rotY, double rotZ) {
+  DOMMatrix rotate(double rotX /* = 0 */, double rotY, double rotZ) {
     return DOMMatrix(DOMMatrixReadOnly_rotate(handle, rotX, rotY, rotZ));
   }
-  DOMMatrix rotateFromVector(double x = 0, double y = 0) {
+  DOMMatrix rotateFromVector(double x /* = 0 */, double y /* = 0 */) {
     return DOMMatrix(DOMMatrixReadOnly_rotateFromVector(handle, x, y));
   }
-  DOMMatrix rotateAxisAngle(double x = 0, double y = 0, double z = 0, double angle = 0) {
+  DOMMatrix rotateAxisAngle(double x /* = 0 */, double y /* = 0 */, double z /* = 0 */, double angle /* = 0 */) {
     return DOMMatrix(DOMMatrixReadOnly_rotateAxisAngle(handle, x, y, z, angle));
   }
-  DOMMatrix skewX(double sx = 0) {
+  DOMMatrix skewX(double sx /* = 0 */) {
     return DOMMatrix(DOMMatrixReadOnly_skewX(handle, sx));
   }
-  DOMMatrix skewY(double sy = 0) {
+  DOMMatrix skewY(double sy /* = 0 */) {
     return DOMMatrix(DOMMatrixReadOnly_skewY(handle, sy));
   }
   DOMMatrix multiply(DOMMatrixInit other) {

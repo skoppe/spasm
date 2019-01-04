@@ -151,7 +151,7 @@ struct CustomEvent {
   Any detail() {
     return Any(CustomEvent_detail_Get(handle));
   }
-  void initCustomEvent(string type, bool bubbles = false, bool cancelable = false, Any detail = null) {
+  void initCustomEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, Any detail /* = null */) {
     CustomEvent_initCustomEvent(handle, type, bubbles, cancelable, detail.handle);
   }
 }
@@ -171,7 +171,7 @@ struct DOMImplementation {
   DocumentType createDocumentType(string qualifiedName, string publicId, string systemId) {
     return DocumentType(DOMImplementation_createDocumentType(handle, qualifiedName, publicId, systemId));
   }
-  XMLDocument createDocument(Optional!(string) namespace, string qualifiedName, Optional!(DocumentType) doctype = no!(DocumentType)) {
+  XMLDocument createDocument(Optional!(string) namespace, string qualifiedName, Optional!(DocumentType) doctype /* = no!(DocumentType) */) {
     return XMLDocument(DOMImplementation_createDocument(handle, !namespace.empty, namespace.value, qualifiedName, !doctype.empty, doctype.value.handle));
   }
   Document createHTMLDocument(string title) {
@@ -281,7 +281,7 @@ struct Document {
   ProcessingInstruction createProcessingInstruction(string target, string data) {
     return ProcessingInstruction(Document_createProcessingInstruction(handle, target, data));
   }
-  Node importNode(Node node, bool deep = false) {
+  Node importNode(Node node, bool deep /* = false */) {
     return Node(Document_importNode(handle, node.handle, deep));
   }
   Node adoptNode(Node node) {
@@ -299,10 +299,10 @@ struct Document {
   Range createRange() {
     return Range(Document_createRange(handle));
   }
-  NodeIterator createNodeIterator(Node root, uint whatToShow = 0xFFFFFFFF, Optional!(NodeFilter) filter = no!(NodeFilter)) {
+  NodeIterator createNodeIterator(Node root, uint whatToShow /* = 0xFFFFFFFF */, Optional!(NodeFilter) filter /* = no!(NodeFilter) */) {
     return NodeIterator(Document_createNodeIterator(handle, root.handle, whatToShow, !filter.empty, filter.value.handle));
   }
-  TreeWalker createTreeWalker(Node root, uint whatToShow = 0xFFFFFFFF, Optional!(NodeFilter) filter = no!(NodeFilter)) {
+  TreeWalker createTreeWalker(Node root, uint whatToShow /* = 0xFFFFFFFF */, Optional!(NodeFilter) filter /* = no!(NodeFilter) */) {
     return TreeWalker(Document_createTreeWalker(handle, root.handle, whatToShow, !filter.empty, filter.value.handle));
   }
   Optional!(Location) location() {
@@ -404,7 +404,7 @@ struct Document {
   string designMode() {
     return Document_designMode_Get(handle);
   }
-  bool execCommand(string commandId, bool showUI = false, string value = "") {
+  bool execCommand(string commandId, bool showUI /* = false */, string value /* = "" */) {
     return Document_execCommand(handle, commandId, showUI, value);
   }
   bool queryCommandEnabled(string commandId) {
@@ -929,7 +929,7 @@ struct Event {
   double timeStamp() {
     return Event_timeStamp_Get(handle);
   }
-  void initEvent(string type, bool bubbles = false, bool cancelable = false) {
+  void initEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */) {
     Event_initEvent(handle, type, bubbles, cancelable);
   }
 }
@@ -1199,7 +1199,7 @@ struct Node {
   void normalize() {
     Node_normalize(handle);
   }
-  Node cloneNode(bool deep = false) {
+  Node cloneNode(bool deep /* = false */) {
     return Node(Node_cloneNode(handle, deep));
   }
   bool isEqualNode(Optional!(Node) otherNode) {
@@ -1334,7 +1334,7 @@ struct Range {
   void setEndAfter(Node node) {
     Range_setEndAfter(handle, node.handle);
   }
-  void collapse(bool toStart = false) {
+  void collapse(bool toStart /* = false */) {
     Range_collapse(handle, toStart);
   }
   void selectNode(Node node) {

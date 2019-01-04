@@ -3,7 +3,7 @@ module spasm.bindings.console;
 import spasm.types;
 struct console {
   static:
-  void assert_(bool condition = false, Any data) {
+  void assert_(bool condition /* = false */, Any data) {
     console_assert(condition, data.handle);
   }
   void clear() {
@@ -36,10 +36,10 @@ struct console {
   void dirxml(Any data) {
     console_dirxml(data.handle);
   }
-  void count(string label = "default") {
+  void count(string label /* = "default" */) {
     console_count(label);
   }
-  void countReset(string label = "default") {
+  void countReset(string label /* = "default" */) {
     console_countReset(label);
   }
   void group(Any data) {
@@ -51,13 +51,13 @@ struct console {
   void groupEnd() {
     console_groupEnd();
   }
-  void time(string label = "default") {
+  void time(string label /* = "default" */) {
     console_time(label);
   }
-  void timeLog(string label = "default", Any data) {
+  void timeLog(string label /* = "default" */, Any data) {
     console_timeLog(label, data.handle);
   }
-  void timeEnd(string label = "default") {
+  void timeEnd(string label /* = "default" */) {
     console_timeEnd(label);
   }
 }

@@ -91,7 +91,7 @@ struct XMLHttpRequest {
   void open(ByteString method, USVString url) {
     XMLHttpRequest_open__string_string(handle, method.handle, url.handle);
   }
-  void open(ByteString method, USVString url, bool async, Optional!(USVString) username = no!(USVString), Optional!(USVString) password = no!(USVString)) {
+  void open(ByteString method, USVString url, bool async, Optional!(USVString) username /* = no!(USVString) */, Optional!(USVString) password /* = no!(USVString) */) {
     XMLHttpRequest_open__string_string_bool_optional_string_optional_string(handle, method.handle, url.handle, async, !username.empty, username.value.handle, !password.empty, password.value.handle);
   }
   void setRequestHeader(ByteString name, ByteString value) {
@@ -112,7 +112,7 @@ struct XMLHttpRequest {
   XMLHttpRequestUpload upload() {
     return XMLHttpRequestUpload(XMLHttpRequest_upload_Get(handle));
   }
-  void send(Optional!(SumType!(Document, BodyInit)) body_ = no!(SumType!(Document, BodyInit))) {
+  void send(Optional!(SumType!(Document, BodyInit)) body_ /* = no!(SumType!(Document, BodyInit)) */) {
     XMLHttpRequest_send(handle, !body_.empty, body_.value);
   }
   void abort() {

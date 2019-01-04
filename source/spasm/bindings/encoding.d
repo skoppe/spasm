@@ -67,7 +67,7 @@ struct TextDecoderStream {
 struct TextEncoder {
   JsHandle handle;
   alias handle this;
-  Uint8Array encode(USVString input = "") {
+  Uint8Array encode(USVString input /* = "" */) {
     return Uint8Array(TextEncoder_encode(handle, input.handle));
   }
   string encoding() {

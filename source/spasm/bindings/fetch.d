@@ -234,7 +234,7 @@ struct Response {
   Response error() {
     return Response(Response_error(handle));
   }
-  Response redirect(USVString url, ushort status = 302) {
+  Response redirect(USVString url, ushort status /* = 302 */) {
     return Response(Response_redirect(handle, url.handle, status));
   }
   ResponseType type() {

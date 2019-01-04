@@ -61,7 +61,7 @@ struct IDBDatabase {
   DOMStringList objectStoreNames() {
     return DOMStringList(IDBDatabase_objectStoreNames_Get(handle));
   }
-  IDBTransaction transaction(SumType!(string, Sequence!(string)) storeNames, IDBTransactionMode mode = "readonly") {
+  IDBTransaction transaction(SumType!(string, Sequence!(string)) storeNames, IDBTransactionMode mode /* = "readonly" */) {
     return IDBTransaction(IDBDatabase_transaction(handle, storeNames, mode));
   }
   void close() {
@@ -166,10 +166,10 @@ struct IDBIndex {
   IDBRequest count(Any query) {
     return IDBRequest(IDBIndex_count(handle, query.handle));
   }
-  IDBRequest openCursor(Any query, IDBCursorDirection direction = "next") {
+  IDBRequest openCursor(Any query, IDBCursorDirection direction /* = "next" */) {
     return IDBRequest(IDBIndex_openCursor(handle, query.handle, direction));
   }
-  IDBRequest openKeyCursor(Any query, IDBCursorDirection direction = "next") {
+  IDBRequest openKeyCursor(Any query, IDBCursorDirection direction /* = "next" */) {
     return IDBRequest(IDBIndex_openKeyCursor(handle, query.handle, direction));
   }
 }
@@ -207,13 +207,13 @@ struct IDBKeyRange {
   IDBKeyRange only(Any value) {
     return IDBKeyRange(IDBKeyRange_only(handle, value.handle));
   }
-  IDBKeyRange lowerBound(Any lower, bool open = false) {
+  IDBKeyRange lowerBound(Any lower, bool open /* = false */) {
     return IDBKeyRange(IDBKeyRange_lowerBound(handle, lower.handle, open));
   }
-  IDBKeyRange upperBound(Any upper, bool open = false) {
+  IDBKeyRange upperBound(Any upper, bool open /* = false */) {
     return IDBKeyRange(IDBKeyRange_upperBound(handle, upper.handle, open));
   }
-  IDBKeyRange bound(Any lower, Any upper, bool lowerOpen = false, bool upperOpen = false) {
+  IDBKeyRange bound(Any lower, Any upper, bool lowerOpen /* = false */, bool upperOpen /* = false */) {
     return IDBKeyRange(IDBKeyRange_bound(handle, lower.handle, upper.handle, lowerOpen, upperOpen));
   }
   bool _includes(Any key) {
@@ -268,10 +268,10 @@ struct IDBObjectStore {
   IDBRequest count(Any query) {
     return IDBRequest(IDBObjectStore_count(handle, query.handle));
   }
-  IDBRequest openCursor(Any query, IDBCursorDirection direction = "next") {
+  IDBRequest openCursor(Any query, IDBCursorDirection direction /* = "next" */) {
     return IDBRequest(IDBObjectStore_openCursor(handle, query.handle, direction));
   }
-  IDBRequest openKeyCursor(Any query, IDBCursorDirection direction = "next") {
+  IDBRequest openKeyCursor(Any query, IDBCursorDirection direction /* = "next" */) {
     return IDBRequest(IDBObjectStore_openKeyCursor(handle, query.handle, direction));
   }
   IDBIndex index(string name) {

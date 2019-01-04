@@ -562,9 +562,9 @@ void dumpDParameter(Appender)(ref Semantics semantics, Argument arg, ref Appende
     a.put(" ");
     if (arg.default_.children[0].matches[0] == "null") {
       if (semantics.isNullable(arg.type)) {
-        a.put("= no!(");
+        a.put("/* = no!(");
         arg.type.generateDType(a, Context(semantics).withSkipOptional);
-        a.put(")");
+        a.put(") */");
         return;
       }
     }
@@ -2217,8 +2217,9 @@ void generateDType(Appender)(ParseTree tree, ref Appender a, Context context) {
   case "WebIDL.Default":
     if (tree.children.length == 0)
       return;
-    a.put("= ");
+    a.put("/* = ");
     tree.children[0].generateDType(a, context);
+    a.put(" */");
     break;
   case "WebIDL.DefaultValue":
     if (tree.children.length == 0) {
