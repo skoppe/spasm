@@ -1,5 +1,8 @@
 module spasm.types;
 
+public import sumtype;
+public import optional;
+
 pragma(LDC_no_moduleinfo);
 pragma(LDC_no_typeinfo);
 

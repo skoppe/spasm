@@ -1306,7 +1306,6 @@ void generateDImports(Appender)(ParseTree tree, ref Appender a, Context context)
     break;
   case "WebIDL.StringType":
     switch (tree.matches[0]) {
-    case "USVString":
     case "ByteString":
       a.put(tree.matches[0]);
     break;
@@ -2125,7 +2124,6 @@ void generateDType(Appender)(ParseTree tree, ref Appender a, Context context) {
     break;
   case "WebIDL.StringType":
     switch (tree.matches[0]) {
-    case "USVString":
     case "ByteString":
       a.put(tree.matches[0]);
     break;

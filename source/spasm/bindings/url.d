@@ -4,74 +4,74 @@ import spasm.types;
 struct URL {
   JsHandle handle;
   alias handle this;
-  void href(USVString href) {
+  void href(string href) {
     URL_href_Set(handle, href.handle);
   }
-  USVString href() {
-    return USVString(URL_href_Get(handle));
+  string href() {
+    return string(URL_href_Get(handle));
   }
-  USVString origin() {
-    return USVString(URL_origin_Get(handle));
+  string origin() {
+    return string(URL_origin_Get(handle));
   }
-  void protocol(USVString protocol) {
+  void protocol(string protocol) {
     URL_protocol_Set(handle, protocol.handle);
   }
-  USVString protocol() {
-    return USVString(URL_protocol_Get(handle));
+  string protocol() {
+    return string(URL_protocol_Get(handle));
   }
-  void username(USVString username) {
+  void username(string username) {
     URL_username_Set(handle, username.handle);
   }
-  USVString username() {
-    return USVString(URL_username_Get(handle));
+  string username() {
+    return string(URL_username_Get(handle));
   }
-  void password(USVString password) {
+  void password(string password) {
     URL_password_Set(handle, password.handle);
   }
-  USVString password() {
-    return USVString(URL_password_Get(handle));
+  string password() {
+    return string(URL_password_Get(handle));
   }
-  void host(USVString host) {
+  void host(string host) {
     URL_host_Set(handle, host.handle);
   }
-  USVString host() {
-    return USVString(URL_host_Get(handle));
+  string host() {
+    return string(URL_host_Get(handle));
   }
-  void hostname(USVString hostname) {
+  void hostname(string hostname) {
     URL_hostname_Set(handle, hostname.handle);
   }
-  USVString hostname() {
-    return USVString(URL_hostname_Get(handle));
+  string hostname() {
+    return string(URL_hostname_Get(handle));
   }
-  void port(USVString port) {
+  void port(string port) {
     URL_port_Set(handle, port.handle);
   }
-  USVString port() {
-    return USVString(URL_port_Get(handle));
+  string port() {
+    return string(URL_port_Get(handle));
   }
-  void pathname(USVString pathname) {
+  void pathname(string pathname) {
     URL_pathname_Set(handle, pathname.handle);
   }
-  USVString pathname() {
-    return USVString(URL_pathname_Get(handle));
+  string pathname() {
+    return string(URL_pathname_Get(handle));
   }
-  void search(USVString search) {
+  void search(string search) {
     URL_search_Set(handle, search.handle);
   }
-  USVString search() {
-    return USVString(URL_search_Get(handle));
+  string search() {
+    return string(URL_search_Get(handle));
   }
   URLSearchParams searchParams() {
     return URLSearchParams(URL_searchParams_Get(handle));
   }
-  void hash(USVString hash) {
+  void hash(string hash) {
     URL_hash_Set(handle, hash.handle);
   }
-  USVString hash() {
-    return USVString(URL_hash_Get(handle));
+  string hash() {
+    return string(URL_hash_Get(handle));
   }
-  USVString toJSON() {
-    return USVString(URL_toJSON(handle));
+  string toJSON() {
+    return string(URL_toJSON(handle));
   }
   string createObjectURL(Blob blob) {
     return URL_createObjectURL(handle, blob.handle);
@@ -83,22 +83,22 @@ struct URL {
 struct URLSearchParams {
   JsHandle handle;
   alias handle this;
-  void append(USVString name, USVString value) {
+  void append(string name, string value) {
     URLSearchParams_append(handle, name.handle, value.handle);
   }
-  void delete_(USVString name) {
+  void delete_(string name) {
     URLSearchParams_delete(handle, name.handle);
   }
-  Optional!(USVString) get(USVString name) {
+  Optional!(string) get(string name) {
     return URLSearchParams_get(handle, name.handle);
   }
-  Sequence!(USVString) getAll(USVString name) {
-    return Sequence!(USVString)(URLSearchParams_getAll(handle, name.handle));
+  Sequence!(string) getAll(string name) {
+    return Sequence!(string)(URLSearchParams_getAll(handle, name.handle));
   }
-  bool has(USVString name) {
+  bool has(string name) {
     return URLSearchParams_has(handle, name.handle);
   }
-  void set(USVString name, USVString value) {
+  void set(string name, string value) {
     URLSearchParams_set(handle, name.handle, value.handle);
   }
   void sort() {
@@ -134,7 +134,7 @@ extern (C) string URL_createObjectURL(JsHandle, JsHandle);
 extern (C) void URL_revokeObjectURL(JsHandle, string);
 extern (C) void URLSearchParams_append(JsHandle, JsHandle, JsHandle);
 extern (C) void URLSearchParams_delete(JsHandle, JsHandle);
-extern (C) Optional!(USVString) URLSearchParams_get(JsHandle, JsHandle);
+extern (C) Optional!(string) URLSearchParams_get(JsHandle, JsHandle);
 extern (C) JsHandle URLSearchParams_getAll(JsHandle, JsHandle);
 extern (C) bool URLSearchParams_has(JsHandle, JsHandle);
 extern (C) void URLSearchParams_set(JsHandle, JsHandle, JsHandle);

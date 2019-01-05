@@ -10,32 +10,32 @@ import spasm.bindings.fileapi : File;
 struct FormData {
   JsHandle handle;
   alias handle this;
-  void append(USVString name, USVString value) {
+  void append(string name, string value) {
     FormData_append__string_string(handle, name.handle, value.handle);
   }
-  void append(USVString name, Blob blobValue, USVString filename) {
+  void append(string name, Blob blobValue, string filename) {
     FormData_append__string_JsHandle_string(handle, name.handle, blobValue.handle, filename.handle);
   }
-  void delete_(USVString name) {
+  void delete_(string name) {
     FormData_delete(handle, name.handle);
   }
-  Optional!(FormDataEntryValue) get(USVString name) {
+  Optional!(FormDataEntryValue) get(string name) {
     return FormData_get(handle, name.handle);
   }
-  Sequence!(FormDataEntryValue) getAll(USVString name) {
+  Sequence!(FormDataEntryValue) getAll(string name) {
     return Sequence!(FormDataEntryValue)(FormData_getAll(handle, name.handle));
   }
-  bool has(USVString name) {
+  bool has(string name) {
     return FormData_has(handle, name.handle);
   }
-  void set(USVString name, USVString value) {
+  void set(string name, string value) {
     FormData_set__string_string(handle, name.handle, value.handle);
   }
-  void set(USVString name, Blob blobValue, USVString filename) {
+  void set(string name, Blob blobValue, string filename) {
     FormData_set__string_JsHandle_string(handle, name.handle, blobValue.handle, filename.handle);
   }
 }
-alias FormDataEntryValue = SumType!(File, USVString);
+alias FormDataEntryValue = SumType!(File, string);
 struct ProgressEvent {
   Event _parent;
   alias _parent this;
@@ -88,10 +88,10 @@ struct XMLHttpRequest {
   ushort readyState() {
     return XMLHttpRequest_readyState_Get(handle);
   }
-  void open(ByteString method, USVString url) {
+  void open(ByteString method, string url) {
     XMLHttpRequest_open__string_string(handle, method.handle, url.handle);
   }
-  void open(ByteString method, USVString url, bool async, Optional!(USVString) username /* = no!(USVString) */, Optional!(USVString) password /* = no!(USVString) */) {
+  void open(ByteString method, string url, bool async, Optional!(string) username /* = no!(string) */, Optional!(string) password /* = no!(string) */) {
     XMLHttpRequest_open__string_string_bool_optional_string_optional_string(handle, method.handle, url.handle, async, !username.empty, username.value.handle, !password.empty, password.value.handle);
   }
   void setRequestHeader(ByteString name, ByteString value) {
@@ -118,8 +118,8 @@ struct XMLHttpRequest {
   void abort() {
     XMLHttpRequest_abort(handle);
   }
-  USVString responseURL() {
-    return USVString(XMLHttpRequest_responseURL_Get(handle));
+  string responseURL() {
+    return string(XMLHttpRequest_responseURL_Get(handle));
   }
   ushort status() {
     return XMLHttpRequest_status_Get(handle);
@@ -145,8 +145,8 @@ struct XMLHttpRequest {
   Any response() {
     return Any(XMLHttpRequest_response_Get(handle));
   }
-  USVString responseText() {
-    return USVString(XMLHttpRequest_responseText_Get(handle));
+  string responseText() {
+    return string(XMLHttpRequest_responseText_Get(handle));
   }
   Optional!(Document) responseXML() {
     return XMLHttpRequest_responseXML_Get(handle);

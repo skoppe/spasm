@@ -7,7 +7,7 @@ import spasm.bindings.common : BufferSource;
 import spasm.bindings.xhr : FormData;
 import spasm.bindings.url : URLSearchParams;
 
-alias BodyInit = SumType!(Blob, BufferSource, FormData, URLSearchParams, ReadableStream, USVString);
+alias BodyInit = SumType!(Blob, BufferSource, FormData, URLSearchParams, ReadableStream, string);
 struct Headers {
   JsHandle handle;
   alias handle this;
@@ -34,8 +34,8 @@ struct Request {
   ByteString method() {
     return ByteString(Request_method_Get(handle));
   }
-  USVString url() {
-    return USVString(Request_url_Get(handle));
+  string url() {
+    return string(Request_url_Get(handle));
   }
   Headers headers() {
     return Headers(Request_headers_Get(handle));
@@ -43,8 +43,8 @@ struct Request {
   RequestDestination destination() {
     return Request_destination_Get(handle);
   }
-  USVString referrer() {
-    return USVString(Request_referrer_Get(handle));
+  string referrer() {
+    return string(Request_referrer_Get(handle));
   }
   ReferrerPolicy referrerPolicy() {
     return ReferrerPolicy(Request_referrerPolicy_Get(handle));
@@ -97,8 +97,8 @@ struct Request {
   Promise!(Any) json() {
     return Promise!(Any)(Body_json(handle));
   }
-  Promise!(USVString) text() {
-    return Promise!(USVString)(Body_text(handle));
+  Promise!(string) text() {
+    return Promise!(string)(Body_text(handle));
   }
 }
 enum RequestCache {
@@ -134,7 +134,7 @@ enum RequestDestination {
   worker,
   xslt
 }
-alias RequestInfo = SumType!(Request, USVString);
+alias RequestInfo = SumType!(Request, string);
 struct RequestInit {
   JsHandle handle;
   alias handle this;
@@ -156,11 +156,11 @@ struct RequestInit {
   Optional!(BodyInit) body_() {
     return RequestInit_body_Get(handle);
   }
-  void referrer(USVString referrer) {
+  void referrer(string referrer) {
     RequestInit_referrer_Set(handle, referrer.handle);
   }
-  USVString referrer() {
-    return USVString(RequestInit_referrer_Get(handle));
+  string referrer() {
+    return string(RequestInit_referrer_Get(handle));
   }
   void referrerPolicy(ReferrerPolicy referrerPolicy) {
     RequestInit_referrerPolicy_Set(handle, referrerPolicy.handle);
@@ -234,14 +234,14 @@ struct Response {
   Response error() {
     return Response(Response_error(handle));
   }
-  Response redirect(USVString url, ushort status /* = 302 */) {
+  Response redirect(string url, ushort status /* = 302 */) {
     return Response(Response_redirect(handle, url.handle, status));
   }
   ResponseType type() {
     return Response_type_Get(handle);
   }
-  USVString url() {
-    return USVString(Response_url_Get(handle));
+  string url() {
+    return string(Response_url_Get(handle));
   }
   bool redirected() {
     return Response_redirected_Get(handle);
@@ -282,8 +282,8 @@ struct Response {
   Promise!(Any) json() {
     return Promise!(Any)(Body_json(handle));
   }
-  Promise!(USVString) text() {
-    return Promise!(USVString)(Body_text(handle));
+  Promise!(string) text() {
+    return Promise!(string)(Body_text(handle));
   }
 }
 struct ResponseInit {

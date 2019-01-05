@@ -25,11 +25,11 @@ struct SVGAElement {
   string download() {
     return SVGAElement_download_Get(handle);
   }
-  void ping(USVString ping) {
+  void ping(string ping) {
     SVGAElement_ping_Set(handle, ping.handle);
   }
-  USVString ping() {
-    return USVString(SVGAElement_ping_Get(handle));
+  string ping() {
+    return string(SVGAElement_ping_Get(handle));
   }
   void rel(string rel) {
     SVGAElement_rel_Set(handle, rel);
@@ -67,14 +67,14 @@ struct SVGAElement {
   SVGAnimatedString href() {
     return SVGAnimatedString(SVGURIReference_href_Get(handle));
   }
-  void href(USVString href) {
+  void href(string href) {
     HTMLHyperlinkElementUtils_href_Set(handle, href.handle);
   }
-  USVString href() {
-    return USVString(HTMLHyperlinkElementUtils_href_Get(handle));
+  string href() {
+    return string(HTMLHyperlinkElementUtils_href_Get(handle));
   }
-  USVString origin() {
-    return USVString(HTMLHyperlinkElementUtils_origin_Get(handle));
+  string origin() {
+    return string(HTMLHyperlinkElementUtils_origin_Get(handle));
   }
 }
 struct SVGAngle {

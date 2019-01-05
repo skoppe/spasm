@@ -71,14 +71,14 @@ struct Notification {
   string tag() {
     return Notification_tag_Get(handle);
   }
-  USVString image() {
-    return USVString(Notification_image_Get(handle));
+  string image() {
+    return string(Notification_image_Get(handle));
   }
-  USVString icon() {
-    return USVString(Notification_icon_Get(handle));
+  string icon() {
+    return string(Notification_icon_Get(handle));
   }
-  USVString badge() {
-    return USVString(Notification_badge_Get(handle));
+  string badge() {
+    return string(Notification_badge_Get(handle));
   }
   FrozenArray!(uint) vibrate() {
     return FrozenArray!(uint)(Notification_vibrate_Get(handle));
@@ -120,11 +120,11 @@ struct NotificationAction {
   string title() {
     return NotificationAction_title_Get(handle);
   }
-  void icon(USVString icon) {
+  void icon(string icon) {
     NotificationAction_icon_Set(handle, icon.handle);
   }
-  USVString icon() {
-    return USVString(NotificationAction_icon_Get(handle));
+  string icon() {
+    return string(NotificationAction_icon_Get(handle));
   }
 }
 enum NotificationDirection {
@@ -185,23 +185,23 @@ struct NotificationOptions {
   string tag() {
     return NotificationOptions_tag_Get(handle);
   }
-  void image(USVString image) {
+  void image(string image) {
     NotificationOptions_image_Set(handle, image.handle);
   }
-  USVString image() {
-    return USVString(NotificationOptions_image_Get(handle));
+  string image() {
+    return string(NotificationOptions_image_Get(handle));
   }
-  void icon(USVString icon) {
+  void icon(string icon) {
     NotificationOptions_icon_Set(handle, icon.handle);
   }
-  USVString icon() {
-    return USVString(NotificationOptions_icon_Get(handle));
+  string icon() {
+    return string(NotificationOptions_icon_Get(handle));
   }
-  void badge(USVString badge) {
+  void badge(string badge) {
     NotificationOptions_badge_Set(handle, badge.handle);
   }
-  USVString badge() {
-    return USVString(NotificationOptions_badge_Get(handle));
+  string badge() {
+    return string(NotificationOptions_badge_Get(handle));
   }
   void vibrate(VibratePattern vibrate) {
     NotificationOptions_vibrate_Set(handle, vibrate.handle);

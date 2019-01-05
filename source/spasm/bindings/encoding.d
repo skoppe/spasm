@@ -16,8 +16,8 @@ struct TextDecodeOptions {
 struct TextDecoder {
   JsHandle handle;
   alias handle this;
-  USVString decode(BufferSource input, TextDecodeOptions options) {
-    return USVString(TextDecoder_decode(handle, input, options.handle));
+  string decode(BufferSource input, TextDecodeOptions options) {
+    return string(TextDecoder_decode(handle, input, options.handle));
   }
   string encoding() {
     return TextDecoderCommon_encoding_Get(handle);
@@ -67,7 +67,7 @@ struct TextDecoderStream {
 struct TextEncoder {
   JsHandle handle;
   alias handle this;
-  Uint8Array encode(USVString input /* = "" */) {
+  Uint8Array encode(string input /* = "" */) {
     return Uint8Array(TextEncoder_encode(handle, input.handle));
   }
   string encoding() {

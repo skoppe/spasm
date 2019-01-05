@@ -18,7 +18,7 @@ struct Blob {
     return Blob(Blob_slice(handle, start, end, contentType));
   }
 }
-alias BlobPart = SumType!(BufferSource, Blob, USVString);
+alias BlobPart = SumType!(BufferSource, Blob, string);
 struct BlobPropertyBag {
   JsHandle handle;
   alias handle this;

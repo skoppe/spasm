@@ -33,7 +33,7 @@ struct StyleSheet {
   string type() {
     return StyleSheet_type_Get(handle);
   }
-  Optional!(USVString) href() {
+  Optional!(string) href() {
     return StyleSheet_href_Get(handle);
   }
   Optional!(SumType!(Element, ProcessingInstruction)) ownerNode() {
@@ -64,7 +64,7 @@ extern (C) Optional!(string) MediaList_item_getter(JsHandle, uint);
 extern (C) void MediaList_appendMedium(JsHandle, string);
 extern (C) void MediaList_deleteMedium(JsHandle, string);
 extern (C) string StyleSheet_type_Get(JsHandle);
-extern (C) Optional!(USVString) StyleSheet_href_Get(JsHandle);
+extern (C) Optional!(string) StyleSheet_href_Get(JsHandle);
 extern (C) Optional!(SumType!(Element, ProcessingInstruction)) StyleSheet_ownerNode_Get(JsHandle);
 extern (C) Optional!(StyleSheet) StyleSheet_parentStyleSheet_Get(JsHandle);
 extern (C) Optional!(string) StyleSheet_title_Get(JsHandle);

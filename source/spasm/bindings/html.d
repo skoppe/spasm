@@ -446,8 +446,8 @@ struct CloseEvent {
   ushort code() {
     return CloseEvent_code_Get(handle);
   }
-  USVString reason() {
-    return USVString(CloseEvent_reason_Get(handle));
+  string reason() {
+    return string(CloseEvent_reason_Get(handle));
   }
 }
 struct CloseEventInit {
@@ -465,11 +465,11 @@ struct CloseEventInit {
   ushort code() {
     return CloseEventInit_code_Get(handle);
   }
-  void reason(USVString reason) {
+  void reason(string reason) {
     CloseEventInit_reason_Set(handle, reason.handle);
   }
-  USVString reason() {
-    return USVString(CloseEventInit_reason_Get(handle));
+  string reason() {
+    return string(CloseEventInit_reason_Get(handle));
   }
 }
 enum ColorSpaceConversion {
@@ -675,8 +675,8 @@ struct ErrorEvent {
   string message() {
     return ErrorEvent_message_Get(handle);
   }
-  USVString filename() {
-    return USVString(ErrorEvent_filename_Get(handle));
+  string filename() {
+    return string(ErrorEvent_filename_Get(handle));
   }
   uint lineno() {
     return ErrorEvent_lineno_Get(handle);
@@ -697,11 +697,11 @@ struct ErrorEventInit {
   string message() {
     return ErrorEventInit_message_Get(handle);
   }
-  void filename(USVString filename) {
+  void filename(string filename) {
     ErrorEventInit_filename_Set(handle, filename.handle);
   }
-  USVString filename() {
-    return USVString(ErrorEventInit_filename_Get(handle));
+  string filename() {
+    return string(ErrorEventInit_filename_Get(handle));
   }
   void lineno(uint lineno) {
     ErrorEventInit_lineno_Set(handle, lineno);
@@ -727,8 +727,8 @@ alias EventHandlerNonNull = Any delegate(Event);
 struct EventSource {
   EventTarget _parent;
   alias _parent this;
-  USVString url() {
-    return USVString(EventSource_url_Get(handle));
+  string url() {
+    return string(EventSource_url_Get(handle));
   }
   bool withCredentials() {
     return EventSource_withCredentials_Get(handle);
@@ -827,11 +827,11 @@ struct HTMLAnchorElement {
   string download() {
     return HTMLAnchorElement_download_Get(handle);
   }
-  void ping(USVString ping) {
+  void ping(string ping) {
     HTMLAnchorElement_ping_Set(handle, ping.handle);
   }
-  USVString ping() {
-    return USVString(HTMLAnchorElement_ping_Get(handle));
+  string ping() {
+    return string(HTMLAnchorElement_ping_Get(handle));
   }
   void rel(string rel) {
     HTMLAnchorElement_rel_Set(handle, rel);
@@ -896,14 +896,14 @@ struct HTMLAnchorElement {
   string shape() {
     return HTMLAnchorElement_shape_Get(handle);
   }
-  void href(USVString href) {
+  void href(string href) {
     HTMLHyperlinkElementUtils_href_Set(handle, href.handle);
   }
-  USVString href() {
-    return USVString(HTMLHyperlinkElementUtils_href_Get(handle));
+  string href() {
+    return string(HTMLHyperlinkElementUtils_href_Get(handle));
   }
-  USVString origin() {
-    return USVString(HTMLHyperlinkElementUtils_origin_Get(handle));
+  string origin() {
+    return string(HTMLHyperlinkElementUtils_origin_Get(handle));
   }
 }
 struct HTMLAreaElement {
@@ -939,11 +939,11 @@ struct HTMLAreaElement {
   string download() {
     return HTMLAreaElement_download_Get(handle);
   }
-  void ping(USVString ping) {
+  void ping(string ping) {
     HTMLAreaElement_ping_Set(handle, ping.handle);
   }
-  USVString ping() {
-    return USVString(HTMLAreaElement_ping_Get(handle));
+  string ping() {
+    return string(HTMLAreaElement_ping_Get(handle));
   }
   void rel(string rel) {
     HTMLAreaElement_rel_Set(handle, rel);
@@ -966,14 +966,14 @@ struct HTMLAreaElement {
   bool noHref() {
     return HTMLAreaElement_noHref_Get(handle);
   }
-  void href(USVString href) {
+  void href(string href) {
     HTMLHyperlinkElementUtils_href_Set(handle, href.handle);
   }
-  USVString href() {
-    return USVString(HTMLHyperlinkElementUtils_href_Get(handle));
+  string href() {
+    return string(HTMLHyperlinkElementUtils_href_Get(handle));
   }
-  USVString origin() {
-    return USVString(HTMLHyperlinkElementUtils_origin_Get(handle));
+  string origin() {
+    return string(HTMLHyperlinkElementUtils_origin_Get(handle));
   }
 }
 struct HTMLAudioElement {
@@ -993,11 +993,11 @@ struct HTMLBRElement {
 struct HTMLBaseElement {
   HTMLElement _parent;
   alias _parent this;
-  void href(USVString href) {
+  void href(string href) {
     HTMLBaseElement_href_Set(handle, href.handle);
   }
-  USVString href() {
-    return USVString(HTMLBaseElement_href_Get(handle));
+  string href() {
+    return string(HTMLBaseElement_href_Get(handle));
   }
   void target(string target) {
     HTMLBaseElement_target_Set(handle, target);
@@ -1070,11 +1070,11 @@ struct HTMLButtonElement {
   Optional!(HTMLFormElement) form() {
     return HTMLButtonElement_form_Get(handle);
   }
-  void formAction(USVString formAction) {
+  void formAction(string formAction) {
     HTMLButtonElement_formAction_Set(handle, formAction.handle);
   }
-  USVString formAction() {
-    return USVString(HTMLButtonElement_formAction_Get(handle));
+  string formAction() {
+    return string(HTMLButtonElement_formAction_Get(handle));
   }
   void formEnctype(string formEnctype) {
     HTMLButtonElement_formEnctype_Set(handle, formEnctype);
@@ -1158,8 +1158,8 @@ struct HTMLCanvasElement {
   Optional!(RenderingContext) getContext(string contextId, Any options /* = null */) {
     return HTMLCanvasElement_getContext(handle, contextId, options.handle);
   }
-  USVString toDataURL(string type, Any quality) {
-    return USVString(HTMLCanvasElement_toDataURL(handle, type, quality.handle));
+  string toDataURL(string type, Any quality) {
+    return string(HTMLCanvasElement_toDataURL(handle, type, quality.handle));
   }
   void toBlob(BlobCallback _callback, string type, Any quality) {
     HTMLCanvasElement_toBlob(handle, _callback, type, quality.handle);
@@ -1419,11 +1419,11 @@ struct HTMLElement {
 struct HTMLEmbedElement {
   HTMLElement _parent;
   alias _parent this;
-  void src(USVString src) {
+  void src(string src) {
     HTMLEmbedElement_src_Set(handle, src.handle);
   }
-  USVString src() {
-    return USVString(HTMLEmbedElement_src_Get(handle));
+  string src() {
+    return string(HTMLEmbedElement_src_Get(handle));
   }
   void type(string type) {
     HTMLEmbedElement_type_Set(handle, type);
@@ -1540,11 +1540,11 @@ struct HTMLFormElement {
   string acceptCharset() {
     return HTMLFormElement_acceptCharset_Get(handle);
   }
-  void action(USVString action) {
+  void action(string action) {
     HTMLFormElement_action_Set(handle, action.handle);
   }
-  USVString action() {
-    return USVString(HTMLFormElement_action_Get(handle));
+  string action() {
+    return string(HTMLFormElement_action_Get(handle));
   }
   void autocomplete(string autocomplete) {
     HTMLFormElement_autocomplete_Set(handle, autocomplete);
@@ -1634,11 +1634,11 @@ struct HTMLFrameElement {
   string scrolling() {
     return HTMLFrameElement_scrolling_Get(handle);
   }
-  void src(USVString src) {
+  void src(string src) {
     HTMLFrameElement_src_Set(handle, src.handle);
   }
-  USVString src() {
-    return USVString(HTMLFrameElement_src_Get(handle));
+  string src() {
+    return string(HTMLFrameElement_src_Get(handle));
   }
   void frameBorder(string frameBorder) {
     HTMLFrameElement_frameBorder_Set(handle, frameBorder);
@@ -1646,11 +1646,11 @@ struct HTMLFrameElement {
   string frameBorder() {
     return HTMLFrameElement_frameBorder_Get(handle);
   }
-  void longDesc(USVString longDesc) {
+  void longDesc(string longDesc) {
     HTMLFrameElement_longDesc_Set(handle, longDesc.handle);
   }
-  USVString longDesc() {
-    return USVString(HTMLFrameElement_longDesc_Get(handle));
+  string longDesc() {
+    return string(HTMLFrameElement_longDesc_Get(handle));
   }
   void noResize(bool noResize) {
     HTMLFrameElement_noResize_Set(handle, noResize);
@@ -1754,11 +1754,11 @@ struct HTMLHtmlElement {
 struct HTMLIFrameElement {
   HTMLElement _parent;
   alias _parent this;
-  void src(USVString src) {
+  void src(string src) {
     HTMLIFrameElement_src_Set(handle, src.handle);
   }
-  USVString src() {
-    return USVString(HTMLIFrameElement_src_Get(handle));
+  string src() {
+    return string(HTMLIFrameElement_src_Get(handle));
   }
   void srcdoc(string srcdoc) {
     HTMLIFrameElement_srcdoc_Set(handle, srcdoc);
@@ -1838,11 +1838,11 @@ struct HTMLIFrameElement {
   string frameBorder() {
     return HTMLIFrameElement_frameBorder_Get(handle);
   }
-  void longDesc(USVString longDesc) {
+  void longDesc(string longDesc) {
     HTMLIFrameElement_longDesc_Set(handle, longDesc.handle);
   }
-  USVString longDesc() {
-    return USVString(HTMLIFrameElement_longDesc_Get(handle));
+  string longDesc() {
+    return string(HTMLIFrameElement_longDesc_Get(handle));
   }
   void marginHeight(string marginHeight) {
     HTMLIFrameElement_marginHeight_Set(handle, marginHeight);
@@ -1866,17 +1866,17 @@ struct HTMLImageElement {
   string alt() {
     return HTMLImageElement_alt_Get(handle);
   }
-  void src(USVString src) {
+  void src(string src) {
     HTMLImageElement_src_Set(handle, src.handle);
   }
-  USVString src() {
-    return USVString(HTMLImageElement_src_Get(handle));
+  string src() {
+    return string(HTMLImageElement_src_Get(handle));
   }
-  void srcset(USVString srcset) {
+  void srcset(string srcset) {
     HTMLImageElement_srcset_Set(handle, srcset.handle);
   }
-  USVString srcset() {
-    return USVString(HTMLImageElement_srcset_Get(handle));
+  string srcset() {
+    return string(HTMLImageElement_srcset_Get(handle));
   }
   void sizes(string sizes) {
     HTMLImageElement_sizes_Set(handle, sizes);
@@ -1923,8 +1923,8 @@ struct HTMLImageElement {
   bool complete() {
     return HTMLImageElement_complete_Get(handle);
   }
-  USVString currentSrc() {
-    return USVString(HTMLImageElement_currentSrc_Get(handle));
+  string currentSrc() {
+    return string(HTMLImageElement_currentSrc_Get(handle));
   }
   void referrerPolicy(string referrerPolicy) {
     HTMLImageElement_referrerPolicy_Set(handle, referrerPolicy);
@@ -1947,11 +1947,11 @@ struct HTMLImageElement {
   string name() {
     return HTMLImageElement_name_Get(handle);
   }
-  void lowsrc(USVString lowsrc) {
+  void lowsrc(string lowsrc) {
     HTMLImageElement_lowsrc_Set(handle, lowsrc.handle);
   }
-  USVString lowsrc() {
-    return USVString(HTMLImageElement_lowsrc_Get(handle));
+  string lowsrc() {
+    return string(HTMLImageElement_lowsrc_Get(handle));
   }
   void align_(string align_) {
     HTMLImageElement_align_Set(handle, align_);
@@ -1971,11 +1971,11 @@ struct HTMLImageElement {
   uint vspace() {
     return HTMLImageElement_vspace_Get(handle);
   }
-  void longDesc(USVString longDesc) {
+  void longDesc(string longDesc) {
     HTMLImageElement_longDesc_Set(handle, longDesc.handle);
   }
-  USVString longDesc() {
-    return USVString(HTMLImageElement_longDesc_Get(handle));
+  string longDesc() {
+    return string(HTMLImageElement_longDesc_Get(handle));
   }
   void border(string border) {
     HTMLImageElement_border_Set(handle, border);
@@ -2044,11 +2044,11 @@ struct HTMLInputElement {
   Optional!(FileList) files() {
     return HTMLInputElement_files_Get(handle);
   }
-  void formAction(USVString formAction) {
+  void formAction(string formAction) {
     HTMLInputElement_formAction_Set(handle, formAction.handle);
   }
-  USVString formAction() {
-    return USVString(HTMLInputElement_formAction_Get(handle));
+  string formAction() {
+    return string(HTMLInputElement_formAction_Get(handle));
   }
   void formEnctype(string formEnctype) {
     HTMLInputElement_formEnctype_Set(handle, formEnctype);
@@ -2155,11 +2155,11 @@ struct HTMLInputElement {
   uint size() {
     return HTMLInputElement_size_Get(handle);
   }
-  void src(USVString src) {
+  void src(string src) {
     HTMLInputElement_src_Set(handle, src.handle);
   }
-  USVString src() {
-    return USVString(HTMLInputElement_src_Get(handle));
+  string src() {
+    return string(HTMLInputElement_src_Get(handle));
   }
   void step(string step) {
     HTMLInputElement_step_Set(handle, step);
@@ -2321,11 +2321,11 @@ struct HTMLLegendElement {
 struct HTMLLinkElement {
   HTMLElement _parent;
   alias _parent this;
-  void href(USVString href) {
+  void href(string href) {
     HTMLLinkElement_href_Set(handle, href.handle);
   }
-  USVString href() {
-    return USVString(HTMLLinkElement_href_Get(handle));
+  string href() {
+    return string(HTMLLinkElement_href_Get(handle));
   }
   void crossOrigin(Optional!(string) crossOrigin) {
     HTMLLinkElement_crossOrigin_Set(handle, !crossOrigin.empty, crossOrigin.value);
@@ -2516,11 +2516,11 @@ struct HTMLMediaElement {
   Optional!(MediaError) error() {
     return HTMLMediaElement_error_Get(handle);
   }
-  void src(USVString src) {
+  void src(string src) {
     HTMLMediaElement_src_Set(handle, src.handle);
   }
-  USVString src() {
-    return USVString(HTMLMediaElement_src_Get(handle));
+  string src() {
+    return string(HTMLMediaElement_src_Get(handle));
   }
   void srcObject(Optional!(MediaProvider) srcObject) {
     HTMLMediaElement_srcObject_Set(handle, !srcObject.empty, srcObject.value);
@@ -2528,8 +2528,8 @@ struct HTMLMediaElement {
   Optional!(MediaProvider) srcObject() {
     return HTMLMediaElement_srcObject_Get(handle);
   }
-  USVString currentSrc() {
-    return USVString(HTMLMediaElement_currentSrc_Get(handle));
+  string currentSrc() {
+    return string(HTMLMediaElement_currentSrc_Get(handle));
   }
   void crossOrigin(Optional!(string) crossOrigin) {
     HTMLMediaElement_crossOrigin_Set(handle, !crossOrigin.empty, crossOrigin.value);
@@ -2748,11 +2748,11 @@ struct HTMLMeterElement {
 struct HTMLModElement {
   HTMLElement _parent;
   alias _parent this;
-  void cite(USVString cite) {
+  void cite(string cite) {
     HTMLModElement_cite_Set(handle, cite.handle);
   }
-  USVString cite() {
-    return USVString(HTMLModElement_cite_Get(handle));
+  string cite() {
+    return string(HTMLModElement_cite_Get(handle));
   }
   void dateTime(string dateTime) {
     HTMLModElement_dateTime_Set(handle, dateTime);
@@ -2792,11 +2792,11 @@ struct HTMLOListElement {
 struct HTMLObjectElement {
   HTMLElement _parent;
   alias _parent this;
-  void data(USVString data) {
+  void data(string data) {
     HTMLObjectElement_data_Set(handle, data.handle);
   }
-  USVString data() {
-    return USVString(HTMLObjectElement_data_Get(handle));
+  string data() {
+    return string(HTMLObjectElement_data_Get(handle));
   }
   void type(string type) {
     HTMLObjectElement_type_Set(handle, type);
@@ -3146,21 +3146,21 @@ struct HTMLProgressElement {
 struct HTMLQuoteElement {
   HTMLElement _parent;
   alias _parent this;
-  void cite(USVString cite) {
+  void cite(string cite) {
     HTMLQuoteElement_cite_Set(handle, cite.handle);
   }
-  USVString cite() {
-    return USVString(HTMLQuoteElement_cite_Get(handle));
+  string cite() {
+    return string(HTMLQuoteElement_cite_Get(handle));
   }
 }
 struct HTMLScriptElement {
   HTMLElement _parent;
   alias _parent this;
-  void src(USVString src) {
+  void src(string src) {
     HTMLScriptElement_src_Set(handle, src.handle);
   }
-  USVString src() {
-    return USVString(HTMLScriptElement_src_Get(handle));
+  string src() {
+    return string(HTMLScriptElement_src_Get(handle));
   }
   void type(string type) {
     HTMLScriptElement_type_Set(handle, type);
@@ -3366,11 +3366,11 @@ struct HTMLSlotElement {
 struct HTMLSourceElement {
   HTMLElement _parent;
   alias _parent this;
-  void src(USVString src) {
+  void src(string src) {
     HTMLSourceElement_src_Set(handle, src.handle);
   }
-  USVString src() {
-    return USVString(HTMLSourceElement_src_Get(handle));
+  string src() {
+    return string(HTMLSourceElement_src_Get(handle));
   }
   void type(string type) {
     HTMLSourceElement_type_Set(handle, type);
@@ -3378,11 +3378,11 @@ struct HTMLSourceElement {
   string type() {
     return HTMLSourceElement_type_Get(handle);
   }
-  void srcset(USVString srcset) {
+  void srcset(string srcset) {
     HTMLSourceElement_srcset_Set(handle, srcset.handle);
   }
-  USVString srcset() {
-    return USVString(HTMLSourceElement_srcset_Get(handle));
+  string srcset() {
+    return string(HTMLSourceElement_srcset_Get(handle));
   }
   void sizes(string sizes) {
     HTMLSourceElement_sizes_Set(handle, sizes);
@@ -3946,11 +3946,11 @@ struct HTMLTrackElement {
   string kind() {
     return HTMLTrackElement_kind_Get(handle);
   }
-  void src(USVString src) {
+  void src(string src) {
     HTMLTrackElement_src_Set(handle, src.handle);
   }
-  USVString src() {
-    return USVString(HTMLTrackElement_src_Get(handle));
+  string src() {
+    return string(HTMLTrackElement_src_Get(handle));
   }
   void srclang(string srclang) {
     HTMLTrackElement_srclang_Set(handle, srclang);
@@ -4022,11 +4022,11 @@ struct HTMLVideoElement {
   uint videoHeight() {
     return HTMLVideoElement_videoHeight_Get(handle);
   }
-  void poster(USVString poster) {
+  void poster(string poster) {
     HTMLVideoElement_poster_Set(handle, poster.handle);
   }
-  USVString poster() {
-    return USVString(HTMLVideoElement_poster_Get(handle));
+  string poster() {
+    return string(HTMLVideoElement_poster_Get(handle));
   }
   void playsInline(bool playsInline) {
     HTMLVideoElement_playsInline_Set(handle, playsInline);
@@ -4038,27 +4038,27 @@ struct HTMLVideoElement {
 struct HashChangeEvent {
   Event _parent;
   alias _parent this;
-  USVString oldURL() {
-    return USVString(HashChangeEvent_oldURL_Get(handle));
+  string oldURL() {
+    return string(HashChangeEvent_oldURL_Get(handle));
   }
-  USVString newURL() {
-    return USVString(HashChangeEvent_newURL_Get(handle));
+  string newURL() {
+    return string(HashChangeEvent_newURL_Get(handle));
   }
 }
 struct HashChangeEventInit {
   EventInit _parent;
   alias _parent this;
-  void oldURL(USVString oldURL) {
+  void oldURL(string oldURL) {
     HashChangeEventInit_oldURL_Set(handle, oldURL.handle);
   }
-  USVString oldURL() {
-    return USVString(HashChangeEventInit_oldURL_Get(handle));
+  string oldURL() {
+    return string(HashChangeEventInit_oldURL_Get(handle));
   }
-  void newURL(USVString newURL) {
+  void newURL(string newURL) {
     HashChangeEventInit_newURL_Set(handle, newURL.handle);
   }
-  USVString newURL() {
-    return USVString(HashChangeEventInit_newURL_Get(handle));
+  string newURL() {
+    return string(HashChangeEventInit_newURL_Get(handle));
   }
 }
 struct History {
@@ -4085,10 +4085,10 @@ struct History {
   void forward() {
     History_forward(handle);
   }
-  void pushState(Any data, string title, Optional!(USVString) url /* = no!(USVString) */) {
+  void pushState(Any data, string title, Optional!(string) url /* = no!(string) */) {
     History_pushState(handle, data.handle, title, !url.empty, url.value.handle);
   }
-  void replaceState(Any data, string title, Optional!(USVString) url /* = no!(USVString) */) {
+  void replaceState(Any data, string title, Optional!(string) url /* = no!(string) */) {
     History_replaceState(handle, data.handle, title, !url.empty, url.value.handle);
   }
 }
@@ -4207,61 +4207,61 @@ enum ImageSmoothingQuality {
 struct Location {
   JsHandle handle;
   alias handle this;
-  void href(USVString href) {
+  void href(string href) {
     Location_href_Set(handle, href.handle);
   }
-  USVString href() {
-    return USVString(Location_href_Get(handle));
+  string href() {
+    return string(Location_href_Get(handle));
   }
-  USVString origin() {
-    return USVString(Location_origin_Get(handle));
+  string origin() {
+    return string(Location_origin_Get(handle));
   }
-  void protocol(USVString protocol) {
+  void protocol(string protocol) {
     Location_protocol_Set(handle, protocol.handle);
   }
-  USVString protocol() {
-    return USVString(Location_protocol_Get(handle));
+  string protocol() {
+    return string(Location_protocol_Get(handle));
   }
-  void host(USVString host) {
+  void host(string host) {
     Location_host_Set(handle, host.handle);
   }
-  USVString host() {
-    return USVString(Location_host_Get(handle));
+  string host() {
+    return string(Location_host_Get(handle));
   }
-  void hostname(USVString hostname) {
+  void hostname(string hostname) {
     Location_hostname_Set(handle, hostname.handle);
   }
-  USVString hostname() {
-    return USVString(Location_hostname_Get(handle));
+  string hostname() {
+    return string(Location_hostname_Get(handle));
   }
-  void port(USVString port) {
+  void port(string port) {
     Location_port_Set(handle, port.handle);
   }
-  USVString port() {
-    return USVString(Location_port_Get(handle));
+  string port() {
+    return string(Location_port_Get(handle));
   }
-  void pathname(USVString pathname) {
+  void pathname(string pathname) {
     Location_pathname_Set(handle, pathname.handle);
   }
-  USVString pathname() {
-    return USVString(Location_pathname_Get(handle));
+  string pathname() {
+    return string(Location_pathname_Get(handle));
   }
-  void search(USVString search) {
+  void search(string search) {
     Location_search_Set(handle, search.handle);
   }
-  USVString search() {
-    return USVString(Location_search_Get(handle));
+  string search() {
+    return string(Location_search_Get(handle));
   }
-  void hash(USVString hash) {
+  void hash(string hash) {
     Location_hash_Set(handle, hash.handle);
   }
-  USVString hash() {
-    return USVString(Location_hash_Get(handle));
+  string hash() {
+    return string(Location_hash_Get(handle));
   }
-  void assign(USVString url) {
+  void assign(string url) {
     Location_assign(handle, url.handle);
   }
-  void replace(USVString url) {
+  void replace(string url) {
     Location_replace(handle, url.handle);
   }
   void reload() {
@@ -4302,8 +4302,8 @@ struct MessageEvent {
   Any data() {
     return Any(MessageEvent_data_Get(handle));
   }
-  USVString origin() {
-    return USVString(MessageEvent_origin_Get(handle));
+  string origin() {
+    return string(MessageEvent_origin_Get(handle));
   }
   string lastEventId() {
     return MessageEvent_lastEventId_Get(handle);
@@ -4314,7 +4314,7 @@ struct MessageEvent {
   FrozenArray!(MessagePort) ports() {
     return FrozenArray!(MessagePort)(MessageEvent_ports_Get(handle));
   }
-  void initMessageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, Any data /* = null */, USVString origin /* = "" */, string lastEventId /* = "" */, Optional!(MessageEventSource) source /* = no!(MessageEventSource) */, Sequence!(MessagePort) ports /* = [] */) {
+  void initMessageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, Any data /* = null */, string origin /* = "" */, string lastEventId /* = "" */, Optional!(MessageEventSource) source /* = no!(MessageEventSource) */, Sequence!(MessagePort) ports /* = [] */) {
     MessageEvent_initMessageEvent(handle, type, bubbles, cancelable, data.handle, origin.handle, lastEventId, !source.empty, source.value, ports.handle);
   }
 }
@@ -4327,11 +4327,11 @@ struct MessageEventInit {
   Any data() {
     return Any(MessageEventInit_data_Get(handle));
   }
-  void origin(USVString origin) {
+  void origin(string origin) {
     MessageEventInit_origin_Set(handle, origin.handle);
   }
-  USVString origin() {
-    return USVString(MessageEventInit_origin_Get(handle));
+  string origin() {
+    return string(MessageEventInit_origin_Get(handle));
   }
   void lastEventId(string lastEventId) {
     MessageEventInit_lastEventId_Set(handle, lastEventId);
@@ -4434,10 +4434,10 @@ struct Navigator {
   bool cookieEnabled() {
     return NavigatorCookies_cookieEnabled_Get(handle);
   }
-  void registerProtocolHandler(string scheme, USVString url, string title) {
+  void registerProtocolHandler(string scheme, string url, string title) {
     NavigatorContentUtils_registerProtocolHandler(handle, scheme, url.handle, title);
   }
-  void unregisterProtocolHandler(string scheme, USVString url) {
+  void unregisterProtocolHandler(string scheme, string url) {
     NavigatorContentUtils_unregisterProtocolHandler(handle, scheme, url.handle);
   }
   bool onLine() {
@@ -4906,13 +4906,13 @@ struct StorageEvent {
   Optional!(string) newValue() {
     return StorageEvent_newValue_Get(handle);
   }
-  USVString url() {
-    return USVString(StorageEvent_url_Get(handle));
+  string url() {
+    return string(StorageEvent_url_Get(handle));
   }
   Optional!(Storage) storageArea() {
     return StorageEvent_storageArea_Get(handle);
   }
-  void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, Optional!(string) key /* = no!(string) */, Optional!(string) oldValue /* = no!(string) */, Optional!(string) newValue /* = no!(string) */, USVString url /* = "" */, Optional!(Storage) storageArea /* = no!(Storage) */) {
+  void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, Optional!(string) key /* = no!(string) */, Optional!(string) oldValue /* = no!(string) */, Optional!(string) newValue /* = no!(string) */, string url /* = "" */, Optional!(Storage) storageArea /* = no!(Storage) */) {
     StorageEvent_initStorageEvent(handle, type, bubbles, cancelable, !key.empty, key.value, !oldValue.empty, oldValue.value, !newValue.empty, newValue.value, url.handle, !storageArea.empty, storageArea.value.handle);
   }
 }
@@ -4937,11 +4937,11 @@ struct StorageEventInit {
   Optional!(string) newValue() {
     return StorageEventInit_newValue_Get(handle);
   }
-  void url(USVString url) {
+  void url(string url) {
     StorageEventInit_url_Set(handle, url.handle);
   }
-  USVString url() {
-    return USVString(StorageEventInit_url_Get(handle));
+  string url() {
+    return string(StorageEventInit_url_Get(handle));
   }
   void storageArea(Optional!(Storage) storageArea) {
     StorageEventInit_storageArea_Set(handle, !storageArea.empty, storageArea.value.handle);
@@ -5268,8 +5268,8 @@ struct VideoTrackList {
 struct WebSocket {
   EventTarget _parent;
   alias _parent this;
-  USVString url() {
-    return USVString(WebSocket_url_Get(handle));
+  string url() {
+    return string(WebSocket_url_Get(handle));
   }
   enum ushort CONNECTING = 0;
   enum ushort OPEN = 1;
@@ -5305,7 +5305,7 @@ struct WebSocket {
   string protocol() {
     return WebSocket_protocol_Get(handle);
   }
-  void close(ushort code, USVString reason) {
+  void close(ushort code, string reason) {
     WebSocket_close(handle, code, reason.handle);
   }
   void onmessage(EventHandler onmessage) {
@@ -5320,7 +5320,7 @@ struct WebSocket {
   BinaryType binaryType() {
     return WebSocket_binaryType_Get(handle);
   }
-  void send(USVString data) {
+  void send(string data) {
     WebSocket_send__string(handle, data.handle);
   }
   void send(Blob data) {
@@ -5420,7 +5420,7 @@ struct Window {
   Optional!(Element) frameElement() {
     return Window_frameElement_Get(handle);
   }
-  Optional!(WindowProxy) open(USVString url /* = "about:blank" */, string target /* = "_blank" */, string features /* = "" */) {
+  Optional!(WindowProxy) open(string url /* = "about:blank" */, string target /* = "_blank" */, string features /* = "" */) {
     return Window_open(handle, url.handle, target, features);
   }
   Object opIndex(string name) {
@@ -5450,7 +5450,7 @@ struct Window {
   void print() {
     Window_print(handle);
   }
-  void postMessage(Any message, USVString targetOrigin, Sequence!(Object) transfer /* = [] */) {
+  void postMessage(Any message, string targetOrigin, Sequence!(Object) transfer /* = [] */) {
     Window_postMessage__any_string_sequence_object(handle, message.handle, targetOrigin.handle, transfer.handle);
   }
   void postMessage(Any message, WindowPostMessageOptions options) {
@@ -5489,8 +5489,8 @@ struct Window {
   void cancelAnimationFrame(uint handle) {
     AnimationFrameProvider_cancelAnimationFrame(handle, handle);
   }
-  USVString origin() {
-    return USVString(WindowOrWorkerGlobalScope_origin_Get(handle));
+  string origin() {
+    return string(WindowOrWorkerGlobalScope_origin_Get(handle));
   }
   string btoa(string data) {
     return WindowOrWorkerGlobalScope_btoa(handle, data);
@@ -5607,11 +5607,11 @@ struct Window {
 struct WindowPostMessageOptions {
   PostMessageOptions _parent;
   alias _parent this;
-  void targetOrigin(USVString targetOrigin) {
+  void targetOrigin(string targetOrigin) {
     WindowPostMessageOptions_targetOrigin_Set(handle, targetOrigin.handle);
   }
-  USVString targetOrigin() {
-    return USVString(WindowPostMessageOptions_targetOrigin_Get(handle));
+  string targetOrigin() {
+    return string(WindowPostMessageOptions_targetOrigin_Get(handle));
   }
 }
 struct Worker {
@@ -5651,7 +5651,7 @@ struct WorkerGlobalScope {
   WorkerNavigator navigator() {
     return WorkerNavigator(WorkerGlobalScope_navigator_Get(handle));
   }
-  void importScripts(USVString urls) {
+  void importScripts(string urls) {
     WorkerGlobalScope_importScripts(handle, urls.handle);
   }
   void onerror(OnErrorEventHandler onerror) {
@@ -5690,8 +5690,8 @@ struct WorkerGlobalScope {
   EventHandler onunhandledrejection() {
     return WorkerGlobalScope_onunhandledrejection_Get(handle);
   }
-  USVString origin() {
-    return USVString(WindowOrWorkerGlobalScope_origin_Get(handle));
+  string origin() {
+    return string(WindowOrWorkerGlobalScope_origin_Get(handle));
   }
   string btoa(string data) {
     return WindowOrWorkerGlobalScope_btoa(handle, data);
@@ -5724,35 +5724,35 @@ struct WorkerGlobalScope {
 struct WorkerLocation {
   JsHandle handle;
   alias handle this;
-  void href(USVString href) {
+  void href(string href) {
     WorkerLocation_href_Set(handle, href.handle);
   }
-  USVString href() {
-    return USVString(WorkerLocation_href_Get(handle));
+  string href() {
+    return string(WorkerLocation_href_Get(handle));
   }
-  USVString origin() {
-    return USVString(WorkerLocation_origin_Get(handle));
+  string origin() {
+    return string(WorkerLocation_origin_Get(handle));
   }
-  USVString protocol() {
-    return USVString(WorkerLocation_protocol_Get(handle));
+  string protocol() {
+    return string(WorkerLocation_protocol_Get(handle));
   }
-  USVString host() {
-    return USVString(WorkerLocation_host_Get(handle));
+  string host() {
+    return string(WorkerLocation_host_Get(handle));
   }
-  USVString hostname() {
-    return USVString(WorkerLocation_hostname_Get(handle));
+  string hostname() {
+    return string(WorkerLocation_hostname_Get(handle));
   }
-  USVString port() {
-    return USVString(WorkerLocation_port_Get(handle));
+  string port() {
+    return string(WorkerLocation_port_Get(handle));
   }
-  USVString pathname() {
-    return USVString(WorkerLocation_pathname_Get(handle));
+  string pathname() {
+    return string(WorkerLocation_pathname_Get(handle));
   }
-  USVString search() {
-    return USVString(WorkerLocation_search_Get(handle));
+  string search() {
+    return string(WorkerLocation_search_Get(handle));
   }
-  USVString hash() {
-    return USVString(WorkerLocation_hash_Get(handle));
+  string hash() {
+    return string(WorkerLocation_hash_Get(handle));
   }
 }
 struct WorkerNavigator {

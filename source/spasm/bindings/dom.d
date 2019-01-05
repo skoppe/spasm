@@ -221,14 +221,14 @@ struct Document {
   DOMImplementation implementation() {
     return DOMImplementation(Document_implementation_Get(handle));
   }
-  USVString URL() {
-    return USVString(Document_URL_Get(handle));
+  string URL() {
+    return string(Document_URL_Get(handle));
   }
-  USVString documentURI() {
-    return USVString(Document_documentURI_Get(handle));
+  string documentURI() {
+    return string(Document_documentURI_Get(handle));
   }
-  USVString origin() {
-    return USVString(Document_origin_Get(handle));
+  string origin() {
+    return string(Document_origin_Get(handle));
   }
   string compatMode() {
     return Document_compatMode_Get(handle);
@@ -308,20 +308,20 @@ struct Document {
   Optional!(Location) location() {
     return Document_location_Get(handle);
   }
-  void domain(USVString domain) {
+  void domain(string domain) {
     Document_domain_Set(handle, domain.handle);
   }
-  USVString domain() {
-    return USVString(Document_domain_Get(handle));
+  string domain() {
+    return string(Document_domain_Get(handle));
   }
-  USVString referrer() {
-    return USVString(Document_referrer_Get(handle));
+  string referrer() {
+    return string(Document_referrer_Get(handle));
   }
-  void cookie(USVString cookie) {
+  void cookie(string cookie) {
     Document_cookie_Set(handle, cookie.handle);
   }
-  USVString cookie() {
-    return USVString(Document_cookie_Get(handle));
+  string cookie() {
+    return string(Document_cookie_Get(handle));
   }
   string lastModified() {
     return Document_lastModified_Get(handle);
@@ -377,7 +377,7 @@ struct Document {
   Document open(string unused1, string unused2) {
     return Document(Document_open__string_string(handle, unused1, unused2));
   }
-  Optional!(WindowProxy) open(USVString url, string name, string features) {
+  Optional!(WindowProxy) open(string url, string name, string features) {
     return Document_open__string_string_string(handle, url.handle, name, features);
   }
   void close() {
@@ -1148,8 +1148,8 @@ struct Node {
   string nodeName() {
     return Node_nodeName_Get(handle);
   }
-  USVString baseURI() {
-    return USVString(Node_baseURI_Get(handle));
+  string baseURI() {
+    return string(Node_baseURI_Get(handle));
   }
   bool isConnected() {
     return Node_isConnected_Get(handle);
