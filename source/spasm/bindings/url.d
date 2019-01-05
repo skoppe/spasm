@@ -1,6 +1,8 @@
 module spasm.bindings.url;
 
 import spasm.types;
+import spasm.bindings.fileapi : Blob;
+
 struct URL {
   JsHandle handle;
   alias handle this;

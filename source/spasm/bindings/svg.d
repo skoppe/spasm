@@ -8,10 +8,13 @@ import spasm.bindings.geometry : DOMPointInit;
 import spasm.bindings.geometry : DOMPointReadOnly;
 import spasm.bindings.geometry : DOMRect;
 import spasm.bindings.geometry : DOMRectReadOnly;
+import spasm.bindings.html : DOMStringMap;
 import spasm.bindings.dom : DOMTokenList;
-import spasm.bindings.dom : Document;
 import spasm.bindings.dom : Element;
+import spasm.bindings.html : EventHandler;
+import spasm.bindings.html : FocusOptions;
 import spasm.bindings.dom : NodeList;
+import spasm.bindings.cssom : StyleSheet;
 
 struct SVGAElement {
   SVGGraphicsElement _parent;

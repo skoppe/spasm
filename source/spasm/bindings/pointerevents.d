@@ -1,8 +1,6 @@
 module spasm.bindings.pointerevents;
 
 import spasm.types;
-import spasm.bindings.html : EventHandler;
-
 struct PointerEventInit {
   MouseEventInit _parent;
   alias _parent this;

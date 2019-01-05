@@ -1,7 +1,6 @@
 module spasm.bindings.touchevents;
 
 import spasm.types;
-import spasm.bindings.html : EventHandler;
 import spasm.bindings.dom : EventTarget;
 
 struct Touch {

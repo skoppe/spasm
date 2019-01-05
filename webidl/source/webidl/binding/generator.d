@@ -216,9 +216,11 @@ class FunctionNode : Node {
 class TypedefNode : Node {
   string name;
   string def;
-  this(string n, string d) {
+  ParseTree rhs;
+  this(string n, string d, ParseTree rhs) {
     name = n;
     def = d;
+    this.rhs = rhs;
   }
 }
 @method void _toDBinding(TypedefNode node, Semantics semantics, IndentedStringAppender* a) {
@@ -1625,7 +1627,7 @@ void toIr(Appender)(ParseTree tree, ref Appender a, Context context) {
     a.put(new FunctionNode(name, [], paramType, FunctionType.Attribute, "Get", "", ""));
     break;
   case "WebIDL.Typedef":
-    a.put(new TypedefNode(tree.children[1].matches[0], tree.children[0].generateDType(context)));
+    a.put(new TypedefNode(tree.children[1].matches[0], tree.children[0].generateDType(context), tree.children[0]));
     break;
   case "WebIDL.Partial":
     context.partial = tree;
@@ -1863,14 +1865,52 @@ TypeEncoder[] generateEncodedTypes(IR ir, Semantics semantics) {
 class IR {
   ModuleNode[] nodes;
   StructNode[string] structs;
+  Semantics semantics;
   this(ModuleNode[] nodes, Semantics semantics) {
     this.nodes = nodes;
+    this.semantics = semantics;
     nodes.each!(mod => mod.children.map!(n => cast(StructNode)n).filter!(n => n !is null).each!((n){
           structs[n.name] = n;
         }));
     this.resolvePartialsAndIncludes();
     this.postfixOverloads(semantics);
   }
+}
+
+auto getImports(IR ir, Module module_) {
+  import std.format : format;
+  import std.typecons : tuple, Tuple;
+  alias Item = Tuple!(Type,"type",string,"name");
+  auto app = appender!(Item[]);
+  auto semantics = ir.semantics;
+  void extractTypes(Semantics semantics, ParseTree tree, Appender!(Item[]) app) {
+    if (tree.name == "WebIDL.NonAnyType" && tree.children[0].name == "WebIDL.Identifier") {
+      if (auto p = tree.matches[0] in semantics.types)
+        app.put(tuple!("type","name")(*p, tree.matches[0]));
+    } else {
+      tree.children.each!(c => extractTypes(semantics, c, app));
+    }
+  }
+  void recurse(Node node) {
+    if (cast(FunctionNode)node) {
+      extractTypes(semantics, (cast(FunctionNode)node).result, app);
+      (cast(FunctionNode)node).args.each!(arg => extractTypes(semantics, arg.type, app));
+    } else if (cast(TypedefNode)node) {
+      extractTypes(semantics, (cast(TypedefNode)node).rhs, app);
+    } else if (cast(CallbackNode)node) {
+      extractTypes(semantics, (cast(CallbackNode)node).result, app);
+      extractTypes(semantics, (cast(CallbackNode)node).args, app);
+    } else if (cast(StructNode)node)
+      (cast(StructNode)node).children.each!(node => recurse(node));
+    else if (cast(StructIncludesNode)node)
+      (cast(StructIncludesNode)node).children.each!(node => recurse(node));
+    else if (cast(ModuleNode)node)
+      (cast (ModuleNode)node).children.each!(node => recurse(node));
+  }
+  ir.nodes.filter!(n => n.module_ is module_).each!((node){
+      node.children.each!(c => recurse(c));
+    });
+  return app.data.schwartzSort!(a => a.name).uniq!((a,b){return a.name == b.name;}).filter!(t => t.type.module_ !is module_).map!(t => format("import spasm.bindings.%s : %s;", t.type.module_.name,t.name)).array;
 }
 auto resolvePartialsAndIncludes(IR ir) {
   ir.nodes.each!(mod => mod.children.map!(n => cast(FunctionNode)n).filter!(n => n !is null && n.baseType.length > 0).each!((n){
@@ -1994,27 +2034,6 @@ class Module {
   }
 }
 
-void findDependencies(Appender)(ParseTree tree, Appender a) {
-  if (tree.name == "WebIDL.NonAnyType" && tree.children[0].name == "WebIDL.Identifier") {
-    a.put(tree.matches[0]);
-  } else {
-    tree.children.each!(c => c.findDependencies(a));
-  }
-}
-auto findDependencies(Module module_) {
-  auto app = appender!(string[]);
-  module_.iterate!(findDependencies)(app);
-  return app.data.sort.uniq.filter!(a => a != "void").array();
-}
-
-auto findImports(Semantics s, Module m) {
-  auto deps = m.findDependencies();
-  import std.typecons : tuple;
-  import std.format;
-  auto types = deps.map!(dep => tuple!("name","type")(dep, dep in s.types));
-  types.filter!(t => t.type is null).each!(t => writeln("Failed to find ",t.name));
-  return types.filter!(p => p.type !is null).filter!(t => t.type.module_ != m).map!(t => format("import spasm.bindings.%s : %s;", t.type.module_.name,t.name)).array;
-}
 class Semantics {
   Type[string] types;
   Type[] partials;

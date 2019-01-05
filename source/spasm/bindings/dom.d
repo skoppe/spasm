@@ -2,8 +2,16 @@ module spasm.bindings.dom;
 
 import spasm.types;
 import spasm.bindings.domhighrestimestamp : DOMHighResTimeStamp;
+import spasm.bindings.html : DocumentReadyState;
 import spasm.bindings.html : EventHandler;
+import spasm.bindings.fullscreen : FullscreenOptions;
+import spasm.bindings.html : HTMLAllCollection;
+import spasm.bindings.html : HTMLElement;
+import spasm.bindings.html : HTMLHeadElement;
+import spasm.bindings.html : HTMLOrSVGScriptElement;
 import spasm.bindings.html : HTMLSlotElement;
+import spasm.bindings.html : Location;
+import spasm.bindings.svg : SVGSVGElement;
 
 struct AbortController {
   JsHandle handle;

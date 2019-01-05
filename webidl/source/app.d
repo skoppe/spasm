@@ -69,7 +69,7 @@ void main(string[] args)
     writeln("Writing ", dFile, " and ", jsFile);
     std.file.write(dFile, "module spasm.bindings." ~ name ~ ";\n\n"~
                    "import spasm.types;\n");
-    auto imports = semantics.findImports(m);
+    auto imports = ir.getImports(m);
     if (imports.length > 0)
       std.file.append(dFile, imports.joiner("\n").text~"\n\n");
     std.file.append(dFile, ir.generateDBindings(m) ~ "\n\n");

@@ -1,7 +1,6 @@
 module spasm.bindings.fullscreen;
 
 import spasm.types;
-import spasm.bindings.dom : Element;
 import spasm.bindings.html : EventHandler;
 
 enum FullscreenNavigationUI {
