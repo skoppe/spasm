@@ -1,7 +1,7 @@
 module spasm.bindings.fullscreen;
 
 import spasm.types;
-import spasm.bindings.html : EventHandler;
+import spasm.bindings.html;
 
 enum FullscreenNavigationUI {
   auto_,
@@ -11,11 +11,11 @@ enum FullscreenNavigationUI {
 struct FullscreenOptions {
   JsHandle handle;
   alias handle this;
-  void navigationUI(FullscreenNavigationUI navigationUI) {
-    FullscreenOptions_navigationUI_Set(handle, navigationUI);
+  auto navigationUI(FullscreenNavigationUI navigationUI) {
+    FullscreenOptions_navigationUI_Set(this.handle, navigationUI);
   }
-  FullscreenNavigationUI navigationUI() {
-    return FullscreenOptions_navigationUI_Get(handle);
+  auto navigationUI() {
+    return FullscreenOptions_navigationUI_Get(this.handle);
   }
 }
 

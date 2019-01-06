@@ -1,58 +1,57 @@
 module spasm.bindings.cssom;
 
 import spasm.types;
-import spasm.bindings.dom : Element;
-import spasm.bindings.dom : ProcessingInstruction;
+import spasm.bindings.dom;
 
 alias CSSOMString = string;
 struct MediaList {
   JsHandle handle;
   alias handle this;
-  void mediaText(string mediaText) {
-    MediaList_mediaText_Set(handle, mediaText);
+  auto mediaText(string mediaText) {
+    MediaList_mediaText_Set(this.handle, mediaText);
   }
-  string mediaText() {
-    return MediaList_mediaText_Get(handle);
+  auto mediaText() {
+    return MediaList_mediaText_Get(this.handle);
   }
-  uint length() {
-    return MediaList_length_Get(handle);
+  auto length() {
+    return MediaList_length_Get(this.handle);
   }
-  Optional!(string) item(uint index) {
-    return MediaList_item_getter(handle, index);
+  auto item(uint index) {
+    return MediaList_item_getter(this.handle, index);
   }
-  void appendMedium(string medium) {
-    MediaList_appendMedium(handle, medium);
+  auto appendMedium(string medium) {
+    MediaList_appendMedium(this.handle, medium);
   }
-  void deleteMedium(string medium) {
-    MediaList_deleteMedium(handle, medium);
+  auto deleteMedium(string medium) {
+    MediaList_deleteMedium(this.handle, medium);
   }
 }
 struct StyleSheet {
   JsHandle handle;
   alias handle this;
-  string type() {
-    return StyleSheet_type_Get(handle);
+  auto type() {
+    return StyleSheet_type_Get(this.handle);
   }
-  Optional!(string) href() {
-    return StyleSheet_href_Get(handle);
+  auto href() {
+    return StyleSheet_href_Get(this.handle);
   }
-  Optional!(SumType!(Element, ProcessingInstruction)) ownerNode() {
-    return StyleSheet_ownerNode_Get(handle);
+  auto ownerNode() {
+    return StyleSheet_ownerNode_Get(this.handle);
   }
-  Optional!(StyleSheet) parentStyleSheet() {
-    return StyleSheet_parentStyleSheet_Get(handle);
+  auto parentStyleSheet() {
+    return StyleSheet_parentStyleSheet_Get(this.handle);
   }
-  Optional!(string) title() {
-    return StyleSheet_title_Get(handle);
+  auto title() {
+    return StyleSheet_title_Get(this.handle);
   }
-  MediaList media() {
-    return MediaList(StyleSheet_media_Get(handle));
+  auto media() {
+    return MediaList(StyleSheet_media_Get(this.handle));
   }
-  void disabled(bool disabled) {
-    StyleSheet_disabled_Set(handle, disabled);
+  auto disabled(bool disabled) {
+    StyleSheet_disabled_Set(this.handle, disabled);
   }
-  bool disabled() {
-    return StyleSheet_disabled_Get(handle);
+  auto disabled() {
+    return StyleSheet_disabled_Get(this.handle);
   }
 }
 

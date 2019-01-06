@@ -15,10 +15,13 @@ const encode_AudioContextLatencyCategory = (ptr, val)=>{
   encode_JsHandle = (ptr, val)=>{
     // other
   },
+  encode_bool = (ptr, val)=>{
+    // other
+  },
   encode_double = (ptr, val)=>{
     // other
   },
-  encode_optional_JsHandle = (ptr, val)=>{
+  encode_object = (ptr, val)=>{
     // other
   },
   encode_sequence_JsHandle = (ptr, val)=>{
@@ -123,6 +126,33 @@ const encode_AudioContextLatencyCategory = (ptr, val)=>{
       encode_JsHandle(ptr+4, val);
     }
   },
+  encode_union2_RadioNodeList_Element = (ptr, val)=>{
+    if (val instanceof RadioNodeList) {
+      setInt(ptr, 0);
+      encode_JsHandle(ptr+4, val);
+    } else if (val instanceof Element) {
+      setInt(ptr, 1);
+      encode_JsHandle(ptr+4, val);
+    }
+  },
+  encode_union2_bool_ConstrainBooleanParameters = (ptr, val)=>{
+    if (val instanceof boolean) {
+      setInt(ptr, 0);
+      encode_bool(ptr+4, val);
+    } else if (val instanceof ConstrainBooleanParameters) {
+      setInt(ptr, 1);
+      encode_JsHandle(ptr+4, val);
+    }
+  },
+  encode_union2_double_ConstrainDoubleRange = (ptr, val)=>{
+    if (val instanceof double) {
+      setInt(ptr, 0);
+      encode_double(ptr+4, val);
+    } else if (val instanceof ConstrainDoubleRange) {
+      setInt(ptr, 1);
+      encode_JsHandle(ptr+4, val);
+    }
+  },
   encode_union2_sequence_sequence_string_stringstring = (ptr, val)=>{
     if (val instanceof sequence) {
       setInt(ptr, 0);
@@ -141,13 +171,34 @@ const encode_AudioContextLatencyCategory = (ptr, val)=>{
       encode_JsHandle(ptr+4, val);
     }
   },
-  encode_union2_string_sequence_string = (ptr, val)=>{
-    if (val instanceof DOMString) {
+  encode_union2_uint_ConstrainULongRange = (ptr, val)=>{
+    if (val instanceof unsigned) {
       setInt(ptr, 0);
-      encode_string(ptr+4, val);
+      encode_uint(ptr+4, val);
+    } else if (val instanceof ConstrainULongRange) {
+      setInt(ptr, 1);
+      encode_JsHandle(ptr+4, val);
+    }
+  },
+  encode_union2_uint_sequence_uint = (ptr, val)=>{
+    if (val instanceof unsigned) {
+      setInt(ptr, 0);
+      encode_uint(ptr+4, val);
     } else if (val instanceof sequence) {
       setInt(ptr, 1);
-      encode_sequence_string(ptr+4, val);
+      encode_sequence_uint(ptr+4, val);
+    }
+  },
+  encode_union3_Client_ServiceWorker_MessagePort = (ptr, val)=>{
+    if (val instanceof Client) {
+      setInt(ptr, 0);
+      encode_JsHandle(ptr+4, val);
+    } else if (val instanceof ServiceWorker) {
+      setInt(ptr, 1);
+      encode_JsHandle(ptr+4, val);
+    } else if (val instanceof MessagePort) {
+      setInt(ptr, 2);
+      encode_JsHandle(ptr+4, val);
     }
   },
   encode_union3_IDBObjectStore_IDBIndex_IDBCursor = (ptr, val)=>{
@@ -198,7 +249,7 @@ const encode_AudioContextLatencyCategory = (ptr, val)=>{
       encode_JsHandle(ptr+4, val);
     }
   },
-  encode_union3_WindowProxy_MessagePort_ServiceWorker = (ptr, val)=>{
+  encode_union3_Window_MessagePort_ServiceWorker = (ptr, val)=>{
     if (val instanceof WindowProxy) {
       setInt(ptr, 0);
       encode_JsHandle(ptr+4, val);
@@ -206,6 +257,18 @@ const encode_AudioContextLatencyCategory = (ptr, val)=>{
       setInt(ptr, 1);
       encode_JsHandle(ptr+4, val);
     } else if (val instanceof ServiceWorker) {
+      setInt(ptr, 2);
+      encode_JsHandle(ptr+4, val);
+    }
+  },
+  encode_union3_string_sequence_string_ConstrainDOMStringParameters = (ptr, val)=>{
+    if (val instanceof DOMString) {
+      setInt(ptr, 0);
+      encode_string(ptr+4, val);
+    } else if (val instanceof sequence) {
+      setInt(ptr, 1);
+      encode_sequence_string(ptr+4, val);
+    } else if (val instanceof ConstrainDOMStringParameters) {
       setInt(ptr, 2);
       encode_JsHandle(ptr+4, val);
     }
@@ -248,6 +311,10 @@ const encode_AudioContextLatencyCategory = (ptr, val)=>{
   },
   ;
 export default {
+  encode_AppendMode: (ptr, val)=>{
+    const vals = ["segments", "sequence"];
+    setInt(ptr, vals.indexOf(val))
+  },
   encode_AudioContextState: (ptr, val)=>{
     const vals = ["suspended", "running", "closed"];
     setInt(ptr, vals.indexOf(val))
@@ -276,9 +343,25 @@ export default {
     const vals = ["speakers", "discrete"];
     setInt(ptr, vals.indexOf(val))
   },
+  encode_ClientType: (ptr, val)=>{
+    const vals = ["window", "worker", "sharedworker", "all"];
+    setInt(ptr, vals.indexOf(val))
+  },
   encode_ColorSpaceConversion: (ptr, val)=>{
     const vals = ["none", "default"];
     setInt(ptr, vals.indexOf(val))
+  },
+  encode_ConstrainBoolean: (ptr, val)=>{
+    encode_union2_bool_ConstrainBooleanParameters(ptr, val);
+  },
+  encode_ConstrainDOMString: (ptr, val)=>{
+    encode_union3_string_sequence_string_ConstrainDOMStringParameters(ptr, val);
+  },
+  encode_ConstrainDouble: (ptr, val)=>{
+    encode_union2_double_ConstrainDoubleRange(ptr, val);
+  },
+  encode_ConstrainULong: (ptr, val)=>{
+    encode_union2_uint_ConstrainULongRange(ptr, val);
   },
   encode_DistanceModelType: (ptr, val)=>{
     const vals = ["linear", "inverse", "exponential"];
@@ -292,8 +375,9 @@ export default {
     const vals = ["transparent", "native"];
     setInt(ptr, vals.indexOf(val))
   },
-  encode_EventHandler: (ptr, val)=>{
-    encode_optional_JsHandle(ptr, val);
+  encode_FrameType: (ptr, val)=>{
+    const vals = ["auxiliary", "top-level", "nested", "none"];
+    setInt(ptr, vals.indexOf(val))
   },
   encode_FullscreenNavigationUI: (ptr, val)=>{
     const vals = ["auto", "show", "hide"];
@@ -318,6 +402,14 @@ export default {
     const vals = ["none", "flipY"];
     setInt(ptr, vals.indexOf(val))
   },
+  encode_MediaDeviceKind: (ptr, val)=>{
+    const vals = ["audioinput", "audiooutput", "videoinput"];
+    setInt(ptr, vals.indexOf(val))
+  },
+  encode_MediaStreamTrackState: (ptr, val)=>{
+    const vals = ["live", "ended"];
+    setInt(ptr, vals.indexOf(val))
+  },
   encode_NotificationDirection: (ptr, val)=>{
     const vals = ["auto", "ltr", "rtl"];
     setInt(ptr, vals.indexOf(val))
@@ -338,8 +430,24 @@ export default {
     const vals = ["equalpower", "HRTF"];
     setInt(ptr, vals.indexOf(val))
   },
+  encode_PermissionName: (ptr, val)=>{
+    const vals = ["geolocation", "notifications", "push", "midi", "camera", "microphone", "speaker", "device-info", "background-fetch", "background-sync", "bluetooth", "persistent-storage", "ambient-light-sensor", "accelerometer", "gyroscope", "magnetometer", "clipboard", "display"];
+    setInt(ptr, vals.indexOf(val))
+  },
+  encode_PermissionState: (ptr, val)=>{
+    const vals = ["granted", "denied", "prompt"];
+    setInt(ptr, vals.indexOf(val))
+  },
   encode_PremultiplyAlpha: (ptr, val)=>{
     const vals = ["none", "premultiply", "default"];
+    setInt(ptr, vals.indexOf(val))
+  },
+  encode_ReadyState: (ptr, val)=>{
+    const vals = ["closed", "open", "ended"];
+    setInt(ptr, vals.indexOf(val))
+  },
+  encode_ReferrerPolicy: (ptr, val)=>{
+    const vals = ["", "no-referrer", "no-referrer-when-downgrade", "same-origin", "origin", "strict-origin", "origin-when-cross-origin", "strict-origin-when-cross-origin", "unsafe-url"];
     setInt(ptr, vals.indexOf(val))
   },
   encode_RequestCache: (ptr, val)=>{
@@ -374,6 +482,14 @@ export default {
     const vals = ["auto", "manual"];
     setInt(ptr, vals.indexOf(val))
   },
+  encode_ServiceWorkerState: (ptr, val)=>{
+    const vals = ["installing", "installed", "activating", "activated", "redundant"];
+    setInt(ptr, vals.indexOf(val))
+  },
+  encode_ServiceWorkerUpdateViaCache: (ptr, val)=>{
+    const vals = ["imports", "all", "none"];
+    setInt(ptr, vals.indexOf(val))
+  },
   encode_ShadowRootMode: (ptr, val)=>{
     const vals = ["open", "closed"];
     setInt(ptr, vals.indexOf(val))
@@ -390,6 +506,13 @@ export default {
     const vals = ["direct", "stylus"];
     setInt(ptr, vals.indexOf(val))
   },
+  encode_VibratePattern: (ptr, val)=>{
+    encode_union2_uint_sequence_uint(ptr, val);
+  },
+  encode_VisibilityState: (ptr, val)=>{
+    const vals = ["hidden", "visible"];
+    setInt(ptr, vals.indexOf(val))
+  },
   encode_WorkerType: (ptr, val)=>{
     const vals = ["classic", "module"];
     setInt(ptr, vals.indexOf(val))
@@ -397,9 +520,6 @@ export default {
   encode_XMLHttpRequestResponseType: (ptr, val)=>{
     const vals = ["", "arraybuffer", "blob", "document", "json", "text"];
     setInt(ptr, vals.indexOf(val))
-  },
-  encode_object: (ptr, val)=>{
-    // other
   },
   encode_optional_BodyInit: (ptr, val)=>{
     if (!setBool(ptr+12, isEmpty(val))) {
@@ -416,6 +536,9 @@ export default {
       encode_union2_HTMLScriptElement_SVGScriptElement(ptr, val);
     }
   },
+  encode_optional_JsHandle: (ptr, val)=>{
+    // other
+  },
   encode_optional_MediaProvider: (ptr, val)=>{
     if (!setBool(ptr+8, isEmpty(val))) {
       encode_union3_MediaStream_MediaSource_Blob(ptr, val);
@@ -423,7 +546,7 @@ export default {
   },
   encode_optional_MessageEventSource: (ptr, val)=>{
     if (!setBool(ptr+8, isEmpty(val))) {
-      encode_union3_WindowProxy_MessagePort_ServiceWorker(ptr, val);
+      encode_union3_Window_MessagePort_ServiceWorker(ptr, val);
     }
   },
   encode_optional_OffscreenRenderingContext: (ptr, val)=>{
@@ -499,6 +622,18 @@ export default {
       encode_sequence_string(ptr+4, val);
     }
   },
+  encode_optional_union3_Client_ServiceWorker_MessagePort: (ptr, val)=>{
+    if (val instanceof Client) {
+      setInt(ptr, 0);
+      encode_JsHandle(ptr+4, val);
+    } else if (val instanceof ServiceWorker) {
+      setInt(ptr, 1);
+      encode_JsHandle(ptr+4, val);
+    } else if (val instanceof MessagePort) {
+      setInt(ptr, 2);
+      encode_JsHandle(ptr+4, val);
+    }
+  },
   encode_optional_union3_IDBObjectStore_IDBIndex_IDBCursor: (ptr, val)=>{
     if (val instanceof IDBObjectStore) {
       setInt(ptr, 0);
@@ -541,13 +676,22 @@ export default {
       encode_JsHandle(ptr+4, val);
     }
   },
-  encode_union2_RadioNodeList_Element: (ptr, val)=>{
-    if (val instanceof RadioNodeList) {
+  encode_union2_bool_MediaTrackConstraints: (ptr, val)=>{
+    if (val instanceof boolean) {
       setInt(ptr, 0);
-      encode_JsHandle(ptr+4, val);
-    } else if (val instanceof Element) {
+      encode_bool(ptr+4, val);
+    } else if (val instanceof MediaTrackConstraints) {
       setInt(ptr, 1);
       encode_JsHandle(ptr+4, val);
+    }
+  },
+  encode_union2_string_sequence_string: (ptr, val)=>{
+    if (val instanceof DOMString) {
+      setInt(ptr, 0);
+      encode_string(ptr+4, val);
+    } else if (val instanceof sequence) {
+      setInt(ptr, 1);
+      encode_sequence_string(ptr+4, val);
     }
   },
 }

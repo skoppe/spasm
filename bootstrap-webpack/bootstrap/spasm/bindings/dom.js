@@ -10,11 +10,11 @@ export default {
     AbortSignal_aborted_Get: function(ctx) {
       return spasm.objects[ctx].aborted;
     },
-    AbortSignal_onabort_Set: function(ctx, onabortDefined, onabort) {
-      spasm.objects[ctx].onabort = onabortDefined ? onabort : undefined;
+    AbortSignal_onabort_Set: function(ctx, onabort) {
+      spasm.objects[ctx].onabort = onabort;
     },
-    AbortSignal_onabort_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onabort);
+    AbortSignal_onabort_Get: function(ctx) {
+      return spasm.objects[ctx].onabort;
     },
     AbstractRange_startContainer_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].startContainer);
@@ -367,11 +367,11 @@ export default {
     Document_queryCommandValue: function(rawResult, ctx, commandIdLen, commandIdPtr) {
       spasm.encode_string(rawResult, spasm.objects[ctx].queryCommandValue(spasm.decode_string(commandIdLen, commandIdPtr)));
     },
-    Document_onreadystatechange_Set: function(ctx, onreadystatechangeDefined, onreadystatechange) {
-      spasm.objects[ctx].onreadystatechange = onreadystatechangeDefined ? onreadystatechange : undefined;
+    Document_onreadystatechange_Set: function(ctx, onreadystatechange) {
+      spasm.objects[ctx].onreadystatechange = onreadystatechange;
     },
-    Document_onreadystatechange_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onreadystatechange);
+    Document_onreadystatechange_Get: function(ctx) {
+      return spasm.objects[ctx].onreadystatechange;
     },
     Document_fgColor_Set: function(ctx, fgColorLen, fgColorPtr) {
       spasm.objects[ctx].fgColor = spasm.decode_string(fgColorLen, fgColorPtr);
@@ -421,6 +421,18 @@ export default {
     Document_all_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].all);
     },
+    Document_hidden_Get: function(ctx) {
+      return spasm.objects[ctx].hidden;
+    },
+    Document_visibilityState_Get: function(ctx) {
+      return spasm.encode_VisibilityState(spasm.objects[ctx].visibilityState);
+    },
+    Document_onvisibilitychange_Set: function(ctx, onvisibilitychange) {
+      spasm.objects[ctx].onvisibilitychange = onvisibilitychange;
+    },
+    Document_onvisibilitychange_Get: function(ctx) {
+      return spasm.objects[ctx].onvisibilitychange;
+    },
     Document_fullscreenEnabled_Get: function(ctx) {
       return spasm.objects[ctx].fullscreenEnabled;
     },
@@ -430,23 +442,26 @@ export default {
     Document_exitFullscreen: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].exitFullscreen());
     },
-    Document_onfullscreenchange_Set: function(ctx, onfullscreenchangeDefined, onfullscreenchange) {
-      spasm.objects[ctx].onfullscreenchange = onfullscreenchangeDefined ? onfullscreenchange : undefined;
+    Document_onfullscreenchange_Set: function(ctx, onfullscreenchange) {
+      spasm.objects[ctx].onfullscreenchange = onfullscreenchange;
     },
-    Document_onfullscreenchange_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onfullscreenchange);
+    Document_onfullscreenchange_Get: function(ctx) {
+      return spasm.objects[ctx].onfullscreenchange;
     },
-    Document_onfullscreenerror_Set: function(ctx, onfullscreenerrorDefined, onfullscreenerror) {
-      spasm.objects[ctx].onfullscreenerror = onfullscreenerrorDefined ? onfullscreenerror : undefined;
+    Document_onfullscreenerror_Set: function(ctx, onfullscreenerror) {
+      spasm.objects[ctx].onfullscreenerror = onfullscreenerror;
     },
-    Document_onfullscreenerror_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onfullscreenerror);
+    Document_onfullscreenerror_Get: function(ctx) {
+      return spasm.objects[ctx].onfullscreenerror;
     },
     Document_rootElement_Get: function(rawResult, ctx) {
       spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].rootElement);
     },
     NonElementParentNode_getElementById: function(rawResult, ctx, elementIdLen, elementIdPtr) {
       spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].getElementById(spasm.decode_string(elementIdLen, elementIdPtr)));
+    },
+    DocumentOrShadowRoot_fullscreenElement_Get: function(rawResult, ctx) {
+      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].fullscreenElement);
     },
     ParentNode_children_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].children);
@@ -472,89 +487,89 @@ export default {
     ParentNode_querySelectorAll: function(ctx, selectorsLen, selectorsPtr) {
       return spasm.addObject(spasm.objects[ctx].querySelectorAll(spasm.decode_string(selectorsLen, selectorsPtr)));
     },
-    GlobalEventHandlers_ongotpointercapture_Set: function(ctx, ongotpointercaptureDefined, ongotpointercapture) {
-      spasm.objects[ctx].ongotpointercapture = ongotpointercaptureDefined ? ongotpointercapture : undefined;
+    GlobalEventHandlers_ongotpointercapture_Set: function(ctx, ongotpointercapture) {
+      spasm.objects[ctx].ongotpointercapture = ongotpointercapture;
     },
-    GlobalEventHandlers_ongotpointercapture_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].ongotpointercapture);
+    GlobalEventHandlers_ongotpointercapture_Get: function(ctx) {
+      return spasm.objects[ctx].ongotpointercapture;
     },
-    GlobalEventHandlers_onlostpointercapture_Set: function(ctx, onlostpointercaptureDefined, onlostpointercapture) {
-      spasm.objects[ctx].onlostpointercapture = onlostpointercaptureDefined ? onlostpointercapture : undefined;
+    GlobalEventHandlers_onlostpointercapture_Set: function(ctx, onlostpointercapture) {
+      spasm.objects[ctx].onlostpointercapture = onlostpointercapture;
     },
-    GlobalEventHandlers_onlostpointercapture_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onlostpointercapture);
+    GlobalEventHandlers_onlostpointercapture_Get: function(ctx) {
+      return spasm.objects[ctx].onlostpointercapture;
     },
-    GlobalEventHandlers_onpointerdown_Set: function(ctx, onpointerdownDefined, onpointerdown) {
-      spasm.objects[ctx].onpointerdown = onpointerdownDefined ? onpointerdown : undefined;
+    GlobalEventHandlers_onpointerdown_Set: function(ctx, onpointerdown) {
+      spasm.objects[ctx].onpointerdown = onpointerdown;
     },
-    GlobalEventHandlers_onpointerdown_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onpointerdown);
+    GlobalEventHandlers_onpointerdown_Get: function(ctx) {
+      return spasm.objects[ctx].onpointerdown;
     },
-    GlobalEventHandlers_onpointermove_Set: function(ctx, onpointermoveDefined, onpointermove) {
-      spasm.objects[ctx].onpointermove = onpointermoveDefined ? onpointermove : undefined;
+    GlobalEventHandlers_onpointermove_Set: function(ctx, onpointermove) {
+      spasm.objects[ctx].onpointermove = onpointermove;
     },
-    GlobalEventHandlers_onpointermove_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onpointermove);
+    GlobalEventHandlers_onpointermove_Get: function(ctx) {
+      return spasm.objects[ctx].onpointermove;
     },
-    GlobalEventHandlers_onpointerup_Set: function(ctx, onpointerupDefined, onpointerup) {
-      spasm.objects[ctx].onpointerup = onpointerupDefined ? onpointerup : undefined;
+    GlobalEventHandlers_onpointerup_Set: function(ctx, onpointerup) {
+      spasm.objects[ctx].onpointerup = onpointerup;
     },
-    GlobalEventHandlers_onpointerup_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onpointerup);
+    GlobalEventHandlers_onpointerup_Get: function(ctx) {
+      return spasm.objects[ctx].onpointerup;
     },
-    GlobalEventHandlers_onpointercancel_Set: function(ctx, onpointercancelDefined, onpointercancel) {
-      spasm.objects[ctx].onpointercancel = onpointercancelDefined ? onpointercancel : undefined;
+    GlobalEventHandlers_onpointercancel_Set: function(ctx, onpointercancel) {
+      spasm.objects[ctx].onpointercancel = onpointercancel;
     },
-    GlobalEventHandlers_onpointercancel_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onpointercancel);
+    GlobalEventHandlers_onpointercancel_Get: function(ctx) {
+      return spasm.objects[ctx].onpointercancel;
     },
-    GlobalEventHandlers_onpointerover_Set: function(ctx, onpointeroverDefined, onpointerover) {
-      spasm.objects[ctx].onpointerover = onpointeroverDefined ? onpointerover : undefined;
+    GlobalEventHandlers_onpointerover_Set: function(ctx, onpointerover) {
+      spasm.objects[ctx].onpointerover = onpointerover;
     },
-    GlobalEventHandlers_onpointerover_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onpointerover);
+    GlobalEventHandlers_onpointerover_Get: function(ctx) {
+      return spasm.objects[ctx].onpointerover;
     },
-    GlobalEventHandlers_onpointerout_Set: function(ctx, onpointeroutDefined, onpointerout) {
-      spasm.objects[ctx].onpointerout = onpointeroutDefined ? onpointerout : undefined;
+    GlobalEventHandlers_onpointerout_Set: function(ctx, onpointerout) {
+      spasm.objects[ctx].onpointerout = onpointerout;
     },
-    GlobalEventHandlers_onpointerout_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onpointerout);
+    GlobalEventHandlers_onpointerout_Get: function(ctx) {
+      return spasm.objects[ctx].onpointerout;
     },
-    GlobalEventHandlers_onpointerenter_Set: function(ctx, onpointerenterDefined, onpointerenter) {
-      spasm.objects[ctx].onpointerenter = onpointerenterDefined ? onpointerenter : undefined;
+    GlobalEventHandlers_onpointerenter_Set: function(ctx, onpointerenter) {
+      spasm.objects[ctx].onpointerenter = onpointerenter;
     },
-    GlobalEventHandlers_onpointerenter_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onpointerenter);
+    GlobalEventHandlers_onpointerenter_Get: function(ctx) {
+      return spasm.objects[ctx].onpointerenter;
     },
-    GlobalEventHandlers_onpointerleave_Set: function(ctx, onpointerleaveDefined, onpointerleave) {
-      spasm.objects[ctx].onpointerleave = onpointerleaveDefined ? onpointerleave : undefined;
+    GlobalEventHandlers_onpointerleave_Set: function(ctx, onpointerleave) {
+      spasm.objects[ctx].onpointerleave = onpointerleave;
     },
-    GlobalEventHandlers_onpointerleave_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onpointerleave);
+    GlobalEventHandlers_onpointerleave_Get: function(ctx) {
+      return spasm.objects[ctx].onpointerleave;
     },
-    GlobalEventHandlers_ontouchstart_Set: function(ctx, ontouchstartDefined, ontouchstart) {
-      spasm.objects[ctx].ontouchstart = ontouchstartDefined ? ontouchstart : undefined;
+    GlobalEventHandlers_ontouchstart_Set: function(ctx, ontouchstart) {
+      spasm.objects[ctx].ontouchstart = ontouchstart;
     },
-    GlobalEventHandlers_ontouchstart_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].ontouchstart);
+    GlobalEventHandlers_ontouchstart_Get: function(ctx) {
+      return spasm.objects[ctx].ontouchstart;
     },
-    GlobalEventHandlers_ontouchend_Set: function(ctx, ontouchendDefined, ontouchend) {
-      spasm.objects[ctx].ontouchend = ontouchendDefined ? ontouchend : undefined;
+    GlobalEventHandlers_ontouchend_Set: function(ctx, ontouchend) {
+      spasm.objects[ctx].ontouchend = ontouchend;
     },
-    GlobalEventHandlers_ontouchend_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].ontouchend);
+    GlobalEventHandlers_ontouchend_Get: function(ctx) {
+      return spasm.objects[ctx].ontouchend;
     },
-    GlobalEventHandlers_ontouchmove_Set: function(ctx, ontouchmoveDefined, ontouchmove) {
-      spasm.objects[ctx].ontouchmove = ontouchmoveDefined ? ontouchmove : undefined;
+    GlobalEventHandlers_ontouchmove_Set: function(ctx, ontouchmove) {
+      spasm.objects[ctx].ontouchmove = ontouchmove;
     },
-    GlobalEventHandlers_ontouchmove_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].ontouchmove);
+    GlobalEventHandlers_ontouchmove_Get: function(ctx) {
+      return spasm.objects[ctx].ontouchmove;
     },
-    GlobalEventHandlers_ontouchcancel_Set: function(ctx, ontouchcancelDefined, ontouchcancel) {
-      spasm.objects[ctx].ontouchcancel = ontouchcancelDefined ? ontouchcancel : undefined;
+    GlobalEventHandlers_ontouchcancel_Set: function(ctx, ontouchcancel) {
+      spasm.objects[ctx].ontouchcancel = ontouchcancel;
     },
-    GlobalEventHandlers_ontouchcancel_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].ontouchcancel);
+    GlobalEventHandlers_ontouchcancel_Get: function(ctx) {
+      return spasm.objects[ctx].ontouchcancel;
     },
     NonElementParentNode_getElementById: function(rawResult, ctx, elementIdLen, elementIdPtr) {
       spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].getElementById(spasm.decode_string(elementIdLen, elementIdPtr)));
@@ -730,17 +745,17 @@ export default {
     Element_requestFullscreen: function(ctx, options) {
       return spasm.addObject(spasm.objects[ctx].requestFullscreen(spasm.objects[options]));
     },
-    Element_onfullscreenchange_Set: function(ctx, onfullscreenchangeDefined, onfullscreenchange) {
-      spasm.objects[ctx].onfullscreenchange = onfullscreenchangeDefined ? onfullscreenchange : undefined;
+    Element_onfullscreenchange_Set: function(ctx, onfullscreenchange) {
+      spasm.objects[ctx].onfullscreenchange = onfullscreenchange;
     },
-    Element_onfullscreenchange_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onfullscreenchange);
+    Element_onfullscreenchange_Get: function(ctx) {
+      return spasm.objects[ctx].onfullscreenchange;
     },
-    Element_onfullscreenerror_Set: function(ctx, onfullscreenerrorDefined, onfullscreenerror) {
-      spasm.objects[ctx].onfullscreenerror = onfullscreenerrorDefined ? onfullscreenerror : undefined;
+    Element_onfullscreenerror_Set: function(ctx, onfullscreenerror) {
+      spasm.objects[ctx].onfullscreenerror = onfullscreenerror;
     },
-    Element_onfullscreenerror_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onfullscreenerror);
+    Element_onfullscreenerror_Get: function(ctx) {
+      return spasm.objects[ctx].onfullscreenerror;
     },
     ParentNode_children_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].children);
@@ -1203,6 +1218,9 @@ export default {
     },
     ShadowRoot_host_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].host);
+    },
+    DocumentOrShadowRoot_fullscreenElement_Get: function(rawResult, ctx) {
+      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].fullscreenElement);
     },
     ShadowRootInit_mode_Set: function(ctx, mode) {
       spasm.objects[ctx].mode = spasm.decode_ShadowRootMode(mode);

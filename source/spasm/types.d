@@ -1,14 +1,17 @@
 module spasm.types;
 
-public import sumtype;
 public import optional;
+public import spasm.sumtype;
 
 pragma(LDC_no_moduleinfo);
 pragma(LDC_no_typeinfo);
 
 alias Handle = uint;
-alias JsHandle = uint;
-enum JsHandle invalidHandle = 0;
+struct JsHandle {
+  uint handle;
+  alias handle this;
+}
+enum JsHandle invalidHandle = JsHandle(0);
 alias EventHandle = uint;
 
 enum NodeType {
@@ -194,4 +197,123 @@ enum EventType {
 
 extern (C) {
   void doLog(uint val);
+}
+
+struct Any {
+  JsHandle handle;
+  alias handle this;
+}
+
+struct Promise(T) {
+  JsHandle handle;
+  alias handle this;
+}
+struct Sequence(T) {
+  JsHandle handle;
+  alias handle this;
+}
+struct TypedArray(T) {
+	JsHandle handle;
+	alias handle this;
+}
+struct Int8Array {
+	TypedArray!(byte) _array;
+	alias _array this;
+  this(JsHandle h) {
+    _array = TypedArray!(byte)(h);
+  }
+}
+struct Int16Array {
+	TypedArray!(short) _array;
+	alias _array this;
+  this(JsHandle h) {
+    _array = TypedArray!(short)(h);
+  }
+}
+struct Int32Array {
+	TypedArray!(int) _array;
+	alias _array this;
+  this(JsHandle h) {
+    _array = TypedArray!(int)(h);
+  }
+}
+struct Uint8Array {
+	TypedArray!(ubyte) _array;
+	alias _array this;
+  this(JsHandle h) {
+    _array = TypedArray!(ubyte)(h);
+  }
+}
+struct Uint16Array {
+	TypedArray!(ushort) _array;
+	alias _array this;
+  this(JsHandle h) {
+    _array = TypedArray!(ushort)(h);
+  }
+}
+struct Uint32Array {
+	TypedArray!(uint) _array;
+	alias _array this;
+  this(JsHandle h) {
+    _array = TypedArray!(uint)(h);
+  }
+}
+struct Float32Array {
+	TypedArray!(float) _array;
+	alias _array this;
+  this(JsHandle h) {
+    _array = TypedArray!(float)(h);
+  }
+}
+struct Float64Array {
+	TypedArray!(double) _array;
+	alias _array this;
+  this(JsHandle h) {
+    _array = TypedArray!(double)(h);
+  }
+}
+struct Uint8ClampedArray {
+	JsHandle handle;
+	alias handle this;
+}
+struct DataView {
+	JsHandle handle;
+	alias handle this;
+}
+struct ArrayBuffer {
+	JsHandle handle;
+	alias handle this;
+}
+struct FrozenArray(T) {
+  JsHandle handle;
+  alias handle this;
+}
+// TODO: for now animation is defined here, but when accepted we can use the idl (or newer) at https://www.w3.org/TR/2018/WD-web-animations-1-20181011
+struct Animation {
+  JsHandle handle;
+  alias handle this;
+}
+struct ReadableStream {
+  JsHandle handle;
+  alias handle this;
+}
+struct WritableStream {
+  JsHandle handle;
+  alias handle this;
+}
+struct Iterator(T) {
+  JsHandle handle;
+  alias handle this;
+}
+struct Record(T...) {
+  JsHandle handle;
+  alias handle this;
+}
+struct ArrayPair(T,U) {
+  JsHandle handle;
+  alias handle this;
+}
+struct JsObject {
+  JsHandle handle;
+  alias handle this;
 }

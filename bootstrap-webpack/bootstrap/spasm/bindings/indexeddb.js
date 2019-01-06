@@ -52,29 +52,29 @@ export default {
     IDBDatabase_deleteObjectStore: function(ctx, nameLen, namePtr) {
       spasm.objects[ctx].deleteObjectStore(spasm.decode_string(nameLen, namePtr));
     },
-    IDBDatabase_onabort_Set: function(ctx, onabortDefined, onabort) {
-      spasm.objects[ctx].onabort = onabortDefined ? onabort : undefined;
+    IDBDatabase_onabort_Set: function(ctx, onabort) {
+      spasm.objects[ctx].onabort = onabort;
     },
-    IDBDatabase_onabort_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onabort);
+    IDBDatabase_onabort_Get: function(ctx) {
+      return spasm.objects[ctx].onabort;
     },
-    IDBDatabase_onclose_Set: function(ctx, oncloseDefined, onclose) {
-      spasm.objects[ctx].onclose = oncloseDefined ? onclose : undefined;
+    IDBDatabase_onclose_Set: function(ctx, onclose) {
+      spasm.objects[ctx].onclose = onclose;
     },
-    IDBDatabase_onclose_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onclose);
+    IDBDatabase_onclose_Get: function(ctx) {
+      return spasm.objects[ctx].onclose;
     },
-    IDBDatabase_onerror_Set: function(ctx, onerrorDefined, onerror) {
-      spasm.objects[ctx].onerror = onerrorDefined ? onerror : undefined;
+    IDBDatabase_onerror_Set: function(ctx, onerror) {
+      spasm.objects[ctx].onerror = onerror;
     },
-    IDBDatabase_onerror_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onerror);
+    IDBDatabase_onerror_Get: function(ctx) {
+      return spasm.objects[ctx].onerror;
     },
-    IDBDatabase_onversionchange_Set: function(ctx, onversionchangeDefined, onversionchange) {
-      spasm.objects[ctx].onversionchange = onversionchangeDefined ? onversionchange : undefined;
+    IDBDatabase_onversionchange_Set: function(ctx, onversionchange) {
+      spasm.objects[ctx].onversionchange = onversionchange;
     },
-    IDBDatabase_onversionchange_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onversionchange);
+    IDBDatabase_onversionchange_Get: function(ctx) {
+      return spasm.objects[ctx].onversionchange;
     },
     IDBDatabaseInfo_name_Set: function(ctx, nameLen, namePtr) {
       spasm.objects[ctx].name = spasm.decode_string(nameLen, namePtr);
@@ -250,17 +250,17 @@ export default {
     IDBObjectStoreParameters_autoIncrement_Get: function(ctx) {
       return spasm.objects[ctx].autoIncrement;
     },
-    IDBOpenDBRequest_onblocked_Set: function(ctx, onblockedDefined, onblocked) {
-      spasm.objects[ctx].onblocked = onblockedDefined ? onblocked : undefined;
+    IDBOpenDBRequest_onblocked_Set: function(ctx, onblocked) {
+      spasm.objects[ctx].onblocked = onblocked;
     },
-    IDBOpenDBRequest_onblocked_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onblocked);
+    IDBOpenDBRequest_onblocked_Get: function(ctx) {
+      return spasm.objects[ctx].onblocked;
     },
-    IDBOpenDBRequest_onupgradeneeded_Set: function(ctx, onupgradeneededDefined, onupgradeneeded) {
-      spasm.objects[ctx].onupgradeneeded = onupgradeneededDefined ? onupgradeneeded : undefined;
+    IDBOpenDBRequest_onupgradeneeded_Set: function(ctx, onupgradeneeded) {
+      spasm.objects[ctx].onupgradeneeded = onupgradeneeded;
     },
-    IDBOpenDBRequest_onupgradeneeded_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onupgradeneeded);
+    IDBOpenDBRequest_onupgradeneeded_Get: function(ctx) {
+      return spasm.objects[ctx].onupgradeneeded;
     },
     IDBRequest_result_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].result);
@@ -277,17 +277,17 @@ export default {
     IDBRequest_readyState_Get: function(ctx) {
       return spasm.encode_IDBRequestReadyState(spasm.objects[ctx].readyState);
     },
-    IDBRequest_onsuccess_Set: function(ctx, onsuccessDefined, onsuccess) {
-      spasm.objects[ctx].onsuccess = onsuccessDefined ? onsuccess : undefined;
+    IDBRequest_onsuccess_Set: function(ctx, onsuccess) {
+      spasm.objects[ctx].onsuccess = onsuccess;
     },
-    IDBRequest_onsuccess_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onsuccess);
+    IDBRequest_onsuccess_Get: function(ctx) {
+      return spasm.objects[ctx].onsuccess;
     },
-    IDBRequest_onerror_Set: function(ctx, onerrorDefined, onerror) {
-      spasm.objects[ctx].onerror = onerrorDefined ? onerror : undefined;
+    IDBRequest_onerror_Set: function(ctx, onerror) {
+      spasm.objects[ctx].onerror = onerror;
     },
-    IDBRequest_onerror_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onerror);
+    IDBRequest_onerror_Get: function(ctx) {
+      return spasm.objects[ctx].onerror;
     },
     IDBTransaction_objectStoreNames_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].objectStoreNames);
@@ -307,23 +307,23 @@ export default {
     IDBTransaction_abort: function(ctx) {
       spasm.objects[ctx].abort();
     },
-    IDBTransaction_onabort_Set: function(ctx, onabortDefined, onabort) {
-      spasm.objects[ctx].onabort = onabortDefined ? onabort : undefined;
+    IDBTransaction_onabort_Set: function(ctx, onabort) {
+      spasm.objects[ctx].onabort = onabort;
     },
-    IDBTransaction_onabort_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onabort);
+    IDBTransaction_onabort_Get: function(ctx) {
+      return spasm.objects[ctx].onabort;
     },
-    IDBTransaction_oncomplete_Set: function(ctx, oncompleteDefined, oncomplete) {
-      spasm.objects[ctx].oncomplete = oncompleteDefined ? oncomplete : undefined;
+    IDBTransaction_oncomplete_Set: function(ctx, oncomplete) {
+      spasm.objects[ctx].oncomplete = oncomplete;
     },
-    IDBTransaction_oncomplete_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].oncomplete);
+    IDBTransaction_oncomplete_Get: function(ctx) {
+      return spasm.objects[ctx].oncomplete;
     },
-    IDBTransaction_onerror_Set: function(ctx, onerrorDefined, onerror) {
-      spasm.objects[ctx].onerror = onerrorDefined ? onerror : undefined;
+    IDBTransaction_onerror_Set: function(ctx, onerror) {
+      spasm.objects[ctx].onerror = onerror;
     },
-    IDBTransaction_onerror_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onerror);
+    IDBTransaction_onerror_Get: function(ctx) {
+      return spasm.objects[ctx].onerror;
     },
     IDBVersionChangeEvent_oldVersion_Get: function(ctx) {
       return spasm.objects[ctx].oldVersion;

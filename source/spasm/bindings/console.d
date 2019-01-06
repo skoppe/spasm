@@ -3,82 +3,82 @@ module spasm.bindings.console;
 import spasm.types;
 struct console {
   static:
-  void assert_(bool condition /* = false */, Any data) {
+  auto assert_(bool condition /* = false */, Any data) {
     console_assert(condition, data.handle);
   }
-  void clear() {
+  auto clear() {
     console_clear();
   }
-  void debug_(Any data) {
+  auto debug_(Any data) {
     console_debug(data.handle);
   }
-  void error(Any data) {
+  auto error(Any data) {
     console_error(data.handle);
   }
-  void info(Any data) {
+  auto info(Any data) {
     console_info(data.handle);
   }
-  void log(Any data) {
+  auto log(Any data) {
     console_log(data.handle);
   }
-  void table(Any tabularData, Sequence!(string) properties) {
+  auto table(Any tabularData, Sequence!(string) properties) {
     console_table(tabularData.handle, properties.handle);
   }
-  void trace(Any data) {
+  auto trace(Any data) {
     console_trace(data.handle);
   }
-  void warn(Any data) {
+  auto warn(Any data) {
     console_warn(data.handle);
   }
-  void dir(Any item, Optional!(Object) options) {
-    console_dir(item.handle, !options.empty, options.value.handle);
+  auto dir(Any item, Optional!(JsObject) options) {
+    console_dir(item.handle, !options.empty, options.front.handle);
   }
-  void dirxml(Any data) {
+  auto dirxml(Any data) {
     console_dirxml(data.handle);
   }
-  void count(string label /* = "default" */) {
+  auto count(string label /* = "default" */) {
     console_count(label);
   }
-  void countReset(string label /* = "default" */) {
+  auto countReset(string label /* = "default" */) {
     console_countReset(label);
   }
-  void group(Any data) {
+  auto group(Any data) {
     console_group(data.handle);
   }
-  void groupCollapsed(Any data) {
+  auto groupCollapsed(Any data) {
     console_groupCollapsed(data.handle);
   }
-  void groupEnd() {
+  auto groupEnd() {
     console_groupEnd();
   }
-  void time(string label /* = "default" */) {
+  auto time(string label /* = "default" */) {
     console_time(label);
   }
-  void timeLog(string label /* = "default" */, Any data) {
+  auto timeLog(string label /* = "default" */, Any data) {
     console_timeLog(label, data.handle);
   }
-  void timeEnd(string label /* = "default" */) {
+  auto timeEnd(string label /* = "default" */) {
     console_timeEnd(label);
   }
 }
 
 
-extern (C) void console_assert(bool, Any);
+extern (C) void console_assert(bool, JsHandle);
 extern (C) void console_clear();
-extern (C) void console_debug(Any);
-extern (C) void console_error(Any);
-extern (C) void console_info(Any);
-extern (C) void console_log(Any);
-extern (C) void console_table(Any, JsHandle);
-extern (C) void console_trace(Any);
-extern (C) void console_warn(Any);
-extern (C) void console_dir(Any, bool, JsHandle);
-extern (C) void console_dirxml(Any);
+extern (C) void console_debug(JsHandle);
+extern (C) void console_error(JsHandle);
+extern (C) void console_info(JsHandle);
+extern (C) void console_log(JsHandle);
+extern (C) void console_table(JsHandle, JsHandle);
+extern (C) void console_trace(JsHandle);
+extern (C) void console_warn(JsHandle);
+extern (C) void console_dir(JsHandle, bool, JsHandle);
+extern (C) void console_dirxml(JsHandle);
 extern (C) void console_count(string);
 extern (C) void console_countReset(string);
-extern (C) void console_group(Any);
-extern (C) void console_groupCollapsed(Any);
+extern (C) void console_group(JsHandle);
+extern (C) void console_groupCollapsed(JsHandle);
 extern (C) void console_groupEnd();
 extern (C) void console_time(string);
-extern (C) void console_timeLog(string, Any);
+extern (C) void console_timeLog(string, JsHandle);
 extern (C) void console_timeEnd(string);

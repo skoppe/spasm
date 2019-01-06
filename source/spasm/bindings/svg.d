@@ -1,83 +1,77 @@
 module spasm.bindings.svg;
 
 import spasm.types;
-import spasm.bindings.geometry : DOMMatrix;
-import spasm.bindings.geometry : DOMMatrixReadOnly;
-import spasm.bindings.geometry : DOMPoint;
-import spasm.bindings.geometry : DOMPointInit;
-import spasm.bindings.geometry : DOMPointReadOnly;
-import spasm.bindings.geometry : DOMRect;
-import spasm.bindings.geometry : DOMRectReadOnly;
-import spasm.bindings.html : DOMStringMap;
-import spasm.bindings.dom : DOMTokenList;
-import spasm.bindings.dom : Element;
-import spasm.bindings.html : EventHandler;
-import spasm.bindings.html : FocusOptions;
-import spasm.bindings.dom : NodeList;
-import spasm.bindings.cssom : StyleSheet;
+import spasm.bindings.cssom;
+import spasm.bindings.dom;
+import spasm.bindings.geometry;
+import spasm.bindings.html;
+import spasm.bindings.linkstyle;
 
 struct SVGAElement {
   SVGGraphicsElement _parent;
   alias _parent this;
-  SVGAnimatedString target() {
-    return SVGAnimatedString(SVGAElement_target_Get(handle));
+  this(JsHandle h) {
+    _parent = SVGGraphicsElement(h);
   }
-  void download(string download) {
-    SVGAElement_download_Set(handle, download);
+  auto target() {
+    return SVGAnimatedString(SVGAElement_target_Get(this._parent));
   }
-  string download() {
-    return SVGAElement_download_Get(handle);
+  auto download(string download) {
+    SVGAElement_download_Set(this._parent, download);
   }
-  void ping(string ping) {
-    SVGAElement_ping_Set(handle, ping.handle);
+  auto download() {
+    return SVGAElement_download_Get(this._parent);
   }
-  string ping() {
-    return string(SVGAElement_ping_Get(handle));
+  auto ping(string ping) {
+    SVGAElement_ping_Set(this._parent, ping);
   }
-  void rel(string rel) {
-    SVGAElement_rel_Set(handle, rel);
+  auto ping() {
+    return SVGAElement_ping_Get(this._parent);
   }
-  string rel() {
-    return SVGAElement_rel_Get(handle);
+  auto rel(string rel) {
+    SVGAElement_rel_Set(this._parent, rel);
   }
-  DOMTokenList relList() {
-    return DOMTokenList(SVGAElement_relList_Get(handle));
+  auto rel() {
+    return SVGAElement_rel_Get(this._parent);
   }
-  void hreflang(string hreflang) {
-    SVGAElement_hreflang_Set(handle, hreflang);
+  auto relList() {
+    return DOMTokenList(SVGAElement_relList_Get(this._parent));
   }
-  string hreflang() {
-    return SVGAElement_hreflang_Get(handle);
+  auto hreflang(string hreflang) {
+    SVGAElement_hreflang_Set(this._parent, hreflang);
   }
-  void type(string type) {
-    SVGAElement_type_Set(handle, type);
+  auto hreflang() {
+    return SVGAElement_hreflang_Get(this._parent);
   }
-  string type() {
-    return SVGAElement_type_Get(handle);
+  auto type(string type) {
+    SVGAElement_type_Set(this._parent, type);
   }
-  void text(string text) {
-    SVGAElement_text_Set(handle, text);
+  auto type() {
+    return SVGAElement_type_Get(this._parent);
   }
-  string text() {
-    return SVGAElement_text_Get(handle);
+  auto text(string text) {
+    SVGAElement_text_Set(this._parent, text);
   }
-  void referrerPolicy(string referrerPolicy) {
-    SVGAElement_referrerPolicy_Set(handle, referrerPolicy);
+  auto text() {
+    return SVGAElement_text_Get(this._parent);
   }
-  string referrerPolicy() {
-    return SVGAElement_referrerPolicy_Get(handle);
+  auto referrerPolicy(string referrerPolicy) {
+    SVGAElement_referrerPolicy_Set(this._parent, referrerPolicy);
   }
-  SVGAnimatedString href() {
-    return SVGAnimatedString(SVGURIReference_href_Get(handle));
+  auto referrerPolicy() {
+    return SVGAElement_referrerPolicy_Get(this._parent);
   }
-  void href(string href) {
-    HTMLHyperlinkElementUtils_href_Set(handle, href.handle);
+  auto href() {
+    return SVGAnimatedString(SVGURIReference_href_Get(this.handle));
   }
-  string href() {
-    return string(HTMLHyperlinkElementUtils_href_Get(handle));
+  auto href(string href) {
+    HTMLHyperlinkElementUtils_href_Set(this.handle, href);
   }
-  string origin() {
-    return string(HTMLHyperlinkElementUtils_origin_Get(handle));
+  auto href() {
+    return HTMLHyperlinkElementUtils_href_Get(this.handle);
+  }
+  auto origin() {
+    return HTMLHyperlinkElementUtils_origin_Get(this.handle);
   }
 }
 struct SVGAngle {
@@ -88,453 +82,486 @@ struct SVGAngle {
   enum ushort SVG_ANGLETYPE_DEG = 2;
   enum ushort SVG_ANGLETYPE_RAD = 3;
   enum ushort SVG_ANGLETYPE_GRAD = 4;
-  ushort unitType() {
-    return SVGAngle_unitType_Get(handle);
+  auto unitType() {
+    return SVGAngle_unitType_Get(this.handle);
   }
-  void value(float value) {
-    SVGAngle_value_Set(handle, value);
+  auto value(float value) {
+    SVGAngle_value_Set(this.handle, value);
   }
-  float value() {
-    return SVGAngle_value_Get(handle);
+  auto value() {
+    return SVGAngle_value_Get(this.handle);
   }
-  void valueInSpecifiedUnits(float valueInSpecifiedUnits) {
-    SVGAngle_valueInSpecifiedUnits_Set(handle, valueInSpecifiedUnits);
+  auto valueInSpecifiedUnits(float valueInSpecifiedUnits) {
+    SVGAngle_valueInSpecifiedUnits_Set(this.handle, valueInSpecifiedUnits);
   }
-  float valueInSpecifiedUnits() {
-    return SVGAngle_valueInSpecifiedUnits_Get(handle);
+  auto valueInSpecifiedUnits() {
+    return SVGAngle_valueInSpecifiedUnits_Get(this.handle);
   }
-  void valueAsString(string valueAsString) {
-    SVGAngle_valueAsString_Set(handle, valueAsString);
+  auto valueAsString(string valueAsString) {
+    SVGAngle_valueAsString_Set(this.handle, valueAsString);
   }
-  string valueAsString() {
-    return SVGAngle_valueAsString_Get(handle);
+  auto valueAsString() {
+    return SVGAngle_valueAsString_Get(this.handle);
   }
-  void newValueSpecifiedUnits(ushort unitType, float valueInSpecifiedUnits) {
-    SVGAngle_newValueSpecifiedUnits(handle, unitType, valueInSpecifiedUnits);
+  auto newValueSpecifiedUnits(ushort unitType, float valueInSpecifiedUnits) {
+    SVGAngle_newValueSpecifiedUnits(this.handle, unitType, valueInSpecifiedUnits);
   }
-  void convertToSpecifiedUnits(ushort unitType) {
-    SVGAngle_convertToSpecifiedUnits(handle, unitType);
+  auto convertToSpecifiedUnits(ushort unitType) {
+    SVGAngle_convertToSpecifiedUnits(this.handle, unitType);
   }
 }
 struct SVGAnimatedAngle {
   JsHandle handle;
   alias handle this;
-  SVGAngle baseVal() {
-    return SVGAngle(SVGAnimatedAngle_baseVal_Get(handle));
+  auto baseVal() {
+    return SVGAngle(SVGAnimatedAngle_baseVal_Get(this.handle));
   }
-  SVGAngle animVal() {
-    return SVGAngle(SVGAnimatedAngle_animVal_Get(handle));
+  auto animVal() {
+    return SVGAngle(SVGAnimatedAngle_animVal_Get(this.handle));
   }
 }
 struct SVGAnimatedBoolean {
   JsHandle handle;
   alias handle this;
-  void baseVal(bool baseVal) {
-    SVGAnimatedBoolean_baseVal_Set(handle, baseVal);
+  auto baseVal(bool baseVal) {
+    SVGAnimatedBoolean_baseVal_Set(this.handle, baseVal);
   }
-  bool baseVal() {
-    return SVGAnimatedBoolean_baseVal_Get(handle);
+  auto baseVal() {
+    return SVGAnimatedBoolean_baseVal_Get(this.handle);
   }
-  bool animVal() {
-    return SVGAnimatedBoolean_animVal_Get(handle);
+  auto animVal() {
+    return SVGAnimatedBoolean_animVal_Get(this.handle);
   }
 }
 struct SVGAnimatedEnumeration {
   JsHandle handle;
   alias handle this;
-  void baseVal(ushort baseVal) {
-    SVGAnimatedEnumeration_baseVal_Set(handle, baseVal);
+  auto baseVal(ushort baseVal) {
+    SVGAnimatedEnumeration_baseVal_Set(this.handle, baseVal);
   }
-  ushort baseVal() {
-    return SVGAnimatedEnumeration_baseVal_Get(handle);
+  auto baseVal() {
+    return SVGAnimatedEnumeration_baseVal_Get(this.handle);
   }
-  ushort animVal() {
-    return SVGAnimatedEnumeration_animVal_Get(handle);
+  auto animVal() {
+    return SVGAnimatedEnumeration_animVal_Get(this.handle);
   }
 }
 struct SVGAnimatedInteger {
   JsHandle handle;
   alias handle this;
-  void baseVal(int baseVal) {
-    SVGAnimatedInteger_baseVal_Set(handle, baseVal);
+  auto baseVal(int baseVal) {
+    SVGAnimatedInteger_baseVal_Set(this.handle, baseVal);
   }
-  int baseVal() {
-    return SVGAnimatedInteger_baseVal_Get(handle);
+  auto baseVal() {
+    return SVGAnimatedInteger_baseVal_Get(this.handle);
   }
-  int animVal() {
-    return SVGAnimatedInteger_animVal_Get(handle);
+  auto animVal() {
+    return SVGAnimatedInteger_animVal_Get(this.handle);
   }
 }
 struct SVGAnimatedLength {
   JsHandle handle;
   alias handle this;
-  SVGLength baseVal() {
-    return SVGLength(SVGAnimatedLength_baseVal_Get(handle));
+  auto baseVal() {
+    return SVGLength(SVGAnimatedLength_baseVal_Get(this.handle));
   }
-  SVGLength animVal() {
-    return SVGLength(SVGAnimatedLength_animVal_Get(handle));
+  auto animVal() {
+    return SVGLength(SVGAnimatedLength_animVal_Get(this.handle));
   }
 }
 struct SVGAnimatedLengthList {
   JsHandle handle;
   alias handle this;
-  SVGLengthList baseVal() {
-    return SVGLengthList(SVGAnimatedLengthList_baseVal_Get(handle));
+  auto baseVal() {
+    return SVGLengthList(SVGAnimatedLengthList_baseVal_Get(this.handle));
   }
-  SVGLengthList animVal() {
-    return SVGLengthList(SVGAnimatedLengthList_animVal_Get(handle));
+  auto animVal() {
+    return SVGLengthList(SVGAnimatedLengthList_animVal_Get(this.handle));
   }
 }
 struct SVGAnimatedNumber {
   JsHandle handle;
   alias handle this;
-  void baseVal(float baseVal) {
-    SVGAnimatedNumber_baseVal_Set(handle, baseVal);
+  auto baseVal(float baseVal) {
+    SVGAnimatedNumber_baseVal_Set(this.handle, baseVal);
   }
-  float baseVal() {
-    return SVGAnimatedNumber_baseVal_Get(handle);
+  auto baseVal() {
+    return SVGAnimatedNumber_baseVal_Get(this.handle);
   }
-  float animVal() {
-    return SVGAnimatedNumber_animVal_Get(handle);
+  auto animVal() {
+    return SVGAnimatedNumber_animVal_Get(this.handle);
   }
 }
 struct SVGAnimatedNumberList {
   JsHandle handle;
   alias handle this;
-  SVGNumberList baseVal() {
-    return SVGNumberList(SVGAnimatedNumberList_baseVal_Get(handle));
+  auto baseVal() {
+    return SVGNumberList(SVGAnimatedNumberList_baseVal_Get(this.handle));
   }
-  SVGNumberList animVal() {
-    return SVGNumberList(SVGAnimatedNumberList_animVal_Get(handle));
+  auto animVal() {
+    return SVGNumberList(SVGAnimatedNumberList_animVal_Get(this.handle));
   }
 }
 struct SVGAnimatedPreserveAspectRatio {
   JsHandle handle;
   alias handle this;
-  SVGPreserveAspectRatio baseVal() {
-    return SVGPreserveAspectRatio(SVGAnimatedPreserveAspectRatio_baseVal_Get(handle));
+  auto baseVal() {
+    return SVGPreserveAspectRatio(SVGAnimatedPreserveAspectRatio_baseVal_Get(this.handle));
   }
-  SVGPreserveAspectRatio animVal() {
-    return SVGPreserveAspectRatio(SVGAnimatedPreserveAspectRatio_animVal_Get(handle));
+  auto animVal() {
+    return SVGPreserveAspectRatio(SVGAnimatedPreserveAspectRatio_animVal_Get(this.handle));
   }
 }
 struct SVGAnimatedRect {
   JsHandle handle;
   alias handle this;
-  DOMRect baseVal() {
-    return DOMRect(SVGAnimatedRect_baseVal_Get(handle));
+  auto baseVal() {
+    return DOMRect(SVGAnimatedRect_baseVal_Get(this.handle));
   }
-  DOMRectReadOnly animVal() {
-    return DOMRectReadOnly(SVGAnimatedRect_animVal_Get(handle));
+  auto animVal() {
+    return DOMRectReadOnly(SVGAnimatedRect_animVal_Get(this.handle));
   }
 }
 struct SVGAnimatedString {
   JsHandle handle;
   alias handle this;
-  void baseVal(string baseVal) {
-    SVGAnimatedString_baseVal_Set(handle, baseVal);
+  auto baseVal(string baseVal) {
+    SVGAnimatedString_baseVal_Set(this.handle, baseVal);
   }
-  string baseVal() {
-    return SVGAnimatedString_baseVal_Get(handle);
+  auto baseVal() {
+    return SVGAnimatedString_baseVal_Get(this.handle);
   }
-  string animVal() {
-    return SVGAnimatedString_animVal_Get(handle);
+  auto animVal() {
+    return SVGAnimatedString_animVal_Get(this.handle);
   }
 }
 struct SVGAnimatedTransformList {
   JsHandle handle;
   alias handle this;
-  SVGTransformList baseVal() {
-    return SVGTransformList(SVGAnimatedTransformList_baseVal_Get(handle));
+  auto baseVal() {
+    return SVGTransformList(SVGAnimatedTransformList_baseVal_Get(this.handle));
   }
-  SVGTransformList animVal() {
-    return SVGTransformList(SVGAnimatedTransformList_animVal_Get(handle));
+  auto animVal() {
+    return SVGTransformList(SVGAnimatedTransformList_animVal_Get(this.handle));
   }
 }
 struct SVGBoundingBoxOptions {
   JsHandle handle;
   alias handle this;
-  void fill(bool fill) {
-    SVGBoundingBoxOptions_fill_Set(handle, fill);
+  auto fill(bool fill) {
+    SVGBoundingBoxOptions_fill_Set(this.handle, fill);
   }
-  bool fill() {
-    return SVGBoundingBoxOptions_fill_Get(handle);
+  auto fill() {
+    return SVGBoundingBoxOptions_fill_Get(this.handle);
   }
-  void stroke(bool stroke) {
-    SVGBoundingBoxOptions_stroke_Set(handle, stroke);
+  auto stroke(bool stroke) {
+    SVGBoundingBoxOptions_stroke_Set(this.handle, stroke);
   }
-  bool stroke() {
-    return SVGBoundingBoxOptions_stroke_Get(handle);
+  auto stroke() {
+    return SVGBoundingBoxOptions_stroke_Get(this.handle);
   }
-  void markers(bool markers) {
-    SVGBoundingBoxOptions_markers_Set(handle, markers);
+  auto markers(bool markers) {
+    SVGBoundingBoxOptions_markers_Set(this.handle, markers);
   }
-  bool markers() {
-    return SVGBoundingBoxOptions_markers_Get(handle);
+  auto markers() {
+    return SVGBoundingBoxOptions_markers_Get(this.handle);
   }
-  void clipped(bool clipped) {
-    SVGBoundingBoxOptions_clipped_Set(handle, clipped);
+  auto clipped(bool clipped) {
+    SVGBoundingBoxOptions_clipped_Set(this.handle, clipped);
   }
-  bool clipped() {
-    return SVGBoundingBoxOptions_clipped_Get(handle);
+  auto clipped() {
+    return SVGBoundingBoxOptions_clipped_Get(this.handle);
   }
 }
 struct SVGCircleElement {
   SVGGeometryElement _parent;
   alias _parent this;
-  SVGAnimatedLength cx() {
-    return SVGAnimatedLength(SVGCircleElement_cx_Get(handle));
+  this(JsHandle h) {
+    _parent = SVGGeometryElement(h);
   }
-  SVGAnimatedLength cy() {
-    return SVGAnimatedLength(SVGCircleElement_cy_Get(handle));
+  auto cx() {
+    return SVGAnimatedLength(SVGCircleElement_cx_Get(this._parent));
   }
-  SVGAnimatedLength r() {
-    return SVGAnimatedLength(SVGCircleElement_r_Get(handle));
+  auto cy() {
+    return SVGAnimatedLength(SVGCircleElement_cy_Get(this._parent));
+  }
+  auto r() {
+    return SVGAnimatedLength(SVGCircleElement_r_Get(this._parent));
   }
 }
 struct SVGDefsElement {
   SVGGraphicsElement _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = SVGGraphicsElement(h);
+  }
 }
 struct SVGDescElement {
   SVGElement _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = SVGElement(h);
+  }
 }
 struct SVGElement {
   Element _parent;
   alias _parent this;
-  SVGAnimatedString className() {
-    return SVGAnimatedString(SVGElement_className_Get(handle));
+  this(JsHandle h) {
+    _parent = Element(h);
   }
-  Optional!(SVGSVGElement) ownerSVGElement() {
-    return SVGElement_ownerSVGElement_Get(handle);
+  auto className() {
+    return SVGAnimatedString(SVGElement_className_Get(this._parent));
   }
-  Optional!(SVGElement) viewportElement() {
-    return SVGElement_viewportElement_Get(handle);
+  auto ownerSVGElement() {
+    return SVGElement_ownerSVGElement_Get(this._parent);
   }
-  void ongotpointercapture(EventHandler ongotpointercapture) {
-    GlobalEventHandlers_ongotpointercapture_Set(handle, !ongotpointercapture.empty, ongotpointercapture.value);
+  auto viewportElement() {
+    return SVGElement_viewportElement_Get(this._parent);
   }
-  EventHandler ongotpointercapture() {
-    return GlobalEventHandlers_ongotpointercapture_Get(handle);
+  auto ongotpointercapture(EventHandler ongotpointercapture) {
+    GlobalEventHandlers_ongotpointercapture_Set(this.handle, ongotpointercapture);
   }
-  void onlostpointercapture(EventHandler onlostpointercapture) {
-    GlobalEventHandlers_onlostpointercapture_Set(handle, !onlostpointercapture.empty, onlostpointercapture.value);
+  auto ongotpointercapture() {
+    return GlobalEventHandlers_ongotpointercapture_Get(this.handle);
   }
-  EventHandler onlostpointercapture() {
-    return GlobalEventHandlers_onlostpointercapture_Get(handle);
+  auto onlostpointercapture(EventHandler onlostpointercapture) {
+    GlobalEventHandlers_onlostpointercapture_Set(this.handle, onlostpointercapture);
   }
-  void onpointerdown(EventHandler onpointerdown) {
-    GlobalEventHandlers_onpointerdown_Set(handle, !onpointerdown.empty, onpointerdown.value);
+  auto onlostpointercapture() {
+    return GlobalEventHandlers_onlostpointercapture_Get(this.handle);
   }
-  EventHandler onpointerdown() {
-    return GlobalEventHandlers_onpointerdown_Get(handle);
+  auto onpointerdown(EventHandler onpointerdown) {
+    GlobalEventHandlers_onpointerdown_Set(this.handle, onpointerdown);
   }
-  void onpointermove(EventHandler onpointermove) {
-    GlobalEventHandlers_onpointermove_Set(handle, !onpointermove.empty, onpointermove.value);
+  auto onpointerdown() {
+    return GlobalEventHandlers_onpointerdown_Get(this.handle);
   }
-  EventHandler onpointermove() {
-    return GlobalEventHandlers_onpointermove_Get(handle);
+  auto onpointermove(EventHandler onpointermove) {
+    GlobalEventHandlers_onpointermove_Set(this.handle, onpointermove);
   }
-  void onpointerup(EventHandler onpointerup) {
-    GlobalEventHandlers_onpointerup_Set(handle, !onpointerup.empty, onpointerup.value);
+  auto onpointermove() {
+    return GlobalEventHandlers_onpointermove_Get(this.handle);
   }
-  EventHandler onpointerup() {
-    return GlobalEventHandlers_onpointerup_Get(handle);
+  auto onpointerup(EventHandler onpointerup) {
+    GlobalEventHandlers_onpointerup_Set(this.handle, onpointerup);
   }
-  void onpointercancel(EventHandler onpointercancel) {
-    GlobalEventHandlers_onpointercancel_Set(handle, !onpointercancel.empty, onpointercancel.value);
+  auto onpointerup() {
+    return GlobalEventHandlers_onpointerup_Get(this.handle);
   }
-  EventHandler onpointercancel() {
-    return GlobalEventHandlers_onpointercancel_Get(handle);
+  auto onpointercancel(EventHandler onpointercancel) {
+    GlobalEventHandlers_onpointercancel_Set(this.handle, onpointercancel);
   }
-  void onpointerover(EventHandler onpointerover) {
-    GlobalEventHandlers_onpointerover_Set(handle, !onpointerover.empty, onpointerover.value);
+  auto onpointercancel() {
+    return GlobalEventHandlers_onpointercancel_Get(this.handle);
   }
-  EventHandler onpointerover() {
-    return GlobalEventHandlers_onpointerover_Get(handle);
+  auto onpointerover(EventHandler onpointerover) {
+    GlobalEventHandlers_onpointerover_Set(this.handle, onpointerover);
   }
-  void onpointerout(EventHandler onpointerout) {
-    GlobalEventHandlers_onpointerout_Set(handle, !onpointerout.empty, onpointerout.value);
+  auto onpointerover() {
+    return GlobalEventHandlers_onpointerover_Get(this.handle);
   }
-  EventHandler onpointerout() {
-    return GlobalEventHandlers_onpointerout_Get(handle);
+  auto onpointerout(EventHandler onpointerout) {
+    GlobalEventHandlers_onpointerout_Set(this.handle, onpointerout);
   }
-  void onpointerenter(EventHandler onpointerenter) {
-    GlobalEventHandlers_onpointerenter_Set(handle, !onpointerenter.empty, onpointerenter.value);
+  auto onpointerout() {
+    return GlobalEventHandlers_onpointerout_Get(this.handle);
   }
-  EventHandler onpointerenter() {
-    return GlobalEventHandlers_onpointerenter_Get(handle);
+  auto onpointerenter(EventHandler onpointerenter) {
+    GlobalEventHandlers_onpointerenter_Set(this.handle, onpointerenter);
   }
-  void onpointerleave(EventHandler onpointerleave) {
-    GlobalEventHandlers_onpointerleave_Set(handle, !onpointerleave.empty, onpointerleave.value);
+  auto onpointerenter() {
+    return GlobalEventHandlers_onpointerenter_Get(this.handle);
   }
-  EventHandler onpointerleave() {
-    return GlobalEventHandlers_onpointerleave_Get(handle);
+  auto onpointerleave(EventHandler onpointerleave) {
+    GlobalEventHandlers_onpointerleave_Set(this.handle, onpointerleave);
   }
-  void ontouchstart(EventHandler ontouchstart) {
-    GlobalEventHandlers_ontouchstart_Set(handle, !ontouchstart.empty, ontouchstart.value);
+  auto onpointerleave() {
+    return GlobalEventHandlers_onpointerleave_Get(this.handle);
   }
-  EventHandler ontouchstart() {
-    return GlobalEventHandlers_ontouchstart_Get(handle);
+  auto ontouchstart(EventHandler ontouchstart) {
+    GlobalEventHandlers_ontouchstart_Set(this.handle, ontouchstart);
   }
-  void ontouchend(EventHandler ontouchend) {
-    GlobalEventHandlers_ontouchend_Set(handle, !ontouchend.empty, ontouchend.value);
+  auto ontouchstart() {
+    return GlobalEventHandlers_ontouchstart_Get(this.handle);
   }
-  EventHandler ontouchend() {
-    return GlobalEventHandlers_ontouchend_Get(handle);
+  auto ontouchend(EventHandler ontouchend) {
+    GlobalEventHandlers_ontouchend_Set(this.handle, ontouchend);
   }
-  void ontouchmove(EventHandler ontouchmove) {
-    GlobalEventHandlers_ontouchmove_Set(handle, !ontouchmove.empty, ontouchmove.value);
+  auto ontouchend() {
+    return GlobalEventHandlers_ontouchend_Get(this.handle);
   }
-  EventHandler ontouchmove() {
-    return GlobalEventHandlers_ontouchmove_Get(handle);
+  auto ontouchmove(EventHandler ontouchmove) {
+    GlobalEventHandlers_ontouchmove_Set(this.handle, ontouchmove);
   }
-  void ontouchcancel(EventHandler ontouchcancel) {
-    GlobalEventHandlers_ontouchcancel_Set(handle, !ontouchcancel.empty, ontouchcancel.value);
+  auto ontouchmove() {
+    return GlobalEventHandlers_ontouchmove_Get(this.handle);
   }
-  EventHandler ontouchcancel() {
-    return GlobalEventHandlers_ontouchcancel_Get(handle);
+  auto ontouchcancel(EventHandler ontouchcancel) {
+    GlobalEventHandlers_ontouchcancel_Set(this.handle, ontouchcancel);
   }
-  Optional!(SVGElement) correspondingElement() {
-    return SVGElementInstance_correspondingElement_Get(handle);
+  auto ontouchcancel() {
+    return GlobalEventHandlers_ontouchcancel_Get(this.handle);
   }
-  Optional!(SVGUseElement) correspondingUseElement() {
-    return SVGElementInstance_correspondingUseElement_Get(handle);
+  auto correspondingElement() {
+    return SVGElementInstance_correspondingElement_Get(this.handle);
   }
-  DOMStringMap dataset() {
-    return DOMStringMap(HTMLOrSVGElement_dataset_Get(handle));
+  auto correspondingUseElement() {
+    return SVGElementInstance_correspondingUseElement_Get(this.handle);
   }
-  void focus(FocusOptions options) {
-    HTMLOrSVGElement_focus(handle, options.handle);
+  auto dataset() {
+    return DOMStringMap(HTMLOrSVGElement_dataset_Get(this.handle));
   }
-  void blur() {
-    HTMLOrSVGElement_blur(handle);
+  auto focus(FocusOptions options) {
+    HTMLOrSVGElement_focus(this.handle, options.handle);
+  }
+  auto blur() {
+    HTMLOrSVGElement_blur(this.handle);
   }
 }
 struct SVGEllipseElement {
   SVGGeometryElement _parent;
   alias _parent this;
-  SVGAnimatedLength cx() {
-    return SVGAnimatedLength(SVGEllipseElement_cx_Get(handle));
+  this(JsHandle h) {
+    _parent = SVGGeometryElement(h);
   }
-  SVGAnimatedLength cy() {
-    return SVGAnimatedLength(SVGEllipseElement_cy_Get(handle));
+  auto cx() {
+    return SVGAnimatedLength(SVGEllipseElement_cx_Get(this._parent));
   }
-  SVGAnimatedLength rx() {
-    return SVGAnimatedLength(SVGEllipseElement_rx_Get(handle));
+  auto cy() {
+    return SVGAnimatedLength(SVGEllipseElement_cy_Get(this._parent));
   }
-  SVGAnimatedLength ry() {
-    return SVGAnimatedLength(SVGEllipseElement_ry_Get(handle));
+  auto rx() {
+    return SVGAnimatedLength(SVGEllipseElement_rx_Get(this._parent));
+  }
+  auto ry() {
+    return SVGAnimatedLength(SVGEllipseElement_ry_Get(this._parent));
   }
 }
 struct SVGForeignObjectElement {
   SVGGraphicsElement _parent;
   alias _parent this;
-  SVGAnimatedLength x() {
-    return SVGAnimatedLength(SVGForeignObjectElement_x_Get(handle));
+  this(JsHandle h) {
+    _parent = SVGGraphicsElement(h);
   }
-  SVGAnimatedLength y() {
-    return SVGAnimatedLength(SVGForeignObjectElement_y_Get(handle));
+  auto x() {
+    return SVGAnimatedLength(SVGForeignObjectElement_x_Get(this._parent));
   }
-  SVGAnimatedLength width() {
-    return SVGAnimatedLength(SVGForeignObjectElement_width_Get(handle));
+  auto y() {
+    return SVGAnimatedLength(SVGForeignObjectElement_y_Get(this._parent));
   }
-  SVGAnimatedLength height() {
-    return SVGAnimatedLength(SVGForeignObjectElement_height_Get(handle));
+  auto width() {
+    return SVGAnimatedLength(SVGForeignObjectElement_width_Get(this._parent));
+  }
+  auto height() {
+    return SVGAnimatedLength(SVGForeignObjectElement_height_Get(this._parent));
   }
 }
 struct SVGGElement {
   SVGGraphicsElement _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = SVGGraphicsElement(h);
+  }
 }
 struct SVGGeometryElement {
   SVGGraphicsElement _parent;
   alias _parent this;
-  SVGAnimatedNumber pathLength() {
-    return SVGAnimatedNumber(SVGGeometryElement_pathLength_Get(handle));
+  this(JsHandle h) {
+    _parent = SVGGraphicsElement(h);
   }
-  bool isPointInFill(DOMPointInit point) {
-    return SVGGeometryElement_isPointInFill(handle, point.handle);
+  auto pathLength() {
+    return SVGAnimatedNumber(SVGGeometryElement_pathLength_Get(this._parent));
   }
-  bool isPointInStroke(DOMPointInit point) {
-    return SVGGeometryElement_isPointInStroke(handle, point.handle);
+  auto isPointInFill(DOMPointInit point) {
+    return SVGGeometryElement_isPointInFill(this._parent, point.handle);
   }
-  float getTotalLength() {
-    return SVGGeometryElement_getTotalLength(handle);
+  auto isPointInStroke(DOMPointInit point) {
+    return SVGGeometryElement_isPointInStroke(this._parent, point.handle);
   }
-  DOMPoint getPointAtLength(float distance) {
-    return DOMPoint(SVGGeometryElement_getPointAtLength(handle, distance));
+  auto getTotalLength() {
+    return SVGGeometryElement_getTotalLength(this._parent);
+  }
+  auto getPointAtLength(float distance) {
+    return DOMPoint(SVGGeometryElement_getPointAtLength(this._parent, distance));
   }
 }
 struct SVGGradientElement {
   SVGElement _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = SVGElement(h);
+  }
   enum ushort SVG_SPREADMETHOD_UNKNOWN = 0;
   enum ushort SVG_SPREADMETHOD_PAD = 1;
   enum ushort SVG_SPREADMETHOD_REFLECT = 2;
   enum ushort SVG_SPREADMETHOD_REPEAT = 3;
-  SVGAnimatedEnumeration gradientUnits() {
-    return SVGAnimatedEnumeration(SVGGradientElement_gradientUnits_Get(handle));
+  auto gradientUnits() {
+    return SVGAnimatedEnumeration(SVGGradientElement_gradientUnits_Get(this._parent));
   }
-  SVGAnimatedTransformList gradientTransform() {
-    return SVGAnimatedTransformList(SVGGradientElement_gradientTransform_Get(handle));
+  auto gradientTransform() {
+    return SVGAnimatedTransformList(SVGGradientElement_gradientTransform_Get(this._parent));
   }
-  SVGAnimatedEnumeration spreadMethod() {
-    return SVGAnimatedEnumeration(SVGGradientElement_spreadMethod_Get(handle));
+  auto spreadMethod() {
+    return SVGAnimatedEnumeration(SVGGradientElement_spreadMethod_Get(this._parent));
   }
-  SVGAnimatedString href() {
-    return SVGAnimatedString(SVGURIReference_href_Get(handle));
+  auto href() {
+    return SVGAnimatedString(SVGURIReference_href_Get(this.handle));
   }
 }
 struct SVGGraphicsElement {
   SVGElement _parent;
   alias _parent this;
-  SVGAnimatedTransformList transform() {
-    return SVGAnimatedTransformList(SVGGraphicsElement_transform_Get(handle));
+  this(JsHandle h) {
+    _parent = SVGElement(h);
   }
-  DOMRect getBBox(SVGBoundingBoxOptions options) {
-    return DOMRect(SVGGraphicsElement_getBBox(handle, options.handle));
+  auto transform() {
+    return SVGAnimatedTransformList(SVGGraphicsElement_transform_Get(this._parent));
   }
-  Optional!(DOMMatrix) getCTM() {
-    return SVGGraphicsElement_getCTM(handle);
+  auto getBBox(SVGBoundingBoxOptions options) {
+    return DOMRect(SVGGraphicsElement_getBBox(this._parent, options.handle));
   }
-  Optional!(DOMMatrix) getScreenCTM() {
-    return SVGGraphicsElement_getScreenCTM(handle);
+  auto getCTM() {
+    return SVGGraphicsElement_getCTM(this._parent);
   }
-  SVGStringList requiredExtensions() {
-    return SVGStringList(SVGTests_requiredExtensions_Get(handle));
+  auto getScreenCTM() {
+    return SVGGraphicsElement_getScreenCTM(this._parent);
   }
-  SVGStringList systemLanguage() {
-    return SVGStringList(SVGTests_systemLanguage_Get(handle));
+  auto requiredExtensions() {
+    return SVGStringList(SVGTests_requiredExtensions_Get(this.handle));
+  }
+  auto systemLanguage() {
+    return SVGStringList(SVGTests_systemLanguage_Get(this.handle));
   }
 }
 struct SVGImageElement {
   SVGGraphicsElement _parent;
   alias _parent this;
-  SVGAnimatedLength x() {
-    return SVGAnimatedLength(SVGImageElement_x_Get(handle));
+  this(JsHandle h) {
+    _parent = SVGGraphicsElement(h);
   }
-  SVGAnimatedLength y() {
-    return SVGAnimatedLength(SVGImageElement_y_Get(handle));
+  auto x() {
+    return SVGAnimatedLength(SVGImageElement_x_Get(this._parent));
   }
-  SVGAnimatedLength width() {
-    return SVGAnimatedLength(SVGImageElement_width_Get(handle));
+  auto y() {
+    return SVGAnimatedLength(SVGImageElement_y_Get(this._parent));
   }
-  SVGAnimatedLength height() {
-    return SVGAnimatedLength(SVGImageElement_height_Get(handle));
+  auto width() {
+    return SVGAnimatedLength(SVGImageElement_width_Get(this._parent));
   }
-  SVGAnimatedPreserveAspectRatio preserveAspectRatio() {
-    return SVGAnimatedPreserveAspectRatio(SVGImageElement_preserveAspectRatio_Get(handle));
+  auto height() {
+    return SVGAnimatedLength(SVGImageElement_height_Get(this._parent));
   }
-  void crossOrigin(Optional!(string) crossOrigin) {
-    SVGImageElement_crossOrigin_Set(handle, !crossOrigin.empty, crossOrigin.value);
+  auto preserveAspectRatio() {
+    return SVGAnimatedPreserveAspectRatio(SVGImageElement_preserveAspectRatio_Get(this._parent));
   }
-  Optional!(string) crossOrigin() {
-    return SVGImageElement_crossOrigin_Get(handle);
+  auto crossOrigin(Optional!(string) crossOrigin) {
+    SVGImageElement_crossOrigin_Set(this._parent, !crossOrigin.empty, crossOrigin.front);
   }
-  SVGAnimatedString href() {
-    return SVGAnimatedString(SVGURIReference_href_Get(handle));
+  auto crossOrigin() {
+    return SVGImageElement_crossOrigin_Get(this._parent);
+  }
+  auto href() {
+    return SVGAnimatedString(SVGURIReference_href_Get(this.handle));
   }
 }
 struct SVGLength {
@@ -551,296 +578,320 @@ struct SVGLength {
   enum ushort SVG_LENGTHTYPE_IN = 8;
   enum ushort SVG_LENGTHTYPE_PT = 9;
   enum ushort SVG_LENGTHTYPE_PC = 10;
-  ushort unitType() {
-    return SVGLength_unitType_Get(handle);
+  auto unitType() {
+    return SVGLength_unitType_Get(this.handle);
   }
-  void value(float value) {
-    SVGLength_value_Set(handle, value);
+  auto value(float value) {
+    SVGLength_value_Set(this.handle, value);
   }
-  float value() {
-    return SVGLength_value_Get(handle);
+  auto value() {
+    return SVGLength_value_Get(this.handle);
   }
-  void valueInSpecifiedUnits(float valueInSpecifiedUnits) {
-    SVGLength_valueInSpecifiedUnits_Set(handle, valueInSpecifiedUnits);
+  auto valueInSpecifiedUnits(float valueInSpecifiedUnits) {
+    SVGLength_valueInSpecifiedUnits_Set(this.handle, valueInSpecifiedUnits);
   }
-  float valueInSpecifiedUnits() {
-    return SVGLength_valueInSpecifiedUnits_Get(handle);
+  auto valueInSpecifiedUnits() {
+    return SVGLength_valueInSpecifiedUnits_Get(this.handle);
   }
-  void valueAsString(string valueAsString) {
-    SVGLength_valueAsString_Set(handle, valueAsString);
+  auto valueAsString(string valueAsString) {
+    SVGLength_valueAsString_Set(this.handle, valueAsString);
   }
-  string valueAsString() {
-    return SVGLength_valueAsString_Get(handle);
+  auto valueAsString() {
+    return SVGLength_valueAsString_Get(this.handle);
   }
-  void newValueSpecifiedUnits(ushort unitType, float valueInSpecifiedUnits) {
-    SVGLength_newValueSpecifiedUnits(handle, unitType, valueInSpecifiedUnits);
+  auto newValueSpecifiedUnits(ushort unitType, float valueInSpecifiedUnits) {
+    SVGLength_newValueSpecifiedUnits(this.handle, unitType, valueInSpecifiedUnits);
   }
-  void convertToSpecifiedUnits(ushort unitType) {
-    SVGLength_convertToSpecifiedUnits(handle, unitType);
+  auto convertToSpecifiedUnits(ushort unitType) {
+    SVGLength_convertToSpecifiedUnits(this.handle, unitType);
   }
 }
 struct SVGLengthList {
   JsHandle handle;
   alias handle this;
-  uint length() {
-    return SVGLengthList_length_Get(handle);
+  auto length() {
+    return SVGLengthList_length_Get(this.handle);
   }
-  uint numberOfItems() {
-    return SVGLengthList_numberOfItems_Get(handle);
+  auto numberOfItems() {
+    return SVGLengthList_numberOfItems_Get(this.handle);
   }
-  void clear() {
-    SVGLengthList_clear(handle);
+  auto clear() {
+    SVGLengthList_clear(this.handle);
   }
-  SVGLength initialize(SVGLength newItem) {
-    return SVGLength(SVGLengthList_initialize(handle, newItem.handle));
+  auto initialize(SVGLength newItem) {
+    return SVGLength(SVGLengthList_initialize(this.handle, newItem.handle));
   }
-  SVGLength getItem(uint index) {
-    return SVGLength(SVGLengthList_getItem_getter(handle, index));
+  auto getItem(uint index) {
+    return SVGLength(SVGLengthList_getItem_getter(this.handle, index));
   }
-  SVGLength insertItemBefore(SVGLength newItem, uint index) {
-    return SVGLength(SVGLengthList_insertItemBefore(handle, newItem.handle, index));
+  auto insertItemBefore(SVGLength newItem, uint index) {
+    return SVGLength(SVGLengthList_insertItemBefore(this.handle, newItem.handle, index));
   }
-  SVGLength replaceItem(SVGLength newItem, uint index) {
-    return SVGLength(SVGLengthList_replaceItem(handle, newItem.handle, index));
+  auto replaceItem(SVGLength newItem, uint index) {
+    return SVGLength(SVGLengthList_replaceItem(this.handle, newItem.handle, index));
   }
-  SVGLength removeItem(uint index) {
-    return SVGLength(SVGLengthList_removeItem(handle, index));
+  auto removeItem(uint index) {
+    return SVGLength(SVGLengthList_removeItem(this.handle, index));
   }
-  SVGLength appendItem(SVGLength newItem) {
-    return SVGLength(SVGLengthList_appendItem(handle, newItem.handle));
+  auto appendItem(SVGLength newItem) {
+    return SVGLength(SVGLengthList_appendItem(this.handle, newItem.handle));
   }
-  void opIndexAssign(SVGLength newItem, uint index) {
-    SVGLengthList_setter__uint_JsHandle(handle, index, newItem.handle);
+  auto opIndexAssign(SVGLength newItem, uint index) {
+    SVGLengthList_setter__uint_JsHandle(this.handle, index, newItem.handle);
   }
-  void opDispatch(uint index)(SVGLength newItem) {
-    SVGLengthList_setter__uint_JsHandle(handle, index, newItem.handle);
+  auto opDispatch(uint index)(SVGLength newItem) {
+    SVGLengthList_setter__uint_JsHandle(this.handle, index, newItem.handle);
   }
 }
 struct SVGLineElement {
   SVGGeometryElement _parent;
   alias _parent this;
-  SVGAnimatedLength x1() {
-    return SVGAnimatedLength(SVGLineElement_x1_Get(handle));
+  this(JsHandle h) {
+    _parent = SVGGeometryElement(h);
   }
-  SVGAnimatedLength y1() {
-    return SVGAnimatedLength(SVGLineElement_y1_Get(handle));
+  auto x1() {
+    return SVGAnimatedLength(SVGLineElement_x1_Get(this._parent));
   }
-  SVGAnimatedLength x2() {
-    return SVGAnimatedLength(SVGLineElement_x2_Get(handle));
+  auto y1() {
+    return SVGAnimatedLength(SVGLineElement_y1_Get(this._parent));
   }
-  SVGAnimatedLength y2() {
-    return SVGAnimatedLength(SVGLineElement_y2_Get(handle));
+  auto x2() {
+    return SVGAnimatedLength(SVGLineElement_x2_Get(this._parent));
+  }
+  auto y2() {
+    return SVGAnimatedLength(SVGLineElement_y2_Get(this._parent));
   }
 }
 struct SVGLinearGradientElement {
   SVGGradientElement _parent;
   alias _parent this;
-  SVGAnimatedLength x1() {
-    return SVGAnimatedLength(SVGLinearGradientElement_x1_Get(handle));
+  this(JsHandle h) {
+    _parent = SVGGradientElement(h);
   }
-  SVGAnimatedLength y1() {
-    return SVGAnimatedLength(SVGLinearGradientElement_y1_Get(handle));
+  auto x1() {
+    return SVGAnimatedLength(SVGLinearGradientElement_x1_Get(this._parent));
   }
-  SVGAnimatedLength x2() {
-    return SVGAnimatedLength(SVGLinearGradientElement_x2_Get(handle));
+  auto y1() {
+    return SVGAnimatedLength(SVGLinearGradientElement_y1_Get(this._parent));
   }
-  SVGAnimatedLength y2() {
-    return SVGAnimatedLength(SVGLinearGradientElement_y2_Get(handle));
+  auto x2() {
+    return SVGAnimatedLength(SVGLinearGradientElement_x2_Get(this._parent));
+  }
+  auto y2() {
+    return SVGAnimatedLength(SVGLinearGradientElement_y2_Get(this._parent));
   }
 }
 struct SVGMarkerElement {
   SVGElement _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = SVGElement(h);
+  }
   enum ushort SVG_MARKERUNITS_UNKNOWN = 0;
   enum ushort SVG_MARKERUNITS_USERSPACEONUSE = 1;
   enum ushort SVG_MARKERUNITS_STROKEWIDTH = 2;
   enum ushort SVG_MARKER_ORIENT_UNKNOWN = 0;
   enum ushort SVG_MARKER_ORIENT_AUTO = 1;
   enum ushort SVG_MARKER_ORIENT_ANGLE = 2;
-  SVGAnimatedLength refX() {
-    return SVGAnimatedLength(SVGMarkerElement_refX_Get(handle));
+  auto refX() {
+    return SVGAnimatedLength(SVGMarkerElement_refX_Get(this._parent));
   }
-  SVGAnimatedLength refY() {
-    return SVGAnimatedLength(SVGMarkerElement_refY_Get(handle));
+  auto refY() {
+    return SVGAnimatedLength(SVGMarkerElement_refY_Get(this._parent));
   }
-  SVGAnimatedEnumeration markerUnits() {
-    return SVGAnimatedEnumeration(SVGMarkerElement_markerUnits_Get(handle));
+  auto markerUnits() {
+    return SVGAnimatedEnumeration(SVGMarkerElement_markerUnits_Get(this._parent));
   }
-  SVGAnimatedLength markerWidth() {
-    return SVGAnimatedLength(SVGMarkerElement_markerWidth_Get(handle));
+  auto markerWidth() {
+    return SVGAnimatedLength(SVGMarkerElement_markerWidth_Get(this._parent));
   }
-  SVGAnimatedLength markerHeight() {
-    return SVGAnimatedLength(SVGMarkerElement_markerHeight_Get(handle));
+  auto markerHeight() {
+    return SVGAnimatedLength(SVGMarkerElement_markerHeight_Get(this._parent));
   }
-  SVGAnimatedEnumeration orientType() {
-    return SVGAnimatedEnumeration(SVGMarkerElement_orientType_Get(handle));
+  auto orientType() {
+    return SVGAnimatedEnumeration(SVGMarkerElement_orientType_Get(this._parent));
   }
-  SVGAnimatedAngle orientAngle() {
-    return SVGAnimatedAngle(SVGMarkerElement_orientAngle_Get(handle));
+  auto orientAngle() {
+    return SVGAnimatedAngle(SVGMarkerElement_orientAngle_Get(this._parent));
   }
-  void orient(string orient) {
-    SVGMarkerElement_orient_Set(handle, orient);
+  auto orient(string orient) {
+    SVGMarkerElement_orient_Set(this._parent, orient);
   }
-  string orient() {
-    return SVGMarkerElement_orient_Get(handle);
+  auto orient() {
+    return SVGMarkerElement_orient_Get(this._parent);
   }
-  void setOrientToAuto() {
-    SVGMarkerElement_setOrientToAuto(handle);
+  auto setOrientToAuto() {
+    SVGMarkerElement_setOrientToAuto(this._parent);
   }
-  void setOrientToAngle(SVGAngle angle) {
-    SVGMarkerElement_setOrientToAngle(handle, angle.handle);
+  auto setOrientToAngle(SVGAngle angle) {
+    SVGMarkerElement_setOrientToAngle(this._parent, angle.handle);
   }
-  SVGAnimatedRect viewBox() {
-    return SVGAnimatedRect(SVGFitToViewBox_viewBox_Get(handle));
+  auto viewBox() {
+    return SVGAnimatedRect(SVGFitToViewBox_viewBox_Get(this.handle));
   }
-  SVGAnimatedPreserveAspectRatio preserveAspectRatio() {
-    return SVGAnimatedPreserveAspectRatio(SVGFitToViewBox_preserveAspectRatio_Get(handle));
+  auto preserveAspectRatio() {
+    return SVGAnimatedPreserveAspectRatio(SVGFitToViewBox_preserveAspectRatio_Get(this.handle));
   }
 }
 struct SVGMetadataElement {
   SVGElement _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = SVGElement(h);
+  }
 }
 struct SVGNumber {
   JsHandle handle;
   alias handle this;
-  void value(float value) {
-    SVGNumber_value_Set(handle, value);
+  auto value(float value) {
+    SVGNumber_value_Set(this.handle, value);
   }
-  float value() {
-    return SVGNumber_value_Get(handle);
+  auto value() {
+    return SVGNumber_value_Get(this.handle);
   }
 }
 struct SVGNumberList {
   JsHandle handle;
   alias handle this;
-  uint length() {
-    return SVGNumberList_length_Get(handle);
+  auto length() {
+    return SVGNumberList_length_Get(this.handle);
   }
-  uint numberOfItems() {
-    return SVGNumberList_numberOfItems_Get(handle);
+  auto numberOfItems() {
+    return SVGNumberList_numberOfItems_Get(this.handle);
   }
-  void clear() {
-    SVGNumberList_clear(handle);
+  auto clear() {
+    SVGNumberList_clear(this.handle);
   }
-  SVGNumber initialize(SVGNumber newItem) {
-    return SVGNumber(SVGNumberList_initialize(handle, newItem.handle));
+  auto initialize(SVGNumber newItem) {
+    return SVGNumber(SVGNumberList_initialize(this.handle, newItem.handle));
   }
-  SVGNumber getItem(uint index) {
-    return SVGNumber(SVGNumberList_getItem_getter(handle, index));
+  auto getItem(uint index) {
+    return SVGNumber(SVGNumberList_getItem_getter(this.handle, index));
   }
-  SVGNumber insertItemBefore(SVGNumber newItem, uint index) {
-    return SVGNumber(SVGNumberList_insertItemBefore(handle, newItem.handle, index));
+  auto insertItemBefore(SVGNumber newItem, uint index) {
+    return SVGNumber(SVGNumberList_insertItemBefore(this.handle, newItem.handle, index));
   }
-  SVGNumber replaceItem(SVGNumber newItem, uint index) {
-    return SVGNumber(SVGNumberList_replaceItem(handle, newItem.handle, index));
+  auto replaceItem(SVGNumber newItem, uint index) {
+    return SVGNumber(SVGNumberList_replaceItem(this.handle, newItem.handle, index));
   }
-  SVGNumber removeItem(uint index) {
-    return SVGNumber(SVGNumberList_removeItem(handle, index));
+  auto removeItem(uint index) {
+    return SVGNumber(SVGNumberList_removeItem(this.handle, index));
   }
-  SVGNumber appendItem(SVGNumber newItem) {
-    return SVGNumber(SVGNumberList_appendItem(handle, newItem.handle));
+  auto appendItem(SVGNumber newItem) {
+    return SVGNumber(SVGNumberList_appendItem(this.handle, newItem.handle));
   }
-  void opIndexAssign(SVGNumber newItem, uint index) {
-    SVGNumberList_setter__uint_JsHandle(handle, index, newItem.handle);
+  auto opIndexAssign(SVGNumber newItem, uint index) {
+    SVGNumberList_setter__uint_JsHandle(this.handle, index, newItem.handle);
   }
-  void opDispatch(uint index)(SVGNumber newItem) {
-    SVGNumberList_setter__uint_JsHandle(handle, index, newItem.handle);
+  auto opDispatch(uint index)(SVGNumber newItem) {
+    SVGNumberList_setter__uint_JsHandle(this.handle, index, newItem.handle);
   }
 }
 struct SVGPathElement {
   SVGGeometryElement _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = SVGGeometryElement(h);
+  }
 }
 struct SVGPatternElement {
   SVGElement _parent;
   alias _parent this;
-  SVGAnimatedEnumeration patternUnits() {
-    return SVGAnimatedEnumeration(SVGPatternElement_patternUnits_Get(handle));
+  this(JsHandle h) {
+    _parent = SVGElement(h);
   }
-  SVGAnimatedEnumeration patternContentUnits() {
-    return SVGAnimatedEnumeration(SVGPatternElement_patternContentUnits_Get(handle));
+  auto patternUnits() {
+    return SVGAnimatedEnumeration(SVGPatternElement_patternUnits_Get(this._parent));
   }
-  SVGAnimatedTransformList patternTransform() {
-    return SVGAnimatedTransformList(SVGPatternElement_patternTransform_Get(handle));
+  auto patternContentUnits() {
+    return SVGAnimatedEnumeration(SVGPatternElement_patternContentUnits_Get(this._parent));
   }
-  SVGAnimatedLength x() {
-    return SVGAnimatedLength(SVGPatternElement_x_Get(handle));
+  auto patternTransform() {
+    return SVGAnimatedTransformList(SVGPatternElement_patternTransform_Get(this._parent));
   }
-  SVGAnimatedLength y() {
-    return SVGAnimatedLength(SVGPatternElement_y_Get(handle));
+  auto x() {
+    return SVGAnimatedLength(SVGPatternElement_x_Get(this._parent));
   }
-  SVGAnimatedLength width() {
-    return SVGAnimatedLength(SVGPatternElement_width_Get(handle));
+  auto y() {
+    return SVGAnimatedLength(SVGPatternElement_y_Get(this._parent));
   }
-  SVGAnimatedLength height() {
-    return SVGAnimatedLength(SVGPatternElement_height_Get(handle));
+  auto width() {
+    return SVGAnimatedLength(SVGPatternElement_width_Get(this._parent));
   }
-  SVGAnimatedRect viewBox() {
-    return SVGAnimatedRect(SVGFitToViewBox_viewBox_Get(handle));
+  auto height() {
+    return SVGAnimatedLength(SVGPatternElement_height_Get(this._parent));
   }
-  SVGAnimatedPreserveAspectRatio preserveAspectRatio() {
-    return SVGAnimatedPreserveAspectRatio(SVGFitToViewBox_preserveAspectRatio_Get(handle));
+  auto viewBox() {
+    return SVGAnimatedRect(SVGFitToViewBox_viewBox_Get(this.handle));
   }
-  SVGAnimatedString href() {
-    return SVGAnimatedString(SVGURIReference_href_Get(handle));
+  auto preserveAspectRatio() {
+    return SVGAnimatedPreserveAspectRatio(SVGFitToViewBox_preserveAspectRatio_Get(this.handle));
+  }
+  auto href() {
+    return SVGAnimatedString(SVGURIReference_href_Get(this.handle));
   }
 }
 struct SVGPointList {
   JsHandle handle;
   alias handle this;
-  uint length() {
-    return SVGPointList_length_Get(handle);
+  auto length() {
+    return SVGPointList_length_Get(this.handle);
   }
-  uint numberOfItems() {
-    return SVGPointList_numberOfItems_Get(handle);
+  auto numberOfItems() {
+    return SVGPointList_numberOfItems_Get(this.handle);
   }
-  void clear() {
-    SVGPointList_clear(handle);
+  auto clear() {
+    SVGPointList_clear(this.handle);
   }
-  DOMPoint initialize(DOMPoint newItem) {
-    return DOMPoint(SVGPointList_initialize(handle, newItem.handle));
+  auto initialize(DOMPoint newItem) {
+    return DOMPoint(SVGPointList_initialize(this.handle, newItem.handle));
   }
-  DOMPoint getItem(uint index) {
-    return DOMPoint(SVGPointList_getItem_getter(handle, index));
+  auto getItem(uint index) {
+    return DOMPoint(SVGPointList_getItem_getter(this.handle, index));
   }
-  DOMPoint insertItemBefore(DOMPoint newItem, uint index) {
-    return DOMPoint(SVGPointList_insertItemBefore(handle, newItem.handle, index));
+  auto insertItemBefore(DOMPoint newItem, uint index) {
+    return DOMPoint(SVGPointList_insertItemBefore(this.handle, newItem.handle, index));
   }
-  DOMPoint replaceItem(DOMPoint newItem, uint index) {
-    return DOMPoint(SVGPointList_replaceItem(handle, newItem.handle, index));
+  auto replaceItem(DOMPoint newItem, uint index) {
+    return DOMPoint(SVGPointList_replaceItem(this.handle, newItem.handle, index));
   }
-  DOMPoint removeItem(uint index) {
-    return DOMPoint(SVGPointList_removeItem(handle, index));
+  auto removeItem(uint index) {
+    return DOMPoint(SVGPointList_removeItem(this.handle, index));
   }
-  DOMPoint appendItem(DOMPoint newItem) {
-    return DOMPoint(SVGPointList_appendItem(handle, newItem.handle));
+  auto appendItem(DOMPoint newItem) {
+    return DOMPoint(SVGPointList_appendItem(this.handle, newItem.handle));
   }
-  void opIndexAssign(DOMPoint newItem, uint index) {
-    SVGPointList_setter__uint_JsHandle(handle, index, newItem.handle);
+  auto opIndexAssign(DOMPoint newItem, uint index) {
+    SVGPointList_setter__uint_JsHandle(this.handle, index, newItem.handle);
   }
-  void opDispatch(uint index)(DOMPoint newItem) {
-    SVGPointList_setter__uint_JsHandle(handle, index, newItem.handle);
+  auto opDispatch(uint index)(DOMPoint newItem) {
+    SVGPointList_setter__uint_JsHandle(this.handle, index, newItem.handle);
   }
 }
 struct SVGPolygonElement {
   SVGGeometryElement _parent;
   alias _parent this;
-  SVGPointList points() {
-    return SVGPointList(SVGAnimatedPoints_points_Get(handle));
+  this(JsHandle h) {
+    _parent = SVGGeometryElement(h);
   }
-  SVGPointList animatedPoints() {
-    return SVGPointList(SVGAnimatedPoints_animatedPoints_Get(handle));
+  auto points() {
+    return SVGPointList(SVGAnimatedPoints_points_Get(this.handle));
+  }
+  auto animatedPoints() {
+    return SVGPointList(SVGAnimatedPoints_animatedPoints_Get(this.handle));
   }
 }
 struct SVGPolylineElement {
   SVGGeometryElement _parent;
   alias _parent this;
-  SVGPointList points() {
-    return SVGPointList(SVGAnimatedPoints_points_Get(handle));
+  this(JsHandle h) {
+    _parent = SVGGeometryElement(h);
   }
-  SVGPointList animatedPoints() {
-    return SVGPointList(SVGAnimatedPoints_animatedPoints_Get(handle));
+  auto points() {
+    return SVGPointList(SVGAnimatedPoints_points_Get(this.handle));
+  }
+  auto animatedPoints() {
+    return SVGPointList(SVGAnimatedPoints_animatedPoints_Get(this.handle));
   }
 }
 struct SVGPreserveAspectRatio {
@@ -860,146 +911,155 @@ struct SVGPreserveAspectRatio {
   enum ushort SVG_MEETORSLICE_UNKNOWN = 0;
   enum ushort SVG_MEETORSLICE_MEET = 1;
   enum ushort SVG_MEETORSLICE_SLICE = 2;
-  void align_(ushort align_) {
-    SVGPreserveAspectRatio_align_Set(handle, align_);
+  auto align_(ushort align_) {
+    SVGPreserveAspectRatio_align_Set(this.handle, align_);
   }
-  ushort align_() {
-    return SVGPreserveAspectRatio_align_Get(handle);
+  auto align_() {
+    return SVGPreserveAspectRatio_align_Get(this.handle);
   }
-  void meetOrSlice(ushort meetOrSlice) {
-    SVGPreserveAspectRatio_meetOrSlice_Set(handle, meetOrSlice);
+  auto meetOrSlice(ushort meetOrSlice) {
+    SVGPreserveAspectRatio_meetOrSlice_Set(this.handle, meetOrSlice);
   }
-  ushort meetOrSlice() {
-    return SVGPreserveAspectRatio_meetOrSlice_Get(handle);
+  auto meetOrSlice() {
+    return SVGPreserveAspectRatio_meetOrSlice_Get(this.handle);
   }
 }
 struct SVGRadialGradientElement {
   SVGGradientElement _parent;
   alias _parent this;
-  SVGAnimatedLength cx() {
-    return SVGAnimatedLength(SVGRadialGradientElement_cx_Get(handle));
+  this(JsHandle h) {
+    _parent = SVGGradientElement(h);
   }
-  SVGAnimatedLength cy() {
-    return SVGAnimatedLength(SVGRadialGradientElement_cy_Get(handle));
+  auto cx() {
+    return SVGAnimatedLength(SVGRadialGradientElement_cx_Get(this._parent));
   }
-  SVGAnimatedLength r() {
-    return SVGAnimatedLength(SVGRadialGradientElement_r_Get(handle));
+  auto cy() {
+    return SVGAnimatedLength(SVGRadialGradientElement_cy_Get(this._parent));
   }
-  SVGAnimatedLength fx() {
-    return SVGAnimatedLength(SVGRadialGradientElement_fx_Get(handle));
+  auto r() {
+    return SVGAnimatedLength(SVGRadialGradientElement_r_Get(this._parent));
   }
-  SVGAnimatedLength fy() {
-    return SVGAnimatedLength(SVGRadialGradientElement_fy_Get(handle));
+  auto fx() {
+    return SVGAnimatedLength(SVGRadialGradientElement_fx_Get(this._parent));
   }
-  SVGAnimatedLength fr() {
-    return SVGAnimatedLength(SVGRadialGradientElement_fr_Get(handle));
+  auto fy() {
+    return SVGAnimatedLength(SVGRadialGradientElement_fy_Get(this._parent));
+  }
+  auto fr() {
+    return SVGAnimatedLength(SVGRadialGradientElement_fr_Get(this._parent));
   }
 }
 struct SVGRectElement {
   SVGGeometryElement _parent;
   alias _parent this;
-  SVGAnimatedLength x() {
-    return SVGAnimatedLength(SVGRectElement_x_Get(handle));
+  this(JsHandle h) {
+    _parent = SVGGeometryElement(h);
   }
-  SVGAnimatedLength y() {
-    return SVGAnimatedLength(SVGRectElement_y_Get(handle));
+  auto x() {
+    return SVGAnimatedLength(SVGRectElement_x_Get(this._parent));
   }
-  SVGAnimatedLength width() {
-    return SVGAnimatedLength(SVGRectElement_width_Get(handle));
+  auto y() {
+    return SVGAnimatedLength(SVGRectElement_y_Get(this._parent));
   }
-  SVGAnimatedLength height() {
-    return SVGAnimatedLength(SVGRectElement_height_Get(handle));
+  auto width() {
+    return SVGAnimatedLength(SVGRectElement_width_Get(this._parent));
   }
-  SVGAnimatedLength rx() {
-    return SVGAnimatedLength(SVGRectElement_rx_Get(handle));
+  auto height() {
+    return SVGAnimatedLength(SVGRectElement_height_Get(this._parent));
   }
-  SVGAnimatedLength ry() {
-    return SVGAnimatedLength(SVGRectElement_ry_Get(handle));
+  auto rx() {
+    return SVGAnimatedLength(SVGRectElement_rx_Get(this._parent));
+  }
+  auto ry() {
+    return SVGAnimatedLength(SVGRectElement_ry_Get(this._parent));
   }
 }
 struct SVGSVGElement {
   SVGGraphicsElement _parent;
   alias _parent this;
-  SVGAnimatedLength x() {
-    return SVGAnimatedLength(SVGSVGElement_x_Get(handle));
+  this(JsHandle h) {
+    _parent = SVGGraphicsElement(h);
   }
-  SVGAnimatedLength y() {
-    return SVGAnimatedLength(SVGSVGElement_y_Get(handle));
+  auto x() {
+    return SVGAnimatedLength(SVGSVGElement_x_Get(this._parent));
   }
-  SVGAnimatedLength width() {
-    return SVGAnimatedLength(SVGSVGElement_width_Get(handle));
+  auto y() {
+    return SVGAnimatedLength(SVGSVGElement_y_Get(this._parent));
   }
-  SVGAnimatedLength height() {
-    return SVGAnimatedLength(SVGSVGElement_height_Get(handle));
+  auto width() {
+    return SVGAnimatedLength(SVGSVGElement_width_Get(this._parent));
   }
-  void currentScale(float currentScale) {
-    SVGSVGElement_currentScale_Set(handle, currentScale);
+  auto height() {
+    return SVGAnimatedLength(SVGSVGElement_height_Get(this._parent));
   }
-  float currentScale() {
-    return SVGSVGElement_currentScale_Get(handle);
+  auto currentScale(float currentScale) {
+    SVGSVGElement_currentScale_Set(this._parent, currentScale);
   }
-  DOMPointReadOnly currentTranslate() {
-    return DOMPointReadOnly(SVGSVGElement_currentTranslate_Get(handle));
+  auto currentScale() {
+    return SVGSVGElement_currentScale_Get(this._parent);
   }
-  NodeList getIntersectionList(DOMRectReadOnly rect, Optional!(SVGElement) referenceElement) {
-    return NodeList(SVGSVGElement_getIntersectionList(handle, rect.handle, !referenceElement.empty, referenceElement.value.handle));
+  auto currentTranslate() {
+    return DOMPointReadOnly(SVGSVGElement_currentTranslate_Get(this._parent));
   }
-  NodeList getEnclosureList(DOMRectReadOnly rect, Optional!(SVGElement) referenceElement) {
-    return NodeList(SVGSVGElement_getEnclosureList(handle, rect.handle, !referenceElement.empty, referenceElement.value.handle));
+  auto getIntersectionList(DOMRectReadOnly rect, Optional!(SVGElement) referenceElement) {
+    return NodeList(SVGSVGElement_getIntersectionList(this._parent, rect.handle, !referenceElement.empty, referenceElement.front.handle));
   }
-  bool checkIntersection(SVGElement element, DOMRectReadOnly rect) {
-    return SVGSVGElement_checkIntersection(handle, element.handle, rect.handle);
+  auto getEnclosureList(DOMRectReadOnly rect, Optional!(SVGElement) referenceElement) {
+    return NodeList(SVGSVGElement_getEnclosureList(this._parent, rect.handle, !referenceElement.empty, referenceElement.front.handle));
   }
-  bool checkEnclosure(SVGElement element, DOMRectReadOnly rect) {
-    return SVGSVGElement_checkEnclosure(handle, element.handle, rect.handle);
+  auto checkIntersection(SVGElement element, DOMRectReadOnly rect) {
+    return SVGSVGElement_checkIntersection(this._parent, element.handle, rect.handle);
   }
-  void deselectAll() {
-    SVGSVGElement_deselectAll(handle);
+  auto checkEnclosure(SVGElement element, DOMRectReadOnly rect) {
+    return SVGSVGElement_checkEnclosure(this._parent, element.handle, rect.handle);
   }
-  SVGNumber createSVGNumber() {
-    return SVGNumber(SVGSVGElement_createSVGNumber(handle));
+  auto deselectAll() {
+    SVGSVGElement_deselectAll(this._parent);
   }
-  SVGLength createSVGLength() {
-    return SVGLength(SVGSVGElement_createSVGLength(handle));
+  auto createSVGNumber() {
+    return SVGNumber(SVGSVGElement_createSVGNumber(this._parent));
   }
-  SVGAngle createSVGAngle() {
-    return SVGAngle(SVGSVGElement_createSVGAngle(handle));
+  auto createSVGLength() {
+    return SVGLength(SVGSVGElement_createSVGLength(this._parent));
   }
-  DOMPoint createSVGPoint() {
-    return DOMPoint(SVGSVGElement_createSVGPoint(handle));
+  auto createSVGAngle() {
+    return SVGAngle(SVGSVGElement_createSVGAngle(this._parent));
   }
-  DOMMatrix createSVGMatrix() {
-    return DOMMatrix(SVGSVGElement_createSVGMatrix(handle));
+  auto createSVGPoint() {
+    return DOMPoint(SVGSVGElement_createSVGPoint(this._parent));
   }
-  DOMRect createSVGRect() {
-    return DOMRect(SVGSVGElement_createSVGRect(handle));
+  auto createSVGMatrix() {
+    return DOMMatrix(SVGSVGElement_createSVGMatrix(this._parent));
   }
-  SVGTransform createSVGTransform() {
-    return SVGTransform(SVGSVGElement_createSVGTransform(handle));
+  auto createSVGRect() {
+    return DOMRect(SVGSVGElement_createSVGRect(this._parent));
   }
-  SVGTransform createSVGTransformFromMatrix(DOMMatrixReadOnly matrix) {
-    return SVGTransform(SVGSVGElement_createSVGTransformFromMatrix(handle, matrix.handle));
+  auto createSVGTransform() {
+    return SVGTransform(SVGSVGElement_createSVGTransform(this._parent));
   }
-  Element getElementById(string elementId) {
-    return Element(SVGSVGElement_getElementById(handle, elementId));
+  auto createSVGTransformFromMatrix(DOMMatrixReadOnly matrix) {
+    return SVGTransform(SVGSVGElement_createSVGTransformFromMatrix(this._parent, matrix.handle));
   }
-  uint suspendRedraw(uint maxWaitMilliseconds) {
-    return SVGSVGElement_suspendRedraw(handle, maxWaitMilliseconds);
+  auto getElementById(string elementId) {
+    return Element(SVGSVGElement_getElementById(this._parent, elementId));
   }
-  void unsuspendRedraw(uint suspendHandleID) {
-    SVGSVGElement_unsuspendRedraw(handle, suspendHandleID);
+  auto suspendRedraw(uint maxWaitMilliseconds) {
+    return SVGSVGElement_suspendRedraw(this._parent, maxWaitMilliseconds);
   }
-  void unsuspendRedrawAll() {
-    SVGSVGElement_unsuspendRedrawAll(handle);
+  auto unsuspendRedraw(uint suspendHandleID) {
+    SVGSVGElement_unsuspendRedraw(this._parent, suspendHandleID);
   }
-  void forceRedraw() {
-    SVGSVGElement_forceRedraw(handle);
+  auto unsuspendRedrawAll() {
+    SVGSVGElement_unsuspendRedrawAll(this._parent);
   }
-  SVGAnimatedRect viewBox() {
-    return SVGAnimatedRect(SVGFitToViewBox_viewBox_Get(handle));
+  auto forceRedraw() {
+    SVGSVGElement_forceRedraw(this._parent);
   }
-  SVGAnimatedPreserveAspectRatio preserveAspectRatio() {
-    return SVGAnimatedPreserveAspectRatio(SVGFitToViewBox_preserveAspectRatio_Get(handle));
+  auto viewBox() {
+    return SVGAnimatedRect(SVGFitToViewBox_viewBox_Get(this.handle));
+  }
+  auto preserveAspectRatio() {
+    return SVGAnimatedPreserveAspectRatio(SVGFitToViewBox_preserveAspectRatio_Get(this.handle));
   }
   enum ushort SVG_ZOOMANDPAN_UNKNOWN = 0;
   enum ushort SVG_ZOOMANDPAN_DISABLE = 1;
@@ -1008,197 +1068,230 @@ struct SVGSVGElement {
 struct SVGScriptElement {
   SVGElement _parent;
   alias _parent this;
-  void type(string type) {
-    SVGScriptElement_type_Set(handle, type);
+  this(JsHandle h) {
+    _parent = SVGElement(h);
   }
-  string type() {
-    return SVGScriptElement_type_Get(handle);
+  auto type(string type) {
+    SVGScriptElement_type_Set(this._parent, type);
   }
-  void crossOrigin(Optional!(string) crossOrigin) {
-    SVGScriptElement_crossOrigin_Set(handle, !crossOrigin.empty, crossOrigin.value);
+  auto type() {
+    return SVGScriptElement_type_Get(this._parent);
   }
-  Optional!(string) crossOrigin() {
-    return SVGScriptElement_crossOrigin_Get(handle);
+  auto crossOrigin(Optional!(string) crossOrigin) {
+    SVGScriptElement_crossOrigin_Set(this._parent, !crossOrigin.empty, crossOrigin.front);
   }
-  SVGAnimatedString href() {
-    return SVGAnimatedString(SVGURIReference_href_Get(handle));
+  auto crossOrigin() {
+    return SVGScriptElement_crossOrigin_Get(this._parent);
+  }
+  auto href() {
+    return SVGAnimatedString(SVGURIReference_href_Get(this.handle));
   }
 }
 struct SVGStopElement {
   SVGElement _parent;
   alias _parent this;
-  SVGAnimatedNumber offset() {
-    return SVGAnimatedNumber(SVGStopElement_offset_Get(handle));
+  this(JsHandle h) {
+    _parent = SVGElement(h);
+  }
+  auto offset() {
+    return SVGAnimatedNumber(SVGStopElement_offset_Get(this._parent));
   }
 }
 struct SVGStringList {
   JsHandle handle;
   alias handle this;
-  uint length() {
-    return SVGStringList_length_Get(handle);
+  auto length() {
+    return SVGStringList_length_Get(this.handle);
   }
-  uint numberOfItems() {
-    return SVGStringList_numberOfItems_Get(handle);
+  auto numberOfItems() {
+    return SVGStringList_numberOfItems_Get(this.handle);
   }
-  void clear() {
-    SVGStringList_clear(handle);
+  auto clear() {
+    SVGStringList_clear(this.handle);
   }
-  string initialize(string newItem) {
-    return SVGStringList_initialize(handle, newItem);
+  auto initialize(string newItem) {
+    return SVGStringList_initialize(this.handle, newItem);
   }
-  string getItem(uint index) {
-    return SVGStringList_getItem_getter(handle, index);
+  auto getItem(uint index) {
+    return SVGStringList_getItem_getter(this.handle, index);
   }
-  string insertItemBefore(string newItem, uint index) {
-    return SVGStringList_insertItemBefore(handle, newItem, index);
+  auto insertItemBefore(string newItem, uint index) {
+    return SVGStringList_insertItemBefore(this.handle, newItem, index);
   }
-  string replaceItem(string newItem, uint index) {
-    return SVGStringList_replaceItem(handle, newItem, index);
+  auto replaceItem(string newItem, uint index) {
+    return SVGStringList_replaceItem(this.handle, newItem, index);
   }
-  string removeItem(uint index) {
-    return SVGStringList_removeItem(handle, index);
+  auto removeItem(uint index) {
+    return SVGStringList_removeItem(this.handle, index);
   }
-  string appendItem(string newItem) {
-    return SVGStringList_appendItem(handle, newItem);
+  auto appendItem(string newItem) {
+    return SVGStringList_appendItem(this.handle, newItem);
   }
-  void opIndexAssign(string newItem, uint index) {
-    SVGStringList_setter__uint_string(handle, index, newItem);
+  auto opIndexAssign(string newItem, uint index) {
+    SVGStringList_setter__uint_string(this.handle, index, newItem);
   }
-  void opDispatch(uint index)(string newItem) {
-    SVGStringList_setter__uint_string(handle, index, newItem);
+  auto opDispatch(uint index)(string newItem) {
+    SVGStringList_setter__uint_string(this.handle, index, newItem);
   }
 }
 struct SVGStyleElement {
   SVGElement _parent;
   alias _parent this;
-  void type(string type) {
-    SVGStyleElement_type_Set(handle, type);
+  this(JsHandle h) {
+    _parent = SVGElement(h);
   }
-  string type() {
-    return SVGStyleElement_type_Get(handle);
+  auto type(string type) {
+    SVGStyleElement_type_Set(this._parent, type);
   }
-  void media(string media) {
-    SVGStyleElement_media_Set(handle, media);
+  auto type() {
+    return SVGStyleElement_type_Get(this._parent);
   }
-  string media() {
-    return SVGStyleElement_media_Get(handle);
+  auto media(string media) {
+    SVGStyleElement_media_Set(this._parent, media);
   }
-  void title(string title) {
-    SVGStyleElement_title_Set(handle, title);
+  auto media() {
+    return SVGStyleElement_media_Get(this._parent);
   }
-  string title() {
-    return SVGStyleElement_title_Get(handle);
+  auto title(string title) {
+    SVGStyleElement_title_Set(this._parent, title);
   }
-  Optional!(StyleSheet) sheet() {
-    return LinkStyle_sheet_Get(handle);
+  auto title() {
+    return SVGStyleElement_title_Get(this._parent);
+  }
+  auto sheet() {
+    return LinkStyle_sheet_Get(this.handle);
   }
 }
 struct SVGSwitchElement {
   SVGGraphicsElement _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = SVGGraphicsElement(h);
+  }
 }
 struct SVGSymbolElement {
   SVGGraphicsElement _parent;
   alias _parent this;
-  SVGAnimatedRect viewBox() {
-    return SVGAnimatedRect(SVGFitToViewBox_viewBox_Get(handle));
+  this(JsHandle h) {
+    _parent = SVGGraphicsElement(h);
   }
-  SVGAnimatedPreserveAspectRatio preserveAspectRatio() {
-    return SVGAnimatedPreserveAspectRatio(SVGFitToViewBox_preserveAspectRatio_Get(handle));
+  auto viewBox() {
+    return SVGAnimatedRect(SVGFitToViewBox_viewBox_Get(this.handle));
+  }
+  auto preserveAspectRatio() {
+    return SVGAnimatedPreserveAspectRatio(SVGFitToViewBox_preserveAspectRatio_Get(this.handle));
   }
 }
 struct SVGTSpanElement {
   SVGTextPositioningElement _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = SVGTextPositioningElement(h);
+  }
 }
 struct SVGTextContentElement {
   SVGGraphicsElement _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = SVGGraphicsElement(h);
+  }
   enum ushort LENGTHADJUST_UNKNOWN = 0;
   enum ushort LENGTHADJUST_SPACING = 1;
   enum ushort LENGTHADJUST_SPACINGANDGLYPHS = 2;
-  SVGAnimatedLength textLength() {
-    return SVGAnimatedLength(SVGTextContentElement_textLength_Get(handle));
+  auto textLength() {
+    return SVGAnimatedLength(SVGTextContentElement_textLength_Get(this._parent));
   }
-  SVGAnimatedEnumeration lengthAdjust() {
-    return SVGAnimatedEnumeration(SVGTextContentElement_lengthAdjust_Get(handle));
+  auto lengthAdjust() {
+    return SVGAnimatedEnumeration(SVGTextContentElement_lengthAdjust_Get(this._parent));
   }
-  int getNumberOfChars() {
-    return SVGTextContentElement_getNumberOfChars(handle);
+  auto getNumberOfChars() {
+    return SVGTextContentElement_getNumberOfChars(this._parent);
   }
-  float getComputedTextLength() {
-    return SVGTextContentElement_getComputedTextLength(handle);
+  auto getComputedTextLength() {
+    return SVGTextContentElement_getComputedTextLength(this._parent);
   }
-  float getSubStringLength(uint charnum, uint nchars) {
-    return SVGTextContentElement_getSubStringLength(handle, charnum, nchars);
+  auto getSubStringLength(uint charnum, uint nchars) {
+    return SVGTextContentElement_getSubStringLength(this._parent, charnum, nchars);
   }
-  DOMPoint getStartPositionOfChar(uint charnum) {
-    return DOMPoint(SVGTextContentElement_getStartPositionOfChar(handle, charnum));
+  auto getStartPositionOfChar(uint charnum) {
+    return DOMPoint(SVGTextContentElement_getStartPositionOfChar(this._parent, charnum));
   }
-  DOMPoint getEndPositionOfChar(uint charnum) {
-    return DOMPoint(SVGTextContentElement_getEndPositionOfChar(handle, charnum));
+  auto getEndPositionOfChar(uint charnum) {
+    return DOMPoint(SVGTextContentElement_getEndPositionOfChar(this._parent, charnum));
   }
-  DOMRect getExtentOfChar(uint charnum) {
-    return DOMRect(SVGTextContentElement_getExtentOfChar(handle, charnum));
+  auto getExtentOfChar(uint charnum) {
+    return DOMRect(SVGTextContentElement_getExtentOfChar(this._parent, charnum));
   }
-  float getRotationOfChar(uint charnum) {
-    return SVGTextContentElement_getRotationOfChar(handle, charnum);
+  auto getRotationOfChar(uint charnum) {
+    return SVGTextContentElement_getRotationOfChar(this._parent, charnum);
   }
-  int getCharNumAtPosition(DOMPointInit point) {
-    return SVGTextContentElement_getCharNumAtPosition(handle, point.handle);
+  auto getCharNumAtPosition(DOMPointInit point) {
+    return SVGTextContentElement_getCharNumAtPosition(this._parent, point.handle);
   }
-  void selectSubString(uint charnum, uint nchars) {
-    SVGTextContentElement_selectSubString(handle, charnum, nchars);
+  auto selectSubString(uint charnum, uint nchars) {
+    SVGTextContentElement_selectSubString(this._parent, charnum, nchars);
   }
 }
 struct SVGTextElement {
   SVGTextPositioningElement _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = SVGTextPositioningElement(h);
+  }
 }
 struct SVGTextPathElement {
   SVGTextContentElement _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = SVGTextContentElement(h);
+  }
   enum ushort TEXTPATH_METHODTYPE_UNKNOWN = 0;
   enum ushort TEXTPATH_METHODTYPE_ALIGN = 1;
   enum ushort TEXTPATH_METHODTYPE_STRETCH = 2;
   enum ushort TEXTPATH_SPACINGTYPE_UNKNOWN = 0;
   enum ushort TEXTPATH_SPACINGTYPE_AUTO = 1;
   enum ushort TEXTPATH_SPACINGTYPE_EXACT = 2;
-  SVGAnimatedLength startOffset() {
-    return SVGAnimatedLength(SVGTextPathElement_startOffset_Get(handle));
+  auto startOffset() {
+    return SVGAnimatedLength(SVGTextPathElement_startOffset_Get(this._parent));
   }
-  SVGAnimatedEnumeration method() {
-    return SVGAnimatedEnumeration(SVGTextPathElement_method_Get(handle));
+  auto method() {
+    return SVGAnimatedEnumeration(SVGTextPathElement_method_Get(this._parent));
   }
-  SVGAnimatedEnumeration spacing() {
-    return SVGAnimatedEnumeration(SVGTextPathElement_spacing_Get(handle));
+  auto spacing() {
+    return SVGAnimatedEnumeration(SVGTextPathElement_spacing_Get(this._parent));
   }
-  SVGAnimatedString href() {
-    return SVGAnimatedString(SVGURIReference_href_Get(handle));
+  auto href() {
+    return SVGAnimatedString(SVGURIReference_href_Get(this.handle));
   }
 }
 struct SVGTextPositioningElement {
   SVGTextContentElement _parent;
   alias _parent this;
-  SVGAnimatedLengthList x() {
-    return SVGAnimatedLengthList(SVGTextPositioningElement_x_Get(handle));
+  this(JsHandle h) {
+    _parent = SVGTextContentElement(h);
   }
-  SVGAnimatedLengthList y() {
-    return SVGAnimatedLengthList(SVGTextPositioningElement_y_Get(handle));
+  auto x() {
+    return SVGAnimatedLengthList(SVGTextPositioningElement_x_Get(this._parent));
   }
-  SVGAnimatedLengthList dx() {
-    return SVGAnimatedLengthList(SVGTextPositioningElement_dx_Get(handle));
+  auto y() {
+    return SVGAnimatedLengthList(SVGTextPositioningElement_y_Get(this._parent));
   }
-  SVGAnimatedLengthList dy() {
-    return SVGAnimatedLengthList(SVGTextPositioningElement_dy_Get(handle));
+  auto dx() {
+    return SVGAnimatedLengthList(SVGTextPositioningElement_dx_Get(this._parent));
   }
-  SVGAnimatedNumberList rotate() {
-    return SVGAnimatedNumberList(SVGTextPositioningElement_rotate_Get(handle));
+  auto dy() {
+    return SVGAnimatedLengthList(SVGTextPositioningElement_dy_Get(this._parent));
+  }
+  auto rotate() {
+    return SVGAnimatedNumberList(SVGTextPositioningElement_rotate_Get(this._parent));
   }
 }
 struct SVGTitleElement {
   SVGElement _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = SVGElement(h);
+  }
 }
 struct SVGTransform {
   JsHandle handle;
@@ -1210,75 +1303,75 @@ struct SVGTransform {
   enum ushort SVG_TRANSFORM_ROTATE = 4;
   enum ushort SVG_TRANSFORM_SKEWX = 5;
   enum ushort SVG_TRANSFORM_SKEWY = 6;
-  ushort type() {
-    return SVGTransform_type_Get(handle);
+  auto type() {
+    return SVGTransform_type_Get(this.handle);
   }
-  DOMMatrix matrix() {
-    return DOMMatrix(SVGTransform_matrix_Get(handle));
+  auto matrix() {
+    return DOMMatrix(SVGTransform_matrix_Get(this.handle));
   }
-  float angle() {
-    return SVGTransform_angle_Get(handle);
+  auto angle() {
+    return SVGTransform_angle_Get(this.handle);
   }
-  void setMatrix(DOMMatrixReadOnly matrix) {
-    SVGTransform_setMatrix(handle, matrix.handle);
+  auto setMatrix(DOMMatrixReadOnly matrix) {
+    SVGTransform_setMatrix(this.handle, matrix.handle);
   }
-  void setTranslate(float tx, float ty) {
-    SVGTransform_setTranslate(handle, tx, ty);
+  auto setTranslate(float tx, float ty) {
+    SVGTransform_setTranslate(this.handle, tx, ty);
   }
-  void setScale(float sx, float sy) {
-    SVGTransform_setScale(handle, sx, sy);
+  auto setScale(float sx, float sy) {
+    SVGTransform_setScale(this.handle, sx, sy);
   }
-  void setRotate(float angle, float cx, float cy) {
-    SVGTransform_setRotate(handle, angle, cx, cy);
+  auto setRotate(float angle, float cx, float cy) {
+    SVGTransform_setRotate(this.handle, angle, cx, cy);
   }
-  void setSkewX(float angle) {
-    SVGTransform_setSkewX(handle, angle);
+  auto setSkewX(float angle) {
+    SVGTransform_setSkewX(this.handle, angle);
   }
-  void setSkewY(float angle) {
-    SVGTransform_setSkewY(handle, angle);
+  auto setSkewY(float angle) {
+    SVGTransform_setSkewY(this.handle, angle);
   }
 }
 struct SVGTransformList {
   JsHandle handle;
   alias handle this;
-  uint length() {
-    return SVGTransformList_length_Get(handle);
+  auto length() {
+    return SVGTransformList_length_Get(this.handle);
   }
-  uint numberOfItems() {
-    return SVGTransformList_numberOfItems_Get(handle);
+  auto numberOfItems() {
+    return SVGTransformList_numberOfItems_Get(this.handle);
   }
-  void clear() {
-    SVGTransformList_clear(handle);
+  auto clear() {
+    SVGTransformList_clear(this.handle);
   }
-  SVGTransform initialize(SVGTransform newItem) {
-    return SVGTransform(SVGTransformList_initialize(handle, newItem.handle));
+  auto initialize(SVGTransform newItem) {
+    return SVGTransform(SVGTransformList_initialize(this.handle, newItem.handle));
   }
-  SVGTransform getItem(uint index) {
-    return SVGTransform(SVGTransformList_getItem_getter(handle, index));
+  auto getItem(uint index) {
+    return SVGTransform(SVGTransformList_getItem_getter(this.handle, index));
   }
-  SVGTransform insertItemBefore(SVGTransform newItem, uint index) {
-    return SVGTransform(SVGTransformList_insertItemBefore(handle, newItem.handle, index));
+  auto insertItemBefore(SVGTransform newItem, uint index) {
+    return SVGTransform(SVGTransformList_insertItemBefore(this.handle, newItem.handle, index));
   }
-  SVGTransform replaceItem(SVGTransform newItem, uint index) {
-    return SVGTransform(SVGTransformList_replaceItem(handle, newItem.handle, index));
+  auto replaceItem(SVGTransform newItem, uint index) {
+    return SVGTransform(SVGTransformList_replaceItem(this.handle, newItem.handle, index));
   }
-  SVGTransform removeItem(uint index) {
-    return SVGTransform(SVGTransformList_removeItem(handle, index));
+  auto removeItem(uint index) {
+    return SVGTransform(SVGTransformList_removeItem(this.handle, index));
   }
-  SVGTransform appendItem(SVGTransform newItem) {
-    return SVGTransform(SVGTransformList_appendItem(handle, newItem.handle));
+  auto appendItem(SVGTransform newItem) {
+    return SVGTransform(SVGTransformList_appendItem(this.handle, newItem.handle));
   }
-  void opIndexAssign(SVGTransform newItem, uint index) {
-    SVGTransformList_setter__uint_JsHandle(handle, index, newItem.handle);
+  auto opIndexAssign(SVGTransform newItem, uint index) {
+    SVGTransformList_setter__uint_JsHandle(this.handle, index, newItem.handle);
   }
-  void opDispatch(uint index)(SVGTransform newItem) {
-    SVGTransformList_setter__uint_JsHandle(handle, index, newItem.handle);
+  auto opDispatch(uint index)(SVGTransform newItem) {
+    SVGTransformList_setter__uint_JsHandle(this.handle, index, newItem.handle);
   }
-  SVGTransform createSVGTransformFromMatrix(DOMMatrixReadOnly matrix) {
-    return SVGTransform(SVGTransformList_createSVGTransformFromMatrix(handle, matrix.handle));
+  auto createSVGTransformFromMatrix(DOMMatrixReadOnly matrix) {
+    return SVGTransform(SVGTransformList_createSVGTransformFromMatrix(this.handle, matrix.handle));
   }
-  Optional!(SVGTransform) consolidate() {
-    return SVGTransformList_consolidate(handle);
+  auto consolidate() {
+    return SVGTransformList_consolidate(this.handle);
   }
 }
 struct SVGUnitTypes {
@@ -1291,44 +1384,56 @@ struct SVGUnitTypes {
 struct SVGUnknownElement {
   SVGGraphicsElement _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = SVGGraphicsElement(h);
+  }
 }
 struct SVGUseElement {
   SVGGraphicsElement _parent;
   alias _parent this;
-  SVGAnimatedLength x() {
-    return SVGAnimatedLength(SVGUseElement_x_Get(handle));
+  this(JsHandle h) {
+    _parent = SVGGraphicsElement(h);
   }
-  SVGAnimatedLength y() {
-    return SVGAnimatedLength(SVGUseElement_y_Get(handle));
+  auto x() {
+    return SVGAnimatedLength(SVGUseElement_x_Get(this._parent));
   }
-  SVGAnimatedLength width() {
-    return SVGAnimatedLength(SVGUseElement_width_Get(handle));
+  auto y() {
+    return SVGAnimatedLength(SVGUseElement_y_Get(this._parent));
   }
-  SVGAnimatedLength height() {
-    return SVGAnimatedLength(SVGUseElement_height_Get(handle));
+  auto width() {
+    return SVGAnimatedLength(SVGUseElement_width_Get(this._parent));
   }
-  Optional!(SVGElement) instanceRoot() {
-    return SVGUseElement_instanceRoot_Get(handle);
+  auto height() {
+    return SVGAnimatedLength(SVGUseElement_height_Get(this._parent));
   }
-  Optional!(SVGElement) animatedInstanceRoot() {
-    return SVGUseElement_animatedInstanceRoot_Get(handle);
+  auto instanceRoot() {
+    return SVGUseElement_instanceRoot_Get(this._parent);
   }
-  SVGAnimatedString href() {
-    return SVGAnimatedString(SVGURIReference_href_Get(handle));
+  auto animatedInstanceRoot() {
+    return SVGUseElement_animatedInstanceRoot_Get(this._parent);
+  }
+  auto href() {
+    return SVGAnimatedString(SVGURIReference_href_Get(this.handle));
   }
 }
 struct SVGUseElementShadowRoot {
   ShadowRoot _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = ShadowRoot(h);
+  }
 }
 struct SVGViewElement {
   SVGElement _parent;
   alias _parent this;
-  SVGAnimatedRect viewBox() {
-    return SVGAnimatedRect(SVGFitToViewBox_viewBox_Get(handle));
+  this(JsHandle h) {
+    _parent = SVGElement(h);
   }
-  SVGAnimatedPreserveAspectRatio preserveAspectRatio() {
-    return SVGAnimatedPreserveAspectRatio(SVGFitToViewBox_preserveAspectRatio_Get(handle));
+  auto viewBox() {
+    return SVGAnimatedRect(SVGFitToViewBox_viewBox_Get(this.handle));
+  }
+  auto preserveAspectRatio() {
+    return SVGAnimatedPreserveAspectRatio(SVGFitToViewBox_preserveAspectRatio_Get(this.handle));
   }
   enum ushort SVG_ZOOMANDPAN_UNKNOWN = 0;
   enum ushort SVG_ZOOMANDPAN_DISABLE = 1;
@@ -1337,17 +1442,21 @@ struct SVGViewElement {
 struct ShadowAnimation {
   Animation _parent;
   alias _parent this;
-  Animation sourceAnimation() {
-    return Animation(ShadowAnimation_sourceAnimation_Get(handle));
+  this(JsHandle h) {
+    _parent = Animation(h);
+  }
+  auto sourceAnimation() {
+    return Animation(ShadowAnimation_sourceAnimation_Get(this._parent));
   }
 }
 
 
+extern (C) JsHandle GetSVGDocument_getSVGDocument(JsHandle);
 extern (C) JsHandle SVGAElement_target_Get(JsHandle);
 extern (C) void SVGAElement_download_Set(JsHandle, string);
 extern (C) string SVGAElement_download_Get(JsHandle);
-extern (C) void SVGAElement_ping_Set(JsHandle, JsHandle);
-extern (C) JsHandle SVGAElement_ping_Get(JsHandle);
+extern (C) void SVGAElement_ping_Set(JsHandle, string);
+extern (C) string SVGAElement_ping_Get(JsHandle);
 extern (C) void SVGAElement_rel_Set(JsHandle, string);
 extern (C) string SVGAElement_rel_Get(JsHandle);
 extern (C) JsHandle SVGAElement_relList_Get(JsHandle);
@@ -1359,10 +1468,6 @@ extern (C) void SVGAElement_text_Set(JsHandle, string);
 extern (C) string SVGAElement_text_Get(JsHandle);
 extern (C) void SVGAElement_referrerPolicy_Set(JsHandle, string);
 extern (C) string SVGAElement_referrerPolicy_Get(JsHandle);
-extern (C) JsHandle SVGURIReference_href_Get(JsHandle);
-extern (C) void HTMLHyperlinkElementUtils_href_Set(JsHandle, JsHandle);
-extern (C) JsHandle HTMLHyperlinkElementUtils_href_Get(JsHandle);
-extern (C) JsHandle HTMLHyperlinkElementUtils_origin_Get(JsHandle);
 extern (C) ushort SVGAngle_unitType_Get(JsHandle);
 extern (C) void SVGAngle_value_Set(JsHandle, float);
 extern (C) float SVGAngle_value_Get(JsHandle);
@@ -1392,6 +1497,8 @@ extern (C) float SVGAnimatedNumber_baseVal_Get(JsHandle);
 extern (C) float SVGAnimatedNumber_animVal_Get(JsHandle);
 extern (C) JsHandle SVGAnimatedNumberList_baseVal_Get(JsHandle);
 extern (C) JsHandle SVGAnimatedNumberList_animVal_Get(JsHandle);
+extern (C) JsHandle SVGAnimatedPoints_points_Get(JsHandle);
+extern (C) JsHandle SVGAnimatedPoints_animatedPoints_Get(JsHandle);
 extern (C) JsHandle SVGAnimatedPreserveAspectRatio_baseVal_Get(JsHandle);
 extern (C) JsHandle SVGAnimatedPreserveAspectRatio_animVal_Get(JsHandle);
 extern (C) JsHandle SVGAnimatedRect_baseVal_Get(JsHandle);
@@ -1415,43 +1522,14 @@ extern (C) JsHandle SVGCircleElement_r_Get(JsHandle);
 extern (C) JsHandle SVGElement_className_Get(JsHandle);
 extern (C) Optional!(SVGSVGElement) SVGElement_ownerSVGElement_Get(JsHandle);
 extern (C) Optional!(SVGElement) SVGElement_viewportElement_Get(JsHandle);
-extern (C) void GlobalEventHandlers_ongotpointercapture_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_ongotpointercapture_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onlostpointercapture_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onlostpointercapture_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onpointerdown_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onpointerdown_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onpointermove_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onpointermove_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onpointerup_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onpointerup_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onpointercancel_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onpointercancel_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onpointerover_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onpointerover_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onpointerout_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onpointerout_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onpointerenter_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onpointerenter_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onpointerleave_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onpointerleave_Get(JsHandle);
-extern (C) void GlobalEventHandlers_ontouchstart_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_ontouchstart_Get(JsHandle);
-extern (C) void GlobalEventHandlers_ontouchend_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_ontouchend_Get(JsHandle);
-extern (C) void GlobalEventHandlers_ontouchmove_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_ontouchmove_Get(JsHandle);
-extern (C) void GlobalEventHandlers_ontouchcancel_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_ontouchcancel_Get(JsHandle);
 extern (C) Optional!(SVGElement) SVGElementInstance_correspondingElement_Get(JsHandle);
 extern (C) Optional!(SVGUseElement) SVGElementInstance_correspondingUseElement_Get(JsHandle);
-extern (C) JsHandle HTMLOrSVGElement_dataset_Get(JsHandle);
-extern (C) void HTMLOrSVGElement_focus(JsHandle, JsHandle);
-extern (C) void HTMLOrSVGElement_blur(JsHandle);
 extern (C) JsHandle SVGEllipseElement_cx_Get(JsHandle);
 extern (C) JsHandle SVGEllipseElement_cy_Get(JsHandle);
 extern (C) JsHandle SVGEllipseElement_rx_Get(JsHandle);
 extern (C) JsHandle SVGEllipseElement_ry_Get(JsHandle);
+extern (C) JsHandle SVGFitToViewBox_viewBox_Get(JsHandle);
+extern (C) JsHandle SVGFitToViewBox_preserveAspectRatio_Get(JsHandle);
 extern (C) JsHandle SVGForeignObjectElement_x_Get(JsHandle);
 extern (C) JsHandle SVGForeignObjectElement_y_Get(JsHandle);
 extern (C) JsHandle SVGForeignObjectElement_width_Get(JsHandle);
@@ -1464,13 +1542,10 @@ extern (C) JsHandle SVGGeometryElement_getPointAtLength(JsHandle, float);
 extern (C) JsHandle SVGGradientElement_gradientUnits_Get(JsHandle);
 extern (C) JsHandle SVGGradientElement_gradientTransform_Get(JsHandle);
 extern (C) JsHandle SVGGradientElement_spreadMethod_Get(JsHandle);
-extern (C) JsHandle SVGURIReference_href_Get(JsHandle);
 extern (C) JsHandle SVGGraphicsElement_transform_Get(JsHandle);
 extern (C) JsHandle SVGGraphicsElement_getBBox(JsHandle, JsHandle);
 extern (C) Optional!(DOMMatrix) SVGGraphicsElement_getCTM(JsHandle);
 extern (C) Optional!(DOMMatrix) SVGGraphicsElement_getScreenCTM(JsHandle);
-extern (C) JsHandle SVGTests_requiredExtensions_Get(JsHandle);
-extern (C) JsHandle SVGTests_systemLanguage_Get(JsHandle);
 extern (C) JsHandle SVGImageElement_x_Get(JsHandle);
 extern (C) JsHandle SVGImageElement_y_Get(JsHandle);
 extern (C) JsHandle SVGImageElement_width_Get(JsHandle);
@@ -1478,7 +1553,6 @@ extern (C) JsHandle SVGImageElement_height_Get(JsHandle);
 extern (C) JsHandle SVGImageElement_preserveAspectRatio_Get(JsHandle);
 extern (C) void SVGImageElement_crossOrigin_Set(JsHandle, bool, string);
 extern (C) Optional!(string) SVGImageElement_crossOrigin_Get(JsHandle);
-extern (C) JsHandle SVGURIReference_href_Get(JsHandle);
 extern (C) ushort SVGLength_unitType_Get(JsHandle);
 extern (C) void SVGLength_value_Set(JsHandle, float);
 extern (C) float SVGLength_value_Get(JsHandle);
@@ -1517,8 +1591,6 @@ extern (C) void SVGMarkerElement_orient_Set(JsHandle, string);
 extern (C) string SVGMarkerElement_orient_Get(JsHandle);
 extern (C) void SVGMarkerElement_setOrientToAuto(JsHandle);
 extern (C) void SVGMarkerElement_setOrientToAngle(JsHandle, JsHandle);
-extern (C) JsHandle SVGFitToViewBox_viewBox_Get(JsHandle);
-extern (C) JsHandle SVGFitToViewBox_preserveAspectRatio_Get(JsHandle);
 extern (C) void SVGNumber_value_Set(JsHandle, float);
 extern (C) float SVGNumber_value_Get(JsHandle);
 extern (C) uint SVGNumberList_length_Get(JsHandle);
@@ -1538,9 +1610,6 @@ extern (C) JsHandle SVGPatternElement_x_Get(JsHandle);
 extern (C) JsHandle SVGPatternElement_y_Get(JsHandle);
 extern (C) JsHandle SVGPatternElement_width_Get(JsHandle);
 extern (C) JsHandle SVGPatternElement_height_Get(JsHandle);
-extern (C) JsHandle SVGFitToViewBox_viewBox_Get(JsHandle);
-extern (C) JsHandle SVGFitToViewBox_preserveAspectRatio_Get(JsHandle);
-extern (C) JsHandle SVGURIReference_href_Get(JsHandle);
 extern (C) uint SVGPointList_length_Get(JsHandle);
 extern (C) uint SVGPointList_numberOfItems_Get(JsHandle);
 extern (C) void SVGPointList_clear(JsHandle);
@@ -1551,10 +1620,6 @@ extern (C) JsHandle SVGPointList_replaceItem(JsHandle, JsHandle, uint);
 extern (C) JsHandle SVGPointList_removeItem(JsHandle, uint);
 extern (C) JsHandle SVGPointList_appendItem(JsHandle, JsHandle);
 extern (C) void SVGPointList_setter__uint_JsHandle(JsHandle, uint, JsHandle);
-extern (C) JsHandle SVGAnimatedPoints_points_Get(JsHandle);
-extern (C) JsHandle SVGAnimatedPoints_animatedPoints_Get(JsHandle);
-extern (C) JsHandle SVGAnimatedPoints_points_Get(JsHandle);
-extern (C) JsHandle SVGAnimatedPoints_animatedPoints_Get(JsHandle);
 extern (C) void SVGPreserveAspectRatio_align_Set(JsHandle, ushort);
 extern (C) ushort SVGPreserveAspectRatio_align_Get(JsHandle);
 extern (C) void SVGPreserveAspectRatio_meetOrSlice_Set(JsHandle, ushort);
@@ -1596,13 +1661,10 @@ extern (C) uint SVGSVGElement_suspendRedraw(JsHandle, uint);
 extern (C) void SVGSVGElement_unsuspendRedraw(JsHandle, uint);
 extern (C) void SVGSVGElement_unsuspendRedrawAll(JsHandle);
 extern (C) void SVGSVGElement_forceRedraw(JsHandle);
-extern (C) JsHandle SVGFitToViewBox_viewBox_Get(JsHandle);
-extern (C) JsHandle SVGFitToViewBox_preserveAspectRatio_Get(JsHandle);
 extern (C) void SVGScriptElement_type_Set(JsHandle, string);
 extern (C) string SVGScriptElement_type_Get(JsHandle);
 extern (C) void SVGScriptElement_crossOrigin_Set(JsHandle, bool, string);
 extern (C) Optional!(string) SVGScriptElement_crossOrigin_Get(JsHandle);
-extern (C) JsHandle SVGURIReference_href_Get(JsHandle);
 extern (C) JsHandle SVGStopElement_offset_Get(JsHandle);
 extern (C) uint SVGStringList_length_Get(JsHandle);
 extern (C) uint SVGStringList_numberOfItems_Get(JsHandle);
@@ -1620,9 +1682,8 @@ extern (C) void SVGStyleElement_media_Set(JsHandle, string);
 extern (C) string SVGStyleElement_media_Get(JsHandle);
 extern (C) void SVGStyleElement_title_Set(JsHandle, string);
 extern (C) string SVGStyleElement_title_Get(JsHandle);
-extern (C) Optional!(StyleSheet) LinkStyle_sheet_Get(JsHandle);
-extern (C) JsHandle SVGFitToViewBox_viewBox_Get(JsHandle);
-extern (C) JsHandle SVGFitToViewBox_preserveAspectRatio_Get(JsHandle);
+extern (C) JsHandle SVGTests_requiredExtensions_Get(JsHandle);
+extern (C) JsHandle SVGTests_systemLanguage_Get(JsHandle);
 extern (C) JsHandle SVGTextContentElement_textLength_Get(JsHandle);
 extern (C) JsHandle SVGTextContentElement_lengthAdjust_Get(JsHandle);
 extern (C) int SVGTextContentElement_getNumberOfChars(JsHandle);
@@ -1637,7 +1698,6 @@ extern (C) void SVGTextContentElement_selectSubString(JsHandle, uint, uint);
 extern (C) JsHandle SVGTextPathElement_startOffset_Get(JsHandle);
 extern (C) JsHandle SVGTextPathElement_method_Get(JsHandle);
 extern (C) JsHandle SVGTextPathElement_spacing_Get(JsHandle);
-extern (C) JsHandle SVGURIReference_href_Get(JsHandle);
 extern (C) JsHandle SVGTextPositioningElement_x_Get(JsHandle);
 extern (C) JsHandle SVGTextPositioningElement_y_Get(JsHandle);
 extern (C) JsHandle SVGTextPositioningElement_dx_Get(JsHandle);
@@ -1664,13 +1724,11 @@ extern (C) JsHandle SVGTransformList_appendItem(JsHandle, JsHandle);
 extern (C) void SVGTransformList_setter__uint_JsHandle(JsHandle, uint, JsHandle);
 extern (C) JsHandle SVGTransformList_createSVGTransformFromMatrix(JsHandle, JsHandle);
 extern (C) Optional!(SVGTransform) SVGTransformList_consolidate(JsHandle);
+extern (C) JsHandle SVGURIReference_href_Get(JsHandle);
 extern (C) JsHandle SVGUseElement_x_Get(JsHandle);
 extern (C) JsHandle SVGUseElement_y_Get(JsHandle);
 extern (C) JsHandle SVGUseElement_width_Get(JsHandle);
 extern (C) JsHandle SVGUseElement_height_Get(JsHandle);
 extern (C) Optional!(SVGElement) SVGUseElement_instanceRoot_Get(JsHandle);
 extern (C) Optional!(SVGElement) SVGUseElement_animatedInstanceRoot_Get(JsHandle);
-extern (C) JsHandle SVGURIReference_href_Get(JsHandle);
-extern (C) JsHandle SVGFitToViewBox_viewBox_Get(JsHandle);
-extern (C) JsHandle SVGFitToViewBox_preserveAspectRatio_Get(JsHandle);
 extern (C) JsHandle ShadowAnimation_sourceAnimation_Get(JsHandle);

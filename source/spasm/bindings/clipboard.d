@@ -1,49 +1,63 @@
 module spasm.bindings.clipboard;
 
 import spasm.types;
-import spasm.bindings.html : DataTransfer;
+import spasm.bindings.dom;
+import spasm.bindings.html;
+import spasm.bindings.permissions;
 
 struct Clipboard {
   EventTarget _parent;
   alias _parent this;
-  Promise!(DataTransfer) read() {
-    return Promise!(DataTransfer)(Clipboard_read(handle));
+  this(JsHandle h) {
+    _parent = EventTarget(h);
   }
-  Promise!(string) readText() {
-    return Promise!(string)(Clipboard_readText(handle));
+  auto read() {
+    return Promise!(DataTransfer)(Clipboard_read(this._parent));
   }
-  Promise!(void) write(DataTransfer data) {
-    return Promise!(void)(Clipboard_write(handle, data.handle));
+  auto readText() {
+    return Promise!(string)(Clipboard_readText(this._parent));
   }
-  Promise!(void) writeText(string data) {
-    return Promise!(void)(Clipboard_writeText(handle, data));
+  auto write(DataTransfer data) {
+    return Promise!(void)(Clipboard_write(this._parent, data.handle));
+  }
+  auto writeText(string data) {
+    return Promise!(void)(Clipboard_writeText(this._parent, data));
   }
 }
 struct ClipboardEvent {
   Event _parent;
   alias _parent this;
-  Optional!(DataTransfer) clipboardData() {
-    return ClipboardEvent_clipboardData_Get(handle);
+  this(JsHandle h) {
+    _parent = Event(h);
+  }
+  auto clipboardData() {
+    return ClipboardEvent_clipboardData_Get(this._parent);
   }
 }
 struct ClipboardEventInit {
   EventInit _parent;
   alias _parent this;
-  void clipboardData(Optional!(DataTransfer) clipboardData) {
-    ClipboardEventInit_clipboardData_Set(handle, !clipboardData.empty, clipboardData.value.handle);
+  this(JsHandle h) {
+    _parent = EventInit(h);
   }
-  Optional!(DataTransfer) clipboardData() {
-    return ClipboardEventInit_clipboardData_Get(handle);
+  auto clipboardData(Optional!(DataTransfer) clipboardData) {
+    ClipboardEventInit_clipboardData_Set(this._parent, !clipboardData.empty, clipboardData.front.handle);
+  }
+  auto clipboardData() {
+    return ClipboardEventInit_clipboardData_Get(this._parent);
   }
 }
 struct ClipboardPermissionDescriptor {
   PermissionDescriptor _parent;
   alias _parent this;
-  void allowWithoutGesture(bool allowWithoutGesture) {
-    ClipboardPermissionDescriptor_allowWithoutGesture_Set(handle, allowWithoutGesture);
+  this(JsHandle h) {
+    _parent = PermissionDescriptor(h);
   }
-  bool allowWithoutGesture() {
-    return ClipboardPermissionDescriptor_allowWithoutGesture_Get(handle);
+  auto allowWithoutGesture(bool allowWithoutGesture) {
+    ClipboardPermissionDescriptor_allowWithoutGesture_Set(this._parent, allowWithoutGesture);
+  }
+  auto allowWithoutGesture() {
+    return ClipboardPermissionDescriptor_allowWithoutGesture_Get(this._parent);
   }
 }
 

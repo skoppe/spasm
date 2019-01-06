@@ -32,7 +32,7 @@ export default {
       spasm.encode_string(rawResult, spasm.objects[ctx].referrer);
     },
     Request_referrerPolicy_Get: function(ctx) {
-      return spasm.addObject(spasm.objects[ctx].referrerPolicy);
+      return spasm.encode_ReferrerPolicy(spasm.objects[ctx].referrerPolicy);
     },
     Request_mode_Get: function(ctx) {
       return spasm.encode_RequestMode(spasm.objects[ctx].mode);
@@ -110,10 +110,10 @@ export default {
       spasm.encode_string(rawResult, spasm.objects[ctx].referrer);
     },
     RequestInit_referrerPolicy_Set: function(ctx, referrerPolicy) {
-      spasm.objects[ctx].referrerPolicy = spasm.objects[referrerPolicy];
+      spasm.objects[ctx].referrerPolicy = spasm.decode_ReferrerPolicy(referrerPolicy);
     },
     RequestInit_referrerPolicy_Get: function(ctx) {
-      return spasm.addObject(spasm.objects[ctx].referrerPolicy);
+      return spasm.encode_ReferrerPolicy(spasm.objects[ctx].referrerPolicy);
     },
     RequestInit_mode_Set: function(ctx, mode) {
       spasm.objects[ctx].mode = spasm.decode_RequestMode(mode);

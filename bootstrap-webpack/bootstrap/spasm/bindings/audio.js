@@ -271,12 +271,6 @@ export default {
     AudioNode_disconnect__JsHandle_uint_uint: function(ctx, destinationNode, output, input) {
       spasm.objects[ctx].disconnect(spasm.objects[destinationNode], output, input);
     },
-    AudioNode_disconnect__JsHandle: function(ctx, destinationParam) {
-      spasm.objects[ctx].disconnect(spasm.objects[destinationParam]);
-    },
-    AudioNode_disconnect__JsHandle_uint: function(ctx, destinationParam, output) {
-      spasm.objects[ctx].disconnect(spasm.objects[destinationParam], output);
-    },
     AudioNode_context_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].context);
     },
@@ -421,11 +415,11 @@ export default {
     AudioProcessingEventInit_outputBuffer_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].outputBuffer);
     },
-    AudioScheduledSourceNode_onended_Set: function(ctx, onendedDefined, onended) {
-      spasm.objects[ctx].onended = onendedDefined ? onended : undefined;
+    AudioScheduledSourceNode_onended_Set: function(ctx, onended) {
+      spasm.objects[ctx].onended = onended;
     },
-    AudioScheduledSourceNode_onended_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onended);
+    AudioScheduledSourceNode_onended_Get: function(ctx) {
+      return spasm.objects[ctx].onended;
     },
     AudioScheduledSourceNode_start: function(ctx, when) {
       spasm.objects[ctx].start(when);
@@ -463,11 +457,11 @@ export default {
     AudioWorkletNode_port_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].port);
     },
-    AudioWorkletNode_onprocessorerror_Set: function(ctx, onprocessorerrorDefined, onprocessorerror) {
-      spasm.objects[ctx].onprocessorerror = onprocessorerrorDefined ? onprocessorerror : undefined;
+    AudioWorkletNode_onprocessorerror_Set: function(ctx, onprocessorerror) {
+      spasm.objects[ctx].onprocessorerror = onprocessorerror;
     },
-    AudioWorkletNode_onprocessorerror_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onprocessorerror);
+    AudioWorkletNode_onprocessorerror_Get: function(ctx) {
+      return spasm.objects[ctx].onprocessorerror;
     },
     AudioWorkletNodeOptions_numberOfInputs_Set: function(ctx, numberOfInputs) {
       spasm.objects[ctx].numberOfInputs = numberOfInputs;
@@ -520,11 +514,11 @@ export default {
     BaseAudioContext_audioWorklet_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].audioWorklet);
     },
-    BaseAudioContext_onstatechange_Set: function(ctx, onstatechangeDefined, onstatechange) {
-      spasm.objects[ctx].onstatechange = onstatechangeDefined ? onstatechange : undefined;
+    BaseAudioContext_onstatechange_Set: function(ctx, onstatechange) {
+      spasm.objects[ctx].onstatechange = onstatechange;
     },
-    BaseAudioContext_onstatechange_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onstatechange);
+    BaseAudioContext_onstatechange_Get: function(ctx) {
+      return spasm.objects[ctx].onstatechange;
     },
     BaseAudioContext_createAnalyser: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].createAnalyser());
@@ -814,11 +808,11 @@ export default {
     OfflineAudioContext_length_Get: function(ctx) {
       return spasm.objects[ctx].length;
     },
-    OfflineAudioContext_oncomplete_Set: function(ctx, oncompleteDefined, oncomplete) {
-      spasm.objects[ctx].oncomplete = oncompleteDefined ? oncomplete : undefined;
+    OfflineAudioContext_oncomplete_Set: function(ctx, oncomplete) {
+      spasm.objects[ctx].oncomplete = oncomplete;
     },
-    OfflineAudioContext_oncomplete_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].oncomplete);
+    OfflineAudioContext_oncomplete_Get: function(ctx) {
+      return spasm.objects[ctx].oncomplete;
     },
     OfflineAudioContextOptions_numberOfChannels_Set: function(ctx, numberOfChannels) {
       spasm.objects[ctx].numberOfChannels = numberOfChannels;
@@ -1051,11 +1045,11 @@ export default {
     PeriodicWaveOptions_imag_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].imag);
     },
-    ScriptProcessorNode_onaudioprocess_Set: function(ctx, onaudioprocessDefined, onaudioprocess) {
-      spasm.objects[ctx].onaudioprocess = onaudioprocessDefined ? onaudioprocess : undefined;
+    ScriptProcessorNode_onaudioprocess_Set: function(ctx, onaudioprocess) {
+      spasm.objects[ctx].onaudioprocess = onaudioprocess;
     },
-    ScriptProcessorNode_onaudioprocess_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onaudioprocess);
+    ScriptProcessorNode_onaudioprocess_Get: function(ctx) {
+      return spasm.objects[ctx].onaudioprocess;
     },
     ScriptProcessorNode_bufferSize_Get: function(ctx) {
       return spasm.objects[ctx].bufferSize;

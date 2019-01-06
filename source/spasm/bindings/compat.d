@@ -1,7 +1,7 @@
 module spasm.bindings.compat;
 
 import spasm.types;
-import spasm.bindings.html : EventHandler;
+import spasm.bindings.html;
 
 
 

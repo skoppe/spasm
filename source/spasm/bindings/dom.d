@@ -1,1143 +1,1191 @@
 module spasm.bindings.dom;
 
 import spasm.types;
-import spasm.bindings.domhighrestimestamp : DOMHighResTimeStamp;
-import spasm.bindings.html : DocumentReadyState;
-import spasm.bindings.html : EventHandler;
-import spasm.bindings.fullscreen : FullscreenOptions;
-import spasm.bindings.html : HTMLAllCollection;
-import spasm.bindings.html : HTMLElement;
-import spasm.bindings.html : HTMLHeadElement;
-import spasm.bindings.html : HTMLOrSVGScriptElement;
-import spasm.bindings.html : HTMLSlotElement;
-import spasm.bindings.html : Location;
-import spasm.bindings.svg : SVGSVGElement;
+import spasm.bindings.domhighrestimestamp;
+import spasm.bindings.fullscreen;
+import spasm.bindings.html;
+import spasm.bindings.pagevisibility;
+import spasm.bindings.svg;
 
 struct AbortController {
   JsHandle handle;
   alias handle this;
-  AbortSignal signal() {
-    return AbortSignal(AbortController_signal_Get(handle));
+  auto signal() {
+    return AbortSignal(AbortController_signal_Get(this.handle));
   }
-  void abort() {
-    AbortController_abort(handle);
+  auto abort() {
+    AbortController_abort(this.handle);
   }
 }
 struct AbortSignal {
   EventTarget _parent;
   alias _parent this;
-  bool aborted() {
-    return AbortSignal_aborted_Get(handle);
+  this(JsHandle h) {
+    _parent = EventTarget(h);
   }
-  void onabort(EventHandler onabort) {
-    AbortSignal_onabort_Set(handle, !onabort.empty, onabort.value);
+  auto aborted() {
+    return AbortSignal_aborted_Get(this._parent);
   }
-  EventHandler onabort() {
-    return AbortSignal_onabort_Get(handle);
+  auto onabort(EventHandler onabort) {
+    AbortSignal_onabort_Set(this._parent, onabort);
+  }
+  auto onabort() {
+    return AbortSignal_onabort_Get(this._parent);
   }
 }
 struct AbstractRange {
   JsHandle handle;
   alias handle this;
-  Node startContainer() {
-    return Node(AbstractRange_startContainer_Get(handle));
+  auto startContainer() {
+    return Node(AbstractRange_startContainer_Get(this.handle));
   }
-  uint startOffset() {
-    return AbstractRange_startOffset_Get(handle);
+  auto startOffset() {
+    return AbstractRange_startOffset_Get(this.handle);
   }
-  Node endContainer() {
-    return Node(AbstractRange_endContainer_Get(handle));
+  auto endContainer() {
+    return Node(AbstractRange_endContainer_Get(this.handle));
   }
-  uint endOffset() {
-    return AbstractRange_endOffset_Get(handle);
+  auto endOffset() {
+    return AbstractRange_endOffset_Get(this.handle);
   }
-  bool collapsed() {
-    return AbstractRange_collapsed_Get(handle);
+  auto collapsed() {
+    return AbstractRange_collapsed_Get(this.handle);
   }
 }
 struct AddEventListenerOptions {
   EventListenerOptions _parent;
   alias _parent this;
-  void passive(bool passive) {
-    AddEventListenerOptions_passive_Set(handle, passive);
+  this(JsHandle h) {
+    _parent = EventListenerOptions(h);
   }
-  bool passive() {
-    return AddEventListenerOptions_passive_Get(handle);
+  auto passive(bool passive) {
+    AddEventListenerOptions_passive_Set(this._parent, passive);
   }
-  void once(bool once) {
-    AddEventListenerOptions_once_Set(handle, once);
+  auto passive() {
+    return AddEventListenerOptions_passive_Get(this._parent);
   }
-  bool once() {
-    return AddEventListenerOptions_once_Get(handle);
+  auto once(bool once) {
+    AddEventListenerOptions_once_Set(this._parent, once);
+  }
+  auto once() {
+    return AddEventListenerOptions_once_Get(this._parent);
   }
 }
 struct Attr {
   Node _parent;
   alias _parent this;
-  Optional!(string) namespaceURI() {
-    return Attr_namespaceURI_Get(handle);
+  this(JsHandle h) {
+    _parent = Node(h);
   }
-  Optional!(string) prefix() {
-    return Attr_prefix_Get(handle);
+  auto namespaceURI() {
+    return Attr_namespaceURI_Get(this._parent);
   }
-  string localName() {
-    return Attr_localName_Get(handle);
+  auto prefix() {
+    return Attr_prefix_Get(this._parent);
   }
-  string name() {
-    return Attr_name_Get(handle);
+  auto localName() {
+    return Attr_localName_Get(this._parent);
   }
-  void value(string value) {
-    Attr_value_Set(handle, value);
+  auto name() {
+    return Attr_name_Get(this._parent);
   }
-  string value() {
-    return Attr_value_Get(handle);
+  auto value(string value) {
+    Attr_value_Set(this._parent, value);
   }
-  Optional!(Element) ownerElement() {
-    return Attr_ownerElement_Get(handle);
+  auto value() {
+    return Attr_value_Get(this._parent);
   }
-  bool specified() {
-    return Attr_specified_Get(handle);
+  auto ownerElement() {
+    return Attr_ownerElement_Get(this._parent);
+  }
+  auto specified() {
+    return Attr_specified_Get(this._parent);
   }
 }
 struct CDATASection {
   Text _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = Text(h);
+  }
 }
 struct CharacterData {
   Node _parent;
   alias _parent this;
-  void data(string data) {
-    CharacterData_data_Set(handle, data);
+  this(JsHandle h) {
+    _parent = Node(h);
   }
-  string data() {
-    return CharacterData_data_Get(handle);
+  auto data(string data) {
+    CharacterData_data_Set(this._parent, data);
   }
-  uint length() {
-    return CharacterData_length_Get(handle);
+  auto data() {
+    return CharacterData_data_Get(this._parent);
   }
-  string substringData(uint offset, uint count) {
-    return CharacterData_substringData(handle, offset, count);
+  auto length() {
+    return CharacterData_length_Get(this._parent);
   }
-  void appendData(string data) {
-    CharacterData_appendData(handle, data);
+  auto substringData(uint offset, uint count) {
+    return CharacterData_substringData(this._parent, offset, count);
   }
-  void insertData(uint offset, string data) {
-    CharacterData_insertData(handle, offset, data);
+  auto appendData(string data) {
+    CharacterData_appendData(this._parent, data);
   }
-  void deleteData(uint offset, uint count) {
-    CharacterData_deleteData(handle, offset, count);
+  auto insertData(uint offset, string data) {
+    CharacterData_insertData(this._parent, offset, data);
   }
-  void replaceData(uint offset, uint count, string data) {
-    CharacterData_replaceData(handle, offset, count, data);
+  auto deleteData(uint offset, uint count) {
+    CharacterData_deleteData(this._parent, offset, count);
   }
-  Optional!(Element) previousElementSibling() {
-    return NonDocumentTypeChildNode_previousElementSibling_Get(handle);
+  auto replaceData(uint offset, uint count, string data) {
+    CharacterData_replaceData(this._parent, offset, count, data);
   }
-  Optional!(Element) nextElementSibling() {
-    return NonDocumentTypeChildNode_nextElementSibling_Get(handle);
+  auto previousElementSibling() {
+    return NonDocumentTypeChildNode_previousElementSibling_Get(this.handle);
   }
-  void before(SumType!(Node, string) nodes) {
-    ChildNode_before(handle, nodes);
+  auto nextElementSibling() {
+    return NonDocumentTypeChildNode_nextElementSibling_Get(this.handle);
   }
-  void after(SumType!(Node, string) nodes) {
-    ChildNode_after(handle, nodes);
+  auto before(SumType!(Node, string) nodes) {
+    ChildNode_before(this.handle, nodes);
   }
-  void replaceWith(SumType!(Node, string) nodes) {
-    ChildNode_replaceWith(handle, nodes);
+  auto after(SumType!(Node, string) nodes) {
+    ChildNode_after(this.handle, nodes);
   }
-  void remove() {
-    ChildNode_remove(handle);
+  auto replaceWith(SumType!(Node, string) nodes) {
+    ChildNode_replaceWith(this.handle, nodes);
+  }
+  auto remove() {
+    ChildNode_remove(this.handle);
   }
 }
 struct Comment {
   CharacterData _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = CharacterData(h);
+  }
 }
 struct CustomEvent {
   Event _parent;
   alias _parent this;
-  Any detail() {
-    return Any(CustomEvent_detail_Get(handle));
+  this(JsHandle h) {
+    _parent = Event(h);
   }
-  void initCustomEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, Any detail /* = null */) {
-    CustomEvent_initCustomEvent(handle, type, bubbles, cancelable, detail.handle);
+  auto detail() {
+    return Any(CustomEvent_detail_Get(this._parent));
+  }
+  auto initCustomEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, Any detail /* = null */) {
+    CustomEvent_initCustomEvent(this._parent, type, bubbles, cancelable, detail.handle);
   }
 }
 struct CustomEventInit {
   EventInit _parent;
   alias _parent this;
-  void detail(Any detail) {
-    CustomEventInit_detail_Set(handle, detail.handle);
+  this(JsHandle h) {
+    _parent = EventInit(h);
   }
-  Any detail() {
-    return Any(CustomEventInit_detail_Get(handle));
+  auto detail(Any detail) {
+    CustomEventInit_detail_Set(this._parent, detail.handle);
+  }
+  auto detail() {
+    return Any(CustomEventInit_detail_Get(this._parent));
   }
 }
 struct DOMImplementation {
   JsHandle handle;
   alias handle this;
-  DocumentType createDocumentType(string qualifiedName, string publicId, string systemId) {
-    return DocumentType(DOMImplementation_createDocumentType(handle, qualifiedName, publicId, systemId));
+  auto createDocumentType(string qualifiedName, string publicId, string systemId) {
+    return DocumentType(DOMImplementation_createDocumentType(this.handle, qualifiedName, publicId, systemId));
   }
-  XMLDocument createDocument(Optional!(string) namespace, string qualifiedName, Optional!(DocumentType) doctype /* = no!(DocumentType) */) {
-    return XMLDocument(DOMImplementation_createDocument(handle, !namespace.empty, namespace.value, qualifiedName, !doctype.empty, doctype.value.handle));
+  auto createDocument(Optional!(string) namespace, string qualifiedName, Optional!(DocumentType) doctype /* = no!(DocumentType) */) {
+    return XMLDocument(DOMImplementation_createDocument(this.handle, !namespace.empty, namespace.front, qualifiedName, !doctype.empty, doctype.front.handle));
   }
-  Document createHTMLDocument(string title) {
-    return Document(DOMImplementation_createHTMLDocument(handle, title));
+  auto createHTMLDocument(string title) {
+    return Document(DOMImplementation_createHTMLDocument(this.handle, title));
   }
-  bool hasFeature() {
-    return DOMImplementation_hasFeature(handle);
+  auto hasFeature() {
+    return DOMImplementation_hasFeature(this.handle);
   }
 }
 struct DOMTokenList {
   JsHandle handle;
   alias handle this;
-  uint length() {
-    return DOMTokenList_length_Get(handle);
+  auto length() {
+    return DOMTokenList_length_Get(this.handle);
   }
-  Optional!(string) item(uint index) {
-    return DOMTokenList_item_getter(handle, index);
+  auto item(uint index) {
+    return DOMTokenList_item_getter(this.handle, index);
   }
-  bool contains(string token) {
-    return DOMTokenList_contains(handle, token);
+  auto contains(string token) {
+    return DOMTokenList_contains(this.handle, token);
   }
-  void add(string tokens) {
-    DOMTokenList_add(handle, tokens);
+  auto add(string tokens) {
+    DOMTokenList_add(this.handle, tokens);
   }
-  void remove(string tokens) {
-    DOMTokenList_remove(handle, tokens);
+  auto remove(string tokens) {
+    DOMTokenList_remove(this.handle, tokens);
   }
-  bool toggle(string token, bool force) {
-    return DOMTokenList_toggle(handle, token, force);
+  auto toggle(string token, bool force) {
+    return DOMTokenList_toggle(this.handle, token, force);
   }
-  bool replace(string token, string newToken) {
-    return DOMTokenList_replace(handle, token, newToken);
+  auto replace(string token, string newToken) {
+    return DOMTokenList_replace(this.handle, token, newToken);
   }
-  bool supports(string token) {
-    return DOMTokenList_supports(handle, token);
+  auto supports(string token) {
+    return DOMTokenList_supports(this.handle, token);
   }
-  void value(string value) {
-    DOMTokenList_value_Set(handle, value);
+  auto value(string value) {
+    DOMTokenList_value_Set(this.handle, value);
   }
-  string value() {
-    return DOMTokenList_value_Get(handle);
+  auto value() {
+    return DOMTokenList_value_Get(this.handle);
   }
 }
 struct Document {
   Node _parent;
   alias _parent this;
-  DOMImplementation implementation() {
-    return DOMImplementation(Document_implementation_Get(handle));
+  this(JsHandle h) {
+    _parent = Node(h);
   }
-  string URL() {
-    return string(Document_URL_Get(handle));
+  auto implementation() {
+    return DOMImplementation(Document_implementation_Get(this._parent));
   }
-  string documentURI() {
-    return string(Document_documentURI_Get(handle));
+  auto URL() {
+    return Document_URL_Get(this._parent);
   }
-  string origin() {
-    return string(Document_origin_Get(handle));
+  auto documentURI() {
+    return Document_documentURI_Get(this._parent);
   }
-  string compatMode() {
-    return Document_compatMode_Get(handle);
+  auto origin() {
+    return Document_origin_Get(this._parent);
   }
-  string characterSet() {
-    return Document_characterSet_Get(handle);
+  auto compatMode() {
+    return Document_compatMode_Get(this._parent);
   }
-  string charset() {
-    return Document_charset_Get(handle);
+  auto characterSet() {
+    return Document_characterSet_Get(this._parent);
   }
-  string inputEncoding() {
-    return Document_inputEncoding_Get(handle);
+  auto charset() {
+    return Document_charset_Get(this._parent);
   }
-  string contentType() {
-    return Document_contentType_Get(handle);
+  auto inputEncoding() {
+    return Document_inputEncoding_Get(this._parent);
   }
-  Optional!(DocumentType) doctype() {
-    return Document_doctype_Get(handle);
+  auto contentType() {
+    return Document_contentType_Get(this._parent);
   }
-  Optional!(Element) documentElement() {
-    return Document_documentElement_Get(handle);
+  auto doctype() {
+    return Document_doctype_Get(this._parent);
   }
-  HTMLCollection getElementsByTagName(string qualifiedName) {
-    return HTMLCollection(Document_getElementsByTagName(handle, qualifiedName));
+  auto documentElement() {
+    return Document_documentElement_Get(this._parent);
   }
-  HTMLCollection getElementsByTagNameNS(Optional!(string) namespace, string localName) {
-    return HTMLCollection(Document_getElementsByTagNameNS(handle, !namespace.empty, namespace.value, localName));
+  auto getElementsByTagName(string qualifiedName) {
+    return HTMLCollection(Document_getElementsByTagName(this._parent, qualifiedName));
   }
-  HTMLCollection getElementsByClassName(string classNames) {
-    return HTMLCollection(Document_getElementsByClassName(handle, classNames));
+  auto getElementsByTagNameNS(Optional!(string) namespace, string localName) {
+    return HTMLCollection(Document_getElementsByTagNameNS(this._parent, !namespace.empty, namespace.front, localName));
   }
-  Element createElement(string localName, SumType!(string, ElementCreationOptions) options) {
-    return Element(Document_createElement(handle, localName, options));
+  auto getElementsByClassName(string classNames) {
+    return HTMLCollection(Document_getElementsByClassName(this._parent, classNames));
   }
-  Element createElementNS(Optional!(string) namespace, string qualifiedName, SumType!(string, ElementCreationOptions) options) {
-    return Element(Document_createElementNS(handle, !namespace.empty, namespace.value, qualifiedName, options));
+  auto createElement(string localName, SumType!(string, ElementCreationOptions) options) {
+    return Element(Document_createElement(this._parent, localName, options));
   }
-  DocumentFragment createDocumentFragment() {
-    return DocumentFragment(Document_createDocumentFragment(handle));
+  auto createElementNS(Optional!(string) namespace, string qualifiedName, SumType!(string, ElementCreationOptions) options) {
+    return Element(Document_createElementNS(this._parent, !namespace.empty, namespace.front, qualifiedName, options));
   }
-  Text createTextNode(string data) {
-    return Text(Document_createTextNode(handle, data));
+  auto createDocumentFragment() {
+    return DocumentFragment(Document_createDocumentFragment(this._parent));
   }
-  CDATASection createCDATASection(string data) {
-    return CDATASection(Document_createCDATASection(handle, data));
+  auto createTextNode(string data) {
+    return Text(Document_createTextNode(this._parent, data));
   }
-  Comment createComment(string data) {
-    return Comment(Document_createComment(handle, data));
+  auto createCDATASection(string data) {
+    return CDATASection(Document_createCDATASection(this._parent, data));
   }
-  ProcessingInstruction createProcessingInstruction(string target, string data) {
-    return ProcessingInstruction(Document_createProcessingInstruction(handle, target, data));
+  auto createComment(string data) {
+    return Comment(Document_createComment(this._parent, data));
   }
-  Node importNode(Node node, bool deep /* = false */) {
-    return Node(Document_importNode(handle, node.handle, deep));
+  auto createProcessingInstruction(string target, string data) {
+    return ProcessingInstruction(Document_createProcessingInstruction(this._parent, target, data));
   }
-  Node adoptNode(Node node) {
-    return Node(Document_adoptNode(handle, node.handle));
+  auto importNode(Node node, bool deep /* = false */) {
+    return Node(Document_importNode(this._parent, node.handle, deep));
   }
-  Attr createAttribute(string localName) {
-    return Attr(Document_createAttribute(handle, localName));
+  auto adoptNode(Node node) {
+    return Node(Document_adoptNode(this._parent, node.handle));
   }
-  Attr createAttributeNS(Optional!(string) namespace, string qualifiedName) {
-    return Attr(Document_createAttributeNS(handle, !namespace.empty, namespace.value, qualifiedName));
+  auto createAttribute(string localName) {
+    return Attr(Document_createAttribute(this._parent, localName));
   }
-  Event createEvent(string interface_) {
-    return Event(Document_createEvent(handle, interface_));
+  auto createAttributeNS(Optional!(string) namespace, string qualifiedName) {
+    return Attr(Document_createAttributeNS(this._parent, !namespace.empty, namespace.front, qualifiedName));
   }
-  Range createRange() {
-    return Range(Document_createRange(handle));
+  auto createEvent(string interface_) {
+    return Event(Document_createEvent(this._parent, interface_));
   }
-  NodeIterator createNodeIterator(Node root, uint whatToShow /* = 0xFFFFFFFF */, Optional!(NodeFilter) filter /* = no!(NodeFilter) */) {
-    return NodeIterator(Document_createNodeIterator(handle, root.handle, whatToShow, !filter.empty, filter.value.handle));
+  auto createRange() {
+    return Range(Document_createRange(this._parent));
   }
-  TreeWalker createTreeWalker(Node root, uint whatToShow /* = 0xFFFFFFFF */, Optional!(NodeFilter) filter /* = no!(NodeFilter) */) {
-    return TreeWalker(Document_createTreeWalker(handle, root.handle, whatToShow, !filter.empty, filter.value.handle));
+  auto createNodeIterator(Node root, uint whatToShow /* = 0xFFFFFFFF */, Optional!(NodeFilter) filter /* = no!(NodeFilter) */) {
+    return NodeIterator(Document_createNodeIterator(this._parent, root.handle, whatToShow, !filter.empty, filter.front.handle));
   }
-  Optional!(Location) location() {
-    return Document_location_Get(handle);
+  auto createTreeWalker(Node root, uint whatToShow /* = 0xFFFFFFFF */, Optional!(NodeFilter) filter /* = no!(NodeFilter) */) {
+    return TreeWalker(Document_createTreeWalker(this._parent, root.handle, whatToShow, !filter.empty, filter.front.handle));
   }
-  void domain(string domain) {
-    Document_domain_Set(handle, domain.handle);
+  auto location() {
+    return Document_location_Get(this._parent);
   }
-  string domain() {
-    return string(Document_domain_Get(handle));
+  auto domain(string domain) {
+    Document_domain_Set(this._parent, domain);
   }
-  string referrer() {
-    return string(Document_referrer_Get(handle));
+  auto domain() {
+    return Document_domain_Get(this._parent);
   }
-  void cookie(string cookie) {
-    Document_cookie_Set(handle, cookie.handle);
+  auto referrer() {
+    return Document_referrer_Get(this._parent);
   }
-  string cookie() {
-    return string(Document_cookie_Get(handle));
+  auto cookie(string cookie) {
+    Document_cookie_Set(this._parent, cookie);
   }
-  string lastModified() {
-    return Document_lastModified_Get(handle);
+  auto cookie() {
+    return Document_cookie_Get(this._parent);
   }
-  DocumentReadyState readyState() {
-    return Document_readyState_Get(handle);
+  auto lastModified() {
+    return Document_lastModified_Get(this._parent);
   }
-  void title(string title) {
-    Document_title_Set(handle, title);
+  auto readyState() {
+    return Document_readyState_Get(this._parent);
   }
-  string title() {
-    return Document_title_Get(handle);
+  auto title(string title) {
+    Document_title_Set(this._parent, title);
   }
-  void dir(string dir) {
-    Document_dir_Set(handle, dir);
+  auto title() {
+    return Document_title_Get(this._parent);
   }
-  string dir() {
-    return Document_dir_Get(handle);
+  auto dir(string dir) {
+    Document_dir_Set(this._parent, dir);
   }
-  void body_(Optional!(HTMLElement) body_) {
-    Document_body_Set(handle, !body_.empty, body_.value.handle);
+  auto dir() {
+    return Document_dir_Get(this._parent);
   }
-  Optional!(HTMLElement) body_() {
-    return Document_body_Get(handle);
+  auto body_(Optional!(HTMLElement) body_) {
+    Document_body_Set(this._parent, !body_.empty, body_.front.handle);
   }
-  Optional!(HTMLHeadElement) head() {
-    return Document_head_Get(handle);
+  auto body_() {
+    return Document_body_Get(this._parent);
   }
-  HTMLCollection images() {
-    return HTMLCollection(Document_images_Get(handle));
+  auto head() {
+    return Document_head_Get(this._parent);
   }
-  HTMLCollection embeds() {
-    return HTMLCollection(Document_embeds_Get(handle));
+  auto images() {
+    return HTMLCollection(Document_images_Get(this._parent));
   }
-  HTMLCollection plugins() {
-    return HTMLCollection(Document_plugins_Get(handle));
+  auto embeds() {
+    return HTMLCollection(Document_embeds_Get(this._parent));
   }
-  HTMLCollection links() {
-    return HTMLCollection(Document_links_Get(handle));
+  auto plugins() {
+    return HTMLCollection(Document_plugins_Get(this._parent));
   }
-  HTMLCollection forms() {
-    return HTMLCollection(Document_forms_Get(handle));
+  auto links() {
+    return HTMLCollection(Document_links_Get(this._parent));
   }
-  HTMLCollection scripts() {
-    return HTMLCollection(Document_scripts_Get(handle));
+  auto forms() {
+    return HTMLCollection(Document_forms_Get(this._parent));
   }
-  NodeList getElementsByName(string elementName) {
-    return NodeList(Document_getElementsByName(handle, elementName));
+  auto scripts() {
+    return HTMLCollection(Document_scripts_Get(this._parent));
   }
-  Optional!(HTMLOrSVGScriptElement) currentScript() {
-    return Document_currentScript_Get(handle);
+  auto getElementsByName(string elementName) {
+    return NodeList(Document_getElementsByName(this._parent, elementName));
   }
-  Document open(string unused1, string unused2) {
-    return Document(Document_open__string_string(handle, unused1, unused2));
+  auto currentScript() {
+    return Document_currentScript_Get(this._parent);
   }
-  Optional!(WindowProxy) open(string url, string name, string features) {
-    return Document_open__string_string_string(handle, url.handle, name, features);
+  auto open(string unused1, string unused2) {
+    return Document(Document_open__string_string(this._parent, unused1, unused2));
   }
-  void close() {
-    Document_close(handle);
+  auto open(string url, string name, string features) {
+    return Document_open__string_string_string(this._parent, url, name, features);
   }
-  void write(string text) {
-    Document_write(handle, text);
+  auto close() {
+    Document_close(this._parent);
   }
-  void writeln(string text) {
-    Document_writeln(handle, text);
+  auto write(string text) {
+    Document_write(this._parent, text);
   }
-  Optional!(WindowProxy) defaultView() {
-    return Document_defaultView_Get(handle);
+  auto writeln(string text) {
+    Document_writeln(this._parent, text);
   }
-  Optional!(Element) activeElement() {
-    return Document_activeElement_Get(handle);
+  auto defaultView() {
+    return Document_defaultView_Get(this._parent);
   }
-  bool hasFocus() {
-    return Document_hasFocus(handle);
+  auto activeElement() {
+    return Document_activeElement_Get(this._parent);
   }
-  void designMode(string designMode) {
-    Document_designMode_Set(handle, designMode);
+  auto hasFocus() {
+    return Document_hasFocus(this._parent);
   }
-  string designMode() {
-    return Document_designMode_Get(handle);
+  auto designMode(string designMode) {
+    Document_designMode_Set(this._parent, designMode);
   }
-  bool execCommand(string commandId, bool showUI /* = false */, string value /* = "" */) {
-    return Document_execCommand(handle, commandId, showUI, value);
+  auto designMode() {
+    return Document_designMode_Get(this._parent);
   }
-  bool queryCommandEnabled(string commandId) {
-    return Document_queryCommandEnabled(handle, commandId);
+  auto execCommand(string commandId, bool showUI /* = false */, string value /* = "" */) {
+    return Document_execCommand(this._parent, commandId, showUI, value);
   }
-  bool queryCommandIndeterm(string commandId) {
-    return Document_queryCommandIndeterm(handle, commandId);
+  auto queryCommandEnabled(string commandId) {
+    return Document_queryCommandEnabled(this._parent, commandId);
   }
-  bool queryCommandState(string commandId) {
-    return Document_queryCommandState(handle, commandId);
+  auto queryCommandIndeterm(string commandId) {
+    return Document_queryCommandIndeterm(this._parent, commandId);
   }
-  bool queryCommandSupported(string commandId) {
-    return Document_queryCommandSupported(handle, commandId);
+  auto queryCommandState(string commandId) {
+    return Document_queryCommandState(this._parent, commandId);
   }
-  string queryCommandValue(string commandId) {
-    return Document_queryCommandValue(handle, commandId);
+  auto queryCommandSupported(string commandId) {
+    return Document_queryCommandSupported(this._parent, commandId);
   }
-  void onreadystatechange(EventHandler onreadystatechange) {
-    Document_onreadystatechange_Set(handle, !onreadystatechange.empty, onreadystatechange.value);
+  auto queryCommandValue(string commandId) {
+    return Document_queryCommandValue(this._parent, commandId);
   }
-  EventHandler onreadystatechange() {
-    return Document_onreadystatechange_Get(handle);
+  auto onreadystatechange(EventHandler onreadystatechange) {
+    Document_onreadystatechange_Set(this._parent, onreadystatechange);
   }
-  void fgColor(string fgColor) {
-    Document_fgColor_Set(handle, fgColor);
+  auto onreadystatechange() {
+    return Document_onreadystatechange_Get(this._parent);
   }
-  string fgColor() {
-    return Document_fgColor_Get(handle);
+  auto fgColor(string fgColor) {
+    Document_fgColor_Set(this._parent, fgColor);
   }
-  void linkColor(string linkColor) {
-    Document_linkColor_Set(handle, linkColor);
+  auto fgColor() {
+    return Document_fgColor_Get(this._parent);
   }
-  string linkColor() {
-    return Document_linkColor_Get(handle);
+  auto linkColor(string linkColor) {
+    Document_linkColor_Set(this._parent, linkColor);
   }
-  void vlinkColor(string vlinkColor) {
-    Document_vlinkColor_Set(handle, vlinkColor);
+  auto linkColor() {
+    return Document_linkColor_Get(this._parent);
   }
-  string vlinkColor() {
-    return Document_vlinkColor_Get(handle);
+  auto vlinkColor(string vlinkColor) {
+    Document_vlinkColor_Set(this._parent, vlinkColor);
   }
-  void alinkColor(string alinkColor) {
-    Document_alinkColor_Set(handle, alinkColor);
+  auto vlinkColor() {
+    return Document_vlinkColor_Get(this._parent);
   }
-  string alinkColor() {
-    return Document_alinkColor_Get(handle);
+  auto alinkColor(string alinkColor) {
+    Document_alinkColor_Set(this._parent, alinkColor);
   }
-  void bgColor(string bgColor) {
-    Document_bgColor_Set(handle, bgColor);
+  auto alinkColor() {
+    return Document_alinkColor_Get(this._parent);
   }
-  string bgColor() {
-    return Document_bgColor_Get(handle);
+  auto bgColor(string bgColor) {
+    Document_bgColor_Set(this._parent, bgColor);
   }
-  HTMLCollection anchors() {
-    return HTMLCollection(Document_anchors_Get(handle));
+  auto bgColor() {
+    return Document_bgColor_Get(this._parent);
   }
-  HTMLCollection applets() {
-    return HTMLCollection(Document_applets_Get(handle));
+  auto anchors() {
+    return HTMLCollection(Document_anchors_Get(this._parent));
   }
-  void clear() {
-    Document_clear(handle);
+  auto applets() {
+    return HTMLCollection(Document_applets_Get(this._parent));
   }
-  void captureEvents() {
-    Document_captureEvents(handle);
+  auto clear() {
+    Document_clear(this._parent);
   }
-  void releaseEvents() {
-    Document_releaseEvents(handle);
+  auto captureEvents() {
+    Document_captureEvents(this._parent);
   }
-  HTMLAllCollection all() {
-    return HTMLAllCollection(Document_all_Get(handle));
+  auto releaseEvents() {
+    Document_releaseEvents(this._parent);
   }
-  bool fullscreenEnabled() {
-    return Document_fullscreenEnabled_Get(handle);
+  auto all() {
+    return HTMLAllCollection(Document_all_Get(this._parent));
   }
-  bool fullscreen() {
-    return Document_fullscreen_Get(handle);
+  auto hidden() {
+    return Document_hidden_Get(this._parent);
   }
-  Promise!(void) exitFullscreen() {
-    return Promise!(void)(Document_exitFullscreen(handle));
+  auto visibilityState() {
+    return Document_visibilityState_Get(this._parent);
   }
-  void onfullscreenchange(EventHandler onfullscreenchange) {
-    Document_onfullscreenchange_Set(handle, !onfullscreenchange.empty, onfullscreenchange.value);
+  auto onvisibilitychange(EventHandler onvisibilitychange) {
+    Document_onvisibilitychange_Set(this._parent, onvisibilitychange);
   }
-  EventHandler onfullscreenchange() {
-    return Document_onfullscreenchange_Get(handle);
+  auto onvisibilitychange() {
+    return Document_onvisibilitychange_Get(this._parent);
   }
-  void onfullscreenerror(EventHandler onfullscreenerror) {
-    Document_onfullscreenerror_Set(handle, !onfullscreenerror.empty, onfullscreenerror.value);
+  auto fullscreenEnabled() {
+    return Document_fullscreenEnabled_Get(this._parent);
   }
-  EventHandler onfullscreenerror() {
-    return Document_onfullscreenerror_Get(handle);
+  auto fullscreen() {
+    return Document_fullscreen_Get(this._parent);
   }
-  Optional!(SVGSVGElement) rootElement() {
-    return Document_rootElement_Get(handle);
+  auto exitFullscreen() {
+    return Promise!(void)(Document_exitFullscreen(this._parent));
   }
-  Optional!(Element) getElementById(string elementId) {
-    return NonElementParentNode_getElementById(handle, elementId);
+  auto onfullscreenchange(EventHandler onfullscreenchange) {
+    Document_onfullscreenchange_Set(this._parent, onfullscreenchange);
   }
-  HTMLCollection children() {
-    return HTMLCollection(ParentNode_children_Get(handle));
+  auto onfullscreenchange() {
+    return Document_onfullscreenchange_Get(this._parent);
   }
-  Optional!(Element) firstElementChild() {
-    return ParentNode_firstElementChild_Get(handle);
+  auto onfullscreenerror(EventHandler onfullscreenerror) {
+    Document_onfullscreenerror_Set(this._parent, onfullscreenerror);
   }
-  Optional!(Element) lastElementChild() {
-    return ParentNode_lastElementChild_Get(handle);
+  auto onfullscreenerror() {
+    return Document_onfullscreenerror_Get(this._parent);
   }
-  uint childElementCount() {
-    return ParentNode_childElementCount_Get(handle);
+  auto rootElement() {
+    return Document_rootElement_Get(this._parent);
   }
-  void prepend(SumType!(Node, string) nodes) {
-    ParentNode_prepend(handle, nodes);
+  auto getElementById(string elementId) {
+    return NonElementParentNode_getElementById(this.handle, elementId);
   }
-  void append(SumType!(Node, string) nodes) {
-    ParentNode_append(handle, nodes);
+  auto fullscreenElement() {
+    return DocumentOrShadowRoot_fullscreenElement_Get(this.handle);
   }
-  Optional!(Element) querySelector(string selectors) {
-    return ParentNode_querySelector(handle, selectors);
+  auto children() {
+    return HTMLCollection(ParentNode_children_Get(this.handle));
   }
-  NodeList querySelectorAll(string selectors) {
-    return NodeList(ParentNode_querySelectorAll(handle, selectors));
+  auto firstElementChild() {
+    return ParentNode_firstElementChild_Get(this.handle);
   }
-  void ongotpointercapture(EventHandler ongotpointercapture) {
-    GlobalEventHandlers_ongotpointercapture_Set(handle, !ongotpointercapture.empty, ongotpointercapture.value);
+  auto lastElementChild() {
+    return ParentNode_lastElementChild_Get(this.handle);
   }
-  EventHandler ongotpointercapture() {
-    return GlobalEventHandlers_ongotpointercapture_Get(handle);
+  auto childElementCount() {
+    return ParentNode_childElementCount_Get(this.handle);
   }
-  void onlostpointercapture(EventHandler onlostpointercapture) {
-    GlobalEventHandlers_onlostpointercapture_Set(handle, !onlostpointercapture.empty, onlostpointercapture.value);
+  auto prepend(SumType!(Node, string) nodes) {
+    ParentNode_prepend(this.handle, nodes);
   }
-  EventHandler onlostpointercapture() {
-    return GlobalEventHandlers_onlostpointercapture_Get(handle);
+  auto append(SumType!(Node, string) nodes) {
+    ParentNode_append(this.handle, nodes);
   }
-  void onpointerdown(EventHandler onpointerdown) {
-    GlobalEventHandlers_onpointerdown_Set(handle, !onpointerdown.empty, onpointerdown.value);
+  auto querySelector(string selectors) {
+    return ParentNode_querySelector(this.handle, selectors);
   }
-  EventHandler onpointerdown() {
-    return GlobalEventHandlers_onpointerdown_Get(handle);
+  auto querySelectorAll(string selectors) {
+    return NodeList(ParentNode_querySelectorAll(this.handle, selectors));
   }
-  void onpointermove(EventHandler onpointermove) {
-    GlobalEventHandlers_onpointermove_Set(handle, !onpointermove.empty, onpointermove.value);
+  auto ongotpointercapture(EventHandler ongotpointercapture) {
+    GlobalEventHandlers_ongotpointercapture_Set(this.handle, ongotpointercapture);
   }
-  EventHandler onpointermove() {
-    return GlobalEventHandlers_onpointermove_Get(handle);
+  auto ongotpointercapture() {
+    return GlobalEventHandlers_ongotpointercapture_Get(this.handle);
   }
-  void onpointerup(EventHandler onpointerup) {
-    GlobalEventHandlers_onpointerup_Set(handle, !onpointerup.empty, onpointerup.value);
+  auto onlostpointercapture(EventHandler onlostpointercapture) {
+    GlobalEventHandlers_onlostpointercapture_Set(this.handle, onlostpointercapture);
   }
-  EventHandler onpointerup() {
-    return GlobalEventHandlers_onpointerup_Get(handle);
+  auto onlostpointercapture() {
+    return GlobalEventHandlers_onlostpointercapture_Get(this.handle);
   }
-  void onpointercancel(EventHandler onpointercancel) {
-    GlobalEventHandlers_onpointercancel_Set(handle, !onpointercancel.empty, onpointercancel.value);
+  auto onpointerdown(EventHandler onpointerdown) {
+    GlobalEventHandlers_onpointerdown_Set(this.handle, onpointerdown);
   }
-  EventHandler onpointercancel() {
-    return GlobalEventHandlers_onpointercancel_Get(handle);
+  auto onpointerdown() {
+    return GlobalEventHandlers_onpointerdown_Get(this.handle);
   }
-  void onpointerover(EventHandler onpointerover) {
-    GlobalEventHandlers_onpointerover_Set(handle, !onpointerover.empty, onpointerover.value);
+  auto onpointermove(EventHandler onpointermove) {
+    GlobalEventHandlers_onpointermove_Set(this.handle, onpointermove);
   }
-  EventHandler onpointerover() {
-    return GlobalEventHandlers_onpointerover_Get(handle);
+  auto onpointermove() {
+    return GlobalEventHandlers_onpointermove_Get(this.handle);
   }
-  void onpointerout(EventHandler onpointerout) {
-    GlobalEventHandlers_onpointerout_Set(handle, !onpointerout.empty, onpointerout.value);
+  auto onpointerup(EventHandler onpointerup) {
+    GlobalEventHandlers_onpointerup_Set(this.handle, onpointerup);
   }
-  EventHandler onpointerout() {
-    return GlobalEventHandlers_onpointerout_Get(handle);
+  auto onpointerup() {
+    return GlobalEventHandlers_onpointerup_Get(this.handle);
   }
-  void onpointerenter(EventHandler onpointerenter) {
-    GlobalEventHandlers_onpointerenter_Set(handle, !onpointerenter.empty, onpointerenter.value);
+  auto onpointercancel(EventHandler onpointercancel) {
+    GlobalEventHandlers_onpointercancel_Set(this.handle, onpointercancel);
   }
-  EventHandler onpointerenter() {
-    return GlobalEventHandlers_onpointerenter_Get(handle);
+  auto onpointercancel() {
+    return GlobalEventHandlers_onpointercancel_Get(this.handle);
   }
-  void onpointerleave(EventHandler onpointerleave) {
-    GlobalEventHandlers_onpointerleave_Set(handle, !onpointerleave.empty, onpointerleave.value);
+  auto onpointerover(EventHandler onpointerover) {
+    GlobalEventHandlers_onpointerover_Set(this.handle, onpointerover);
   }
-  EventHandler onpointerleave() {
-    return GlobalEventHandlers_onpointerleave_Get(handle);
+  auto onpointerover() {
+    return GlobalEventHandlers_onpointerover_Get(this.handle);
   }
-  void ontouchstart(EventHandler ontouchstart) {
-    GlobalEventHandlers_ontouchstart_Set(handle, !ontouchstart.empty, ontouchstart.value);
+  auto onpointerout(EventHandler onpointerout) {
+    GlobalEventHandlers_onpointerout_Set(this.handle, onpointerout);
   }
-  EventHandler ontouchstart() {
-    return GlobalEventHandlers_ontouchstart_Get(handle);
+  auto onpointerout() {
+    return GlobalEventHandlers_onpointerout_Get(this.handle);
   }
-  void ontouchend(EventHandler ontouchend) {
-    GlobalEventHandlers_ontouchend_Set(handle, !ontouchend.empty, ontouchend.value);
+  auto onpointerenter(EventHandler onpointerenter) {
+    GlobalEventHandlers_onpointerenter_Set(this.handle, onpointerenter);
   }
-  EventHandler ontouchend() {
-    return GlobalEventHandlers_ontouchend_Get(handle);
+  auto onpointerenter() {
+    return GlobalEventHandlers_onpointerenter_Get(this.handle);
   }
-  void ontouchmove(EventHandler ontouchmove) {
-    GlobalEventHandlers_ontouchmove_Set(handle, !ontouchmove.empty, ontouchmove.value);
+  auto onpointerleave(EventHandler onpointerleave) {
+    GlobalEventHandlers_onpointerleave_Set(this.handle, onpointerleave);
   }
-  EventHandler ontouchmove() {
-    return GlobalEventHandlers_ontouchmove_Get(handle);
+  auto onpointerleave() {
+    return GlobalEventHandlers_onpointerleave_Get(this.handle);
   }
-  void ontouchcancel(EventHandler ontouchcancel) {
-    GlobalEventHandlers_ontouchcancel_Set(handle, !ontouchcancel.empty, ontouchcancel.value);
+  auto ontouchstart(EventHandler ontouchstart) {
+    GlobalEventHandlers_ontouchstart_Set(this.handle, ontouchstart);
   }
-  EventHandler ontouchcancel() {
-    return GlobalEventHandlers_ontouchcancel_Get(handle);
+  auto ontouchstart() {
+    return GlobalEventHandlers_ontouchstart_Get(this.handle);
+  }
+  auto ontouchend(EventHandler ontouchend) {
+    GlobalEventHandlers_ontouchend_Set(this.handle, ontouchend);
+  }
+  auto ontouchend() {
+    return GlobalEventHandlers_ontouchend_Get(this.handle);
+  }
+  auto ontouchmove(EventHandler ontouchmove) {
+    GlobalEventHandlers_ontouchmove_Set(this.handle, ontouchmove);
+  }
+  auto ontouchmove() {
+    return GlobalEventHandlers_ontouchmove_Get(this.handle);
+  }
+  auto ontouchcancel(EventHandler ontouchcancel) {
+    GlobalEventHandlers_ontouchcancel_Set(this.handle, ontouchcancel);
+  }
+  auto ontouchcancel() {
+    return GlobalEventHandlers_ontouchcancel_Get(this.handle);
   }
 }
 struct DocumentFragment {
   Node _parent;
   alias _parent this;
-  Optional!(Element) getElementById(string elementId) {
-    return NonElementParentNode_getElementById(handle, elementId);
+  this(JsHandle h) {
+    _parent = Node(h);
   }
-  HTMLCollection children() {
-    return HTMLCollection(ParentNode_children_Get(handle));
+  auto getElementById(string elementId) {
+    return NonElementParentNode_getElementById(this.handle, elementId);
   }
-  Optional!(Element) firstElementChild() {
-    return ParentNode_firstElementChild_Get(handle);
+  auto children() {
+    return HTMLCollection(ParentNode_children_Get(this.handle));
   }
-  Optional!(Element) lastElementChild() {
-    return ParentNode_lastElementChild_Get(handle);
+  auto firstElementChild() {
+    return ParentNode_firstElementChild_Get(this.handle);
   }
-  uint childElementCount() {
-    return ParentNode_childElementCount_Get(handle);
+  auto lastElementChild() {
+    return ParentNode_lastElementChild_Get(this.handle);
   }
-  void prepend(SumType!(Node, string) nodes) {
-    ParentNode_prepend(handle, nodes);
+  auto childElementCount() {
+    return ParentNode_childElementCount_Get(this.handle);
   }
-  void append(SumType!(Node, string) nodes) {
-    ParentNode_append(handle, nodes);
+  auto prepend(SumType!(Node, string) nodes) {
+    ParentNode_prepend(this.handle, nodes);
   }
-  Optional!(Element) querySelector(string selectors) {
-    return ParentNode_querySelector(handle, selectors);
+  auto append(SumType!(Node, string) nodes) {
+    ParentNode_append(this.handle, nodes);
   }
-  NodeList querySelectorAll(string selectors) {
-    return NodeList(ParentNode_querySelectorAll(handle, selectors));
+  auto querySelector(string selectors) {
+    return ParentNode_querySelector(this.handle, selectors);
+  }
+  auto querySelectorAll(string selectors) {
+    return NodeList(ParentNode_querySelectorAll(this.handle, selectors));
   }
 }
 struct DocumentType {
   Node _parent;
   alias _parent this;
-  string name() {
-    return DocumentType_name_Get(handle);
+  this(JsHandle h) {
+    _parent = Node(h);
   }
-  string publicId() {
-    return DocumentType_publicId_Get(handle);
+  auto name() {
+    return DocumentType_name_Get(this._parent);
   }
-  string systemId() {
-    return DocumentType_systemId_Get(handle);
+  auto publicId() {
+    return DocumentType_publicId_Get(this._parent);
   }
-  void before(SumType!(Node, string) nodes) {
-    ChildNode_before(handle, nodes);
+  auto systemId() {
+    return DocumentType_systemId_Get(this._parent);
   }
-  void after(SumType!(Node, string) nodes) {
-    ChildNode_after(handle, nodes);
+  auto before(SumType!(Node, string) nodes) {
+    ChildNode_before(this.handle, nodes);
   }
-  void replaceWith(SumType!(Node, string) nodes) {
-    ChildNode_replaceWith(handle, nodes);
+  auto after(SumType!(Node, string) nodes) {
+    ChildNode_after(this.handle, nodes);
   }
-  void remove() {
-    ChildNode_remove(handle);
+  auto replaceWith(SumType!(Node, string) nodes) {
+    ChildNode_replaceWith(this.handle, nodes);
+  }
+  auto remove() {
+    ChildNode_remove(this.handle);
   }
 }
 struct Element {
   Node _parent;
   alias _parent this;
-  Optional!(string) namespaceURI() {
-    return Element_namespaceURI_Get(handle);
+  this(JsHandle h) {
+    _parent = Node(h);
   }
-  Optional!(string) prefix() {
-    return Element_prefix_Get(handle);
+  auto namespaceURI() {
+    return Element_namespaceURI_Get(this._parent);
   }
-  string localName() {
-    return Element_localName_Get(handle);
+  auto prefix() {
+    return Element_prefix_Get(this._parent);
   }
-  string tagName() {
-    return Element_tagName_Get(handle);
+  auto localName() {
+    return Element_localName_Get(this._parent);
   }
-  void id(string id) {
-    Element_id_Set(handle, id);
+  auto tagName() {
+    return Element_tagName_Get(this._parent);
   }
-  string id() {
-    return Element_id_Get(handle);
+  auto id(string id) {
+    Element_id_Set(this._parent, id);
   }
-  void className(string className) {
-    Element_className_Set(handle, className);
+  auto id() {
+    return Element_id_Get(this._parent);
   }
-  string className() {
-    return Element_className_Get(handle);
+  auto className(string className) {
+    Element_className_Set(this._parent, className);
   }
-  DOMTokenList classList() {
-    return DOMTokenList(Element_classList_Get(handle));
+  auto className() {
+    return Element_className_Get(this._parent);
   }
-  void slot(string slot) {
-    Element_slot_Set(handle, slot);
+  auto classList() {
+    return DOMTokenList(Element_classList_Get(this._parent));
   }
-  string slot() {
-    return Element_slot_Get(handle);
+  auto slot(string slot) {
+    Element_slot_Set(this._parent, slot);
   }
-  bool hasAttributes() {
-    return Element_hasAttributes(handle);
+  auto slot() {
+    return Element_slot_Get(this._parent);
   }
-  NamedNodeMap attributes() {
-    return NamedNodeMap(Element_attributes_Get(handle));
+  auto hasAttributes() {
+    return Element_hasAttributes(this._parent);
   }
-  Sequence!(string) getAttributeNames() {
-    return Sequence!(string)(Element_getAttributeNames(handle));
+  auto attributes() {
+    return NamedNodeMap(Element_attributes_Get(this._parent));
   }
-  Optional!(string) getAttribute(string qualifiedName) {
-    return Element_getAttribute(handle, qualifiedName);
+  auto getAttributeNames() {
+    return Sequence!(string)(Element_getAttributeNames(this._parent));
   }
-  Optional!(string) getAttributeNS(Optional!(string) namespace, string localName) {
-    return Element_getAttributeNS(handle, !namespace.empty, namespace.value, localName);
+  auto getAttribute(string qualifiedName) {
+    return Element_getAttribute(this._parent, qualifiedName);
   }
-  void setAttribute(string qualifiedName, string value) {
-    Element_setAttribute(handle, qualifiedName, value);
+  auto getAttributeNS(Optional!(string) namespace, string localName) {
+    return Element_getAttributeNS(this._parent, !namespace.empty, namespace.front, localName);
   }
-  void setAttributeNS(Optional!(string) namespace, string qualifiedName, string value) {
-    Element_setAttributeNS(handle, !namespace.empty, namespace.value, qualifiedName, value);
+  auto setAttribute(string qualifiedName, string value) {
+    Element_setAttribute(this._parent, qualifiedName, value);
   }
-  void removeAttribute(string qualifiedName) {
-    Element_removeAttribute(handle, qualifiedName);
+  auto setAttributeNS(Optional!(string) namespace, string qualifiedName, string value) {
+    Element_setAttributeNS(this._parent, !namespace.empty, namespace.front, qualifiedName, value);
   }
-  void removeAttributeNS(Optional!(string) namespace, string localName) {
-    Element_removeAttributeNS(handle, !namespace.empty, namespace.value, localName);
+  auto removeAttribute(string qualifiedName) {
+    Element_removeAttribute(this._parent, qualifiedName);
   }
-  bool toggleAttribute(string qualifiedName, bool force) {
-    return Element_toggleAttribute(handle, qualifiedName, force);
+  auto removeAttributeNS(Optional!(string) namespace, string localName) {
+    Element_removeAttributeNS(this._parent, !namespace.empty, namespace.front, localName);
   }
-  bool hasAttribute(string qualifiedName) {
-    return Element_hasAttribute(handle, qualifiedName);
+  auto toggleAttribute(string qualifiedName, bool force) {
+    return Element_toggleAttribute(this._parent, qualifiedName, force);
   }
-  bool hasAttributeNS(Optional!(string) namespace, string localName) {
-    return Element_hasAttributeNS(handle, !namespace.empty, namespace.value, localName);
+  auto hasAttribute(string qualifiedName) {
+    return Element_hasAttribute(this._parent, qualifiedName);
   }
-  Optional!(Attr) getAttributeNode(string qualifiedName) {
-    return Element_getAttributeNode(handle, qualifiedName);
+  auto hasAttributeNS(Optional!(string) namespace, string localName) {
+    return Element_hasAttributeNS(this._parent, !namespace.empty, namespace.front, localName);
   }
-  Optional!(Attr) getAttributeNodeNS(Optional!(string) namespace, string localName) {
-    return Element_getAttributeNodeNS(handle, !namespace.empty, namespace.value, localName);
+  auto getAttributeNode(string qualifiedName) {
+    return Element_getAttributeNode(this._parent, qualifiedName);
   }
-  Optional!(Attr) setAttributeNode(Attr attr) {
-    return Element_setAttributeNode(handle, attr.handle);
+  auto getAttributeNodeNS(Optional!(string) namespace, string localName) {
+    return Element_getAttributeNodeNS(this._parent, !namespace.empty, namespace.front, localName);
   }
-  Optional!(Attr) setAttributeNodeNS(Attr attr) {
-    return Element_setAttributeNodeNS(handle, attr.handle);
+  auto setAttributeNode(Attr attr) {
+    return Element_setAttributeNode(this._parent, attr.handle);
   }
-  Attr removeAttributeNode(Attr attr) {
-    return Attr(Element_removeAttributeNode(handle, attr.handle));
+  auto setAttributeNodeNS(Attr attr) {
+    return Element_setAttributeNodeNS(this._parent, attr.handle);
   }
-  ShadowRoot attachShadow(ShadowRootInit init) {
-    return ShadowRoot(Element_attachShadow(handle, init.handle));
+  auto removeAttributeNode(Attr attr) {
+    return Attr(Element_removeAttributeNode(this._parent, attr.handle));
   }
-  Optional!(ShadowRoot) shadowRoot() {
-    return Element_shadowRoot_Get(handle);
+  auto attachShadow(ShadowRootInit init) {
+    return ShadowRoot(Element_attachShadow(this._parent, init.handle));
   }
-  Optional!(Element) closest(string selectors) {
-    return Element_closest(handle, selectors);
+  auto shadowRoot() {
+    return Element_shadowRoot_Get(this._parent);
   }
-  bool matches(string selectors) {
-    return Element_matches(handle, selectors);
+  auto closest(string selectors) {
+    return Element_closest(this._parent, selectors);
   }
-  bool webkitMatchesSelector(string selectors) {
-    return Element_webkitMatchesSelector(handle, selectors);
+  auto matches(string selectors) {
+    return Element_matches(this._parent, selectors);
   }
-  HTMLCollection getElementsByTagName(string qualifiedName) {
-    return HTMLCollection(Element_getElementsByTagName(handle, qualifiedName));
+  auto webkitMatchesSelector(string selectors) {
+    return Element_webkitMatchesSelector(this._parent, selectors);
   }
-  HTMLCollection getElementsByTagNameNS(Optional!(string) namespace, string localName) {
-    return HTMLCollection(Element_getElementsByTagNameNS(handle, !namespace.empty, namespace.value, localName));
+  auto getElementsByTagName(string qualifiedName) {
+    return HTMLCollection(Element_getElementsByTagName(this._parent, qualifiedName));
   }
-  HTMLCollection getElementsByClassName(string classNames) {
-    return HTMLCollection(Element_getElementsByClassName(handle, classNames));
+  auto getElementsByTagNameNS(Optional!(string) namespace, string localName) {
+    return HTMLCollection(Element_getElementsByTagNameNS(this._parent, !namespace.empty, namespace.front, localName));
   }
-  Optional!(Element) insertAdjacentElement(string where, Element element) {
-    return Element_insertAdjacentElement(handle, where, element.handle);
+  auto getElementsByClassName(string classNames) {
+    return HTMLCollection(Element_getElementsByClassName(this._parent, classNames));
   }
-  void insertAdjacentText(string where, string data) {
-    Element_insertAdjacentText(handle, where, data);
+  auto insertAdjacentElement(string where, Element element) {
+    return Element_insertAdjacentElement(this._parent, where, element.handle);
   }
-  void setPointerCapture(int pointerId) {
-    Element_setPointerCapture(handle, pointerId);
+  auto insertAdjacentText(string where, string data) {
+    Element_insertAdjacentText(this._parent, where, data);
   }
-  void releasePointerCapture(int pointerId) {
-    Element_releasePointerCapture(handle, pointerId);
+  auto setPointerCapture(int pointerId) {
+    Element_setPointerCapture(this._parent, pointerId);
   }
-  bool hasPointerCapture(int pointerId) {
-    return Element_hasPointerCapture(handle, pointerId);
+  auto releasePointerCapture(int pointerId) {
+    Element_releasePointerCapture(this._parent, pointerId);
   }
-  Promise!(void) requestFullscreen(FullscreenOptions options) {
-    return Promise!(void)(Element_requestFullscreen(handle, options.handle));
+  auto hasPointerCapture(int pointerId) {
+    return Element_hasPointerCapture(this._parent, pointerId);
   }
-  void onfullscreenchange(EventHandler onfullscreenchange) {
-    Element_onfullscreenchange_Set(handle, !onfullscreenchange.empty, onfullscreenchange.value);
+  auto requestFullscreen(FullscreenOptions options) {
+    return Promise!(void)(Element_requestFullscreen(this._parent, options.handle));
   }
-  EventHandler onfullscreenchange() {
-    return Element_onfullscreenchange_Get(handle);
+  auto onfullscreenchange(EventHandler onfullscreenchange) {
+    Element_onfullscreenchange_Set(this._parent, onfullscreenchange);
   }
-  void onfullscreenerror(EventHandler onfullscreenerror) {
-    Element_onfullscreenerror_Set(handle, !onfullscreenerror.empty, onfullscreenerror.value);
+  auto onfullscreenchange() {
+    return Element_onfullscreenchange_Get(this._parent);
   }
-  EventHandler onfullscreenerror() {
-    return Element_onfullscreenerror_Get(handle);
+  auto onfullscreenerror(EventHandler onfullscreenerror) {
+    Element_onfullscreenerror_Set(this._parent, onfullscreenerror);
   }
-  HTMLCollection children() {
-    return HTMLCollection(ParentNode_children_Get(handle));
+  auto onfullscreenerror() {
+    return Element_onfullscreenerror_Get(this._parent);
   }
-  Optional!(Element) firstElementChild() {
-    return ParentNode_firstElementChild_Get(handle);
+  auto children() {
+    return HTMLCollection(ParentNode_children_Get(this.handle));
   }
-  Optional!(Element) lastElementChild() {
-    return ParentNode_lastElementChild_Get(handle);
+  auto firstElementChild() {
+    return ParentNode_firstElementChild_Get(this.handle);
   }
-  uint childElementCount() {
-    return ParentNode_childElementCount_Get(handle);
+  auto lastElementChild() {
+    return ParentNode_lastElementChild_Get(this.handle);
   }
-  void prepend(SumType!(Node, string) nodes) {
-    ParentNode_prepend(handle, nodes);
+  auto childElementCount() {
+    return ParentNode_childElementCount_Get(this.handle);
   }
-  void append(SumType!(Node, string) nodes) {
-    ParentNode_append(handle, nodes);
+  auto prepend(SumType!(Node, string) nodes) {
+    ParentNode_prepend(this.handle, nodes);
   }
-  Optional!(Element) querySelector(string selectors) {
-    return ParentNode_querySelector(handle, selectors);
+  auto append(SumType!(Node, string) nodes) {
+    ParentNode_append(this.handle, nodes);
   }
-  NodeList querySelectorAll(string selectors) {
-    return NodeList(ParentNode_querySelectorAll(handle, selectors));
+  auto querySelector(string selectors) {
+    return ParentNode_querySelector(this.handle, selectors);
   }
-  Optional!(Element) previousElementSibling() {
-    return NonDocumentTypeChildNode_previousElementSibling_Get(handle);
+  auto querySelectorAll(string selectors) {
+    return NodeList(ParentNode_querySelectorAll(this.handle, selectors));
   }
-  Optional!(Element) nextElementSibling() {
-    return NonDocumentTypeChildNode_nextElementSibling_Get(handle);
+  auto previousElementSibling() {
+    return NonDocumentTypeChildNode_previousElementSibling_Get(this.handle);
   }
-  void before(SumType!(Node, string) nodes) {
-    ChildNode_before(handle, nodes);
+  auto nextElementSibling() {
+    return NonDocumentTypeChildNode_nextElementSibling_Get(this.handle);
   }
-  void after(SumType!(Node, string) nodes) {
-    ChildNode_after(handle, nodes);
+  auto before(SumType!(Node, string) nodes) {
+    ChildNode_before(this.handle, nodes);
   }
-  void replaceWith(SumType!(Node, string) nodes) {
-    ChildNode_replaceWith(handle, nodes);
+  auto after(SumType!(Node, string) nodes) {
+    ChildNode_after(this.handle, nodes);
   }
-  void remove() {
-    ChildNode_remove(handle);
+  auto replaceWith(SumType!(Node, string) nodes) {
+    ChildNode_replaceWith(this.handle, nodes);
   }
-  Optional!(HTMLSlotElement) assignedSlot() {
-    return Slotable_assignedSlot_Get(handle);
+  auto remove() {
+    ChildNode_remove(this.handle);
+  }
+  auto assignedSlot() {
+    return Slotable_assignedSlot_Get(this.handle);
   }
 }
 struct ElementCreationOptions {
   JsHandle handle;
   alias handle this;
-  void is_(string is_) {
-    ElementCreationOptions_is_Set(handle, is_);
+  auto is_(string is_) {
+    ElementCreationOptions_is_Set(this.handle, is_);
   }
-  string is_() {
-    return ElementCreationOptions_is_Get(handle);
+  auto is_() {
+    return ElementCreationOptions_is_Get(this.handle);
   }
 }
 struct Event {
   JsHandle handle;
   alias handle this;
-  string type() {
-    return Event_type_Get(handle);
+  auto type() {
+    return Event_type_Get(this.handle);
   }
-  Optional!(EventTarget) target() {
-    return Event_target_Get(handle);
+  auto target() {
+    return Event_target_Get(this.handle);
   }
-  Optional!(EventTarget) srcElement() {
-    return Event_srcElement_Get(handle);
+  auto srcElement() {
+    return Event_srcElement_Get(this.handle);
   }
-  Optional!(EventTarget) currentTarget() {
-    return Event_currentTarget_Get(handle);
+  auto currentTarget() {
+    return Event_currentTarget_Get(this.handle);
   }
-  Sequence!(EventTarget) composedPath() {
-    return Sequence!(EventTarget)(Event_composedPath(handle));
+  auto composedPath() {
+    return Sequence!(EventTarget)(Event_composedPath(this.handle));
   }
   enum ushort NONE = 0;
   enum ushort CAPTURING_PHASE = 1;
   enum ushort AT_TARGET = 2;
   enum ushort BUBBLING_PHASE = 3;
-  ushort eventPhase() {
-    return Event_eventPhase_Get(handle);
+  auto eventPhase() {
+    return Event_eventPhase_Get(this.handle);
   }
-  void stopPropagation() {
-    Event_stopPropagation(handle);
+  auto stopPropagation() {
+    Event_stopPropagation(this.handle);
   }
-  void cancelBubble(bool cancelBubble) {
-    Event_cancelBubble_Set(handle, cancelBubble);
+  auto cancelBubble(bool cancelBubble) {
+    Event_cancelBubble_Set(this.handle, cancelBubble);
   }
-  bool cancelBubble() {
-    return Event_cancelBubble_Get(handle);
+  auto cancelBubble() {
+    return Event_cancelBubble_Get(this.handle);
   }
-  void stopImmediatePropagation() {
-    Event_stopImmediatePropagation(handle);
+  auto stopImmediatePropagation() {
+    Event_stopImmediatePropagation(this.handle);
   }
-  bool bubbles() {
-    return Event_bubbles_Get(handle);
+  auto bubbles() {
+    return Event_bubbles_Get(this.handle);
   }
-  bool cancelable() {
-    return Event_cancelable_Get(handle);
+  auto cancelable() {
+    return Event_cancelable_Get(this.handle);
   }
-  void returnValue(bool returnValue) {
-    Event_returnValue_Set(handle, returnValue);
+  auto returnValue(bool returnValue) {
+    Event_returnValue_Set(this.handle, returnValue);
   }
-  bool returnValue() {
-    return Event_returnValue_Get(handle);
+  auto returnValue() {
+    return Event_returnValue_Get(this.handle);
   }
-  void preventDefault() {
-    Event_preventDefault(handle);
+  auto preventDefault() {
+    Event_preventDefault(this.handle);
   }
-  bool defaultPrevented() {
-    return Event_defaultPrevented_Get(handle);
+  auto defaultPrevented() {
+    return Event_defaultPrevented_Get(this.handle);
   }
-  bool composed() {
-    return Event_composed_Get(handle);
+  auto composed() {
+    return Event_composed_Get(this.handle);
   }
-  bool isTrusted() {
-    return Event_isTrusted_Get(handle);
+  auto isTrusted() {
+    return Event_isTrusted_Get(this.handle);
   }
-  double timeStamp() {
-    return Event_timeStamp_Get(handle);
+  auto timeStamp() {
+    return Event_timeStamp_Get(this.handle);
   }
-  void initEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */) {
-    Event_initEvent(handle, type, bubbles, cancelable);
+  auto initEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */) {
+    Event_initEvent(this.handle, type, bubbles, cancelable);
   }
 }
 struct EventInit {
   JsHandle handle;
   alias handle this;
-  void bubbles(bool bubbles) {
-    EventInit_bubbles_Set(handle, bubbles);
+  auto bubbles(bool bubbles) {
+    EventInit_bubbles_Set(this.handle, bubbles);
   }
-  bool bubbles() {
-    return EventInit_bubbles_Get(handle);
+  auto bubbles() {
+    return EventInit_bubbles_Get(this.handle);
   }
-  void cancelable(bool cancelable) {
-    EventInit_cancelable_Set(handle, cancelable);
+  auto cancelable(bool cancelable) {
+    EventInit_cancelable_Set(this.handle, cancelable);
   }
-  bool cancelable() {
-    return EventInit_cancelable_Get(handle);
+  auto cancelable() {
+    return EventInit_cancelable_Get(this.handle);
   }
-  void composed(bool composed) {
-    EventInit_composed_Set(handle, composed);
+  auto composed(bool composed) {
+    EventInit_composed_Set(this.handle, composed);
   }
-  bool composed() {
-    return EventInit_composed_Get(handle);
+  auto composed() {
+    return EventInit_composed_Get(this.handle);
   }
 }
 struct EventListener {
   JsHandle handle;
   alias handle this;
-  void handleEvent(Event event) {
-    EventListener_handleEvent(handle, event.handle);
+  auto handleEvent(Event event) {
+    EventListener_handleEvent(this.handle, event.handle);
   }
 }
 struct EventListenerOptions {
   JsHandle handle;
   alias handle this;
-  void capture(bool capture) {
-    EventListenerOptions_capture_Set(handle, capture);
+  auto capture(bool capture) {
+    EventListenerOptions_capture_Set(this.handle, capture);
   }
-  bool capture() {
-    return EventListenerOptions_capture_Get(handle);
+  auto capture() {
+    return EventListenerOptions_capture_Get(this.handle);
   }
 }
 struct EventTarget {
   JsHandle handle;
   alias handle this;
-  void addEventListener(string type, Optional!(EventListener) callback, SumType!(AddEventListenerOptions, bool) options) {
-    EventTarget_addEventListener(handle, type, !callback.empty, callback.value.handle, options);
+  auto addEventListener(string type, Optional!(EventListener) callback, SumType!(AddEventListenerOptions, bool) options) {
+    EventTarget_addEventListener(this.handle, type, !callback.empty, callback.front.handle, options);
   }
-  void removeEventListener(string type, Optional!(EventListener) callback, SumType!(EventListenerOptions, bool) options) {
-    EventTarget_removeEventListener(handle, type, !callback.empty, callback.value.handle, options);
+  auto removeEventListener(string type, Optional!(EventListener) callback, SumType!(EventListenerOptions, bool) options) {
+    EventTarget_removeEventListener(this.handle, type, !callback.empty, callback.front.handle, options);
   }
-  bool dispatchEvent(Event event) {
-    return EventTarget_dispatchEvent(handle, event.handle);
+  auto dispatchEvent(Event event) {
+    return EventTarget_dispatchEvent(this.handle, event.handle);
   }
 }
 struct GetRootNodeOptions {
   JsHandle handle;
   alias handle this;
-  void composed(bool composed) {
-    GetRootNodeOptions_composed_Set(handle, composed);
+  auto composed(bool composed) {
+    GetRootNodeOptions_composed_Set(this.handle, composed);
   }
-  bool composed() {
-    return GetRootNodeOptions_composed_Get(handle);
+  auto composed() {
+    return GetRootNodeOptions_composed_Get(this.handle);
   }
 }
 struct HTMLCollection {
   JsHandle handle;
   alias handle this;
-  uint length() {
-    return HTMLCollection_length_Get(handle);
+  auto length() {
+    return HTMLCollection_length_Get(this.handle);
   }
-  Optional!(Element) item(uint index) {
-    return HTMLCollection_item_getter(handle, index);
+  auto item(uint index) {
+    return HTMLCollection_item_getter(this.handle, index);
   }
-  Optional!(Element) namedItem(string name) {
-    return HTMLCollection_namedItem_getter(handle, name);
+  auto namedItem(string name) {
+    return HTMLCollection_namedItem_getter(this.handle, name);
   }
 }
 alias MutationCallback = void delegate(Sequence!(MutationRecord), MutationObserver);
 struct MutationObserver {
   JsHandle handle;
   alias handle this;
-  void observe(Node target, MutationObserverInit options) {
-    MutationObserver_observe(handle, target.handle, options.handle);
+  auto observe(Node target, MutationObserverInit options) {
+    MutationObserver_observe(this.handle, target.handle, options.handle);
   }
-  void disconnect() {
-    MutationObserver_disconnect(handle);
+  auto disconnect() {
+    MutationObserver_disconnect(this.handle);
   }
-  Sequence!(MutationRecord) takeRecords() {
-    return Sequence!(MutationRecord)(MutationObserver_takeRecords(handle));
+  auto takeRecords() {
+    return Sequence!(MutationRecord)(MutationObserver_takeRecords(this.handle));
   }
 }
 struct MutationObserverInit {
   JsHandle handle;
   alias handle this;
-  void childList(bool childList) {
-    MutationObserverInit_childList_Set(handle, childList);
+  auto childList(bool childList) {
+    MutationObserverInit_childList_Set(this.handle, childList);
   }
-  bool childList() {
-    return MutationObserverInit_childList_Get(handle);
+  auto childList() {
+    return MutationObserverInit_childList_Get(this.handle);
   }
-  void attributes(bool attributes) {
-    MutationObserverInit_attributes_Set(handle, attributes);
+  auto attributes(bool attributes) {
+    MutationObserverInit_attributes_Set(this.handle, attributes);
   }
-  bool attributes() {
-    return MutationObserverInit_attributes_Get(handle);
+  auto attributes() {
+    return MutationObserverInit_attributes_Get(this.handle);
   }
-  void characterData(bool characterData) {
-    MutationObserverInit_characterData_Set(handle, characterData);
+  auto characterData(bool characterData) {
+    MutationObserverInit_characterData_Set(this.handle, characterData);
   }
-  bool characterData() {
-    return MutationObserverInit_characterData_Get(handle);
+  auto characterData() {
+    return MutationObserverInit_characterData_Get(this.handle);
   }
-  void subtree(bool subtree) {
-    MutationObserverInit_subtree_Set(handle, subtree);
+  auto subtree(bool subtree) {
+    MutationObserverInit_subtree_Set(this.handle, subtree);
   }
-  bool subtree() {
-    return MutationObserverInit_subtree_Get(handle);
+  auto subtree() {
+    return MutationObserverInit_subtree_Get(this.handle);
   }
-  void attributeOldValue(bool attributeOldValue) {
-    MutationObserverInit_attributeOldValue_Set(handle, attributeOldValue);
+  auto attributeOldValue(bool attributeOldValue) {
+    MutationObserverInit_attributeOldValue_Set(this.handle, attributeOldValue);
   }
-  bool attributeOldValue() {
-    return MutationObserverInit_attributeOldValue_Get(handle);
+  auto attributeOldValue() {
+    return MutationObserverInit_attributeOldValue_Get(this.handle);
   }
-  void characterDataOldValue(bool characterDataOldValue) {
-    MutationObserverInit_characterDataOldValue_Set(handle, characterDataOldValue);
+  auto characterDataOldValue(bool characterDataOldValue) {
+    MutationObserverInit_characterDataOldValue_Set(this.handle, characterDataOldValue);
   }
-  bool characterDataOldValue() {
-    return MutationObserverInit_characterDataOldValue_Get(handle);
+  auto characterDataOldValue() {
+    return MutationObserverInit_characterDataOldValue_Get(this.handle);
   }
-  void attributeFilter(Sequence!(string) attributeFilter) {
-    MutationObserverInit_attributeFilter_Set(handle, attributeFilter.handle);
+  auto attributeFilter(Sequence!(string) attributeFilter) {
+    MutationObserverInit_attributeFilter_Set(this.handle, attributeFilter.handle);
   }
-  Sequence!(string) attributeFilter() {
-    return Sequence!(string)(MutationObserverInit_attributeFilter_Get(handle));
+  auto attributeFilter() {
+    return Sequence!(string)(MutationObserverInit_attributeFilter_Get(this.handle));
   }
 }
 struct MutationRecord {
   JsHandle handle;
   alias handle this;
-  string type() {
-    return MutationRecord_type_Get(handle);
+  auto type() {
+    return MutationRecord_type_Get(this.handle);
   }
-  Node target() {
-    return Node(MutationRecord_target_Get(handle));
+  auto target() {
+    return Node(MutationRecord_target_Get(this.handle));
   }
-  NodeList addedNodes() {
-    return NodeList(MutationRecord_addedNodes_Get(handle));
+  auto addedNodes() {
+    return NodeList(MutationRecord_addedNodes_Get(this.handle));
   }
-  NodeList removedNodes() {
-    return NodeList(MutationRecord_removedNodes_Get(handle));
+  auto removedNodes() {
+    return NodeList(MutationRecord_removedNodes_Get(this.handle));
   }
-  Optional!(Node) previousSibling() {
-    return MutationRecord_previousSibling_Get(handle);
+  auto previousSibling() {
+    return MutationRecord_previousSibling_Get(this.handle);
   }
-  Optional!(Node) nextSibling() {
-    return MutationRecord_nextSibling_Get(handle);
+  auto nextSibling() {
+    return MutationRecord_nextSibling_Get(this.handle);
   }
-  Optional!(string) attributeName() {
-    return MutationRecord_attributeName_Get(handle);
+  auto attributeName() {
+    return MutationRecord_attributeName_Get(this.handle);
   }
-  Optional!(string) attributeNamespace() {
-    return MutationRecord_attributeNamespace_Get(handle);
+  auto attributeNamespace() {
+    return MutationRecord_attributeNamespace_Get(this.handle);
   }
-  Optional!(string) oldValue() {
-    return MutationRecord_oldValue_Get(handle);
+  auto oldValue() {
+    return MutationRecord_oldValue_Get(this.handle);
   }
 }
 struct NamedNodeMap {
   JsHandle handle;
   alias handle this;
-  uint length() {
-    return NamedNodeMap_length_Get(handle);
+  auto length() {
+    return NamedNodeMap_length_Get(this.handle);
   }
-  Optional!(Attr) item(uint index) {
-    return NamedNodeMap_item_getter(handle, index);
+  auto item(uint index) {
+    return NamedNodeMap_item_getter(this.handle, index);
   }
-  Optional!(Attr) getNamedItem(string qualifiedName) {
-    return NamedNodeMap_getNamedItem_getter(handle, qualifiedName);
+  auto getNamedItem(string qualifiedName) {
+    return NamedNodeMap_getNamedItem_getter(this.handle, qualifiedName);
   }
-  Optional!(Attr) getNamedItemNS(Optional!(string) namespace, string localName) {
-    return NamedNodeMap_getNamedItemNS(handle, !namespace.empty, namespace.value, localName);
+  auto getNamedItemNS(Optional!(string) namespace, string localName) {
+    return NamedNodeMap_getNamedItemNS(this.handle, !namespace.empty, namespace.front, localName);
   }
-  Optional!(Attr) setNamedItem(Attr attr) {
-    return NamedNodeMap_setNamedItem(handle, attr.handle);
+  auto setNamedItem(Attr attr) {
+    return NamedNodeMap_setNamedItem(this.handle, attr.handle);
   }
-  Optional!(Attr) setNamedItemNS(Attr attr) {
-    return NamedNodeMap_setNamedItemNS(handle, attr.handle);
+  auto setNamedItemNS(Attr attr) {
+    return NamedNodeMap_setNamedItemNS(this.handle, attr.handle);
   }
-  Attr removeNamedItem(string qualifiedName) {
-    return Attr(NamedNodeMap_removeNamedItem(handle, qualifiedName));
+  auto removeNamedItem(string qualifiedName) {
+    return Attr(NamedNodeMap_removeNamedItem(this.handle, qualifiedName));
   }
-  Attr removeNamedItemNS(Optional!(string) namespace, string localName) {
-    return Attr(NamedNodeMap_removeNamedItemNS(handle, !namespace.empty, namespace.value, localName));
+  auto removeNamedItemNS(Optional!(string) namespace, string localName) {
+    return Attr(NamedNodeMap_removeNamedItemNS(this.handle, !namespace.empty, namespace.front, localName));
   }
 }
 struct Node {
   EventTarget _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = EventTarget(h);
+  }
   enum ushort ELEMENT_NODE = 1;
   enum ushort ATTRIBUTE_NODE = 2;
   enum ushort TEXT_NODE = 3;
@@ -1150,71 +1198,71 @@ struct Node {
   enum ushort DOCUMENT_TYPE_NODE = 10;
   enum ushort DOCUMENT_FRAGMENT_NODE = 11;
   enum ushort NOTATION_NODE = 12;
-  ushort nodeType() {
-    return Node_nodeType_Get(handle);
+  auto nodeType() {
+    return Node_nodeType_Get(this._parent);
   }
-  string nodeName() {
-    return Node_nodeName_Get(handle);
+  auto nodeName() {
+    return Node_nodeName_Get(this._parent);
   }
-  string baseURI() {
-    return string(Node_baseURI_Get(handle));
+  auto baseURI() {
+    return Node_baseURI_Get(this._parent);
   }
-  bool isConnected() {
-    return Node_isConnected_Get(handle);
+  auto isConnected() {
+    return Node_isConnected_Get(this._parent);
   }
-  Optional!(Document) ownerDocument() {
-    return Node_ownerDocument_Get(handle);
+  auto ownerDocument() {
+    return Node_ownerDocument_Get(this._parent);
   }
-  Node getRootNode(GetRootNodeOptions options) {
-    return Node(Node_getRootNode(handle, options.handle));
+  auto getRootNode(GetRootNodeOptions options) {
+    return Node(Node_getRootNode(this._parent, options.handle));
   }
-  Optional!(Node) parentNode() {
-    return Node_parentNode_Get(handle);
+  auto parentNode() {
+    return Node_parentNode_Get(this._parent);
   }
-  Optional!(Element) parentElement() {
-    return Node_parentElement_Get(handle);
+  auto parentElement() {
+    return Node_parentElement_Get(this._parent);
   }
-  bool hasChildNodes() {
-    return Node_hasChildNodes(handle);
+  auto hasChildNodes() {
+    return Node_hasChildNodes(this._parent);
   }
-  NodeList childNodes() {
-    return NodeList(Node_childNodes_Get(handle));
+  auto childNodes() {
+    return NodeList(Node_childNodes_Get(this._parent));
   }
-  Optional!(Node) firstChild() {
-    return Node_firstChild_Get(handle);
+  auto firstChild() {
+    return Node_firstChild_Get(this._parent);
   }
-  Optional!(Node) lastChild() {
-    return Node_lastChild_Get(handle);
+  auto lastChild() {
+    return Node_lastChild_Get(this._parent);
   }
-  Optional!(Node) previousSibling() {
-    return Node_previousSibling_Get(handle);
+  auto previousSibling() {
+    return Node_previousSibling_Get(this._parent);
   }
-  Optional!(Node) nextSibling() {
-    return Node_nextSibling_Get(handle);
+  auto nextSibling() {
+    return Node_nextSibling_Get(this._parent);
   }
-  void nodeValue(Optional!(string) nodeValue) {
-    Node_nodeValue_Set(handle, !nodeValue.empty, nodeValue.value);
+  auto nodeValue(Optional!(string) nodeValue) {
+    Node_nodeValue_Set(this._parent, !nodeValue.empty, nodeValue.front);
   }
-  Optional!(string) nodeValue() {
-    return Node_nodeValue_Get(handle);
+  auto nodeValue() {
+    return Node_nodeValue_Get(this._parent);
   }
-  void textContent(Optional!(string) textContent) {
-    Node_textContent_Set(handle, !textContent.empty, textContent.value);
+  auto textContent(Optional!(string) textContent) {
+    Node_textContent_Set(this._parent, !textContent.empty, textContent.front);
   }
-  Optional!(string) textContent() {
-    return Node_textContent_Get(handle);
+  auto textContent() {
+    return Node_textContent_Get(this._parent);
   }
-  void normalize() {
-    Node_normalize(handle);
+  auto normalize() {
+    Node_normalize(this._parent);
   }
-  Node cloneNode(bool deep /* = false */) {
-    return Node(Node_cloneNode(handle, deep));
+  auto cloneNode(bool deep /* = false */) {
+    return Node(Node_cloneNode(this._parent, deep));
   }
-  bool isEqualNode(Optional!(Node) otherNode) {
-    return Node_isEqualNode(handle, !otherNode.empty, otherNode.value.handle);
+  auto isEqualNode(Optional!(Node) otherNode) {
+    return Node_isEqualNode(this._parent, !otherNode.empty, otherNode.front.handle);
   }
-  bool isSameNode(Optional!(Node) otherNode) {
-    return Node_isSameNode(handle, !otherNode.empty, otherNode.value.handle);
+  auto isSameNode(Optional!(Node) otherNode) {
+    return Node_isSameNode(this._parent, !otherNode.empty, otherNode.front.handle);
   }
   enum ushort DOCUMENT_POSITION_DISCONNECTED = 0x01;
   enum ushort DOCUMENT_POSITION_PRECEDING = 0x02;
@@ -1222,32 +1270,32 @@ struct Node {
   enum ushort DOCUMENT_POSITION_CONTAINS = 0x08;
   enum ushort DOCUMENT_POSITION_CONTAINED_BY = 0x10;
   enum ushort DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC = 0x20;
-  ushort compareDocumentPosition(Node other) {
-    return Node_compareDocumentPosition(handle, other.handle);
+  auto compareDocumentPosition(Node other) {
+    return Node_compareDocumentPosition(this._parent, other.handle);
   }
-  bool contains(Optional!(Node) other) {
-    return Node_contains(handle, !other.empty, other.value.handle);
+  auto contains(Optional!(Node) other) {
+    return Node_contains(this._parent, !other.empty, other.front.handle);
   }
-  Optional!(string) lookupPrefix(Optional!(string) namespace) {
-    return Node_lookupPrefix(handle, !namespace.empty, namespace.value);
+  auto lookupPrefix(Optional!(string) namespace) {
+    return Node_lookupPrefix(this._parent, !namespace.empty, namespace.front);
   }
-  Optional!(string) lookupNamespaceURI(Optional!(string) prefix) {
-    return Node_lookupNamespaceURI(handle, !prefix.empty, prefix.value);
+  auto lookupNamespaceURI(Optional!(string) prefix) {
+    return Node_lookupNamespaceURI(this._parent, !prefix.empty, prefix.front);
   }
-  bool isDefaultNamespace(Optional!(string) namespace) {
-    return Node_isDefaultNamespace(handle, !namespace.empty, namespace.value);
+  auto isDefaultNamespace(Optional!(string) namespace) {
+    return Node_isDefaultNamespace(this._parent, !namespace.empty, namespace.front);
   }
-  Node insertBefore(Node node, Optional!(Node) child) {
-    return Node(Node_insertBefore(handle, node.handle, !child.empty, child.value.handle));
+  auto insertBefore(Node node, Optional!(Node) child) {
+    return Node(Node_insertBefore(this._parent, node.handle, !child.empty, child.front.handle));
   }
-  Node appendChild(Node node) {
-    return Node(Node_appendChild(handle, node.handle));
+  auto appendChild(Node node) {
+    return Node(Node_appendChild(this._parent, node.handle));
   }
-  Node replaceChild(Node node, Node child) {
-    return Node(Node_replaceChild(handle, node.handle, child.handle));
+  auto replaceChild(Node node, Node child) {
+    return Node(Node_replaceChild(this._parent, node.handle, child.handle));
   }
-  Node removeChild(Node child) {
-    return Node(Node_removeChild(handle, child.handle));
+  auto removeChild(Node child) {
+    return Node(Node_removeChild(this._parent, child.handle));
   }
 }
 struct NodeFilter {
@@ -1269,144 +1317,156 @@ struct NodeFilter {
   enum uint SHOW_DOCUMENT_TYPE = 0x200;
   enum uint SHOW_DOCUMENT_FRAGMENT = 0x400;
   enum uint SHOW_NOTATION = 0x800;
-  ushort acceptNode(Node node) {
-    return NodeFilter_acceptNode(handle, node.handle);
+  auto acceptNode(Node node) {
+    return NodeFilter_acceptNode(this.handle, node.handle);
   }
 }
 struct NodeIterator {
   JsHandle handle;
   alias handle this;
-  Node root() {
-    return Node(NodeIterator_root_Get(handle));
+  auto root() {
+    return Node(NodeIterator_root_Get(this.handle));
   }
-  Node referenceNode() {
-    return Node(NodeIterator_referenceNode_Get(handle));
+  auto referenceNode() {
+    return Node(NodeIterator_referenceNode_Get(this.handle));
   }
-  bool pointerBeforeReferenceNode() {
-    return NodeIterator_pointerBeforeReferenceNode_Get(handle);
+  auto pointerBeforeReferenceNode() {
+    return NodeIterator_pointerBeforeReferenceNode_Get(this.handle);
   }
-  uint whatToShow() {
-    return NodeIterator_whatToShow_Get(handle);
+  auto whatToShow() {
+    return NodeIterator_whatToShow_Get(this.handle);
   }
-  Optional!(NodeFilter) filter() {
-    return NodeIterator_filter_Get(handle);
+  auto filter() {
+    return NodeIterator_filter_Get(this.handle);
   }
-  Optional!(Node) nextNode() {
-    return NodeIterator_nextNode(handle);
+  auto nextNode() {
+    return NodeIterator_nextNode(this.handle);
   }
-  Optional!(Node) previousNode() {
-    return NodeIterator_previousNode(handle);
+  auto previousNode() {
+    return NodeIterator_previousNode(this.handle);
   }
-  void detach() {
-    NodeIterator_detach(handle);
+  auto detach() {
+    NodeIterator_detach(this.handle);
   }
 }
 struct NodeList {
   JsHandle handle;
   alias handle this;
-  Optional!(Node) item(uint index) {
-    return NodeList_item_getter(handle, index);
+  auto item(uint index) {
+    return NodeList_item_getter(this.handle, index);
   }
-  uint length() {
-    return NodeList_length_Get(handle);
+  auto length() {
+    return NodeList_length_Get(this.handle);
   }
 }
 struct ProcessingInstruction {
   CharacterData _parent;
   alias _parent this;
-  string target() {
-    return ProcessingInstruction_target_Get(handle);
+  this(JsHandle h) {
+    _parent = CharacterData(h);
+  }
+  auto target() {
+    return ProcessingInstruction_target_Get(this._parent);
   }
 }
 struct Range {
   AbstractRange _parent;
   alias _parent this;
-  Node commonAncestorContainer() {
-    return Node(Range_commonAncestorContainer_Get(handle));
+  this(JsHandle h) {
+    _parent = AbstractRange(h);
   }
-  void setStart(Node node, uint offset) {
-    Range_setStart(handle, node.handle, offset);
+  auto commonAncestorContainer() {
+    return Node(Range_commonAncestorContainer_Get(this._parent));
   }
-  void setEnd(Node node, uint offset) {
-    Range_setEnd(handle, node.handle, offset);
+  auto setStart(Node node, uint offset) {
+    Range_setStart(this._parent, node.handle, offset);
   }
-  void setStartBefore(Node node) {
-    Range_setStartBefore(handle, node.handle);
+  auto setEnd(Node node, uint offset) {
+    Range_setEnd(this._parent, node.handle, offset);
   }
-  void setStartAfter(Node node) {
-    Range_setStartAfter(handle, node.handle);
+  auto setStartBefore(Node node) {
+    Range_setStartBefore(this._parent, node.handle);
   }
-  void setEndBefore(Node node) {
-    Range_setEndBefore(handle, node.handle);
+  auto setStartAfter(Node node) {
+    Range_setStartAfter(this._parent, node.handle);
   }
-  void setEndAfter(Node node) {
-    Range_setEndAfter(handle, node.handle);
+  auto setEndBefore(Node node) {
+    Range_setEndBefore(this._parent, node.handle);
   }
-  void collapse(bool toStart /* = false */) {
-    Range_collapse(handle, toStart);
+  auto setEndAfter(Node node) {
+    Range_setEndAfter(this._parent, node.handle);
   }
-  void selectNode(Node node) {
-    Range_selectNode(handle, node.handle);
+  auto collapse(bool toStart /* = false */) {
+    Range_collapse(this._parent, toStart);
   }
-  void selectNodeContents(Node node) {
-    Range_selectNodeContents(handle, node.handle);
+  auto selectNode(Node node) {
+    Range_selectNode(this._parent, node.handle);
+  }
+  auto selectNodeContents(Node node) {
+    Range_selectNodeContents(this._parent, node.handle);
   }
   enum ushort START_TO_START = 0;
   enum ushort START_TO_END = 1;
   enum ushort END_TO_END = 2;
   enum ushort END_TO_START = 3;
-  short compareBoundaryPoints(ushort how, Range sourceRange) {
-    return Range_compareBoundaryPoints(handle, how, sourceRange.handle);
+  auto compareBoundaryPoints(ushort how, Range sourceRange) {
+    return Range_compareBoundaryPoints(this._parent, how, sourceRange.handle);
   }
-  void deleteContents() {
-    Range_deleteContents(handle);
+  auto deleteContents() {
+    Range_deleteContents(this._parent);
   }
-  DocumentFragment extractContents() {
-    return DocumentFragment(Range_extractContents(handle));
+  auto extractContents() {
+    return DocumentFragment(Range_extractContents(this._parent));
   }
-  DocumentFragment cloneContents() {
-    return DocumentFragment(Range_cloneContents(handle));
+  auto cloneContents() {
+    return DocumentFragment(Range_cloneContents(this._parent));
   }
-  void insertNode(Node node) {
-    Range_insertNode(handle, node.handle);
+  auto insertNode(Node node) {
+    Range_insertNode(this._parent, node.handle);
   }
-  void surroundContents(Node newParent) {
-    Range_surroundContents(handle, newParent.handle);
+  auto surroundContents(Node newParent) {
+    Range_surroundContents(this._parent, newParent.handle);
   }
-  Range cloneRange() {
-    return Range(Range_cloneRange(handle));
+  auto cloneRange() {
+    return Range(Range_cloneRange(this._parent));
   }
-  void detach() {
-    Range_detach(handle);
+  auto detach() {
+    Range_detach(this._parent);
   }
-  bool isPointInRange(Node node, uint offset) {
-    return Range_isPointInRange(handle, node.handle, offset);
+  auto isPointInRange(Node node, uint offset) {
+    return Range_isPointInRange(this._parent, node.handle, offset);
   }
-  short comparePoint(Node node, uint offset) {
-    return Range_comparePoint(handle, node.handle, offset);
+  auto comparePoint(Node node, uint offset) {
+    return Range_comparePoint(this._parent, node.handle, offset);
   }
-  bool intersectsNode(Node node) {
-    return Range_intersectsNode(handle, node.handle);
+  auto intersectsNode(Node node) {
+    return Range_intersectsNode(this._parent, node.handle);
   }
 }
 struct ShadowRoot {
   DocumentFragment _parent;
   alias _parent this;
-  ShadowRootMode mode() {
-    return ShadowRoot_mode_Get(handle);
+  this(JsHandle h) {
+    _parent = DocumentFragment(h);
   }
-  Element host() {
-    return Element(ShadowRoot_host_Get(handle));
+  auto mode() {
+    return ShadowRoot_mode_Get(this._parent);
+  }
+  auto host() {
+    return Element(ShadowRoot_host_Get(this._parent));
+  }
+  auto fullscreenElement() {
+    return DocumentOrShadowRoot_fullscreenElement_Get(this.handle);
   }
 }
 struct ShadowRootInit {
   JsHandle handle;
   alias handle this;
-  void mode(ShadowRootMode mode) {
-    ShadowRootInit_mode_Set(handle, mode);
+  auto mode(ShadowRootMode mode) {
+    ShadowRootInit_mode_Set(this.handle, mode);
   }
-  ShadowRootMode mode() {
-    return ShadowRootInit_mode_Get(handle);
+  auto mode() {
+    return ShadowRootInit_mode_Get(this.handle);
   }
 }
 enum ShadowRootMode {
@@ -1416,63 +1476,72 @@ enum ShadowRootMode {
 struct StaticRange {
   AbstractRange _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = AbstractRange(h);
+  }
 }
 struct Text {
   CharacterData _parent;
   alias _parent this;
-  Text splitText(uint offset) {
-    return Text(Text_splitText(handle, offset));
+  this(JsHandle h) {
+    _parent = CharacterData(h);
   }
-  string wholeText() {
-    return Text_wholeText_Get(handle);
+  auto splitText(uint offset) {
+    return Text(Text_splitText(this._parent, offset));
   }
-  Optional!(HTMLSlotElement) assignedSlot() {
-    return Slotable_assignedSlot_Get(handle);
+  auto wholeText() {
+    return Text_wholeText_Get(this._parent);
+  }
+  auto assignedSlot() {
+    return Slotable_assignedSlot_Get(this.handle);
   }
 }
 struct TreeWalker {
   JsHandle handle;
   alias handle this;
-  Node root() {
-    return Node(TreeWalker_root_Get(handle));
+  auto root() {
+    return Node(TreeWalker_root_Get(this.handle));
   }
-  uint whatToShow() {
-    return TreeWalker_whatToShow_Get(handle);
+  auto whatToShow() {
+    return TreeWalker_whatToShow_Get(this.handle);
   }
-  Optional!(NodeFilter) filter() {
-    return TreeWalker_filter_Get(handle);
+  auto filter() {
+    return TreeWalker_filter_Get(this.handle);
   }
-  void currentNode(Node currentNode) {
-    TreeWalker_currentNode_Set(handle, currentNode.handle);
+  auto currentNode(Node currentNode) {
+    TreeWalker_currentNode_Set(this.handle, currentNode.handle);
   }
-  Node currentNode() {
-    return Node(TreeWalker_currentNode_Get(handle));
+  auto currentNode() {
+    return Node(TreeWalker_currentNode_Get(this.handle));
   }
-  Optional!(Node) parentNode() {
-    return TreeWalker_parentNode(handle);
+  auto parentNode() {
+    return TreeWalker_parentNode(this.handle);
   }
-  Optional!(Node) firstChild() {
-    return TreeWalker_firstChild(handle);
+  auto firstChild() {
+    return TreeWalker_firstChild(this.handle);
   }
-  Optional!(Node) lastChild() {
-    return TreeWalker_lastChild(handle);
+  auto lastChild() {
+    return TreeWalker_lastChild(this.handle);
   }
-  Optional!(Node) previousSibling() {
-    return TreeWalker_previousSibling(handle);
+  auto previousSibling() {
+    return TreeWalker_previousSibling(this.handle);
   }
-  Optional!(Node) nextSibling() {
-    return TreeWalker_nextSibling(handle);
+  auto nextSibling() {
+    return TreeWalker_nextSibling(this.handle);
   }
-  Optional!(Node) previousNode() {
-    return TreeWalker_previousNode(handle);
+  auto previousNode() {
+    return TreeWalker_previousNode(this.handle);
   }
-  Optional!(Node) nextNode() {
-    return TreeWalker_nextNode(handle);
+  auto nextNode() {
+    return TreeWalker_nextNode(this.handle);
   }
 }
 struct XMLDocument {
   Document _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = Document(h);
+  }
 }
 
 
@@ -1506,15 +1575,13 @@ extern (C) void CharacterData_appendData(JsHandle, string);
 extern (C) void CharacterData_insertData(JsHandle, uint, string);
 extern (C) void CharacterData_deleteData(JsHandle, uint, uint);
 extern (C) void CharacterData_replaceData(JsHandle, uint, uint, string);
-extern (C) Optional!(Element) NonDocumentTypeChildNode_previousElementSibling_Get(JsHandle);
-extern (C) Optional!(Element) NonDocumentTypeChildNode_nextElementSibling_Get(JsHandle);
 extern (C) void ChildNode_before(JsHandle, SumType!(Node, string));
 extern (C) void ChildNode_after(JsHandle, SumType!(Node, string));
 extern (C) void ChildNode_replaceWith(JsHandle, SumType!(Node, string));
 extern (C) void ChildNode_remove(JsHandle);
 extern (C) JsHandle CustomEvent_detail_Get(JsHandle);
-extern (C) void CustomEvent_initCustomEvent(JsHandle, string, bool, bool, Any);
-extern (C) void CustomEventInit_detail_Set(JsHandle, Any);
+extern (C) void CustomEvent_initCustomEvent(JsHandle, string, bool, bool, JsHandle);
+extern (C) void CustomEventInit_detail_Set(JsHandle, JsHandle);
 extern (C) JsHandle CustomEventInit_detail_Get(JsHandle);
 extern (C) JsHandle DOMImplementation_createDocumentType(JsHandle, string, string, string);
 extern (C) JsHandle DOMImplementation_createDocument(JsHandle, bool, string, string, bool, JsHandle);
@@ -1531,9 +1598,9 @@ extern (C) bool DOMTokenList_supports(JsHandle, string);
 extern (C) void DOMTokenList_value_Set(JsHandle, string);
 extern (C) string DOMTokenList_value_Get(JsHandle);
 extern (C) JsHandle Document_implementation_Get(JsHandle);
-extern (C) JsHandle Document_URL_Get(JsHandle);
-extern (C) JsHandle Document_documentURI_Get(JsHandle);
-extern (C) JsHandle Document_origin_Get(JsHandle);
+extern (C) string Document_URL_Get(JsHandle);
+extern (C) string Document_documentURI_Get(JsHandle);
+extern (C) string Document_origin_Get(JsHandle);
 extern (C) string Document_compatMode_Get(JsHandle);
 extern (C) string Document_characterSet_Get(JsHandle);
 extern (C) string Document_charset_Get(JsHandle);
@@ -1560,11 +1627,11 @@ extern (C) JsHandle Document_createRange(JsHandle);
 extern (C) JsHandle Document_createNodeIterator(JsHandle, JsHandle, uint, bool, JsHandle);
 extern (C) JsHandle Document_createTreeWalker(JsHandle, JsHandle, uint, bool, JsHandle);
 extern (C) Optional!(Location) Document_location_Get(JsHandle);
-extern (C) void Document_domain_Set(JsHandle, JsHandle);
-extern (C) JsHandle Document_domain_Get(JsHandle);
-extern (C) JsHandle Document_referrer_Get(JsHandle);
-extern (C) void Document_cookie_Set(JsHandle, JsHandle);
-extern (C) JsHandle Document_cookie_Get(JsHandle);
+extern (C) void Document_domain_Set(JsHandle, string);
+extern (C) string Document_domain_Get(JsHandle);
+extern (C) string Document_referrer_Get(JsHandle);
+extern (C) void Document_cookie_Set(JsHandle, string);
+extern (C) string Document_cookie_Get(JsHandle);
 extern (C) string Document_lastModified_Get(JsHandle);
 extern (C) DocumentReadyState Document_readyState_Get(JsHandle);
 extern (C) void Document_title_Set(JsHandle, string);
@@ -1583,11 +1650,11 @@ extern (C) JsHandle Document_scripts_Get(JsHandle);
 extern (C) JsHandle Document_getElementsByName(JsHandle, string);
 extern (C) Optional!(HTMLOrSVGScriptElement) Document_currentScript_Get(JsHandle);
 extern (C) JsHandle Document_open__string_string(JsHandle, string, string);
-extern (C) Optional!(WindowProxy) Document_open__string_string_string(JsHandle, JsHandle, string, string);
+extern (C) Optional!(Window) Document_open__string_string_string(JsHandle, string, string, string);
 extern (C) void Document_close(JsHandle);
 extern (C) void Document_write(JsHandle, string);
 extern (C) void Document_writeln(JsHandle, string);
-extern (C) Optional!(WindowProxy) Document_defaultView_Get(JsHandle);
+extern (C) Optional!(Window) Document_defaultView_Get(JsHandle);
 extern (C) Optional!(Element) Document_activeElement_Get(JsHandle);
 extern (C) bool Document_hasFocus(JsHandle);
 extern (C) void Document_designMode_Set(JsHandle, string);
@@ -1616,6 +1683,10 @@ extern (C) void Document_clear(JsHandle);
 extern (C) void Document_captureEvents(JsHandle);
 extern (C) void Document_releaseEvents(JsHandle);
 extern (C) JsHandle Document_all_Get(JsHandle);
+extern (C) bool Document_hidden_Get(JsHandle);
+extern (C) VisibilityState Document_visibilityState_Get(JsHandle);
+extern (C) void Document_onvisibilitychange_Set(JsHandle, EventHandler);
+extern (C) EventHandler Document_onvisibilitychange_Get(JsHandle);
 extern (C) bool Document_fullscreenEnabled_Get(JsHandle);
 extern (C) bool Document_fullscreen_Get(JsHandle);
 extern (C) JsHandle Document_exitFullscreen(JsHandle);
@@ -1624,59 +1695,10 @@ extern (C) EventHandler Document_onfullscreenchange_Get(JsHandle);
 extern (C) void Document_onfullscreenerror_Set(JsHandle, EventHandler);
 extern (C) EventHandler Document_onfullscreenerror_Get(JsHandle);
 extern (C) Optional!(SVGSVGElement) Document_rootElement_Get(JsHandle);
-extern (C) Optional!(Element) NonElementParentNode_getElementById(JsHandle, string);
-extern (C) JsHandle ParentNode_children_Get(JsHandle);
-extern (C) Optional!(Element) ParentNode_firstElementChild_Get(JsHandle);
-extern (C) Optional!(Element) ParentNode_lastElementChild_Get(JsHandle);
-extern (C) uint ParentNode_childElementCount_Get(JsHandle);
-extern (C) void ParentNode_prepend(JsHandle, SumType!(Node, string));
-extern (C) void ParentNode_append(JsHandle, SumType!(Node, string));
-extern (C) Optional!(Element) ParentNode_querySelector(JsHandle, string);
-extern (C) JsHandle ParentNode_querySelectorAll(JsHandle, string);
-extern (C) void GlobalEventHandlers_ongotpointercapture_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_ongotpointercapture_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onlostpointercapture_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onlostpointercapture_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onpointerdown_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onpointerdown_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onpointermove_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onpointermove_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onpointerup_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onpointerup_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onpointercancel_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onpointercancel_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onpointerover_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onpointerover_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onpointerout_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onpointerout_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onpointerenter_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onpointerenter_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onpointerleave_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onpointerleave_Get(JsHandle);
-extern (C) void GlobalEventHandlers_ontouchstart_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_ontouchstart_Get(JsHandle);
-extern (C) void GlobalEventHandlers_ontouchend_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_ontouchend_Get(JsHandle);
-extern (C) void GlobalEventHandlers_ontouchmove_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_ontouchmove_Get(JsHandle);
-extern (C) void GlobalEventHandlers_ontouchcancel_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_ontouchcancel_Get(JsHandle);
-extern (C) Optional!(Element) NonElementParentNode_getElementById(JsHandle, string);
-extern (C) JsHandle ParentNode_children_Get(JsHandle);
-extern (C) Optional!(Element) ParentNode_firstElementChild_Get(JsHandle);
-extern (C) Optional!(Element) ParentNode_lastElementChild_Get(JsHandle);
-extern (C) uint ParentNode_childElementCount_Get(JsHandle);
-extern (C) void ParentNode_prepend(JsHandle, SumType!(Node, string));
-extern (C) void ParentNode_append(JsHandle, SumType!(Node, string));
-extern (C) Optional!(Element) ParentNode_querySelector(JsHandle, string);
-extern (C) JsHandle ParentNode_querySelectorAll(JsHandle, string);
+extern (C) Optional!(Element) DocumentOrShadowRoot_fullscreenElement_Get(JsHandle);
 extern (C) string DocumentType_name_Get(JsHandle);
 extern (C) string DocumentType_publicId_Get(JsHandle);
 extern (C) string DocumentType_systemId_Get(JsHandle);
-extern (C) void ChildNode_before(JsHandle, SumType!(Node, string));
-extern (C) void ChildNode_after(JsHandle, SumType!(Node, string));
-extern (C) void ChildNode_replaceWith(JsHandle, SumType!(Node, string));
-extern (C) void ChildNode_remove(JsHandle);
 extern (C) Optional!(string) Element_namespaceURI_Get(JsHandle);
 extern (C) Optional!(string) Element_prefix_Get(JsHandle);
 extern (C) string Element_localName_Get(JsHandle);
@@ -1723,21 +1745,6 @@ extern (C) void Element_onfullscreenchange_Set(JsHandle, EventHandler);
 extern (C) EventHandler Element_onfullscreenchange_Get(JsHandle);
 extern (C) void Element_onfullscreenerror_Set(JsHandle, EventHandler);
 extern (C) EventHandler Element_onfullscreenerror_Get(JsHandle);
-extern (C) JsHandle ParentNode_children_Get(JsHandle);
-extern (C) Optional!(Element) ParentNode_firstElementChild_Get(JsHandle);
-extern (C) Optional!(Element) ParentNode_lastElementChild_Get(JsHandle);
-extern (C) uint ParentNode_childElementCount_Get(JsHandle);
-extern (C) void ParentNode_prepend(JsHandle, SumType!(Node, string));
-extern (C) void ParentNode_append(JsHandle, SumType!(Node, string));
-extern (C) Optional!(Element) ParentNode_querySelector(JsHandle, string);
-extern (C) JsHandle ParentNode_querySelectorAll(JsHandle, string);
-extern (C) Optional!(Element) NonDocumentTypeChildNode_previousElementSibling_Get(JsHandle);
-extern (C) Optional!(Element) NonDocumentTypeChildNode_nextElementSibling_Get(JsHandle);
-extern (C) void ChildNode_before(JsHandle, SumType!(Node, string));
-extern (C) void ChildNode_after(JsHandle, SumType!(Node, string));
-extern (C) void ChildNode_replaceWith(JsHandle, SumType!(Node, string));
-extern (C) void ChildNode_remove(JsHandle);
-extern (C) Optional!(HTMLSlotElement) Slotable_assignedSlot_Get(JsHandle);
 extern (C) void ElementCreationOptions_is_Set(JsHandle, string);
 extern (C) string ElementCreationOptions_is_Get(JsHandle);
 extern (C) string Event_type_Get(JsHandle);
@@ -1813,7 +1820,7 @@ extern (C) JsHandle NamedNodeMap_removeNamedItem(JsHandle, string);
 extern (C) JsHandle NamedNodeMap_removeNamedItemNS(JsHandle, bool, string, string);
 extern (C) ushort Node_nodeType_Get(JsHandle);
 extern (C) string Node_nodeName_Get(JsHandle);
-extern (C) JsHandle Node_baseURI_Get(JsHandle);
+extern (C) string Node_baseURI_Get(JsHandle);
 extern (C) bool Node_isConnected_Get(JsHandle);
 extern (C) Optional!(Document) Node_ownerDocument_Get(JsHandle);
 extern (C) JsHandle Node_getRootNode(JsHandle, JsHandle);
@@ -1853,6 +1860,17 @@ extern (C) Optional!(Node) NodeIterator_previousNode(JsHandle);
 extern (C) void NodeIterator_detach(JsHandle);
 extern (C) Optional!(Node) NodeList_item_getter(JsHandle, uint);
 extern (C) uint NodeList_length_Get(JsHandle);
+extern (C) Optional!(Element) NonDocumentTypeChildNode_previousElementSibling_Get(JsHandle);
+extern (C) Optional!(Element) NonDocumentTypeChildNode_nextElementSibling_Get(JsHandle);
+extern (C) Optional!(Element) NonElementParentNode_getElementById(JsHandle, string);
+extern (C) JsHandle ParentNode_children_Get(JsHandle);
+extern (C) Optional!(Element) ParentNode_firstElementChild_Get(JsHandle);
+extern (C) Optional!(Element) ParentNode_lastElementChild_Get(JsHandle);
+extern (C) uint ParentNode_childElementCount_Get(JsHandle);
+extern (C) void ParentNode_prepend(JsHandle, SumType!(Node, string));
+extern (C) void ParentNode_append(JsHandle, SumType!(Node, string));
+extern (C) Optional!(Element) ParentNode_querySelector(JsHandle, string);
+extern (C) JsHandle ParentNode_querySelectorAll(JsHandle, string);
 extern (C) string ProcessingInstruction_target_Get(JsHandle);
 extern (C) JsHandle Range_commonAncestorContainer_Get(JsHandle);
 extern (C) void Range_setStart(JsHandle, JsHandle, uint);
@@ -1879,9 +1897,9 @@ extern (C) ShadowRootMode ShadowRoot_mode_Get(JsHandle);
 extern (C) JsHandle ShadowRoot_host_Get(JsHandle);
 extern (C) void ShadowRootInit_mode_Set(JsHandle, ShadowRootMode);
 extern (C) ShadowRootMode ShadowRootInit_mode_Get(JsHandle);
+extern (C) Optional!(HTMLSlotElement) Slotable_assignedSlot_Get(JsHandle);
 extern (C) JsHandle Text_splitText(JsHandle, uint);
 extern (C) string Text_wholeText_Get(JsHandle);
-extern (C) Optional!(HTMLSlotElement) Slotable_assignedSlot_Get(JsHandle);
 extern (C) JsHandle TreeWalker_root_Get(JsHandle);
 extern (C) uint TreeWalker_whatToShow_Get(JsHandle);
 extern (C) Optional!(NodeFilter) TreeWalker_filter_Get(JsHandle);

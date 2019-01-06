@@ -44,6 +44,7 @@ struct DBindingFunction {
   string manglePostfix;
   string baseType;
   string customName;
+  string handle;
 }
 
 struct DImportFunction {
@@ -87,6 +88,11 @@ class StructNode : Node {
     this.children = children;
     this.isStatic = isStatic;
   }
+  string getHandleSymbol() {
+    if (baseType != ParseTree.init)
+      return "_parent";
+    return "handle";
+  }
 }
 
 void toDBinding(virtual!Node node, Semantics semantics, IndentedStringAppender* a);
@@ -105,14 +111,34 @@ void toDImport(virtual!Node node, StructNode parent, Semantics semantics, Indent
   node.children.each!(c => toJsExport(c, semantics, a));
 }
 @method void _toJsExport(StructNode node, Semantics semantics, IndentedStringAppender* a) {
-  node.children.each!(c => toJsExport(c, node, semantics, a));
+  bool[string] names;
+  foreach(child; node.children) {
+    auto fun = cast(FunctionNode)child;
+    if (fun) {
+      string name = mangleName(node.name, fun.name, fun.manglePostfix);
+      if (auto p = name in names)
+        continue;
+      names[name] = true;
+    }
+    toJsExport(child, node, semantics, a);
+  }
 }
 @method void _toDImport(Node node, Semantics semantics, IndentedStringAppender* a) {}
 @method void _toDImport(ModuleNode node, Semantics semantics, IndentedStringAppender* a) {
   node.children.each!(c => toDImport(c, semantics, a));
 }
 @method void _toDImport(StructNode node, Semantics semantics, IndentedStringAppender* a) {
-  node.children.each!(c => toDImport(c, node, semantics, a));
+  bool[string] names;
+  foreach(child; node.children) {
+    auto fun = cast(FunctionNode)child;
+    if (fun) {
+      string name = mangleName(node.name, fun.name, fun.manglePostfix);
+      if (auto p = name in names)
+        continue;
+      names[name] = true;
+    }
+    toDImport(child, node, semantics, a);
+  }
 }
 
 @method void _toDBinding(StructNode node, Semantics semantics, IndentedStringAppender* a) {
@@ -124,6 +150,11 @@ void toDImport(virtual!Node node, StructNode parent, Semantics semantics, Indent
     a.put(node.baseType.matches[0].friendlyName);
     a.putLn(" _parent;");
     a.putLn("alias _parent this;");
+    a.putLn("this(JsHandle h) {");
+    a.indent();
+    a.putLn(["_parent = ", node.baseType.matches[0].friendlyName,"(h);"]);
+    a.undent();
+    a.putLn("}");
   } else {
     a.putLn("JsHandle handle;");
     a.putLn("alias handle this;");
@@ -131,6 +162,20 @@ void toDImport(virtual!Node node, StructNode parent, Semantics semantics, Indent
   node.children.each!(c => toDBinding(c, node, semantics, a));
   a.undent();
   a.putLn("}");
+}
+@method void _toDImport(MixinNode node, Semantics semantics, IndentedStringAppender* a) {
+  auto dummyParent = new StructNode(node.name, ParseTree.init, node.children);
+  bool[string] names;
+  foreach(child; node.children) {
+    auto fun = cast(FunctionNode)child;
+    if (fun) {
+      string name = mangleName(node.name, fun.name, fun.manglePostfix);
+      if (auto p = name in names)
+        continue;
+      names[name] = true;
+    }
+    toDImport(child, dummyParent, semantics, a);
+  }
 }
 
 @method void _toDBinding(Node node, StructNode parent, Semantics semantics, IndentedStringAppender* a) {
@@ -157,6 +202,14 @@ class StructIncludesNode : Node {
   }
 }
 
+class MixinNode : Node {
+  string name;
+  Node[] children;
+  this(string name, Node[] children) {
+    this.name = name;
+    this.children = children;
+  }
+}
 @method void _toDBinding(StructIncludesNode node, StructNode parent, Semantics semantics, IndentedStringAppender* a) {
   auto dummyParent = new StructNode(node.name, ParseTree.init, node.children);
   node.children.each!(c => toDBinding(c, dummyParent, semantics, a));
@@ -166,8 +219,8 @@ class StructIncludesNode : Node {
   node.children.each!(c => toJsExport(c, dummyParent, semantics, a));
 }
 @method void _toDImport(StructIncludesNode node, StructNode parent, Semantics semantics, IndentedStringAppender* a) {
-  auto dummyParent = new StructNode(node.name, ParseTree.init, node.children);
-  node.children.each!(c => toDImport(c, dummyParent, semantics, a));
+  // auto dummyParent = new StructNode(node.name, ParseTree.init, node.children);
+  // node.children.each!(c => toDImport(c, dummyParent, semantics, a));
 }
 
 class FunctionNode : Node {
@@ -190,7 +243,7 @@ class FunctionNode : Node {
 }
 
 @method void _toDBinding(FunctionNode node, StructNode parent, Semantics semantics, IndentedStringAppender* a) {
-  auto tmp = DBindingFunction(parent.name, node.name, node.args, node.result, node.type, node.manglePostfix, node.baseType, node.customName);
+  auto tmp = DBindingFunction(parent.name, node.name, node.args, node.result, node.type, node.manglePostfix, node.baseType, node.customName, parent.getHandleSymbol());
   if (parent.isStatic == Yes.isStatic)
     tmp.type |= FunctionType.Static;
   semantics.dump(tmp, a);
@@ -245,45 +298,69 @@ class EnumNode : Node {
 }
 
 class MaplikeNode : Node {
-  string keyType;
-  string valueType;
-  this(string keyType, string valueType) {
+  ParseTree keyType;
+  ParseTree valueType;
+  this(ParseTree keyType, ParseTree valueType) {
     this.keyType = keyType;
     this.valueType = valueType;
   }
 }
 
 @method void _toDBinding(MaplikeNode node, StructNode parent, Semantics semantics, IndentedStringAppender* a) {
+  auto context = Context(semantics);
+  string keyType = node.keyType.generateDType(context);
+  string valueType = node.valueType.generateDType(context);
+  string mangleKeyType = node.keyType.generateDImports(Context(semantics));
+  string mangleValueType = node.valueType.generateDImports(Context(semantics));
+  string manglePrefix = "Maplike_" ~ mangleKeyType ~ "_" ~ mangleValueType ~ "_";
   a.putLn("uint size() {");
-  a.putLn("  return Maplike_size(handle);");
+  a.putLn(["  return ", manglePrefix, "size(handle);"]);
   a.putLn("}");
   a.putLn("void clear() {");
-  a.putLn("  Maplike_clear(handle);");
+  a.putLn(["  ", manglePrefix, "clear(handle);"]);
   a.putLn("}");
-  a.putLn(["void delete_(",node.keyType," key) {"]);
-  a.putLn("  Maplike_delete(handle, key);");
+  a.putLn(["void delete_(",keyType," key) {"]);
+  a.putLn(["  ", manglePrefix, "delete(handle, key);"]);
   a.putLn("}");
-  a.putLn(["Iterator!(ArrayPair!(",node.keyType,", ",node.valueType,")) entries() {"]);
-  a.putLn(["  return Iterator!(ArrayPair!(",node.keyType,", ",node.valueType,"))(Maplike_entries(handle));"]);
+  a.putLn(["Iterator!(ArrayPair!(",keyType,", ",valueType,")) entries() {"]);
+  a.putLn(["  return Iterator!(ArrayPair!(",keyType,", ",valueType,"))(", manglePrefix, "entries(handle));"]);
   a.putLn("}");
-  a.putLn(["void forEach(void delegate(",node.keyType,", JsHandle, JsHandle) callback) {"]);
-  a.putLn("  Maplike_forEach(handle, callback);");
+  a.putLn(["extern(C) void forEach(void delegate(",keyType,", JsHandle, JsHandle) callback) {"]);
+  a.putLn(["  ", manglePrefix, "forEach(handle, callback);"]);
   a.putLn("}");
-  a.putLn(["",node.valueType," get(",node.keyType," key) {"]);
-  a.putLn(["  return ",node.valueType,"(Maplike_get(handle, key));"]);
+  a.putLn(["",valueType," get(",keyType," key) {"]);
+  a.putLn(["  return ",valueType,"(", manglePrefix, "get(handle, key));"]);
   a.putLn("}");
-  a.putLn(["bool has(",node.keyType," key) {"]);
-  a.putLn("  return Maplike_has(handle, key);");
+  a.putLn(["bool has(",keyType," key) {"]);
+  a.putLn(["  return ", manglePrefix, "has(handle, key);"]);
   a.putLn("}");
-  a.putLn(["Iterator!(",node.keyType,") keys() {"]);
-  a.putLn(["  return Iterator!(",node.keyType,")(Maplike_keys(handle));"]);
+  a.putLn(["Iterator!(",keyType,") keys() {"]);
+  a.putLn(["  return Iterator!(",keyType,")(", manglePrefix, "keys(handle));"]);
   a.putLn("}");
-  a.putLn(["void set(",node.keyType," key, ",node.valueType," value) {"]);
-  a.putLn("  Maplike_set(handle, key, value.handle);");
+  a.putLn(["void set(",keyType," key, ",valueType," value) {"]);
+  a.putLn(["  ", manglePrefix, "set(handle, key, value.handle);"]);
   a.putLn("}");
-  a.putLn(["Iterator!(",node.valueType,") values() {"]);
-  a.putLn(["  return Iterator!(",node.valueType,")(Maplike_values(handle));"]);
+  a.putLn(["Iterator!(",valueType,") values() {"]);
+  a.putLn(["  return Iterator!(",valueType,")(", manglePrefix, "values(handle));"]);
   a.putLn("}");
+}
+@method void _toDImport(MaplikeNode node, StructNode parent, Semantics semantics, IndentedStringAppender* a) {
+  auto context = Context(semantics);
+  string keyType = node.keyType.generateDType(context);
+  string valueType = node.valueType.generateDType(context);
+  string mangleKeyType = node.keyType.generateDImports(Context(semantics));
+  string mangleValueType = node.valueType.generateDImports(Context(semantics));
+  string manglePrefix = "Maplike_" ~ mangleKeyType ~ "_" ~ mangleValueType ~ "_";
+  a.putLn(["extern (C) uint ", manglePrefix, "size(JsHandle);"]);
+  a.putLn(["extern (C) void ", manglePrefix, "clear(JsHandle);"]);
+  a.putLn(["extern (C) void ", manglePrefix, "delete(JsHandle, ", mangleKeyType," key);"]);
+  a.putLn(["extern (C) JsHandle ", manglePrefix, "entries(JsHandle);"]);
+  a.putLn(["extern (C) void ", manglePrefix, "forEach(JsHandle, void delegate(", keyType,", JsHandle, JsHandle));"]);
+  a.putLn(["extern (C) ", valueType, " ", manglePrefix, "get(JsHandle, ", mangleKeyType,");"]);
+  a.putLn(["extern (C) bool ", manglePrefix, "has(JsHandle, ", mangleKeyType,");"]);
+  a.putLn(["extern (C) JsHandle ", manglePrefix, "keys(JsHandle);"]);
+  a.putLn(["extern (C) void ", manglePrefix, "set(JsHandle, ", mangleKeyType, " key, ", mangleValueType, " value);"]);
+  a.putLn(["extern (C) JsHandle ", manglePrefix, "values(JsHandle);"]);
 }
 
 class CallbackNode : Node {
@@ -384,12 +461,14 @@ void dump(Appender)(ref Context context, JsExportFunction item, ref Appender a) 
   a.put(": function(");
   bool rawResult = item.result != ParseTree.init && semantics.isRawResultType(item.result);
   if (rawResult)
-    a.put("rawResult, ");
+    a.put("rawResult");
   if (!(item.type & FunctionType.Static)) {
-    a.put("ctx");
-    if (item.args.length > 0)
+    if (rawResult)
       a.put(", ");
+    a.put("ctx");
   }
+  if ((rawResult || !(item.type & FunctionType.Static)) && item.args.length > 0)
+    a.put(", ");
   item.args.enumerate.each!((e){
       auto arg = e.value;
       if (e.index > 0)
@@ -487,11 +566,12 @@ void dump(Appender)(ref Semantics semantics, DImportFunction item, ref Appender 
 }
 
 void dump(Appender)(ref Semantics semantics, DBindingFunction item, ref Appender a) {
-  if (item.result != ParseTree.init) {
-    item.result.generateDType(a, Context(semantics));
-    a.put(" ");
-  } else
-    a.put("void ");
+  // if (item.result != ParseTree.init) {
+  //   item.result.generateDType(a, Context(semantics));
+  //   a.put(" ");
+  // } else
+  //   a.put("void ");
+  a.put("auto ");
   switch (item.type & (FunctionType.OpIndex | FunctionType.OpDispatch | FunctionType.OpIndexAssign)) {
   case FunctionType.OpIndex:
     a.put("opIndex");
@@ -534,7 +614,7 @@ void dump(Appender)(ref Semantics semantics, DBindingFunction item, ref Appender
   a.put(mangleName(item.parentTypeName, item.customName.length > 0 ? item.customName : item.name,item.manglePostfix));
   a.put("(");
   if (!(item.type & FunctionType.Static)) {
-    a.put("handle");
+    a.put(["this.", item.handle]);
     if (item.args.length > 0)
       a.put(", ");
   }
@@ -591,11 +671,14 @@ void dumpDJsArgument(Appender)(ref Semantics semantics, Argument arg, ref Append
     a.put("!");
   a.put(arg.name.friendlyName);
   if (optional)
-    a.put([".empty, ", arg.name.friendlyName, ".value"]);
+    a.put([".empty, ", arg.name.friendlyName, ".front"]);
   if (!semantics.isPrimitive(arg.type) && !semantics.isUnion(arg.type))
     a.put(".handle");
 }
 
+bool isAny(ref Semantics semantics, ParseTree tree) {
+  return tree.matches[0] == "any";
+}
 bool isKeyword(string s) {
   import std.algorithm : canFind;
   return dKeywords.canFind(s);
@@ -907,7 +990,7 @@ bool isPrimitive(ref Semantics semantics, ParseTree tree) {
     return false;
   if (tree.children[0].matches[0] == "any")
     return false;
-  if (tree.children[0].matches[0] == "DOMString")
+  if (semantics.isStringType(tree))
     return true;
   if (tree.children[0].children[0].name != "WebIDL.NonAnyType")
     return false;
@@ -1155,7 +1238,7 @@ void mangleTypeJsImpl(Appender)(ParseTree tree, ref Appender a, ref Semantics se
     break;
   case "WebIDL.SingleType":
     if (tree.matches[0] == "any") {
-      a.put("any");
+      a.put("Any");
     } else if (tree.matches[0] == "void") {
       a.put("void");
     } else {
@@ -1260,6 +1343,11 @@ void mangleTypeJsImpl(Appender)(ParseTree tree, ref Appender a, ref Semantics se
   }
 }
 
+string generateDImports(ParseTree tree, Context context) {
+  auto app = IndentedStringAppender();
+  tree.generateDImports(app, context);
+  return app.data;
+}
 void generateDImports(Appender)(ParseTree tree, ref Appender a, Context context) {
   import std.algorithm : each, joiner, map;
   import std.range : chain;
@@ -1290,9 +1378,9 @@ void generateDImports(Appender)(ParseTree tree, ref Appender a, Context context)
       a.put(")");
     break;
   case "WebIDL.SingleType":
-    if (tree.matches[0] == "any")
-      a.put("Any");
-    else
+    if (tree.matches[0] == "any") {
+      a.put("JsHandle");
+    } else
       tree.children[0].generateDImports(a, context);
     break;
   case "WebIDL.PrimitiveType":
@@ -1307,14 +1395,7 @@ void generateDImports(Appender)(ParseTree tree, ref Appender a, Context context)
       tree.children[0].generateDImports(a, context);
     break;
   case "WebIDL.StringType":
-    switch (tree.matches[0]) {
-    case "ByteString":
-      a.put(tree.matches[0]);
-    break;
-    default:
-      a.put("string");
-    break;
-    }
+    a.put("string");
     break;
   case "WebIDL.ArgumentName":
   case "WebIDL.AttributeName":
@@ -1366,6 +1447,10 @@ void generateDImports(Appender)(ParseTree tree, ref Appender a, Context context)
       if (!context.isTypedef(tree))
         a.put(")");
       break;
+    } else if (context.isTypedef(tree) && context.semantics.isNullable(tree)) {
+      auto typeName = tree.getTypeName();
+      auto aliasedType = context.semantics.getAliasedType(typeName);
+      aliasedType.generateDImports(a, context);
     } else {
       context.primitiveType = context.isPrimitive(tree);
       tree.children[0].generateDImports(a, context);
@@ -1373,7 +1458,7 @@ void generateDImports(Appender)(ParseTree tree, ref Appender a, Context context)
     break;
   case "WebIDL.UnionMemberType":
     context.optional = false;
-    if (context.isUnion(tree)) {
+    if (!context.isTypedef(tree) && context.isUnion(tree)) {
       bool optional = tree.matches[$-1] == "?";
       context.optional = optional;
       if (optional) {
@@ -1481,13 +1566,24 @@ void toIr(Appender)(ParseTree tree, ref Appender a, Context context) {
     auto partials = context.getMatchingPartials(context.typeName);
     auto app = appender!(Node[]);
     mixinRest.children[1].toIr(app, context);
-    partials.each!(c => toIr(c.children[0], app, context));
+    partials.each!((c){
+        if (c.children[0].children[0].children[0].name == "WebIDL.MixinRest")
+          toIr(c.children[0].children[0].children[0].children[1], app, context);
+        else
+          toIr(c.children[0], app, context);
+      });
     a.put(new StructIncludesNode(tree.children[0].matches[0], tree.children[1].matches[0], app.data));
     break;
   case "WebIDL.Iterable":
     // a.putLn("// TODO: add iterable");
     break;
   case "WebIDL.MixinRest":
+    context.typeName = tree.children[0].matches[0];
+    auto partials = context.getMatchingPartials(context.typeName);
+    auto app = appender!(Node[]);
+    tree.children[1].toIr(app, context);
+    partials.each!(c => toIr(c.children[0].children[0].children[0].children[1], app, context));
+    a.put(new MixinNode(tree.children[0].matches[0], app.data));
     break;
   case "WebIDL.Const":
     a.put(new ConstNode(tree.children[0].generateDType(context),
@@ -1616,9 +1712,7 @@ void toIr(Appender)(ParseTree tree, ref Appender a, Context context) {
     tree.children[1].toIr(a, context);
     break;
   case "WebIDL.MaplikeRest":
-    auto keyType = tree.children[0].generateDType(context);
-    auto valueType = tree.children[1].generateDType(context);
-    a.put(new MaplikeNode(keyType, valueType));
+    a.put(new MaplikeNode(tree.children[0], tree.children[1]));
     break;
   case "WebIDL.DictionaryMemberRest":
     auto name = tree.children[1].matches[0];
@@ -1873,7 +1967,7 @@ class IR {
           structs[n.name] = n;
         }));
     this.resolvePartialsAndIncludes();
-    this.postfixOverloads(semantics);
+    this.mangleJsOverloads(semantics);
   }
 }
 
@@ -1883,34 +1977,68 @@ auto getImports(IR ir, Module module_) {
   alias Item = Tuple!(Type,"type",string,"name");
   auto app = appender!(Item[]);
   auto semantics = ir.semantics;
-  void extractTypes(Semantics semantics, ParseTree tree, Appender!(Item[]) app) {
-    if (tree.name == "WebIDL.NonAnyType" && tree.children[0].name == "WebIDL.Identifier") {
-      if (auto p = tree.matches[0] in semantics.types)
-        app.put(tuple!("type","name")(*p, tree.matches[0]));
+  void extractTypes(alias sink)(Semantics semantics, ParseTree tree, Appender!(Item[]) app) {
+    if (tree.name == "WebIDL.Typedef") {
+      sink(tree.children[1].matches[0], semantics, app);
+    } else if (tree.name == "WebIDL.NonAnyType" && tree.children[0].name == "WebIDL.Identifier") {
+      sink(tree.matches[0], semantics, app);
+    } else if (tree.name == "WebIDL.Inheritance") {
+      if (tree.children.length > 0) {
+        writeln("found inheritance ",tree.children[0].matches[0]);
+        sink(tree.children[0].matches[0], semantics, app);
+      }
+    }
+    else
+      tree.children.each!(c => extractTypes!(sink)(semantics, c, app));
+  }
+  static void sink(string name, Semantics semantics, Appender!(Item[]) app) {
+    if (name == "void")
+      return;
+    if (auto p = name in semantics.types) {
+      if (semantics.isTypedef(name)) {
+        auto baseType = semantics.getAliasedType(name);
+        auto str = generateDType(baseType, Context(semantics));
+        if (str.length < name.length) {
+          if (auto q = str in semantics.types) {
+            app.put(tuple!("type", "name")(*q, str));
+            return;
+          }
+        }
+      }
+      app.put(tuple!("type","name")(*p, name));
     } else {
-      tree.children.each!(c => extractTypes(semantics, c, app));
+      writeln("Cannot find ", name);
     }
   }
   void recurse(Node node) {
     if (cast(FunctionNode)node) {
-      extractTypes(semantics, (cast(FunctionNode)node).result, app);
-      (cast(FunctionNode)node).args.each!(arg => extractTypes(semantics, arg.type, app));
+      extractTypes!sink(semantics, (cast(FunctionNode)node).result, app);
+      (cast(FunctionNode)node).args.each!(arg => extractTypes!sink(semantics, arg.type, app));
     } else if (cast(TypedefNode)node) {
-      extractTypes(semantics, (cast(TypedefNode)node).rhs, app);
+      extractTypes!sink(semantics, (cast(TypedefNode)node).rhs, app);
     } else if (cast(CallbackNode)node) {
-      extractTypes(semantics, (cast(CallbackNode)node).result, app);
-      extractTypes(semantics, (cast(CallbackNode)node).args, app);
-    } else if (cast(StructNode)node)
+      extractTypes!sink(semantics, (cast(CallbackNode)node).result, app);
+      extractTypes!sink(semantics, (cast(CallbackNode)node).args, app);
+    } else if (cast(StructNode)node) {
+      auto baseType = (cast(StructNode)node).baseType;
+      if (baseType != ParseTree.init && baseType.matches[0].length > 0)
+        sink(baseType.matches[0], semantics, app);
       (cast(StructNode)node).children.each!(node => recurse(node));
-    else if (cast(StructIncludesNode)node)
+    } else if (cast(StructIncludesNode)node) {
+      auto name = (cast(StructIncludesNode)node).name;
+      sink(name, semantics, app);
       (cast(StructIncludesNode)node).children.each!(node => recurse(node));
-    else if (cast(ModuleNode)node)
+    } else if (cast(ModuleNode)node)
       (cast (ModuleNode)node).children.each!(node => recurse(node));
+    else if (cast(MixinNode)node) {
+      (cast(MixinNode)node).children.each!(node => recurse(node));
+    }
   }
   ir.nodes.filter!(n => n.module_ is module_).each!((node){
       node.children.each!(c => recurse(c));
     });
-  return app.data.schwartzSort!(a => a.name).uniq!((a,b){return a.name == b.name;}).filter!(t => t.type.module_ !is module_).map!(t => format("import spasm.bindings.%s : %s;", t.type.module_.name,t.name)).array;
+  return app.data.filter!(t => t.type.module_ !is module_).map!(t => t.type.module_.name).map!(n => format("import spasm.bindings.%s;",n)).array.sort.uniq.array;
+  // return app.data.schwartzSort!(a => a.name).uniq!((a,b){return a.name == b.name;}).filter!(t => t.type.module_ !is module_).map!(t => format("import spasm.bindings.%s : %s;", t.type.module_.name,t.name)).array;
 }
 auto resolvePartialsAndIncludes(IR ir) {
   ir.nodes.each!(mod => mod.children.map!(n => cast(FunctionNode)n).filter!(n => n !is null && n.baseType.length > 0).each!((n){
@@ -1927,10 +2055,10 @@ auto resolvePartialsAndIncludes(IR ir) {
           writeln("Error: Type ", n.baseType, " is unknown");
       }));
 }
-auto postfixOverloads(IR ir, Semantics semantics) {
-  import std.algorithm : schwartzSort;
-  foreach(item; ir.structs.byValue) {
-    auto funcs = item.children.map!(n => cast(FunctionNode)n).filter!(n => n !is null).array;
+auto mangleJsOverloads(IR ir, Semantics semantics) {
+  void handleSet(Node[] nodes) {
+    auto funcs = nodes.map!(n => cast(FunctionNode)n).filter!(n => n !is null).array;
+    nodes.map!(n => cast(StructIncludesNode)n).filter!(n => n !is null).each!(i => handleSet(i.children));
     auto overloadGroups = funcs.schwartzSort!((a){
         if (a.customName.length > 0)
           return a.customName ~ a.manglePostfix;
@@ -1942,11 +2070,19 @@ auto postfixOverloads(IR ir, Semantics semantics) {
       }
     }
   }
+  import std.algorithm : schwartzSort;
+  foreach(item; ir.structs.byValue) {
+    handleSet(item.children);
+  }
+  foreach(item; ir.nodes.map!(n => n.children).joiner) {
+    auto mixinNode = cast(MixinNode)item;
+    if (mixinNode)
+      handleSet(mixinNode.children);
+  }
 }
 string generateDBindings(IR ir, Module module_) {
   auto app = IndentedStringAppender();
   auto context = Context(module_.semantics);
-  app.put(""); // TODO: for some reason this is necessary.
   ir.nodes.filter!(mod => mod.module_ is module_).each!(n => n.toDBinding(module_.semantics, &app));
   return app.data;
 }
@@ -2040,7 +2176,7 @@ class Semantics {
   Type[] mixins;
   Type[] namespaces;
   Module[string] modules;
-  void analyse(string module_, ParseTree tree) {
+  Module analyse(string module_, ParseTree tree) {
     import std.range : chunks;
     assert(tree.name == "WebIDL");
     auto m = new Module(module_, this);
@@ -2057,6 +2193,7 @@ class Semantics {
       mixins ~= mix;
     foreach(k,v; m.types)
       types[k] = v;
+    return m;
   }
   void dumpTypes() {
     import std.format;
@@ -2142,14 +2279,7 @@ void generateDType(Appender)(ParseTree tree, ref Appender a, Context context) {
     tree.children[1].generateDType(a, context);
     break;
   case "WebIDL.StringType":
-    switch (tree.matches[0]) {
-    case "ByteString":
-      a.put(tree.matches[0]);
-    break;
-    default:
-      a.put("string");
-    break;
-    }
+    a.put("string");
     break;
   case "WebIDL.SingleType":
     if (tree.matches[0] == "any")
@@ -2164,7 +2294,7 @@ void generateDType(Appender)(ParseTree tree, ref Appender a, Context context) {
     }
     switch (tree.matches[0]) {
     case "object":
-      a.put("Object");
+      a.put("JsObject");
       break;
     case "symbol":
       a.put("Symbol");

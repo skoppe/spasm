@@ -64,41 +64,41 @@ export default {
     FileReader_error_Get: function(rawResult, ctx) {
       spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].error);
     },
-    FileReader_onloadstart_Set: function(ctx, onloadstartDefined, onloadstart) {
-      spasm.objects[ctx].onloadstart = onloadstartDefined ? onloadstart : undefined;
+    FileReader_onloadstart_Set: function(ctx, onloadstart) {
+      spasm.objects[ctx].onloadstart = onloadstart;
     },
-    FileReader_onloadstart_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onloadstart);
+    FileReader_onloadstart_Get: function(ctx) {
+      return spasm.objects[ctx].onloadstart;
     },
-    FileReader_onprogress_Set: function(ctx, onprogressDefined, onprogress) {
-      spasm.objects[ctx].onprogress = onprogressDefined ? onprogress : undefined;
+    FileReader_onprogress_Set: function(ctx, onprogress) {
+      spasm.objects[ctx].onprogress = onprogress;
     },
-    FileReader_onprogress_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onprogress);
+    FileReader_onprogress_Get: function(ctx) {
+      return spasm.objects[ctx].onprogress;
     },
-    FileReader_onload_Set: function(ctx, onloadDefined, onload) {
-      spasm.objects[ctx].onload = onloadDefined ? onload : undefined;
+    FileReader_onload_Set: function(ctx, onload) {
+      spasm.objects[ctx].onload = onload;
     },
-    FileReader_onload_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onload);
+    FileReader_onload_Get: function(ctx) {
+      return spasm.objects[ctx].onload;
     },
-    FileReader_onabort_Set: function(ctx, onabortDefined, onabort) {
-      spasm.objects[ctx].onabort = onabortDefined ? onabort : undefined;
+    FileReader_onabort_Set: function(ctx, onabort) {
+      spasm.objects[ctx].onabort = onabort;
     },
-    FileReader_onabort_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onabort);
+    FileReader_onabort_Get: function(ctx) {
+      return spasm.objects[ctx].onabort;
     },
-    FileReader_onerror_Set: function(ctx, onerrorDefined, onerror) {
-      spasm.objects[ctx].onerror = onerrorDefined ? onerror : undefined;
+    FileReader_onerror_Set: function(ctx, onerror) {
+      spasm.objects[ctx].onerror = onerror;
     },
-    FileReader_onerror_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onerror);
+    FileReader_onerror_Get: function(ctx) {
+      return spasm.objects[ctx].onerror;
     },
-    FileReader_onloadend_Set: function(ctx, onloadendDefined, onloadend) {
-      spasm.objects[ctx].onloadend = onloadendDefined ? onloadend : undefined;
+    FileReader_onloadend_Set: function(ctx, onloadend) {
+      spasm.objects[ctx].onloadend = onloadend;
     },
-    FileReader_onloadend_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onloadend);
+    FileReader_onloadend_Get: function(ctx) {
+      return spasm.objects[ctx].onloadend;
     },
     FileReaderSync_readAsArrayBuffer: function(ctx, blob) {
       return spasm.addObject(spasm.objects[ctx].readAsArrayBuffer(spasm.objects[blob]));

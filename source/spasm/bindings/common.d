@@ -6,14 +6,14 @@ alias BufferSource = SumType!(ArrayBufferView, ArrayBuffer);
 struct DOMException {
   JsHandle handle;
   alias handle this;
-  string name() {
-    return DOMException_name_Get(handle);
+  auto name() {
+    return DOMException_name_Get(this.handle);
   }
-  string message() {
-    return DOMException_message_Get(handle);
+  auto message() {
+    return DOMException_message_Get(this.handle);
   }
-  ushort code() {
-    return DOMException_code_Get(handle);
+  auto code() {
+    return DOMException_code_Get(this.handle);
   }
   enum ushort INDEX_SIZE_ERR = 1;
   enum ushort DOMSTRING_SIZE_ERR = 2;

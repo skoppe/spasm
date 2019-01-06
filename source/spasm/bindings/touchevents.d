@@ -1,206 +1,213 @@
 module spasm.bindings.touchevents;
 
 import spasm.types;
-import spasm.bindings.dom : EventTarget;
+import spasm.bindings.dom;
+import spasm.bindings.uievents;
 
 struct Touch {
   JsHandle handle;
   alias handle this;
-  int identifier() {
-    return Touch_identifier_Get(handle);
+  auto identifier() {
+    return Touch_identifier_Get(this.handle);
   }
-  EventTarget target() {
-    return EventTarget(Touch_target_Get(handle));
+  auto target() {
+    return EventTarget(Touch_target_Get(this.handle));
   }
-  double screenX() {
-    return Touch_screenX_Get(handle);
+  auto screenX() {
+    return Touch_screenX_Get(this.handle);
   }
-  double screenY() {
-    return Touch_screenY_Get(handle);
+  auto screenY() {
+    return Touch_screenY_Get(this.handle);
   }
-  double clientX() {
-    return Touch_clientX_Get(handle);
+  auto clientX() {
+    return Touch_clientX_Get(this.handle);
   }
-  double clientY() {
-    return Touch_clientY_Get(handle);
+  auto clientY() {
+    return Touch_clientY_Get(this.handle);
   }
-  double pageX() {
-    return Touch_pageX_Get(handle);
+  auto pageX() {
+    return Touch_pageX_Get(this.handle);
   }
-  double pageY() {
-    return Touch_pageY_Get(handle);
+  auto pageY() {
+    return Touch_pageY_Get(this.handle);
   }
-  float radiusX() {
-    return Touch_radiusX_Get(handle);
+  auto radiusX() {
+    return Touch_radiusX_Get(this.handle);
   }
-  float radiusY() {
-    return Touch_radiusY_Get(handle);
+  auto radiusY() {
+    return Touch_radiusY_Get(this.handle);
   }
-  float rotationAngle() {
-    return Touch_rotationAngle_Get(handle);
+  auto rotationAngle() {
+    return Touch_rotationAngle_Get(this.handle);
   }
-  float force() {
-    return Touch_force_Get(handle);
+  auto force() {
+    return Touch_force_Get(this.handle);
   }
-  float altitudeAngle() {
-    return Touch_altitudeAngle_Get(handle);
+  auto altitudeAngle() {
+    return Touch_altitudeAngle_Get(this.handle);
   }
-  float azimuthAngle() {
-    return Touch_azimuthAngle_Get(handle);
+  auto azimuthAngle() {
+    return Touch_azimuthAngle_Get(this.handle);
   }
-  TouchType touchType() {
-    return Touch_touchType_Get(handle);
+  auto touchType() {
+    return Touch_touchType_Get(this.handle);
   }
 }
 struct TouchEvent {
   UIEvent _parent;
   alias _parent this;
-  TouchList touches() {
-    return TouchList(TouchEvent_touches_Get(handle));
+  this(JsHandle h) {
+    _parent = UIEvent(h);
   }
-  TouchList targetTouches() {
-    return TouchList(TouchEvent_targetTouches_Get(handle));
+  auto touches() {
+    return TouchList(TouchEvent_touches_Get(this._parent));
   }
-  TouchList changedTouches() {
-    return TouchList(TouchEvent_changedTouches_Get(handle));
+  auto targetTouches() {
+    return TouchList(TouchEvent_targetTouches_Get(this._parent));
   }
-  bool altKey() {
-    return TouchEvent_altKey_Get(handle);
+  auto changedTouches() {
+    return TouchList(TouchEvent_changedTouches_Get(this._parent));
   }
-  bool metaKey() {
-    return TouchEvent_metaKey_Get(handle);
+  auto altKey() {
+    return TouchEvent_altKey_Get(this._parent);
   }
-  bool ctrlKey() {
-    return TouchEvent_ctrlKey_Get(handle);
+  auto metaKey() {
+    return TouchEvent_metaKey_Get(this._parent);
   }
-  bool shiftKey() {
-    return TouchEvent_shiftKey_Get(handle);
+  auto ctrlKey() {
+    return TouchEvent_ctrlKey_Get(this._parent);
+  }
+  auto shiftKey() {
+    return TouchEvent_shiftKey_Get(this._parent);
   }
 }
 struct TouchEventInit {
   EventModifierInit _parent;
   alias _parent this;
-  void touches(Sequence!(Touch) touches) {
-    TouchEventInit_touches_Set(handle, touches.handle);
+  this(JsHandle h) {
+    _parent = EventModifierInit(h);
   }
-  Sequence!(Touch) touches() {
-    return Sequence!(Touch)(TouchEventInit_touches_Get(handle));
+  auto touches(Sequence!(Touch) touches) {
+    TouchEventInit_touches_Set(this._parent, touches.handle);
   }
-  void targetTouches(Sequence!(Touch) targetTouches) {
-    TouchEventInit_targetTouches_Set(handle, targetTouches.handle);
+  auto touches() {
+    return Sequence!(Touch)(TouchEventInit_touches_Get(this._parent));
   }
-  Sequence!(Touch) targetTouches() {
-    return Sequence!(Touch)(TouchEventInit_targetTouches_Get(handle));
+  auto targetTouches(Sequence!(Touch) targetTouches) {
+    TouchEventInit_targetTouches_Set(this._parent, targetTouches.handle);
   }
-  void changedTouches(Sequence!(Touch) changedTouches) {
-    TouchEventInit_changedTouches_Set(handle, changedTouches.handle);
+  auto targetTouches() {
+    return Sequence!(Touch)(TouchEventInit_targetTouches_Get(this._parent));
   }
-  Sequence!(Touch) changedTouches() {
-    return Sequence!(Touch)(TouchEventInit_changedTouches_Get(handle));
+  auto changedTouches(Sequence!(Touch) changedTouches) {
+    TouchEventInit_changedTouches_Set(this._parent, changedTouches.handle);
+  }
+  auto changedTouches() {
+    return Sequence!(Touch)(TouchEventInit_changedTouches_Get(this._parent));
   }
 }
 struct TouchInit {
   JsHandle handle;
   alias handle this;
-  void identifier(int identifier) {
-    TouchInit_identifier_Set(handle, identifier);
+  auto identifier(int identifier) {
+    TouchInit_identifier_Set(this.handle, identifier);
   }
-  int identifier() {
-    return TouchInit_identifier_Get(handle);
+  auto identifier() {
+    return TouchInit_identifier_Get(this.handle);
   }
-  void target(EventTarget target) {
-    TouchInit_target_Set(handle, target.handle);
+  auto target(EventTarget target) {
+    TouchInit_target_Set(this.handle, target.handle);
   }
-  EventTarget target() {
-    return EventTarget(TouchInit_target_Get(handle));
+  auto target() {
+    return EventTarget(TouchInit_target_Get(this.handle));
   }
-  void clientX(double clientX) {
-    TouchInit_clientX_Set(handle, clientX);
+  auto clientX(double clientX) {
+    TouchInit_clientX_Set(this.handle, clientX);
   }
-  double clientX() {
-    return TouchInit_clientX_Get(handle);
+  auto clientX() {
+    return TouchInit_clientX_Get(this.handle);
   }
-  void clientY(double clientY) {
-    TouchInit_clientY_Set(handle, clientY);
+  auto clientY(double clientY) {
+    TouchInit_clientY_Set(this.handle, clientY);
   }
-  double clientY() {
-    return TouchInit_clientY_Get(handle);
+  auto clientY() {
+    return TouchInit_clientY_Get(this.handle);
   }
-  void screenX(double screenX) {
-    TouchInit_screenX_Set(handle, screenX);
+  auto screenX(double screenX) {
+    TouchInit_screenX_Set(this.handle, screenX);
   }
-  double screenX() {
-    return TouchInit_screenX_Get(handle);
+  auto screenX() {
+    return TouchInit_screenX_Get(this.handle);
   }
-  void screenY(double screenY) {
-    TouchInit_screenY_Set(handle, screenY);
+  auto screenY(double screenY) {
+    TouchInit_screenY_Set(this.handle, screenY);
   }
-  double screenY() {
-    return TouchInit_screenY_Get(handle);
+  auto screenY() {
+    return TouchInit_screenY_Get(this.handle);
   }
-  void pageX(double pageX) {
-    TouchInit_pageX_Set(handle, pageX);
+  auto pageX(double pageX) {
+    TouchInit_pageX_Set(this.handle, pageX);
   }
-  double pageX() {
-    return TouchInit_pageX_Get(handle);
+  auto pageX() {
+    return TouchInit_pageX_Get(this.handle);
   }
-  void pageY(double pageY) {
-    TouchInit_pageY_Set(handle, pageY);
+  auto pageY(double pageY) {
+    TouchInit_pageY_Set(this.handle, pageY);
   }
-  double pageY() {
-    return TouchInit_pageY_Get(handle);
+  auto pageY() {
+    return TouchInit_pageY_Get(this.handle);
   }
-  void radiusX(float radiusX) {
-    TouchInit_radiusX_Set(handle, radiusX);
+  auto radiusX(float radiusX) {
+    TouchInit_radiusX_Set(this.handle, radiusX);
   }
-  float radiusX() {
-    return TouchInit_radiusX_Get(handle);
+  auto radiusX() {
+    return TouchInit_radiusX_Get(this.handle);
   }
-  void radiusY(float radiusY) {
-    TouchInit_radiusY_Set(handle, radiusY);
+  auto radiusY(float radiusY) {
+    TouchInit_radiusY_Set(this.handle, radiusY);
   }
-  float radiusY() {
-    return TouchInit_radiusY_Get(handle);
+  auto radiusY() {
+    return TouchInit_radiusY_Get(this.handle);
   }
-  void rotationAngle(float rotationAngle) {
-    TouchInit_rotationAngle_Set(handle, rotationAngle);
+  auto rotationAngle(float rotationAngle) {
+    TouchInit_rotationAngle_Set(this.handle, rotationAngle);
   }
-  float rotationAngle() {
-    return TouchInit_rotationAngle_Get(handle);
+  auto rotationAngle() {
+    return TouchInit_rotationAngle_Get(this.handle);
   }
-  void force(float force) {
-    TouchInit_force_Set(handle, force);
+  auto force(float force) {
+    TouchInit_force_Set(this.handle, force);
   }
-  float force() {
-    return TouchInit_force_Get(handle);
+  auto force() {
+    return TouchInit_force_Get(this.handle);
   }
-  void altitudeAngle(double altitudeAngle) {
-    TouchInit_altitudeAngle_Set(handle, altitudeAngle);
+  auto altitudeAngle(double altitudeAngle) {
+    TouchInit_altitudeAngle_Set(this.handle, altitudeAngle);
   }
-  double altitudeAngle() {
-    return TouchInit_altitudeAngle_Get(handle);
+  auto altitudeAngle() {
+    return TouchInit_altitudeAngle_Get(this.handle);
   }
-  void azimuthAngle(double azimuthAngle) {
-    TouchInit_azimuthAngle_Set(handle, azimuthAngle);
+  auto azimuthAngle(double azimuthAngle) {
+    TouchInit_azimuthAngle_Set(this.handle, azimuthAngle);
   }
-  double azimuthAngle() {
-    return TouchInit_azimuthAngle_Get(handle);
+  auto azimuthAngle() {
+    return TouchInit_azimuthAngle_Get(this.handle);
   }
-  void touchType(TouchType touchType) {
-    TouchInit_touchType_Set(handle, touchType);
+  auto touchType(TouchType touchType) {
+    TouchInit_touchType_Set(this.handle, touchType);
   }
-  TouchType touchType() {
-    return TouchInit_touchType_Get(handle);
+  auto touchType() {
+    return TouchInit_touchType_Get(this.handle);
   }
 }
 struct TouchList {
   JsHandle handle;
   alias handle this;
-  uint length() {
-    return TouchList_length_Get(handle);
+  auto length() {
+    return TouchList_length_Get(this.handle);
   }
-  Optional!(Touch) item(uint index) {
-    return TouchList_item_getter(handle, index);
+  auto item(uint index) {
+    return TouchList_item_getter(this.handle, index);
   }
 }
 enum TouchType {

@@ -36,7 +36,7 @@ boolean contains(DOMString string);
 enum DocumentReadyState { "loading", "interactive", "complete" };
 typedef (HTMLScriptElement or SVGScriptElement) HTMLOrSVGScriptElement;
 
-typedef WindowProxy Window;
+typedef Window WindowProxy;
 
 [OverrideBuiltins]
 partial interface Document {

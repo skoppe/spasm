@@ -1,7 +1,7 @@
 import spasm from './spasm.js';
 
-const nodes = { 0: document };
-let lastPtr = 0;
+const nodes = { 1: document, 2: window };
+let lastPtr = 3;
 
 const addPtr = (node) => {
     if (node === null) return 0;

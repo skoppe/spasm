@@ -52,11 +52,11 @@ export default {
     ProgressEventInit_total_Get: function(ctx) {
       return spasm.objects[ctx].total;
     },
-    XMLHttpRequest_onreadystatechange_Set: function(ctx, onreadystatechangeDefined, onreadystatechange) {
-      spasm.objects[ctx].onreadystatechange = onreadystatechangeDefined ? onreadystatechange : undefined;
+    XMLHttpRequest_onreadystatechange_Set: function(ctx, onreadystatechange) {
+      spasm.objects[ctx].onreadystatechange = onreadystatechange;
     },
-    XMLHttpRequest_onreadystatechange_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onreadystatechange);
+    XMLHttpRequest_onreadystatechange_Get: function(ctx) {
+      return spasm.objects[ctx].onreadystatechange;
     },
     XMLHttpRequest_readyState_Get: function(ctx) {
       return spasm.objects[ctx].readyState;
@@ -124,47 +124,47 @@ export default {
     XMLHttpRequest_responseXML_Get: function(rawResult, ctx) {
       spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].responseXML);
     },
-    XMLHttpRequestEventTarget_onloadstart_Set: function(ctx, onloadstartDefined, onloadstart) {
-      spasm.objects[ctx].onloadstart = onloadstartDefined ? onloadstart : undefined;
+    XMLHttpRequestEventTarget_onloadstart_Set: function(ctx, onloadstart) {
+      spasm.objects[ctx].onloadstart = onloadstart;
     },
-    XMLHttpRequestEventTarget_onloadstart_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onloadstart);
+    XMLHttpRequestEventTarget_onloadstart_Get: function(ctx) {
+      return spasm.objects[ctx].onloadstart;
     },
-    XMLHttpRequestEventTarget_onprogress_Set: function(ctx, onprogressDefined, onprogress) {
-      spasm.objects[ctx].onprogress = onprogressDefined ? onprogress : undefined;
+    XMLHttpRequestEventTarget_onprogress_Set: function(ctx, onprogress) {
+      spasm.objects[ctx].onprogress = onprogress;
     },
-    XMLHttpRequestEventTarget_onprogress_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onprogress);
+    XMLHttpRequestEventTarget_onprogress_Get: function(ctx) {
+      return spasm.objects[ctx].onprogress;
     },
-    XMLHttpRequestEventTarget_onabort_Set: function(ctx, onabortDefined, onabort) {
-      spasm.objects[ctx].onabort = onabortDefined ? onabort : undefined;
+    XMLHttpRequestEventTarget_onabort_Set: function(ctx, onabort) {
+      spasm.objects[ctx].onabort = onabort;
     },
-    XMLHttpRequestEventTarget_onabort_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onabort);
+    XMLHttpRequestEventTarget_onabort_Get: function(ctx) {
+      return spasm.objects[ctx].onabort;
     },
-    XMLHttpRequestEventTarget_onerror_Set: function(ctx, onerrorDefined, onerror) {
-      spasm.objects[ctx].onerror = onerrorDefined ? onerror : undefined;
+    XMLHttpRequestEventTarget_onerror_Set: function(ctx, onerror) {
+      spasm.objects[ctx].onerror = onerror;
     },
-    XMLHttpRequestEventTarget_onerror_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onerror);
+    XMLHttpRequestEventTarget_onerror_Get: function(ctx) {
+      return spasm.objects[ctx].onerror;
     },
-    XMLHttpRequestEventTarget_onload_Set: function(ctx, onloadDefined, onload) {
-      spasm.objects[ctx].onload = onloadDefined ? onload : undefined;
+    XMLHttpRequestEventTarget_onload_Set: function(ctx, onload) {
+      spasm.objects[ctx].onload = onload;
     },
-    XMLHttpRequestEventTarget_onload_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onload);
+    XMLHttpRequestEventTarget_onload_Get: function(ctx) {
+      return spasm.objects[ctx].onload;
     },
-    XMLHttpRequestEventTarget_ontimeout_Set: function(ctx, ontimeoutDefined, ontimeout) {
-      spasm.objects[ctx].ontimeout = ontimeoutDefined ? ontimeout : undefined;
+    XMLHttpRequestEventTarget_ontimeout_Set: function(ctx, ontimeout) {
+      spasm.objects[ctx].ontimeout = ontimeout;
     },
-    XMLHttpRequestEventTarget_ontimeout_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].ontimeout);
+    XMLHttpRequestEventTarget_ontimeout_Get: function(ctx) {
+      return spasm.objects[ctx].ontimeout;
     },
-    XMLHttpRequestEventTarget_onloadend_Set: function(ctx, onloadendDefined, onloadend) {
-      spasm.objects[ctx].onloadend = onloadendDefined ? onloadend : undefined;
+    XMLHttpRequestEventTarget_onloadend_Set: function(ctx, onloadend) {
+      spasm.objects[ctx].onloadend = onloadend;
     },
-    XMLHttpRequestEventTarget_onloadend_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onloadend);
+    XMLHttpRequestEventTarget_onloadend_Get: function(ctx) {
+      return spasm.objects[ctx].onloadend;
     },
   }
 }

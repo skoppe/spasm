@@ -217,89 +217,89 @@ export default {
     SVGElement_viewportElement_Get: function(rawResult, ctx) {
       spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].viewportElement);
     },
-    GlobalEventHandlers_ongotpointercapture_Set: function(ctx, ongotpointercaptureDefined, ongotpointercapture) {
-      spasm.objects[ctx].ongotpointercapture = ongotpointercaptureDefined ? ongotpointercapture : undefined;
+    GlobalEventHandlers_ongotpointercapture_Set: function(ctx, ongotpointercapture) {
+      spasm.objects[ctx].ongotpointercapture = ongotpointercapture;
     },
-    GlobalEventHandlers_ongotpointercapture_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].ongotpointercapture);
+    GlobalEventHandlers_ongotpointercapture_Get: function(ctx) {
+      return spasm.objects[ctx].ongotpointercapture;
     },
-    GlobalEventHandlers_onlostpointercapture_Set: function(ctx, onlostpointercaptureDefined, onlostpointercapture) {
-      spasm.objects[ctx].onlostpointercapture = onlostpointercaptureDefined ? onlostpointercapture : undefined;
+    GlobalEventHandlers_onlostpointercapture_Set: function(ctx, onlostpointercapture) {
+      spasm.objects[ctx].onlostpointercapture = onlostpointercapture;
     },
-    GlobalEventHandlers_onlostpointercapture_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onlostpointercapture);
+    GlobalEventHandlers_onlostpointercapture_Get: function(ctx) {
+      return spasm.objects[ctx].onlostpointercapture;
     },
-    GlobalEventHandlers_onpointerdown_Set: function(ctx, onpointerdownDefined, onpointerdown) {
-      spasm.objects[ctx].onpointerdown = onpointerdownDefined ? onpointerdown : undefined;
+    GlobalEventHandlers_onpointerdown_Set: function(ctx, onpointerdown) {
+      spasm.objects[ctx].onpointerdown = onpointerdown;
     },
-    GlobalEventHandlers_onpointerdown_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onpointerdown);
+    GlobalEventHandlers_onpointerdown_Get: function(ctx) {
+      return spasm.objects[ctx].onpointerdown;
     },
-    GlobalEventHandlers_onpointermove_Set: function(ctx, onpointermoveDefined, onpointermove) {
-      spasm.objects[ctx].onpointermove = onpointermoveDefined ? onpointermove : undefined;
+    GlobalEventHandlers_onpointermove_Set: function(ctx, onpointermove) {
+      spasm.objects[ctx].onpointermove = onpointermove;
     },
-    GlobalEventHandlers_onpointermove_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onpointermove);
+    GlobalEventHandlers_onpointermove_Get: function(ctx) {
+      return spasm.objects[ctx].onpointermove;
     },
-    GlobalEventHandlers_onpointerup_Set: function(ctx, onpointerupDefined, onpointerup) {
-      spasm.objects[ctx].onpointerup = onpointerupDefined ? onpointerup : undefined;
+    GlobalEventHandlers_onpointerup_Set: function(ctx, onpointerup) {
+      spasm.objects[ctx].onpointerup = onpointerup;
     },
-    GlobalEventHandlers_onpointerup_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onpointerup);
+    GlobalEventHandlers_onpointerup_Get: function(ctx) {
+      return spasm.objects[ctx].onpointerup;
     },
-    GlobalEventHandlers_onpointercancel_Set: function(ctx, onpointercancelDefined, onpointercancel) {
-      spasm.objects[ctx].onpointercancel = onpointercancelDefined ? onpointercancel : undefined;
+    GlobalEventHandlers_onpointercancel_Set: function(ctx, onpointercancel) {
+      spasm.objects[ctx].onpointercancel = onpointercancel;
     },
-    GlobalEventHandlers_onpointercancel_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onpointercancel);
+    GlobalEventHandlers_onpointercancel_Get: function(ctx) {
+      return spasm.objects[ctx].onpointercancel;
     },
-    GlobalEventHandlers_onpointerover_Set: function(ctx, onpointeroverDefined, onpointerover) {
-      spasm.objects[ctx].onpointerover = onpointeroverDefined ? onpointerover : undefined;
+    GlobalEventHandlers_onpointerover_Set: function(ctx, onpointerover) {
+      spasm.objects[ctx].onpointerover = onpointerover;
     },
-    GlobalEventHandlers_onpointerover_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onpointerover);
+    GlobalEventHandlers_onpointerover_Get: function(ctx) {
+      return spasm.objects[ctx].onpointerover;
     },
-    GlobalEventHandlers_onpointerout_Set: function(ctx, onpointeroutDefined, onpointerout) {
-      spasm.objects[ctx].onpointerout = onpointeroutDefined ? onpointerout : undefined;
+    GlobalEventHandlers_onpointerout_Set: function(ctx, onpointerout) {
+      spasm.objects[ctx].onpointerout = onpointerout;
     },
-    GlobalEventHandlers_onpointerout_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onpointerout);
+    GlobalEventHandlers_onpointerout_Get: function(ctx) {
+      return spasm.objects[ctx].onpointerout;
     },
-    GlobalEventHandlers_onpointerenter_Set: function(ctx, onpointerenterDefined, onpointerenter) {
-      spasm.objects[ctx].onpointerenter = onpointerenterDefined ? onpointerenter : undefined;
+    GlobalEventHandlers_onpointerenter_Set: function(ctx, onpointerenter) {
+      spasm.objects[ctx].onpointerenter = onpointerenter;
     },
-    GlobalEventHandlers_onpointerenter_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onpointerenter);
+    GlobalEventHandlers_onpointerenter_Get: function(ctx) {
+      return spasm.objects[ctx].onpointerenter;
     },
-    GlobalEventHandlers_onpointerleave_Set: function(ctx, onpointerleaveDefined, onpointerleave) {
-      spasm.objects[ctx].onpointerleave = onpointerleaveDefined ? onpointerleave : undefined;
+    GlobalEventHandlers_onpointerleave_Set: function(ctx, onpointerleave) {
+      spasm.objects[ctx].onpointerleave = onpointerleave;
     },
-    GlobalEventHandlers_onpointerleave_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onpointerleave);
+    GlobalEventHandlers_onpointerleave_Get: function(ctx) {
+      return spasm.objects[ctx].onpointerleave;
     },
-    GlobalEventHandlers_ontouchstart_Set: function(ctx, ontouchstartDefined, ontouchstart) {
-      spasm.objects[ctx].ontouchstart = ontouchstartDefined ? ontouchstart : undefined;
+    GlobalEventHandlers_ontouchstart_Set: function(ctx, ontouchstart) {
+      spasm.objects[ctx].ontouchstart = ontouchstart;
     },
-    GlobalEventHandlers_ontouchstart_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].ontouchstart);
+    GlobalEventHandlers_ontouchstart_Get: function(ctx) {
+      return spasm.objects[ctx].ontouchstart;
     },
-    GlobalEventHandlers_ontouchend_Set: function(ctx, ontouchendDefined, ontouchend) {
-      spasm.objects[ctx].ontouchend = ontouchendDefined ? ontouchend : undefined;
+    GlobalEventHandlers_ontouchend_Set: function(ctx, ontouchend) {
+      spasm.objects[ctx].ontouchend = ontouchend;
     },
-    GlobalEventHandlers_ontouchend_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].ontouchend);
+    GlobalEventHandlers_ontouchend_Get: function(ctx) {
+      return spasm.objects[ctx].ontouchend;
     },
-    GlobalEventHandlers_ontouchmove_Set: function(ctx, ontouchmoveDefined, ontouchmove) {
-      spasm.objects[ctx].ontouchmove = ontouchmoveDefined ? ontouchmove : undefined;
+    GlobalEventHandlers_ontouchmove_Set: function(ctx, ontouchmove) {
+      spasm.objects[ctx].ontouchmove = ontouchmove;
     },
-    GlobalEventHandlers_ontouchmove_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].ontouchmove);
+    GlobalEventHandlers_ontouchmove_Get: function(ctx) {
+      return spasm.objects[ctx].ontouchmove;
     },
-    GlobalEventHandlers_ontouchcancel_Set: function(ctx, ontouchcancelDefined, ontouchcancel) {
-      spasm.objects[ctx].ontouchcancel = ontouchcancelDefined ? ontouchcancel : undefined;
+    GlobalEventHandlers_ontouchcancel_Set: function(ctx, ontouchcancel) {
+      spasm.objects[ctx].ontouchcancel = ontouchcancel;
     },
-    GlobalEventHandlers_ontouchcancel_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].ontouchcancel);
+    GlobalEventHandlers_ontouchcancel_Get: function(ctx) {
+      return spasm.objects[ctx].ontouchcancel;
     },
     SVGElementInstance_correspondingElement_Get: function(rawResult, ctx) {
       spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].correspondingElement);

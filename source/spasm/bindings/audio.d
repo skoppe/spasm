@@ -1,240 +1,252 @@
 module spasm.bindings.audio;
 
 import spasm.types;
-import spasm.bindings.common : DOMException;
-import spasm.bindings.domhighrestimestamp : DOMHighResTimeStamp;
-import spasm.bindings.html : EventHandler;
-import spasm.bindings.html : HTMLMediaElement;
-import spasm.bindings.html : MessagePort;
-import spasm.bindings.common : VoidFunction;
+import spasm.bindings.common;
+import spasm.bindings.dom;
+import spasm.bindings.domhighrestimestamp;
+import spasm.bindings.html;
+import spasm.bindings.mediastream;
+import spasm.bindings.worklet;
 
 struct AnalyserNode {
   AudioNode _parent;
   alias _parent this;
-  void getFloatFrequencyData(Float32Array array) {
-    AnalyserNode_getFloatFrequencyData(handle, array.handle);
+  this(JsHandle h) {
+    _parent = AudioNode(h);
   }
-  void getByteFrequencyData(Uint8Array array) {
-    AnalyserNode_getByteFrequencyData(handle, array.handle);
+  auto getFloatFrequencyData(Float32Array array) {
+    AnalyserNode_getFloatFrequencyData(this._parent, array.handle);
   }
-  void getFloatTimeDomainData(Float32Array array) {
-    AnalyserNode_getFloatTimeDomainData(handle, array.handle);
+  auto getByteFrequencyData(Uint8Array array) {
+    AnalyserNode_getByteFrequencyData(this._parent, array.handle);
   }
-  void getByteTimeDomainData(Uint8Array array) {
-    AnalyserNode_getByteTimeDomainData(handle, array.handle);
+  auto getFloatTimeDomainData(Float32Array array) {
+    AnalyserNode_getFloatTimeDomainData(this._parent, array.handle);
   }
-  void fftSize(uint fftSize) {
-    AnalyserNode_fftSize_Set(handle, fftSize);
+  auto getByteTimeDomainData(Uint8Array array) {
+    AnalyserNode_getByteTimeDomainData(this._parent, array.handle);
   }
-  uint fftSize() {
-    return AnalyserNode_fftSize_Get(handle);
+  auto fftSize(uint fftSize) {
+    AnalyserNode_fftSize_Set(this._parent, fftSize);
   }
-  uint frequencyBinCount() {
-    return AnalyserNode_frequencyBinCount_Get(handle);
+  auto fftSize() {
+    return AnalyserNode_fftSize_Get(this._parent);
   }
-  void minDecibels(double minDecibels) {
-    AnalyserNode_minDecibels_Set(handle, minDecibels);
+  auto frequencyBinCount() {
+    return AnalyserNode_frequencyBinCount_Get(this._parent);
   }
-  double minDecibels() {
-    return AnalyserNode_minDecibels_Get(handle);
+  auto minDecibels(double minDecibels) {
+    AnalyserNode_minDecibels_Set(this._parent, minDecibels);
   }
-  void maxDecibels(double maxDecibels) {
-    AnalyserNode_maxDecibels_Set(handle, maxDecibels);
+  auto minDecibels() {
+    return AnalyserNode_minDecibels_Get(this._parent);
   }
-  double maxDecibels() {
-    return AnalyserNode_maxDecibels_Get(handle);
+  auto maxDecibels(double maxDecibels) {
+    AnalyserNode_maxDecibels_Set(this._parent, maxDecibels);
   }
-  void smoothingTimeConstant(double smoothingTimeConstant) {
-    AnalyserNode_smoothingTimeConstant_Set(handle, smoothingTimeConstant);
+  auto maxDecibels() {
+    return AnalyserNode_maxDecibels_Get(this._parent);
   }
-  double smoothingTimeConstant() {
-    return AnalyserNode_smoothingTimeConstant_Get(handle);
+  auto smoothingTimeConstant(double smoothingTimeConstant) {
+    AnalyserNode_smoothingTimeConstant_Set(this._parent, smoothingTimeConstant);
+  }
+  auto smoothingTimeConstant() {
+    return AnalyserNode_smoothingTimeConstant_Get(this._parent);
   }
 }
 struct AnalyserOptions {
   AudioNodeOptions _parent;
   alias _parent this;
-  void fftSize(uint fftSize) {
-    AnalyserOptions_fftSize_Set(handle, fftSize);
+  this(JsHandle h) {
+    _parent = AudioNodeOptions(h);
   }
-  uint fftSize() {
-    return AnalyserOptions_fftSize_Get(handle);
+  auto fftSize(uint fftSize) {
+    AnalyserOptions_fftSize_Set(this._parent, fftSize);
   }
-  void maxDecibels(double maxDecibels) {
-    AnalyserOptions_maxDecibels_Set(handle, maxDecibels);
+  auto fftSize() {
+    return AnalyserOptions_fftSize_Get(this._parent);
   }
-  double maxDecibels() {
-    return AnalyserOptions_maxDecibels_Get(handle);
+  auto maxDecibels(double maxDecibels) {
+    AnalyserOptions_maxDecibels_Set(this._parent, maxDecibels);
   }
-  void minDecibels(double minDecibels) {
-    AnalyserOptions_minDecibels_Set(handle, minDecibels);
+  auto maxDecibels() {
+    return AnalyserOptions_maxDecibels_Get(this._parent);
   }
-  double minDecibels() {
-    return AnalyserOptions_minDecibels_Get(handle);
+  auto minDecibels(double minDecibels) {
+    AnalyserOptions_minDecibels_Set(this._parent, minDecibels);
   }
-  void smoothingTimeConstant(double smoothingTimeConstant) {
-    AnalyserOptions_smoothingTimeConstant_Set(handle, smoothingTimeConstant);
+  auto minDecibels() {
+    return AnalyserOptions_minDecibels_Get(this._parent);
   }
-  double smoothingTimeConstant() {
-    return AnalyserOptions_smoothingTimeConstant_Get(handle);
+  auto smoothingTimeConstant(double smoothingTimeConstant) {
+    AnalyserOptions_smoothingTimeConstant_Set(this._parent, smoothingTimeConstant);
+  }
+  auto smoothingTimeConstant() {
+    return AnalyserOptions_smoothingTimeConstant_Get(this._parent);
   }
 }
 struct AudioBuffer {
   JsHandle handle;
   alias handle this;
-  float sampleRate() {
-    return AudioBuffer_sampleRate_Get(handle);
+  auto sampleRate() {
+    return AudioBuffer_sampleRate_Get(this.handle);
   }
-  uint length() {
-    return AudioBuffer_length_Get(handle);
+  auto length() {
+    return AudioBuffer_length_Get(this.handle);
   }
-  double duration() {
-    return AudioBuffer_duration_Get(handle);
+  auto duration() {
+    return AudioBuffer_duration_Get(this.handle);
   }
-  uint numberOfChannels() {
-    return AudioBuffer_numberOfChannels_Get(handle);
+  auto numberOfChannels() {
+    return AudioBuffer_numberOfChannels_Get(this.handle);
   }
-  Float32Array getChannelData(uint channel) {
-    return Float32Array(AudioBuffer_getChannelData(handle, channel));
+  auto getChannelData(uint channel) {
+    return Float32Array(AudioBuffer_getChannelData(this.handle, channel));
   }
-  void copyFromChannel(Float32Array destination, uint channelNumber, uint startInChannel /* = 0 */) {
-    AudioBuffer_copyFromChannel(handle, destination.handle, channelNumber, startInChannel);
+  auto copyFromChannel(Float32Array destination, uint channelNumber, uint startInChannel /* = 0 */) {
+    AudioBuffer_copyFromChannel(this.handle, destination.handle, channelNumber, startInChannel);
   }
-  void copyToChannel(Float32Array source, uint channelNumber, uint startInChannel /* = 0 */) {
-    AudioBuffer_copyToChannel(handle, source.handle, channelNumber, startInChannel);
+  auto copyToChannel(Float32Array source, uint channelNumber, uint startInChannel /* = 0 */) {
+    AudioBuffer_copyToChannel(this.handle, source.handle, channelNumber, startInChannel);
   }
 }
 struct AudioBufferOptions {
   JsHandle handle;
   alias handle this;
-  void numberOfChannels(uint numberOfChannels) {
-    AudioBufferOptions_numberOfChannels_Set(handle, numberOfChannels);
+  auto numberOfChannels(uint numberOfChannels) {
+    AudioBufferOptions_numberOfChannels_Set(this.handle, numberOfChannels);
   }
-  uint numberOfChannels() {
-    return AudioBufferOptions_numberOfChannels_Get(handle);
+  auto numberOfChannels() {
+    return AudioBufferOptions_numberOfChannels_Get(this.handle);
   }
-  void length(uint length) {
-    AudioBufferOptions_length_Set(handle, length);
+  auto length(uint length) {
+    AudioBufferOptions_length_Set(this.handle, length);
   }
-  uint length() {
-    return AudioBufferOptions_length_Get(handle);
+  auto length() {
+    return AudioBufferOptions_length_Get(this.handle);
   }
-  void sampleRate(float sampleRate) {
-    AudioBufferOptions_sampleRate_Set(handle, sampleRate);
+  auto sampleRate(float sampleRate) {
+    AudioBufferOptions_sampleRate_Set(this.handle, sampleRate);
   }
-  float sampleRate() {
-    return AudioBufferOptions_sampleRate_Get(handle);
+  auto sampleRate() {
+    return AudioBufferOptions_sampleRate_Get(this.handle);
   }
 }
 struct AudioBufferSourceNode {
   AudioScheduledSourceNode _parent;
   alias _parent this;
-  void buffer(Optional!(AudioBuffer) buffer) {
-    AudioBufferSourceNode_buffer_Set(handle, !buffer.empty, buffer.value.handle);
+  this(JsHandle h) {
+    _parent = AudioScheduledSourceNode(h);
   }
-  Optional!(AudioBuffer) buffer() {
-    return AudioBufferSourceNode_buffer_Get(handle);
+  auto buffer(Optional!(AudioBuffer) buffer) {
+    AudioBufferSourceNode_buffer_Set(this._parent, !buffer.empty, buffer.front.handle);
   }
-  AudioParam playbackRate() {
-    return AudioParam(AudioBufferSourceNode_playbackRate_Get(handle));
+  auto buffer() {
+    return AudioBufferSourceNode_buffer_Get(this._parent);
   }
-  AudioParam detune() {
-    return AudioParam(AudioBufferSourceNode_detune_Get(handle));
+  auto playbackRate() {
+    return AudioParam(AudioBufferSourceNode_playbackRate_Get(this._parent));
   }
-  void loop(bool loop) {
-    AudioBufferSourceNode_loop_Set(handle, loop);
+  auto detune() {
+    return AudioParam(AudioBufferSourceNode_detune_Get(this._parent));
   }
-  bool loop() {
-    return AudioBufferSourceNode_loop_Get(handle);
+  auto loop(bool loop) {
+    AudioBufferSourceNode_loop_Set(this._parent, loop);
   }
-  void loopStart(double loopStart) {
-    AudioBufferSourceNode_loopStart_Set(handle, loopStart);
+  auto loop() {
+    return AudioBufferSourceNode_loop_Get(this._parent);
   }
-  double loopStart() {
-    return AudioBufferSourceNode_loopStart_Get(handle);
+  auto loopStart(double loopStart) {
+    AudioBufferSourceNode_loopStart_Set(this._parent, loopStart);
   }
-  void loopEnd(double loopEnd) {
-    AudioBufferSourceNode_loopEnd_Set(handle, loopEnd);
+  auto loopStart() {
+    return AudioBufferSourceNode_loopStart_Get(this._parent);
   }
-  double loopEnd() {
-    return AudioBufferSourceNode_loopEnd_Get(handle);
+  auto loopEnd(double loopEnd) {
+    AudioBufferSourceNode_loopEnd_Set(this._parent, loopEnd);
   }
-  void start(double when /* = 0 */, double offset, double duration) {
-    AudioBufferSourceNode_start(handle, when, offset, duration);
+  auto loopEnd() {
+    return AudioBufferSourceNode_loopEnd_Get(this._parent);
+  }
+  auto start(double when /* = 0 */, double offset, double duration) {
+    AudioBufferSourceNode_start(this._parent, when, offset, duration);
   }
 }
 struct AudioBufferSourceOptions {
   JsHandle handle;
   alias handle this;
-  void buffer(Optional!(AudioBuffer) buffer) {
-    AudioBufferSourceOptions_buffer_Set(handle, !buffer.empty, buffer.value.handle);
+  auto buffer(Optional!(AudioBuffer) buffer) {
+    AudioBufferSourceOptions_buffer_Set(this.handle, !buffer.empty, buffer.front.handle);
   }
-  Optional!(AudioBuffer) buffer() {
-    return AudioBufferSourceOptions_buffer_Get(handle);
+  auto buffer() {
+    return AudioBufferSourceOptions_buffer_Get(this.handle);
   }
-  void detune(float detune) {
-    AudioBufferSourceOptions_detune_Set(handle, detune);
+  auto detune(float detune) {
+    AudioBufferSourceOptions_detune_Set(this.handle, detune);
   }
-  float detune() {
-    return AudioBufferSourceOptions_detune_Get(handle);
+  auto detune() {
+    return AudioBufferSourceOptions_detune_Get(this.handle);
   }
-  void loop(bool loop) {
-    AudioBufferSourceOptions_loop_Set(handle, loop);
+  auto loop(bool loop) {
+    AudioBufferSourceOptions_loop_Set(this.handle, loop);
   }
-  bool loop() {
-    return AudioBufferSourceOptions_loop_Get(handle);
+  auto loop() {
+    return AudioBufferSourceOptions_loop_Get(this.handle);
   }
-  void loopEnd(double loopEnd) {
-    AudioBufferSourceOptions_loopEnd_Set(handle, loopEnd);
+  auto loopEnd(double loopEnd) {
+    AudioBufferSourceOptions_loopEnd_Set(this.handle, loopEnd);
   }
-  double loopEnd() {
-    return AudioBufferSourceOptions_loopEnd_Get(handle);
+  auto loopEnd() {
+    return AudioBufferSourceOptions_loopEnd_Get(this.handle);
   }
-  void loopStart(double loopStart) {
-    AudioBufferSourceOptions_loopStart_Set(handle, loopStart);
+  auto loopStart(double loopStart) {
+    AudioBufferSourceOptions_loopStart_Set(this.handle, loopStart);
   }
-  double loopStart() {
-    return AudioBufferSourceOptions_loopStart_Get(handle);
+  auto loopStart() {
+    return AudioBufferSourceOptions_loopStart_Get(this.handle);
   }
-  void playbackRate(float playbackRate) {
-    AudioBufferSourceOptions_playbackRate_Set(handle, playbackRate);
+  auto playbackRate(float playbackRate) {
+    AudioBufferSourceOptions_playbackRate_Set(this.handle, playbackRate);
   }
-  float playbackRate() {
-    return AudioBufferSourceOptions_playbackRate_Get(handle);
+  auto playbackRate() {
+    return AudioBufferSourceOptions_playbackRate_Get(this.handle);
   }
 }
 struct AudioContext {
   BaseAudioContext _parent;
   alias _parent this;
-  double baseLatency() {
-    return AudioContext_baseLatency_Get(handle);
+  this(JsHandle h) {
+    _parent = BaseAudioContext(h);
   }
-  double outputLatency() {
-    return AudioContext_outputLatency_Get(handle);
+  auto baseLatency() {
+    return AudioContext_baseLatency_Get(this._parent);
   }
-  AudioTimestamp getOutputTimestamp() {
-    return AudioTimestamp(AudioContext_getOutputTimestamp(handle));
+  auto outputLatency() {
+    return AudioContext_outputLatency_Get(this._parent);
   }
-  Promise!(void) resume() {
-    return Promise!(void)(AudioContext_resume(handle));
+  auto getOutputTimestamp() {
+    return AudioTimestamp(AudioContext_getOutputTimestamp(this._parent));
   }
-  Promise!(void) suspend() {
-    return Promise!(void)(AudioContext_suspend(handle));
+  auto resume() {
+    return Promise!(void)(AudioContext_resume(this._parent));
   }
-  Promise!(void) close() {
-    return Promise!(void)(AudioContext_close(handle));
+  auto suspend() {
+    return Promise!(void)(AudioContext_suspend(this._parent));
   }
-  MediaElementAudioSourceNode createMediaElementSource(HTMLMediaElement mediaElement) {
-    return MediaElementAudioSourceNode(AudioContext_createMediaElementSource(handle, mediaElement.handle));
+  auto close() {
+    return Promise!(void)(AudioContext_close(this._parent));
   }
-  MediaStreamAudioSourceNode createMediaStreamSource(MediaStream mediaStream) {
-    return MediaStreamAudioSourceNode(AudioContext_createMediaStreamSource(handle, mediaStream.handle));
+  auto createMediaElementSource(HTMLMediaElement mediaElement) {
+    return MediaElementAudioSourceNode(AudioContext_createMediaElementSource(this._parent, mediaElement.handle));
   }
-  MediaStreamTrackAudioSourceNode createMediaStreamTrackSource(MediaStreamTrack mediaStreamTrack) {
-    return MediaStreamTrackAudioSourceNode(AudioContext_createMediaStreamTrackSource(handle, mediaStreamTrack.handle));
+  auto createMediaStreamSource(MediaStream mediaStream) {
+    return MediaStreamAudioSourceNode(AudioContext_createMediaStreamSource(this._parent, mediaStream.handle));
   }
-  MediaStreamAudioDestinationNode createMediaStreamDestination() {
-    return MediaStreamAudioDestinationNode(AudioContext_createMediaStreamDestination(handle));
+  auto createMediaStreamTrackSource(MediaStreamTrack mediaStreamTrack) {
+    return MediaStreamTrackAudioSourceNode(AudioContext_createMediaStreamTrackSource(this._parent, mediaStreamTrack.handle));
+  }
+  auto createMediaStreamDestination() {
+    return MediaStreamAudioDestinationNode(AudioContext_createMediaStreamDestination(this._parent));
   }
 }
 enum AudioContextLatencyCategory {
@@ -245,17 +257,17 @@ enum AudioContextLatencyCategory {
 struct AudioContextOptions {
   JsHandle handle;
   alias handle this;
-  void latencyHint(SumType!(AudioContextLatencyCategory, double) latencyHint) {
-    AudioContextOptions_latencyHint_Set(handle, latencyHint);
+  auto latencyHint(SumType!(AudioContextLatencyCategory, double) latencyHint) {
+    AudioContextOptions_latencyHint_Set(this.handle, latencyHint);
   }
-  SumType!(AudioContextLatencyCategory, double) latencyHint() {
-    return AudioContextOptions_latencyHint_Get(handle);
+  auto latencyHint() {
+    return AudioContextOptions_latencyHint_Get(this.handle);
   }
-  void sampleRate(float sampleRate) {
-    AudioContextOptions_sampleRate_Set(handle, sampleRate);
+  auto sampleRate(float sampleRate) {
+    AudioContextOptions_sampleRate_Set(this.handle, sampleRate);
   }
-  float sampleRate() {
-    return AudioContextOptions_sampleRate_Get(handle);
+  auto sampleRate() {
+    return AudioContextOptions_sampleRate_Get(this.handle);
   }
 }
 enum AudioContextState {
@@ -266,383 +278,410 @@ enum AudioContextState {
 struct AudioDestinationNode {
   AudioNode _parent;
   alias _parent this;
-  uint maxChannelCount() {
-    return AudioDestinationNode_maxChannelCount_Get(handle);
+  this(JsHandle h) {
+    _parent = AudioNode(h);
+  }
+  auto maxChannelCount() {
+    return AudioDestinationNode_maxChannelCount_Get(this._parent);
   }
 }
 struct AudioListener {
   JsHandle handle;
   alias handle this;
-  AudioParam positionX() {
-    return AudioParam(AudioListener_positionX_Get(handle));
+  auto positionX() {
+    return AudioParam(AudioListener_positionX_Get(this.handle));
   }
-  AudioParam positionY() {
-    return AudioParam(AudioListener_positionY_Get(handle));
+  auto positionY() {
+    return AudioParam(AudioListener_positionY_Get(this.handle));
   }
-  AudioParam positionZ() {
-    return AudioParam(AudioListener_positionZ_Get(handle));
+  auto positionZ() {
+    return AudioParam(AudioListener_positionZ_Get(this.handle));
   }
-  AudioParam forwardX() {
-    return AudioParam(AudioListener_forwardX_Get(handle));
+  auto forwardX() {
+    return AudioParam(AudioListener_forwardX_Get(this.handle));
   }
-  AudioParam forwardY() {
-    return AudioParam(AudioListener_forwardY_Get(handle));
+  auto forwardY() {
+    return AudioParam(AudioListener_forwardY_Get(this.handle));
   }
-  AudioParam forwardZ() {
-    return AudioParam(AudioListener_forwardZ_Get(handle));
+  auto forwardZ() {
+    return AudioParam(AudioListener_forwardZ_Get(this.handle));
   }
-  AudioParam upX() {
-    return AudioParam(AudioListener_upX_Get(handle));
+  auto upX() {
+    return AudioParam(AudioListener_upX_Get(this.handle));
   }
-  AudioParam upY() {
-    return AudioParam(AudioListener_upY_Get(handle));
+  auto upY() {
+    return AudioParam(AudioListener_upY_Get(this.handle));
   }
-  AudioParam upZ() {
-    return AudioParam(AudioListener_upZ_Get(handle));
+  auto upZ() {
+    return AudioParam(AudioListener_upZ_Get(this.handle));
   }
-  void setPosition(float x, float y, float z) {
-    AudioListener_setPosition(handle, x, y, z);
+  auto setPosition(float x, float y, float z) {
+    AudioListener_setPosition(this.handle, x, y, z);
   }
-  void setOrientation(float x, float y, float z, float xUp, float yUp, float zUp) {
-    AudioListener_setOrientation(handle, x, y, z, xUp, yUp, zUp);
+  auto setOrientation(float x, float y, float z, float xUp, float yUp, float zUp) {
+    AudioListener_setOrientation(this.handle, x, y, z, xUp, yUp, zUp);
   }
 }
 struct AudioNode {
   EventTarget _parent;
   alias _parent this;
-  AudioNode connect(AudioNode destinationNode, uint output /* = 0 */, uint input /* = 0 */) {
-    return AudioNode(AudioNode_connect__JsHandle_uint_uint(handle, destinationNode.handle, output, input));
+  this(JsHandle h) {
+    _parent = EventTarget(h);
   }
-  void connect(AudioParam destinationParam, uint output /* = 0 */) {
-    AudioNode_connect__JsHandle_uint(handle, destinationParam.handle, output);
+  auto connect(AudioNode destinationNode, uint output /* = 0 */, uint input /* = 0 */) {
+    return AudioNode(AudioNode_connect__JsHandle_uint_uint(this._parent, destinationNode.handle, output, input));
   }
-  void disconnect() {
-    AudioNode_disconnect__(handle);
+  auto connect(AudioParam destinationParam, uint output /* = 0 */) {
+    AudioNode_connect__JsHandle_uint(this._parent, destinationParam.handle, output);
   }
-  void disconnect(uint output) {
-    AudioNode_disconnect__uint(handle, output);
+  auto disconnect() {
+    AudioNode_disconnect__(this._parent);
   }
-  void disconnect(AudioNode destinationNode) {
-    AudioNode_disconnect__JsHandle(handle, destinationNode.handle);
+  auto disconnect(uint output) {
+    AudioNode_disconnect__uint(this._parent, output);
   }
-  void disconnect(AudioNode destinationNode, uint output) {
-    AudioNode_disconnect__JsHandle_uint(handle, destinationNode.handle, output);
+  auto disconnect(AudioNode destinationNode) {
+    AudioNode_disconnect__JsHandle(this._parent, destinationNode.handle);
   }
-  void disconnect(AudioNode destinationNode, uint output, uint input) {
-    AudioNode_disconnect__JsHandle_uint_uint(handle, destinationNode.handle, output, input);
+  auto disconnect(AudioNode destinationNode, uint output) {
+    AudioNode_disconnect__JsHandle_uint(this._parent, destinationNode.handle, output);
   }
-  void disconnect(AudioParam destinationParam) {
-    AudioNode_disconnect__JsHandle(handle, destinationParam.handle);
+  auto disconnect(AudioNode destinationNode, uint output, uint input) {
+    AudioNode_disconnect__JsHandle_uint_uint(this._parent, destinationNode.handle, output, input);
   }
-  void disconnect(AudioParam destinationParam, uint output) {
-    AudioNode_disconnect__JsHandle_uint(handle, destinationParam.handle, output);
+  auto disconnect(AudioParam destinationParam) {
+    AudioNode_disconnect__JsHandle(this._parent, destinationParam.handle);
   }
-  BaseAudioContext context() {
-    return BaseAudioContext(AudioNode_context_Get(handle));
+  auto disconnect(AudioParam destinationParam, uint output) {
+    AudioNode_disconnect__JsHandle_uint(this._parent, destinationParam.handle, output);
   }
-  uint numberOfInputs() {
-    return AudioNode_numberOfInputs_Get(handle);
+  auto context() {
+    return BaseAudioContext(AudioNode_context_Get(this._parent));
   }
-  uint numberOfOutputs() {
-    return AudioNode_numberOfOutputs_Get(handle);
+  auto numberOfInputs() {
+    return AudioNode_numberOfInputs_Get(this._parent);
   }
-  void channelCount(uint channelCount) {
-    AudioNode_channelCount_Set(handle, channelCount);
+  auto numberOfOutputs() {
+    return AudioNode_numberOfOutputs_Get(this._parent);
   }
-  uint channelCount() {
-    return AudioNode_channelCount_Get(handle);
+  auto channelCount(uint channelCount) {
+    AudioNode_channelCount_Set(this._parent, channelCount);
   }
-  void channelCountMode(ChannelCountMode channelCountMode) {
-    AudioNode_channelCountMode_Set(handle, channelCountMode);
+  auto channelCount() {
+    return AudioNode_channelCount_Get(this._parent);
   }
-  ChannelCountMode channelCountMode() {
-    return AudioNode_channelCountMode_Get(handle);
+  auto channelCountMode(ChannelCountMode channelCountMode) {
+    AudioNode_channelCountMode_Set(this._parent, channelCountMode);
   }
-  void channelInterpretation(ChannelInterpretation channelInterpretation) {
-    AudioNode_channelInterpretation_Set(handle, channelInterpretation);
+  auto channelCountMode() {
+    return AudioNode_channelCountMode_Get(this._parent);
   }
-  ChannelInterpretation channelInterpretation() {
-    return AudioNode_channelInterpretation_Get(handle);
+  auto channelInterpretation(ChannelInterpretation channelInterpretation) {
+    AudioNode_channelInterpretation_Set(this._parent, channelInterpretation);
+  }
+  auto channelInterpretation() {
+    return AudioNode_channelInterpretation_Get(this._parent);
   }
 }
 struct AudioNodeOptions {
   JsHandle handle;
   alias handle this;
-  void channelCount(uint channelCount) {
-    AudioNodeOptions_channelCount_Set(handle, channelCount);
+  auto channelCount(uint channelCount) {
+    AudioNodeOptions_channelCount_Set(this.handle, channelCount);
   }
-  uint channelCount() {
-    return AudioNodeOptions_channelCount_Get(handle);
+  auto channelCount() {
+    return AudioNodeOptions_channelCount_Get(this.handle);
   }
-  void channelCountMode(ChannelCountMode channelCountMode) {
-    AudioNodeOptions_channelCountMode_Set(handle, channelCountMode);
+  auto channelCountMode(ChannelCountMode channelCountMode) {
+    AudioNodeOptions_channelCountMode_Set(this.handle, channelCountMode);
   }
-  ChannelCountMode channelCountMode() {
-    return AudioNodeOptions_channelCountMode_Get(handle);
+  auto channelCountMode() {
+    return AudioNodeOptions_channelCountMode_Get(this.handle);
   }
-  void channelInterpretation(ChannelInterpretation channelInterpretation) {
-    AudioNodeOptions_channelInterpretation_Set(handle, channelInterpretation);
+  auto channelInterpretation(ChannelInterpretation channelInterpretation) {
+    AudioNodeOptions_channelInterpretation_Set(this.handle, channelInterpretation);
   }
-  ChannelInterpretation channelInterpretation() {
-    return AudioNodeOptions_channelInterpretation_Get(handle);
+  auto channelInterpretation() {
+    return AudioNodeOptions_channelInterpretation_Get(this.handle);
   }
 }
 struct AudioParam {
   JsHandle handle;
   alias handle this;
-  void value(float value) {
-    AudioParam_value_Set(handle, value);
+  auto value(float value) {
+    AudioParam_value_Set(this.handle, value);
   }
-  float value() {
-    return AudioParam_value_Get(handle);
+  auto value() {
+    return AudioParam_value_Get(this.handle);
   }
-  void automationRate(AutomationRate automationRate) {
-    AudioParam_automationRate_Set(handle, automationRate);
+  auto automationRate(AutomationRate automationRate) {
+    AudioParam_automationRate_Set(this.handle, automationRate);
   }
-  AutomationRate automationRate() {
-    return AudioParam_automationRate_Get(handle);
+  auto automationRate() {
+    return AudioParam_automationRate_Get(this.handle);
   }
-  float defaultValue() {
-    return AudioParam_defaultValue_Get(handle);
+  auto defaultValue() {
+    return AudioParam_defaultValue_Get(this.handle);
   }
-  float minValue() {
-    return AudioParam_minValue_Get(handle);
+  auto minValue() {
+    return AudioParam_minValue_Get(this.handle);
   }
-  float maxValue() {
-    return AudioParam_maxValue_Get(handle);
+  auto maxValue() {
+    return AudioParam_maxValue_Get(this.handle);
   }
-  AudioParam setValueAtTime(float value, double startTime) {
-    return AudioParam(AudioParam_setValueAtTime(handle, value, startTime));
+  auto setValueAtTime(float value, double startTime) {
+    return AudioParam(AudioParam_setValueAtTime(this.handle, value, startTime));
   }
-  AudioParam linearRampToValueAtTime(float value, double endTime) {
-    return AudioParam(AudioParam_linearRampToValueAtTime(handle, value, endTime));
+  auto linearRampToValueAtTime(float value, double endTime) {
+    return AudioParam(AudioParam_linearRampToValueAtTime(this.handle, value, endTime));
   }
-  AudioParam exponentialRampToValueAtTime(float value, double endTime) {
-    return AudioParam(AudioParam_exponentialRampToValueAtTime(handle, value, endTime));
+  auto exponentialRampToValueAtTime(float value, double endTime) {
+    return AudioParam(AudioParam_exponentialRampToValueAtTime(this.handle, value, endTime));
   }
-  AudioParam setTargetAtTime(float target, double startTime, float timeConstant) {
-    return AudioParam(AudioParam_setTargetAtTime(handle, target, startTime, timeConstant));
+  auto setTargetAtTime(float target, double startTime, float timeConstant) {
+    return AudioParam(AudioParam_setTargetAtTime(this.handle, target, startTime, timeConstant));
   }
-  AudioParam setValueCurveAtTime(Sequence!(float) values, double startTime, double duration) {
-    return AudioParam(AudioParam_setValueCurveAtTime(handle, values.handle, startTime, duration));
+  auto setValueCurveAtTime(Sequence!(float) values, double startTime, double duration) {
+    return AudioParam(AudioParam_setValueCurveAtTime(this.handle, values.handle, startTime, duration));
   }
-  AudioParam cancelScheduledValues(double cancelTime) {
-    return AudioParam(AudioParam_cancelScheduledValues(handle, cancelTime));
+  auto cancelScheduledValues(double cancelTime) {
+    return AudioParam(AudioParam_cancelScheduledValues(this.handle, cancelTime));
   }
-  AudioParam cancelAndHoldAtTime(double cancelTime) {
-    return AudioParam(AudioParam_cancelAndHoldAtTime(handle, cancelTime));
+  auto cancelAndHoldAtTime(double cancelTime) {
+    return AudioParam(AudioParam_cancelAndHoldAtTime(this.handle, cancelTime));
   }
 }
 struct AudioParamDescriptor {
   JsHandle handle;
   alias handle this;
-  void name(string name) {
-    AudioParamDescriptor_name_Set(handle, name);
+  auto name(string name) {
+    AudioParamDescriptor_name_Set(this.handle, name);
   }
-  string name() {
-    return AudioParamDescriptor_name_Get(handle);
+  auto name() {
+    return AudioParamDescriptor_name_Get(this.handle);
   }
-  void defaultValue(float defaultValue) {
-    AudioParamDescriptor_defaultValue_Set(handle, defaultValue);
+  auto defaultValue(float defaultValue) {
+    AudioParamDescriptor_defaultValue_Set(this.handle, defaultValue);
   }
-  float defaultValue() {
-    return AudioParamDescriptor_defaultValue_Get(handle);
+  auto defaultValue() {
+    return AudioParamDescriptor_defaultValue_Get(this.handle);
   }
-  void minValue(float minValue) {
-    AudioParamDescriptor_minValue_Set(handle, minValue);
+  auto minValue(float minValue) {
+    AudioParamDescriptor_minValue_Set(this.handle, minValue);
   }
-  float minValue() {
-    return AudioParamDescriptor_minValue_Get(handle);
+  auto minValue() {
+    return AudioParamDescriptor_minValue_Get(this.handle);
   }
-  void maxValue(float maxValue) {
-    AudioParamDescriptor_maxValue_Set(handle, maxValue);
+  auto maxValue(float maxValue) {
+    AudioParamDescriptor_maxValue_Set(this.handle, maxValue);
   }
-  float maxValue() {
-    return AudioParamDescriptor_maxValue_Get(handle);
+  auto maxValue() {
+    return AudioParamDescriptor_maxValue_Get(this.handle);
   }
-  void automationRate(AutomationRate automationRate) {
-    AudioParamDescriptor_automationRate_Set(handle, automationRate);
+  auto automationRate(AutomationRate automationRate) {
+    AudioParamDescriptor_automationRate_Set(this.handle, automationRate);
   }
-  AutomationRate automationRate() {
-    return AudioParamDescriptor_automationRate_Get(handle);
+  auto automationRate() {
+    return AudioParamDescriptor_automationRate_Get(this.handle);
   }
 }
 struct AudioParamMap {
   JsHandle handle;
   alias handle this;
   uint size() {
-    return Maplike_size(handle);
+    return Maplike_string_JsHandle_size(handle);
   }
   void clear() {
-    Maplike_clear(handle);
+    Maplike_string_JsHandle_clear(handle);
   }
   void delete_(string key) {
-    Maplike_delete(handle, key);
+    Maplike_string_JsHandle_delete(handle, key);
   }
   Iterator!(ArrayPair!(string, AudioParam)) entries() {
-    return Iterator!(ArrayPair!(string, AudioParam))(Maplike_entries(handle));
+    return Iterator!(ArrayPair!(string, AudioParam))(Maplike_string_JsHandle_entries(handle));
   }
-  void forEach(void delegate(string, JsHandle, JsHandle) callback) {
-    Maplike_forEach(handle, callback);
+  extern(C) void forEach(void delegate(string, JsHandle, JsHandle) callback) {
+    Maplike_string_JsHandle_forEach(handle, callback);
   }
   AudioParam get(string key) {
-    return AudioParam(Maplike_get(handle, key));
+    return AudioParam(Maplike_string_JsHandle_get(handle, key));
   }
   bool has(string key) {
-    return Maplike_has(handle, key);
+    return Maplike_string_JsHandle_has(handle, key);
   }
   Iterator!(string) keys() {
-    return Iterator!(string)(Maplike_keys(handle));
+    return Iterator!(string)(Maplike_string_JsHandle_keys(handle));
   }
   void set(string key, AudioParam value) {
-    Maplike_set(handle, key, value.handle);
+    Maplike_string_JsHandle_set(handle, key, value.handle);
   }
   Iterator!(AudioParam) values() {
-    return Iterator!(AudioParam)(Maplike_values(handle));
+    return Iterator!(AudioParam)(Maplike_string_JsHandle_values(handle));
   }
 }
 struct AudioProcessingEvent {
   Event _parent;
   alias _parent this;
-  double playbackTime() {
-    return AudioProcessingEvent_playbackTime_Get(handle);
+  this(JsHandle h) {
+    _parent = Event(h);
   }
-  AudioBuffer inputBuffer() {
-    return AudioBuffer(AudioProcessingEvent_inputBuffer_Get(handle));
+  auto playbackTime() {
+    return AudioProcessingEvent_playbackTime_Get(this._parent);
   }
-  AudioBuffer outputBuffer() {
-    return AudioBuffer(AudioProcessingEvent_outputBuffer_Get(handle));
+  auto inputBuffer() {
+    return AudioBuffer(AudioProcessingEvent_inputBuffer_Get(this._parent));
+  }
+  auto outputBuffer() {
+    return AudioBuffer(AudioProcessingEvent_outputBuffer_Get(this._parent));
   }
 }
 struct AudioProcessingEventInit {
   EventInit _parent;
   alias _parent this;
-  void playbackTime(double playbackTime) {
-    AudioProcessingEventInit_playbackTime_Set(handle, playbackTime);
+  this(JsHandle h) {
+    _parent = EventInit(h);
   }
-  double playbackTime() {
-    return AudioProcessingEventInit_playbackTime_Get(handle);
+  auto playbackTime(double playbackTime) {
+    AudioProcessingEventInit_playbackTime_Set(this._parent, playbackTime);
   }
-  void inputBuffer(AudioBuffer inputBuffer) {
-    AudioProcessingEventInit_inputBuffer_Set(handle, inputBuffer.handle);
+  auto playbackTime() {
+    return AudioProcessingEventInit_playbackTime_Get(this._parent);
   }
-  AudioBuffer inputBuffer() {
-    return AudioBuffer(AudioProcessingEventInit_inputBuffer_Get(handle));
+  auto inputBuffer(AudioBuffer inputBuffer) {
+    AudioProcessingEventInit_inputBuffer_Set(this._parent, inputBuffer.handle);
   }
-  void outputBuffer(AudioBuffer outputBuffer) {
-    AudioProcessingEventInit_outputBuffer_Set(handle, outputBuffer.handle);
+  auto inputBuffer() {
+    return AudioBuffer(AudioProcessingEventInit_inputBuffer_Get(this._parent));
   }
-  AudioBuffer outputBuffer() {
-    return AudioBuffer(AudioProcessingEventInit_outputBuffer_Get(handle));
+  auto outputBuffer(AudioBuffer outputBuffer) {
+    AudioProcessingEventInit_outputBuffer_Set(this._parent, outputBuffer.handle);
+  }
+  auto outputBuffer() {
+    return AudioBuffer(AudioProcessingEventInit_outputBuffer_Get(this._parent));
   }
 }
 struct AudioScheduledSourceNode {
   AudioNode _parent;
   alias _parent this;
-  void onended(EventHandler onended) {
-    AudioScheduledSourceNode_onended_Set(handle, !onended.empty, onended.value);
+  this(JsHandle h) {
+    _parent = AudioNode(h);
   }
-  EventHandler onended() {
-    return AudioScheduledSourceNode_onended_Get(handle);
+  auto onended(EventHandler onended) {
+    AudioScheduledSourceNode_onended_Set(this._parent, onended);
   }
-  void start(double when /* = 0 */) {
-    AudioScheduledSourceNode_start(handle, when);
+  auto onended() {
+    return AudioScheduledSourceNode_onended_Get(this._parent);
   }
-  void stop(double when /* = 0 */) {
-    AudioScheduledSourceNode_stop(handle, when);
+  auto start(double when /* = 0 */) {
+    AudioScheduledSourceNode_start(this._parent, when);
+  }
+  auto stop(double when /* = 0 */) {
+    AudioScheduledSourceNode_stop(this._parent, when);
   }
 }
 struct AudioTimestamp {
   JsHandle handle;
   alias handle this;
-  void contextTime(double contextTime) {
-    AudioTimestamp_contextTime_Set(handle, contextTime);
+  auto contextTime(double contextTime) {
+    AudioTimestamp_contextTime_Set(this.handle, contextTime);
   }
-  double contextTime() {
-    return AudioTimestamp_contextTime_Get(handle);
+  auto contextTime() {
+    return AudioTimestamp_contextTime_Get(this.handle);
   }
-  void performanceTime(double performanceTime) {
-    AudioTimestamp_performanceTime_Set(handle, performanceTime);
+  auto performanceTime(double performanceTime) {
+    AudioTimestamp_performanceTime_Set(this.handle, performanceTime);
   }
-  double performanceTime() {
-    return AudioTimestamp_performanceTime_Get(handle);
+  auto performanceTime() {
+    return AudioTimestamp_performanceTime_Get(this.handle);
   }
 }
 struct AudioWorklet {
   Worklet _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = Worklet(h);
+  }
 }
 struct AudioWorkletGlobalScope {
   WorkletGlobalScope _parent;
   alias _parent this;
-  void registerProcessor(string name, VoidFunction processorCtor) {
-    AudioWorkletGlobalScope_registerProcessor(handle, name, processorCtor);
+  this(JsHandle h) {
+    _parent = WorkletGlobalScope(h);
   }
-  ulong currentFrame() {
-    return AudioWorkletGlobalScope_currentFrame_Get(handle);
+  auto registerProcessor(string name, VoidFunction processorCtor) {
+    AudioWorkletGlobalScope_registerProcessor(this._parent, name, processorCtor);
   }
-  double currentTime() {
-    return AudioWorkletGlobalScope_currentTime_Get(handle);
+  auto currentFrame() {
+    return AudioWorkletGlobalScope_currentFrame_Get(this._parent);
   }
-  float sampleRate() {
-    return AudioWorkletGlobalScope_sampleRate_Get(handle);
+  auto currentTime() {
+    return AudioWorkletGlobalScope_currentTime_Get(this._parent);
+  }
+  auto sampleRate() {
+    return AudioWorkletGlobalScope_sampleRate_Get(this._parent);
   }
 }
 struct AudioWorkletNode {
   AudioNode _parent;
   alias _parent this;
-  AudioParamMap parameters() {
-    return AudioParamMap(AudioWorkletNode_parameters_Get(handle));
+  this(JsHandle h) {
+    _parent = AudioNode(h);
   }
-  MessagePort port() {
-    return MessagePort(AudioWorkletNode_port_Get(handle));
+  auto parameters() {
+    return AudioParamMap(AudioWorkletNode_parameters_Get(this._parent));
   }
-  void onprocessorerror(EventHandler onprocessorerror) {
-    AudioWorkletNode_onprocessorerror_Set(handle, !onprocessorerror.empty, onprocessorerror.value);
+  auto port() {
+    return MessagePort(AudioWorkletNode_port_Get(this._parent));
   }
-  EventHandler onprocessorerror() {
-    return AudioWorkletNode_onprocessorerror_Get(handle);
+  auto onprocessorerror(EventHandler onprocessorerror) {
+    AudioWorkletNode_onprocessorerror_Set(this._parent, onprocessorerror);
+  }
+  auto onprocessorerror() {
+    return AudioWorkletNode_onprocessorerror_Get(this._parent);
   }
 }
 struct AudioWorkletNodeOptions {
   AudioNodeOptions _parent;
   alias _parent this;
-  void numberOfInputs(uint numberOfInputs) {
-    AudioWorkletNodeOptions_numberOfInputs_Set(handle, numberOfInputs);
+  this(JsHandle h) {
+    _parent = AudioNodeOptions(h);
   }
-  uint numberOfInputs() {
-    return AudioWorkletNodeOptions_numberOfInputs_Get(handle);
+  auto numberOfInputs(uint numberOfInputs) {
+    AudioWorkletNodeOptions_numberOfInputs_Set(this._parent, numberOfInputs);
   }
-  void numberOfOutputs(uint numberOfOutputs) {
-    AudioWorkletNodeOptions_numberOfOutputs_Set(handle, numberOfOutputs);
+  auto numberOfInputs() {
+    return AudioWorkletNodeOptions_numberOfInputs_Get(this._parent);
   }
-  uint numberOfOutputs() {
-    return AudioWorkletNodeOptions_numberOfOutputs_Get(handle);
+  auto numberOfOutputs(uint numberOfOutputs) {
+    AudioWorkletNodeOptions_numberOfOutputs_Set(this._parent, numberOfOutputs);
   }
-  void outputChannelCount(Sequence!(uint) outputChannelCount) {
-    AudioWorkletNodeOptions_outputChannelCount_Set(handle, outputChannelCount.handle);
+  auto numberOfOutputs() {
+    return AudioWorkletNodeOptions_numberOfOutputs_Get(this._parent);
   }
-  Sequence!(uint) outputChannelCount() {
-    return Sequence!(uint)(AudioWorkletNodeOptions_outputChannelCount_Get(handle));
+  auto outputChannelCount(Sequence!(uint) outputChannelCount) {
+    AudioWorkletNodeOptions_outputChannelCount_Set(this._parent, outputChannelCount.handle);
   }
-  void parameterData(Record!(string, double) parameterData) {
-    AudioWorkletNodeOptions_parameterData_Set(handle, parameterData.handle);
+  auto outputChannelCount() {
+    return Sequence!(uint)(AudioWorkletNodeOptions_outputChannelCount_Get(this._parent));
   }
-  Record!(string, double) parameterData() {
-    return Record!(string, double)(AudioWorkletNodeOptions_parameterData_Get(handle));
+  auto parameterData(Record!(string, double) parameterData) {
+    AudioWorkletNodeOptions_parameterData_Set(this._parent, parameterData.handle);
   }
-  void processorOptions(Optional!(Object) processorOptions) {
-    AudioWorkletNodeOptions_processorOptions_Set(handle, !processorOptions.empty, processorOptions.value.handle);
+  auto parameterData() {
+    return Record!(string, double)(AudioWorkletNodeOptions_parameterData_Get(this._parent));
   }
-  Optional!(Object) processorOptions() {
-    return AudioWorkletNodeOptions_processorOptions_Get(handle);
+  auto processorOptions(Optional!(JsObject) processorOptions) {
+    AudioWorkletNodeOptions_processorOptions_Set(this._parent, !processorOptions.empty, processorOptions.front.handle);
+  }
+  auto processorOptions() {
+    return AudioWorkletNodeOptions_processorOptions_Get(this._parent);
   }
 }
 struct AudioWorkletProcessor {
   JsHandle handle;
   alias handle this;
-  MessagePort port() {
-    return MessagePort(AudioWorkletProcessor_port_Get(handle));
+  auto port() {
+    return MessagePort(AudioWorkletProcessor_port_Get(this.handle));
   }
 }
 enum AutomationRate {
@@ -652,145 +691,154 @@ enum AutomationRate {
 struct BaseAudioContext {
   EventTarget _parent;
   alias _parent this;
-  AudioDestinationNode destination() {
-    return AudioDestinationNode(BaseAudioContext_destination_Get(handle));
+  this(JsHandle h) {
+    _parent = EventTarget(h);
   }
-  float sampleRate() {
-    return BaseAudioContext_sampleRate_Get(handle);
+  auto destination() {
+    return AudioDestinationNode(BaseAudioContext_destination_Get(this._parent));
   }
-  double currentTime() {
-    return BaseAudioContext_currentTime_Get(handle);
+  auto sampleRate() {
+    return BaseAudioContext_sampleRate_Get(this._parent);
   }
-  AudioListener listener() {
-    return AudioListener(BaseAudioContext_listener_Get(handle));
+  auto currentTime() {
+    return BaseAudioContext_currentTime_Get(this._parent);
   }
-  AudioContextState state() {
-    return BaseAudioContext_state_Get(handle);
+  auto listener() {
+    return AudioListener(BaseAudioContext_listener_Get(this._parent));
   }
-  AudioWorklet audioWorklet() {
-    return AudioWorklet(BaseAudioContext_audioWorklet_Get(handle));
+  auto state() {
+    return BaseAudioContext_state_Get(this._parent);
   }
-  void onstatechange(EventHandler onstatechange) {
-    BaseAudioContext_onstatechange_Set(handle, !onstatechange.empty, onstatechange.value);
+  auto audioWorklet() {
+    return AudioWorklet(BaseAudioContext_audioWorklet_Get(this._parent));
   }
-  EventHandler onstatechange() {
-    return BaseAudioContext_onstatechange_Get(handle);
+  auto onstatechange(EventHandler onstatechange) {
+    BaseAudioContext_onstatechange_Set(this._parent, onstatechange);
   }
-  AnalyserNode createAnalyser() {
-    return AnalyserNode(BaseAudioContext_createAnalyser(handle));
+  auto onstatechange() {
+    return BaseAudioContext_onstatechange_Get(this._parent);
   }
-  BiquadFilterNode createBiquadFilter() {
-    return BiquadFilterNode(BaseAudioContext_createBiquadFilter(handle));
+  auto createAnalyser() {
+    return AnalyserNode(BaseAudioContext_createAnalyser(this._parent));
   }
-  AudioBuffer createBuffer(uint numberOfChannels, uint length, float sampleRate) {
-    return AudioBuffer(BaseAudioContext_createBuffer(handle, numberOfChannels, length, sampleRate));
+  auto createBiquadFilter() {
+    return BiquadFilterNode(BaseAudioContext_createBiquadFilter(this._parent));
   }
-  AudioBufferSourceNode createBufferSource() {
-    return AudioBufferSourceNode(BaseAudioContext_createBufferSource(handle));
+  auto createBuffer(uint numberOfChannels, uint length, float sampleRate) {
+    return AudioBuffer(BaseAudioContext_createBuffer(this._parent, numberOfChannels, length, sampleRate));
   }
-  ChannelMergerNode createChannelMerger(uint numberOfInputs /* = 6 */) {
-    return ChannelMergerNode(BaseAudioContext_createChannelMerger(handle, numberOfInputs));
+  auto createBufferSource() {
+    return AudioBufferSourceNode(BaseAudioContext_createBufferSource(this._parent));
   }
-  ChannelSplitterNode createChannelSplitter(uint numberOfOutputs /* = 6 */) {
-    return ChannelSplitterNode(BaseAudioContext_createChannelSplitter(handle, numberOfOutputs));
+  auto createChannelMerger(uint numberOfInputs /* = 6 */) {
+    return ChannelMergerNode(BaseAudioContext_createChannelMerger(this._parent, numberOfInputs));
   }
-  ConstantSourceNode createConstantSource() {
-    return ConstantSourceNode(BaseAudioContext_createConstantSource(handle));
+  auto createChannelSplitter(uint numberOfOutputs /* = 6 */) {
+    return ChannelSplitterNode(BaseAudioContext_createChannelSplitter(this._parent, numberOfOutputs));
   }
-  ConvolverNode createConvolver() {
-    return ConvolverNode(BaseAudioContext_createConvolver(handle));
+  auto createConstantSource() {
+    return ConstantSourceNode(BaseAudioContext_createConstantSource(this._parent));
   }
-  DelayNode createDelay(double maxDelayTime /* = 1.0 */) {
-    return DelayNode(BaseAudioContext_createDelay(handle, maxDelayTime));
+  auto createConvolver() {
+    return ConvolverNode(BaseAudioContext_createConvolver(this._parent));
   }
-  DynamicsCompressorNode createDynamicsCompressor() {
-    return DynamicsCompressorNode(BaseAudioContext_createDynamicsCompressor(handle));
+  auto createDelay(double maxDelayTime /* = 1.0 */) {
+    return DelayNode(BaseAudioContext_createDelay(this._parent, maxDelayTime));
   }
-  GainNode createGain() {
-    return GainNode(BaseAudioContext_createGain(handle));
+  auto createDynamicsCompressor() {
+    return DynamicsCompressorNode(BaseAudioContext_createDynamicsCompressor(this._parent));
   }
-  IIRFilterNode createIIRFilter(Sequence!(double) feedforward, Sequence!(double) feedback) {
-    return IIRFilterNode(BaseAudioContext_createIIRFilter(handle, feedforward.handle, feedback.handle));
+  auto createGain() {
+    return GainNode(BaseAudioContext_createGain(this._parent));
   }
-  OscillatorNode createOscillator() {
-    return OscillatorNode(BaseAudioContext_createOscillator(handle));
+  auto createIIRFilter(Sequence!(double) feedforward, Sequence!(double) feedback) {
+    return IIRFilterNode(BaseAudioContext_createIIRFilter(this._parent, feedforward.handle, feedback.handle));
   }
-  PannerNode createPanner() {
-    return PannerNode(BaseAudioContext_createPanner(handle));
+  auto createOscillator() {
+    return OscillatorNode(BaseAudioContext_createOscillator(this._parent));
   }
-  PeriodicWave createPeriodicWave(Sequence!(float) real_, Sequence!(float) imag, PeriodicWaveConstraints constraints) {
-    return PeriodicWave(BaseAudioContext_createPeriodicWave(handle, real_.handle, imag.handle, constraints.handle));
+  auto createPanner() {
+    return PannerNode(BaseAudioContext_createPanner(this._parent));
   }
-  ScriptProcessorNode createScriptProcessor(uint bufferSize /* = 0 */, uint numberOfInputChannels /* = 2 */, uint numberOfOutputChannels /* = 2 */) {
-    return ScriptProcessorNode(BaseAudioContext_createScriptProcessor(handle, bufferSize, numberOfInputChannels, numberOfOutputChannels));
+  auto createPeriodicWave(Sequence!(float) real_, Sequence!(float) imag, PeriodicWaveConstraints constraints) {
+    return PeriodicWave(BaseAudioContext_createPeriodicWave(this._parent, real_.handle, imag.handle, constraints.handle));
   }
-  StereoPannerNode createStereoPanner() {
-    return StereoPannerNode(BaseAudioContext_createStereoPanner(handle));
+  auto createScriptProcessor(uint bufferSize /* = 0 */, uint numberOfInputChannels /* = 2 */, uint numberOfOutputChannels /* = 2 */) {
+    return ScriptProcessorNode(BaseAudioContext_createScriptProcessor(this._parent, bufferSize, numberOfInputChannels, numberOfOutputChannels));
   }
-  WaveShaperNode createWaveShaper() {
-    return WaveShaperNode(BaseAudioContext_createWaveShaper(handle));
+  auto createStereoPanner() {
+    return StereoPannerNode(BaseAudioContext_createStereoPanner(this._parent));
   }
-  Promise!(AudioBuffer) decodeAudioData(ArrayBuffer audioData, Optional!(DecodeSuccessCallback) successCallback, Optional!(DecodeErrorCallback) errorCallback) {
-    return Promise!(AudioBuffer)(BaseAudioContext_decodeAudioData(handle, audioData.handle, !successCallback.empty, successCallback.value, !errorCallback.empty, errorCallback.value));
+  auto createWaveShaper() {
+    return WaveShaperNode(BaseAudioContext_createWaveShaper(this._parent));
+  }
+  auto decodeAudioData(ArrayBuffer audioData, Optional!(DecodeSuccessCallback) successCallback, Optional!(DecodeErrorCallback) errorCallback) {
+    return Promise!(AudioBuffer)(BaseAudioContext_decodeAudioData(this._parent, audioData.handle, !successCallback.empty, successCallback.front, !errorCallback.empty, errorCallback.front));
   }
 }
 struct BiquadFilterNode {
   AudioNode _parent;
   alias _parent this;
-  void type(BiquadFilterType type) {
-    BiquadFilterNode_type_Set(handle, type);
+  this(JsHandle h) {
+    _parent = AudioNode(h);
   }
-  BiquadFilterType type() {
-    return BiquadFilterNode_type_Get(handle);
+  auto type(BiquadFilterType type) {
+    BiquadFilterNode_type_Set(this._parent, type);
   }
-  AudioParam frequency() {
-    return AudioParam(BiquadFilterNode_frequency_Get(handle));
+  auto type() {
+    return BiquadFilterNode_type_Get(this._parent);
   }
-  AudioParam detune() {
-    return AudioParam(BiquadFilterNode_detune_Get(handle));
+  auto frequency() {
+    return AudioParam(BiquadFilterNode_frequency_Get(this._parent));
   }
-  AudioParam Q() {
-    return AudioParam(BiquadFilterNode_Q_Get(handle));
+  auto detune() {
+    return AudioParam(BiquadFilterNode_detune_Get(this._parent));
   }
-  AudioParam gain() {
-    return AudioParam(BiquadFilterNode_gain_Get(handle));
+  auto Q() {
+    return AudioParam(BiquadFilterNode_Q_Get(this._parent));
   }
-  void getFrequencyResponse(Float32Array frequencyHz, Float32Array magResponse, Float32Array phaseResponse) {
-    BiquadFilterNode_getFrequencyResponse(handle, frequencyHz.handle, magResponse.handle, phaseResponse.handle);
+  auto gain() {
+    return AudioParam(BiquadFilterNode_gain_Get(this._parent));
+  }
+  auto getFrequencyResponse(Float32Array frequencyHz, Float32Array magResponse, Float32Array phaseResponse) {
+    BiquadFilterNode_getFrequencyResponse(this._parent, frequencyHz.handle, magResponse.handle, phaseResponse.handle);
   }
 }
 struct BiquadFilterOptions {
   AudioNodeOptions _parent;
   alias _parent this;
-  void type(BiquadFilterType type) {
-    BiquadFilterOptions_type_Set(handle, type);
+  this(JsHandle h) {
+    _parent = AudioNodeOptions(h);
   }
-  BiquadFilterType type() {
-    return BiquadFilterOptions_type_Get(handle);
+  auto type(BiquadFilterType type) {
+    BiquadFilterOptions_type_Set(this._parent, type);
   }
-  void Q(float q) {
-    BiquadFilterOptions_Q_Set(handle, Q);
+  auto type() {
+    return BiquadFilterOptions_type_Get(this._parent);
   }
-  float Q() {
-    return BiquadFilterOptions_Q_Get(handle);
+  auto Q(float q) {
+    BiquadFilterOptions_Q_Set(this._parent, Q);
   }
-  void detune(float detune) {
-    BiquadFilterOptions_detune_Set(handle, detune);
+  auto Q() {
+    return BiquadFilterOptions_Q_Get(this._parent);
   }
-  float detune() {
-    return BiquadFilterOptions_detune_Get(handle);
+  auto detune(float detune) {
+    BiquadFilterOptions_detune_Set(this._parent, detune);
   }
-  void frequency(float frequency) {
-    BiquadFilterOptions_frequency_Set(handle, frequency);
+  auto detune() {
+    return BiquadFilterOptions_detune_Get(this._parent);
   }
-  float frequency() {
-    return BiquadFilterOptions_frequency_Get(handle);
+  auto frequency(float frequency) {
+    BiquadFilterOptions_frequency_Set(this._parent, frequency);
   }
-  void gain(float gain) {
-    BiquadFilterOptions_gain_Set(handle, gain);
+  auto frequency() {
+    return BiquadFilterOptions_frequency_Get(this._parent);
   }
-  float gain() {
-    return BiquadFilterOptions_gain_Get(handle);
+  auto gain(float gain) {
+    BiquadFilterOptions_gain_Set(this._parent, gain);
+  }
+  auto gain() {
+    return BiquadFilterOptions_gain_Get(this._parent);
   }
 }
 enum BiquadFilterType {
@@ -815,78 +863,99 @@ enum ChannelInterpretation {
 struct ChannelMergerNode {
   AudioNode _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = AudioNode(h);
+  }
 }
 struct ChannelMergerOptions {
   AudioNodeOptions _parent;
   alias _parent this;
-  void numberOfInputs(uint numberOfInputs) {
-    ChannelMergerOptions_numberOfInputs_Set(handle, numberOfInputs);
+  this(JsHandle h) {
+    _parent = AudioNodeOptions(h);
   }
-  uint numberOfInputs() {
-    return ChannelMergerOptions_numberOfInputs_Get(handle);
+  auto numberOfInputs(uint numberOfInputs) {
+    ChannelMergerOptions_numberOfInputs_Set(this._parent, numberOfInputs);
+  }
+  auto numberOfInputs() {
+    return ChannelMergerOptions_numberOfInputs_Get(this._parent);
   }
 }
 struct ChannelSplitterNode {
   AudioNode _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = AudioNode(h);
+  }
 }
 struct ChannelSplitterOptions {
   AudioNodeOptions _parent;
   alias _parent this;
-  void numberOfOutputs(uint numberOfOutputs) {
-    ChannelSplitterOptions_numberOfOutputs_Set(handle, numberOfOutputs);
+  this(JsHandle h) {
+    _parent = AudioNodeOptions(h);
   }
-  uint numberOfOutputs() {
-    return ChannelSplitterOptions_numberOfOutputs_Get(handle);
+  auto numberOfOutputs(uint numberOfOutputs) {
+    ChannelSplitterOptions_numberOfOutputs_Set(this._parent, numberOfOutputs);
+  }
+  auto numberOfOutputs() {
+    return ChannelSplitterOptions_numberOfOutputs_Get(this._parent);
   }
 }
 struct ConstantSourceNode {
   AudioScheduledSourceNode _parent;
   alias _parent this;
-  AudioParam offset() {
-    return AudioParam(ConstantSourceNode_offset_Get(handle));
+  this(JsHandle h) {
+    _parent = AudioScheduledSourceNode(h);
+  }
+  auto offset() {
+    return AudioParam(ConstantSourceNode_offset_Get(this._parent));
   }
 }
 struct ConstantSourceOptions {
   JsHandle handle;
   alias handle this;
-  void offset(float offset) {
-    ConstantSourceOptions_offset_Set(handle, offset);
+  auto offset(float offset) {
+    ConstantSourceOptions_offset_Set(this.handle, offset);
   }
-  float offset() {
-    return ConstantSourceOptions_offset_Get(handle);
+  auto offset() {
+    return ConstantSourceOptions_offset_Get(this.handle);
   }
 }
 struct ConvolverNode {
   AudioNode _parent;
   alias _parent this;
-  void buffer(Optional!(AudioBuffer) buffer) {
-    ConvolverNode_buffer_Set(handle, !buffer.empty, buffer.value.handle);
+  this(JsHandle h) {
+    _parent = AudioNode(h);
   }
-  Optional!(AudioBuffer) buffer() {
-    return ConvolverNode_buffer_Get(handle);
+  auto buffer(Optional!(AudioBuffer) buffer) {
+    ConvolverNode_buffer_Set(this._parent, !buffer.empty, buffer.front.handle);
   }
-  void normalize(bool normalize) {
-    ConvolverNode_normalize_Set(handle, normalize);
+  auto buffer() {
+    return ConvolverNode_buffer_Get(this._parent);
   }
-  bool normalize() {
-    return ConvolverNode_normalize_Get(handle);
+  auto normalize(bool normalize) {
+    ConvolverNode_normalize_Set(this._parent, normalize);
+  }
+  auto normalize() {
+    return ConvolverNode_normalize_Get(this._parent);
   }
 }
 struct ConvolverOptions {
   AudioNodeOptions _parent;
   alias _parent this;
-  void buffer(Optional!(AudioBuffer) buffer) {
-    ConvolverOptions_buffer_Set(handle, !buffer.empty, buffer.value.handle);
+  this(JsHandle h) {
+    _parent = AudioNodeOptions(h);
   }
-  Optional!(AudioBuffer) buffer() {
-    return ConvolverOptions_buffer_Get(handle);
+  auto buffer(Optional!(AudioBuffer) buffer) {
+    ConvolverOptions_buffer_Set(this._parent, !buffer.empty, buffer.front.handle);
   }
-  void disableNormalization(bool disableNormalization) {
-    ConvolverOptions_disableNormalization_Set(handle, disableNormalization);
+  auto buffer() {
+    return ConvolverOptions_buffer_Get(this._parent);
   }
-  bool disableNormalization() {
-    return ConvolverOptions_disableNormalization_Get(handle);
+  auto disableNormalization(bool disableNormalization) {
+    ConvolverOptions_disableNormalization_Set(this._parent, disableNormalization);
+  }
+  auto disableNormalization() {
+    return ConvolverOptions_disableNormalization_Get(this._parent);
   }
 }
 alias DecodeErrorCallback = void delegate(DOMException);
@@ -894,24 +963,30 @@ alias DecodeSuccessCallback = void delegate(AudioBuffer);
 struct DelayNode {
   AudioNode _parent;
   alias _parent this;
-  AudioParam delayTime() {
-    return AudioParam(DelayNode_delayTime_Get(handle));
+  this(JsHandle h) {
+    _parent = AudioNode(h);
+  }
+  auto delayTime() {
+    return AudioParam(DelayNode_delayTime_Get(this._parent));
   }
 }
 struct DelayOptions {
   AudioNodeOptions _parent;
   alias _parent this;
-  void maxDelayTime(double maxDelayTime) {
-    DelayOptions_maxDelayTime_Set(handle, maxDelayTime);
+  this(JsHandle h) {
+    _parent = AudioNodeOptions(h);
   }
-  double maxDelayTime() {
-    return DelayOptions_maxDelayTime_Get(handle);
+  auto maxDelayTime(double maxDelayTime) {
+    DelayOptions_maxDelayTime_Set(this._parent, maxDelayTime);
   }
-  void delayTime(double delayTime) {
-    DelayOptions_delayTime_Set(handle, delayTime);
+  auto maxDelayTime() {
+    return DelayOptions_maxDelayTime_Get(this._parent);
   }
-  double delayTime() {
-    return DelayOptions_delayTime_Get(handle);
+  auto delayTime(double delayTime) {
+    DelayOptions_delayTime_Set(this._parent, delayTime);
+  }
+  auto delayTime() {
+    return DelayOptions_delayTime_Get(this._parent);
   }
 }
 enum DistanceModelType {
@@ -922,260 +997,305 @@ enum DistanceModelType {
 struct DynamicsCompressorNode {
   AudioNode _parent;
   alias _parent this;
-  AudioParam threshold() {
-    return AudioParam(DynamicsCompressorNode_threshold_Get(handle));
+  this(JsHandle h) {
+    _parent = AudioNode(h);
   }
-  AudioParam knee() {
-    return AudioParam(DynamicsCompressorNode_knee_Get(handle));
+  auto threshold() {
+    return AudioParam(DynamicsCompressorNode_threshold_Get(this._parent));
   }
-  AudioParam ratio() {
-    return AudioParam(DynamicsCompressorNode_ratio_Get(handle));
+  auto knee() {
+    return AudioParam(DynamicsCompressorNode_knee_Get(this._parent));
   }
-  float reduction() {
-    return DynamicsCompressorNode_reduction_Get(handle);
+  auto ratio() {
+    return AudioParam(DynamicsCompressorNode_ratio_Get(this._parent));
   }
-  AudioParam attack() {
-    return AudioParam(DynamicsCompressorNode_attack_Get(handle));
+  auto reduction() {
+    return DynamicsCompressorNode_reduction_Get(this._parent);
   }
-  AudioParam release() {
-    return AudioParam(DynamicsCompressorNode_release_Get(handle));
+  auto attack() {
+    return AudioParam(DynamicsCompressorNode_attack_Get(this._parent));
+  }
+  auto release() {
+    return AudioParam(DynamicsCompressorNode_release_Get(this._parent));
   }
 }
 struct DynamicsCompressorOptions {
   AudioNodeOptions _parent;
   alias _parent this;
-  void attack(float attack) {
-    DynamicsCompressorOptions_attack_Set(handle, attack);
+  this(JsHandle h) {
+    _parent = AudioNodeOptions(h);
   }
-  float attack() {
-    return DynamicsCompressorOptions_attack_Get(handle);
+  auto attack(float attack) {
+    DynamicsCompressorOptions_attack_Set(this._parent, attack);
   }
-  void knee(float knee) {
-    DynamicsCompressorOptions_knee_Set(handle, knee);
+  auto attack() {
+    return DynamicsCompressorOptions_attack_Get(this._parent);
   }
-  float knee() {
-    return DynamicsCompressorOptions_knee_Get(handle);
+  auto knee(float knee) {
+    DynamicsCompressorOptions_knee_Set(this._parent, knee);
   }
-  void ratio(float ratio) {
-    DynamicsCompressorOptions_ratio_Set(handle, ratio);
+  auto knee() {
+    return DynamicsCompressorOptions_knee_Get(this._parent);
   }
-  float ratio() {
-    return DynamicsCompressorOptions_ratio_Get(handle);
+  auto ratio(float ratio) {
+    DynamicsCompressorOptions_ratio_Set(this._parent, ratio);
   }
-  void release(float release) {
-    DynamicsCompressorOptions_release_Set(handle, release);
+  auto ratio() {
+    return DynamicsCompressorOptions_ratio_Get(this._parent);
   }
-  float release() {
-    return DynamicsCompressorOptions_release_Get(handle);
+  auto release(float release) {
+    DynamicsCompressorOptions_release_Set(this._parent, release);
   }
-  void threshold(float threshold) {
-    DynamicsCompressorOptions_threshold_Set(handle, threshold);
+  auto release() {
+    return DynamicsCompressorOptions_release_Get(this._parent);
   }
-  float threshold() {
-    return DynamicsCompressorOptions_threshold_Get(handle);
+  auto threshold(float threshold) {
+    DynamicsCompressorOptions_threshold_Set(this._parent, threshold);
+  }
+  auto threshold() {
+    return DynamicsCompressorOptions_threshold_Get(this._parent);
   }
 }
 struct GainNode {
   AudioNode _parent;
   alias _parent this;
-  AudioParam gain() {
-    return AudioParam(GainNode_gain_Get(handle));
+  this(JsHandle h) {
+    _parent = AudioNode(h);
+  }
+  auto gain() {
+    return AudioParam(GainNode_gain_Get(this._parent));
   }
 }
 struct GainOptions {
   AudioNodeOptions _parent;
   alias _parent this;
-  void gain(float gain) {
-    GainOptions_gain_Set(handle, gain);
+  this(JsHandle h) {
+    _parent = AudioNodeOptions(h);
   }
-  float gain() {
-    return GainOptions_gain_Get(handle);
+  auto gain(float gain) {
+    GainOptions_gain_Set(this._parent, gain);
+  }
+  auto gain() {
+    return GainOptions_gain_Get(this._parent);
   }
 }
 struct IIRFilterNode {
   AudioNode _parent;
   alias _parent this;
-  void getFrequencyResponse(Float32Array frequencyHz, Float32Array magResponse, Float32Array phaseResponse) {
-    IIRFilterNode_getFrequencyResponse(handle, frequencyHz.handle, magResponse.handle, phaseResponse.handle);
+  this(JsHandle h) {
+    _parent = AudioNode(h);
+  }
+  auto getFrequencyResponse(Float32Array frequencyHz, Float32Array magResponse, Float32Array phaseResponse) {
+    IIRFilterNode_getFrequencyResponse(this._parent, frequencyHz.handle, magResponse.handle, phaseResponse.handle);
   }
 }
 struct IIRFilterOptions {
   AudioNodeOptions _parent;
   alias _parent this;
-  void feedforward(Sequence!(double) feedforward) {
-    IIRFilterOptions_feedforward_Set(handle, feedforward.handle);
+  this(JsHandle h) {
+    _parent = AudioNodeOptions(h);
   }
-  Sequence!(double) feedforward() {
-    return Sequence!(double)(IIRFilterOptions_feedforward_Get(handle));
+  auto feedforward(Sequence!(double) feedforward) {
+    IIRFilterOptions_feedforward_Set(this._parent, feedforward.handle);
   }
-  void feedback(Sequence!(double) feedback) {
-    IIRFilterOptions_feedback_Set(handle, feedback.handle);
+  auto feedforward() {
+    return Sequence!(double)(IIRFilterOptions_feedforward_Get(this._parent));
   }
-  Sequence!(double) feedback() {
-    return Sequence!(double)(IIRFilterOptions_feedback_Get(handle));
+  auto feedback(Sequence!(double) feedback) {
+    IIRFilterOptions_feedback_Set(this._parent, feedback.handle);
+  }
+  auto feedback() {
+    return Sequence!(double)(IIRFilterOptions_feedback_Get(this._parent));
   }
 }
 struct MediaElementAudioSourceNode {
   AudioNode _parent;
   alias _parent this;
-  HTMLMediaElement mediaElement() {
-    return HTMLMediaElement(MediaElementAudioSourceNode_mediaElement_Get(handle));
+  this(JsHandle h) {
+    _parent = AudioNode(h);
+  }
+  auto mediaElement() {
+    return HTMLMediaElement(MediaElementAudioSourceNode_mediaElement_Get(this._parent));
   }
 }
 struct MediaElementAudioSourceOptions {
   JsHandle handle;
   alias handle this;
-  void mediaElement(HTMLMediaElement mediaElement) {
-    MediaElementAudioSourceOptions_mediaElement_Set(handle, mediaElement.handle);
+  auto mediaElement(HTMLMediaElement mediaElement) {
+    MediaElementAudioSourceOptions_mediaElement_Set(this.handle, mediaElement.handle);
   }
-  HTMLMediaElement mediaElement() {
-    return HTMLMediaElement(MediaElementAudioSourceOptions_mediaElement_Get(handle));
+  auto mediaElement() {
+    return HTMLMediaElement(MediaElementAudioSourceOptions_mediaElement_Get(this.handle));
   }
 }
 struct MediaStreamAudioDestinationNode {
   AudioNode _parent;
   alias _parent this;
-  MediaStream stream() {
-    return MediaStream(MediaStreamAudioDestinationNode_stream_Get(handle));
+  this(JsHandle h) {
+    _parent = AudioNode(h);
+  }
+  auto stream() {
+    return MediaStream(MediaStreamAudioDestinationNode_stream_Get(this._parent));
   }
 }
 struct MediaStreamAudioSourceNode {
   AudioNode _parent;
   alias _parent this;
-  MediaStream mediaStream() {
-    return MediaStream(MediaStreamAudioSourceNode_mediaStream_Get(handle));
+  this(JsHandle h) {
+    _parent = AudioNode(h);
+  }
+  auto mediaStream() {
+    return MediaStream(MediaStreamAudioSourceNode_mediaStream_Get(this._parent));
   }
 }
 struct MediaStreamAudioSourceOptions {
   JsHandle handle;
   alias handle this;
-  void mediaStream(MediaStream mediaStream) {
-    MediaStreamAudioSourceOptions_mediaStream_Set(handle, mediaStream.handle);
+  auto mediaStream(MediaStream mediaStream) {
+    MediaStreamAudioSourceOptions_mediaStream_Set(this.handle, mediaStream.handle);
   }
-  MediaStream mediaStream() {
-    return MediaStream(MediaStreamAudioSourceOptions_mediaStream_Get(handle));
+  auto mediaStream() {
+    return MediaStream(MediaStreamAudioSourceOptions_mediaStream_Get(this.handle));
   }
 }
 struct MediaStreamTrackAudioSourceNode {
   AudioNode _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = AudioNode(h);
+  }
 }
 struct MediaStreamTrackAudioSourceOptions {
   JsHandle handle;
   alias handle this;
-  void mediaStreamTrack(MediaStreamTrack mediaStreamTrack) {
-    MediaStreamTrackAudioSourceOptions_mediaStreamTrack_Set(handle, mediaStreamTrack.handle);
+  auto mediaStreamTrack(MediaStreamTrack mediaStreamTrack) {
+    MediaStreamTrackAudioSourceOptions_mediaStreamTrack_Set(this.handle, mediaStreamTrack.handle);
   }
-  MediaStreamTrack mediaStreamTrack() {
-    return MediaStreamTrack(MediaStreamTrackAudioSourceOptions_mediaStreamTrack_Get(handle));
+  auto mediaStreamTrack() {
+    return MediaStreamTrack(MediaStreamTrackAudioSourceOptions_mediaStreamTrack_Get(this.handle));
   }
 }
 struct OfflineAudioCompletionEvent {
   Event _parent;
   alias _parent this;
-  AudioBuffer renderedBuffer() {
-    return AudioBuffer(OfflineAudioCompletionEvent_renderedBuffer_Get(handle));
+  this(JsHandle h) {
+    _parent = Event(h);
+  }
+  auto renderedBuffer() {
+    return AudioBuffer(OfflineAudioCompletionEvent_renderedBuffer_Get(this._parent));
   }
 }
 struct OfflineAudioCompletionEventInit {
   EventInit _parent;
   alias _parent this;
-  void renderedBuffer(AudioBuffer renderedBuffer) {
-    OfflineAudioCompletionEventInit_renderedBuffer_Set(handle, renderedBuffer.handle);
+  this(JsHandle h) {
+    _parent = EventInit(h);
   }
-  AudioBuffer renderedBuffer() {
-    return AudioBuffer(OfflineAudioCompletionEventInit_renderedBuffer_Get(handle));
+  auto renderedBuffer(AudioBuffer renderedBuffer) {
+    OfflineAudioCompletionEventInit_renderedBuffer_Set(this._parent, renderedBuffer.handle);
+  }
+  auto renderedBuffer() {
+    return AudioBuffer(OfflineAudioCompletionEventInit_renderedBuffer_Get(this._parent));
   }
 }
 struct OfflineAudioContext {
   BaseAudioContext _parent;
   alias _parent this;
-  Promise!(AudioBuffer) startRendering() {
-    return Promise!(AudioBuffer)(OfflineAudioContext_startRendering(handle));
+  this(JsHandle h) {
+    _parent = BaseAudioContext(h);
   }
-  Promise!(void) resume() {
-    return Promise!(void)(OfflineAudioContext_resume(handle));
+  auto startRendering() {
+    return Promise!(AudioBuffer)(OfflineAudioContext_startRendering(this._parent));
   }
-  Promise!(void) suspend(double suspendTime) {
-    return Promise!(void)(OfflineAudioContext_suspend(handle, suspendTime));
+  auto resume() {
+    return Promise!(void)(OfflineAudioContext_resume(this._parent));
   }
-  uint length() {
-    return OfflineAudioContext_length_Get(handle);
+  auto suspend(double suspendTime) {
+    return Promise!(void)(OfflineAudioContext_suspend(this._parent, suspendTime));
   }
-  void oncomplete(EventHandler oncomplete) {
-    OfflineAudioContext_oncomplete_Set(handle, !oncomplete.empty, oncomplete.value);
+  auto length() {
+    return OfflineAudioContext_length_Get(this._parent);
   }
-  EventHandler oncomplete() {
-    return OfflineAudioContext_oncomplete_Get(handle);
+  auto oncomplete(EventHandler oncomplete) {
+    OfflineAudioContext_oncomplete_Set(this._parent, oncomplete);
+  }
+  auto oncomplete() {
+    return OfflineAudioContext_oncomplete_Get(this._parent);
   }
 }
 struct OfflineAudioContextOptions {
   JsHandle handle;
   alias handle this;
-  void numberOfChannels(uint numberOfChannels) {
-    OfflineAudioContextOptions_numberOfChannels_Set(handle, numberOfChannels);
+  auto numberOfChannels(uint numberOfChannels) {
+    OfflineAudioContextOptions_numberOfChannels_Set(this.handle, numberOfChannels);
   }
-  uint numberOfChannels() {
-    return OfflineAudioContextOptions_numberOfChannels_Get(handle);
+  auto numberOfChannels() {
+    return OfflineAudioContextOptions_numberOfChannels_Get(this.handle);
   }
-  void length(uint length) {
-    OfflineAudioContextOptions_length_Set(handle, length);
+  auto length(uint length) {
+    OfflineAudioContextOptions_length_Set(this.handle, length);
   }
-  uint length() {
-    return OfflineAudioContextOptions_length_Get(handle);
+  auto length() {
+    return OfflineAudioContextOptions_length_Get(this.handle);
   }
-  void sampleRate(float sampleRate) {
-    OfflineAudioContextOptions_sampleRate_Set(handle, sampleRate);
+  auto sampleRate(float sampleRate) {
+    OfflineAudioContextOptions_sampleRate_Set(this.handle, sampleRate);
   }
-  float sampleRate() {
-    return OfflineAudioContextOptions_sampleRate_Get(handle);
+  auto sampleRate() {
+    return OfflineAudioContextOptions_sampleRate_Get(this.handle);
   }
 }
 struct OscillatorNode {
   AudioScheduledSourceNode _parent;
   alias _parent this;
-  void type(OscillatorType type) {
-    OscillatorNode_type_Set(handle, type);
+  this(JsHandle h) {
+    _parent = AudioScheduledSourceNode(h);
   }
-  OscillatorType type() {
-    return OscillatorNode_type_Get(handle);
+  auto type(OscillatorType type) {
+    OscillatorNode_type_Set(this._parent, type);
   }
-  AudioParam frequency() {
-    return AudioParam(OscillatorNode_frequency_Get(handle));
+  auto type() {
+    return OscillatorNode_type_Get(this._parent);
   }
-  AudioParam detune() {
-    return AudioParam(OscillatorNode_detune_Get(handle));
+  auto frequency() {
+    return AudioParam(OscillatorNode_frequency_Get(this._parent));
   }
-  void setPeriodicWave(PeriodicWave periodicWave) {
-    OscillatorNode_setPeriodicWave(handle, periodicWave.handle);
+  auto detune() {
+    return AudioParam(OscillatorNode_detune_Get(this._parent));
+  }
+  auto setPeriodicWave(PeriodicWave periodicWave) {
+    OscillatorNode_setPeriodicWave(this._parent, periodicWave.handle);
   }
 }
 struct OscillatorOptions {
   AudioNodeOptions _parent;
   alias _parent this;
-  void type(OscillatorType type) {
-    OscillatorOptions_type_Set(handle, type);
+  this(JsHandle h) {
+    _parent = AudioNodeOptions(h);
   }
-  OscillatorType type() {
-    return OscillatorOptions_type_Get(handle);
+  auto type(OscillatorType type) {
+    OscillatorOptions_type_Set(this._parent, type);
   }
-  void frequency(float frequency) {
-    OscillatorOptions_frequency_Set(handle, frequency);
+  auto type() {
+    return OscillatorOptions_type_Get(this._parent);
   }
-  float frequency() {
-    return OscillatorOptions_frequency_Get(handle);
+  auto frequency(float frequency) {
+    OscillatorOptions_frequency_Set(this._parent, frequency);
   }
-  void detune(float detune) {
-    OscillatorOptions_detune_Set(handle, detune);
+  auto frequency() {
+    return OscillatorOptions_frequency_Get(this._parent);
   }
-  float detune() {
-    return OscillatorOptions_detune_Get(handle);
+  auto detune(float detune) {
+    OscillatorOptions_detune_Set(this._parent, detune);
   }
-  void periodicWave(PeriodicWave periodicWave) {
-    OscillatorOptions_periodicWave_Set(handle, periodicWave.handle);
+  auto detune() {
+    return OscillatorOptions_detune_Get(this._parent);
   }
-  PeriodicWave periodicWave() {
-    return PeriodicWave(OscillatorOptions_periodicWave_Get(handle));
+  auto periodicWave(PeriodicWave periodicWave) {
+    OscillatorOptions_periodicWave_Set(this._parent, periodicWave.handle);
+  }
+  auto periodicWave() {
+    return PeriodicWave(OscillatorOptions_periodicWave_Get(this._parent));
   }
 }
 enum OscillatorType {
@@ -1193,165 +1313,171 @@ enum OverSampleType {
 struct PannerNode {
   AudioNode _parent;
   alias _parent this;
-  void panningModel(PanningModelType panningModel) {
-    PannerNode_panningModel_Set(handle, panningModel);
+  this(JsHandle h) {
+    _parent = AudioNode(h);
   }
-  PanningModelType panningModel() {
-    return PannerNode_panningModel_Get(handle);
+  auto panningModel(PanningModelType panningModel) {
+    PannerNode_panningModel_Set(this._parent, panningModel);
   }
-  AudioParam positionX() {
-    return AudioParam(PannerNode_positionX_Get(handle));
+  auto panningModel() {
+    return PannerNode_panningModel_Get(this._parent);
   }
-  AudioParam positionY() {
-    return AudioParam(PannerNode_positionY_Get(handle));
+  auto positionX() {
+    return AudioParam(PannerNode_positionX_Get(this._parent));
   }
-  AudioParam positionZ() {
-    return AudioParam(PannerNode_positionZ_Get(handle));
+  auto positionY() {
+    return AudioParam(PannerNode_positionY_Get(this._parent));
   }
-  AudioParam orientationX() {
-    return AudioParam(PannerNode_orientationX_Get(handle));
+  auto positionZ() {
+    return AudioParam(PannerNode_positionZ_Get(this._parent));
   }
-  AudioParam orientationY() {
-    return AudioParam(PannerNode_orientationY_Get(handle));
+  auto orientationX() {
+    return AudioParam(PannerNode_orientationX_Get(this._parent));
   }
-  AudioParam orientationZ() {
-    return AudioParam(PannerNode_orientationZ_Get(handle));
+  auto orientationY() {
+    return AudioParam(PannerNode_orientationY_Get(this._parent));
   }
-  void distanceModel(DistanceModelType distanceModel) {
-    PannerNode_distanceModel_Set(handle, distanceModel);
+  auto orientationZ() {
+    return AudioParam(PannerNode_orientationZ_Get(this._parent));
   }
-  DistanceModelType distanceModel() {
-    return PannerNode_distanceModel_Get(handle);
+  auto distanceModel(DistanceModelType distanceModel) {
+    PannerNode_distanceModel_Set(this._parent, distanceModel);
   }
-  void refDistance(double refDistance) {
-    PannerNode_refDistance_Set(handle, refDistance);
+  auto distanceModel() {
+    return PannerNode_distanceModel_Get(this._parent);
   }
-  double refDistance() {
-    return PannerNode_refDistance_Get(handle);
+  auto refDistance(double refDistance) {
+    PannerNode_refDistance_Set(this._parent, refDistance);
   }
-  void maxDistance(double maxDistance) {
-    PannerNode_maxDistance_Set(handle, maxDistance);
+  auto refDistance() {
+    return PannerNode_refDistance_Get(this._parent);
   }
-  double maxDistance() {
-    return PannerNode_maxDistance_Get(handle);
+  auto maxDistance(double maxDistance) {
+    PannerNode_maxDistance_Set(this._parent, maxDistance);
   }
-  void rolloffFactor(double rolloffFactor) {
-    PannerNode_rolloffFactor_Set(handle, rolloffFactor);
+  auto maxDistance() {
+    return PannerNode_maxDistance_Get(this._parent);
   }
-  double rolloffFactor() {
-    return PannerNode_rolloffFactor_Get(handle);
+  auto rolloffFactor(double rolloffFactor) {
+    PannerNode_rolloffFactor_Set(this._parent, rolloffFactor);
   }
-  void coneInnerAngle(double coneInnerAngle) {
-    PannerNode_coneInnerAngle_Set(handle, coneInnerAngle);
+  auto rolloffFactor() {
+    return PannerNode_rolloffFactor_Get(this._parent);
   }
-  double coneInnerAngle() {
-    return PannerNode_coneInnerAngle_Get(handle);
+  auto coneInnerAngle(double coneInnerAngle) {
+    PannerNode_coneInnerAngle_Set(this._parent, coneInnerAngle);
   }
-  void coneOuterAngle(double coneOuterAngle) {
-    PannerNode_coneOuterAngle_Set(handle, coneOuterAngle);
+  auto coneInnerAngle() {
+    return PannerNode_coneInnerAngle_Get(this._parent);
   }
-  double coneOuterAngle() {
-    return PannerNode_coneOuterAngle_Get(handle);
+  auto coneOuterAngle(double coneOuterAngle) {
+    PannerNode_coneOuterAngle_Set(this._parent, coneOuterAngle);
   }
-  void coneOuterGain(double coneOuterGain) {
-    PannerNode_coneOuterGain_Set(handle, coneOuterGain);
+  auto coneOuterAngle() {
+    return PannerNode_coneOuterAngle_Get(this._parent);
   }
-  double coneOuterGain() {
-    return PannerNode_coneOuterGain_Get(handle);
+  auto coneOuterGain(double coneOuterGain) {
+    PannerNode_coneOuterGain_Set(this._parent, coneOuterGain);
   }
-  void setPosition(float x, float y, float z) {
-    PannerNode_setPosition(handle, x, y, z);
+  auto coneOuterGain() {
+    return PannerNode_coneOuterGain_Get(this._parent);
   }
-  void setOrientation(float x, float y, float z) {
-    PannerNode_setOrientation(handle, x, y, z);
+  auto setPosition(float x, float y, float z) {
+    PannerNode_setPosition(this._parent, x, y, z);
+  }
+  auto setOrientation(float x, float y, float z) {
+    PannerNode_setOrientation(this._parent, x, y, z);
   }
 }
 struct PannerOptions {
   AudioNodeOptions _parent;
   alias _parent this;
-  void panningModel(PanningModelType panningModel) {
-    PannerOptions_panningModel_Set(handle, panningModel);
+  this(JsHandle h) {
+    _parent = AudioNodeOptions(h);
   }
-  PanningModelType panningModel() {
-    return PannerOptions_panningModel_Get(handle);
+  auto panningModel(PanningModelType panningModel) {
+    PannerOptions_panningModel_Set(this._parent, panningModel);
   }
-  void distanceModel(DistanceModelType distanceModel) {
-    PannerOptions_distanceModel_Set(handle, distanceModel);
+  auto panningModel() {
+    return PannerOptions_panningModel_Get(this._parent);
   }
-  DistanceModelType distanceModel() {
-    return PannerOptions_distanceModel_Get(handle);
+  auto distanceModel(DistanceModelType distanceModel) {
+    PannerOptions_distanceModel_Set(this._parent, distanceModel);
   }
-  void positionX(float positionX) {
-    PannerOptions_positionX_Set(handle, positionX);
+  auto distanceModel() {
+    return PannerOptions_distanceModel_Get(this._parent);
   }
-  float positionX() {
-    return PannerOptions_positionX_Get(handle);
+  auto positionX(float positionX) {
+    PannerOptions_positionX_Set(this._parent, positionX);
   }
-  void positionY(float positionY) {
-    PannerOptions_positionY_Set(handle, positionY);
+  auto positionX() {
+    return PannerOptions_positionX_Get(this._parent);
   }
-  float positionY() {
-    return PannerOptions_positionY_Get(handle);
+  auto positionY(float positionY) {
+    PannerOptions_positionY_Set(this._parent, positionY);
   }
-  void positionZ(float positionZ) {
-    PannerOptions_positionZ_Set(handle, positionZ);
+  auto positionY() {
+    return PannerOptions_positionY_Get(this._parent);
   }
-  float positionZ() {
-    return PannerOptions_positionZ_Get(handle);
+  auto positionZ(float positionZ) {
+    PannerOptions_positionZ_Set(this._parent, positionZ);
   }
-  void orientationX(float orientationX) {
-    PannerOptions_orientationX_Set(handle, orientationX);
+  auto positionZ() {
+    return PannerOptions_positionZ_Get(this._parent);
   }
-  float orientationX() {
-    return PannerOptions_orientationX_Get(handle);
+  auto orientationX(float orientationX) {
+    PannerOptions_orientationX_Set(this._parent, orientationX);
   }
-  void orientationY(float orientationY) {
-    PannerOptions_orientationY_Set(handle, orientationY);
+  auto orientationX() {
+    return PannerOptions_orientationX_Get(this._parent);
   }
-  float orientationY() {
-    return PannerOptions_orientationY_Get(handle);
+  auto orientationY(float orientationY) {
+    PannerOptions_orientationY_Set(this._parent, orientationY);
   }
-  void orientationZ(float orientationZ) {
-    PannerOptions_orientationZ_Set(handle, orientationZ);
+  auto orientationY() {
+    return PannerOptions_orientationY_Get(this._parent);
   }
-  float orientationZ() {
-    return PannerOptions_orientationZ_Get(handle);
+  auto orientationZ(float orientationZ) {
+    PannerOptions_orientationZ_Set(this._parent, orientationZ);
   }
-  void refDistance(double refDistance) {
-    PannerOptions_refDistance_Set(handle, refDistance);
+  auto orientationZ() {
+    return PannerOptions_orientationZ_Get(this._parent);
   }
-  double refDistance() {
-    return PannerOptions_refDistance_Get(handle);
+  auto refDistance(double refDistance) {
+    PannerOptions_refDistance_Set(this._parent, refDistance);
   }
-  void maxDistance(double maxDistance) {
-    PannerOptions_maxDistance_Set(handle, maxDistance);
+  auto refDistance() {
+    return PannerOptions_refDistance_Get(this._parent);
   }
-  double maxDistance() {
-    return PannerOptions_maxDistance_Get(handle);
+  auto maxDistance(double maxDistance) {
+    PannerOptions_maxDistance_Set(this._parent, maxDistance);
   }
-  void rolloffFactor(double rolloffFactor) {
-    PannerOptions_rolloffFactor_Set(handle, rolloffFactor);
+  auto maxDistance() {
+    return PannerOptions_maxDistance_Get(this._parent);
   }
-  double rolloffFactor() {
-    return PannerOptions_rolloffFactor_Get(handle);
+  auto rolloffFactor(double rolloffFactor) {
+    PannerOptions_rolloffFactor_Set(this._parent, rolloffFactor);
   }
-  void coneInnerAngle(double coneInnerAngle) {
-    PannerOptions_coneInnerAngle_Set(handle, coneInnerAngle);
+  auto rolloffFactor() {
+    return PannerOptions_rolloffFactor_Get(this._parent);
   }
-  double coneInnerAngle() {
-    return PannerOptions_coneInnerAngle_Get(handle);
+  auto coneInnerAngle(double coneInnerAngle) {
+    PannerOptions_coneInnerAngle_Set(this._parent, coneInnerAngle);
   }
-  void coneOuterAngle(double coneOuterAngle) {
-    PannerOptions_coneOuterAngle_Set(handle, coneOuterAngle);
+  auto coneInnerAngle() {
+    return PannerOptions_coneInnerAngle_Get(this._parent);
   }
-  double coneOuterAngle() {
-    return PannerOptions_coneOuterAngle_Get(handle);
+  auto coneOuterAngle(double coneOuterAngle) {
+    PannerOptions_coneOuterAngle_Set(this._parent, coneOuterAngle);
   }
-  void coneOuterGain(double coneOuterGain) {
-    PannerOptions_coneOuterGain_Set(handle, coneOuterGain);
+  auto coneOuterAngle() {
+    return PannerOptions_coneOuterAngle_Get(this._parent);
   }
-  double coneOuterGain() {
-    return PannerOptions_coneOuterGain_Get(handle);
+  auto coneOuterGain(double coneOuterGain) {
+    PannerOptions_coneOuterGain_Set(this._parent, coneOuterGain);
+  }
+  auto coneOuterGain() {
+    return PannerOptions_coneOuterGain_Get(this._parent);
   }
 }
 enum PanningModelType {
@@ -1365,89 +1491,107 @@ struct PeriodicWave {
 struct PeriodicWaveConstraints {
   JsHandle handle;
   alias handle this;
-  void disableNormalization(bool disableNormalization) {
-    PeriodicWaveConstraints_disableNormalization_Set(handle, disableNormalization);
+  auto disableNormalization(bool disableNormalization) {
+    PeriodicWaveConstraints_disableNormalization_Set(this.handle, disableNormalization);
   }
-  bool disableNormalization() {
-    return PeriodicWaveConstraints_disableNormalization_Get(handle);
+  auto disableNormalization() {
+    return PeriodicWaveConstraints_disableNormalization_Get(this.handle);
   }
 }
 struct PeriodicWaveOptions {
   PeriodicWaveConstraints _parent;
   alias _parent this;
-  void real_(Sequence!(float) real_) {
-    PeriodicWaveOptions_real_Set(handle, real_.handle);
+  this(JsHandle h) {
+    _parent = PeriodicWaveConstraints(h);
   }
-  Sequence!(float) real_() {
-    return Sequence!(float)(PeriodicWaveOptions_real_Get(handle));
+  auto real_(Sequence!(float) real_) {
+    PeriodicWaveOptions_real_Set(this._parent, real_.handle);
   }
-  void imag(Sequence!(float) imag) {
-    PeriodicWaveOptions_imag_Set(handle, imag.handle);
+  auto real_() {
+    return Sequence!(float)(PeriodicWaveOptions_real_Get(this._parent));
   }
-  Sequence!(float) imag() {
-    return Sequence!(float)(PeriodicWaveOptions_imag_Get(handle));
+  auto imag(Sequence!(float) imag) {
+    PeriodicWaveOptions_imag_Set(this._parent, imag.handle);
+  }
+  auto imag() {
+    return Sequence!(float)(PeriodicWaveOptions_imag_Get(this._parent));
   }
 }
 struct ScriptProcessorNode {
   AudioNode _parent;
   alias _parent this;
-  void onaudioprocess(EventHandler onaudioprocess) {
-    ScriptProcessorNode_onaudioprocess_Set(handle, !onaudioprocess.empty, onaudioprocess.value);
+  this(JsHandle h) {
+    _parent = AudioNode(h);
   }
-  EventHandler onaudioprocess() {
-    return ScriptProcessorNode_onaudioprocess_Get(handle);
+  auto onaudioprocess(EventHandler onaudioprocess) {
+    ScriptProcessorNode_onaudioprocess_Set(this._parent, onaudioprocess);
   }
-  int bufferSize() {
-    return ScriptProcessorNode_bufferSize_Get(handle);
+  auto onaudioprocess() {
+    return ScriptProcessorNode_onaudioprocess_Get(this._parent);
+  }
+  auto bufferSize() {
+    return ScriptProcessorNode_bufferSize_Get(this._parent);
   }
 }
 struct StereoPannerNode {
   AudioNode _parent;
   alias _parent this;
-  AudioParam pan() {
-    return AudioParam(StereoPannerNode_pan_Get(handle));
+  this(JsHandle h) {
+    _parent = AudioNode(h);
+  }
+  auto pan() {
+    return AudioParam(StereoPannerNode_pan_Get(this._parent));
   }
 }
 struct StereoPannerOptions {
   AudioNodeOptions _parent;
   alias _parent this;
-  void pan(float pan) {
-    StereoPannerOptions_pan_Set(handle, pan);
+  this(JsHandle h) {
+    _parent = AudioNodeOptions(h);
   }
-  float pan() {
-    return StereoPannerOptions_pan_Get(handle);
+  auto pan(float pan) {
+    StereoPannerOptions_pan_Set(this._parent, pan);
+  }
+  auto pan() {
+    return StereoPannerOptions_pan_Get(this._parent);
   }
 }
 struct WaveShaperNode {
   AudioNode _parent;
   alias _parent this;
-  void curve(Optional!(Float32Array) curve) {
-    WaveShaperNode_curve_Set(handle, !curve.empty, curve.value.handle);
+  this(JsHandle h) {
+    _parent = AudioNode(h);
   }
-  Optional!(Float32Array) curve() {
-    return WaveShaperNode_curve_Get(handle);
+  auto curve(Optional!(Float32Array) curve) {
+    WaveShaperNode_curve_Set(this._parent, !curve.empty, curve.front.handle);
   }
-  void oversample(OverSampleType oversample) {
-    WaveShaperNode_oversample_Set(handle, oversample);
+  auto curve() {
+    return WaveShaperNode_curve_Get(this._parent);
   }
-  OverSampleType oversample() {
-    return WaveShaperNode_oversample_Get(handle);
+  auto oversample(OverSampleType oversample) {
+    WaveShaperNode_oversample_Set(this._parent, oversample);
+  }
+  auto oversample() {
+    return WaveShaperNode_oversample_Get(this._parent);
   }
 }
 struct WaveShaperOptions {
   AudioNodeOptions _parent;
   alias _parent this;
-  void curve(Sequence!(float) curve) {
-    WaveShaperOptions_curve_Set(handle, curve.handle);
+  this(JsHandle h) {
+    _parent = AudioNodeOptions(h);
   }
-  Sequence!(float) curve() {
-    return Sequence!(float)(WaveShaperOptions_curve_Get(handle));
+  auto curve(Sequence!(float) curve) {
+    WaveShaperOptions_curve_Set(this._parent, curve.handle);
   }
-  void oversample(OverSampleType oversample) {
-    WaveShaperOptions_oversample_Set(handle, oversample);
+  auto curve() {
+    return Sequence!(float)(WaveShaperOptions_curve_Get(this._parent));
   }
-  OverSampleType oversample() {
-    return WaveShaperOptions_oversample_Get(handle);
+  auto oversample(OverSampleType oversample) {
+    WaveShaperOptions_oversample_Set(this._parent, oversample);
+  }
+  auto oversample() {
+    return WaveShaperOptions_oversample_Get(this._parent);
   }
 }
 
@@ -1542,8 +1686,6 @@ extern (C) void AudioNode_disconnect__uint(JsHandle, uint);
 extern (C) void AudioNode_disconnect__JsHandle(JsHandle, JsHandle);
 extern (C) void AudioNode_disconnect__JsHandle_uint(JsHandle, JsHandle, uint);
 extern (C) void AudioNode_disconnect__JsHandle_uint_uint(JsHandle, JsHandle, uint, uint);
-extern (C) void AudioNode_disconnect__JsHandle(JsHandle, JsHandle);
-extern (C) void AudioNode_disconnect__JsHandle_uint(JsHandle, JsHandle, uint);
 extern (C) JsHandle AudioNode_context_Get(JsHandle);
 extern (C) uint AudioNode_numberOfInputs_Get(JsHandle);
 extern (C) uint AudioNode_numberOfOutputs_Get(JsHandle);
@@ -1583,6 +1725,16 @@ extern (C) void AudioParamDescriptor_maxValue_Set(JsHandle, float);
 extern (C) float AudioParamDescriptor_maxValue_Get(JsHandle);
 extern (C) void AudioParamDescriptor_automationRate_Set(JsHandle, AutomationRate);
 extern (C) AutomationRate AudioParamDescriptor_automationRate_Get(JsHandle);
+extern (C) uint Maplike_string_JsHandle_size(JsHandle);
+extern (C) void Maplike_string_JsHandle_clear(JsHandle);
+extern (C) void Maplike_string_JsHandle_delete(JsHandle, string key);
+extern (C) JsHandle Maplike_string_JsHandle_entries(JsHandle);
+extern (C) void Maplike_string_JsHandle_forEach(JsHandle, void delegate(string, JsHandle, JsHandle));
+extern (C) AudioParam Maplike_string_JsHandle_get(JsHandle, string);
+extern (C) bool Maplike_string_JsHandle_has(JsHandle, string);
+extern (C) JsHandle Maplike_string_JsHandle_keys(JsHandle);
+extern (C) void Maplike_string_JsHandle_set(JsHandle, string key, JsHandle value);
+extern (C) JsHandle Maplike_string_JsHandle_values(JsHandle);
 extern (C) double AudioProcessingEvent_playbackTime_Get(JsHandle);
 extern (C) JsHandle AudioProcessingEvent_inputBuffer_Get(JsHandle);
 extern (C) JsHandle AudioProcessingEvent_outputBuffer_Get(JsHandle);
@@ -1617,7 +1769,7 @@ extern (C) JsHandle AudioWorkletNodeOptions_outputChannelCount_Get(JsHandle);
 extern (C) void AudioWorkletNodeOptions_parameterData_Set(JsHandle, JsHandle);
 extern (C) JsHandle AudioWorkletNodeOptions_parameterData_Get(JsHandle);
 extern (C) void AudioWorkletNodeOptions_processorOptions_Set(JsHandle, bool, JsHandle);
-extern (C) Optional!(Object) AudioWorkletNodeOptions_processorOptions_Get(JsHandle);
+extern (C) Optional!(JsObject) AudioWorkletNodeOptions_processorOptions_Get(JsHandle);
 extern (C) JsHandle AudioWorkletProcessor_port_Get(JsHandle);
 extern (C) JsHandle BaseAudioContext_destination_Get(JsHandle);
 extern (C) float BaseAudioContext_sampleRate_Get(JsHandle);

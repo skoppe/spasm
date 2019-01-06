@@ -1,201 +1,212 @@
 module spasm.bindings.xhr;
 
 import spasm.types;
-import spasm.bindings.fileapi : Blob;
-import spasm.bindings.fetch : BodyInit;
-import spasm.bindings.dom : Document;
-import spasm.bindings.html : EventHandler;
-import spasm.bindings.fileapi : File;
+import spasm.bindings.dom;
+import spasm.bindings.fetch;
+import spasm.bindings.fileapi;
+import spasm.bindings.html;
 
 struct FormData {
   JsHandle handle;
   alias handle this;
-  void append(string name, string value) {
-    FormData_append__string_string(handle, name.handle, value.handle);
+  auto append(string name, string value) {
+    FormData_append__string_string(this.handle, name, value);
   }
-  void append(string name, Blob blobValue, string filename) {
-    FormData_append__string_JsHandle_string(handle, name.handle, blobValue.handle, filename.handle);
+  auto append(string name, Blob blobValue, string filename) {
+    FormData_append__string_JsHandle_string(this.handle, name, blobValue.handle, filename);
   }
-  void delete_(string name) {
-    FormData_delete(handle, name.handle);
+  auto delete_(string name) {
+    FormData_delete(this.handle, name);
   }
-  Optional!(FormDataEntryValue) get(string name) {
-    return FormData_get(handle, name.handle);
+  auto get(string name) {
+    return FormData_get(this.handle, name);
   }
-  Sequence!(FormDataEntryValue) getAll(string name) {
-    return Sequence!(FormDataEntryValue)(FormData_getAll(handle, name.handle));
+  auto getAll(string name) {
+    return Sequence!(FormDataEntryValue)(FormData_getAll(this.handle, name));
   }
-  bool has(string name) {
-    return FormData_has(handle, name.handle);
+  auto has(string name) {
+    return FormData_has(this.handle, name);
   }
-  void set(string name, string value) {
-    FormData_set__string_string(handle, name.handle, value.handle);
+  auto set(string name, string value) {
+    FormData_set__string_string(this.handle, name, value);
   }
-  void set(string name, Blob blobValue, string filename) {
-    FormData_set__string_JsHandle_string(handle, name.handle, blobValue.handle, filename.handle);
+  auto set(string name, Blob blobValue, string filename) {
+    FormData_set__string_JsHandle_string(this.handle, name, blobValue.handle, filename);
   }
 }
 alias FormDataEntryValue = SumType!(File, string);
 struct ProgressEvent {
   Event _parent;
   alias _parent this;
-  bool lengthComputable() {
-    return ProgressEvent_lengthComputable_Get(handle);
+  this(JsHandle h) {
+    _parent = Event(h);
   }
-  ulong loaded() {
-    return ProgressEvent_loaded_Get(handle);
+  auto lengthComputable() {
+    return ProgressEvent_lengthComputable_Get(this._parent);
   }
-  ulong total() {
-    return ProgressEvent_total_Get(handle);
+  auto loaded() {
+    return ProgressEvent_loaded_Get(this._parent);
+  }
+  auto total() {
+    return ProgressEvent_total_Get(this._parent);
   }
 }
 struct ProgressEventInit {
   EventInit _parent;
   alias _parent this;
-  void lengthComputable(bool lengthComputable) {
-    ProgressEventInit_lengthComputable_Set(handle, lengthComputable);
+  this(JsHandle h) {
+    _parent = EventInit(h);
   }
-  bool lengthComputable() {
-    return ProgressEventInit_lengthComputable_Get(handle);
+  auto lengthComputable(bool lengthComputable) {
+    ProgressEventInit_lengthComputable_Set(this._parent, lengthComputable);
   }
-  void loaded(ulong loaded) {
-    ProgressEventInit_loaded_Set(handle, loaded);
+  auto lengthComputable() {
+    return ProgressEventInit_lengthComputable_Get(this._parent);
   }
-  ulong loaded() {
-    return ProgressEventInit_loaded_Get(handle);
+  auto loaded(ulong loaded) {
+    ProgressEventInit_loaded_Set(this._parent, loaded);
   }
-  void total(ulong total) {
-    ProgressEventInit_total_Set(handle, total);
+  auto loaded() {
+    return ProgressEventInit_loaded_Get(this._parent);
   }
-  ulong total() {
-    return ProgressEventInit_total_Get(handle);
+  auto total(ulong total) {
+    ProgressEventInit_total_Set(this._parent, total);
+  }
+  auto total() {
+    return ProgressEventInit_total_Get(this._parent);
   }
 }
 struct XMLHttpRequest {
   XMLHttpRequestEventTarget _parent;
   alias _parent this;
-  void onreadystatechange(EventHandler onreadystatechange) {
-    XMLHttpRequest_onreadystatechange_Set(handle, !onreadystatechange.empty, onreadystatechange.value);
+  this(JsHandle h) {
+    _parent = XMLHttpRequestEventTarget(h);
   }
-  EventHandler onreadystatechange() {
-    return XMLHttpRequest_onreadystatechange_Get(handle);
+  auto onreadystatechange(EventHandler onreadystatechange) {
+    XMLHttpRequest_onreadystatechange_Set(this._parent, onreadystatechange);
+  }
+  auto onreadystatechange() {
+    return XMLHttpRequest_onreadystatechange_Get(this._parent);
   }
   enum ushort UNSENT = 0;
   enum ushort OPENED = 1;
   enum ushort HEADERS_RECEIVED = 2;
   enum ushort LOADING = 3;
   enum ushort DONE = 4;
-  ushort readyState() {
-    return XMLHttpRequest_readyState_Get(handle);
+  auto readyState() {
+    return XMLHttpRequest_readyState_Get(this._parent);
   }
-  void open(ByteString method, string url) {
-    XMLHttpRequest_open__string_string(handle, method.handle, url.handle);
+  auto open(string method, string url) {
+    XMLHttpRequest_open__string_string(this._parent, method, url);
   }
-  void open(ByteString method, string url, bool async, Optional!(string) username /* = no!(string) */, Optional!(string) password /* = no!(string) */) {
-    XMLHttpRequest_open__string_string_bool_optional_string_optional_string(handle, method.handle, url.handle, async, !username.empty, username.value.handle, !password.empty, password.value.handle);
+  auto open(string method, string url, bool async, Optional!(string) username /* = no!(string) */, Optional!(string) password /* = no!(string) */) {
+    XMLHttpRequest_open__string_string_bool_optional_string_optional_string(this._parent, method, url, async, !username.empty, username.front, !password.empty, password.front);
   }
-  void setRequestHeader(ByteString name, ByteString value) {
-    XMLHttpRequest_setRequestHeader(handle, name.handle, value.handle);
+  auto setRequestHeader(string name, string value) {
+    XMLHttpRequest_setRequestHeader(this._parent, name, value);
   }
-  void timeout(uint timeout) {
-    XMLHttpRequest_timeout_Set(handle, timeout);
+  auto timeout(uint timeout) {
+    XMLHttpRequest_timeout_Set(this._parent, timeout);
   }
-  uint timeout() {
-    return XMLHttpRequest_timeout_Get(handle);
+  auto timeout() {
+    return XMLHttpRequest_timeout_Get(this._parent);
   }
-  void withCredentials(bool withCredentials) {
-    XMLHttpRequest_withCredentials_Set(handle, withCredentials);
+  auto withCredentials(bool withCredentials) {
+    XMLHttpRequest_withCredentials_Set(this._parent, withCredentials);
   }
-  bool withCredentials() {
-    return XMLHttpRequest_withCredentials_Get(handle);
+  auto withCredentials() {
+    return XMLHttpRequest_withCredentials_Get(this._parent);
   }
-  XMLHttpRequestUpload upload() {
-    return XMLHttpRequestUpload(XMLHttpRequest_upload_Get(handle));
+  auto upload() {
+    return XMLHttpRequestUpload(XMLHttpRequest_upload_Get(this._parent));
   }
-  void send(Optional!(SumType!(Document, BodyInit)) body_ /* = no!(SumType!(Document, BodyInit)) */) {
-    XMLHttpRequest_send(handle, !body_.empty, body_.value);
+  auto send(Optional!(SumType!(Document, BodyInit)) body_ /* = no!(SumType!(Document, BodyInit)) */) {
+    XMLHttpRequest_send(this._parent, !body_.empty, body_.front);
   }
-  void abort() {
-    XMLHttpRequest_abort(handle);
+  auto abort() {
+    XMLHttpRequest_abort(this._parent);
   }
-  string responseURL() {
-    return string(XMLHttpRequest_responseURL_Get(handle));
+  auto responseURL() {
+    return XMLHttpRequest_responseURL_Get(this._parent);
   }
-  ushort status() {
-    return XMLHttpRequest_status_Get(handle);
+  auto status() {
+    return XMLHttpRequest_status_Get(this._parent);
   }
-  ByteString statusText() {
-    return ByteString(XMLHttpRequest_statusText_Get(handle));
+  auto statusText() {
+    return XMLHttpRequest_statusText_Get(this._parent);
   }
-  Optional!(ByteString) getResponseHeader(ByteString name) {
-    return XMLHttpRequest_getResponseHeader(handle, name.handle);
+  auto getResponseHeader(string name) {
+    return XMLHttpRequest_getResponseHeader(this._parent, name);
   }
-  ByteString getAllResponseHeaders() {
-    return ByteString(XMLHttpRequest_getAllResponseHeaders(handle));
+  auto getAllResponseHeaders() {
+    return XMLHttpRequest_getAllResponseHeaders(this._parent);
   }
-  void overrideMimeType(string mime) {
-    XMLHttpRequest_overrideMimeType(handle, mime);
+  auto overrideMimeType(string mime) {
+    XMLHttpRequest_overrideMimeType(this._parent, mime);
   }
-  void responseType(XMLHttpRequestResponseType responseType) {
-    XMLHttpRequest_responseType_Set(handle, responseType);
+  auto responseType(XMLHttpRequestResponseType responseType) {
+    XMLHttpRequest_responseType_Set(this._parent, responseType);
   }
-  XMLHttpRequestResponseType responseType() {
-    return XMLHttpRequest_responseType_Get(handle);
+  auto responseType() {
+    return XMLHttpRequest_responseType_Get(this._parent);
   }
-  Any response() {
-    return Any(XMLHttpRequest_response_Get(handle));
+  auto response() {
+    return Any(XMLHttpRequest_response_Get(this._parent));
   }
-  string responseText() {
-    return string(XMLHttpRequest_responseText_Get(handle));
+  auto responseText() {
+    return XMLHttpRequest_responseText_Get(this._parent);
   }
-  Optional!(Document) responseXML() {
-    return XMLHttpRequest_responseXML_Get(handle);
+  auto responseXML() {
+    return XMLHttpRequest_responseXML_Get(this._parent);
   }
 }
 struct XMLHttpRequestEventTarget {
   EventTarget _parent;
   alias _parent this;
-  void onloadstart(EventHandler onloadstart) {
-    XMLHttpRequestEventTarget_onloadstart_Set(handle, !onloadstart.empty, onloadstart.value);
+  this(JsHandle h) {
+    _parent = EventTarget(h);
   }
-  EventHandler onloadstart() {
-    return XMLHttpRequestEventTarget_onloadstart_Get(handle);
+  auto onloadstart(EventHandler onloadstart) {
+    XMLHttpRequestEventTarget_onloadstart_Set(this._parent, onloadstart);
   }
-  void onprogress(EventHandler onprogress) {
-    XMLHttpRequestEventTarget_onprogress_Set(handle, !onprogress.empty, onprogress.value);
+  auto onloadstart() {
+    return XMLHttpRequestEventTarget_onloadstart_Get(this._parent);
   }
-  EventHandler onprogress() {
-    return XMLHttpRequestEventTarget_onprogress_Get(handle);
+  auto onprogress(EventHandler onprogress) {
+    XMLHttpRequestEventTarget_onprogress_Set(this._parent, onprogress);
   }
-  void onabort(EventHandler onabort) {
-    XMLHttpRequestEventTarget_onabort_Set(handle, !onabort.empty, onabort.value);
+  auto onprogress() {
+    return XMLHttpRequestEventTarget_onprogress_Get(this._parent);
   }
-  EventHandler onabort() {
-    return XMLHttpRequestEventTarget_onabort_Get(handle);
+  auto onabort(EventHandler onabort) {
+    XMLHttpRequestEventTarget_onabort_Set(this._parent, onabort);
   }
-  void onerror(EventHandler onerror) {
-    XMLHttpRequestEventTarget_onerror_Set(handle, !onerror.empty, onerror.value);
+  auto onabort() {
+    return XMLHttpRequestEventTarget_onabort_Get(this._parent);
   }
-  EventHandler onerror() {
-    return XMLHttpRequestEventTarget_onerror_Get(handle);
+  auto onerror(EventHandler onerror) {
+    XMLHttpRequestEventTarget_onerror_Set(this._parent, onerror);
   }
-  void onload(EventHandler onload) {
-    XMLHttpRequestEventTarget_onload_Set(handle, !onload.empty, onload.value);
+  auto onerror() {
+    return XMLHttpRequestEventTarget_onerror_Get(this._parent);
   }
-  EventHandler onload() {
-    return XMLHttpRequestEventTarget_onload_Get(handle);
+  auto onload(EventHandler onload) {
+    XMLHttpRequestEventTarget_onload_Set(this._parent, onload);
   }
-  void ontimeout(EventHandler ontimeout) {
-    XMLHttpRequestEventTarget_ontimeout_Set(handle, !ontimeout.empty, ontimeout.value);
+  auto onload() {
+    return XMLHttpRequestEventTarget_onload_Get(this._parent);
   }
-  EventHandler ontimeout() {
-    return XMLHttpRequestEventTarget_ontimeout_Get(handle);
+  auto ontimeout(EventHandler ontimeout) {
+    XMLHttpRequestEventTarget_ontimeout_Set(this._parent, ontimeout);
   }
-  void onloadend(EventHandler onloadend) {
-    XMLHttpRequestEventTarget_onloadend_Set(handle, !onloadend.empty, onloadend.value);
+  auto ontimeout() {
+    return XMLHttpRequestEventTarget_ontimeout_Get(this._parent);
   }
-  EventHandler onloadend() {
-    return XMLHttpRequestEventTarget_onloadend_Get(handle);
+  auto onloadend(EventHandler onloadend) {
+    XMLHttpRequestEventTarget_onloadend_Set(this._parent, onloadend);
+  }
+  auto onloadend() {
+    return XMLHttpRequestEventTarget_onloadend_Get(this._parent);
   }
 }
 enum XMLHttpRequestResponseType {
@@ -209,17 +220,20 @@ enum XMLHttpRequestResponseType {
 struct XMLHttpRequestUpload {
   XMLHttpRequestEventTarget _parent;
   alias _parent this;
+  this(JsHandle h) {
+    _parent = XMLHttpRequestEventTarget(h);
+  }
 }
 
 
-extern (C) void FormData_append__string_string(JsHandle, JsHandle, JsHandle);
-extern (C) void FormData_append__string_JsHandle_string(JsHandle, JsHandle, JsHandle, JsHandle);
-extern (C) void FormData_delete(JsHandle, JsHandle);
-extern (C) Optional!(FormDataEntryValue) FormData_get(JsHandle, JsHandle);
-extern (C) JsHandle FormData_getAll(JsHandle, JsHandle);
-extern (C) bool FormData_has(JsHandle, JsHandle);
-extern (C) void FormData_set__string_string(JsHandle, JsHandle, JsHandle);
-extern (C) void FormData_set__string_JsHandle_string(JsHandle, JsHandle, JsHandle, JsHandle);
+extern (C) void FormData_append__string_string(JsHandle, string, string);
+extern (C) void FormData_append__string_JsHandle_string(JsHandle, string, JsHandle, string);
+extern (C) void FormData_delete(JsHandle, string);
+extern (C) Optional!(FormDataEntryValue) FormData_get(JsHandle, string);
+extern (C) JsHandle FormData_getAll(JsHandle, string);
+extern (C) bool FormData_has(JsHandle, string);
+extern (C) void FormData_set__string_string(JsHandle, string, string);
+extern (C) void FormData_set__string_JsHandle_string(JsHandle, string, JsHandle, string);
 extern (C) bool ProgressEvent_lengthComputable_Get(JsHandle);
 extern (C) ulong ProgressEvent_loaded_Get(JsHandle);
 extern (C) ulong ProgressEvent_total_Get(JsHandle);
@@ -232,26 +246,26 @@ extern (C) ulong ProgressEventInit_total_Get(JsHandle);
 extern (C) void XMLHttpRequest_onreadystatechange_Set(JsHandle, EventHandler);
 extern (C) EventHandler XMLHttpRequest_onreadystatechange_Get(JsHandle);
 extern (C) ushort XMLHttpRequest_readyState_Get(JsHandle);
-extern (C) void XMLHttpRequest_open__string_string(JsHandle, JsHandle, JsHandle);
-extern (C) void XMLHttpRequest_open__string_string_bool_optional_string_optional_string(JsHandle, JsHandle, JsHandle, bool, bool, JsHandle, bool, JsHandle);
-extern (C) void XMLHttpRequest_setRequestHeader(JsHandle, JsHandle, JsHandle);
+extern (C) void XMLHttpRequest_open__string_string(JsHandle, string, string);
+extern (C) void XMLHttpRequest_open__string_string_bool_optional_string_optional_string(JsHandle, string, string, bool, bool, string, bool, string);
+extern (C) void XMLHttpRequest_setRequestHeader(JsHandle, string, string);
 extern (C) void XMLHttpRequest_timeout_Set(JsHandle, uint);
 extern (C) uint XMLHttpRequest_timeout_Get(JsHandle);
 extern (C) void XMLHttpRequest_withCredentials_Set(JsHandle, bool);
 extern (C) bool XMLHttpRequest_withCredentials_Get(JsHandle);
 extern (C) JsHandle XMLHttpRequest_upload_Get(JsHandle);
-extern (C) void XMLHttpRequest_send(JsHandle, bool, SumType!(Document, SumType!()));
+extern (C) void XMLHttpRequest_send(JsHandle, bool, SumType!(Document, BodyInit));
 extern (C) void XMLHttpRequest_abort(JsHandle);
-extern (C) JsHandle XMLHttpRequest_responseURL_Get(JsHandle);
+extern (C) string XMLHttpRequest_responseURL_Get(JsHandle);
 extern (C) ushort XMLHttpRequest_status_Get(JsHandle);
-extern (C) JsHandle XMLHttpRequest_statusText_Get(JsHandle);
-extern (C) Optional!(ByteString) XMLHttpRequest_getResponseHeader(JsHandle, JsHandle);
-extern (C) JsHandle XMLHttpRequest_getAllResponseHeaders(JsHandle);
+extern (C) string XMLHttpRequest_statusText_Get(JsHandle);
+extern (C) Optional!(string) XMLHttpRequest_getResponseHeader(JsHandle, string);
+extern (C) string XMLHttpRequest_getAllResponseHeaders(JsHandle);
 extern (C) void XMLHttpRequest_overrideMimeType(JsHandle, string);
 extern (C) void XMLHttpRequest_responseType_Set(JsHandle, XMLHttpRequestResponseType);
 extern (C) XMLHttpRequestResponseType XMLHttpRequest_responseType_Get(JsHandle);
 extern (C) JsHandle XMLHttpRequest_response_Get(JsHandle);
-extern (C) JsHandle XMLHttpRequest_responseText_Get(JsHandle);
+extern (C) string XMLHttpRequest_responseText_Get(JsHandle);
 extern (C) Optional!(Document) XMLHttpRequest_responseXML_Get(JsHandle);
 extern (C) void XMLHttpRequestEventTarget_onloadstart_Set(JsHandle, EventHandler);
 extern (C) EventHandler XMLHttpRequestEventTarget_onloadstart_Get(JsHandle);

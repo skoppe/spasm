@@ -36,7 +36,8 @@ extern(C) {
   void setSelectionRange(JsHandle node, uint start, uint end);
 }
 
-__gshared JsHandle document = 0;
+__gshared JsHandle document = JsHandle(1);
+__gshared JsHandle window = JsHandle(2);
 
 void unmount(T)(auto ref T t) if (hasMember!(T, "node")) {
   unmount(t.node.node);

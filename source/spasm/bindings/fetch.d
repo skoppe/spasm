@@ -1,104 +1,105 @@
 module spasm.bindings.fetch;
 
 import spasm.types;
-import spasm.bindings.dom : AbortSignal;
-import spasm.bindings.fileapi : Blob;
-import spasm.bindings.common : BufferSource;
-import spasm.bindings.xhr : FormData;
-import spasm.bindings.url : URLSearchParams;
+import spasm.bindings.common;
+import spasm.bindings.dom;
+import spasm.bindings.fileapi;
+import spasm.bindings.url;
+import spasm.bindings.webappsec;
+import spasm.bindings.xhr;
 
 alias BodyInit = SumType!(Blob, BufferSource, FormData, URLSearchParams, ReadableStream, string);
 struct Headers {
   JsHandle handle;
   alias handle this;
-  void append(ByteString name, ByteString value) {
-    Headers_append(handle, name.handle, value.handle);
+  auto append(string name, string value) {
+    Headers_append(this.handle, name, value);
   }
-  void delete_(ByteString name) {
-    Headers_delete(handle, name.handle);
+  auto delete_(string name) {
+    Headers_delete(this.handle, name);
   }
-  Optional!(ByteString) get(ByteString name) {
-    return Headers_get(handle, name.handle);
+  auto get(string name) {
+    return Headers_get(this.handle, name);
   }
-  bool has(ByteString name) {
-    return Headers_has(handle, name.handle);
+  auto has(string name) {
+    return Headers_has(this.handle, name);
   }
-  void set(ByteString name, ByteString value) {
-    Headers_set(handle, name.handle, value.handle);
+  auto set(string name, string value) {
+    Headers_set(this.handle, name, value);
   }
 }
-alias HeadersInit = SumType!(Sequence!(Sequence!(ByteString)), Record!(ByteString, ByteString));
+alias HeadersInit = SumType!(Sequence!(Sequence!(string)), Record!(string, string));
 struct Request {
   JsHandle handle;
   alias handle this;
-  ByteString method() {
-    return ByteString(Request_method_Get(handle));
+  auto method() {
+    return Request_method_Get(this.handle);
   }
-  string url() {
-    return string(Request_url_Get(handle));
+  auto url() {
+    return Request_url_Get(this.handle);
   }
-  Headers headers() {
-    return Headers(Request_headers_Get(handle));
+  auto headers() {
+    return Headers(Request_headers_Get(this.handle));
   }
-  RequestDestination destination() {
-    return Request_destination_Get(handle);
+  auto destination() {
+    return Request_destination_Get(this.handle);
   }
-  string referrer() {
-    return string(Request_referrer_Get(handle));
+  auto referrer() {
+    return Request_referrer_Get(this.handle);
   }
-  ReferrerPolicy referrerPolicy() {
-    return ReferrerPolicy(Request_referrerPolicy_Get(handle));
+  auto referrerPolicy() {
+    return Request_referrerPolicy_Get(this.handle);
   }
-  RequestMode mode() {
-    return Request_mode_Get(handle);
+  auto mode() {
+    return Request_mode_Get(this.handle);
   }
-  RequestCredentials credentials() {
-    return Request_credentials_Get(handle);
+  auto credentials() {
+    return Request_credentials_Get(this.handle);
   }
-  RequestCache cache() {
-    return Request_cache_Get(handle);
+  auto cache() {
+    return Request_cache_Get(this.handle);
   }
-  RequestRedirect redirect() {
-    return Request_redirect_Get(handle);
+  auto redirect() {
+    return Request_redirect_Get(this.handle);
   }
-  string integrity() {
-    return Request_integrity_Get(handle);
+  auto integrity() {
+    return Request_integrity_Get(this.handle);
   }
-  bool keepalive() {
-    return Request_keepalive_Get(handle);
+  auto keepalive() {
+    return Request_keepalive_Get(this.handle);
   }
-  bool isReloadNavigation() {
-    return Request_isReloadNavigation_Get(handle);
+  auto isReloadNavigation() {
+    return Request_isReloadNavigation_Get(this.handle);
   }
-  bool isHistoryNavigation() {
-    return Request_isHistoryNavigation_Get(handle);
+  auto isHistoryNavigation() {
+    return Request_isHistoryNavigation_Get(this.handle);
   }
-  AbortSignal signal() {
-    return AbortSignal(Request_signal_Get(handle));
+  auto signal() {
+    return AbortSignal(Request_signal_Get(this.handle));
   }
-  Request clone() {
-    return Request(Request_clone(handle));
+  auto clone() {
+    return Request(Request_clone(this.handle));
   }
-  Optional!(ReadableStream) body_() {
-    return Body_body_Get(handle);
+  auto body_() {
+    return Body_body_Get(this.handle);
   }
-  bool bodyUsed() {
-    return Body_bodyUsed_Get(handle);
+  auto bodyUsed() {
+    return Body_bodyUsed_Get(this.handle);
   }
-  Promise!(ArrayBuffer) arrayBuffer() {
-    return Promise!(ArrayBuffer)(Body_arrayBuffer(handle));
+  auto arrayBuffer() {
+    return Promise!(ArrayBuffer)(Body_arrayBuffer(this.handle));
   }
-  Promise!(Blob) blob() {
-    return Promise!(Blob)(Body_blob(handle));
+  auto blob() {
+    return Promise!(Blob)(Body_blob(this.handle));
   }
-  Promise!(FormData) formData() {
-    return Promise!(FormData)(Body_formData(handle));
+  auto formData() {
+    return Promise!(FormData)(Body_formData(this.handle));
   }
-  Promise!(Any) json() {
-    return Promise!(Any)(Body_json(handle));
+  auto json() {
+    return Promise!(Any)(Body_json(this.handle));
   }
-  Promise!(string) text() {
-    return Promise!(string)(Body_text(handle));
+  auto text() {
+    return Promise!(string)(Body_text(this.handle));
   }
 }
 enum RequestCache {
@@ -138,83 +139,83 @@ alias RequestInfo = SumType!(Request, string);
 struct RequestInit {
   JsHandle handle;
   alias handle this;
-  void method(ByteString method) {
-    RequestInit_method_Set(handle, method.handle);
+  auto method(string method) {
+    RequestInit_method_Set(this.handle, method);
   }
-  ByteString method() {
-    return ByteString(RequestInit_method_Get(handle));
+  auto method() {
+    return RequestInit_method_Get(this.handle);
   }
-  void headers(HeadersInit headers) {
-    RequestInit_headers_Set(handle, headers);
+  auto headers(HeadersInit headers) {
+    RequestInit_headers_Set(this.handle, headers);
   }
-  HeadersInit headers() {
-    return RequestInit_headers_Get(handle);
+  auto headers() {
+    return RequestInit_headers_Get(this.handle);
   }
-  void body_(Optional!(BodyInit) body_) {
-    RequestInit_body_Set(handle, !body_.empty, body_.value);
+  auto body_(Optional!(BodyInit) body_) {
+    RequestInit_body_Set(this.handle, !body_.empty, body_.front);
   }
-  Optional!(BodyInit) body_() {
-    return RequestInit_body_Get(handle);
+  auto body_() {
+    return RequestInit_body_Get(this.handle);
   }
-  void referrer(string referrer) {
-    RequestInit_referrer_Set(handle, referrer.handle);
+  auto referrer(string referrer) {
+    RequestInit_referrer_Set(this.handle, referrer);
   }
-  string referrer() {
-    return string(RequestInit_referrer_Get(handle));
+  auto referrer() {
+    return RequestInit_referrer_Get(this.handle);
   }
-  void referrerPolicy(ReferrerPolicy referrerPolicy) {
-    RequestInit_referrerPolicy_Set(handle, referrerPolicy.handle);
+  auto referrerPolicy(ReferrerPolicy referrerPolicy) {
+    RequestInit_referrerPolicy_Set(this.handle, referrerPolicy);
   }
-  ReferrerPolicy referrerPolicy() {
-    return ReferrerPolicy(RequestInit_referrerPolicy_Get(handle));
+  auto referrerPolicy() {
+    return RequestInit_referrerPolicy_Get(this.handle);
   }
-  void mode(RequestMode mode) {
-    RequestInit_mode_Set(handle, mode);
+  auto mode(RequestMode mode) {
+    RequestInit_mode_Set(this.handle, mode);
   }
-  RequestMode mode() {
-    return RequestInit_mode_Get(handle);
+  auto mode() {
+    return RequestInit_mode_Get(this.handle);
   }
-  void credentials(RequestCredentials credentials) {
-    RequestInit_credentials_Set(handle, credentials);
+  auto credentials(RequestCredentials credentials) {
+    RequestInit_credentials_Set(this.handle, credentials);
   }
-  RequestCredentials credentials() {
-    return RequestInit_credentials_Get(handle);
+  auto credentials() {
+    return RequestInit_credentials_Get(this.handle);
   }
-  void cache(RequestCache cache) {
-    RequestInit_cache_Set(handle, cache);
+  auto cache(RequestCache cache) {
+    RequestInit_cache_Set(this.handle, cache);
   }
-  RequestCache cache() {
-    return RequestInit_cache_Get(handle);
+  auto cache() {
+    return RequestInit_cache_Get(this.handle);
   }
-  void redirect(RequestRedirect redirect) {
-    RequestInit_redirect_Set(handle, redirect);
+  auto redirect(RequestRedirect redirect) {
+    RequestInit_redirect_Set(this.handle, redirect);
   }
-  RequestRedirect redirect() {
-    return RequestInit_redirect_Get(handle);
+  auto redirect() {
+    return RequestInit_redirect_Get(this.handle);
   }
-  void integrity(string integrity) {
-    RequestInit_integrity_Set(handle, integrity);
+  auto integrity(string integrity) {
+    RequestInit_integrity_Set(this.handle, integrity);
   }
-  string integrity() {
-    return RequestInit_integrity_Get(handle);
+  auto integrity() {
+    return RequestInit_integrity_Get(this.handle);
   }
-  void keepalive(bool keepalive) {
-    RequestInit_keepalive_Set(handle, keepalive);
+  auto keepalive(bool keepalive) {
+    RequestInit_keepalive_Set(this.handle, keepalive);
   }
-  bool keepalive() {
-    return RequestInit_keepalive_Get(handle);
+  auto keepalive() {
+    return RequestInit_keepalive_Get(this.handle);
   }
-  void signal(Optional!(AbortSignal) signal) {
-    RequestInit_signal_Set(handle, !signal.empty, signal.value.handle);
+  auto signal(Optional!(AbortSignal) signal) {
+    RequestInit_signal_Set(this.handle, !signal.empty, signal.front.handle);
   }
-  Optional!(AbortSignal) signal() {
-    return RequestInit_signal_Get(handle);
+  auto signal() {
+    return RequestInit_signal_Get(this.handle);
   }
-  void window(Any window) {
-    RequestInit_window_Set(handle, window.handle);
+  auto window(Any window) {
+    RequestInit_window_Set(this.handle, window.handle);
   }
-  Any window() {
-    return Any(RequestInit_window_Get(handle));
+  auto window() {
+    return Any(RequestInit_window_Get(this.handle));
   }
 }
 enum RequestMode {
@@ -231,81 +232,81 @@ enum RequestRedirect {
 struct Response {
   JsHandle handle;
   alias handle this;
-  Response error() {
-    return Response(Response_error(handle));
+  auto error() {
+    return Response(Response_error(this.handle));
   }
-  Response redirect(string url, ushort status /* = 302 */) {
-    return Response(Response_redirect(handle, url.handle, status));
+  auto redirect(string url, ushort status /* = 302 */) {
+    return Response(Response_redirect(this.handle, url, status));
   }
-  ResponseType type() {
-    return Response_type_Get(handle);
+  auto type() {
+    return Response_type_Get(this.handle);
   }
-  string url() {
-    return string(Response_url_Get(handle));
+  auto url() {
+    return Response_url_Get(this.handle);
   }
-  bool redirected() {
-    return Response_redirected_Get(handle);
+  auto redirected() {
+    return Response_redirected_Get(this.handle);
   }
-  ushort status() {
-    return Response_status_Get(handle);
+  auto status() {
+    return Response_status_Get(this.handle);
   }
-  bool ok() {
-    return Response_ok_Get(handle);
+  auto ok() {
+    return Response_ok_Get(this.handle);
   }
-  ByteString statusText() {
-    return ByteString(Response_statusText_Get(handle));
+  auto statusText() {
+    return Response_statusText_Get(this.handle);
   }
-  Headers headers() {
-    return Headers(Response_headers_Get(handle));
+  auto headers() {
+    return Headers(Response_headers_Get(this.handle));
   }
-  Promise!(Headers) trailer() {
-    return Promise!(Headers)(Response_trailer_Get(handle));
+  auto trailer() {
+    return Promise!(Headers)(Response_trailer_Get(this.handle));
   }
-  Response clone() {
-    return Response(Response_clone(handle));
+  auto clone() {
+    return Response(Response_clone(this.handle));
   }
-  Optional!(ReadableStream) body_() {
-    return Body_body_Get(handle);
+  auto body_() {
+    return Body_body_Get(this.handle);
   }
-  bool bodyUsed() {
-    return Body_bodyUsed_Get(handle);
+  auto bodyUsed() {
+    return Body_bodyUsed_Get(this.handle);
   }
-  Promise!(ArrayBuffer) arrayBuffer() {
-    return Promise!(ArrayBuffer)(Body_arrayBuffer(handle));
+  auto arrayBuffer() {
+    return Promise!(ArrayBuffer)(Body_arrayBuffer(this.handle));
   }
-  Promise!(Blob) blob() {
-    return Promise!(Blob)(Body_blob(handle));
+  auto blob() {
+    return Promise!(Blob)(Body_blob(this.handle));
   }
-  Promise!(FormData) formData() {
-    return Promise!(FormData)(Body_formData(handle));
+  auto formData() {
+    return Promise!(FormData)(Body_formData(this.handle));
   }
-  Promise!(Any) json() {
-    return Promise!(Any)(Body_json(handle));
+  auto json() {
+    return Promise!(Any)(Body_json(this.handle));
   }
-  Promise!(string) text() {
-    return Promise!(string)(Body_text(handle));
+  auto text() {
+    return Promise!(string)(Body_text(this.handle));
   }
 }
 struct ResponseInit {
   JsHandle handle;
   alias handle this;
-  void status(ushort status) {
-    ResponseInit_status_Set(handle, status);
+  auto status(ushort status) {
+    ResponseInit_status_Set(this.handle, status);
   }
-  ushort status() {
-    return ResponseInit_status_Get(handle);
+  auto status() {
+    return ResponseInit_status_Get(this.handle);
   }
-  void statusText(ByteString statusText) {
-    ResponseInit_statusText_Set(handle, statusText.handle);
+  auto statusText(string statusText) {
+    ResponseInit_statusText_Set(this.handle, statusText);
   }
-  ByteString statusText() {
-    return ByteString(ResponseInit_statusText_Get(handle));
+  auto statusText() {
+    return ResponseInit_statusText_Get(this.handle);
   }
-  void headers(HeadersInit headers) {
-    ResponseInit_headers_Set(handle, headers);
+  auto headers(HeadersInit headers) {
+    ResponseInit_headers_Set(this.handle, headers);
   }
-  HeadersInit headers() {
-    return ResponseInit_headers_Get(handle);
+  auto headers() {
+    return ResponseInit_headers_Get(this.handle);
   }
 }
 enum ResponseType {
@@ -318,17 +319,24 @@ enum ResponseType {
 }
 
 
-extern (C) void Headers_append(JsHandle, JsHandle, JsHandle);
-extern (C) void Headers_delete(JsHandle, JsHandle);
-extern (C) Optional!(ByteString) Headers_get(JsHandle, JsHandle);
-extern (C) bool Headers_has(JsHandle, JsHandle);
-extern (C) void Headers_set(JsHandle, JsHandle, JsHandle);
-extern (C) JsHandle Request_method_Get(JsHandle);
-extern (C) JsHandle Request_url_Get(JsHandle);
+extern (C) Optional!(ReadableStream) Body_body_Get(JsHandle);
+extern (C) bool Body_bodyUsed_Get(JsHandle);
+extern (C) JsHandle Body_arrayBuffer(JsHandle);
+extern (C) JsHandle Body_blob(JsHandle);
+extern (C) JsHandle Body_formData(JsHandle);
+extern (C) JsHandle Body_json(JsHandle);
+extern (C) JsHandle Body_text(JsHandle);
+extern (C) void Headers_append(JsHandle, string, string);
+extern (C) void Headers_delete(JsHandle, string);
+extern (C) Optional!(string) Headers_get(JsHandle, string);
+extern (C) bool Headers_has(JsHandle, string);
+extern (C) void Headers_set(JsHandle, string, string);
+extern (C) string Request_method_Get(JsHandle);
+extern (C) string Request_url_Get(JsHandle);
 extern (C) JsHandle Request_headers_Get(JsHandle);
 extern (C) RequestDestination Request_destination_Get(JsHandle);
-extern (C) JsHandle Request_referrer_Get(JsHandle);
-extern (C) JsHandle Request_referrerPolicy_Get(JsHandle);
+extern (C) string Request_referrer_Get(JsHandle);
+extern (C) ReferrerPolicy Request_referrerPolicy_Get(JsHandle);
 extern (C) RequestMode Request_mode_Get(JsHandle);
 extern (C) RequestCredentials Request_credentials_Get(JsHandle);
 extern (C) RequestCache Request_cache_Get(JsHandle);
@@ -339,23 +347,16 @@ extern (C) bool Request_isReloadNavigation_Get(JsHandle);
 extern (C) bool Request_isHistoryNavigation_Get(JsHandle);
 extern (C) JsHandle Request_signal_Get(JsHandle);
 extern (C) JsHandle Request_clone(JsHandle);
-extern (C) Optional!(ReadableStream) Body_body_Get(JsHandle);
-extern (C) bool Body_bodyUsed_Get(JsHandle);
-extern (C) JsHandle Body_arrayBuffer(JsHandle);
-extern (C) JsHandle Body_blob(JsHandle);
-extern (C) JsHandle Body_formData(JsHandle);
-extern (C) JsHandle Body_json(JsHandle);
-extern (C) JsHandle Body_text(JsHandle);
-extern (C) void RequestInit_method_Set(JsHandle, JsHandle);
-extern (C) JsHandle RequestInit_method_Get(JsHandle);
+extern (C) void RequestInit_method_Set(JsHandle, string);
+extern (C) string RequestInit_method_Get(JsHandle);
 extern (C) void RequestInit_headers_Set(JsHandle, HeadersInit);
 extern (C) HeadersInit RequestInit_headers_Get(JsHandle);
 extern (C) void RequestInit_body_Set(JsHandle, bool, BodyInit);
 extern (C) Optional!(BodyInit) RequestInit_body_Get(JsHandle);
-extern (C) void RequestInit_referrer_Set(JsHandle, JsHandle);
-extern (C) JsHandle RequestInit_referrer_Get(JsHandle);
-extern (C) void RequestInit_referrerPolicy_Set(JsHandle, JsHandle);
-extern (C) JsHandle RequestInit_referrerPolicy_Get(JsHandle);
+extern (C) void RequestInit_referrer_Set(JsHandle, string);
+extern (C) string RequestInit_referrer_Get(JsHandle);
+extern (C) void RequestInit_referrerPolicy_Set(JsHandle, ReferrerPolicy);
+extern (C) ReferrerPolicy RequestInit_referrerPolicy_Get(JsHandle);
 extern (C) void RequestInit_mode_Set(JsHandle, RequestMode);
 extern (C) RequestMode RequestInit_mode_Get(JsHandle);
 extern (C) void RequestInit_credentials_Set(JsHandle, RequestCredentials);
@@ -370,29 +371,22 @@ extern (C) void RequestInit_keepalive_Set(JsHandle, bool);
 extern (C) bool RequestInit_keepalive_Get(JsHandle);
 extern (C) void RequestInit_signal_Set(JsHandle, bool, JsHandle);
 extern (C) Optional!(AbortSignal) RequestInit_signal_Get(JsHandle);
-extern (C) void RequestInit_window_Set(JsHandle, Any);
+extern (C) void RequestInit_window_Set(JsHandle, JsHandle);
 extern (C) JsHandle RequestInit_window_Get(JsHandle);
 extern (C) JsHandle Response_error(JsHandle);
-extern (C) JsHandle Response_redirect(JsHandle, JsHandle, ushort);
+extern (C) JsHandle Response_redirect(JsHandle, string, ushort);
 extern (C) ResponseType Response_type_Get(JsHandle);
-extern (C) JsHandle Response_url_Get(JsHandle);
+extern (C) string Response_url_Get(JsHandle);
 extern (C) bool Response_redirected_Get(JsHandle);
 extern (C) ushort Response_status_Get(JsHandle);
 extern (C) bool Response_ok_Get(JsHandle);
-extern (C) JsHandle Response_statusText_Get(JsHandle);
+extern (C) string Response_statusText_Get(JsHandle);
 extern (C) JsHandle Response_headers_Get(JsHandle);
 extern (C) JsHandle Response_trailer_Get(JsHandle);
 extern (C) JsHandle Response_clone(JsHandle);
-extern (C) Optional!(ReadableStream) Body_body_Get(JsHandle);
-extern (C) bool Body_bodyUsed_Get(JsHandle);
-extern (C) JsHandle Body_arrayBuffer(JsHandle);
-extern (C) JsHandle Body_blob(JsHandle);
-extern (C) JsHandle Body_formData(JsHandle);
-extern (C) JsHandle Body_json(JsHandle);
-extern (C) JsHandle Body_text(JsHandle);
 extern (C) void ResponseInit_status_Set(JsHandle, ushort);
 extern (C) ushort ResponseInit_status_Get(JsHandle);
-extern (C) void ResponseInit_statusText_Set(JsHandle, JsHandle);
-extern (C) JsHandle ResponseInit_statusText_Get(JsHandle);
+extern (C) void ResponseInit_statusText_Set(JsHandle, string);
+extern (C) string ResponseInit_statusText_Get(JsHandle);
 extern (C) void ResponseInit_headers_Set(JsHandle, HeadersInit);
 extern (C) HeadersInit ResponseInit_headers_Get(JsHandle);

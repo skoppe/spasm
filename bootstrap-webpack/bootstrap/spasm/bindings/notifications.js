@@ -22,29 +22,29 @@ export default {
     Notification_maxActions_Get: function(ctx) {
       return spasm.objects[ctx].maxActions;
     },
-    Notification_onclick_Set: function(ctx, onclickDefined, onclick) {
-      spasm.objects[ctx].onclick = onclickDefined ? onclick : undefined;
+    Notification_onclick_Set: function(ctx, onclick) {
+      spasm.objects[ctx].onclick = onclick;
     },
-    Notification_onclick_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onclick);
+    Notification_onclick_Get: function(ctx) {
+      return spasm.objects[ctx].onclick;
     },
-    Notification_onshow_Set: function(ctx, onshowDefined, onshow) {
-      spasm.objects[ctx].onshow = onshowDefined ? onshow : undefined;
+    Notification_onshow_Set: function(ctx, onshow) {
+      spasm.objects[ctx].onshow = onshow;
     },
-    Notification_onshow_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onshow);
+    Notification_onshow_Get: function(ctx) {
+      return spasm.objects[ctx].onshow;
     },
-    Notification_onerror_Set: function(ctx, onerrorDefined, onerror) {
-      spasm.objects[ctx].onerror = onerrorDefined ? onerror : undefined;
+    Notification_onerror_Set: function(ctx, onerror) {
+      spasm.objects[ctx].onerror = onerror;
     },
-    Notification_onerror_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onerror);
+    Notification_onerror_Get: function(ctx) {
+      return spasm.objects[ctx].onerror;
     },
-    Notification_onclose_Set: function(ctx, oncloseDefined, onclose) {
-      spasm.objects[ctx].onclose = oncloseDefined ? onclose : undefined;
+    Notification_onclose_Set: function(ctx, onclose) {
+      spasm.objects[ctx].onclose = onclose;
     },
-    Notification_onclose_Get: function(rawResult, ctx) {
-      spasm.encode_EventHandler(rawResult, spasm.objects[ctx].onclose);
+    Notification_onclose_Get: function(ctx) {
+      return spasm.objects[ctx].onclose;
     },
     Notification_title_Get: function(rawResult, ctx) {
       spasm.encode_string(rawResult, spasm.objects[ctx].title);
@@ -173,10 +173,10 @@ export default {
       spasm.encode_string(rawResult, spasm.objects[ctx].badge);
     },
     NotificationOptions_vibrate_Set: function(ctx, vibrate) {
-      spasm.objects[ctx].vibrate = spasm.objects[vibrate];
+      spasm.objects[ctx].vibrate = spasm.decode_VibratePattern(vibrate);
     },
-    NotificationOptions_vibrate_Get: function(ctx) {
-      return spasm.addObject(spasm.objects[ctx].vibrate);
+    NotificationOptions_vibrate_Get: function(rawResult, ctx) {
+      spasm.encode_VibratePattern(rawResult, spasm.objects[ctx].vibrate);
     },
     NotificationOptions_timestamp_Set: function(ctx, timestamp) {
       spasm.objects[ctx].timestamp = timestamp;

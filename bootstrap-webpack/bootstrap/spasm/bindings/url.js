@@ -70,7 +70,7 @@ export default {
     URL_toJSON: function(rawResult, ctx) {
       spasm.encode_string(rawResult, spasm.objects[ctx].toJSON());
     },
-    URL_createObjectURL: function(rawResult, ctx, blob) {
+    URL_createObjectURL__JsHandle: function(rawResult, ctx, blob) {
       spasm.encode_string(rawResult, spasm.objects[ctx].createObjectURL(spasm.objects[blob]));
     },
     URL_revokeObjectURL: function(ctx, urlLen, urlPtr) {
