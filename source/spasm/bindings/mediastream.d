@@ -86,16 +86,16 @@ struct ConstrainablePattern {
   JsHandle handle;
   alias handle this;
   auto getCapabilities() {
-    return Capabilities(ConstrainablePattern_getCapabilities(this.handle));
+    return Capabilities(JsHandle(ConstrainablePattern_getCapabilities(this.handle));
   }
   auto getConstraints() {
-    return Constraints(ConstrainablePattern_getConstraints(this.handle));
+    return Constraints(JsHandle(ConstrainablePattern_getConstraints(this.handle));
   }
   auto getSettings() {
-    return Settings(ConstrainablePattern_getSettings(this.handle));
+    return Settings(JsHandle(ConstrainablePattern_getSettings(this.handle));
   }
   auto applyConstraints(Constraints constraints) {
-    return Promise!(void)(ConstrainablePattern_applyConstraints(this.handle, constraints.handle));
+    return Promise!(void)(JsHandle(ConstrainablePattern_applyConstraints(this.handle, constraints.handle));
   }
   auto onoverconstrained(EventHandler onoverconstrained) {
     ConstrainablePattern_onoverconstrained_Set(this.handle, onoverconstrained);
@@ -118,7 +118,7 @@ struct Constraints {
     Constraints_advanced_Set(this._parent, advanced.handle);
   }
   auto advanced() {
-    return Sequence!(ConstraintSet)(Constraints_advanced_Get(this._parent));
+    return Sequence!(ConstraintSet)(JsHandle(Constraints_advanced_Get(this._parent));
   }
 }
 struct DoubleRange {
@@ -144,7 +144,7 @@ struct InputDeviceInfo {
     _parent = MediaDeviceInfo(h);
   }
   auto getCapabilities() {
-    return MediaTrackCapabilities(InputDeviceInfo_getCapabilities(this._parent));
+    return MediaTrackCapabilities(JsHandle(InputDeviceInfo_getCapabilities(this._parent));
   }
 }
 struct MediaDeviceInfo {
@@ -163,7 +163,7 @@ struct MediaDeviceInfo {
     return MediaDeviceInfo_groupId_Get(this.handle);
   }
   auto toJSON() {
-    return JsObject(MediaDeviceInfo_toJSON(this.handle));
+    return JsObject(JsHandle(MediaDeviceInfo_toJSON(this.handle));
   }
 }
 enum MediaDeviceKind {
@@ -184,13 +184,13 @@ struct MediaDevices {
     return MediaDevices_ondevicechange_Get(this._parent);
   }
   auto enumerateDevices() {
-    return Promise!(Sequence!(MediaDeviceInfo))(MediaDevices_enumerateDevices(this._parent));
+    return Promise!(Sequence!(MediaDeviceInfo))(JsHandle(MediaDevices_enumerateDevices(this._parent));
   }
   auto getSupportedConstraints() {
-    return MediaTrackSupportedConstraints(MediaDevices_getSupportedConstraints(this._parent));
+    return MediaTrackSupportedConstraints(JsHandle(MediaDevices_getSupportedConstraints(this._parent));
   }
   auto getUserMedia(MediaStreamConstraints constraints) {
-    return Promise!(MediaStream)(MediaDevices_getUserMedia(this._parent, constraints.handle));
+    return Promise!(MediaStream)(JsHandle(MediaDevices_getUserMedia(this._parent, constraints.handle));
   }
 }
 struct MediaStream {
@@ -203,13 +203,13 @@ struct MediaStream {
     return MediaStream_id_Get(this._parent);
   }
   auto getAudioTracks() {
-    return Sequence!(MediaStreamTrack)(MediaStream_getAudioTracks(this._parent));
+    return Sequence!(MediaStreamTrack)(JsHandle(MediaStream_getAudioTracks(this._parent));
   }
   auto getVideoTracks() {
-    return Sequence!(MediaStreamTrack)(MediaStream_getVideoTracks(this._parent));
+    return Sequence!(MediaStreamTrack)(JsHandle(MediaStream_getVideoTracks(this._parent));
   }
   auto getTracks() {
-    return Sequence!(MediaStreamTrack)(MediaStream_getTracks(this._parent));
+    return Sequence!(MediaStreamTrack)(JsHandle(MediaStream_getTracks(this._parent));
   }
   auto getTrackById(string trackId) {
     return MediaStream_getTrackById(this._parent, trackId);
@@ -221,7 +221,7 @@ struct MediaStream {
     MediaStream_removeTrack(this._parent, track.handle);
   }
   auto clone() {
-    return MediaStream(MediaStream_clone(this._parent));
+    return MediaStream(JsHandle(MediaStream_clone(this._parent));
   }
   auto active() {
     return MediaStream_active_Get(this._parent);
@@ -302,22 +302,22 @@ struct MediaStreamTrack {
     return MediaStreamTrack_onended_Get(this._parent);
   }
   auto clone() {
-    return MediaStreamTrack(MediaStreamTrack_clone(this._parent));
+    return MediaStreamTrack(JsHandle(MediaStreamTrack_clone(this._parent));
   }
   auto stop() {
     MediaStreamTrack_stop(this._parent);
   }
   auto getCapabilities() {
-    return MediaTrackCapabilities(MediaStreamTrack_getCapabilities(this._parent));
+    return MediaTrackCapabilities(JsHandle(MediaStreamTrack_getCapabilities(this._parent));
   }
   auto getConstraints() {
-    return MediaTrackConstraints(MediaStreamTrack_getConstraints(this._parent));
+    return MediaTrackConstraints(JsHandle(MediaStreamTrack_getConstraints(this._parent));
   }
   auto getSettings() {
-    return MediaTrackSettings(MediaStreamTrack_getSettings(this._parent));
+    return MediaTrackSettings(JsHandle(MediaStreamTrack_getSettings(this._parent));
   }
   auto applyConstraints(MediaTrackConstraints constraints) {
-    return Promise!(void)(MediaStreamTrack_applyConstraints(this._parent, constraints.handle));
+    return Promise!(void)(JsHandle(MediaStreamTrack_applyConstraints(this._parent, constraints.handle));
   }
   auto onoverconstrained(EventHandler onoverconstrained) {
     MediaStreamTrack_onoverconstrained_Set(this._parent, onoverconstrained);
@@ -333,7 +333,7 @@ struct MediaStreamTrackEvent {
     _parent = Event(h);
   }
   auto track() {
-    return MediaStreamTrack(MediaStreamTrackEvent_track_Get(this._parent));
+    return MediaStreamTrack(JsHandle(MediaStreamTrackEvent_track_Get(this._parent));
   }
 }
 struct MediaStreamTrackEventInit {
@@ -346,7 +346,7 @@ struct MediaStreamTrackEventInit {
     MediaStreamTrackEventInit_track_Set(this._parent, track.handle);
   }
   auto track() {
-    return MediaStreamTrack(MediaStreamTrackEventInit_track_Get(this._parent));
+    return MediaStreamTrack(JsHandle(MediaStreamTrackEventInit_track_Get(this._parent));
   }
 }
 enum MediaStreamTrackState {
@@ -360,85 +360,85 @@ struct MediaTrackCapabilities {
     MediaTrackCapabilities_width_Set(this.handle, width.handle);
   }
   auto width() {
-    return ULongRange(MediaTrackCapabilities_width_Get(this.handle));
+    return ULongRange(JsHandle(MediaTrackCapabilities_width_Get(this.handle));
   }
   auto height(ULongRange height) {
     MediaTrackCapabilities_height_Set(this.handle, height.handle);
   }
   auto height() {
-    return ULongRange(MediaTrackCapabilities_height_Get(this.handle));
+    return ULongRange(JsHandle(MediaTrackCapabilities_height_Get(this.handle));
   }
   auto aspectRatio(DoubleRange aspectRatio) {
     MediaTrackCapabilities_aspectRatio_Set(this.handle, aspectRatio.handle);
   }
   auto aspectRatio() {
-    return DoubleRange(MediaTrackCapabilities_aspectRatio_Get(this.handle));
+    return DoubleRange(JsHandle(MediaTrackCapabilities_aspectRatio_Get(this.handle));
   }
   auto frameRate(DoubleRange frameRate) {
     MediaTrackCapabilities_frameRate_Set(this.handle, frameRate.handle);
   }
   auto frameRate() {
-    return DoubleRange(MediaTrackCapabilities_frameRate_Get(this.handle));
+    return DoubleRange(JsHandle(MediaTrackCapabilities_frameRate_Get(this.handle));
   }
   auto facingMode(Sequence!(string) facingMode) {
     MediaTrackCapabilities_facingMode_Set(this.handle, facingMode.handle);
   }
   auto facingMode() {
-    return Sequence!(string)(MediaTrackCapabilities_facingMode_Get(this.handle));
+    return Sequence!(string)(JsHandle(MediaTrackCapabilities_facingMode_Get(this.handle));
   }
   auto resizeMode(Sequence!(string) resizeMode) {
     MediaTrackCapabilities_resizeMode_Set(this.handle, resizeMode.handle);
   }
   auto resizeMode() {
-    return Sequence!(string)(MediaTrackCapabilities_resizeMode_Get(this.handle));
+    return Sequence!(string)(JsHandle(MediaTrackCapabilities_resizeMode_Get(this.handle));
   }
   auto volume(DoubleRange volume) {
     MediaTrackCapabilities_volume_Set(this.handle, volume.handle);
   }
   auto volume() {
-    return DoubleRange(MediaTrackCapabilities_volume_Get(this.handle));
+    return DoubleRange(JsHandle(MediaTrackCapabilities_volume_Get(this.handle));
   }
   auto sampleRate(ULongRange sampleRate) {
     MediaTrackCapabilities_sampleRate_Set(this.handle, sampleRate.handle);
   }
   auto sampleRate() {
-    return ULongRange(MediaTrackCapabilities_sampleRate_Get(this.handle));
+    return ULongRange(JsHandle(MediaTrackCapabilities_sampleRate_Get(this.handle));
   }
   auto sampleSize(ULongRange sampleSize) {
     MediaTrackCapabilities_sampleSize_Set(this.handle, sampleSize.handle);
   }
   auto sampleSize() {
-    return ULongRange(MediaTrackCapabilities_sampleSize_Get(this.handle));
+    return ULongRange(JsHandle(MediaTrackCapabilities_sampleSize_Get(this.handle));
   }
   auto echoCancellation(Sequence!(bool) echoCancellation) {
     MediaTrackCapabilities_echoCancellation_Set(this.handle, echoCancellation.handle);
   }
   auto echoCancellation() {
-    return Sequence!(bool)(MediaTrackCapabilities_echoCancellation_Get(this.handle));
+    return Sequence!(bool)(JsHandle(MediaTrackCapabilities_echoCancellation_Get(this.handle));
   }
   auto autoGainControl(Sequence!(bool) autoGainControl) {
     MediaTrackCapabilities_autoGainControl_Set(this.handle, autoGainControl.handle);
   }
   auto autoGainControl() {
-    return Sequence!(bool)(MediaTrackCapabilities_autoGainControl_Get(this.handle));
+    return Sequence!(bool)(JsHandle(MediaTrackCapabilities_autoGainControl_Get(this.handle));
   }
   auto noiseSuppression(Sequence!(bool) noiseSuppression) {
     MediaTrackCapabilities_noiseSuppression_Set(this.handle, noiseSuppression.handle);
   }
   auto noiseSuppression() {
-    return Sequence!(bool)(MediaTrackCapabilities_noiseSuppression_Get(this.handle));
+    return Sequence!(bool)(JsHandle(MediaTrackCapabilities_noiseSuppression_Get(this.handle));
   }
   auto latency(DoubleRange latency) {
     MediaTrackCapabilities_latency_Set(this.handle, latency.handle);
   }
   auto latency() {
-    return DoubleRange(MediaTrackCapabilities_latency_Get(this.handle));
+    return DoubleRange(JsHandle(MediaTrackCapabilities_latency_Get(this.handle));
   }
   auto channelCount(ULongRange channelCount) {
     MediaTrackCapabilities_channelCount_Set(this.handle, channelCount.handle);
   }
   auto channelCount() {
-    return ULongRange(MediaTrackCapabilities_channelCount_Get(this.handle));
+    return ULongRange(JsHandle(MediaTrackCapabilities_channelCount_Get(this.handle));
   }
   auto deviceId(string deviceId) {
     MediaTrackCapabilities_deviceId_Set(this.handle, deviceId);
@@ -563,7 +563,7 @@ struct MediaTrackConstraints {
     MediaTrackConstraints_advanced_Set(this._parent, advanced.handle);
   }
   auto advanced() {
-    return Sequence!(MediaTrackConstraintSet)(MediaTrackConstraints_advanced_Get(this._parent));
+    return Sequence!(MediaTrackConstraintSet)(JsHandle(MediaTrackConstraints_advanced_Get(this._parent));
   }
 }
 struct MediaTrackSettings {
@@ -827,220 +827,220 @@ enum VideoResizeModeEnum {
 }
 
 
-extern (C) void ConstrainBooleanParameters_exact_Set(JsHandle, bool);
-extern (C) bool ConstrainBooleanParameters_exact_Get(JsHandle);
-extern (C) void ConstrainBooleanParameters_ideal_Set(JsHandle, bool);
-extern (C) bool ConstrainBooleanParameters_ideal_Get(JsHandle);
-extern (C) void ConstrainDOMStringParameters_exact_Set(JsHandle, SumType!(string, Sequence!(string)));
-extern (C) SumType!(string, Sequence!(string)) ConstrainDOMStringParameters_exact_Get(JsHandle);
-extern (C) void ConstrainDOMStringParameters_ideal_Set(JsHandle, SumType!(string, Sequence!(string)));
-extern (C) SumType!(string, Sequence!(string)) ConstrainDOMStringParameters_ideal_Get(JsHandle);
-extern (C) void ConstrainDoubleRange_exact_Set(JsHandle, double);
-extern (C) double ConstrainDoubleRange_exact_Get(JsHandle);
-extern (C) void ConstrainDoubleRange_ideal_Set(JsHandle, double);
-extern (C) double ConstrainDoubleRange_ideal_Get(JsHandle);
-extern (C) void ConstrainULongRange_exact_Set(JsHandle, uint);
-extern (C) uint ConstrainULongRange_exact_Get(JsHandle);
-extern (C) void ConstrainULongRange_ideal_Set(JsHandle, uint);
-extern (C) uint ConstrainULongRange_ideal_Get(JsHandle);
-extern (C) JsHandle ConstrainablePattern_getCapabilities(JsHandle);
-extern (C) JsHandle ConstrainablePattern_getConstraints(JsHandle);
-extern (C) JsHandle ConstrainablePattern_getSettings(JsHandle);
-extern (C) JsHandle ConstrainablePattern_applyConstraints(JsHandle, JsHandle);
-extern (C) void ConstrainablePattern_onoverconstrained_Set(JsHandle, EventHandler);
-extern (C) EventHandler ConstrainablePattern_onoverconstrained_Get(JsHandle);
-extern (C) void Constraints_advanced_Set(JsHandle, JsHandle);
-extern (C) JsHandle Constraints_advanced_Get(JsHandle);
-extern (C) void DoubleRange_max_Set(JsHandle, double);
-extern (C) double DoubleRange_max_Get(JsHandle);
-extern (C) void DoubleRange_min_Set(JsHandle, double);
-extern (C) double DoubleRange_min_Get(JsHandle);
-extern (C) JsHandle InputDeviceInfo_getCapabilities(JsHandle);
-extern (C) string MediaDeviceInfo_deviceId_Get(JsHandle);
-extern (C) MediaDeviceKind MediaDeviceInfo_kind_Get(JsHandle);
-extern (C) string MediaDeviceInfo_label_Get(JsHandle);
-extern (C) string MediaDeviceInfo_groupId_Get(JsHandle);
-extern (C) JsHandle MediaDeviceInfo_toJSON(JsHandle);
-extern (C) void MediaDevices_ondevicechange_Set(JsHandle, EventHandler);
-extern (C) EventHandler MediaDevices_ondevicechange_Get(JsHandle);
-extern (C) JsHandle MediaDevices_enumerateDevices(JsHandle);
-extern (C) JsHandle MediaDevices_getSupportedConstraints(JsHandle);
-extern (C) JsHandle MediaDevices_getUserMedia(JsHandle, JsHandle);
-extern (C) string MediaStream_id_Get(JsHandle);
-extern (C) JsHandle MediaStream_getAudioTracks(JsHandle);
-extern (C) JsHandle MediaStream_getVideoTracks(JsHandle);
-extern (C) JsHandle MediaStream_getTracks(JsHandle);
-extern (C) Optional!(MediaStreamTrack) MediaStream_getTrackById(JsHandle, string);
-extern (C) void MediaStream_addTrack(JsHandle, JsHandle);
-extern (C) void MediaStream_removeTrack(JsHandle, JsHandle);
-extern (C) JsHandle MediaStream_clone(JsHandle);
-extern (C) bool MediaStream_active_Get(JsHandle);
-extern (C) void MediaStream_onaddtrack_Set(JsHandle, EventHandler);
-extern (C) EventHandler MediaStream_onaddtrack_Get(JsHandle);
-extern (C) void MediaStream_onremovetrack_Set(JsHandle, EventHandler);
-extern (C) EventHandler MediaStream_onremovetrack_Get(JsHandle);
-extern (C) void MediaStreamConstraints_video_Set(JsHandle, SumType!(bool, MediaTrackConstraints));
-extern (C) SumType!(bool, MediaTrackConstraints) MediaStreamConstraints_video_Get(JsHandle);
-extern (C) void MediaStreamConstraints_audio_Set(JsHandle, SumType!(bool, MediaTrackConstraints));
-extern (C) SumType!(bool, MediaTrackConstraints) MediaStreamConstraints_audio_Get(JsHandle);
-extern (C) string MediaStreamTrack_kind_Get(JsHandle);
-extern (C) string MediaStreamTrack_id_Get(JsHandle);
-extern (C) string MediaStreamTrack_label_Get(JsHandle);
-extern (C) void MediaStreamTrack_enabled_Set(JsHandle, bool);
-extern (C) bool MediaStreamTrack_enabled_Get(JsHandle);
-extern (C) bool MediaStreamTrack_muted_Get(JsHandle);
-extern (C) void MediaStreamTrack_onmute_Set(JsHandle, EventHandler);
-extern (C) EventHandler MediaStreamTrack_onmute_Get(JsHandle);
-extern (C) void MediaStreamTrack_onunmute_Set(JsHandle, EventHandler);
-extern (C) EventHandler MediaStreamTrack_onunmute_Get(JsHandle);
-extern (C) MediaStreamTrackState MediaStreamTrack_readyState_Get(JsHandle);
-extern (C) void MediaStreamTrack_onended_Set(JsHandle, EventHandler);
-extern (C) EventHandler MediaStreamTrack_onended_Get(JsHandle);
-extern (C) JsHandle MediaStreamTrack_clone(JsHandle);
-extern (C) void MediaStreamTrack_stop(JsHandle);
-extern (C) JsHandle MediaStreamTrack_getCapabilities(JsHandle);
-extern (C) JsHandle MediaStreamTrack_getConstraints(JsHandle);
-extern (C) JsHandle MediaStreamTrack_getSettings(JsHandle);
-extern (C) JsHandle MediaStreamTrack_applyConstraints(JsHandle, JsHandle);
-extern (C) void MediaStreamTrack_onoverconstrained_Set(JsHandle, EventHandler);
-extern (C) EventHandler MediaStreamTrack_onoverconstrained_Get(JsHandle);
-extern (C) JsHandle MediaStreamTrackEvent_track_Get(JsHandle);
-extern (C) void MediaStreamTrackEventInit_track_Set(JsHandle, JsHandle);
-extern (C) JsHandle MediaStreamTrackEventInit_track_Get(JsHandle);
-extern (C) void MediaTrackCapabilities_width_Set(JsHandle, JsHandle);
-extern (C) JsHandle MediaTrackCapabilities_width_Get(JsHandle);
-extern (C) void MediaTrackCapabilities_height_Set(JsHandle, JsHandle);
-extern (C) JsHandle MediaTrackCapabilities_height_Get(JsHandle);
-extern (C) void MediaTrackCapabilities_aspectRatio_Set(JsHandle, JsHandle);
-extern (C) JsHandle MediaTrackCapabilities_aspectRatio_Get(JsHandle);
-extern (C) void MediaTrackCapabilities_frameRate_Set(JsHandle, JsHandle);
-extern (C) JsHandle MediaTrackCapabilities_frameRate_Get(JsHandle);
-extern (C) void MediaTrackCapabilities_facingMode_Set(JsHandle, JsHandle);
-extern (C) JsHandle MediaTrackCapabilities_facingMode_Get(JsHandle);
-extern (C) void MediaTrackCapabilities_resizeMode_Set(JsHandle, JsHandle);
-extern (C) JsHandle MediaTrackCapabilities_resizeMode_Get(JsHandle);
-extern (C) void MediaTrackCapabilities_volume_Set(JsHandle, JsHandle);
-extern (C) JsHandle MediaTrackCapabilities_volume_Get(JsHandle);
-extern (C) void MediaTrackCapabilities_sampleRate_Set(JsHandle, JsHandle);
-extern (C) JsHandle MediaTrackCapabilities_sampleRate_Get(JsHandle);
-extern (C) void MediaTrackCapabilities_sampleSize_Set(JsHandle, JsHandle);
-extern (C) JsHandle MediaTrackCapabilities_sampleSize_Get(JsHandle);
-extern (C) void MediaTrackCapabilities_echoCancellation_Set(JsHandle, JsHandle);
-extern (C) JsHandle MediaTrackCapabilities_echoCancellation_Get(JsHandle);
-extern (C) void MediaTrackCapabilities_autoGainControl_Set(JsHandle, JsHandle);
-extern (C) JsHandle MediaTrackCapabilities_autoGainControl_Get(JsHandle);
-extern (C) void MediaTrackCapabilities_noiseSuppression_Set(JsHandle, JsHandle);
-extern (C) JsHandle MediaTrackCapabilities_noiseSuppression_Get(JsHandle);
-extern (C) void MediaTrackCapabilities_latency_Set(JsHandle, JsHandle);
-extern (C) JsHandle MediaTrackCapabilities_latency_Get(JsHandle);
-extern (C) void MediaTrackCapabilities_channelCount_Set(JsHandle, JsHandle);
-extern (C) JsHandle MediaTrackCapabilities_channelCount_Get(JsHandle);
-extern (C) void MediaTrackCapabilities_deviceId_Set(JsHandle, string);
-extern (C) string MediaTrackCapabilities_deviceId_Get(JsHandle);
-extern (C) void MediaTrackCapabilities_groupId_Set(JsHandle, string);
-extern (C) string MediaTrackCapabilities_groupId_Get(JsHandle);
-extern (C) void MediaTrackConstraintSet_width_Set(JsHandle, ConstrainULong);
-extern (C) ConstrainULong MediaTrackConstraintSet_width_Get(JsHandle);
-extern (C) void MediaTrackConstraintSet_height_Set(JsHandle, ConstrainULong);
-extern (C) ConstrainULong MediaTrackConstraintSet_height_Get(JsHandle);
-extern (C) void MediaTrackConstraintSet_aspectRatio_Set(JsHandle, ConstrainDouble);
-extern (C) ConstrainDouble MediaTrackConstraintSet_aspectRatio_Get(JsHandle);
-extern (C) void MediaTrackConstraintSet_frameRate_Set(JsHandle, ConstrainDouble);
-extern (C) ConstrainDouble MediaTrackConstraintSet_frameRate_Get(JsHandle);
-extern (C) void MediaTrackConstraintSet_facingMode_Set(JsHandle, ConstrainDOMString);
-extern (C) ConstrainDOMString MediaTrackConstraintSet_facingMode_Get(JsHandle);
-extern (C) void MediaTrackConstraintSet_resizeMode_Set(JsHandle, ConstrainDOMString);
-extern (C) ConstrainDOMString MediaTrackConstraintSet_resizeMode_Get(JsHandle);
-extern (C) void MediaTrackConstraintSet_volume_Set(JsHandle, ConstrainDouble);
-extern (C) ConstrainDouble MediaTrackConstraintSet_volume_Get(JsHandle);
-extern (C) void MediaTrackConstraintSet_sampleRate_Set(JsHandle, ConstrainULong);
-extern (C) ConstrainULong MediaTrackConstraintSet_sampleRate_Get(JsHandle);
-extern (C) void MediaTrackConstraintSet_sampleSize_Set(JsHandle, ConstrainULong);
-extern (C) ConstrainULong MediaTrackConstraintSet_sampleSize_Get(JsHandle);
-extern (C) void MediaTrackConstraintSet_echoCancellation_Set(JsHandle, ConstrainBoolean);
-extern (C) ConstrainBoolean MediaTrackConstraintSet_echoCancellation_Get(JsHandle);
-extern (C) void MediaTrackConstraintSet_autoGainControl_Set(JsHandle, ConstrainBoolean);
-extern (C) ConstrainBoolean MediaTrackConstraintSet_autoGainControl_Get(JsHandle);
-extern (C) void MediaTrackConstraintSet_noiseSuppression_Set(JsHandle, ConstrainBoolean);
-extern (C) ConstrainBoolean MediaTrackConstraintSet_noiseSuppression_Get(JsHandle);
-extern (C) void MediaTrackConstraintSet_latency_Set(JsHandle, ConstrainDouble);
-extern (C) ConstrainDouble MediaTrackConstraintSet_latency_Get(JsHandle);
-extern (C) void MediaTrackConstraintSet_channelCount_Set(JsHandle, ConstrainULong);
-extern (C) ConstrainULong MediaTrackConstraintSet_channelCount_Get(JsHandle);
-extern (C) void MediaTrackConstraintSet_deviceId_Set(JsHandle, ConstrainDOMString);
-extern (C) ConstrainDOMString MediaTrackConstraintSet_deviceId_Get(JsHandle);
-extern (C) void MediaTrackConstraintSet_groupId_Set(JsHandle, ConstrainDOMString);
-extern (C) ConstrainDOMString MediaTrackConstraintSet_groupId_Get(JsHandle);
-extern (C) void MediaTrackConstraints_advanced_Set(JsHandle, JsHandle);
-extern (C) JsHandle MediaTrackConstraints_advanced_Get(JsHandle);
-extern (C) void MediaTrackSettings_width_Set(JsHandle, int);
-extern (C) int MediaTrackSettings_width_Get(JsHandle);
-extern (C) void MediaTrackSettings_height_Set(JsHandle, int);
-extern (C) int MediaTrackSettings_height_Get(JsHandle);
-extern (C) void MediaTrackSettings_aspectRatio_Set(JsHandle, double);
-extern (C) double MediaTrackSettings_aspectRatio_Get(JsHandle);
-extern (C) void MediaTrackSettings_frameRate_Set(JsHandle, double);
-extern (C) double MediaTrackSettings_frameRate_Get(JsHandle);
-extern (C) void MediaTrackSettings_facingMode_Set(JsHandle, string);
-extern (C) string MediaTrackSettings_facingMode_Get(JsHandle);
-extern (C) void MediaTrackSettings_resizeMode_Set(JsHandle, string);
-extern (C) string MediaTrackSettings_resizeMode_Get(JsHandle);
-extern (C) void MediaTrackSettings_volume_Set(JsHandle, double);
-extern (C) double MediaTrackSettings_volume_Get(JsHandle);
-extern (C) void MediaTrackSettings_sampleRate_Set(JsHandle, int);
-extern (C) int MediaTrackSettings_sampleRate_Get(JsHandle);
-extern (C) void MediaTrackSettings_sampleSize_Set(JsHandle, int);
-extern (C) int MediaTrackSettings_sampleSize_Get(JsHandle);
-extern (C) void MediaTrackSettings_echoCancellation_Set(JsHandle, bool);
-extern (C) bool MediaTrackSettings_echoCancellation_Get(JsHandle);
-extern (C) void MediaTrackSettings_autoGainControl_Set(JsHandle, bool);
-extern (C) bool MediaTrackSettings_autoGainControl_Get(JsHandle);
-extern (C) void MediaTrackSettings_noiseSuppression_Set(JsHandle, bool);
-extern (C) bool MediaTrackSettings_noiseSuppression_Get(JsHandle);
-extern (C) void MediaTrackSettings_latency_Set(JsHandle, double);
-extern (C) double MediaTrackSettings_latency_Get(JsHandle);
-extern (C) void MediaTrackSettings_channelCount_Set(JsHandle, int);
-extern (C) int MediaTrackSettings_channelCount_Get(JsHandle);
-extern (C) void MediaTrackSettings_deviceId_Set(JsHandle, string);
-extern (C) string MediaTrackSettings_deviceId_Get(JsHandle);
-extern (C) void MediaTrackSettings_groupId_Set(JsHandle, string);
-extern (C) string MediaTrackSettings_groupId_Get(JsHandle);
-extern (C) void MediaTrackSupportedConstraints_width_Set(JsHandle, bool);
-extern (C) bool MediaTrackSupportedConstraints_width_Get(JsHandle);
-extern (C) void MediaTrackSupportedConstraints_height_Set(JsHandle, bool);
-extern (C) bool MediaTrackSupportedConstraints_height_Get(JsHandle);
-extern (C) void MediaTrackSupportedConstraints_aspectRatio_Set(JsHandle, bool);
-extern (C) bool MediaTrackSupportedConstraints_aspectRatio_Get(JsHandle);
-extern (C) void MediaTrackSupportedConstraints_frameRate_Set(JsHandle, bool);
-extern (C) bool MediaTrackSupportedConstraints_frameRate_Get(JsHandle);
-extern (C) void MediaTrackSupportedConstraints_facingMode_Set(JsHandle, bool);
-extern (C) bool MediaTrackSupportedConstraints_facingMode_Get(JsHandle);
-extern (C) void MediaTrackSupportedConstraints_resizeMode_Set(JsHandle, bool);
-extern (C) bool MediaTrackSupportedConstraints_resizeMode_Get(JsHandle);
-extern (C) void MediaTrackSupportedConstraints_volume_Set(JsHandle, bool);
-extern (C) bool MediaTrackSupportedConstraints_volume_Get(JsHandle);
-extern (C) void MediaTrackSupportedConstraints_sampleRate_Set(JsHandle, bool);
-extern (C) bool MediaTrackSupportedConstraints_sampleRate_Get(JsHandle);
-extern (C) void MediaTrackSupportedConstraints_sampleSize_Set(JsHandle, bool);
-extern (C) bool MediaTrackSupportedConstraints_sampleSize_Get(JsHandle);
-extern (C) void MediaTrackSupportedConstraints_echoCancellation_Set(JsHandle, bool);
-extern (C) bool MediaTrackSupportedConstraints_echoCancellation_Get(JsHandle);
-extern (C) void MediaTrackSupportedConstraints_autoGainControl_Set(JsHandle, bool);
-extern (C) bool MediaTrackSupportedConstraints_autoGainControl_Get(JsHandle);
-extern (C) void MediaTrackSupportedConstraints_noiseSuppression_Set(JsHandle, bool);
-extern (C) bool MediaTrackSupportedConstraints_noiseSuppression_Get(JsHandle);
-extern (C) void MediaTrackSupportedConstraints_latency_Set(JsHandle, bool);
-extern (C) bool MediaTrackSupportedConstraints_latency_Get(JsHandle);
-extern (C) void MediaTrackSupportedConstraints_channelCount_Set(JsHandle, bool);
-extern (C) bool MediaTrackSupportedConstraints_channelCount_Get(JsHandle);
-extern (C) void MediaTrackSupportedConstraints_deviceId_Set(JsHandle, bool);
-extern (C) bool MediaTrackSupportedConstraints_deviceId_Get(JsHandle);
-extern (C) void MediaTrackSupportedConstraints_groupId_Set(JsHandle, bool);
-extern (C) bool MediaTrackSupportedConstraints_groupId_Get(JsHandle);
-extern (C) Optional!(OverconstrainedError) OverconstrainedErrorEvent_error_Get(JsHandle);
-extern (C) void OverconstrainedErrorEventInit_error_Set(JsHandle, bool, JsHandle);
-extern (C) Optional!(OverconstrainedError) OverconstrainedErrorEventInit_error_Get(JsHandle);
-extern (C) void ULongRange_max_Set(JsHandle, uint);
-extern (C) uint ULongRange_max_Get(JsHandle);
-extern (C) void ULongRange_min_Set(JsHandle, uint);
-extern (C) uint ULongRange_min_Get(JsHandle);
+extern (C) void ConstrainBooleanParameters_exact_Set(Handle, bool);
+extern (C) bool ConstrainBooleanParameters_exact_Get(Handle);
+extern (C) void ConstrainBooleanParameters_ideal_Set(Handle, bool);
+extern (C) bool ConstrainBooleanParameters_ideal_Get(Handle);
+extern (C) void ConstrainDOMStringParameters_exact_Set(Handle, SumType!(string, Sequence!(string)));
+extern (C) SumType!(string, Sequence!(string)) ConstrainDOMStringParameters_exact_Get(Handle);
+extern (C) void ConstrainDOMStringParameters_ideal_Set(Handle, SumType!(string, Sequence!(string)));
+extern (C) SumType!(string, Sequence!(string)) ConstrainDOMStringParameters_ideal_Get(Handle);
+extern (C) void ConstrainDoubleRange_exact_Set(Handle, double);
+extern (C) double ConstrainDoubleRange_exact_Get(Handle);
+extern (C) void ConstrainDoubleRange_ideal_Set(Handle, double);
+extern (C) double ConstrainDoubleRange_ideal_Get(Handle);
+extern (C) void ConstrainULongRange_exact_Set(Handle, uint);
+extern (C) uint ConstrainULongRange_exact_Get(Handle);
+extern (C) void ConstrainULongRange_ideal_Set(Handle, uint);
+extern (C) uint ConstrainULongRange_ideal_Get(Handle);
+extern (C) Handle ConstrainablePattern_getCapabilities(Handle);
+extern (C) Handle ConstrainablePattern_getConstraints(Handle);
+extern (C) Handle ConstrainablePattern_getSettings(Handle);
+extern (C) Handle ConstrainablePattern_applyConstraints(Handle, Handle);
+extern (C) void ConstrainablePattern_onoverconstrained_Set(Handle, EventHandler);
+extern (C) EventHandler ConstrainablePattern_onoverconstrained_Get(Handle);
+extern (C) void Constraints_advanced_Set(Handle, Handle);
+extern (C) Handle Constraints_advanced_Get(Handle);
+extern (C) void DoubleRange_max_Set(Handle, double);
+extern (C) double DoubleRange_max_Get(Handle);
+extern (C) void DoubleRange_min_Set(Handle, double);
+extern (C) double DoubleRange_min_Get(Handle);
+extern (C) Handle InputDeviceInfo_getCapabilities(Handle);
+extern (C) string MediaDeviceInfo_deviceId_Get(Handle);
+extern (C) MediaDeviceKind MediaDeviceInfo_kind_Get(Handle);
+extern (C) string MediaDeviceInfo_label_Get(Handle);
+extern (C) string MediaDeviceInfo_groupId_Get(Handle);
+extern (C) Handle MediaDeviceInfo_toJSON(Handle);
+extern (C) void MediaDevices_ondevicechange_Set(Handle, EventHandler);
+extern (C) EventHandler MediaDevices_ondevicechange_Get(Handle);
+extern (C) Handle MediaDevices_enumerateDevices(Handle);
+extern (C) Handle MediaDevices_getSupportedConstraints(Handle);
+extern (C) Handle MediaDevices_getUserMedia(Handle, Handle);
+extern (C) string MediaStream_id_Get(Handle);
+extern (C) Handle MediaStream_getAudioTracks(Handle);
+extern (C) Handle MediaStream_getVideoTracks(Handle);
+extern (C) Handle MediaStream_getTracks(Handle);
+extern (C) Optional!(MediaStreamTrack) MediaStream_getTrackById(Handle, string);
+extern (C) void MediaStream_addTrack(Handle, Handle);
+extern (C) void MediaStream_removeTrack(Handle, Handle);
+extern (C) Handle MediaStream_clone(Handle);
+extern (C) bool MediaStream_active_Get(Handle);
+extern (C) void MediaStream_onaddtrack_Set(Handle, EventHandler);
+extern (C) EventHandler MediaStream_onaddtrack_Get(Handle);
+extern (C) void MediaStream_onremovetrack_Set(Handle, EventHandler);
+extern (C) EventHandler MediaStream_onremovetrack_Get(Handle);
+extern (C) void MediaStreamConstraints_video_Set(Handle, SumType!(bool, MediaTrackConstraints));
+extern (C) SumType!(bool, MediaTrackConstraints) MediaStreamConstraints_video_Get(Handle);
+extern (C) void MediaStreamConstraints_audio_Set(Handle, SumType!(bool, MediaTrackConstraints));
+extern (C) SumType!(bool, MediaTrackConstraints) MediaStreamConstraints_audio_Get(Handle);
+extern (C) string MediaStreamTrack_kind_Get(Handle);
+extern (C) string MediaStreamTrack_id_Get(Handle);
+extern (C) string MediaStreamTrack_label_Get(Handle);
+extern (C) void MediaStreamTrack_enabled_Set(Handle, bool);
+extern (C) bool MediaStreamTrack_enabled_Get(Handle);
+extern (C) bool MediaStreamTrack_muted_Get(Handle);
+extern (C) void MediaStreamTrack_onmute_Set(Handle, EventHandler);
+extern (C) EventHandler MediaStreamTrack_onmute_Get(Handle);
+extern (C) void MediaStreamTrack_onunmute_Set(Handle, EventHandler);
+extern (C) EventHandler MediaStreamTrack_onunmute_Get(Handle);
+extern (C) MediaStreamTrackState MediaStreamTrack_readyState_Get(Handle);
+extern (C) void MediaStreamTrack_onended_Set(Handle, EventHandler);
+extern (C) EventHandler MediaStreamTrack_onended_Get(Handle);
+extern (C) Handle MediaStreamTrack_clone(Handle);
+extern (C) void MediaStreamTrack_stop(Handle);
+extern (C) Handle MediaStreamTrack_getCapabilities(Handle);
+extern (C) Handle MediaStreamTrack_getConstraints(Handle);
+extern (C) Handle MediaStreamTrack_getSettings(Handle);
+extern (C) Handle MediaStreamTrack_applyConstraints(Handle, Handle);
+extern (C) void MediaStreamTrack_onoverconstrained_Set(Handle, EventHandler);
+extern (C) EventHandler MediaStreamTrack_onoverconstrained_Get(Handle);
+extern (C) Handle MediaStreamTrackEvent_track_Get(Handle);
+extern (C) void MediaStreamTrackEventInit_track_Set(Handle, Handle);
+extern (C) Handle MediaStreamTrackEventInit_track_Get(Handle);
+extern (C) void MediaTrackCapabilities_width_Set(Handle, Handle);
+extern (C) Handle MediaTrackCapabilities_width_Get(Handle);
+extern (C) void MediaTrackCapabilities_height_Set(Handle, Handle);
+extern (C) Handle MediaTrackCapabilities_height_Get(Handle);
+extern (C) void MediaTrackCapabilities_aspectRatio_Set(Handle, Handle);
+extern (C) Handle MediaTrackCapabilities_aspectRatio_Get(Handle);
+extern (C) void MediaTrackCapabilities_frameRate_Set(Handle, Handle);
+extern (C) Handle MediaTrackCapabilities_frameRate_Get(Handle);
+extern (C) void MediaTrackCapabilities_facingMode_Set(Handle, Handle);
+extern (C) Handle MediaTrackCapabilities_facingMode_Get(Handle);
+extern (C) void MediaTrackCapabilities_resizeMode_Set(Handle, Handle);
+extern (C) Handle MediaTrackCapabilities_resizeMode_Get(Handle);
+extern (C) void MediaTrackCapabilities_volume_Set(Handle, Handle);
+extern (C) Handle MediaTrackCapabilities_volume_Get(Handle);
+extern (C) void MediaTrackCapabilities_sampleRate_Set(Handle, Handle);
+extern (C) Handle MediaTrackCapabilities_sampleRate_Get(Handle);
+extern (C) void MediaTrackCapabilities_sampleSize_Set(Handle, Handle);
+extern (C) Handle MediaTrackCapabilities_sampleSize_Get(Handle);
+extern (C) void MediaTrackCapabilities_echoCancellation_Set(Handle, Handle);
+extern (C) Handle MediaTrackCapabilities_echoCancellation_Get(Handle);
+extern (C) void MediaTrackCapabilities_autoGainControl_Set(Handle, Handle);
+extern (C) Handle MediaTrackCapabilities_autoGainControl_Get(Handle);
+extern (C) void MediaTrackCapabilities_noiseSuppression_Set(Handle, Handle);
+extern (C) Handle MediaTrackCapabilities_noiseSuppression_Get(Handle);
+extern (C) void MediaTrackCapabilities_latency_Set(Handle, Handle);
+extern (C) Handle MediaTrackCapabilities_latency_Get(Handle);
+extern (C) void MediaTrackCapabilities_channelCount_Set(Handle, Handle);
+extern (C) Handle MediaTrackCapabilities_channelCount_Get(Handle);
+extern (C) void MediaTrackCapabilities_deviceId_Set(Handle, string);
+extern (C) string MediaTrackCapabilities_deviceId_Get(Handle);
+extern (C) void MediaTrackCapabilities_groupId_Set(Handle, string);
+extern (C) string MediaTrackCapabilities_groupId_Get(Handle);
+extern (C) void MediaTrackConstraintSet_width_Set(Handle, ConstrainULong);
+extern (C) ConstrainULong MediaTrackConstraintSet_width_Get(Handle);
+extern (C) void MediaTrackConstraintSet_height_Set(Handle, ConstrainULong);
+extern (C) ConstrainULong MediaTrackConstraintSet_height_Get(Handle);
+extern (C) void MediaTrackConstraintSet_aspectRatio_Set(Handle, ConstrainDouble);
+extern (C) ConstrainDouble MediaTrackConstraintSet_aspectRatio_Get(Handle);
+extern (C) void MediaTrackConstraintSet_frameRate_Set(Handle, ConstrainDouble);
+extern (C) ConstrainDouble MediaTrackConstraintSet_frameRate_Get(Handle);
+extern (C) void MediaTrackConstraintSet_facingMode_Set(Handle, ConstrainDOMString);
+extern (C) ConstrainDOMString MediaTrackConstraintSet_facingMode_Get(Handle);
+extern (C) void MediaTrackConstraintSet_resizeMode_Set(Handle, ConstrainDOMString);
+extern (C) ConstrainDOMString MediaTrackConstraintSet_resizeMode_Get(Handle);
+extern (C) void MediaTrackConstraintSet_volume_Set(Handle, ConstrainDouble);
+extern (C) ConstrainDouble MediaTrackConstraintSet_volume_Get(Handle);
+extern (C) void MediaTrackConstraintSet_sampleRate_Set(Handle, ConstrainULong);
+extern (C) ConstrainULong MediaTrackConstraintSet_sampleRate_Get(Handle);
+extern (C) void MediaTrackConstraintSet_sampleSize_Set(Handle, ConstrainULong);
+extern (C) ConstrainULong MediaTrackConstraintSet_sampleSize_Get(Handle);
+extern (C) void MediaTrackConstraintSet_echoCancellation_Set(Handle, ConstrainBoolean);
+extern (C) ConstrainBoolean MediaTrackConstraintSet_echoCancellation_Get(Handle);
+extern (C) void MediaTrackConstraintSet_autoGainControl_Set(Handle, ConstrainBoolean);
+extern (C) ConstrainBoolean MediaTrackConstraintSet_autoGainControl_Get(Handle);
+extern (C) void MediaTrackConstraintSet_noiseSuppression_Set(Handle, ConstrainBoolean);
+extern (C) ConstrainBoolean MediaTrackConstraintSet_noiseSuppression_Get(Handle);
+extern (C) void MediaTrackConstraintSet_latency_Set(Handle, ConstrainDouble);
+extern (C) ConstrainDouble MediaTrackConstraintSet_latency_Get(Handle);
+extern (C) void MediaTrackConstraintSet_channelCount_Set(Handle, ConstrainULong);
+extern (C) ConstrainULong MediaTrackConstraintSet_channelCount_Get(Handle);
+extern (C) void MediaTrackConstraintSet_deviceId_Set(Handle, ConstrainDOMString);
+extern (C) ConstrainDOMString MediaTrackConstraintSet_deviceId_Get(Handle);
+extern (C) void MediaTrackConstraintSet_groupId_Set(Handle, ConstrainDOMString);
+extern (C) ConstrainDOMString MediaTrackConstraintSet_groupId_Get(Handle);
+extern (C) void MediaTrackConstraints_advanced_Set(Handle, Handle);
+extern (C) Handle MediaTrackConstraints_advanced_Get(Handle);
+extern (C) void MediaTrackSettings_width_Set(Handle, int);
+extern (C) int MediaTrackSettings_width_Get(Handle);
+extern (C) void MediaTrackSettings_height_Set(Handle, int);
+extern (C) int MediaTrackSettings_height_Get(Handle);
+extern (C) void MediaTrackSettings_aspectRatio_Set(Handle, double);
+extern (C) double MediaTrackSettings_aspectRatio_Get(Handle);
+extern (C) void MediaTrackSettings_frameRate_Set(Handle, double);
+extern (C) double MediaTrackSettings_frameRate_Get(Handle);
+extern (C) void MediaTrackSettings_facingMode_Set(Handle, string);
+extern (C) string MediaTrackSettings_facingMode_Get(Handle);
+extern (C) void MediaTrackSettings_resizeMode_Set(Handle, string);
+extern (C) string MediaTrackSettings_resizeMode_Get(Handle);
+extern (C) void MediaTrackSettings_volume_Set(Handle, double);
+extern (C) double MediaTrackSettings_volume_Get(Handle);
+extern (C) void MediaTrackSettings_sampleRate_Set(Handle, int);
+extern (C) int MediaTrackSettings_sampleRate_Get(Handle);
+extern (C) void MediaTrackSettings_sampleSize_Set(Handle, int);
+extern (C) int MediaTrackSettings_sampleSize_Get(Handle);
+extern (C) void MediaTrackSettings_echoCancellation_Set(Handle, bool);
+extern (C) bool MediaTrackSettings_echoCancellation_Get(Handle);
+extern (C) void MediaTrackSettings_autoGainControl_Set(Handle, bool);
+extern (C) bool MediaTrackSettings_autoGainControl_Get(Handle);
+extern (C) void MediaTrackSettings_noiseSuppression_Set(Handle, bool);
+extern (C) bool MediaTrackSettings_noiseSuppression_Get(Handle);
+extern (C) void MediaTrackSettings_latency_Set(Handle, double);
+extern (C) double MediaTrackSettings_latency_Get(Handle);
+extern (C) void MediaTrackSettings_channelCount_Set(Handle, int);
+extern (C) int MediaTrackSettings_channelCount_Get(Handle);
+extern (C) void MediaTrackSettings_deviceId_Set(Handle, string);
+extern (C) string MediaTrackSettings_deviceId_Get(Handle);
+extern (C) void MediaTrackSettings_groupId_Set(Handle, string);
+extern (C) string MediaTrackSettings_groupId_Get(Handle);
+extern (C) void MediaTrackSupportedConstraints_width_Set(Handle, bool);
+extern (C) bool MediaTrackSupportedConstraints_width_Get(Handle);
+extern (C) void MediaTrackSupportedConstraints_height_Set(Handle, bool);
+extern (C) bool MediaTrackSupportedConstraints_height_Get(Handle);
+extern (C) void MediaTrackSupportedConstraints_aspectRatio_Set(Handle, bool);
+extern (C) bool MediaTrackSupportedConstraints_aspectRatio_Get(Handle);
+extern (C) void MediaTrackSupportedConstraints_frameRate_Set(Handle, bool);
+extern (C) bool MediaTrackSupportedConstraints_frameRate_Get(Handle);
+extern (C) void MediaTrackSupportedConstraints_facingMode_Set(Handle, bool);
+extern (C) bool MediaTrackSupportedConstraints_facingMode_Get(Handle);
+extern (C) void MediaTrackSupportedConstraints_resizeMode_Set(Handle, bool);
+extern (C) bool MediaTrackSupportedConstraints_resizeMode_Get(Handle);
+extern (C) void MediaTrackSupportedConstraints_volume_Set(Handle, bool);
+extern (C) bool MediaTrackSupportedConstraints_volume_Get(Handle);
+extern (C) void MediaTrackSupportedConstraints_sampleRate_Set(Handle, bool);
+extern (C) bool MediaTrackSupportedConstraints_sampleRate_Get(Handle);
+extern (C) void MediaTrackSupportedConstraints_sampleSize_Set(Handle, bool);
+extern (C) bool MediaTrackSupportedConstraints_sampleSize_Get(Handle);
+extern (C) void MediaTrackSupportedConstraints_echoCancellation_Set(Handle, bool);
+extern (C) bool MediaTrackSupportedConstraints_echoCancellation_Get(Handle);
+extern (C) void MediaTrackSupportedConstraints_autoGainControl_Set(Handle, bool);
+extern (C) bool MediaTrackSupportedConstraints_autoGainControl_Get(Handle);
+extern (C) void MediaTrackSupportedConstraints_noiseSuppression_Set(Handle, bool);
+extern (C) bool MediaTrackSupportedConstraints_noiseSuppression_Get(Handle);
+extern (C) void MediaTrackSupportedConstraints_latency_Set(Handle, bool);
+extern (C) bool MediaTrackSupportedConstraints_latency_Get(Handle);
+extern (C) void MediaTrackSupportedConstraints_channelCount_Set(Handle, bool);
+extern (C) bool MediaTrackSupportedConstraints_channelCount_Get(Handle);
+extern (C) void MediaTrackSupportedConstraints_deviceId_Set(Handle, bool);
+extern (C) bool MediaTrackSupportedConstraints_deviceId_Get(Handle);
+extern (C) void MediaTrackSupportedConstraints_groupId_Set(Handle, bool);
+extern (C) bool MediaTrackSupportedConstraints_groupId_Get(Handle);
+extern (C) Optional!(OverconstrainedError) OverconstrainedErrorEvent_error_Get(Handle);
+extern (C) void OverconstrainedErrorEventInit_error_Set(Handle, bool, Handle);
+extern (C) Optional!(OverconstrainedError) OverconstrainedErrorEventInit_error_Get(Handle);
+extern (C) void ULongRange_max_Set(Handle, uint);
+extern (C) uint ULongRange_max_Get(Handle);
+extern (C) void ULongRange_min_Set(Handle, uint);
+extern (C) uint ULongRange_min_Get(Handle);

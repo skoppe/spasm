@@ -5,7 +5,7 @@ export default {
       spasm.objects[ctx].deviceId = spasm.decode_string(deviceIdLen, deviceIdPtr);
     },
     DevicePermissionDescriptor_deviceId_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].deviceId);
+      spasm.encode.string(rawResult, spasm.objects[ctx].deviceId);
     },
     MidiPermissionDescriptor_sysex_Set: function(ctx, sysex) {
       spasm.objects[ctx].sysex = sysex;
@@ -17,7 +17,7 @@ export default {
       spasm.objects[ctx].name = spasm.decode_PermissionName(name);
     },
     PermissionDescriptor_name_Get: function(ctx) {
-      return spasm.encode_PermissionName(spasm.objects[ctx].name);
+      return spasm.encode.PermissionName(spasm.objects[ctx].name);
     },
     PermissionSetParameters_descriptor_Set: function(ctx, descriptor) {
       spasm.objects[ctx].descriptor = spasm.objects[descriptor];
@@ -29,7 +29,7 @@ export default {
       spasm.objects[ctx].state = spasm.decode_PermissionState(state);
     },
     PermissionSetParameters_state_Get: function(ctx) {
-      return spasm.encode_PermissionState(spasm.objects[ctx].state);
+      return spasm.encode.PermissionState(spasm.objects[ctx].state);
     },
     PermissionSetParameters_oneRealm_Set: function(ctx, oneRealm) {
       spasm.objects[ctx].oneRealm = oneRealm;
@@ -38,7 +38,7 @@ export default {
       return spasm.objects[ctx].oneRealm;
     },
     PermissionStatus_state_Get: function(ctx) {
-      return spasm.encode_PermissionState(spasm.objects[ctx].state);
+      return spasm.encode.PermissionState(spasm.objects[ctx].state);
     },
     PermissionStatus_onchange_Set: function(ctx, onchange) {
       spasm.objects[ctx].onchange = onchange;

@@ -11,7 +11,7 @@ struct Touch {
     return Touch_identifier_Get(this.handle);
   }
   auto target() {
-    return EventTarget(Touch_target_Get(this.handle));
+    return EventTarget(JsHandle(Touch_target_Get(this.handle));
   }
   auto screenX() {
     return Touch_screenX_Get(this.handle);
@@ -60,13 +60,13 @@ struct TouchEvent {
     _parent = UIEvent(h);
   }
   auto touches() {
-    return TouchList(TouchEvent_touches_Get(this._parent));
+    return TouchList(JsHandle(TouchEvent_touches_Get(this._parent));
   }
   auto targetTouches() {
-    return TouchList(TouchEvent_targetTouches_Get(this._parent));
+    return TouchList(JsHandle(TouchEvent_targetTouches_Get(this._parent));
   }
   auto changedTouches() {
-    return TouchList(TouchEvent_changedTouches_Get(this._parent));
+    return TouchList(JsHandle(TouchEvent_changedTouches_Get(this._parent));
   }
   auto altKey() {
     return TouchEvent_altKey_Get(this._parent);
@@ -91,19 +91,19 @@ struct TouchEventInit {
     TouchEventInit_touches_Set(this._parent, touches.handle);
   }
   auto touches() {
-    return Sequence!(Touch)(TouchEventInit_touches_Get(this._parent));
+    return Sequence!(Touch)(JsHandle(TouchEventInit_touches_Get(this._parent));
   }
   auto targetTouches(Sequence!(Touch) targetTouches) {
     TouchEventInit_targetTouches_Set(this._parent, targetTouches.handle);
   }
   auto targetTouches() {
-    return Sequence!(Touch)(TouchEventInit_targetTouches_Get(this._parent));
+    return Sequence!(Touch)(JsHandle(TouchEventInit_targetTouches_Get(this._parent));
   }
   auto changedTouches(Sequence!(Touch) changedTouches) {
     TouchEventInit_changedTouches_Set(this._parent, changedTouches.handle);
   }
   auto changedTouches() {
-    return Sequence!(Touch)(TouchEventInit_changedTouches_Get(this._parent));
+    return Sequence!(Touch)(JsHandle(TouchEventInit_changedTouches_Get(this._parent));
   }
 }
 struct TouchInit {
@@ -119,7 +119,7 @@ struct TouchInit {
     TouchInit_target_Set(this.handle, target.handle);
   }
   auto target() {
-    return EventTarget(TouchInit_target_Get(this.handle));
+    return EventTarget(JsHandle(TouchInit_target_Get(this.handle));
   }
   auto clientX(double clientX) {
     TouchInit_clientX_Set(this.handle, clientX);
@@ -216,63 +216,63 @@ enum TouchType {
 }
 
 
-extern (C) int Touch_identifier_Get(JsHandle);
-extern (C) JsHandle Touch_target_Get(JsHandle);
-extern (C) double Touch_screenX_Get(JsHandle);
-extern (C) double Touch_screenY_Get(JsHandle);
-extern (C) double Touch_clientX_Get(JsHandle);
-extern (C) double Touch_clientY_Get(JsHandle);
-extern (C) double Touch_pageX_Get(JsHandle);
-extern (C) double Touch_pageY_Get(JsHandle);
-extern (C) float Touch_radiusX_Get(JsHandle);
-extern (C) float Touch_radiusY_Get(JsHandle);
-extern (C) float Touch_rotationAngle_Get(JsHandle);
-extern (C) float Touch_force_Get(JsHandle);
-extern (C) float Touch_altitudeAngle_Get(JsHandle);
-extern (C) float Touch_azimuthAngle_Get(JsHandle);
-extern (C) TouchType Touch_touchType_Get(JsHandle);
-extern (C) JsHandle TouchEvent_touches_Get(JsHandle);
-extern (C) JsHandle TouchEvent_targetTouches_Get(JsHandle);
-extern (C) JsHandle TouchEvent_changedTouches_Get(JsHandle);
-extern (C) bool TouchEvent_altKey_Get(JsHandle);
-extern (C) bool TouchEvent_metaKey_Get(JsHandle);
-extern (C) bool TouchEvent_ctrlKey_Get(JsHandle);
-extern (C) bool TouchEvent_shiftKey_Get(JsHandle);
-extern (C) void TouchEventInit_touches_Set(JsHandle, JsHandle);
-extern (C) JsHandle TouchEventInit_touches_Get(JsHandle);
-extern (C) void TouchEventInit_targetTouches_Set(JsHandle, JsHandle);
-extern (C) JsHandle TouchEventInit_targetTouches_Get(JsHandle);
-extern (C) void TouchEventInit_changedTouches_Set(JsHandle, JsHandle);
-extern (C) JsHandle TouchEventInit_changedTouches_Get(JsHandle);
-extern (C) void TouchInit_identifier_Set(JsHandle, int);
-extern (C) int TouchInit_identifier_Get(JsHandle);
-extern (C) void TouchInit_target_Set(JsHandle, JsHandle);
-extern (C) JsHandle TouchInit_target_Get(JsHandle);
-extern (C) void TouchInit_clientX_Set(JsHandle, double);
-extern (C) double TouchInit_clientX_Get(JsHandle);
-extern (C) void TouchInit_clientY_Set(JsHandle, double);
-extern (C) double TouchInit_clientY_Get(JsHandle);
-extern (C) void TouchInit_screenX_Set(JsHandle, double);
-extern (C) double TouchInit_screenX_Get(JsHandle);
-extern (C) void TouchInit_screenY_Set(JsHandle, double);
-extern (C) double TouchInit_screenY_Get(JsHandle);
-extern (C) void TouchInit_pageX_Set(JsHandle, double);
-extern (C) double TouchInit_pageX_Get(JsHandle);
-extern (C) void TouchInit_pageY_Set(JsHandle, double);
-extern (C) double TouchInit_pageY_Get(JsHandle);
-extern (C) void TouchInit_radiusX_Set(JsHandle, float);
-extern (C) float TouchInit_radiusX_Get(JsHandle);
-extern (C) void TouchInit_radiusY_Set(JsHandle, float);
-extern (C) float TouchInit_radiusY_Get(JsHandle);
-extern (C) void TouchInit_rotationAngle_Set(JsHandle, float);
-extern (C) float TouchInit_rotationAngle_Get(JsHandle);
-extern (C) void TouchInit_force_Set(JsHandle, float);
-extern (C) float TouchInit_force_Get(JsHandle);
-extern (C) void TouchInit_altitudeAngle_Set(JsHandle, double);
-extern (C) double TouchInit_altitudeAngle_Get(JsHandle);
-extern (C) void TouchInit_azimuthAngle_Set(JsHandle, double);
-extern (C) double TouchInit_azimuthAngle_Get(JsHandle);
-extern (C) void TouchInit_touchType_Set(JsHandle, TouchType);
-extern (C) TouchType TouchInit_touchType_Get(JsHandle);
-extern (C) uint TouchList_length_Get(JsHandle);
-extern (C) Optional!(Touch) TouchList_item_getter(JsHandle, uint);
+extern (C) int Touch_identifier_Get(Handle);
+extern (C) Handle Touch_target_Get(Handle);
+extern (C) double Touch_screenX_Get(Handle);
+extern (C) double Touch_screenY_Get(Handle);
+extern (C) double Touch_clientX_Get(Handle);
+extern (C) double Touch_clientY_Get(Handle);
+extern (C) double Touch_pageX_Get(Handle);
+extern (C) double Touch_pageY_Get(Handle);
+extern (C) float Touch_radiusX_Get(Handle);
+extern (C) float Touch_radiusY_Get(Handle);
+extern (C) float Touch_rotationAngle_Get(Handle);
+extern (C) float Touch_force_Get(Handle);
+extern (C) float Touch_altitudeAngle_Get(Handle);
+extern (C) float Touch_azimuthAngle_Get(Handle);
+extern (C) TouchType Touch_touchType_Get(Handle);
+extern (C) Handle TouchEvent_touches_Get(Handle);
+extern (C) Handle TouchEvent_targetTouches_Get(Handle);
+extern (C) Handle TouchEvent_changedTouches_Get(Handle);
+extern (C) bool TouchEvent_altKey_Get(Handle);
+extern (C) bool TouchEvent_metaKey_Get(Handle);
+extern (C) bool TouchEvent_ctrlKey_Get(Handle);
+extern (C) bool TouchEvent_shiftKey_Get(Handle);
+extern (C) void TouchEventInit_touches_Set(Handle, Handle);
+extern (C) Handle TouchEventInit_touches_Get(Handle);
+extern (C) void TouchEventInit_targetTouches_Set(Handle, Handle);
+extern (C) Handle TouchEventInit_targetTouches_Get(Handle);
+extern (C) void TouchEventInit_changedTouches_Set(Handle, Handle);
+extern (C) Handle TouchEventInit_changedTouches_Get(Handle);
+extern (C) void TouchInit_identifier_Set(Handle, int);
+extern (C) int TouchInit_identifier_Get(Handle);
+extern (C) void TouchInit_target_Set(Handle, Handle);
+extern (C) Handle TouchInit_target_Get(Handle);
+extern (C) void TouchInit_clientX_Set(Handle, double);
+extern (C) double TouchInit_clientX_Get(Handle);
+extern (C) void TouchInit_clientY_Set(Handle, double);
+extern (C) double TouchInit_clientY_Get(Handle);
+extern (C) void TouchInit_screenX_Set(Handle, double);
+extern (C) double TouchInit_screenX_Get(Handle);
+extern (C) void TouchInit_screenY_Set(Handle, double);
+extern (C) double TouchInit_screenY_Get(Handle);
+extern (C) void TouchInit_pageX_Set(Handle, double);
+extern (C) double TouchInit_pageX_Get(Handle);
+extern (C) void TouchInit_pageY_Set(Handle, double);
+extern (C) double TouchInit_pageY_Get(Handle);
+extern (C) void TouchInit_radiusX_Set(Handle, float);
+extern (C) float TouchInit_radiusX_Get(Handle);
+extern (C) void TouchInit_radiusY_Set(Handle, float);
+extern (C) float TouchInit_radiusY_Get(Handle);
+extern (C) void TouchInit_rotationAngle_Set(Handle, float);
+extern (C) float TouchInit_rotationAngle_Get(Handle);
+extern (C) void TouchInit_force_Set(Handle, float);
+extern (C) float TouchInit_force_Get(Handle);
+extern (C) void TouchInit_altitudeAngle_Set(Handle, double);
+extern (C) double TouchInit_altitudeAngle_Get(Handle);
+extern (C) void TouchInit_azimuthAngle_Set(Handle, double);
+extern (C) double TouchInit_azimuthAngle_Get(Handle);
+extern (C) void TouchInit_touchType_Set(Handle, TouchType);
+extern (C) TouchType TouchInit_touchType_Get(Handle);
+extern (C) uint TouchList_length_Get(Handle);
+extern (C) Optional!(Touch) TouchList_item_getter(Handle, uint);

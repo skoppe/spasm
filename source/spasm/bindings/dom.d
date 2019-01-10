@@ -11,7 +11,7 @@ struct AbortController {
   JsHandle handle;
   alias handle this;
   auto signal() {
-    return AbortSignal(AbortController_signal_Get(this.handle));
+    return AbortSignal(JsHandle(AbortController_signal_Get(this.handle));
   }
   auto abort() {
     AbortController_abort(this.handle);
@@ -37,13 +37,13 @@ struct AbstractRange {
   JsHandle handle;
   alias handle this;
   auto startContainer() {
-    return Node(AbstractRange_startContainer_Get(this.handle));
+    return Node(JsHandle(AbstractRange_startContainer_Get(this.handle));
   }
   auto startOffset() {
     return AbstractRange_startOffset_Get(this.handle);
   }
   auto endContainer() {
-    return Node(AbstractRange_endContainer_Get(this.handle));
+    return Node(JsHandle(AbstractRange_endContainer_Get(this.handle));
   }
   auto endOffset() {
     return AbstractRange_endOffset_Get(this.handle);
@@ -172,7 +172,7 @@ struct CustomEvent {
     _parent = Event(h);
   }
   auto detail() {
-    return Any(CustomEvent_detail_Get(this._parent));
+    return Any(JsHandle(CustomEvent_detail_Get(this._parent));
   }
   auto initCustomEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, Any detail /* = null */) {
     CustomEvent_initCustomEvent(this._parent, type, bubbles, cancelable, detail.handle);
@@ -188,20 +188,20 @@ struct CustomEventInit {
     CustomEventInit_detail_Set(this._parent, detail.handle);
   }
   auto detail() {
-    return Any(CustomEventInit_detail_Get(this._parent));
+    return Any(JsHandle(CustomEventInit_detail_Get(this._parent));
   }
 }
 struct DOMImplementation {
   JsHandle handle;
   alias handle this;
   auto createDocumentType(string qualifiedName, string publicId, string systemId) {
-    return DocumentType(DOMImplementation_createDocumentType(this.handle, qualifiedName, publicId, systemId));
+    return DocumentType(JsHandle(DOMImplementation_createDocumentType(this.handle, qualifiedName, publicId, systemId));
   }
   auto createDocument(Optional!(string) namespace, string qualifiedName, Optional!(DocumentType) doctype /* = no!(DocumentType) */) {
-    return XMLDocument(DOMImplementation_createDocument(this.handle, !namespace.empty, namespace.front, qualifiedName, !doctype.empty, doctype.front.handle));
+    return XMLDocument(JsHandle(DOMImplementation_createDocument(this.handle, !namespace.empty, namespace.front, qualifiedName, !doctype.empty, doctype.front.handle));
   }
   auto createHTMLDocument(string title) {
-    return Document(DOMImplementation_createHTMLDocument(this.handle, title));
+    return Document(JsHandle(DOMImplementation_createHTMLDocument(this.handle, title));
   }
   auto hasFeature() {
     return DOMImplementation_hasFeature(this.handle);
@@ -248,7 +248,7 @@ struct Document {
     _parent = Node(h);
   }
   auto implementation() {
-    return DOMImplementation(Document_implementation_Get(this._parent));
+    return DOMImplementation(JsHandle(Document_implementation_Get(this._parent));
   }
   auto URL() {
     return Document_URL_Get(this._parent);
@@ -281,58 +281,58 @@ struct Document {
     return Document_documentElement_Get(this._parent);
   }
   auto getElementsByTagName(string qualifiedName) {
-    return HTMLCollection(Document_getElementsByTagName(this._parent, qualifiedName));
+    return HTMLCollection(JsHandle(Document_getElementsByTagName(this._parent, qualifiedName));
   }
   auto getElementsByTagNameNS(Optional!(string) namespace, string localName) {
-    return HTMLCollection(Document_getElementsByTagNameNS(this._parent, !namespace.empty, namespace.front, localName));
+    return HTMLCollection(JsHandle(Document_getElementsByTagNameNS(this._parent, !namespace.empty, namespace.front, localName));
   }
   auto getElementsByClassName(string classNames) {
-    return HTMLCollection(Document_getElementsByClassName(this._parent, classNames));
+    return HTMLCollection(JsHandle(Document_getElementsByClassName(this._parent, classNames));
   }
   auto createElement(string localName, SumType!(string, ElementCreationOptions) options) {
-    return Element(Document_createElement(this._parent, localName, options));
+    return Element(JsHandle(Document_createElement(this._parent, localName, options));
   }
   auto createElementNS(Optional!(string) namespace, string qualifiedName, SumType!(string, ElementCreationOptions) options) {
-    return Element(Document_createElementNS(this._parent, !namespace.empty, namespace.front, qualifiedName, options));
+    return Element(JsHandle(Document_createElementNS(this._parent, !namespace.empty, namespace.front, qualifiedName, options));
   }
   auto createDocumentFragment() {
-    return DocumentFragment(Document_createDocumentFragment(this._parent));
+    return DocumentFragment(JsHandle(Document_createDocumentFragment(this._parent));
   }
   auto createTextNode(string data) {
-    return Text(Document_createTextNode(this._parent, data));
+    return Text(JsHandle(Document_createTextNode(this._parent, data));
   }
   auto createCDATASection(string data) {
-    return CDATASection(Document_createCDATASection(this._parent, data));
+    return CDATASection(JsHandle(Document_createCDATASection(this._parent, data));
   }
   auto createComment(string data) {
-    return Comment(Document_createComment(this._parent, data));
+    return Comment(JsHandle(Document_createComment(this._parent, data));
   }
   auto createProcessingInstruction(string target, string data) {
-    return ProcessingInstruction(Document_createProcessingInstruction(this._parent, target, data));
+    return ProcessingInstruction(JsHandle(Document_createProcessingInstruction(this._parent, target, data));
   }
   auto importNode(Node node, bool deep /* = false */) {
-    return Node(Document_importNode(this._parent, node.handle, deep));
+    return Node(JsHandle(Document_importNode(this._parent, node.handle, deep));
   }
   auto adoptNode(Node node) {
-    return Node(Document_adoptNode(this._parent, node.handle));
+    return Node(JsHandle(Document_adoptNode(this._parent, node.handle));
   }
   auto createAttribute(string localName) {
-    return Attr(Document_createAttribute(this._parent, localName));
+    return Attr(JsHandle(Document_createAttribute(this._parent, localName));
   }
   auto createAttributeNS(Optional!(string) namespace, string qualifiedName) {
-    return Attr(Document_createAttributeNS(this._parent, !namespace.empty, namespace.front, qualifiedName));
+    return Attr(JsHandle(Document_createAttributeNS(this._parent, !namespace.empty, namespace.front, qualifiedName));
   }
   auto createEvent(string interface_) {
-    return Event(Document_createEvent(this._parent, interface_));
+    return Event(JsHandle(Document_createEvent(this._parent, interface_));
   }
   auto createRange() {
-    return Range(Document_createRange(this._parent));
+    return Range(JsHandle(Document_createRange(this._parent));
   }
   auto createNodeIterator(Node root, uint whatToShow /* = 0xFFFFFFFF */, Optional!(NodeFilter) filter /* = no!(NodeFilter) */) {
-    return NodeIterator(Document_createNodeIterator(this._parent, root.handle, whatToShow, !filter.empty, filter.front.handle));
+    return NodeIterator(JsHandle(Document_createNodeIterator(this._parent, root.handle, whatToShow, !filter.empty, filter.front.handle));
   }
   auto createTreeWalker(Node root, uint whatToShow /* = 0xFFFFFFFF */, Optional!(NodeFilter) filter /* = no!(NodeFilter) */) {
-    return TreeWalker(Document_createTreeWalker(this._parent, root.handle, whatToShow, !filter.empty, filter.front.handle));
+    return TreeWalker(JsHandle(Document_createTreeWalker(this._parent, root.handle, whatToShow, !filter.empty, filter.front.handle));
   }
   auto location() {
     return Document_location_Get(this._parent);
@@ -380,31 +380,31 @@ struct Document {
     return Document_head_Get(this._parent);
   }
   auto images() {
-    return HTMLCollection(Document_images_Get(this._parent));
+    return HTMLCollection(JsHandle(Document_images_Get(this._parent));
   }
   auto embeds() {
-    return HTMLCollection(Document_embeds_Get(this._parent));
+    return HTMLCollection(JsHandle(Document_embeds_Get(this._parent));
   }
   auto plugins() {
-    return HTMLCollection(Document_plugins_Get(this._parent));
+    return HTMLCollection(JsHandle(Document_plugins_Get(this._parent));
   }
   auto links() {
-    return HTMLCollection(Document_links_Get(this._parent));
+    return HTMLCollection(JsHandle(Document_links_Get(this._parent));
   }
   auto forms() {
-    return HTMLCollection(Document_forms_Get(this._parent));
+    return HTMLCollection(JsHandle(Document_forms_Get(this._parent));
   }
   auto scripts() {
-    return HTMLCollection(Document_scripts_Get(this._parent));
+    return HTMLCollection(JsHandle(Document_scripts_Get(this._parent));
   }
   auto getElementsByName(string elementName) {
-    return NodeList(Document_getElementsByName(this._parent, elementName));
+    return NodeList(JsHandle(Document_getElementsByName(this._parent, elementName));
   }
   auto currentScript() {
     return Document_currentScript_Get(this._parent);
   }
   auto open(string unused1, string unused2) {
-    return Document(Document_open__string_string(this._parent, unused1, unused2));
+    return Document(JsHandle(Document_open__string_string(this._parent, unused1, unused2));
   }
   auto open(string url, string name, string features) {
     return Document_open__string_string_string(this._parent, url, name, features);
@@ -488,10 +488,10 @@ struct Document {
     return Document_bgColor_Get(this._parent);
   }
   auto anchors() {
-    return HTMLCollection(Document_anchors_Get(this._parent));
+    return HTMLCollection(JsHandle(Document_anchors_Get(this._parent));
   }
   auto applets() {
-    return HTMLCollection(Document_applets_Get(this._parent));
+    return HTMLCollection(JsHandle(Document_applets_Get(this._parent));
   }
   auto clear() {
     Document_clear(this._parent);
@@ -503,7 +503,7 @@ struct Document {
     Document_releaseEvents(this._parent);
   }
   auto all() {
-    return HTMLAllCollection(Document_all_Get(this._parent));
+    return HTMLAllCollection(JsHandle(Document_all_Get(this._parent));
   }
   auto hidden() {
     return Document_hidden_Get(this._parent);
@@ -524,7 +524,7 @@ struct Document {
     return Document_fullscreen_Get(this._parent);
   }
   auto exitFullscreen() {
-    return Promise!(void)(Document_exitFullscreen(this._parent));
+    return Promise!(void)(JsHandle(Document_exitFullscreen(this._parent));
   }
   auto onfullscreenchange(EventHandler onfullscreenchange) {
     Document_onfullscreenchange_Set(this._parent, onfullscreenchange);
@@ -548,7 +548,7 @@ struct Document {
     return DocumentOrShadowRoot_fullscreenElement_Get(this.handle);
   }
   auto children() {
-    return HTMLCollection(ParentNode_children_Get(this.handle));
+    return HTMLCollection(JsHandle(ParentNode_children_Get(this.handle));
   }
   auto firstElementChild() {
     return ParentNode_firstElementChild_Get(this.handle);
@@ -569,7 +569,7 @@ struct Document {
     return ParentNode_querySelector(this.handle, selectors);
   }
   auto querySelectorAll(string selectors) {
-    return NodeList(ParentNode_querySelectorAll(this.handle, selectors));
+    return NodeList(JsHandle(ParentNode_querySelectorAll(this.handle, selectors));
   }
   auto ongotpointercapture(EventHandler ongotpointercapture) {
     GlobalEventHandlers_ongotpointercapture_Set(this.handle, ongotpointercapture);
@@ -666,7 +666,7 @@ struct DocumentFragment {
     return NonElementParentNode_getElementById(this.handle, elementId);
   }
   auto children() {
-    return HTMLCollection(ParentNode_children_Get(this.handle));
+    return HTMLCollection(JsHandle(ParentNode_children_Get(this.handle));
   }
   auto firstElementChild() {
     return ParentNode_firstElementChild_Get(this.handle);
@@ -687,7 +687,7 @@ struct DocumentFragment {
     return ParentNode_querySelector(this.handle, selectors);
   }
   auto querySelectorAll(string selectors) {
-    return NodeList(ParentNode_querySelectorAll(this.handle, selectors));
+    return NodeList(JsHandle(ParentNode_querySelectorAll(this.handle, selectors));
   }
 }
 struct DocumentType {
@@ -749,7 +749,7 @@ struct Element {
     return Element_className_Get(this._parent);
   }
   auto classList() {
-    return DOMTokenList(Element_classList_Get(this._parent));
+    return DOMTokenList(JsHandle(Element_classList_Get(this._parent));
   }
   auto slot(string slot) {
     Element_slot_Set(this._parent, slot);
@@ -761,10 +761,10 @@ struct Element {
     return Element_hasAttributes(this._parent);
   }
   auto attributes() {
-    return NamedNodeMap(Element_attributes_Get(this._parent));
+    return NamedNodeMap(JsHandle(Element_attributes_Get(this._parent));
   }
   auto getAttributeNames() {
-    return Sequence!(string)(Element_getAttributeNames(this._parent));
+    return Sequence!(string)(JsHandle(Element_getAttributeNames(this._parent));
   }
   auto getAttribute(string qualifiedName) {
     return Element_getAttribute(this._parent, qualifiedName);
@@ -806,10 +806,10 @@ struct Element {
     return Element_setAttributeNodeNS(this._parent, attr.handle);
   }
   auto removeAttributeNode(Attr attr) {
-    return Attr(Element_removeAttributeNode(this._parent, attr.handle));
+    return Attr(JsHandle(Element_removeAttributeNode(this._parent, attr.handle));
   }
   auto attachShadow(ShadowRootInit init) {
-    return ShadowRoot(Element_attachShadow(this._parent, init.handle));
+    return ShadowRoot(JsHandle(Element_attachShadow(this._parent, init.handle));
   }
   auto shadowRoot() {
     return Element_shadowRoot_Get(this._parent);
@@ -824,13 +824,13 @@ struct Element {
     return Element_webkitMatchesSelector(this._parent, selectors);
   }
   auto getElementsByTagName(string qualifiedName) {
-    return HTMLCollection(Element_getElementsByTagName(this._parent, qualifiedName));
+    return HTMLCollection(JsHandle(Element_getElementsByTagName(this._parent, qualifiedName));
   }
   auto getElementsByTagNameNS(Optional!(string) namespace, string localName) {
-    return HTMLCollection(Element_getElementsByTagNameNS(this._parent, !namespace.empty, namespace.front, localName));
+    return HTMLCollection(JsHandle(Element_getElementsByTagNameNS(this._parent, !namespace.empty, namespace.front, localName));
   }
   auto getElementsByClassName(string classNames) {
-    return HTMLCollection(Element_getElementsByClassName(this._parent, classNames));
+    return HTMLCollection(JsHandle(Element_getElementsByClassName(this._parent, classNames));
   }
   auto insertAdjacentElement(string where, Element element) {
     return Element_insertAdjacentElement(this._parent, where, element.handle);
@@ -848,7 +848,7 @@ struct Element {
     return Element_hasPointerCapture(this._parent, pointerId);
   }
   auto requestFullscreen(FullscreenOptions options) {
-    return Promise!(void)(Element_requestFullscreen(this._parent, options.handle));
+    return Promise!(void)(JsHandle(Element_requestFullscreen(this._parent, options.handle));
   }
   auto onfullscreenchange(EventHandler onfullscreenchange) {
     Element_onfullscreenchange_Set(this._parent, onfullscreenchange);
@@ -863,7 +863,7 @@ struct Element {
     return Element_onfullscreenerror_Get(this._parent);
   }
   auto children() {
-    return HTMLCollection(ParentNode_children_Get(this.handle));
+    return HTMLCollection(JsHandle(ParentNode_children_Get(this.handle));
   }
   auto firstElementChild() {
     return ParentNode_firstElementChild_Get(this.handle);
@@ -884,7 +884,7 @@ struct Element {
     return ParentNode_querySelector(this.handle, selectors);
   }
   auto querySelectorAll(string selectors) {
-    return NodeList(ParentNode_querySelectorAll(this.handle, selectors));
+    return NodeList(JsHandle(ParentNode_querySelectorAll(this.handle, selectors));
   }
   auto previousElementSibling() {
     return NonDocumentTypeChildNode_previousElementSibling_Get(this.handle);
@@ -934,7 +934,7 @@ struct Event {
     return Event_currentTarget_Get(this.handle);
   }
   auto composedPath() {
-    return Sequence!(EventTarget)(Event_composedPath(this.handle));
+    return Sequence!(EventTarget)(JsHandle(Event_composedPath(this.handle));
   }
   enum ushort NONE = 0;
   enum ushort CAPTURING_PHASE = 1;
@@ -1072,7 +1072,7 @@ struct MutationObserver {
     MutationObserver_disconnect(this.handle);
   }
   auto takeRecords() {
-    return Sequence!(MutationRecord)(MutationObserver_takeRecords(this.handle));
+    return Sequence!(MutationRecord)(JsHandle(MutationObserver_takeRecords(this.handle));
   }
 }
 struct MutationObserverInit {
@@ -1118,7 +1118,7 @@ struct MutationObserverInit {
     MutationObserverInit_attributeFilter_Set(this.handle, attributeFilter.handle);
   }
   auto attributeFilter() {
-    return Sequence!(string)(MutationObserverInit_attributeFilter_Get(this.handle));
+    return Sequence!(string)(JsHandle(MutationObserverInit_attributeFilter_Get(this.handle));
   }
 }
 struct MutationRecord {
@@ -1128,13 +1128,13 @@ struct MutationRecord {
     return MutationRecord_type_Get(this.handle);
   }
   auto target() {
-    return Node(MutationRecord_target_Get(this.handle));
+    return Node(JsHandle(MutationRecord_target_Get(this.handle));
   }
   auto addedNodes() {
-    return NodeList(MutationRecord_addedNodes_Get(this.handle));
+    return NodeList(JsHandle(MutationRecord_addedNodes_Get(this.handle));
   }
   auto removedNodes() {
-    return NodeList(MutationRecord_removedNodes_Get(this.handle));
+    return NodeList(JsHandle(MutationRecord_removedNodes_Get(this.handle));
   }
   auto previousSibling() {
     return MutationRecord_previousSibling_Get(this.handle);
@@ -1174,10 +1174,10 @@ struct NamedNodeMap {
     return NamedNodeMap_setNamedItemNS(this.handle, attr.handle);
   }
   auto removeNamedItem(string qualifiedName) {
-    return Attr(NamedNodeMap_removeNamedItem(this.handle, qualifiedName));
+    return Attr(JsHandle(NamedNodeMap_removeNamedItem(this.handle, qualifiedName));
   }
   auto removeNamedItemNS(Optional!(string) namespace, string localName) {
-    return Attr(NamedNodeMap_removeNamedItemNS(this.handle, !namespace.empty, namespace.front, localName));
+    return Attr(JsHandle(NamedNodeMap_removeNamedItemNS(this.handle, !namespace.empty, namespace.front, localName));
   }
 }
 struct Node {
@@ -1214,7 +1214,7 @@ struct Node {
     return Node_ownerDocument_Get(this._parent);
   }
   auto getRootNode(GetRootNodeOptions options) {
-    return Node(Node_getRootNode(this._parent, options.handle));
+    return Node(JsHandle(Node_getRootNode(this._parent, options.handle));
   }
   auto parentNode() {
     return Node_parentNode_Get(this._parent);
@@ -1226,7 +1226,7 @@ struct Node {
     return Node_hasChildNodes(this._parent);
   }
   auto childNodes() {
-    return NodeList(Node_childNodes_Get(this._parent));
+    return NodeList(JsHandle(Node_childNodes_Get(this._parent));
   }
   auto firstChild() {
     return Node_firstChild_Get(this._parent);
@@ -1256,7 +1256,7 @@ struct Node {
     Node_normalize(this._parent);
   }
   auto cloneNode(bool deep /* = false */) {
-    return Node(Node_cloneNode(this._parent, deep));
+    return Node(JsHandle(Node_cloneNode(this._parent, deep));
   }
   auto isEqualNode(Optional!(Node) otherNode) {
     return Node_isEqualNode(this._parent, !otherNode.empty, otherNode.front.handle);
@@ -1286,16 +1286,16 @@ struct Node {
     return Node_isDefaultNamespace(this._parent, !namespace.empty, namespace.front);
   }
   auto insertBefore(Node node, Optional!(Node) child) {
-    return Node(Node_insertBefore(this._parent, node.handle, !child.empty, child.front.handle));
+    return Node(JsHandle(Node_insertBefore(this._parent, node.handle, !child.empty, child.front.handle));
   }
   auto appendChild(Node node) {
-    return Node(Node_appendChild(this._parent, node.handle));
+    return Node(JsHandle(Node_appendChild(this._parent, node.handle));
   }
   auto replaceChild(Node node, Node child) {
-    return Node(Node_replaceChild(this._parent, node.handle, child.handle));
+    return Node(JsHandle(Node_replaceChild(this._parent, node.handle, child.handle));
   }
   auto removeChild(Node child) {
-    return Node(Node_removeChild(this._parent, child.handle));
+    return Node(JsHandle(Node_removeChild(this._parent, child.handle));
   }
 }
 struct NodeFilter {
@@ -1325,10 +1325,10 @@ struct NodeIterator {
   JsHandle handle;
   alias handle this;
   auto root() {
-    return Node(NodeIterator_root_Get(this.handle));
+    return Node(JsHandle(NodeIterator_root_Get(this.handle));
   }
   auto referenceNode() {
-    return Node(NodeIterator_referenceNode_Get(this.handle));
+    return Node(JsHandle(NodeIterator_referenceNode_Get(this.handle));
   }
   auto pointerBeforeReferenceNode() {
     return NodeIterator_pointerBeforeReferenceNode_Get(this.handle);
@@ -1376,7 +1376,7 @@ struct Range {
     _parent = AbstractRange(h);
   }
   auto commonAncestorContainer() {
-    return Node(Range_commonAncestorContainer_Get(this._parent));
+    return Node(JsHandle(Range_commonAncestorContainer_Get(this._parent));
   }
   auto setStart(Node node, uint offset) {
     Range_setStart(this._parent, node.handle, offset);
@@ -1416,10 +1416,10 @@ struct Range {
     Range_deleteContents(this._parent);
   }
   auto extractContents() {
-    return DocumentFragment(Range_extractContents(this._parent));
+    return DocumentFragment(JsHandle(Range_extractContents(this._parent));
   }
   auto cloneContents() {
-    return DocumentFragment(Range_cloneContents(this._parent));
+    return DocumentFragment(JsHandle(Range_cloneContents(this._parent));
   }
   auto insertNode(Node node) {
     Range_insertNode(this._parent, node.handle);
@@ -1428,7 +1428,7 @@ struct Range {
     Range_surroundContents(this._parent, newParent.handle);
   }
   auto cloneRange() {
-    return Range(Range_cloneRange(this._parent));
+    return Range(JsHandle(Range_cloneRange(this._parent));
   }
   auto detach() {
     Range_detach(this._parent);
@@ -1453,7 +1453,7 @@ struct ShadowRoot {
     return ShadowRoot_mode_Get(this._parent);
   }
   auto host() {
-    return Element(ShadowRoot_host_Get(this._parent));
+    return Element(JsHandle(ShadowRoot_host_Get(this._parent));
   }
   auto fullscreenElement() {
     return DocumentOrShadowRoot_fullscreenElement_Get(this.handle);
@@ -1487,7 +1487,7 @@ struct Text {
     _parent = CharacterData(h);
   }
   auto splitText(uint offset) {
-    return Text(Text_splitText(this._parent, offset));
+    return Text(JsHandle(Text_splitText(this._parent, offset));
   }
   auto wholeText() {
     return Text_wholeText_Get(this._parent);
@@ -1500,7 +1500,7 @@ struct TreeWalker {
   JsHandle handle;
   alias handle this;
   auto root() {
-    return Node(TreeWalker_root_Get(this.handle));
+    return Node(JsHandle(TreeWalker_root_Get(this.handle));
   }
   auto whatToShow() {
     return TreeWalker_whatToShow_Get(this.handle);
@@ -1512,7 +1512,7 @@ struct TreeWalker {
     TreeWalker_currentNode_Set(this.handle, currentNode.handle);
   }
   auto currentNode() {
-    return Node(TreeWalker_currentNode_Get(this.handle));
+    return Node(JsHandle(TreeWalker_currentNode_Get(this.handle));
   }
   auto parentNode() {
     return TreeWalker_parentNode(this.handle);
@@ -1545,370 +1545,370 @@ struct XMLDocument {
 }
 
 
-extern (C) JsHandle AbortController_signal_Get(JsHandle);
-extern (C) void AbortController_abort(JsHandle);
-extern (C) bool AbortSignal_aborted_Get(JsHandle);
-extern (C) void AbortSignal_onabort_Set(JsHandle, EventHandler);
-extern (C) EventHandler AbortSignal_onabort_Get(JsHandle);
-extern (C) JsHandle AbstractRange_startContainer_Get(JsHandle);
-extern (C) uint AbstractRange_startOffset_Get(JsHandle);
-extern (C) JsHandle AbstractRange_endContainer_Get(JsHandle);
-extern (C) uint AbstractRange_endOffset_Get(JsHandle);
-extern (C) bool AbstractRange_collapsed_Get(JsHandle);
-extern (C) void AddEventListenerOptions_passive_Set(JsHandle, bool);
-extern (C) bool AddEventListenerOptions_passive_Get(JsHandle);
-extern (C) void AddEventListenerOptions_once_Set(JsHandle, bool);
-extern (C) bool AddEventListenerOptions_once_Get(JsHandle);
-extern (C) Optional!(string) Attr_namespaceURI_Get(JsHandle);
-extern (C) Optional!(string) Attr_prefix_Get(JsHandle);
-extern (C) string Attr_localName_Get(JsHandle);
-extern (C) string Attr_name_Get(JsHandle);
-extern (C) void Attr_value_Set(JsHandle, string);
-extern (C) string Attr_value_Get(JsHandle);
-extern (C) Optional!(Element) Attr_ownerElement_Get(JsHandle);
-extern (C) bool Attr_specified_Get(JsHandle);
-extern (C) void CharacterData_data_Set(JsHandle, string);
-extern (C) string CharacterData_data_Get(JsHandle);
-extern (C) uint CharacterData_length_Get(JsHandle);
-extern (C) string CharacterData_substringData(JsHandle, uint, uint);
-extern (C) void CharacterData_appendData(JsHandle, string);
-extern (C) void CharacterData_insertData(JsHandle, uint, string);
-extern (C) void CharacterData_deleteData(JsHandle, uint, uint);
-extern (C) void CharacterData_replaceData(JsHandle, uint, uint, string);
-extern (C) void ChildNode_before(JsHandle, SumType!(Node, string));
-extern (C) void ChildNode_after(JsHandle, SumType!(Node, string));
-extern (C) void ChildNode_replaceWith(JsHandle, SumType!(Node, string));
-extern (C) void ChildNode_remove(JsHandle);
-extern (C) JsHandle CustomEvent_detail_Get(JsHandle);
-extern (C) void CustomEvent_initCustomEvent(JsHandle, string, bool, bool, JsHandle);
-extern (C) void CustomEventInit_detail_Set(JsHandle, JsHandle);
-extern (C) JsHandle CustomEventInit_detail_Get(JsHandle);
-extern (C) JsHandle DOMImplementation_createDocumentType(JsHandle, string, string, string);
-extern (C) JsHandle DOMImplementation_createDocument(JsHandle, bool, string, string, bool, JsHandle);
-extern (C) JsHandle DOMImplementation_createHTMLDocument(JsHandle, string);
-extern (C) bool DOMImplementation_hasFeature(JsHandle);
-extern (C) uint DOMTokenList_length_Get(JsHandle);
-extern (C) Optional!(string) DOMTokenList_item_getter(JsHandle, uint);
-extern (C) bool DOMTokenList_contains(JsHandle, string);
-extern (C) void DOMTokenList_add(JsHandle, string);
-extern (C) void DOMTokenList_remove(JsHandle, string);
-extern (C) bool DOMTokenList_toggle(JsHandle, string, bool);
-extern (C) bool DOMTokenList_replace(JsHandle, string, string);
-extern (C) bool DOMTokenList_supports(JsHandle, string);
-extern (C) void DOMTokenList_value_Set(JsHandle, string);
-extern (C) string DOMTokenList_value_Get(JsHandle);
-extern (C) JsHandle Document_implementation_Get(JsHandle);
-extern (C) string Document_URL_Get(JsHandle);
-extern (C) string Document_documentURI_Get(JsHandle);
-extern (C) string Document_origin_Get(JsHandle);
-extern (C) string Document_compatMode_Get(JsHandle);
-extern (C) string Document_characterSet_Get(JsHandle);
-extern (C) string Document_charset_Get(JsHandle);
-extern (C) string Document_inputEncoding_Get(JsHandle);
-extern (C) string Document_contentType_Get(JsHandle);
-extern (C) Optional!(DocumentType) Document_doctype_Get(JsHandle);
-extern (C) Optional!(Element) Document_documentElement_Get(JsHandle);
-extern (C) JsHandle Document_getElementsByTagName(JsHandle, string);
-extern (C) JsHandle Document_getElementsByTagNameNS(JsHandle, bool, string, string);
-extern (C) JsHandle Document_getElementsByClassName(JsHandle, string);
-extern (C) JsHandle Document_createElement(JsHandle, string, SumType!(string, ElementCreationOptions));
-extern (C) JsHandle Document_createElementNS(JsHandle, bool, string, string, SumType!(string, ElementCreationOptions));
-extern (C) JsHandle Document_createDocumentFragment(JsHandle);
-extern (C) JsHandle Document_createTextNode(JsHandle, string);
-extern (C) JsHandle Document_createCDATASection(JsHandle, string);
-extern (C) JsHandle Document_createComment(JsHandle, string);
-extern (C) JsHandle Document_createProcessingInstruction(JsHandle, string, string);
-extern (C) JsHandle Document_importNode(JsHandle, JsHandle, bool);
-extern (C) JsHandle Document_adoptNode(JsHandle, JsHandle);
-extern (C) JsHandle Document_createAttribute(JsHandle, string);
-extern (C) JsHandle Document_createAttributeNS(JsHandle, bool, string, string);
-extern (C) JsHandle Document_createEvent(JsHandle, string);
-extern (C) JsHandle Document_createRange(JsHandle);
-extern (C) JsHandle Document_createNodeIterator(JsHandle, JsHandle, uint, bool, JsHandle);
-extern (C) JsHandle Document_createTreeWalker(JsHandle, JsHandle, uint, bool, JsHandle);
-extern (C) Optional!(Location) Document_location_Get(JsHandle);
-extern (C) void Document_domain_Set(JsHandle, string);
-extern (C) string Document_domain_Get(JsHandle);
-extern (C) string Document_referrer_Get(JsHandle);
-extern (C) void Document_cookie_Set(JsHandle, string);
-extern (C) string Document_cookie_Get(JsHandle);
-extern (C) string Document_lastModified_Get(JsHandle);
-extern (C) DocumentReadyState Document_readyState_Get(JsHandle);
-extern (C) void Document_title_Set(JsHandle, string);
-extern (C) string Document_title_Get(JsHandle);
-extern (C) void Document_dir_Set(JsHandle, string);
-extern (C) string Document_dir_Get(JsHandle);
-extern (C) void Document_body_Set(JsHandle, bool, JsHandle);
-extern (C) Optional!(HTMLElement) Document_body_Get(JsHandle);
-extern (C) Optional!(HTMLHeadElement) Document_head_Get(JsHandle);
-extern (C) JsHandle Document_images_Get(JsHandle);
-extern (C) JsHandle Document_embeds_Get(JsHandle);
-extern (C) JsHandle Document_plugins_Get(JsHandle);
-extern (C) JsHandle Document_links_Get(JsHandle);
-extern (C) JsHandle Document_forms_Get(JsHandle);
-extern (C) JsHandle Document_scripts_Get(JsHandle);
-extern (C) JsHandle Document_getElementsByName(JsHandle, string);
-extern (C) Optional!(HTMLOrSVGScriptElement) Document_currentScript_Get(JsHandle);
-extern (C) JsHandle Document_open__string_string(JsHandle, string, string);
-extern (C) Optional!(Window) Document_open__string_string_string(JsHandle, string, string, string);
-extern (C) void Document_close(JsHandle);
-extern (C) void Document_write(JsHandle, string);
-extern (C) void Document_writeln(JsHandle, string);
-extern (C) Optional!(Window) Document_defaultView_Get(JsHandle);
-extern (C) Optional!(Element) Document_activeElement_Get(JsHandle);
-extern (C) bool Document_hasFocus(JsHandle);
-extern (C) void Document_designMode_Set(JsHandle, string);
-extern (C) string Document_designMode_Get(JsHandle);
-extern (C) bool Document_execCommand(JsHandle, string, bool, string);
-extern (C) bool Document_queryCommandEnabled(JsHandle, string);
-extern (C) bool Document_queryCommandIndeterm(JsHandle, string);
-extern (C) bool Document_queryCommandState(JsHandle, string);
-extern (C) bool Document_queryCommandSupported(JsHandle, string);
-extern (C) string Document_queryCommandValue(JsHandle, string);
-extern (C) void Document_onreadystatechange_Set(JsHandle, EventHandler);
-extern (C) EventHandler Document_onreadystatechange_Get(JsHandle);
-extern (C) void Document_fgColor_Set(JsHandle, string);
-extern (C) string Document_fgColor_Get(JsHandle);
-extern (C) void Document_linkColor_Set(JsHandle, string);
-extern (C) string Document_linkColor_Get(JsHandle);
-extern (C) void Document_vlinkColor_Set(JsHandle, string);
-extern (C) string Document_vlinkColor_Get(JsHandle);
-extern (C) void Document_alinkColor_Set(JsHandle, string);
-extern (C) string Document_alinkColor_Get(JsHandle);
-extern (C) void Document_bgColor_Set(JsHandle, string);
-extern (C) string Document_bgColor_Get(JsHandle);
-extern (C) JsHandle Document_anchors_Get(JsHandle);
-extern (C) JsHandle Document_applets_Get(JsHandle);
-extern (C) void Document_clear(JsHandle);
-extern (C) void Document_captureEvents(JsHandle);
-extern (C) void Document_releaseEvents(JsHandle);
-extern (C) JsHandle Document_all_Get(JsHandle);
-extern (C) bool Document_hidden_Get(JsHandle);
-extern (C) VisibilityState Document_visibilityState_Get(JsHandle);
-extern (C) void Document_onvisibilitychange_Set(JsHandle, EventHandler);
-extern (C) EventHandler Document_onvisibilitychange_Get(JsHandle);
-extern (C) bool Document_fullscreenEnabled_Get(JsHandle);
-extern (C) bool Document_fullscreen_Get(JsHandle);
-extern (C) JsHandle Document_exitFullscreen(JsHandle);
-extern (C) void Document_onfullscreenchange_Set(JsHandle, EventHandler);
-extern (C) EventHandler Document_onfullscreenchange_Get(JsHandle);
-extern (C) void Document_onfullscreenerror_Set(JsHandle, EventHandler);
-extern (C) EventHandler Document_onfullscreenerror_Get(JsHandle);
-extern (C) Optional!(SVGSVGElement) Document_rootElement_Get(JsHandle);
-extern (C) Optional!(Element) DocumentOrShadowRoot_fullscreenElement_Get(JsHandle);
-extern (C) string DocumentType_name_Get(JsHandle);
-extern (C) string DocumentType_publicId_Get(JsHandle);
-extern (C) string DocumentType_systemId_Get(JsHandle);
-extern (C) Optional!(string) Element_namespaceURI_Get(JsHandle);
-extern (C) Optional!(string) Element_prefix_Get(JsHandle);
-extern (C) string Element_localName_Get(JsHandle);
-extern (C) string Element_tagName_Get(JsHandle);
-extern (C) void Element_id_Set(JsHandle, string);
-extern (C) string Element_id_Get(JsHandle);
-extern (C) void Element_className_Set(JsHandle, string);
-extern (C) string Element_className_Get(JsHandle);
-extern (C) JsHandle Element_classList_Get(JsHandle);
-extern (C) void Element_slot_Set(JsHandle, string);
-extern (C) string Element_slot_Get(JsHandle);
-extern (C) bool Element_hasAttributes(JsHandle);
-extern (C) JsHandle Element_attributes_Get(JsHandle);
-extern (C) JsHandle Element_getAttributeNames(JsHandle);
-extern (C) Optional!(string) Element_getAttribute(JsHandle, string);
-extern (C) Optional!(string) Element_getAttributeNS(JsHandle, bool, string, string);
-extern (C) void Element_setAttribute(JsHandle, string, string);
-extern (C) void Element_setAttributeNS(JsHandle, bool, string, string, string);
-extern (C) void Element_removeAttribute(JsHandle, string);
-extern (C) void Element_removeAttributeNS(JsHandle, bool, string, string);
-extern (C) bool Element_toggleAttribute(JsHandle, string, bool);
-extern (C) bool Element_hasAttribute(JsHandle, string);
-extern (C) bool Element_hasAttributeNS(JsHandle, bool, string, string);
-extern (C) Optional!(Attr) Element_getAttributeNode(JsHandle, string);
-extern (C) Optional!(Attr) Element_getAttributeNodeNS(JsHandle, bool, string, string);
-extern (C) Optional!(Attr) Element_setAttributeNode(JsHandle, JsHandle);
-extern (C) Optional!(Attr) Element_setAttributeNodeNS(JsHandle, JsHandle);
-extern (C) JsHandle Element_removeAttributeNode(JsHandle, JsHandle);
-extern (C) JsHandle Element_attachShadow(JsHandle, JsHandle);
-extern (C) Optional!(ShadowRoot) Element_shadowRoot_Get(JsHandle);
-extern (C) Optional!(Element) Element_closest(JsHandle, string);
-extern (C) bool Element_matches(JsHandle, string);
-extern (C) bool Element_webkitMatchesSelector(JsHandle, string);
-extern (C) JsHandle Element_getElementsByTagName(JsHandle, string);
-extern (C) JsHandle Element_getElementsByTagNameNS(JsHandle, bool, string, string);
-extern (C) JsHandle Element_getElementsByClassName(JsHandle, string);
-extern (C) Optional!(Element) Element_insertAdjacentElement(JsHandle, string, JsHandle);
-extern (C) void Element_insertAdjacentText(JsHandle, string, string);
-extern (C) void Element_setPointerCapture(JsHandle, int);
-extern (C) void Element_releasePointerCapture(JsHandle, int);
-extern (C) bool Element_hasPointerCapture(JsHandle, int);
-extern (C) JsHandle Element_requestFullscreen(JsHandle, JsHandle);
-extern (C) void Element_onfullscreenchange_Set(JsHandle, EventHandler);
-extern (C) EventHandler Element_onfullscreenchange_Get(JsHandle);
-extern (C) void Element_onfullscreenerror_Set(JsHandle, EventHandler);
-extern (C) EventHandler Element_onfullscreenerror_Get(JsHandle);
-extern (C) void ElementCreationOptions_is_Set(JsHandle, string);
-extern (C) string ElementCreationOptions_is_Get(JsHandle);
-extern (C) string Event_type_Get(JsHandle);
-extern (C) Optional!(EventTarget) Event_target_Get(JsHandle);
-extern (C) Optional!(EventTarget) Event_srcElement_Get(JsHandle);
-extern (C) Optional!(EventTarget) Event_currentTarget_Get(JsHandle);
-extern (C) JsHandle Event_composedPath(JsHandle);
-extern (C) ushort Event_eventPhase_Get(JsHandle);
-extern (C) void Event_stopPropagation(JsHandle);
-extern (C) void Event_cancelBubble_Set(JsHandle, bool);
-extern (C) bool Event_cancelBubble_Get(JsHandle);
-extern (C) void Event_stopImmediatePropagation(JsHandle);
-extern (C) bool Event_bubbles_Get(JsHandle);
-extern (C) bool Event_cancelable_Get(JsHandle);
-extern (C) void Event_returnValue_Set(JsHandle, bool);
-extern (C) bool Event_returnValue_Get(JsHandle);
-extern (C) void Event_preventDefault(JsHandle);
-extern (C) bool Event_defaultPrevented_Get(JsHandle);
-extern (C) bool Event_composed_Get(JsHandle);
-extern (C) bool Event_isTrusted_Get(JsHandle);
-extern (C) double Event_timeStamp_Get(JsHandle);
-extern (C) void Event_initEvent(JsHandle, string, bool, bool);
-extern (C) void EventInit_bubbles_Set(JsHandle, bool);
-extern (C) bool EventInit_bubbles_Get(JsHandle);
-extern (C) void EventInit_cancelable_Set(JsHandle, bool);
-extern (C) bool EventInit_cancelable_Get(JsHandle);
-extern (C) void EventInit_composed_Set(JsHandle, bool);
-extern (C) bool EventInit_composed_Get(JsHandle);
-extern (C) void EventListener_handleEvent(JsHandle, JsHandle);
-extern (C) void EventListenerOptions_capture_Set(JsHandle, bool);
-extern (C) bool EventListenerOptions_capture_Get(JsHandle);
-extern (C) void EventTarget_addEventListener(JsHandle, string, bool, JsHandle, SumType!(AddEventListenerOptions, bool));
-extern (C) void EventTarget_removeEventListener(JsHandle, string, bool, JsHandle, SumType!(EventListenerOptions, bool));
-extern (C) bool EventTarget_dispatchEvent(JsHandle, JsHandle);
-extern (C) void GetRootNodeOptions_composed_Set(JsHandle, bool);
-extern (C) bool GetRootNodeOptions_composed_Get(JsHandle);
-extern (C) uint HTMLCollection_length_Get(JsHandle);
-extern (C) Optional!(Element) HTMLCollection_item_getter(JsHandle, uint);
-extern (C) Optional!(Element) HTMLCollection_namedItem_getter(JsHandle, string);
-extern (C) void MutationObserver_observe(JsHandle, JsHandle, JsHandle);
-extern (C) void MutationObserver_disconnect(JsHandle);
-extern (C) JsHandle MutationObserver_takeRecords(JsHandle);
-extern (C) void MutationObserverInit_childList_Set(JsHandle, bool);
-extern (C) bool MutationObserverInit_childList_Get(JsHandle);
-extern (C) void MutationObserverInit_attributes_Set(JsHandle, bool);
-extern (C) bool MutationObserverInit_attributes_Get(JsHandle);
-extern (C) void MutationObserverInit_characterData_Set(JsHandle, bool);
-extern (C) bool MutationObserverInit_characterData_Get(JsHandle);
-extern (C) void MutationObserverInit_subtree_Set(JsHandle, bool);
-extern (C) bool MutationObserverInit_subtree_Get(JsHandle);
-extern (C) void MutationObserverInit_attributeOldValue_Set(JsHandle, bool);
-extern (C) bool MutationObserverInit_attributeOldValue_Get(JsHandle);
-extern (C) void MutationObserverInit_characterDataOldValue_Set(JsHandle, bool);
-extern (C) bool MutationObserverInit_characterDataOldValue_Get(JsHandle);
-extern (C) void MutationObserverInit_attributeFilter_Set(JsHandle, JsHandle);
-extern (C) JsHandle MutationObserverInit_attributeFilter_Get(JsHandle);
-extern (C) string MutationRecord_type_Get(JsHandle);
-extern (C) JsHandle MutationRecord_target_Get(JsHandle);
-extern (C) JsHandle MutationRecord_addedNodes_Get(JsHandle);
-extern (C) JsHandle MutationRecord_removedNodes_Get(JsHandle);
-extern (C) Optional!(Node) MutationRecord_previousSibling_Get(JsHandle);
-extern (C) Optional!(Node) MutationRecord_nextSibling_Get(JsHandle);
-extern (C) Optional!(string) MutationRecord_attributeName_Get(JsHandle);
-extern (C) Optional!(string) MutationRecord_attributeNamespace_Get(JsHandle);
-extern (C) Optional!(string) MutationRecord_oldValue_Get(JsHandle);
-extern (C) uint NamedNodeMap_length_Get(JsHandle);
-extern (C) Optional!(Attr) NamedNodeMap_item_getter(JsHandle, uint);
-extern (C) Optional!(Attr) NamedNodeMap_getNamedItem_getter(JsHandle, string);
-extern (C) Optional!(Attr) NamedNodeMap_getNamedItemNS(JsHandle, bool, string, string);
-extern (C) Optional!(Attr) NamedNodeMap_setNamedItem(JsHandle, JsHandle);
-extern (C) Optional!(Attr) NamedNodeMap_setNamedItemNS(JsHandle, JsHandle);
-extern (C) JsHandle NamedNodeMap_removeNamedItem(JsHandle, string);
-extern (C) JsHandle NamedNodeMap_removeNamedItemNS(JsHandle, bool, string, string);
-extern (C) ushort Node_nodeType_Get(JsHandle);
-extern (C) string Node_nodeName_Get(JsHandle);
-extern (C) string Node_baseURI_Get(JsHandle);
-extern (C) bool Node_isConnected_Get(JsHandle);
-extern (C) Optional!(Document) Node_ownerDocument_Get(JsHandle);
-extern (C) JsHandle Node_getRootNode(JsHandle, JsHandle);
-extern (C) Optional!(Node) Node_parentNode_Get(JsHandle);
-extern (C) Optional!(Element) Node_parentElement_Get(JsHandle);
-extern (C) bool Node_hasChildNodes(JsHandle);
-extern (C) JsHandle Node_childNodes_Get(JsHandle);
-extern (C) Optional!(Node) Node_firstChild_Get(JsHandle);
-extern (C) Optional!(Node) Node_lastChild_Get(JsHandle);
-extern (C) Optional!(Node) Node_previousSibling_Get(JsHandle);
-extern (C) Optional!(Node) Node_nextSibling_Get(JsHandle);
-extern (C) void Node_nodeValue_Set(JsHandle, bool, string);
-extern (C) Optional!(string) Node_nodeValue_Get(JsHandle);
-extern (C) void Node_textContent_Set(JsHandle, bool, string);
-extern (C) Optional!(string) Node_textContent_Get(JsHandle);
-extern (C) void Node_normalize(JsHandle);
-extern (C) JsHandle Node_cloneNode(JsHandle, bool);
-extern (C) bool Node_isEqualNode(JsHandle, bool, JsHandle);
-extern (C) bool Node_isSameNode(JsHandle, bool, JsHandle);
-extern (C) ushort Node_compareDocumentPosition(JsHandle, JsHandle);
-extern (C) bool Node_contains(JsHandle, bool, JsHandle);
-extern (C) Optional!(string) Node_lookupPrefix(JsHandle, bool, string);
-extern (C) Optional!(string) Node_lookupNamespaceURI(JsHandle, bool, string);
-extern (C) bool Node_isDefaultNamespace(JsHandle, bool, string);
-extern (C) JsHandle Node_insertBefore(JsHandle, JsHandle, bool, JsHandle);
-extern (C) JsHandle Node_appendChild(JsHandle, JsHandle);
-extern (C) JsHandle Node_replaceChild(JsHandle, JsHandle, JsHandle);
-extern (C) JsHandle Node_removeChild(JsHandle, JsHandle);
-extern (C) ushort NodeFilter_acceptNode(JsHandle, JsHandle);
-extern (C) JsHandle NodeIterator_root_Get(JsHandle);
-extern (C) JsHandle NodeIterator_referenceNode_Get(JsHandle);
-extern (C) bool NodeIterator_pointerBeforeReferenceNode_Get(JsHandle);
-extern (C) uint NodeIterator_whatToShow_Get(JsHandle);
-extern (C) Optional!(NodeFilter) NodeIterator_filter_Get(JsHandle);
-extern (C) Optional!(Node) NodeIterator_nextNode(JsHandle);
-extern (C) Optional!(Node) NodeIterator_previousNode(JsHandle);
-extern (C) void NodeIterator_detach(JsHandle);
-extern (C) Optional!(Node) NodeList_item_getter(JsHandle, uint);
-extern (C) uint NodeList_length_Get(JsHandle);
-extern (C) Optional!(Element) NonDocumentTypeChildNode_previousElementSibling_Get(JsHandle);
-extern (C) Optional!(Element) NonDocumentTypeChildNode_nextElementSibling_Get(JsHandle);
-extern (C) Optional!(Element) NonElementParentNode_getElementById(JsHandle, string);
-extern (C) JsHandle ParentNode_children_Get(JsHandle);
-extern (C) Optional!(Element) ParentNode_firstElementChild_Get(JsHandle);
-extern (C) Optional!(Element) ParentNode_lastElementChild_Get(JsHandle);
-extern (C) uint ParentNode_childElementCount_Get(JsHandle);
-extern (C) void ParentNode_prepend(JsHandle, SumType!(Node, string));
-extern (C) void ParentNode_append(JsHandle, SumType!(Node, string));
-extern (C) Optional!(Element) ParentNode_querySelector(JsHandle, string);
-extern (C) JsHandle ParentNode_querySelectorAll(JsHandle, string);
-extern (C) string ProcessingInstruction_target_Get(JsHandle);
-extern (C) JsHandle Range_commonAncestorContainer_Get(JsHandle);
-extern (C) void Range_setStart(JsHandle, JsHandle, uint);
-extern (C) void Range_setEnd(JsHandle, JsHandle, uint);
-extern (C) void Range_setStartBefore(JsHandle, JsHandle);
-extern (C) void Range_setStartAfter(JsHandle, JsHandle);
-extern (C) void Range_setEndBefore(JsHandle, JsHandle);
-extern (C) void Range_setEndAfter(JsHandle, JsHandle);
-extern (C) void Range_collapse(JsHandle, bool);
-extern (C) void Range_selectNode(JsHandle, JsHandle);
-extern (C) void Range_selectNodeContents(JsHandle, JsHandle);
-extern (C) short Range_compareBoundaryPoints(JsHandle, ushort, JsHandle);
-extern (C) void Range_deleteContents(JsHandle);
-extern (C) JsHandle Range_extractContents(JsHandle);
-extern (C) JsHandle Range_cloneContents(JsHandle);
-extern (C) void Range_insertNode(JsHandle, JsHandle);
-extern (C) void Range_surroundContents(JsHandle, JsHandle);
-extern (C) JsHandle Range_cloneRange(JsHandle);
-extern (C) void Range_detach(JsHandle);
-extern (C) bool Range_isPointInRange(JsHandle, JsHandle, uint);
-extern (C) short Range_comparePoint(JsHandle, JsHandle, uint);
-extern (C) bool Range_intersectsNode(JsHandle, JsHandle);
-extern (C) ShadowRootMode ShadowRoot_mode_Get(JsHandle);
-extern (C) JsHandle ShadowRoot_host_Get(JsHandle);
-extern (C) void ShadowRootInit_mode_Set(JsHandle, ShadowRootMode);
-extern (C) ShadowRootMode ShadowRootInit_mode_Get(JsHandle);
-extern (C) Optional!(HTMLSlotElement) Slotable_assignedSlot_Get(JsHandle);
-extern (C) JsHandle Text_splitText(JsHandle, uint);
-extern (C) string Text_wholeText_Get(JsHandle);
-extern (C) JsHandle TreeWalker_root_Get(JsHandle);
-extern (C) uint TreeWalker_whatToShow_Get(JsHandle);
-extern (C) Optional!(NodeFilter) TreeWalker_filter_Get(JsHandle);
-extern (C) void TreeWalker_currentNode_Set(JsHandle, JsHandle);
-extern (C) JsHandle TreeWalker_currentNode_Get(JsHandle);
-extern (C) Optional!(Node) TreeWalker_parentNode(JsHandle);
-extern (C) Optional!(Node) TreeWalker_firstChild(JsHandle);
-extern (C) Optional!(Node) TreeWalker_lastChild(JsHandle);
-extern (C) Optional!(Node) TreeWalker_previousSibling(JsHandle);
-extern (C) Optional!(Node) TreeWalker_nextSibling(JsHandle);
-extern (C) Optional!(Node) TreeWalker_previousNode(JsHandle);
-extern (C) Optional!(Node) TreeWalker_nextNode(JsHandle);
+extern (C) Handle AbortController_signal_Get(Handle);
+extern (C) void AbortController_abort(Handle);
+extern (C) bool AbortSignal_aborted_Get(Handle);
+extern (C) void AbortSignal_onabort_Set(Handle, EventHandler);
+extern (C) EventHandler AbortSignal_onabort_Get(Handle);
+extern (C) Handle AbstractRange_startContainer_Get(Handle);
+extern (C) uint AbstractRange_startOffset_Get(Handle);
+extern (C) Handle AbstractRange_endContainer_Get(Handle);
+extern (C) uint AbstractRange_endOffset_Get(Handle);
+extern (C) bool AbstractRange_collapsed_Get(Handle);
+extern (C) void AddEventListenerOptions_passive_Set(Handle, bool);
+extern (C) bool AddEventListenerOptions_passive_Get(Handle);
+extern (C) void AddEventListenerOptions_once_Set(Handle, bool);
+extern (C) bool AddEventListenerOptions_once_Get(Handle);
+extern (C) Optional!(string) Attr_namespaceURI_Get(Handle);
+extern (C) Optional!(string) Attr_prefix_Get(Handle);
+extern (C) string Attr_localName_Get(Handle);
+extern (C) string Attr_name_Get(Handle);
+extern (C) void Attr_value_Set(Handle, string);
+extern (C) string Attr_value_Get(Handle);
+extern (C) Optional!(Element) Attr_ownerElement_Get(Handle);
+extern (C) bool Attr_specified_Get(Handle);
+extern (C) void CharacterData_data_Set(Handle, string);
+extern (C) string CharacterData_data_Get(Handle);
+extern (C) uint CharacterData_length_Get(Handle);
+extern (C) string CharacterData_substringData(Handle, uint, uint);
+extern (C) void CharacterData_appendData(Handle, string);
+extern (C) void CharacterData_insertData(Handle, uint, string);
+extern (C) void CharacterData_deleteData(Handle, uint, uint);
+extern (C) void CharacterData_replaceData(Handle, uint, uint, string);
+extern (C) void ChildNode_before(Handle, SumType!(Node, string));
+extern (C) void ChildNode_after(Handle, SumType!(Node, string));
+extern (C) void ChildNode_replaceWith(Handle, SumType!(Node, string));
+extern (C) void ChildNode_remove(Handle);
+extern (C) Handle CustomEvent_detail_Get(Handle);
+extern (C) void CustomEvent_initCustomEvent(Handle, string, bool, bool, Handle);
+extern (C) void CustomEventInit_detail_Set(Handle, Handle);
+extern (C) Handle CustomEventInit_detail_Get(Handle);
+extern (C) Handle DOMImplementation_createDocumentType(Handle, string, string, string);
+extern (C) Handle DOMImplementation_createDocument(Handle, bool, string, string, bool, Handle);
+extern (C) Handle DOMImplementation_createHTMLDocument(Handle, string);
+extern (C) bool DOMImplementation_hasFeature(Handle);
+extern (C) uint DOMTokenList_length_Get(Handle);
+extern (C) Optional!(string) DOMTokenList_item_getter(Handle, uint);
+extern (C) bool DOMTokenList_contains(Handle, string);
+extern (C) void DOMTokenList_add(Handle, string);
+extern (C) void DOMTokenList_remove(Handle, string);
+extern (C) bool DOMTokenList_toggle(Handle, string, bool);
+extern (C) bool DOMTokenList_replace(Handle, string, string);
+extern (C) bool DOMTokenList_supports(Handle, string);
+extern (C) void DOMTokenList_value_Set(Handle, string);
+extern (C) string DOMTokenList_value_Get(Handle);
+extern (C) Handle Document_implementation_Get(Handle);
+extern (C) string Document_URL_Get(Handle);
+extern (C) string Document_documentURI_Get(Handle);
+extern (C) string Document_origin_Get(Handle);
+extern (C) string Document_compatMode_Get(Handle);
+extern (C) string Document_characterSet_Get(Handle);
+extern (C) string Document_charset_Get(Handle);
+extern (C) string Document_inputEncoding_Get(Handle);
+extern (C) string Document_contentType_Get(Handle);
+extern (C) Optional!(DocumentType) Document_doctype_Get(Handle);
+extern (C) Optional!(Element) Document_documentElement_Get(Handle);
+extern (C) Handle Document_getElementsByTagName(Handle, string);
+extern (C) Handle Document_getElementsByTagNameNS(Handle, bool, string, string);
+extern (C) Handle Document_getElementsByClassName(Handle, string);
+extern (C) Handle Document_createElement(Handle, string, SumType!(string, ElementCreationOptions));
+extern (C) Handle Document_createElementNS(Handle, bool, string, string, SumType!(string, ElementCreationOptions));
+extern (C) Handle Document_createDocumentFragment(Handle);
+extern (C) Handle Document_createTextNode(Handle, string);
+extern (C) Handle Document_createCDATASection(Handle, string);
+extern (C) Handle Document_createComment(Handle, string);
+extern (C) Handle Document_createProcessingInstruction(Handle, string, string);
+extern (C) Handle Document_importNode(Handle, Handle, bool);
+extern (C) Handle Document_adoptNode(Handle, Handle);
+extern (C) Handle Document_createAttribute(Handle, string);
+extern (C) Handle Document_createAttributeNS(Handle, bool, string, string);
+extern (C) Handle Document_createEvent(Handle, string);
+extern (C) Handle Document_createRange(Handle);
+extern (C) Handle Document_createNodeIterator(Handle, Handle, uint, bool, Handle);
+extern (C) Handle Document_createTreeWalker(Handle, Handle, uint, bool, Handle);
+extern (C) Optional!(Location) Document_location_Get(Handle);
+extern (C) void Document_domain_Set(Handle, string);
+extern (C) string Document_domain_Get(Handle);
+extern (C) string Document_referrer_Get(Handle);
+extern (C) void Document_cookie_Set(Handle, string);
+extern (C) string Document_cookie_Get(Handle);
+extern (C) string Document_lastModified_Get(Handle);
+extern (C) DocumentReadyState Document_readyState_Get(Handle);
+extern (C) void Document_title_Set(Handle, string);
+extern (C) string Document_title_Get(Handle);
+extern (C) void Document_dir_Set(Handle, string);
+extern (C) string Document_dir_Get(Handle);
+extern (C) void Document_body_Set(Handle, bool, Handle);
+extern (C) Optional!(HTMLElement) Document_body_Get(Handle);
+extern (C) Optional!(HTMLHeadElement) Document_head_Get(Handle);
+extern (C) Handle Document_images_Get(Handle);
+extern (C) Handle Document_embeds_Get(Handle);
+extern (C) Handle Document_plugins_Get(Handle);
+extern (C) Handle Document_links_Get(Handle);
+extern (C) Handle Document_forms_Get(Handle);
+extern (C) Handle Document_scripts_Get(Handle);
+extern (C) Handle Document_getElementsByName(Handle, string);
+extern (C) Optional!(HTMLOrSVGScriptElement) Document_currentScript_Get(Handle);
+extern (C) Handle Document_open__string_string(Handle, string, string);
+extern (C) Optional!(Window) Document_open__string_string_string(Handle, string, string, string);
+extern (C) void Document_close(Handle);
+extern (C) void Document_write(Handle, string);
+extern (C) void Document_writeln(Handle, string);
+extern (C) Optional!(Window) Document_defaultView_Get(Handle);
+extern (C) Optional!(Element) Document_activeElement_Get(Handle);
+extern (C) bool Document_hasFocus(Handle);
+extern (C) void Document_designMode_Set(Handle, string);
+extern (C) string Document_designMode_Get(Handle);
+extern (C) bool Document_execCommand(Handle, string, bool, string);
+extern (C) bool Document_queryCommandEnabled(Handle, string);
+extern (C) bool Document_queryCommandIndeterm(Handle, string);
+extern (C) bool Document_queryCommandState(Handle, string);
+extern (C) bool Document_queryCommandSupported(Handle, string);
+extern (C) string Document_queryCommandValue(Handle, string);
+extern (C) void Document_onreadystatechange_Set(Handle, EventHandler);
+extern (C) EventHandler Document_onreadystatechange_Get(Handle);
+extern (C) void Document_fgColor_Set(Handle, string);
+extern (C) string Document_fgColor_Get(Handle);
+extern (C) void Document_linkColor_Set(Handle, string);
+extern (C) string Document_linkColor_Get(Handle);
+extern (C) void Document_vlinkColor_Set(Handle, string);
+extern (C) string Document_vlinkColor_Get(Handle);
+extern (C) void Document_alinkColor_Set(Handle, string);
+extern (C) string Document_alinkColor_Get(Handle);
+extern (C) void Document_bgColor_Set(Handle, string);
+extern (C) string Document_bgColor_Get(Handle);
+extern (C) Handle Document_anchors_Get(Handle);
+extern (C) Handle Document_applets_Get(Handle);
+extern (C) void Document_clear(Handle);
+extern (C) void Document_captureEvents(Handle);
+extern (C) void Document_releaseEvents(Handle);
+extern (C) Handle Document_all_Get(Handle);
+extern (C) bool Document_hidden_Get(Handle);
+extern (C) VisibilityState Document_visibilityState_Get(Handle);
+extern (C) void Document_onvisibilitychange_Set(Handle, EventHandler);
+extern (C) EventHandler Document_onvisibilitychange_Get(Handle);
+extern (C) bool Document_fullscreenEnabled_Get(Handle);
+extern (C) bool Document_fullscreen_Get(Handle);
+extern (C) Handle Document_exitFullscreen(Handle);
+extern (C) void Document_onfullscreenchange_Set(Handle, EventHandler);
+extern (C) EventHandler Document_onfullscreenchange_Get(Handle);
+extern (C) void Document_onfullscreenerror_Set(Handle, EventHandler);
+extern (C) EventHandler Document_onfullscreenerror_Get(Handle);
+extern (C) Optional!(SVGSVGElement) Document_rootElement_Get(Handle);
+extern (C) Optional!(Element) DocumentOrShadowRoot_fullscreenElement_Get(Handle);
+extern (C) string DocumentType_name_Get(Handle);
+extern (C) string DocumentType_publicId_Get(Handle);
+extern (C) string DocumentType_systemId_Get(Handle);
+extern (C) Optional!(string) Element_namespaceURI_Get(Handle);
+extern (C) Optional!(string) Element_prefix_Get(Handle);
+extern (C) string Element_localName_Get(Handle);
+extern (C) string Element_tagName_Get(Handle);
+extern (C) void Element_id_Set(Handle, string);
+extern (C) string Element_id_Get(Handle);
+extern (C) void Element_className_Set(Handle, string);
+extern (C) string Element_className_Get(Handle);
+extern (C) Handle Element_classList_Get(Handle);
+extern (C) void Element_slot_Set(Handle, string);
+extern (C) string Element_slot_Get(Handle);
+extern (C) bool Element_hasAttributes(Handle);
+extern (C) Handle Element_attributes_Get(Handle);
+extern (C) Handle Element_getAttributeNames(Handle);
+extern (C) Optional!(string) Element_getAttribute(Handle, string);
+extern (C) Optional!(string) Element_getAttributeNS(Handle, bool, string, string);
+extern (C) void Element_setAttribute(Handle, string, string);
+extern (C) void Element_setAttributeNS(Handle, bool, string, string, string);
+extern (C) void Element_removeAttribute(Handle, string);
+extern (C) void Element_removeAttributeNS(Handle, bool, string, string);
+extern (C) bool Element_toggleAttribute(Handle, string, bool);
+extern (C) bool Element_hasAttribute(Handle, string);
+extern (C) bool Element_hasAttributeNS(Handle, bool, string, string);
+extern (C) Optional!(Attr) Element_getAttributeNode(Handle, string);
+extern (C) Optional!(Attr) Element_getAttributeNodeNS(Handle, bool, string, string);
+extern (C) Optional!(Attr) Element_setAttributeNode(Handle, Handle);
+extern (C) Optional!(Attr) Element_setAttributeNodeNS(Handle, Handle);
+extern (C) Handle Element_removeAttributeNode(Handle, Handle);
+extern (C) Handle Element_attachShadow(Handle, Handle);
+extern (C) Optional!(ShadowRoot) Element_shadowRoot_Get(Handle);
+extern (C) Optional!(Element) Element_closest(Handle, string);
+extern (C) bool Element_matches(Handle, string);
+extern (C) bool Element_webkitMatchesSelector(Handle, string);
+extern (C) Handle Element_getElementsByTagName(Handle, string);
+extern (C) Handle Element_getElementsByTagNameNS(Handle, bool, string, string);
+extern (C) Handle Element_getElementsByClassName(Handle, string);
+extern (C) Optional!(Element) Element_insertAdjacentElement(Handle, string, Handle);
+extern (C) void Element_insertAdjacentText(Handle, string, string);
+extern (C) void Element_setPointerCapture(Handle, int);
+extern (C) void Element_releasePointerCapture(Handle, int);
+extern (C) bool Element_hasPointerCapture(Handle, int);
+extern (C) Handle Element_requestFullscreen(Handle, Handle);
+extern (C) void Element_onfullscreenchange_Set(Handle, EventHandler);
+extern (C) EventHandler Element_onfullscreenchange_Get(Handle);
+extern (C) void Element_onfullscreenerror_Set(Handle, EventHandler);
+extern (C) EventHandler Element_onfullscreenerror_Get(Handle);
+extern (C) void ElementCreationOptions_is_Set(Handle, string);
+extern (C) string ElementCreationOptions_is_Get(Handle);
+extern (C) string Event_type_Get(Handle);
+extern (C) Optional!(EventTarget) Event_target_Get(Handle);
+extern (C) Optional!(EventTarget) Event_srcElement_Get(Handle);
+extern (C) Optional!(EventTarget) Event_currentTarget_Get(Handle);
+extern (C) Handle Event_composedPath(Handle);
+extern (C) ushort Event_eventPhase_Get(Handle);
+extern (C) void Event_stopPropagation(Handle);
+extern (C) void Event_cancelBubble_Set(Handle, bool);
+extern (C) bool Event_cancelBubble_Get(Handle);
+extern (C) void Event_stopImmediatePropagation(Handle);
+extern (C) bool Event_bubbles_Get(Handle);
+extern (C) bool Event_cancelable_Get(Handle);
+extern (C) void Event_returnValue_Set(Handle, bool);
+extern (C) bool Event_returnValue_Get(Handle);
+extern (C) void Event_preventDefault(Handle);
+extern (C) bool Event_defaultPrevented_Get(Handle);
+extern (C) bool Event_composed_Get(Handle);
+extern (C) bool Event_isTrusted_Get(Handle);
+extern (C) double Event_timeStamp_Get(Handle);
+extern (C) void Event_initEvent(Handle, string, bool, bool);
+extern (C) void EventInit_bubbles_Set(Handle, bool);
+extern (C) bool EventInit_bubbles_Get(Handle);
+extern (C) void EventInit_cancelable_Set(Handle, bool);
+extern (C) bool EventInit_cancelable_Get(Handle);
+extern (C) void EventInit_composed_Set(Handle, bool);
+extern (C) bool EventInit_composed_Get(Handle);
+extern (C) void EventListener_handleEvent(Handle, Handle);
+extern (C) void EventListenerOptions_capture_Set(Handle, bool);
+extern (C) bool EventListenerOptions_capture_Get(Handle);
+extern (C) void EventTarget_addEventListener(Handle, string, bool, Handle, SumType!(AddEventListenerOptions, bool));
+extern (C) void EventTarget_removeEventListener(Handle, string, bool, Handle, SumType!(EventListenerOptions, bool));
+extern (C) bool EventTarget_dispatchEvent(Handle, Handle);
+extern (C) void GetRootNodeOptions_composed_Set(Handle, bool);
+extern (C) bool GetRootNodeOptions_composed_Get(Handle);
+extern (C) uint HTMLCollection_length_Get(Handle);
+extern (C) Optional!(Element) HTMLCollection_item_getter(Handle, uint);
+extern (C) Optional!(Element) HTMLCollection_namedItem_getter(Handle, string);
+extern (C) void MutationObserver_observe(Handle, Handle, Handle);
+extern (C) void MutationObserver_disconnect(Handle);
+extern (C) Handle MutationObserver_takeRecords(Handle);
+extern (C) void MutationObserverInit_childList_Set(Handle, bool);
+extern (C) bool MutationObserverInit_childList_Get(Handle);
+extern (C) void MutationObserverInit_attributes_Set(Handle, bool);
+extern (C) bool MutationObserverInit_attributes_Get(Handle);
+extern (C) void MutationObserverInit_characterData_Set(Handle, bool);
+extern (C) bool MutationObserverInit_characterData_Get(Handle);
+extern (C) void MutationObserverInit_subtree_Set(Handle, bool);
+extern (C) bool MutationObserverInit_subtree_Get(Handle);
+extern (C) void MutationObserverInit_attributeOldValue_Set(Handle, bool);
+extern (C) bool MutationObserverInit_attributeOldValue_Get(Handle);
+extern (C) void MutationObserverInit_characterDataOldValue_Set(Handle, bool);
+extern (C) bool MutationObserverInit_characterDataOldValue_Get(Handle);
+extern (C) void MutationObserverInit_attributeFilter_Set(Handle, Handle);
+extern (C) Handle MutationObserverInit_attributeFilter_Get(Handle);
+extern (C) string MutationRecord_type_Get(Handle);
+extern (C) Handle MutationRecord_target_Get(Handle);
+extern (C) Handle MutationRecord_addedNodes_Get(Handle);
+extern (C) Handle MutationRecord_removedNodes_Get(Handle);
+extern (C) Optional!(Node) MutationRecord_previousSibling_Get(Handle);
+extern (C) Optional!(Node) MutationRecord_nextSibling_Get(Handle);
+extern (C) Optional!(string) MutationRecord_attributeName_Get(Handle);
+extern (C) Optional!(string) MutationRecord_attributeNamespace_Get(Handle);
+extern (C) Optional!(string) MutationRecord_oldValue_Get(Handle);
+extern (C) uint NamedNodeMap_length_Get(Handle);
+extern (C) Optional!(Attr) NamedNodeMap_item_getter(Handle, uint);
+extern (C) Optional!(Attr) NamedNodeMap_getNamedItem_getter(Handle, string);
+extern (C) Optional!(Attr) NamedNodeMap_getNamedItemNS(Handle, bool, string, string);
+extern (C) Optional!(Attr) NamedNodeMap_setNamedItem(Handle, Handle);
+extern (C) Optional!(Attr) NamedNodeMap_setNamedItemNS(Handle, Handle);
+extern (C) Handle NamedNodeMap_removeNamedItem(Handle, string);
+extern (C) Handle NamedNodeMap_removeNamedItemNS(Handle, bool, string, string);
+extern (C) ushort Node_nodeType_Get(Handle);
+extern (C) string Node_nodeName_Get(Handle);
+extern (C) string Node_baseURI_Get(Handle);
+extern (C) bool Node_isConnected_Get(Handle);
+extern (C) Optional!(Document) Node_ownerDocument_Get(Handle);
+extern (C) Handle Node_getRootNode(Handle, Handle);
+extern (C) Optional!(Node) Node_parentNode_Get(Handle);
+extern (C) Optional!(Element) Node_parentElement_Get(Handle);
+extern (C) bool Node_hasChildNodes(Handle);
+extern (C) Handle Node_childNodes_Get(Handle);
+extern (C) Optional!(Node) Node_firstChild_Get(Handle);
+extern (C) Optional!(Node) Node_lastChild_Get(Handle);
+extern (C) Optional!(Node) Node_previousSibling_Get(Handle);
+extern (C) Optional!(Node) Node_nextSibling_Get(Handle);
+extern (C) void Node_nodeValue_Set(Handle, bool, string);
+extern (C) Optional!(string) Node_nodeValue_Get(Handle);
+extern (C) void Node_textContent_Set(Handle, bool, string);
+extern (C) Optional!(string) Node_textContent_Get(Handle);
+extern (C) void Node_normalize(Handle);
+extern (C) Handle Node_cloneNode(Handle, bool);
+extern (C) bool Node_isEqualNode(Handle, bool, Handle);
+extern (C) bool Node_isSameNode(Handle, bool, Handle);
+extern (C) ushort Node_compareDocumentPosition(Handle, Handle);
+extern (C) bool Node_contains(Handle, bool, Handle);
+extern (C) Optional!(string) Node_lookupPrefix(Handle, bool, string);
+extern (C) Optional!(string) Node_lookupNamespaceURI(Handle, bool, string);
+extern (C) bool Node_isDefaultNamespace(Handle, bool, string);
+extern (C) Handle Node_insertBefore(Handle, Handle, bool, Handle);
+extern (C) Handle Node_appendChild(Handle, Handle);
+extern (C) Handle Node_replaceChild(Handle, Handle, Handle);
+extern (C) Handle Node_removeChild(Handle, Handle);
+extern (C) ushort NodeFilter_acceptNode(Handle, Handle);
+extern (C) Handle NodeIterator_root_Get(Handle);
+extern (C) Handle NodeIterator_referenceNode_Get(Handle);
+extern (C) bool NodeIterator_pointerBeforeReferenceNode_Get(Handle);
+extern (C) uint NodeIterator_whatToShow_Get(Handle);
+extern (C) Optional!(NodeFilter) NodeIterator_filter_Get(Handle);
+extern (C) Optional!(Node) NodeIterator_nextNode(Handle);
+extern (C) Optional!(Node) NodeIterator_previousNode(Handle);
+extern (C) void NodeIterator_detach(Handle);
+extern (C) Optional!(Node) NodeList_item_getter(Handle, uint);
+extern (C) uint NodeList_length_Get(Handle);
+extern (C) Optional!(Element) NonDocumentTypeChildNode_previousElementSibling_Get(Handle);
+extern (C) Optional!(Element) NonDocumentTypeChildNode_nextElementSibling_Get(Handle);
+extern (C) Optional!(Element) NonElementParentNode_getElementById(Handle, string);
+extern (C) Handle ParentNode_children_Get(Handle);
+extern (C) Optional!(Element) ParentNode_firstElementChild_Get(Handle);
+extern (C) Optional!(Element) ParentNode_lastElementChild_Get(Handle);
+extern (C) uint ParentNode_childElementCount_Get(Handle);
+extern (C) void ParentNode_prepend(Handle, SumType!(Node, string));
+extern (C) void ParentNode_append(Handle, SumType!(Node, string));
+extern (C) Optional!(Element) ParentNode_querySelector(Handle, string);
+extern (C) Handle ParentNode_querySelectorAll(Handle, string);
+extern (C) string ProcessingInstruction_target_Get(Handle);
+extern (C) Handle Range_commonAncestorContainer_Get(Handle);
+extern (C) void Range_setStart(Handle, Handle, uint);
+extern (C) void Range_setEnd(Handle, Handle, uint);
+extern (C) void Range_setStartBefore(Handle, Handle);
+extern (C) void Range_setStartAfter(Handle, Handle);
+extern (C) void Range_setEndBefore(Handle, Handle);
+extern (C) void Range_setEndAfter(Handle, Handle);
+extern (C) void Range_collapse(Handle, bool);
+extern (C) void Range_selectNode(Handle, Handle);
+extern (C) void Range_selectNodeContents(Handle, Handle);
+extern (C) short Range_compareBoundaryPoints(Handle, ushort, Handle);
+extern (C) void Range_deleteContents(Handle);
+extern (C) Handle Range_extractContents(Handle);
+extern (C) Handle Range_cloneContents(Handle);
+extern (C) void Range_insertNode(Handle, Handle);
+extern (C) void Range_surroundContents(Handle, Handle);
+extern (C) Handle Range_cloneRange(Handle);
+extern (C) void Range_detach(Handle);
+extern (C) bool Range_isPointInRange(Handle, Handle, uint);
+extern (C) short Range_comparePoint(Handle, Handle, uint);
+extern (C) bool Range_intersectsNode(Handle, Handle);
+extern (C) ShadowRootMode ShadowRoot_mode_Get(Handle);
+extern (C) Handle ShadowRoot_host_Get(Handle);
+extern (C) void ShadowRootInit_mode_Set(Handle, ShadowRootMode);
+extern (C) ShadowRootMode ShadowRootInit_mode_Get(Handle);
+extern (C) Optional!(HTMLSlotElement) Slotable_assignedSlot_Get(Handle);
+extern (C) Handle Text_splitText(Handle, uint);
+extern (C) string Text_wholeText_Get(Handle);
+extern (C) Handle TreeWalker_root_Get(Handle);
+extern (C) uint TreeWalker_whatToShow_Get(Handle);
+extern (C) Optional!(NodeFilter) TreeWalker_filter_Get(Handle);
+extern (C) void TreeWalker_currentNode_Set(Handle, Handle);
+extern (C) Handle TreeWalker_currentNode_Get(Handle);
+extern (C) Optional!(Node) TreeWalker_parentNode(Handle);
+extern (C) Optional!(Node) TreeWalker_firstChild(Handle);
+extern (C) Optional!(Node) TreeWalker_lastChild(Handle);
+extern (C) Optional!(Node) TreeWalker_previousSibling(Handle);
+extern (C) Optional!(Node) TreeWalker_nextSibling(Handle);
+extern (C) Optional!(Node) TreeWalker_previousNode(Handle);
+extern (C) Optional!(Node) TreeWalker_nextNode(Handle);

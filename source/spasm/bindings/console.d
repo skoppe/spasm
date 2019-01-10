@@ -63,22 +63,22 @@ struct console {
 }
 
 
-extern (C) void console_assert(bool, JsHandle);
+extern (C) void console_assert(bool, Handle);
 extern (C) void console_clear();
-extern (C) void console_debug(JsHandle);
-extern (C) void console_error(JsHandle);
-extern (C) void console_info(JsHandle);
-extern (C) void console_log(JsHandle);
-extern (C) void console_table(JsHandle, JsHandle);
-extern (C) void console_trace(JsHandle);
-extern (C) void console_warn(JsHandle);
-extern (C) void console_dir(JsHandle, bool, JsHandle);
-extern (C) void console_dirxml(JsHandle);
+extern (C) void console_debug(Handle);
+extern (C) void console_error(Handle);
+extern (C) void console_info(Handle);
+extern (C) void console_log(Handle);
+extern (C) void console_table(Handle, Handle);
+extern (C) void console_trace(Handle);
+extern (C) void console_warn(Handle);
+extern (C) void console_dir(Handle, bool, Handle);
+extern (C) void console_dirxml(Handle);
 extern (C) void console_count(string);
 extern (C) void console_countReset(string);
-extern (C) void console_group(JsHandle);
-extern (C) void console_groupCollapsed(JsHandle);
+extern (C) void console_group(Handle);
+extern (C) void console_groupCollapsed(Handle);
 extern (C) void console_groupEnd();
 extern (C) void console_time(string);
-extern (C) void console_timeLog(string, JsHandle);
+extern (C) void console_timeLog(string, Handle);
 extern (C) void console_timeEnd(string);

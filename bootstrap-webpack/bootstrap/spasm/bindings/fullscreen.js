@@ -5,7 +5,7 @@ export default {
       spasm.objects[ctx].navigationUI = spasm.decode_FullscreenNavigationUI(navigationUI);
     },
     FullscreenOptions_navigationUI_Get: function(ctx) {
-      return spasm.encode_FullscreenNavigationUI(spasm.objects[ctx].navigationUI);
+      return spasm.encode.FullscreenNavigationUI(spasm.objects[ctx].navigationUI);
     },
   }
 }

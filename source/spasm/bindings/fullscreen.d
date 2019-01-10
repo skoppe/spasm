@@ -20,5 +20,5 @@ struct FullscreenOptions {
 }
 
 
-extern (C) void FullscreenOptions_navigationUI_Set(JsHandle, FullscreenNavigationUI);
-extern (C) FullscreenNavigationUI FullscreenOptions_navigationUI_Get(JsHandle);
+extern (C) void FullscreenOptions_navigationUI_Set(Handle, FullscreenNavigationUI);
+extern (C) FullscreenNavigationUI FullscreenOptions_navigationUI_Get(Handle);

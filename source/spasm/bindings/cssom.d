@@ -45,7 +45,7 @@ struct StyleSheet {
     return StyleSheet_title_Get(this.handle);
   }
   auto media() {
-    return MediaList(StyleSheet_media_Get(this.handle));
+    return MediaList(JsHandle(StyleSheet_media_Get(this.handle));
   }
   auto disabled(bool disabled) {
     StyleSheet_disabled_Set(this.handle, disabled);
@@ -56,17 +56,17 @@ struct StyleSheet {
 }
 
 
-extern (C) void MediaList_mediaText_Set(JsHandle, string);
-extern (C) string MediaList_mediaText_Get(JsHandle);
-extern (C) uint MediaList_length_Get(JsHandle);
-extern (C) Optional!(string) MediaList_item_getter(JsHandle, uint);
-extern (C) void MediaList_appendMedium(JsHandle, string);
-extern (C) void MediaList_deleteMedium(JsHandle, string);
-extern (C) string StyleSheet_type_Get(JsHandle);
-extern (C) Optional!(string) StyleSheet_href_Get(JsHandle);
-extern (C) Optional!(SumType!(Element, ProcessingInstruction)) StyleSheet_ownerNode_Get(JsHandle);
-extern (C) Optional!(StyleSheet) StyleSheet_parentStyleSheet_Get(JsHandle);
-extern (C) Optional!(string) StyleSheet_title_Get(JsHandle);
-extern (C) JsHandle StyleSheet_media_Get(JsHandle);
-extern (C) void StyleSheet_disabled_Set(JsHandle, bool);
-extern (C) bool StyleSheet_disabled_Get(JsHandle);
+extern (C) void MediaList_mediaText_Set(Handle, string);
+extern (C) string MediaList_mediaText_Get(Handle);
+extern (C) uint MediaList_length_Get(Handle);
+extern (C) Optional!(string) MediaList_item_getter(Handle, uint);
+extern (C) void MediaList_appendMedium(Handle, string);
+extern (C) void MediaList_deleteMedium(Handle, string);
+extern (C) string StyleSheet_type_Get(Handle);
+extern (C) Optional!(string) StyleSheet_href_Get(Handle);
+extern (C) Optional!(SumType!(Element, ProcessingInstruction)) StyleSheet_ownerNode_Get(Handle);
+extern (C) Optional!(StyleSheet) StyleSheet_parentStyleSheet_Get(Handle);
+extern (C) Optional!(string) StyleSheet_title_Get(Handle);
+extern (C) Handle StyleSheet_media_Get(Handle);
+extern (C) void StyleSheet_disabled_Set(Handle, bool);
+extern (C) bool StyleSheet_disabled_Get(Handle);

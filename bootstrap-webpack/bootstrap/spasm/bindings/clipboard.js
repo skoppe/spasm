@@ -14,13 +14,13 @@ export default {
       return spasm.addObject(spasm.objects[ctx].writeText(spasm.decode_string(dataLen, dataPtr)));
     },
     ClipboardEvent_clipboardData_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].clipboardData);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].clipboardData);
     },
     ClipboardEventInit_clipboardData_Set: function(ctx, clipboardDataDefined, clipboardData) {
       spasm.objects[ctx].clipboardData = clipboardDataDefined ? spasm.objects[clipboardData] : undefined;
     },
     ClipboardEventInit_clipboardData_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].clipboardData);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].clipboardData);
     },
     ClipboardPermissionDescriptor_allowWithoutGesture_Set: function(ctx, allowWithoutGesture) {
       spasm.objects[ctx].allowWithoutGesture = allowWithoutGesture;

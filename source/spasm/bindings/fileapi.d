@@ -15,7 +15,7 @@ struct Blob {
     return Blob_type_Get(this.handle);
   }
   auto slice(long start, long end, string contentType) {
-    return Blob(Blob_slice(this.handle, start, end, contentType));
+    return Blob(JsHandle(Blob_slice(this.handle, start, end, contentType));
   }
 }
 alias BlobPart = SumType!(BufferSource, Blob, string);
@@ -149,7 +149,7 @@ struct FileReaderSync {
   JsHandle handle;
   alias handle this;
   auto readAsArrayBuffer(Blob blob) {
-    return ArrayBuffer(FileReaderSync_readAsArrayBuffer(this.handle, blob.handle));
+    return ArrayBuffer(JsHandle(FileReaderSync_readAsArrayBuffer(this.handle, blob.handle));
   }
   auto readAsBinaryString(Blob blob) {
     return FileReaderSync_readAsBinaryString(this.handle, blob.handle);
@@ -163,40 +163,40 @@ struct FileReaderSync {
 }
 
 
-extern (C) ulong Blob_size_Get(JsHandle);
-extern (C) string Blob_type_Get(JsHandle);
-extern (C) JsHandle Blob_slice(JsHandle, long, long, string);
-extern (C) void BlobPropertyBag_type_Set(JsHandle, string);
-extern (C) string BlobPropertyBag_type_Get(JsHandle);
-extern (C) void BlobPropertyBag_endings_Set(JsHandle, EndingType);
-extern (C) EndingType BlobPropertyBag_endings_Get(JsHandle);
-extern (C) string File_name_Get(JsHandle);
-extern (C) long File_lastModified_Get(JsHandle);
-extern (C) Optional!(File) FileList_item_getter(JsHandle, uint);
-extern (C) uint FileList_length_Get(JsHandle);
-extern (C) void FilePropertyBag_lastModified_Set(JsHandle, long);
-extern (C) long FilePropertyBag_lastModified_Get(JsHandle);
-extern (C) void FileReader_readAsArrayBuffer(JsHandle, JsHandle);
-extern (C) void FileReader_readAsBinaryString(JsHandle, JsHandle);
-extern (C) void FileReader_readAsText(JsHandle, JsHandle, string);
-extern (C) void FileReader_readAsDataURL(JsHandle, JsHandle);
-extern (C) void FileReader_abort(JsHandle);
-extern (C) ushort FileReader_readyState_Get(JsHandle);
-extern (C) Optional!(SumType!(string, ArrayBuffer)) FileReader_result_Get(JsHandle);
-extern (C) Optional!(DOMException) FileReader_error_Get(JsHandle);
-extern (C) void FileReader_onloadstart_Set(JsHandle, EventHandler);
-extern (C) EventHandler FileReader_onloadstart_Get(JsHandle);
-extern (C) void FileReader_onprogress_Set(JsHandle, EventHandler);
-extern (C) EventHandler FileReader_onprogress_Get(JsHandle);
-extern (C) void FileReader_onload_Set(JsHandle, EventHandler);
-extern (C) EventHandler FileReader_onload_Get(JsHandle);
-extern (C) void FileReader_onabort_Set(JsHandle, EventHandler);
-extern (C) EventHandler FileReader_onabort_Get(JsHandle);
-extern (C) void FileReader_onerror_Set(JsHandle, EventHandler);
-extern (C) EventHandler FileReader_onerror_Get(JsHandle);
-extern (C) void FileReader_onloadend_Set(JsHandle, EventHandler);
-extern (C) EventHandler FileReader_onloadend_Get(JsHandle);
-extern (C) JsHandle FileReaderSync_readAsArrayBuffer(JsHandle, JsHandle);
-extern (C) string FileReaderSync_readAsBinaryString(JsHandle, JsHandle);
-extern (C) string FileReaderSync_readAsText(JsHandle, JsHandle, string);
-extern (C) string FileReaderSync_readAsDataURL(JsHandle, JsHandle);
+extern (C) ulong Blob_size_Get(Handle);
+extern (C) string Blob_type_Get(Handle);
+extern (C) Handle Blob_slice(Handle, long, long, string);
+extern (C) void BlobPropertyBag_type_Set(Handle, string);
+extern (C) string BlobPropertyBag_type_Get(Handle);
+extern (C) void BlobPropertyBag_endings_Set(Handle, EndingType);
+extern (C) EndingType BlobPropertyBag_endings_Get(Handle);
+extern (C) string File_name_Get(Handle);
+extern (C) long File_lastModified_Get(Handle);
+extern (C) Optional!(File) FileList_item_getter(Handle, uint);
+extern (C) uint FileList_length_Get(Handle);
+extern (C) void FilePropertyBag_lastModified_Set(Handle, long);
+extern (C) long FilePropertyBag_lastModified_Get(Handle);
+extern (C) void FileReader_readAsArrayBuffer(Handle, Handle);
+extern (C) void FileReader_readAsBinaryString(Handle, Handle);
+extern (C) void FileReader_readAsText(Handle, Handle, string);
+extern (C) void FileReader_readAsDataURL(Handle, Handle);
+extern (C) void FileReader_abort(Handle);
+extern (C) ushort FileReader_readyState_Get(Handle);
+extern (C) Optional!(SumType!(string, ArrayBuffer)) FileReader_result_Get(Handle);
+extern (C) Optional!(DOMException) FileReader_error_Get(Handle);
+extern (C) void FileReader_onloadstart_Set(Handle, EventHandler);
+extern (C) EventHandler FileReader_onloadstart_Get(Handle);
+extern (C) void FileReader_onprogress_Set(Handle, EventHandler);
+extern (C) EventHandler FileReader_onprogress_Get(Handle);
+extern (C) void FileReader_onload_Set(Handle, EventHandler);
+extern (C) EventHandler FileReader_onload_Get(Handle);
+extern (C) void FileReader_onabort_Set(Handle, EventHandler);
+extern (C) EventHandler FileReader_onabort_Get(Handle);
+extern (C) void FileReader_onerror_Set(Handle, EventHandler);
+extern (C) EventHandler FileReader_onerror_Get(Handle);
+extern (C) void FileReader_onloadend_Set(Handle, EventHandler);
+extern (C) EventHandler FileReader_onloadend_Get(Handle);
+extern (C) Handle FileReaderSync_readAsArrayBuffer(Handle, Handle);
+extern (C) string FileReaderSync_readAsBinaryString(Handle, Handle);
+extern (C) string FileReaderSync_readAsText(Handle, Handle, string);
+extern (C) string FileReaderSync_readAsDataURL(Handle, Handle);

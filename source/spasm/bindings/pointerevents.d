@@ -72,23 +72,23 @@ struct PointerEventInit {
 }
 
 
-extern (C) void PointerEventInit_pointerId_Set(JsHandle, int);
-extern (C) int PointerEventInit_pointerId_Get(JsHandle);
-extern (C) void PointerEventInit_width_Set(JsHandle, double);
-extern (C) double PointerEventInit_width_Get(JsHandle);
-extern (C) void PointerEventInit_height_Set(JsHandle, double);
-extern (C) double PointerEventInit_height_Get(JsHandle);
-extern (C) void PointerEventInit_pressure_Set(JsHandle, float);
-extern (C) float PointerEventInit_pressure_Get(JsHandle);
-extern (C) void PointerEventInit_tangentialPressure_Set(JsHandle, float);
-extern (C) float PointerEventInit_tangentialPressure_Get(JsHandle);
-extern (C) void PointerEventInit_tiltX_Set(JsHandle, int);
-extern (C) int PointerEventInit_tiltX_Get(JsHandle);
-extern (C) void PointerEventInit_tiltY_Set(JsHandle, int);
-extern (C) int PointerEventInit_tiltY_Get(JsHandle);
-extern (C) void PointerEventInit_twist_Set(JsHandle, int);
-extern (C) int PointerEventInit_twist_Get(JsHandle);
-extern (C) void PointerEventInit_pointerType_Set(JsHandle, string);
-extern (C) string PointerEventInit_pointerType_Get(JsHandle);
-extern (C) void PointerEventInit_isPrimary_Set(JsHandle, bool);
-extern (C) bool PointerEventInit_isPrimary_Get(JsHandle);
+extern (C) void PointerEventInit_pointerId_Set(Handle, int);
+extern (C) int PointerEventInit_pointerId_Get(Handle);
+extern (C) void PointerEventInit_width_Set(Handle, double);
+extern (C) double PointerEventInit_width_Get(Handle);
+extern (C) void PointerEventInit_height_Set(Handle, double);
+extern (C) double PointerEventInit_height_Get(Handle);
+extern (C) void PointerEventInit_pressure_Set(Handle, float);
+extern (C) float PointerEventInit_pressure_Get(Handle);
+extern (C) void PointerEventInit_tangentialPressure_Set(Handle, float);
+extern (C) float PointerEventInit_tangentialPressure_Get(Handle);
+extern (C) void PointerEventInit_tiltX_Set(Handle, int);
+extern (C) int PointerEventInit_tiltX_Get(Handle);
+extern (C) void PointerEventInit_tiltY_Set(Handle, int);
+extern (C) int PointerEventInit_tiltY_Get(Handle);
+extern (C) void PointerEventInit_twist_Set(Handle, int);
+extern (C) int PointerEventInit_twist_Get(Handle);
+extern (C) void PointerEventInit_pointerType_Set(Handle, string);
+extern (C) string PointerEventInit_pointerType_Get(Handle);
+extern (C) void PointerEventInit_isPrimary_Set(Handle, bool);
+extern (C) bool PointerEventInit_isPrimary_Get(Handle);

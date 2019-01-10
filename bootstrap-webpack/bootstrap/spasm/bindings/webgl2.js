@@ -4,7 +4,7 @@ export default {
     WebGL2RenderingContextBase_bufferData__uint_long_uint: function(ctx, target, size, usage) {
       spasm.objects[ctx].bufferData(target, size, usage);
     },
-    WebGL2RenderingContextBase_bufferData__uint_optional_JsHandle_uint: function(ctx, target, srcDataDefined, srcData, usage) {
+    WebGL2RenderingContextBase_bufferData__uint_optional_Handle_uint: function(ctx, target, srcDataDefined, srcData, usage) {
       spasm.objects[ctx].bufferData(target, srcDataDefined ? spasm.objects[srcData] : undefined, usage);
     },
     WebGL2RenderingContextBase_bufferData__uint_ArrayBufferView_uint: function(ctx, target, srcData, usage) {
@@ -260,7 +260,7 @@ export default {
       spasm.objects[ctx].clearBufferfi(buffer, drawbuffer, depth, stencil);
     },
     WebGL2RenderingContextBase_createQuery: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].createQuery());
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].createQuery());
     },
     WebGL2RenderingContextBase_deleteQuery: function(ctx, queryDefined, query) {
       spasm.objects[ctx].deleteQuery(queryDefined ? spasm.objects[query] : undefined);
@@ -275,13 +275,13 @@ export default {
       spasm.objects[ctx].endQuery(target);
     },
     WebGL2RenderingContextBase_getQuery: function(rawResult, ctx, target, pname) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].getQuery(target, pname));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].getQuery(target, pname));
     },
     WebGL2RenderingContextBase_getQueryParameter: function(ctx, query, pname) {
       return spasm.addObject(spasm.objects[ctx].getQueryParameter(spasm.objects[query], pname));
     },
     WebGL2RenderingContextBase_createSampler: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].createSampler());
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].createSampler());
     },
     WebGL2RenderingContextBase_deleteSampler: function(ctx, samplerDefined, sampler) {
       spasm.objects[ctx].deleteSampler(samplerDefined ? spasm.objects[sampler] : undefined);
@@ -302,7 +302,7 @@ export default {
       return spasm.addObject(spasm.objects[ctx].getSamplerParameter(spasm.objects[sampler], pname));
     },
     WebGL2RenderingContextBase_fenceSync: function(rawResult, ctx, condition, flags) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].fenceSync(condition, flags));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].fenceSync(condition, flags));
     },
     WebGL2RenderingContextBase_isSync: function(ctx, syncDefined, sync) {
       return spasm.objects[ctx].isSync(syncDefined ? spasm.objects[sync] : undefined);
@@ -320,7 +320,7 @@ export default {
       return spasm.addObject(spasm.objects[ctx].getSyncParameter(spasm.objects[sync], pname));
     },
     WebGL2RenderingContextBase_createTransformFeedback: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].createTransformFeedback());
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].createTransformFeedback());
     },
     WebGL2RenderingContextBase_deleteTransformFeedback: function(ctx, tfDefined, tf) {
       spasm.objects[ctx].deleteTransformFeedback(tfDefined ? spasm.objects[tf] : undefined);
@@ -341,7 +341,7 @@ export default {
       spasm.objects[ctx].transformFeedbackVaryings(spasm.objects[program], spasm.objects[varyings], bufferMode);
     },
     WebGL2RenderingContextBase_getTransformFeedbackVarying: function(rawResult, ctx, program, index) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].getTransformFeedbackVarying(spasm.objects[program], index));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].getTransformFeedbackVarying(spasm.objects[program], index));
     },
     WebGL2RenderingContextBase_pauseTransformFeedback: function(ctx) {
       spasm.objects[ctx].pauseTransformFeedback();
@@ -359,7 +359,7 @@ export default {
       return spasm.addObject(spasm.objects[ctx].getIndexedParameter(target, index));
     },
     WebGL2RenderingContextBase_getUniformIndices: function(rawResult, ctx, program, uniformNames) {
-      spasm.encode_optional_sequence_uint(rawResult, spasm.objects[ctx].getUniformIndices(spasm.objects[program], spasm.objects[uniformNames]));
+      spasm.encode.optional_sequence(rawResult, spasm.objects[ctx].getUniformIndices(spasm.objects[program], spasm.objects[uniformNames]));
     },
     WebGL2RenderingContextBase_getActiveUniforms: function(ctx, program, uniformIndices, pname) {
       return spasm.addObject(spasm.objects[ctx].getActiveUniforms(spasm.objects[program], spasm.objects[uniformIndices], pname));
@@ -371,13 +371,13 @@ export default {
       return spasm.addObject(spasm.objects[ctx].getActiveUniformBlockParameter(spasm.objects[program], uniformBlockIndex, pname));
     },
     WebGL2RenderingContextBase_getActiveUniformBlockName: function(rawResult, ctx, program, uniformBlockIndex) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].getActiveUniformBlockName(spasm.objects[program], uniformBlockIndex));
+      spasm.encode.optional_string(rawResult, spasm.objects[ctx].getActiveUniformBlockName(spasm.objects[program], uniformBlockIndex));
     },
     WebGL2RenderingContextBase_uniformBlockBinding: function(ctx, program, uniformBlockIndex, uniformBlockBinding) {
       spasm.objects[ctx].uniformBlockBinding(spasm.objects[program], uniformBlockIndex, uniformBlockBinding);
     },
     WebGL2RenderingContextBase_createVertexArray: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].createVertexArray());
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].createVertexArray());
     },
     WebGL2RenderingContextBase_deleteVertexArray: function(ctx, vertexArrayDefined, vertexArray) {
       spasm.objects[ctx].deleteVertexArray(vertexArrayDefined ? spasm.objects[vertexArray] : undefined);

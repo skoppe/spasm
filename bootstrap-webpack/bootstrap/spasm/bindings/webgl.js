@@ -8,7 +8,7 @@ export default {
       return spasm.objects[ctx].type;
     },
     WebGLActiveInfo_name_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].name);
+      spasm.encode.string(rawResult, spasm.objects[ctx].name);
     },
     WebGLContextAttributes_alpha_Set: function(ctx, alpha) {
       spasm.objects[ctx].alpha = alpha;
@@ -59,13 +59,13 @@ export default {
       return spasm.objects[ctx].failIfMajorPerformanceCaveat;
     },
     WebGLContextEvent_statusMessage_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].statusMessage);
+      spasm.encode.string(rawResult, spasm.objects[ctx].statusMessage);
     },
     WebGLContextEventInit_statusMessage_Set: function(ctx, statusMessageLen, statusMessagePtr) {
       spasm.objects[ctx].statusMessage = spasm.decode_string(statusMessageLen, statusMessagePtr);
     },
     WebGLContextEventInit_statusMessage_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].statusMessage);
+      spasm.encode.string(rawResult, spasm.objects[ctx].statusMessage);
     },
     WebGLRenderingContextBase_canvas_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].canvas);
@@ -77,16 +77,16 @@ export default {
       return spasm.objects[ctx].drawingBufferHeight;
     },
     WebGLRenderingContextBase_getContextAttributes: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].getContextAttributes());
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].getContextAttributes());
     },
     WebGLRenderingContextBase_isContextLost: function(ctx) {
       return spasm.objects[ctx].isContextLost();
     },
     WebGLRenderingContextBase_getSupportedExtensions: function(rawResult, ctx) {
-      spasm.encode_optional_sequence_string(rawResult, spasm.objects[ctx].getSupportedExtensions());
+      spasm.encode.optional_sequence(rawResult, spasm.objects[ctx].getSupportedExtensions());
     },
     WebGLRenderingContextBase_getExtension: function(rawResult, ctx, nameLen, namePtr) {
-      spasm.encode_object(rawResult, spasm.objects[ctx].getExtension(spasm.decode_string(nameLen, namePtr)));
+      spasm.encode.object(rawResult, spasm.objects[ctx].getExtension(spasm.decode_string(nameLen, namePtr)));
     },
     WebGLRenderingContextBase_activeTexture: function(ctx, texture) {
       spasm.objects[ctx].activeTexture(texture);
@@ -167,22 +167,22 @@ export default {
       spasm.objects[ctx].copyTexSubImage2D(target, level, xoffset, yoffset, x, y, width, height);
     },
     WebGLRenderingContextBase_createBuffer: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].createBuffer());
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].createBuffer());
     },
     WebGLRenderingContextBase_createFramebuffer: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].createFramebuffer());
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].createFramebuffer());
     },
     WebGLRenderingContextBase_createProgram: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].createProgram());
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].createProgram());
     },
     WebGLRenderingContextBase_createRenderbuffer: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].createRenderbuffer());
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].createRenderbuffer());
     },
     WebGLRenderingContextBase_createShader: function(rawResult, ctx, type) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].createShader(type));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].createShader(type));
     },
     WebGLRenderingContextBase_createTexture: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].createTexture());
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].createTexture());
     },
     WebGLRenderingContextBase_cullFace: function(ctx, mode) {
       spasm.objects[ctx].cullFace(mode);
@@ -254,13 +254,13 @@ export default {
       spasm.objects[ctx].generateMipmap(target);
     },
     WebGLRenderingContextBase_getActiveAttrib: function(rawResult, ctx, programDefined, program, index) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].getActiveAttrib(programDefined ? spasm.objects[program] : undefined, index));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].getActiveAttrib(programDefined ? spasm.objects[program] : undefined, index));
     },
     WebGLRenderingContextBase_getActiveUniform: function(rawResult, ctx, programDefined, program, index) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].getActiveUniform(programDefined ? spasm.objects[program] : undefined, index));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].getActiveUniform(programDefined ? spasm.objects[program] : undefined, index));
     },
     WebGLRenderingContextBase_getAttachedShaders: function(rawResult, ctx, programDefined, program) {
-      spasm.encode_optional_sequence_JsHandle(rawResult, spasm.objects[ctx].getAttachedShaders(programDefined ? spasm.objects[program] : undefined));
+      spasm.encode.optional_sequence(rawResult, spasm.objects[ctx].getAttachedShaders(programDefined ? spasm.objects[program] : undefined));
     },
     WebGLRenderingContextBase_getAttribLocation: function(ctx, programDefined, program, nameLen, namePtr) {
       return spasm.objects[ctx].getAttribLocation(programDefined ? spasm.objects[program] : undefined, spasm.decode_string(nameLen, namePtr));
@@ -281,7 +281,7 @@ export default {
       return spasm.addObject(spasm.objects[ctx].getProgramParameter(programDefined ? spasm.objects[program] : undefined, pname));
     },
     WebGLRenderingContextBase_getProgramInfoLog: function(rawResult, ctx, programDefined, program) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].getProgramInfoLog(programDefined ? spasm.objects[program] : undefined));
+      spasm.encode.optional_string(rawResult, spasm.objects[ctx].getProgramInfoLog(programDefined ? spasm.objects[program] : undefined));
     },
     WebGLRenderingContextBase_getRenderbufferParameter: function(ctx, target, pname) {
       return spasm.addObject(spasm.objects[ctx].getRenderbufferParameter(target, pname));
@@ -290,13 +290,13 @@ export default {
       return spasm.addObject(spasm.objects[ctx].getShaderParameter(shaderDefined ? spasm.objects[shader] : undefined, pname));
     },
     WebGLRenderingContextBase_getShaderPrecisionFormat: function(rawResult, ctx, shadertype, precisiontype) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].getShaderPrecisionFormat(shadertype, precisiontype));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].getShaderPrecisionFormat(shadertype, precisiontype));
     },
     WebGLRenderingContextBase_getShaderInfoLog: function(rawResult, ctx, shaderDefined, shader) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].getShaderInfoLog(shaderDefined ? spasm.objects[shader] : undefined));
+      spasm.encode.optional_string(rawResult, spasm.objects[ctx].getShaderInfoLog(shaderDefined ? spasm.objects[shader] : undefined));
     },
     WebGLRenderingContextBase_getShaderSource: function(rawResult, ctx, shaderDefined, shader) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].getShaderSource(shaderDefined ? spasm.objects[shader] : undefined));
+      spasm.encode.optional_string(rawResult, spasm.objects[ctx].getShaderSource(shaderDefined ? spasm.objects[shader] : undefined));
     },
     WebGLRenderingContextBase_getTexParameter: function(ctx, target, pname) {
       return spasm.addObject(spasm.objects[ctx].getTexParameter(target, pname));
@@ -305,7 +305,7 @@ export default {
       return spasm.addObject(spasm.objects[ctx].getUniform(programDefined ? spasm.objects[program] : undefined, locationDefined ? spasm.objects[location] : undefined));
     },
     WebGLRenderingContextBase_getUniformLocation: function(rawResult, ctx, programDefined, program, nameLen, namePtr) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].getUniformLocation(programDefined ? spasm.objects[program] : undefined, spasm.decode_string(nameLen, namePtr)));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].getUniformLocation(programDefined ? spasm.objects[program] : undefined, spasm.decode_string(nameLen, namePtr)));
     },
     WebGLRenderingContextBase_getVertexAttrib: function(ctx, index, pname) {
       return spasm.addObject(spasm.objects[ctx].getVertexAttrib(index, pname));
@@ -403,91 +403,91 @@ export default {
     WebGLRenderingContextBase_uniform1f: function(ctx, locationDefined, location, x) {
       spasm.objects[ctx].uniform1f(locationDefined ? spasm.objects[location] : undefined, x);
     },
-    WebGLRenderingContextBase_uniform1fv__optional_JsHandle_JsHandle: function(ctx, locationDefined, location, v) {
+    WebGLRenderingContextBase_uniform1fv__optional_Handle_Handle: function(ctx, locationDefined, location, v) {
       spasm.objects[ctx].uniform1fv(locationDefined ? spasm.objects[location] : undefined, spasm.objects[v]);
     },
-    WebGLRenderingContextBase_uniform1fv__optional_JsHandle_sequence_float: function(ctx, locationDefined, location, v) {
+    WebGLRenderingContextBase_uniform1fv__optional_Handle_sequence: function(ctx, locationDefined, location, v) {
       spasm.objects[ctx].uniform1fv(locationDefined ? spasm.objects[location] : undefined, spasm.objects[v]);
     },
     WebGLRenderingContextBase_uniform1i: function(ctx, locationDefined, location, x) {
       spasm.objects[ctx].uniform1i(locationDefined ? spasm.objects[location] : undefined, x);
     },
-    WebGLRenderingContextBase_uniform1iv__optional_JsHandle_JsHandle: function(ctx, locationDefined, location, v) {
+    WebGLRenderingContextBase_uniform1iv__optional_Handle_Handle: function(ctx, locationDefined, location, v) {
       spasm.objects[ctx].uniform1iv(locationDefined ? spasm.objects[location] : undefined, spasm.objects[v]);
     },
-    WebGLRenderingContextBase_uniform1iv__optional_JsHandle_sequence_int: function(ctx, locationDefined, location, v) {
+    WebGLRenderingContextBase_uniform1iv__optional_Handle_sequence: function(ctx, locationDefined, location, v) {
       spasm.objects[ctx].uniform1iv(locationDefined ? spasm.objects[location] : undefined, spasm.objects[v]);
     },
     WebGLRenderingContextBase_uniform2f: function(ctx, locationDefined, location, x, y) {
       spasm.objects[ctx].uniform2f(locationDefined ? spasm.objects[location] : undefined, x, y);
     },
-    WebGLRenderingContextBase_uniform2fv__optional_JsHandle_JsHandle: function(ctx, locationDefined, location, v) {
+    WebGLRenderingContextBase_uniform2fv__optional_Handle_Handle: function(ctx, locationDefined, location, v) {
       spasm.objects[ctx].uniform2fv(locationDefined ? spasm.objects[location] : undefined, spasm.objects[v]);
     },
-    WebGLRenderingContextBase_uniform2fv__optional_JsHandle_sequence_float: function(ctx, locationDefined, location, v) {
+    WebGLRenderingContextBase_uniform2fv__optional_Handle_sequence: function(ctx, locationDefined, location, v) {
       spasm.objects[ctx].uniform2fv(locationDefined ? spasm.objects[location] : undefined, spasm.objects[v]);
     },
     WebGLRenderingContextBase_uniform2i: function(ctx, locationDefined, location, x, y) {
       spasm.objects[ctx].uniform2i(locationDefined ? spasm.objects[location] : undefined, x, y);
     },
-    WebGLRenderingContextBase_uniform2iv__optional_JsHandle_JsHandle: function(ctx, locationDefined, location, v) {
+    WebGLRenderingContextBase_uniform2iv__optional_Handle_Handle: function(ctx, locationDefined, location, v) {
       spasm.objects[ctx].uniform2iv(locationDefined ? spasm.objects[location] : undefined, spasm.objects[v]);
     },
-    WebGLRenderingContextBase_uniform2iv__optional_JsHandle_sequence_int: function(ctx, locationDefined, location, v) {
+    WebGLRenderingContextBase_uniform2iv__optional_Handle_sequence: function(ctx, locationDefined, location, v) {
       spasm.objects[ctx].uniform2iv(locationDefined ? spasm.objects[location] : undefined, spasm.objects[v]);
     },
     WebGLRenderingContextBase_uniform3f: function(ctx, locationDefined, location, x, y, z) {
       spasm.objects[ctx].uniform3f(locationDefined ? spasm.objects[location] : undefined, x, y, z);
     },
-    WebGLRenderingContextBase_uniform3fv__optional_JsHandle_JsHandle: function(ctx, locationDefined, location, v) {
+    WebGLRenderingContextBase_uniform3fv__optional_Handle_Handle: function(ctx, locationDefined, location, v) {
       spasm.objects[ctx].uniform3fv(locationDefined ? spasm.objects[location] : undefined, spasm.objects[v]);
     },
-    WebGLRenderingContextBase_uniform3fv__optional_JsHandle_sequence_float: function(ctx, locationDefined, location, v) {
+    WebGLRenderingContextBase_uniform3fv__optional_Handle_sequence: function(ctx, locationDefined, location, v) {
       spasm.objects[ctx].uniform3fv(locationDefined ? spasm.objects[location] : undefined, spasm.objects[v]);
     },
     WebGLRenderingContextBase_uniform3i: function(ctx, locationDefined, location, x, y, z) {
       spasm.objects[ctx].uniform3i(locationDefined ? spasm.objects[location] : undefined, x, y, z);
     },
-    WebGLRenderingContextBase_uniform3iv__optional_JsHandle_JsHandle: function(ctx, locationDefined, location, v) {
+    WebGLRenderingContextBase_uniform3iv__optional_Handle_Handle: function(ctx, locationDefined, location, v) {
       spasm.objects[ctx].uniform3iv(locationDefined ? spasm.objects[location] : undefined, spasm.objects[v]);
     },
-    WebGLRenderingContextBase_uniform3iv__optional_JsHandle_sequence_int: function(ctx, locationDefined, location, v) {
+    WebGLRenderingContextBase_uniform3iv__optional_Handle_sequence: function(ctx, locationDefined, location, v) {
       spasm.objects[ctx].uniform3iv(locationDefined ? spasm.objects[location] : undefined, spasm.objects[v]);
     },
     WebGLRenderingContextBase_uniform4f: function(ctx, locationDefined, location, x, y, z, w) {
       spasm.objects[ctx].uniform4f(locationDefined ? spasm.objects[location] : undefined, x, y, z, w);
     },
-    WebGLRenderingContextBase_uniform4fv__optional_JsHandle_JsHandle: function(ctx, locationDefined, location, v) {
+    WebGLRenderingContextBase_uniform4fv__optional_Handle_Handle: function(ctx, locationDefined, location, v) {
       spasm.objects[ctx].uniform4fv(locationDefined ? spasm.objects[location] : undefined, spasm.objects[v]);
     },
-    WebGLRenderingContextBase_uniform4fv__optional_JsHandle_sequence_float: function(ctx, locationDefined, location, v) {
+    WebGLRenderingContextBase_uniform4fv__optional_Handle_sequence: function(ctx, locationDefined, location, v) {
       spasm.objects[ctx].uniform4fv(locationDefined ? spasm.objects[location] : undefined, spasm.objects[v]);
     },
     WebGLRenderingContextBase_uniform4i: function(ctx, locationDefined, location, x, y, z, w) {
       spasm.objects[ctx].uniform4i(locationDefined ? spasm.objects[location] : undefined, x, y, z, w);
     },
-    WebGLRenderingContextBase_uniform4iv__optional_JsHandle_JsHandle: function(ctx, locationDefined, location, v) {
+    WebGLRenderingContextBase_uniform4iv__optional_Handle_Handle: function(ctx, locationDefined, location, v) {
       spasm.objects[ctx].uniform4iv(locationDefined ? spasm.objects[location] : undefined, spasm.objects[v]);
     },
-    WebGLRenderingContextBase_uniform4iv__optional_JsHandle_sequence_int: function(ctx, locationDefined, location, v) {
+    WebGLRenderingContextBase_uniform4iv__optional_Handle_sequence: function(ctx, locationDefined, location, v) {
       spasm.objects[ctx].uniform4iv(locationDefined ? spasm.objects[location] : undefined, spasm.objects[v]);
     },
-    WebGLRenderingContextBase_uniformMatrix2fv__optional_JsHandle_bool_JsHandle: function(ctx, locationDefined, location, transpose, value) {
+    WebGLRenderingContextBase_uniformMatrix2fv__optional_Handle_bool_Handle: function(ctx, locationDefined, location, transpose, value) {
       spasm.objects[ctx].uniformMatrix2fv(locationDefined ? spasm.objects[location] : undefined, transpose, spasm.objects[value]);
     },
-    WebGLRenderingContextBase_uniformMatrix2fv__optional_JsHandle_bool_sequence_float: function(ctx, locationDefined, location, transpose, value) {
+    WebGLRenderingContextBase_uniformMatrix2fv__optional_Handle_bool_sequence: function(ctx, locationDefined, location, transpose, value) {
       spasm.objects[ctx].uniformMatrix2fv(locationDefined ? spasm.objects[location] : undefined, transpose, spasm.objects[value]);
     },
-    WebGLRenderingContextBase_uniformMatrix3fv__optional_JsHandle_bool_JsHandle: function(ctx, locationDefined, location, transpose, value) {
+    WebGLRenderingContextBase_uniformMatrix3fv__optional_Handle_bool_Handle: function(ctx, locationDefined, location, transpose, value) {
       spasm.objects[ctx].uniformMatrix3fv(locationDefined ? spasm.objects[location] : undefined, transpose, spasm.objects[value]);
     },
-    WebGLRenderingContextBase_uniformMatrix3fv__optional_JsHandle_bool_sequence_float: function(ctx, locationDefined, location, transpose, value) {
+    WebGLRenderingContextBase_uniformMatrix3fv__optional_Handle_bool_sequence: function(ctx, locationDefined, location, transpose, value) {
       spasm.objects[ctx].uniformMatrix3fv(locationDefined ? spasm.objects[location] : undefined, transpose, spasm.objects[value]);
     },
-    WebGLRenderingContextBase_uniformMatrix4fv__optional_JsHandle_bool_JsHandle: function(ctx, locationDefined, location, transpose, value) {
+    WebGLRenderingContextBase_uniformMatrix4fv__optional_Handle_bool_Handle: function(ctx, locationDefined, location, transpose, value) {
       spasm.objects[ctx].uniformMatrix4fv(locationDefined ? spasm.objects[location] : undefined, transpose, spasm.objects[value]);
     },
-    WebGLRenderingContextBase_uniformMatrix4fv__optional_JsHandle_bool_sequence_float: function(ctx, locationDefined, location, transpose, value) {
+    WebGLRenderingContextBase_uniformMatrix4fv__optional_Handle_bool_sequence: function(ctx, locationDefined, location, transpose, value) {
       spasm.objects[ctx].uniformMatrix4fv(locationDefined ? spasm.objects[location] : undefined, transpose, spasm.objects[value]);
     },
     WebGLRenderingContextBase_useProgram: function(ctx, programDefined, program) {
@@ -499,37 +499,37 @@ export default {
     WebGLRenderingContextBase_vertexAttrib1f: function(ctx, indx, x) {
       spasm.objects[ctx].vertexAttrib1f(indx, x);
     },
-    WebGLRenderingContextBase_vertexAttrib1fv__uint_JsHandle: function(ctx, indx, values) {
+    WebGLRenderingContextBase_vertexAttrib1fv__uint_Handle: function(ctx, indx, values) {
       spasm.objects[ctx].vertexAttrib1fv(indx, spasm.objects[values]);
     },
-    WebGLRenderingContextBase_vertexAttrib1fv__uint_sequence_float: function(ctx, indx, values) {
+    WebGLRenderingContextBase_vertexAttrib1fv__uint_sequence: function(ctx, indx, values) {
       spasm.objects[ctx].vertexAttrib1fv(indx, spasm.objects[values]);
     },
     WebGLRenderingContextBase_vertexAttrib2f: function(ctx, indx, x, y) {
       spasm.objects[ctx].vertexAttrib2f(indx, x, y);
     },
-    WebGLRenderingContextBase_vertexAttrib2fv__uint_JsHandle: function(ctx, indx, values) {
+    WebGLRenderingContextBase_vertexAttrib2fv__uint_Handle: function(ctx, indx, values) {
       spasm.objects[ctx].vertexAttrib2fv(indx, spasm.objects[values]);
     },
-    WebGLRenderingContextBase_vertexAttrib2fv__uint_sequence_float: function(ctx, indx, values) {
+    WebGLRenderingContextBase_vertexAttrib2fv__uint_sequence: function(ctx, indx, values) {
       spasm.objects[ctx].vertexAttrib2fv(indx, spasm.objects[values]);
     },
     WebGLRenderingContextBase_vertexAttrib3f: function(ctx, indx, x, y, z) {
       spasm.objects[ctx].vertexAttrib3f(indx, x, y, z);
     },
-    WebGLRenderingContextBase_vertexAttrib3fv__uint_JsHandle: function(ctx, indx, values) {
+    WebGLRenderingContextBase_vertexAttrib3fv__uint_Handle: function(ctx, indx, values) {
       spasm.objects[ctx].vertexAttrib3fv(indx, spasm.objects[values]);
     },
-    WebGLRenderingContextBase_vertexAttrib3fv__uint_sequence_float: function(ctx, indx, values) {
+    WebGLRenderingContextBase_vertexAttrib3fv__uint_sequence: function(ctx, indx, values) {
       spasm.objects[ctx].vertexAttrib3fv(indx, spasm.objects[values]);
     },
     WebGLRenderingContextBase_vertexAttrib4f: function(ctx, indx, x, y, z, w) {
       spasm.objects[ctx].vertexAttrib4f(indx, x, y, z, w);
     },
-    WebGLRenderingContextBase_vertexAttrib4fv__uint_JsHandle: function(ctx, indx, values) {
+    WebGLRenderingContextBase_vertexAttrib4fv__uint_Handle: function(ctx, indx, values) {
       spasm.objects[ctx].vertexAttrib4fv(indx, spasm.objects[values]);
     },
-    WebGLRenderingContextBase_vertexAttrib4fv__uint_sequence_float: function(ctx, indx, values) {
+    WebGLRenderingContextBase_vertexAttrib4fv__uint_sequence: function(ctx, indx, values) {
       spasm.objects[ctx].vertexAttrib4fv(indx, spasm.objects[values]);
     },
     WebGLRenderingContextBase_vertexAttribPointer: function(ctx, indx, size, type, normalized, stride, offset) {

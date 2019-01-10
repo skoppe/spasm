@@ -15,6 +15,7 @@ import openmethods;
 
 enum dKeywords = ["abstract","alias","align","asm","assert","auto","body","bool","break","byte","case","cast","catch","cdouble","cent","cfloat","char","class","const","continue","creal","dchar","debug","default","delegate","delete","deprecated","do","double","else","enum","export","extern","false","final","finally","float","for","foreach","foreach_reverse","function","goto","idouble","if","ifloat","immutable","import","in","inout","int","interface","invariant","ireal","is","lazy","long","macro","mixin","module","new","nothrow","null","out","override","package","pragma","private","protected","public","pure","real","ref","return","scope","shared","short","static","struct","super","switch","synchronized","template","this","throw","true","try","typedef","typeid","typeof","ubyte","ucent","uint","ulong","union","unittest","ushort","version","void","wchar","while","with","__FILE__","__FILE_FULL_PATH__","__MODULE__","__LINE__","__FUNCTION__","__PRETTY_FUNCTION__","__gshared","__traits","__vector","__parameters","__DATE__","__EOF__","__TIME__","__TIMESTAMP__","__VENDOR__","__VERSION__"];
 
+enum jsKeywords = ["default", "arguments"];
 mixin(registerMethods);
 
 enum FunctionType { Function = 1, Attribute = 2, Static = 4, OpIndex = 8, OpIndexAssign = 16, OpDispatch = 32, Getter = 64, Setter = 128, Deleter = 256, Includes = 512, Partial = 1024 };
@@ -325,7 +326,7 @@ class MaplikeNode : Node {
   a.putLn(["Iterator!(ArrayPair!(",keyType,", ",valueType,")) entries() {"]);
   a.putLn(["  return Iterator!(ArrayPair!(",keyType,", ",valueType,"))(", manglePrefix, "entries(handle));"]);
   a.putLn("}");
-  a.putLn(["extern(C) void forEach(void delegate(",keyType,", JsHandle, JsHandle) callback) {"]);
+  a.putLn(["extern(C) void forEach(void delegate(",keyType,", Handle, Handle) callback) {"]);
   a.putLn(["  ", manglePrefix, "forEach(handle, callback);"]);
   a.putLn("}");
   a.putLn(["",valueType," get(",keyType," key) {"]);
@@ -351,16 +352,16 @@ class MaplikeNode : Node {
   string mangleKeyType = node.keyType.generateDImports(Context(semantics));
   string mangleValueType = node.valueType.generateDImports(Context(semantics));
   string manglePrefix = "Maplike_" ~ mangleKeyType ~ "_" ~ mangleValueType ~ "_";
-  a.putLn(["extern (C) uint ", manglePrefix, "size(JsHandle);"]);
-  a.putLn(["extern (C) void ", manglePrefix, "clear(JsHandle);"]);
-  a.putLn(["extern (C) void ", manglePrefix, "delete(JsHandle, ", mangleKeyType," key);"]);
-  a.putLn(["extern (C) JsHandle ", manglePrefix, "entries(JsHandle);"]);
-  a.putLn(["extern (C) void ", manglePrefix, "forEach(JsHandle, void delegate(", keyType,", JsHandle, JsHandle));"]);
-  a.putLn(["extern (C) ", valueType, " ", manglePrefix, "get(JsHandle, ", mangleKeyType,");"]);
-  a.putLn(["extern (C) bool ", manglePrefix, "has(JsHandle, ", mangleKeyType,");"]);
-  a.putLn(["extern (C) JsHandle ", manglePrefix, "keys(JsHandle);"]);
-  a.putLn(["extern (C) void ", manglePrefix, "set(JsHandle, ", mangleKeyType, " key, ", mangleValueType, " value);"]);
-  a.putLn(["extern (C) JsHandle ", manglePrefix, "values(JsHandle);"]);
+  a.putLn(["extern (C) uint ", manglePrefix, "size(Handle);"]);
+  a.putLn(["extern (C) void ", manglePrefix, "clear(Handle);"]);
+  a.putLn(["extern (C) void ", manglePrefix, "delete(Handle, ", mangleKeyType," key);"]);
+  a.putLn(["extern (C) Handle ", manglePrefix, "entries(Handle);"]);
+  a.putLn(["extern (C) void ", manglePrefix, "forEach(Handle, void delegate(", keyType,", Handle, Handle));"]);
+  a.putLn(["extern (C) ", valueType, " ", manglePrefix, "get(Handle, ", mangleKeyType,");"]);
+  a.putLn(["extern (C) bool ", manglePrefix, "has(Handle, ", mangleKeyType,");"]);
+  a.putLn(["extern (C) Handle ", manglePrefix, "keys(Handle);"]);
+  a.putLn(["extern (C) void ", manglePrefix, "set(Handle, ", mangleKeyType, " key, ", mangleValueType, " value);"]);
+  a.putLn(["extern (C) Handle ", manglePrefix, "values(Handle);"]);
 }
 
 class CallbackNode : Node {
@@ -388,24 +389,24 @@ class CallbackNode : Node {
 
 void dumpJsArgument(Appender)(ref Semantics semantics, Argument arg, ref Appender a) {
   if (semantics.isNullable(arg.type)) {
-    a.put(arg.name);
+    a.put(arg.name.friendlyJsName);
     a.put("Defined ? ");
   }
   if (semantics.isUnion(arg.type) || semantics.isEnum(arg.type)) {
     a.put("spasm.decode_");
     arg.type.mangleTypeJsImpl(a, semantics, MangleTypeJsContext(true));
     a.put("(");
-    a.put(arg.name);
+    a.put(arg.name.friendlyJsName);
     a.put(")");
   } else if (semantics.isStringType(arg.type)) {
-    a.put(["spasm.decode_string(",arg.name,"Len, ",arg.name,"Ptr)"]);
+    a.put(["spasm.decode_string(",arg.name.friendlyJsName,"Len, ",arg.name.friendlyJsName,"Ptr)"]);
   } else if (semantics.isCallback(arg.type.matches[0])){
     string callbackName = semantics.getType(arg.type).mangleTypeJs(semantics);
 
     auto argList = semantics.getArgumentList(arg.type);
     auto arguments = extractArguments(argList);
     auto types = extractTypes(argList);
-    string base = arg.name;
+    string base = arg.name.friendlyJsName;
     a.put([ "(", arguments.joiner(", ").text, ")=>{spasm.", callbackName, "(", base, "Ctx, ", base ~ "Ptr, "]);
     zip(arguments, types).each!((t) {
       auto arg = t[0];
@@ -414,7 +415,7 @@ void dumpJsArgument(Appender)(ref Semantics semantics, Argument arg, ref Appende
       if (semantics.isStringType(type) || semantics.isUnion(type)
         || semantics.isNullable(type) || semantics.isEnum(type))
       {
-        a.put("spasm.encode_");
+        a.put("spasm.encode.");
         if (type.name == "WebIDL.TypeWithExtendedAttributes")
           type.children[1].mangleTypeJs(a, semantics);
         else
@@ -436,9 +437,9 @@ void dumpJsArgument(Appender)(ref Semantics semantics, Argument arg, ref Appende
     });
     a.put(")}");
   } else if (semantics.isPrimitive(arg.type)) {
-    a.put(arg.name);
+    a.put(arg.name.friendlyJsName);
   } else {
-    a.put(["spasm.objects[",arg.name,"]"]);
+    a.put(["spasm.objects[",arg.name.friendlyJsName,"]"]);
   }
   if (semantics.isNullable(arg.type)) {
     a.put(" : undefined");
@@ -473,13 +474,13 @@ void dump(Appender)(ref Context context, JsExportFunction item, ref Appender a) 
       auto arg = e.value;
       if (e.index > 0)
         a.put(", ");
-      a.put(arg.name);
+      a.put(arg.name.friendlyJsName);
       if (semantics.isNullable(arg.type))
-        a.put(["Defined, ", arg.name]);
+        a.put(["Defined, ", arg.name.friendlyJsName]);
       if (semantics.isCallback(arg.type.matches[0]))
-        a.put(["Ctx, ", arg.name, "Ptr"]);
+        a.put(["Ctx, ", arg.name.friendlyJsName, "Ptr"]);
       else if (semantics.isStringType(arg.type))
-        a.put(["Len, ", arg.name, "Ptr"]);
+        a.put(["Len, ", arg.name.friendlyJsName, "Ptr"]);
     });
   a.putLn(") {");
   a.indent();
@@ -489,7 +490,7 @@ void dump(Appender)(ref Context context, JsExportFunction item, ref Appender a) 
     if (!rawResult)
       a.put("return ");
     if (semantics.isStringType(item.result) || semantics.isUnion(item.result) || semantics.isNullable(item.result) || semantics.isEnum(item.result)) {
-      a.put("spasm.encode_");
+      a.put("spasm.encode.");
       if (item.result.name == "WebIDL.TypeWithExtendedAttributes")
         item.result.children[1].mangleTypeJs(a, semantics);
       else
@@ -546,7 +547,7 @@ void dump(Appender)(ref Semantics semantics, DImportFunction item, ref Appender 
     a.put("void");
   else {
     if (!semantics.isPrimitive(item.result) && !semantics.isUnion(item.result) && !semantics.isNullable(item.result)) {
-      a.put("JsHandle");
+      a.put("Handle");
     } else {
       item.result.generateDType(*a, context);
     }
@@ -555,7 +556,7 @@ void dump(Appender)(ref Semantics semantics, DImportFunction item, ref Appender 
   a.put(mangleName(item.parentTypeName,item.name,item.manglePostfix));
   a.put("(");
   if (!(item.type & FunctionType.Static)) {
-    a.put("JsHandle");
+    a.put("Handle");
     if (item.args.length > 0)
       a.put(", ");
   }
@@ -608,7 +609,7 @@ void dump(Appender)(ref Semantics semantics, DBindingFunction item, ref Appender
     a.put("return ");
     if (!semantics.isPrimitive(item.result) && !semantics.isUnion(item.result) && !semantics.isNullable(item.result)) {
       item.result.generateDType(a, Context(semantics));
-      a.put("(");
+      a.put("(JsHandle(");
     }
   }
   a.put(mangleName(item.parentTypeName, item.customName.length > 0 ? item.customName : item.name,item.manglePostfix));
@@ -676,12 +677,42 @@ void dumpDJsArgument(Appender)(ref Semantics semantics, Argument arg, ref Append
     a.put(".handle");
 }
 
+bool isSequence(Semantics semantics, ParseTree tree) {
+  if (tree.name == "WebIDL.ReturnType") {
+    if (tree.matches[0] == "void")
+      return false;
+    return semantics.isSequence(tree.children[0]);
+  }
+  if (tree.name == "WebIDL.Type")
+    return tree.children[0].children[0].children[0].name == "WebIDL.SequenceType";
+  if (tree.name == "WebIDL.UnionMemberType")
+    return tree.children[1].children[0].name == "WebIDL.SequenceType";
+  if (tree.name == "WebIDL.NonAnyType")
+    return tree.children[0].name == "WebIDL.SequenceType";
+  return false;
+}
+
 bool isAny(ref Semantics semantics, ParseTree tree) {
   return tree.matches[0] == "any";
 }
-bool isKeyword(string s) {
+bool isDKeyword(string s) {
   import std.algorithm : canFind;
   return dKeywords.canFind(s);
+}
+bool isJsKeyword(string s) {
+  import std.algorithm : canFind;
+  return jsKeywords.canFind(s);
+}
+
+string friendlyJsName(string s) {
+  import std.ascii;
+  import std.conv : text;
+  import std.utf : byChar;
+  if (s.length == 0)
+    return s;
+  if (s.isJsKeyword)
+    return s~"_";
+  return s;
 }
 
 string friendlyName(string s) {
@@ -690,7 +721,7 @@ string friendlyName(string s) {
   import std.utf : byChar;
   if (s.length == 0)
     return s;
-  if (s.isKeyword)
+  if (s.isDKeyword)
     return s~"_";
   string clean = s.byChar.map!(c => c.isAlphaNum ? c : '_').text;
   if (!clean[0].isAlpha && clean[0] != '_')
@@ -776,7 +807,7 @@ bool isEnum(ref Context context, ParseTree tree) {
   return context.semantics.isEnum(tree);
 }
 bool isEnum(ref Semantics semantics, ParseTree tree) {
-  if (tree.name == "WebIDL.TypeWithExtendedAttributes")
+  if (tree.name == "WebIDL.TypeWithExtendedAttributes" || tree.name == "WebIDL.UnionMemberType")
     return semantics.isEnum(tree.children[1]);
   return semantics.isEnum(tree.matches[0]);
 }
@@ -979,8 +1010,13 @@ bool isPrimitive(ref Semantics semantics, ParseTree tree) {
   }
   if (tree.name == "WebIDL.TypeWithExtendedAttributes")
     return semantics.isPrimitive(tree.children[1]);
-  assert(tree.name == "WebIDL.Type");
   string typeName = tree.getTypeName();
+  if (tree.name == "WebIDL.UnionMemberType") {
+    if (tree.children[1].name != "WebIDL.NonAnyType")
+      return false;
+    return tree.children[1].children[0].name == "WebIDL.PrimitiveType";
+  }
+  assert(tree.name == "WebIDL.Type");
   if (semantics.isEnum(typeName) || semantics.isCallback(typeName))
     return true;
   if (semantics.isTypedef(typeName)) {
@@ -1211,7 +1247,7 @@ void mangleTypeJsImpl(Appender)(ParseTree tree, ref Appender a, ref Semantics se
   case "WebIDL.Argument":
     auto type = tree.extractType;
     if (!semantics.isPrimitive(type) && !semantics.isUnion(type)) {
-      a.put("JsHandle");
+      a.put("Handle");
       break;
     }
     tree.children[1].mangleTypeJsImpl(a, semantics, context);
@@ -1230,11 +1266,15 @@ void mangleTypeJsImpl(Appender)(ParseTree tree, ref Appender a, ref Semantics se
     } else
       a.put(tree.matches[0]);
     break;
+  case "WebIDL.RecordType":
+    a.put("record");
+    // tree.children.putWithDelimiter!(mangleTypeJsImpl)("_", a, semantics, context);
+    break;
   case "WebIDL.SequenceType":
     if (!context.skipOptional && tree.matches[$-1] == "?")
       a.put("optional_");
-    a.put("sequence_");
-    tree.children[0].mangleTypeJsImpl(a, semantics, context);
+    a.put("sequence");
+    // tree.children[0].mangleTypeJsImpl(a, semantics, context);
     break;
   case "WebIDL.SingleType":
     if (tree.matches[0] == "any") {
@@ -1307,7 +1347,7 @@ void mangleTypeJsImpl(Appender)(ParseTree tree, ref Appender a, ref Semantics se
   case "WebIDL.Identifier":
     auto typeName = tree.matches[0];
     if (!context.inUnion && !semantics.isEnum(tree)) {
-      a.put("JsHandle");
+      a.put("Handle");
       return;
     }
     // TODO: could be nullable typedef
@@ -1371,7 +1411,7 @@ void generateDImports(Appender)(ParseTree tree, ref Appender a, Context context)
         a.put("bool, ");
     }
     if (!(optional && context.returnType) && !context.primitiveType && !context.sumType && !(context.returnType && tree.children[0].name == "WebIDL.SequenceType"))
-      a.put("JsHandle");
+      a.put("Handle");
     else
       tree.children.each!(c => c.generateDType(a, context));
     if (optional && context.returnType)
@@ -1379,7 +1419,7 @@ void generateDImports(Appender)(ParseTree tree, ref Appender a, Context context)
     break;
   case "WebIDL.SingleType":
     if (tree.matches[0] == "any") {
-      a.put("JsHandle");
+      a.put("Handle");
     } else
       tree.children[0].generateDImports(a, context);
     break;
@@ -1484,7 +1524,7 @@ void generateDImports(Appender)(ParseTree tree, ref Appender a, Context context)
       if (context.isPrimitive(tree.children[0]) || context.isUnion(tree.children[0]) || tree.matches[$-1] == "?")
         tree.children[0].generateDImports(a, context);
       else if (tree.matches[0] != "void")
-        a.put("JsHandle");
+        a.put("Handle");
       else
         a.put("void");
     }
@@ -1503,7 +1543,7 @@ void generateDImports(Appender)(ParseTree tree, ref Appender a, Context context)
   case "WebIDL.MixinRest":
     break;
   case "WebIDL.SequenceType":
-    a.put("JsHandle");
+    a.put("Handle");
     break;
   case "WebIDL.MixinMember":
   case "WebIDL.Const":
@@ -1785,36 +1825,52 @@ void generateEncodedTypes(IR ir, Semantics semantics, ref Appender!(ParseTree[])
   }
 }
 
-auto stripNullable(ParseTree tree) {
-  if (tree.children.length == 0)
-    return tree;
-  switch (tree.name) {
-  case "WebIDL.ExtendedAttributeList": return tree;
-  case "WebIDL.CallbackRest": return tree;
-  case "WebIDL.Dictionary": return tree;
-  case "WebIDL.CallbackOrInterfaceOrMixin": return tree;
-  case "WebIDL.PartialDefinition": return tree;
+auto stripNullable(const ParseTree tree) {
+  ParseTree clone = tree.dup();
+  if (clone.children.length == 0)
+    return clone;
+  switch (clone.name) {
+  case "WebIDL.ExtendedAttributeList": return clone;
+  case "WebIDL.CallbackRest": return clone;
+  case "WebIDL.Dictionary": return clone;
+  case "WebIDL.CallbackOrInterfaceOrMixin": return clone;
+  case "WebIDL.PartialDefinition": return clone;
   default:
   }
-  if (tree.children[$-1].name == "WebIDL.Null") {
-    tree.children = tree.children.dup;
-    tree.children[$-1].matches = [""];
-    tree.matches[$-1] = "";
-    return tree;
-  } else if (tree.matches[$-1] == "?") {
-    tree.matches = tree.matches.dup[0..$-1];
+  if (clone.children[$-1].name == "WebIDL.Null") {
+    clone.children = clone.children.dup;
+    clone.children[$-1].matches = [""];
+    clone.matches[$-1] = "";
+    return clone;
+  } else if (clone.matches[$-1] == "?") {
+    clone.matches = clone.matches.dup[0..$-1];
   }
-  tree.children = tree.children.map!(c => c.stripNullable).array;
-  return tree;
+  clone.children = clone.children.map!(c => c.stripNullable).array;
+  return clone;
 }
 
 void generateJsEncoder(Encoder)(Encoder encoder, ref IndentedStringAppender a, ref Semantics semantics, bool isVar) {
-  a.put("encode_");
   a.put(encoder.mangled);
   if (isVar) {
     a.put(" = ");
   } else {
     a.put(": ");
+  }
+  if (semantics.isPrimitive(encoder.tree)) {
+    switch (encoder.mangled) {
+    case "uint":
+    case "bool":
+      a.put("setUInt");
+      return;
+    case "double":
+      a.put("setDouble");
+      return;
+    default:
+    }
+  }
+  if (encoder.mangled == "Handle" || encoder.mangled == "object" || encoder.mangled == "sequence" || encoder.mangled == "object" || encoder.mangled == "record") {
+    a.put("handle");
+    return;
   }
   a.putLn("(ptr, val)=>{");
   a.indent();
@@ -1829,21 +1885,21 @@ void generateJsEncoder(Encoder)(Encoder encoder, ref IndentedStringAppender a, r
     a.putLn(["if (!setBool(ptr+", structSize.to!string, ", isEmpty(val))) {"]);
     a.indent();
     auto typedefMangled = aliasedType.mangleTypeJs(semantics);
-    a.putLn(["encode_",typedefMangled,"(ptr, val);"]);
+    a.putLn([typedefMangled,"(ptr, val);"]);
     a.undent();
     a.putLn("}");
   } else if (semantics.isTypedef(encoder.tree)) {
     string typeName = encoder.tree.getTypeName();
     auto aliasedType = semantics.getAliasedType(typeName);
     auto typedefMangled = aliasedType.mangleTypeJs(semantics);
-    a.putLn(["encode_",typedefMangled,"(ptr, val);"]);
+    a.putLn([typedefMangled,"(ptr, val);"]);
   } else if (semantics.isNullable(encoder.tree)) {
     auto baseType = encoder.tree.stripNullable;
     uint structSize = semantics.getSizeOf(baseType);
     a.putLn(["if (!setBool(ptr+", structSize.to!string, ", isEmpty(val))) {"]);
     a.indent();
     auto typedefMangled = baseType.mangleTypeJs(semantics);
-    a.putLn(["encode_",typedefMangled,"(ptr, val);"]);
+    a.putLn([typedefMangled,"(ptr, val);"]);
     a.undent();
     a.putLn("}");
   } else if (semantics.isEnum(encoder.tree)) {
@@ -1856,7 +1912,7 @@ void generateJsEncoder(Encoder)(Encoder encoder, ref IndentedStringAppender a, r
         a.putLn(["if (val instanceof ",c.value.getTypeName,") {"]);
         a.indent();
         a.putLn(["setInt(ptr, ",c.index.to!string ,");"]);
-        a.putLn(["encode_", c.value.mangleTypeJs(semantics),"(ptr+4, val);"]);
+        a.putLn([c.value.mangleTypeJs(semantics),"(ptr+4, val);"]);
         a.undent();
         a.put("}");
     }
@@ -1869,7 +1925,22 @@ void generateJsEncoder(Encoder)(Encoder encoder, ref IndentedStringAppender a, r
       outputChild(semantics.getUnionChildren(encoder.tree).enumerate[$-1], semantics);
     }
     a.putLn("");
+  } else if (semantics.isSequence(encoder.tree)) {
+    a.putLn("// sequence");
+  } else if (semantics.isPrimitive(encoder.tree)) {
+    switch (encoder.mangled) {
+    case "ulong":
+      a.putLn("setUInt(ptr, val & 0xffffffff);");
+      a.putLn("setUInt(ptr+4, val >> 32);");
+      break;
+    default:
+      a.putLn("// primitive");
+      a.putLn(["// ", encoder.tree.name]);
+      a.putLn(encoder.tree.toString);
+      break;
+    }
   } else {
+    a.putLn(["// ", encoder.tree.name]);
     a.putLn("// other");
   }
   // where T can be any of the above
@@ -1877,7 +1948,7 @@ void generateJsEncoder(Encoder)(Encoder encoder, ref IndentedStringAppender a, r
   // - any primitive (double, bool, int; unsigned/signed; etc.)
   // - a JsHandle
   a.undent();
-  a.putLn("},");
+  a.put("}");
 }
 
 
@@ -1940,7 +2011,8 @@ TypeEncoder[] generateEncodedTypes(IR ir, Semantics semantics) {
         auto typedefMangled = aliasedType.mangleTypeJs(semantics);
         encoders.put(TypeEncoder(typedefMangled, aliasedType, false));
       } else if (semantics.isNullable(encoder.tree)) {
-        auto baseType = encoder.tree.stripNullable;
+        ParseTree clone = encoder.tree;
+        auto baseType = clone.stripNullable;
         auto typedefMangled = baseType.mangleTypeJs(semantics);
         encoders.put(TypeEncoder(typedefMangled, baseType, false));
       } else if (semantics.isUnion(encoder.tree)) {
@@ -2129,19 +2201,36 @@ string generateJsEncoders(IR ir, Semantics semantics) {
   app.putLn("      setUByte = (ptr, val) => (spasm.heapi8u[ptr] = val),");
   app.putLn("      setFloat = (ptr, val) => (spasm.heapf32[ptr/4] = val),");
   app.putLn("      setDouble = (ptr, val) => (spasm.heapf64[ptr/8] = val),");
-  app.putLn("      isEmpty = (val) => (val == undefined || val == null);");
+  app.putLn("      isEmpty = (val) => (val == undefined || val == null),");
+  app.putLn("      handle = (ptr, val) => { setUInt(ptr, spasm.addObject(val); ),}");
+  app.putLn("      string = spasm.encoders.string;");
   app.put("const ");
   app.indent();
-  foreach(encoder; encodedTypes.filter!(e => e.external == false)) {
+  bool first = true;
+  foreach(encoder; encodedTypes.filter!(e => e.external == false).filter!(e => e.mangled != "string")) {
+    if (!first)
+      app.putLn(",");
+    else
+      first = false;
     encoder.generateJsEncoder(app, semantics, true);
   }
   app.putLn(";");
   app.undent();
   app.putLn("export default {");
   app.indent();
-  foreach(encoder; encodedTypes.filter!(e => e.external)) {
+  app.putLn("encoders: {");
+  app.indent();
+  first = true;
+  foreach(encoder; encodedTypes.filter!(e => e.external).filter!(e => e.mangled != "string")) {
+    if (!first)
+      app.putLn(",");
+    else
+      first = false;
     encoder.generateJsEncoder(app, semantics, false);
   }
+  app.putLn("");
+  app.undent();
+  app.put("}");
   app.undent();
   app.put("}");
   return app.data;

@@ -8,19 +8,19 @@ export default {
       spasm.objects[ctx].download = spasm.decode_string(downloadLen, downloadPtr);
     },
     SVGAElement_download_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].download);
+      spasm.encode.string(rawResult, spasm.objects[ctx].download);
     },
     SVGAElement_ping_Set: function(ctx, pingLen, pingPtr) {
       spasm.objects[ctx].ping = spasm.decode_string(pingLen, pingPtr);
     },
     SVGAElement_ping_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].ping);
+      spasm.encode.string(rawResult, spasm.objects[ctx].ping);
     },
     SVGAElement_rel_Set: function(ctx, relLen, relPtr) {
       spasm.objects[ctx].rel = spasm.decode_string(relLen, relPtr);
     },
     SVGAElement_rel_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].rel);
+      spasm.encode.string(rawResult, spasm.objects[ctx].rel);
     },
     SVGAElement_relList_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].relList);
@@ -29,25 +29,25 @@ export default {
       spasm.objects[ctx].hreflang = spasm.decode_string(hreflangLen, hreflangPtr);
     },
     SVGAElement_hreflang_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].hreflang);
+      spasm.encode.string(rawResult, spasm.objects[ctx].hreflang);
     },
     SVGAElement_type_Set: function(ctx, typeLen, typePtr) {
       spasm.objects[ctx].type = spasm.decode_string(typeLen, typePtr);
     },
     SVGAElement_type_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].type);
+      spasm.encode.string(rawResult, spasm.objects[ctx].type);
     },
     SVGAElement_text_Set: function(ctx, textLen, textPtr) {
       spasm.objects[ctx].text = spasm.decode_string(textLen, textPtr);
     },
     SVGAElement_text_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].text);
+      spasm.encode.string(rawResult, spasm.objects[ctx].text);
     },
     SVGAElement_referrerPolicy_Set: function(ctx, referrerPolicyLen, referrerPolicyPtr) {
       spasm.objects[ctx].referrerPolicy = spasm.decode_string(referrerPolicyLen, referrerPolicyPtr);
     },
     SVGAElement_referrerPolicy_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].referrerPolicy);
+      spasm.encode.string(rawResult, spasm.objects[ctx].referrerPolicy);
     },
     SVGURIReference_href_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].href);
@@ -56,10 +56,10 @@ export default {
       spasm.objects[ctx].href = spasm.decode_string(hrefLen, hrefPtr);
     },
     HTMLHyperlinkElementUtils_href_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].href);
+      spasm.encode.string(rawResult, spasm.objects[ctx].href);
     },
     HTMLHyperlinkElementUtils_origin_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].origin);
+      spasm.encode.string(rawResult, spasm.objects[ctx].origin);
     },
     SVGAngle_unitType_Get: function(ctx) {
       return spasm.objects[ctx].unitType;
@@ -80,7 +80,7 @@ export default {
       spasm.objects[ctx].valueAsString = spasm.decode_string(valueAsStringLen, valueAsStringPtr);
     },
     SVGAngle_valueAsString_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].valueAsString);
+      spasm.encode.string(rawResult, spasm.objects[ctx].valueAsString);
     },
     SVGAngle_newValueSpecifiedUnits: function(ctx, unitType, valueInSpecifiedUnits) {
       spasm.objects[ctx].newValueSpecifiedUnits(unitType, valueInSpecifiedUnits);
@@ -164,10 +164,10 @@ export default {
       spasm.objects[ctx].baseVal = spasm.decode_string(baseValLen, baseValPtr);
     },
     SVGAnimatedString_baseVal_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].baseVal);
+      spasm.encode.string(rawResult, spasm.objects[ctx].baseVal);
     },
     SVGAnimatedString_animVal_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].animVal);
+      spasm.encode.string(rawResult, spasm.objects[ctx].animVal);
     },
     SVGAnimatedTransformList_baseVal_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].baseVal);
@@ -212,10 +212,10 @@ export default {
       return spasm.addObject(spasm.objects[ctx].className);
     },
     SVGElement_ownerSVGElement_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].ownerSVGElement);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].ownerSVGElement);
     },
     SVGElement_viewportElement_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].viewportElement);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].viewportElement);
     },
     GlobalEventHandlers_ongotpointercapture_Set: function(ctx, ongotpointercapture) {
       spasm.objects[ctx].ongotpointercapture = ongotpointercapture;
@@ -302,10 +302,10 @@ export default {
       return spasm.objects[ctx].ontouchcancel;
     },
     SVGElementInstance_correspondingElement_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].correspondingElement);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].correspondingElement);
     },
     SVGElementInstance_correspondingUseElement_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].correspondingUseElement);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].correspondingUseElement);
     },
     HTMLOrSVGElement_dataset_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].dataset);
@@ -374,10 +374,10 @@ export default {
       return spasm.addObject(spasm.objects[ctx].getBBox(spasm.objects[options]));
     },
     SVGGraphicsElement_getCTM: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].getCTM());
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].getCTM());
     },
     SVGGraphicsElement_getScreenCTM: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].getScreenCTM());
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].getScreenCTM());
     },
     SVGTests_requiredExtensions_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].requiredExtensions);
@@ -404,7 +404,7 @@ export default {
       spasm.objects[ctx].crossOrigin = crossOriginDefined ? spasm.decode_string(crossOriginLen, crossOriginPtr) : undefined;
     },
     SVGImageElement_crossOrigin_Get: function(rawResult, ctx) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].crossOrigin);
+      spasm.encode.optional_string(rawResult, spasm.objects[ctx].crossOrigin);
     },
     SVGURIReference_href_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].href);
@@ -428,7 +428,7 @@ export default {
       spasm.objects[ctx].valueAsString = spasm.decode_string(valueAsStringLen, valueAsStringPtr);
     },
     SVGLength_valueAsString_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].valueAsString);
+      spasm.encode.string(rawResult, spasm.objects[ctx].valueAsString);
     },
     SVGLength_newValueSpecifiedUnits: function(ctx, unitType, valueInSpecifiedUnits) {
       spasm.objects[ctx].newValueSpecifiedUnits(unitType, valueInSpecifiedUnits);
@@ -463,7 +463,7 @@ export default {
     SVGLengthList_appendItem: function(ctx, newItem) {
       return spasm.addObject(spasm.objects[ctx].appendItem(spasm.objects[newItem]));
     },
-    SVGLengthList_setter__uint_JsHandle: function(ctx, index, newItem) {
+    SVGLengthList_setter__uint_Handle: function(ctx, index, newItem) {
       spasm.objects[ctx][index] = spasm.objects[newItem];
     },
     SVGLineElement_x1_Get: function(ctx) {
@@ -515,7 +515,7 @@ export default {
       spasm.objects[ctx].orient = spasm.decode_string(orientLen, orientPtr);
     },
     SVGMarkerElement_orient_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].orient);
+      spasm.encode.string(rawResult, spasm.objects[ctx].orient);
     },
     SVGMarkerElement_setOrientToAuto: function(ctx) {
       spasm.objects[ctx].setOrientToAuto();
@@ -562,7 +562,7 @@ export default {
     SVGNumberList_appendItem: function(ctx, newItem) {
       return spasm.addObject(spasm.objects[ctx].appendItem(spasm.objects[newItem]));
     },
-    SVGNumberList_setter__uint_JsHandle: function(ctx, index, newItem) {
+    SVGNumberList_setter__uint_Handle: function(ctx, index, newItem) {
       spasm.objects[ctx][index] = spasm.objects[newItem];
     },
     SVGPatternElement_patternUnits_Get: function(ctx) {
@@ -622,7 +622,7 @@ export default {
     SVGPointList_appendItem: function(ctx, newItem) {
       return spasm.addObject(spasm.objects[ctx].appendItem(spasm.objects[newItem]));
     },
-    SVGPointList_setter__uint_JsHandle: function(ctx, index, newItem) {
+    SVGPointList_setter__uint_Handle: function(ctx, index, newItem) {
       spasm.objects[ctx][index] = spasm.objects[newItem];
     },
     SVGAnimatedPoints_points_Get: function(ctx) {
@@ -770,13 +770,13 @@ export default {
       spasm.objects[ctx].type = spasm.decode_string(typeLen, typePtr);
     },
     SVGScriptElement_type_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].type);
+      spasm.encode.string(rawResult, spasm.objects[ctx].type);
     },
     SVGScriptElement_crossOrigin_Set: function(ctx, crossOriginDefined, crossOriginLen, crossOriginPtr) {
       spasm.objects[ctx].crossOrigin = crossOriginDefined ? spasm.decode_string(crossOriginLen, crossOriginPtr) : undefined;
     },
     SVGScriptElement_crossOrigin_Get: function(rawResult, ctx) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].crossOrigin);
+      spasm.encode.optional_string(rawResult, spasm.objects[ctx].crossOrigin);
     },
     SVGURIReference_href_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].href);
@@ -794,22 +794,22 @@ export default {
       spasm.objects[ctx].clear();
     },
     SVGStringList_initialize: function(rawResult, ctx, newItemLen, newItemPtr) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].initialize(spasm.decode_string(newItemLen, newItemPtr)));
+      spasm.encode.string(rawResult, spasm.objects[ctx].initialize(spasm.decode_string(newItemLen, newItemPtr)));
     },
     SVGStringList_getItem_getter: function(rawResult, ctx, index) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].getItem(index));
+      spasm.encode.string(rawResult, spasm.objects[ctx].getItem(index));
     },
     SVGStringList_insertItemBefore: function(rawResult, ctx, newItemLen, newItemPtr, index) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].insertItemBefore(spasm.decode_string(newItemLen, newItemPtr), index));
+      spasm.encode.string(rawResult, spasm.objects[ctx].insertItemBefore(spasm.decode_string(newItemLen, newItemPtr), index));
     },
     SVGStringList_replaceItem: function(rawResult, ctx, newItemLen, newItemPtr, index) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].replaceItem(spasm.decode_string(newItemLen, newItemPtr), index));
+      spasm.encode.string(rawResult, spasm.objects[ctx].replaceItem(spasm.decode_string(newItemLen, newItemPtr), index));
     },
     SVGStringList_removeItem: function(rawResult, ctx, index) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].removeItem(index));
+      spasm.encode.string(rawResult, spasm.objects[ctx].removeItem(index));
     },
     SVGStringList_appendItem: function(rawResult, ctx, newItemLen, newItemPtr) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].appendItem(spasm.decode_string(newItemLen, newItemPtr)));
+      spasm.encode.string(rawResult, spasm.objects[ctx].appendItem(spasm.decode_string(newItemLen, newItemPtr)));
     },
     SVGStringList_setter__uint_string: function(ctx, index, newItemLen, newItemPtr) {
       spasm.objects[ctx][index] = spasm.decode_string(newItemLen, newItemPtr);
@@ -818,22 +818,22 @@ export default {
       spasm.objects[ctx].type = spasm.decode_string(typeLen, typePtr);
     },
     SVGStyleElement_type_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].type);
+      spasm.encode.string(rawResult, spasm.objects[ctx].type);
     },
     SVGStyleElement_media_Set: function(ctx, mediaLen, mediaPtr) {
       spasm.objects[ctx].media = spasm.decode_string(mediaLen, mediaPtr);
     },
     SVGStyleElement_media_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].media);
+      spasm.encode.string(rawResult, spasm.objects[ctx].media);
     },
     SVGStyleElement_title_Set: function(ctx, titleLen, titlePtr) {
       spasm.objects[ctx].title = spasm.decode_string(titleLen, titlePtr);
     },
     SVGStyleElement_title_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].title);
+      spasm.encode.string(rawResult, spasm.objects[ctx].title);
     },
     LinkStyle_sheet_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].sheet);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].sheet);
     },
     SVGFitToViewBox_viewBox_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].viewBox);
@@ -955,14 +955,14 @@ export default {
     SVGTransformList_appendItem: function(ctx, newItem) {
       return spasm.addObject(spasm.objects[ctx].appendItem(spasm.objects[newItem]));
     },
-    SVGTransformList_setter__uint_JsHandle: function(ctx, index, newItem) {
+    SVGTransformList_setter__uint_Handle: function(ctx, index, newItem) {
       spasm.objects[ctx][index] = spasm.objects[newItem];
     },
     SVGTransformList_createSVGTransformFromMatrix: function(ctx, matrix) {
       return spasm.addObject(spasm.objects[ctx].createSVGTransformFromMatrix(spasm.objects[matrix]));
     },
     SVGTransformList_consolidate: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].consolidate());
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].consolidate());
     },
     SVGUseElement_x_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].x);
@@ -977,10 +977,10 @@ export default {
       return spasm.addObject(spasm.objects[ctx].height);
     },
     SVGUseElement_instanceRoot_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].instanceRoot);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].instanceRoot);
     },
     SVGUseElement_animatedInstanceRoot_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].animatedInstanceRoot);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].animatedInstanceRoot);
     },
     SVGURIReference_href_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].href);

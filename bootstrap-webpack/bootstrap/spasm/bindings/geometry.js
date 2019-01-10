@@ -623,7 +623,7 @@ export default {
       return spasm.objects[ctx].length;
     },
     DOMRectList_item_getter: function(rawResult, ctx, index) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].item(index));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].item(index));
     },
     DOMRectReadOnly_fromRect: function(ctx, other) {
       return spasm.addObject(spasm.objects[ctx].fromRect(spasm.objects[other]));

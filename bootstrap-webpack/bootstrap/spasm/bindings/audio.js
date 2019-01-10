@@ -107,7 +107,7 @@ export default {
       spasm.objects[ctx].buffer = bufferDefined ? spasm.objects[buffer] : undefined;
     },
     AudioBufferSourceNode_buffer_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].buffer);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].buffer);
     },
     AudioBufferSourceNode_playbackRate_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].playbackRate);
@@ -140,7 +140,7 @@ export default {
       spasm.objects[ctx].buffer = bufferDefined ? spasm.objects[buffer] : undefined;
     },
     AudioBufferSourceOptions_buffer_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].buffer);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].buffer);
     },
     AudioBufferSourceOptions_detune_Set: function(ctx, detune) {
       spasm.objects[ctx].detune = detune;
@@ -206,7 +206,7 @@ export default {
       spasm.objects[ctx].latencyHint = spasm.decode_union2_AudioContextLatencyCategory_double(latencyHint);
     },
     AudioContextOptions_latencyHint_Get: function(rawResult, ctx) {
-      spasm.encode_union2_AudioContextLatencyCategory_double(rawResult, spasm.objects[ctx].latencyHint);
+      spasm.encode.union2_AudioContextLatencyCategory_double(rawResult, spasm.objects[ctx].latencyHint);
     },
     AudioContextOptions_sampleRate_Set: function(ctx, sampleRate) {
       spasm.objects[ctx].sampleRate = sampleRate;
@@ -250,10 +250,10 @@ export default {
     AudioListener_setOrientation: function(ctx, x, y, z, xUp, yUp, zUp) {
       spasm.objects[ctx].setOrientation(x, y, z, xUp, yUp, zUp);
     },
-    AudioNode_connect__JsHandle_uint_uint: function(ctx, destinationNode, output, input) {
+    AudioNode_connect__Handle_uint_uint: function(ctx, destinationNode, output, input) {
       return spasm.addObject(spasm.objects[ctx].connect(spasm.objects[destinationNode], output, input));
     },
-    AudioNode_connect__JsHandle_uint: function(ctx, destinationParam, output) {
+    AudioNode_connect__Handle_uint: function(ctx, destinationParam, output) {
       spasm.objects[ctx].connect(spasm.objects[destinationParam], output);
     },
     AudioNode_disconnect__: function(ctx) {
@@ -262,13 +262,13 @@ export default {
     AudioNode_disconnect__uint: function(ctx, output) {
       spasm.objects[ctx].disconnect(output);
     },
-    AudioNode_disconnect__JsHandle: function(ctx, destinationNode) {
+    AudioNode_disconnect__Handle: function(ctx, destinationNode) {
       spasm.objects[ctx].disconnect(spasm.objects[destinationNode]);
     },
-    AudioNode_disconnect__JsHandle_uint: function(ctx, destinationNode, output) {
+    AudioNode_disconnect__Handle_uint: function(ctx, destinationNode, output) {
       spasm.objects[ctx].disconnect(spasm.objects[destinationNode], output);
     },
-    AudioNode_disconnect__JsHandle_uint_uint: function(ctx, destinationNode, output, input) {
+    AudioNode_disconnect__Handle_uint_uint: function(ctx, destinationNode, output, input) {
       spasm.objects[ctx].disconnect(spasm.objects[destinationNode], output, input);
     },
     AudioNode_context_Get: function(ctx) {
@@ -290,13 +290,13 @@ export default {
       spasm.objects[ctx].channelCountMode = spasm.decode_ChannelCountMode(channelCountMode);
     },
     AudioNode_channelCountMode_Get: function(ctx) {
-      return spasm.encode_ChannelCountMode(spasm.objects[ctx].channelCountMode);
+      return spasm.encode.ChannelCountMode(spasm.objects[ctx].channelCountMode);
     },
     AudioNode_channelInterpretation_Set: function(ctx, channelInterpretation) {
       spasm.objects[ctx].channelInterpretation = spasm.decode_ChannelInterpretation(channelInterpretation);
     },
     AudioNode_channelInterpretation_Get: function(ctx) {
-      return spasm.encode_ChannelInterpretation(spasm.objects[ctx].channelInterpretation);
+      return spasm.encode.ChannelInterpretation(spasm.objects[ctx].channelInterpretation);
     },
     AudioNodeOptions_channelCount_Set: function(ctx, channelCount) {
       spasm.objects[ctx].channelCount = channelCount;
@@ -308,13 +308,13 @@ export default {
       spasm.objects[ctx].channelCountMode = spasm.decode_ChannelCountMode(channelCountMode);
     },
     AudioNodeOptions_channelCountMode_Get: function(ctx) {
-      return spasm.encode_ChannelCountMode(spasm.objects[ctx].channelCountMode);
+      return spasm.encode.ChannelCountMode(spasm.objects[ctx].channelCountMode);
     },
     AudioNodeOptions_channelInterpretation_Set: function(ctx, channelInterpretation) {
       spasm.objects[ctx].channelInterpretation = spasm.decode_ChannelInterpretation(channelInterpretation);
     },
     AudioNodeOptions_channelInterpretation_Get: function(ctx) {
-      return spasm.encode_ChannelInterpretation(spasm.objects[ctx].channelInterpretation);
+      return spasm.encode.ChannelInterpretation(spasm.objects[ctx].channelInterpretation);
     },
     AudioParam_value_Set: function(ctx, value) {
       spasm.objects[ctx].value = value;
@@ -326,7 +326,7 @@ export default {
       spasm.objects[ctx].automationRate = spasm.decode_AutomationRate(automationRate);
     },
     AudioParam_automationRate_Get: function(ctx) {
-      return spasm.encode_AutomationRate(spasm.objects[ctx].automationRate);
+      return spasm.encode.AutomationRate(spasm.objects[ctx].automationRate);
     },
     AudioParam_defaultValue_Get: function(ctx) {
       return spasm.objects[ctx].defaultValue;
@@ -362,7 +362,7 @@ export default {
       spasm.objects[ctx].name = spasm.decode_string(nameLen, namePtr);
     },
     AudioParamDescriptor_name_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].name);
+      spasm.encode.string(rawResult, spasm.objects[ctx].name);
     },
     AudioParamDescriptor_defaultValue_Set: function(ctx, defaultValue) {
       spasm.objects[ctx].defaultValue = defaultValue;
@@ -386,7 +386,7 @@ export default {
       spasm.objects[ctx].automationRate = spasm.decode_AutomationRate(automationRate);
     },
     AudioParamDescriptor_automationRate_Get: function(ctx) {
-      return spasm.encode_AutomationRate(spasm.objects[ctx].automationRate);
+      return spasm.encode.AutomationRate(spasm.objects[ctx].automationRate);
     },
     AudioProcessingEvent_playbackTime_Get: function(ctx) {
       return spasm.objects[ctx].playbackTime;
@@ -491,7 +491,7 @@ export default {
       spasm.objects[ctx].processorOptions = processorOptionsDefined ? spasm.objects[processorOptions] : undefined;
     },
     AudioWorkletNodeOptions_processorOptions_Get: function(rawResult, ctx) {
-      spasm.encode_object(rawResult, spasm.objects[ctx].processorOptions);
+      spasm.encode.object(rawResult, spasm.objects[ctx].processorOptions);
     },
     AudioWorkletProcessor_port_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].port);
@@ -509,7 +509,7 @@ export default {
       return spasm.addObject(spasm.objects[ctx].listener);
     },
     BaseAudioContext_state_Get: function(ctx) {
-      return spasm.encode_AudioContextState(spasm.objects[ctx].state);
+      return spasm.encode.AudioContextState(spasm.objects[ctx].state);
     },
     BaseAudioContext_audioWorklet_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].audioWorklet);
@@ -575,13 +575,13 @@ export default {
       return spasm.addObject(spasm.objects[ctx].createWaveShaper());
     },
     BaseAudioContext_decodeAudioData: function(ctx, audioData, successCallbackDefined, successCallbackCtx, successCallbackPtr, errorCallbackDefined, errorCallbackCtx, errorCallbackPtr) {
-      return spasm.addObject(spasm.objects[ctx].decodeAudioData(spasm.objects[audioData], successCallbackDefined ? (decodedData)=>{spasm.callback_void_JsHandle(successCallbackCtx, successCallbackPtr, spasm.addObject(decodedData))} : undefined, errorCallbackDefined ? (error)=>{spasm.callback_void_JsHandle(errorCallbackCtx, errorCallbackPtr, spasm.addObject(error))} : undefined));
+      return spasm.addObject(spasm.objects[ctx].decodeAudioData(spasm.objects[audioData], successCallbackDefined ? (decodedData)=>{spasm.callback_void_Handle(successCallbackCtx, successCallbackPtr, spasm.addObject(decodedData))} : undefined, errorCallbackDefined ? (error)=>{spasm.callback_void_Handle(errorCallbackCtx, errorCallbackPtr, spasm.addObject(error))} : undefined));
     },
     BiquadFilterNode_type_Set: function(ctx, type) {
       spasm.objects[ctx].type = spasm.decode_BiquadFilterType(type);
     },
     BiquadFilterNode_type_Get: function(ctx) {
-      return spasm.encode_BiquadFilterType(spasm.objects[ctx].type);
+      return spasm.encode.BiquadFilterType(spasm.objects[ctx].type);
     },
     BiquadFilterNode_frequency_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].frequency);
@@ -602,7 +602,7 @@ export default {
       spasm.objects[ctx].type = spasm.decode_BiquadFilterType(type);
     },
     BiquadFilterOptions_type_Get: function(ctx) {
-      return spasm.encode_BiquadFilterType(spasm.objects[ctx].type);
+      return spasm.encode.BiquadFilterType(spasm.objects[ctx].type);
     },
     BiquadFilterOptions_Q_Set: function(ctx, Q) {
       spasm.objects[ctx].Q = Q;
@@ -653,7 +653,7 @@ export default {
       spasm.objects[ctx].buffer = bufferDefined ? spasm.objects[buffer] : undefined;
     },
     ConvolverNode_buffer_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].buffer);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].buffer);
     },
     ConvolverNode_normalize_Set: function(ctx, normalize) {
       spasm.objects[ctx].normalize = normalize;
@@ -665,7 +665,7 @@ export default {
       spasm.objects[ctx].buffer = bufferDefined ? spasm.objects[buffer] : undefined;
     },
     ConvolverOptions_buffer_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].buffer);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].buffer);
     },
     ConvolverOptions_disableNormalization_Set: function(ctx, disableNormalization) {
       spasm.objects[ctx].disableNormalization = disableNormalization;
@@ -836,7 +836,7 @@ export default {
       spasm.objects[ctx].type = spasm.decode_OscillatorType(type);
     },
     OscillatorNode_type_Get: function(ctx) {
-      return spasm.encode_OscillatorType(spasm.objects[ctx].type);
+      return spasm.encode.OscillatorType(spasm.objects[ctx].type);
     },
     OscillatorNode_frequency_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].frequency);
@@ -851,7 +851,7 @@ export default {
       spasm.objects[ctx].type = spasm.decode_OscillatorType(type);
     },
     OscillatorOptions_type_Get: function(ctx) {
-      return spasm.encode_OscillatorType(spasm.objects[ctx].type);
+      return spasm.encode.OscillatorType(spasm.objects[ctx].type);
     },
     OscillatorOptions_frequency_Set: function(ctx, frequency) {
       spasm.objects[ctx].frequency = frequency;
@@ -875,7 +875,7 @@ export default {
       spasm.objects[ctx].panningModel = spasm.decode_PanningModelType(panningModel);
     },
     PannerNode_panningModel_Get: function(ctx) {
-      return spasm.encode_PanningModelType(spasm.objects[ctx].panningModel);
+      return spasm.encode.PanningModelType(spasm.objects[ctx].panningModel);
     },
     PannerNode_positionX_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].positionX);
@@ -899,7 +899,7 @@ export default {
       spasm.objects[ctx].distanceModel = spasm.decode_DistanceModelType(distanceModel);
     },
     PannerNode_distanceModel_Get: function(ctx) {
-      return spasm.encode_DistanceModelType(spasm.objects[ctx].distanceModel);
+      return spasm.encode.DistanceModelType(spasm.objects[ctx].distanceModel);
     },
     PannerNode_refDistance_Set: function(ctx, refDistance) {
       spasm.objects[ctx].refDistance = refDistance;
@@ -947,13 +947,13 @@ export default {
       spasm.objects[ctx].panningModel = spasm.decode_PanningModelType(panningModel);
     },
     PannerOptions_panningModel_Get: function(ctx) {
-      return spasm.encode_PanningModelType(spasm.objects[ctx].panningModel);
+      return spasm.encode.PanningModelType(spasm.objects[ctx].panningModel);
     },
     PannerOptions_distanceModel_Set: function(ctx, distanceModel) {
       spasm.objects[ctx].distanceModel = spasm.decode_DistanceModelType(distanceModel);
     },
     PannerOptions_distanceModel_Get: function(ctx) {
-      return spasm.encode_DistanceModelType(spasm.objects[ctx].distanceModel);
+      return spasm.encode.DistanceModelType(spasm.objects[ctx].distanceModel);
     },
     PannerOptions_positionX_Set: function(ctx, positionX) {
       spasm.objects[ctx].positionX = positionX;
@@ -1067,13 +1067,13 @@ export default {
       spasm.objects[ctx].curve = curveDefined ? spasm.objects[curve] : undefined;
     },
     WaveShaperNode_curve_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].curve);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].curve);
     },
     WaveShaperNode_oversample_Set: function(ctx, oversample) {
       spasm.objects[ctx].oversample = spasm.decode_OverSampleType(oversample);
     },
     WaveShaperNode_oversample_Get: function(ctx) {
-      return spasm.encode_OverSampleType(spasm.objects[ctx].oversample);
+      return spasm.encode.OverSampleType(spasm.objects[ctx].oversample);
     },
     WaveShaperOptions_curve_Set: function(ctx, curve) {
       spasm.objects[ctx].curve = spasm.objects[curve];
@@ -1085,7 +1085,7 @@ export default {
       spasm.objects[ctx].oversample = spasm.decode_OverSampleType(oversample);
     },
     WaveShaperOptions_oversample_Get: function(ctx) {
-      return spasm.encode_OverSampleType(spasm.objects[ctx].oversample);
+      return spasm.encode.OverSampleType(spasm.objects[ctx].oversample);
     },
   }
 }

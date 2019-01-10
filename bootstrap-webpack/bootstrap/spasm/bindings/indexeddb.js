@@ -2,10 +2,10 @@ import spasm from './spasm.js';
 export default {
   jsExports: {
     IDBCursor_source_Get: function(rawResult, ctx) {
-      spasm.encode_union2_IDBObjectStore_IDBIndex(rawResult, spasm.objects[ctx].source);
+      spasm.encode.union2_IDBObjectStore_IDBIndex(rawResult, spasm.objects[ctx].source);
     },
     IDBCursor_direction_Get: function(ctx) {
-      return spasm.encode_IDBCursorDirection(spasm.objects[ctx].direction);
+      return spasm.encode.IDBCursorDirection(spasm.objects[ctx].direction);
     },
     IDBCursor_key_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].key);
@@ -32,7 +32,7 @@ export default {
       return spasm.addObject(spasm.objects[ctx].value);
     },
     IDBDatabase_name_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].name);
+      spasm.encode.string(rawResult, spasm.objects[ctx].name);
     },
     IDBDatabase_version_Get: function(ctx) {
       return spasm.objects[ctx].version;
@@ -41,7 +41,7 @@ export default {
       return spasm.addObject(spasm.objects[ctx].objectStoreNames);
     },
     IDBDatabase_transaction: function(ctx, storeNames, mode) {
-      return spasm.addObject(spasm.objects[ctx].transaction(spasm.decode_union2_string_sequence_string(storeNames), spasm.decode_IDBTransactionMode(mode)));
+      return spasm.addObject(spasm.objects[ctx].transaction(spasm.decode_union2_string_sequence(storeNames), spasm.decode_IDBTransactionMode(mode)));
     },
     IDBDatabase_close: function(ctx) {
       spasm.objects[ctx].close();
@@ -80,7 +80,7 @@ export default {
       spasm.objects[ctx].name = spasm.decode_string(nameLen, namePtr);
     },
     IDBDatabaseInfo_name_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].name);
+      spasm.encode.string(rawResult, spasm.objects[ctx].name);
     },
     IDBDatabaseInfo_version_Set: function(ctx, version) {
       spasm.objects[ctx].version = version;
@@ -104,7 +104,7 @@ export default {
       spasm.objects[ctx].name = spasm.decode_string(nameLen, namePtr);
     },
     IDBIndex_name_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].name);
+      spasm.encode.string(rawResult, spasm.objects[ctx].name);
     },
     IDBIndex_objectStore_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].objectStore);
@@ -182,7 +182,7 @@ export default {
       spasm.objects[ctx].name = spasm.decode_string(nameLen, namePtr);
     },
     IDBObjectStore_name_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].name);
+      spasm.encode.string(rawResult, spasm.objects[ctx].name);
     },
     IDBObjectStore_keyPath_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].keyPath);
@@ -233,16 +233,16 @@ export default {
       return spasm.addObject(spasm.objects[ctx].index(spasm.decode_string(nameLen, namePtr)));
     },
     IDBObjectStore_createIndex: function(ctx, nameLen, namePtr, keyPath, options) {
-      return spasm.addObject(spasm.objects[ctx].createIndex(spasm.decode_string(nameLen, namePtr), spasm.decode_union2_string_sequence_string(keyPath), spasm.objects[options]));
+      return spasm.addObject(spasm.objects[ctx].createIndex(spasm.decode_string(nameLen, namePtr), spasm.decode_union2_string_sequence(keyPath), spasm.objects[options]));
     },
     IDBObjectStore_deleteIndex: function(ctx, nameLen, namePtr) {
       spasm.objects[ctx].deleteIndex(spasm.decode_string(nameLen, namePtr));
     },
     IDBObjectStoreParameters_keyPath_Set: function(ctx, keyPathDefined, keyPath) {
-      spasm.objects[ctx].keyPath = keyPathDefined ? spasm.decode_union2_string_sequence_string(keyPath) : undefined;
+      spasm.objects[ctx].keyPath = keyPathDefined ? spasm.decode_union2_string_sequence(keyPath) : undefined;
     },
     IDBObjectStoreParameters_keyPath_Get: function(rawResult, ctx) {
-      spasm.encode_optional_union2_string_sequence_string(rawResult, spasm.objects[ctx].keyPath);
+      spasm.encode.optional_union2_string_sequence(rawResult, spasm.objects[ctx].keyPath);
     },
     IDBObjectStoreParameters_autoIncrement_Set: function(ctx, autoIncrement) {
       spasm.objects[ctx].autoIncrement = autoIncrement;
@@ -266,16 +266,16 @@ export default {
       return spasm.addObject(spasm.objects[ctx].result);
     },
     IDBRequest_error_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].error);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].error);
     },
     IDBRequest_source_Get: function(rawResult, ctx) {
-      spasm.encode_optional_union3_IDBObjectStore_IDBIndex_IDBCursor(rawResult, spasm.objects[ctx].source);
+      spasm.encode.optional_union3_IDBObjectStore_IDBIndex_IDBCursor(rawResult, spasm.objects[ctx].source);
     },
     IDBRequest_transaction_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].transaction);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].transaction);
     },
     IDBRequest_readyState_Get: function(ctx) {
-      return spasm.encode_IDBRequestReadyState(spasm.objects[ctx].readyState);
+      return spasm.encode.IDBRequestReadyState(spasm.objects[ctx].readyState);
     },
     IDBRequest_onsuccess_Set: function(ctx, onsuccess) {
       spasm.objects[ctx].onsuccess = onsuccess;
@@ -293,7 +293,7 @@ export default {
       return spasm.addObject(spasm.objects[ctx].objectStoreNames);
     },
     IDBTransaction_mode_Get: function(ctx) {
-      return spasm.encode_IDBTransactionMode(spasm.objects[ctx].mode);
+      return spasm.encode.IDBTransactionMode(spasm.objects[ctx].mode);
     },
     IDBTransaction_db_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].db);
@@ -329,7 +329,7 @@ export default {
       return spasm.objects[ctx].oldVersion;
     },
     IDBVersionChangeEvent_newVersion_Get: function(rawResult, ctx) {
-      spasm.encode_optional_ulong(rawResult, spasm.objects[ctx].newVersion);
+      spasm.encode.optional_ulong(rawResult, spasm.objects[ctx].newVersion);
     },
     IDBVersionChangeEventInit_oldVersion_Set: function(ctx, oldVersion) {
       spasm.objects[ctx].oldVersion = oldVersion;
@@ -341,7 +341,7 @@ export default {
       spasm.objects[ctx].newVersion = newVersionDefined ? newVersion : undefined;
     },
     IDBVersionChangeEventInit_newVersion_Get: function(rawResult, ctx) {
-      spasm.encode_optional_ulong(rawResult, spasm.objects[ctx].newVersion);
+      spasm.encode.optional_ulong(rawResult, spasm.objects[ctx].newVersion);
     },
   }
 }

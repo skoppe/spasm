@@ -30,7 +30,7 @@ struct Notification {
     return Notification_permission_Get(this._parent);
   }
   auto requestPermission(NotificationPermissionCallback deprecatedCallback) {
-    return Promise!(NotificationPermission)(Notification_requestPermission(this._parent, deprecatedCallback));
+    return Promise!(NotificationPermission)(JsHandle(Notification_requestPermission(this._parent, deprecatedCallback));
   }
   auto maxActions(uint maxActions) {
     Notification_maxActions_Set(this._parent, maxActions);
@@ -87,7 +87,7 @@ struct Notification {
     return Notification_badge_Get(this._parent);
   }
   auto vibrate() {
-    return FrozenArray!(uint)(Notification_vibrate_Get(this._parent));
+    return FrozenArray!(uint)(JsHandle(Notification_vibrate_Get(this._parent));
   }
   auto timestamp() {
     return Notification_timestamp_Get(this._parent);
@@ -102,10 +102,10 @@ struct Notification {
     return Notification_requireInteraction_Get(this._parent);
   }
   auto data() {
-    return Any(Notification_data_Get(this._parent));
+    return Any(JsHandle(Notification_data_Get(this._parent));
   }
   auto actions() {
-    return FrozenArray!(NotificationAction)(Notification_actions_Get(this._parent));
+    return FrozenArray!(NotificationAction)(JsHandle(Notification_actions_Get(this._parent));
   }
   auto close() {
     Notification_close(this._parent);
@@ -145,7 +145,7 @@ struct NotificationEvent {
     _parent = ExtendableEvent(h);
   }
   auto notification() {
-    return Notification(NotificationEvent_notification_Get(this._parent));
+    return Notification(JsHandle(NotificationEvent_notification_Get(this._parent));
   }
   auto action() {
     return NotificationEvent_action_Get(this._parent);
@@ -161,7 +161,7 @@ struct NotificationEventInit {
     NotificationEventInit_notification_Set(this._parent, notification.handle);
   }
   auto notification() {
-    return Notification(NotificationEventInit_notification_Get(this._parent));
+    return Notification(JsHandle(NotificationEventInit_notification_Get(this._parent));
   }
   auto action(string action) {
     NotificationEventInit_action_Set(this._parent, action);
@@ -249,13 +249,13 @@ struct NotificationOptions {
     NotificationOptions_data_Set(this.handle, data.handle);
   }
   auto data() {
-    return Any(NotificationOptions_data_Get(this.handle));
+    return Any(JsHandle(NotificationOptions_data_Get(this.handle));
   }
   auto actions(Sequence!(NotificationAction) actions) {
     NotificationOptions_actions_Set(this.handle, actions.handle);
   }
   auto actions() {
-    return Sequence!(NotificationAction)(NotificationOptions_actions_Get(this.handle));
+    return Sequence!(NotificationAction)(JsHandle(NotificationOptions_actions_Get(this.handle));
   }
 }
 enum NotificationPermission {
@@ -266,74 +266,74 @@ enum NotificationPermission {
 alias NotificationPermissionCallback = void delegate(NotificationPermission);
 
 
-extern (C) void GetNotificationOptions_tag_Set(JsHandle, string);
-extern (C) string GetNotificationOptions_tag_Get(JsHandle);
-extern (C) void Notification_permission_Set(JsHandle, NotificationPermission);
-extern (C) NotificationPermission Notification_permission_Get(JsHandle);
-extern (C) JsHandle Notification_requestPermission(JsHandle, NotificationPermissionCallback);
-extern (C) void Notification_maxActions_Set(JsHandle, uint);
-extern (C) uint Notification_maxActions_Get(JsHandle);
-extern (C) void Notification_onclick_Set(JsHandle, EventHandler);
-extern (C) EventHandler Notification_onclick_Get(JsHandle);
-extern (C) void Notification_onshow_Set(JsHandle, EventHandler);
-extern (C) EventHandler Notification_onshow_Get(JsHandle);
-extern (C) void Notification_onerror_Set(JsHandle, EventHandler);
-extern (C) EventHandler Notification_onerror_Get(JsHandle);
-extern (C) void Notification_onclose_Set(JsHandle, EventHandler);
-extern (C) EventHandler Notification_onclose_Get(JsHandle);
-extern (C) string Notification_title_Get(JsHandle);
-extern (C) NotificationDirection Notification_dir_Get(JsHandle);
-extern (C) string Notification_lang_Get(JsHandle);
-extern (C) string Notification_body_Get(JsHandle);
-extern (C) string Notification_tag_Get(JsHandle);
-extern (C) string Notification_image_Get(JsHandle);
-extern (C) string Notification_icon_Get(JsHandle);
-extern (C) string Notification_badge_Get(JsHandle);
-extern (C) JsHandle Notification_vibrate_Get(JsHandle);
-extern (C) ulong Notification_timestamp_Get(JsHandle);
-extern (C) bool Notification_renotify_Get(JsHandle);
-extern (C) bool Notification_silent_Get(JsHandle);
-extern (C) bool Notification_requireInteraction_Get(JsHandle);
-extern (C) JsHandle Notification_data_Get(JsHandle);
-extern (C) JsHandle Notification_actions_Get(JsHandle);
-extern (C) void Notification_close(JsHandle);
-extern (C) void NotificationAction_action_Set(JsHandle, string);
-extern (C) string NotificationAction_action_Get(JsHandle);
-extern (C) void NotificationAction_title_Set(JsHandle, string);
-extern (C) string NotificationAction_title_Get(JsHandle);
-extern (C) void NotificationAction_icon_Set(JsHandle, string);
-extern (C) string NotificationAction_icon_Get(JsHandle);
-extern (C) JsHandle NotificationEvent_notification_Get(JsHandle);
-extern (C) string NotificationEvent_action_Get(JsHandle);
-extern (C) void NotificationEventInit_notification_Set(JsHandle, JsHandle);
-extern (C) JsHandle NotificationEventInit_notification_Get(JsHandle);
-extern (C) void NotificationEventInit_action_Set(JsHandle, string);
-extern (C) string NotificationEventInit_action_Get(JsHandle);
-extern (C) void NotificationOptions_dir_Set(JsHandle, NotificationDirection);
-extern (C) NotificationDirection NotificationOptions_dir_Get(JsHandle);
-extern (C) void NotificationOptions_lang_Set(JsHandle, string);
-extern (C) string NotificationOptions_lang_Get(JsHandle);
-extern (C) void NotificationOptions_body_Set(JsHandle, string);
-extern (C) string NotificationOptions_body_Get(JsHandle);
-extern (C) void NotificationOptions_tag_Set(JsHandle, string);
-extern (C) string NotificationOptions_tag_Get(JsHandle);
-extern (C) void NotificationOptions_image_Set(JsHandle, string);
-extern (C) string NotificationOptions_image_Get(JsHandle);
-extern (C) void NotificationOptions_icon_Set(JsHandle, string);
-extern (C) string NotificationOptions_icon_Get(JsHandle);
-extern (C) void NotificationOptions_badge_Set(JsHandle, string);
-extern (C) string NotificationOptions_badge_Get(JsHandle);
-extern (C) void NotificationOptions_vibrate_Set(JsHandle, VibratePattern);
-extern (C) VibratePattern NotificationOptions_vibrate_Get(JsHandle);
-extern (C) void NotificationOptions_timestamp_Set(JsHandle, ulong);
-extern (C) ulong NotificationOptions_timestamp_Get(JsHandle);
-extern (C) void NotificationOptions_renotify_Set(JsHandle, bool);
-extern (C) bool NotificationOptions_renotify_Get(JsHandle);
-extern (C) void NotificationOptions_silent_Set(JsHandle, bool);
-extern (C) bool NotificationOptions_silent_Get(JsHandle);
-extern (C) void NotificationOptions_requireInteraction_Set(JsHandle, bool);
-extern (C) bool NotificationOptions_requireInteraction_Get(JsHandle);
-extern (C) void NotificationOptions_data_Set(JsHandle, JsHandle);
-extern (C) JsHandle NotificationOptions_data_Get(JsHandle);
-extern (C) void NotificationOptions_actions_Set(JsHandle, JsHandle);
-extern (C) JsHandle NotificationOptions_actions_Get(JsHandle);
+extern (C) void GetNotificationOptions_tag_Set(Handle, string);
+extern (C) string GetNotificationOptions_tag_Get(Handle);
+extern (C) void Notification_permission_Set(Handle, NotificationPermission);
+extern (C) NotificationPermission Notification_permission_Get(Handle);
+extern (C) Handle Notification_requestPermission(Handle, NotificationPermissionCallback);
+extern (C) void Notification_maxActions_Set(Handle, uint);
+extern (C) uint Notification_maxActions_Get(Handle);
+extern (C) void Notification_onclick_Set(Handle, EventHandler);
+extern (C) EventHandler Notification_onclick_Get(Handle);
+extern (C) void Notification_onshow_Set(Handle, EventHandler);
+extern (C) EventHandler Notification_onshow_Get(Handle);
+extern (C) void Notification_onerror_Set(Handle, EventHandler);
+extern (C) EventHandler Notification_onerror_Get(Handle);
+extern (C) void Notification_onclose_Set(Handle, EventHandler);
+extern (C) EventHandler Notification_onclose_Get(Handle);
+extern (C) string Notification_title_Get(Handle);
+extern (C) NotificationDirection Notification_dir_Get(Handle);
+extern (C) string Notification_lang_Get(Handle);
+extern (C) string Notification_body_Get(Handle);
+extern (C) string Notification_tag_Get(Handle);
+extern (C) string Notification_image_Get(Handle);
+extern (C) string Notification_icon_Get(Handle);
+extern (C) string Notification_badge_Get(Handle);
+extern (C) Handle Notification_vibrate_Get(Handle);
+extern (C) ulong Notification_timestamp_Get(Handle);
+extern (C) bool Notification_renotify_Get(Handle);
+extern (C) bool Notification_silent_Get(Handle);
+extern (C) bool Notification_requireInteraction_Get(Handle);
+extern (C) Handle Notification_data_Get(Handle);
+extern (C) Handle Notification_actions_Get(Handle);
+extern (C) void Notification_close(Handle);
+extern (C) void NotificationAction_action_Set(Handle, string);
+extern (C) string NotificationAction_action_Get(Handle);
+extern (C) void NotificationAction_title_Set(Handle, string);
+extern (C) string NotificationAction_title_Get(Handle);
+extern (C) void NotificationAction_icon_Set(Handle, string);
+extern (C) string NotificationAction_icon_Get(Handle);
+extern (C) Handle NotificationEvent_notification_Get(Handle);
+extern (C) string NotificationEvent_action_Get(Handle);
+extern (C) void NotificationEventInit_notification_Set(Handle, Handle);
+extern (C) Handle NotificationEventInit_notification_Get(Handle);
+extern (C) void NotificationEventInit_action_Set(Handle, string);
+extern (C) string NotificationEventInit_action_Get(Handle);
+extern (C) void NotificationOptions_dir_Set(Handle, NotificationDirection);
+extern (C) NotificationDirection NotificationOptions_dir_Get(Handle);
+extern (C) void NotificationOptions_lang_Set(Handle, string);
+extern (C) string NotificationOptions_lang_Get(Handle);
+extern (C) void NotificationOptions_body_Set(Handle, string);
+extern (C) string NotificationOptions_body_Get(Handle);
+extern (C) void NotificationOptions_tag_Set(Handle, string);
+extern (C) string NotificationOptions_tag_Get(Handle);
+extern (C) void NotificationOptions_image_Set(Handle, string);
+extern (C) string NotificationOptions_image_Get(Handle);
+extern (C) void NotificationOptions_icon_Set(Handle, string);
+extern (C) string NotificationOptions_icon_Get(Handle);
+extern (C) void NotificationOptions_badge_Set(Handle, string);
+extern (C) string NotificationOptions_badge_Get(Handle);
+extern (C) void NotificationOptions_vibrate_Set(Handle, VibratePattern);
+extern (C) VibratePattern NotificationOptions_vibrate_Get(Handle);
+extern (C) void NotificationOptions_timestamp_Set(Handle, ulong);
+extern (C) ulong NotificationOptions_timestamp_Get(Handle);
+extern (C) void NotificationOptions_renotify_Set(Handle, bool);
+extern (C) bool NotificationOptions_renotify_Get(Handle);
+extern (C) void NotificationOptions_silent_Set(Handle, bool);
+extern (C) bool NotificationOptions_silent_Get(Handle);
+extern (C) void NotificationOptions_requireInteraction_Set(Handle, bool);
+extern (C) bool NotificationOptions_requireInteraction_Get(Handle);
+extern (C) void NotificationOptions_data_Set(Handle, Handle);
+extern (C) Handle NotificationOptions_data_Get(Handle);
+extern (C) void NotificationOptions_actions_Set(Handle, Handle);
+extern (C) Handle NotificationOptions_actions_Get(Handle);

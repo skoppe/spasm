@@ -20,10 +20,10 @@ struct MediaSource {
     _parent = EventTarget(h);
   }
   auto sourceBuffers() {
-    return SourceBufferList(MediaSource_sourceBuffers_Get(this._parent));
+    return SourceBufferList(JsHandle(MediaSource_sourceBuffers_Get(this._parent));
   }
   auto activeSourceBuffers() {
-    return SourceBufferList(MediaSource_activeSourceBuffers_Get(this._parent));
+    return SourceBufferList(JsHandle(MediaSource_activeSourceBuffers_Get(this._parent));
   }
   auto readyState() {
     return MediaSource_readyState_Get(this._parent);
@@ -53,7 +53,7 @@ struct MediaSource {
     return MediaSource_onsourceclose_Get(this._parent);
   }
   auto addSourceBuffer(string type) {
-    return SourceBuffer(MediaSource_addSourceBuffer(this._parent, type));
+    return SourceBuffer(JsHandle(MediaSource_addSourceBuffer(this._parent, type));
   }
   auto removeSourceBuffer(SourceBuffer sourceBuffer) {
     MediaSource_removeSourceBuffer(this._parent, sourceBuffer.handle);
@@ -92,7 +92,7 @@ struct SourceBuffer {
     return SourceBuffer_updating_Get(this._parent);
   }
   auto buffered() {
-    return TimeRanges(SourceBuffer_buffered_Get(this._parent));
+    return TimeRanges(JsHandle(SourceBuffer_buffered_Get(this._parent));
   }
   auto timestampOffset(double timestampOffset) {
     SourceBuffer_timestampOffset_Set(this._parent, timestampOffset);
@@ -101,13 +101,13 @@ struct SourceBuffer {
     return SourceBuffer_timestampOffset_Get(this._parent);
   }
   auto audioTracks() {
-    return AudioTrackList(SourceBuffer_audioTracks_Get(this._parent));
+    return AudioTrackList(JsHandle(SourceBuffer_audioTracks_Get(this._parent));
   }
   auto videoTracks() {
-    return VideoTrackList(SourceBuffer_videoTracks_Get(this._parent));
+    return VideoTrackList(JsHandle(SourceBuffer_videoTracks_Get(this._parent));
   }
   auto textTracks() {
-    return TextTrackList(SourceBuffer_textTracks_Get(this._parent));
+    return TextTrackList(JsHandle(SourceBuffer_textTracks_Get(this._parent));
   }
   auto appendWindowStart(double appendWindowStart) {
     SourceBuffer_appendWindowStart_Set(this._parent, appendWindowStart);
@@ -183,60 +183,60 @@ struct SourceBufferList {
     return SourceBufferList_onremovesourcebuffer_Get(this._parent);
   }
   auto opIndex(uint index) {
-    return SourceBuffer(SourceBufferList_getter__uint(this._parent, index));
+    return SourceBuffer(JsHandle(SourceBufferList_getter__uint(this._parent, index));
   }
   auto opDispatch(uint index)() {
-    return SourceBuffer(SourceBufferList_getter__uint(this._parent, index));
+    return SourceBuffer(JsHandle(SourceBufferList_getter__uint(this._parent, index));
   }
 }
 
 
-extern (C) JsHandle MediaSource_sourceBuffers_Get(JsHandle);
-extern (C) JsHandle MediaSource_activeSourceBuffers_Get(JsHandle);
-extern (C) ReadyState MediaSource_readyState_Get(JsHandle);
-extern (C) void MediaSource_duration_Set(JsHandle, double);
-extern (C) double MediaSource_duration_Get(JsHandle);
-extern (C) void MediaSource_onsourceopen_Set(JsHandle, EventHandler);
-extern (C) EventHandler MediaSource_onsourceopen_Get(JsHandle);
-extern (C) void MediaSource_onsourceended_Set(JsHandle, EventHandler);
-extern (C) EventHandler MediaSource_onsourceended_Get(JsHandle);
-extern (C) void MediaSource_onsourceclose_Set(JsHandle, EventHandler);
-extern (C) EventHandler MediaSource_onsourceclose_Get(JsHandle);
-extern (C) JsHandle MediaSource_addSourceBuffer(JsHandle, string);
-extern (C) void MediaSource_removeSourceBuffer(JsHandle, JsHandle);
-extern (C) void MediaSource_endOfStream(JsHandle, EndOfStreamError);
-extern (C) void MediaSource_setLiveSeekableRange(JsHandle, double, double);
-extern (C) void MediaSource_clearLiveSeekableRange(JsHandle);
-extern (C) bool MediaSource_isTypeSupported(JsHandle, string);
-extern (C) void SourceBuffer_mode_Set(JsHandle, AppendMode);
-extern (C) AppendMode SourceBuffer_mode_Get(JsHandle);
-extern (C) bool SourceBuffer_updating_Get(JsHandle);
-extern (C) JsHandle SourceBuffer_buffered_Get(JsHandle);
-extern (C) void SourceBuffer_timestampOffset_Set(JsHandle, double);
-extern (C) double SourceBuffer_timestampOffset_Get(JsHandle);
-extern (C) JsHandle SourceBuffer_audioTracks_Get(JsHandle);
-extern (C) JsHandle SourceBuffer_videoTracks_Get(JsHandle);
-extern (C) JsHandle SourceBuffer_textTracks_Get(JsHandle);
-extern (C) void SourceBuffer_appendWindowStart_Set(JsHandle, double);
-extern (C) double SourceBuffer_appendWindowStart_Get(JsHandle);
-extern (C) void SourceBuffer_appendWindowEnd_Set(JsHandle, double);
-extern (C) double SourceBuffer_appendWindowEnd_Get(JsHandle);
-extern (C) void SourceBuffer_onupdatestart_Set(JsHandle, EventHandler);
-extern (C) EventHandler SourceBuffer_onupdatestart_Get(JsHandle);
-extern (C) void SourceBuffer_onupdate_Set(JsHandle, EventHandler);
-extern (C) EventHandler SourceBuffer_onupdate_Get(JsHandle);
-extern (C) void SourceBuffer_onupdateend_Set(JsHandle, EventHandler);
-extern (C) EventHandler SourceBuffer_onupdateend_Get(JsHandle);
-extern (C) void SourceBuffer_onerror_Set(JsHandle, EventHandler);
-extern (C) EventHandler SourceBuffer_onerror_Get(JsHandle);
-extern (C) void SourceBuffer_onabort_Set(JsHandle, EventHandler);
-extern (C) EventHandler SourceBuffer_onabort_Get(JsHandle);
-extern (C) void SourceBuffer_appendBuffer(JsHandle, BufferSource);
-extern (C) void SourceBuffer_abort(JsHandle);
-extern (C) void SourceBuffer_remove(JsHandle, double, double);
-extern (C) uint SourceBufferList_length_Get(JsHandle);
-extern (C) void SourceBufferList_onaddsourcebuffer_Set(JsHandle, EventHandler);
-extern (C) EventHandler SourceBufferList_onaddsourcebuffer_Get(JsHandle);
-extern (C) void SourceBufferList_onremovesourcebuffer_Set(JsHandle, EventHandler);
-extern (C) EventHandler SourceBufferList_onremovesourcebuffer_Get(JsHandle);
-extern (C) JsHandle SourceBufferList_getter__uint(JsHandle, uint);
+extern (C) Handle MediaSource_sourceBuffers_Get(Handle);
+extern (C) Handle MediaSource_activeSourceBuffers_Get(Handle);
+extern (C) ReadyState MediaSource_readyState_Get(Handle);
+extern (C) void MediaSource_duration_Set(Handle, double);
+extern (C) double MediaSource_duration_Get(Handle);
+extern (C) void MediaSource_onsourceopen_Set(Handle, EventHandler);
+extern (C) EventHandler MediaSource_onsourceopen_Get(Handle);
+extern (C) void MediaSource_onsourceended_Set(Handle, EventHandler);
+extern (C) EventHandler MediaSource_onsourceended_Get(Handle);
+extern (C) void MediaSource_onsourceclose_Set(Handle, EventHandler);
+extern (C) EventHandler MediaSource_onsourceclose_Get(Handle);
+extern (C) Handle MediaSource_addSourceBuffer(Handle, string);
+extern (C) void MediaSource_removeSourceBuffer(Handle, Handle);
+extern (C) void MediaSource_endOfStream(Handle, EndOfStreamError);
+extern (C) void MediaSource_setLiveSeekableRange(Handle, double, double);
+extern (C) void MediaSource_clearLiveSeekableRange(Handle);
+extern (C) bool MediaSource_isTypeSupported(Handle, string);
+extern (C) void SourceBuffer_mode_Set(Handle, AppendMode);
+extern (C) AppendMode SourceBuffer_mode_Get(Handle);
+extern (C) bool SourceBuffer_updating_Get(Handle);
+extern (C) Handle SourceBuffer_buffered_Get(Handle);
+extern (C) void SourceBuffer_timestampOffset_Set(Handle, double);
+extern (C) double SourceBuffer_timestampOffset_Get(Handle);
+extern (C) Handle SourceBuffer_audioTracks_Get(Handle);
+extern (C) Handle SourceBuffer_videoTracks_Get(Handle);
+extern (C) Handle SourceBuffer_textTracks_Get(Handle);
+extern (C) void SourceBuffer_appendWindowStart_Set(Handle, double);
+extern (C) double SourceBuffer_appendWindowStart_Get(Handle);
+extern (C) void SourceBuffer_appendWindowEnd_Set(Handle, double);
+extern (C) double SourceBuffer_appendWindowEnd_Get(Handle);
+extern (C) void SourceBuffer_onupdatestart_Set(Handle, EventHandler);
+extern (C) EventHandler SourceBuffer_onupdatestart_Get(Handle);
+extern (C) void SourceBuffer_onupdate_Set(Handle, EventHandler);
+extern (C) EventHandler SourceBuffer_onupdate_Get(Handle);
+extern (C) void SourceBuffer_onupdateend_Set(Handle, EventHandler);
+extern (C) EventHandler SourceBuffer_onupdateend_Get(Handle);
+extern (C) void SourceBuffer_onerror_Set(Handle, EventHandler);
+extern (C) EventHandler SourceBuffer_onerror_Get(Handle);
+extern (C) void SourceBuffer_onabort_Set(Handle, EventHandler);
+extern (C) EventHandler SourceBuffer_onabort_Get(Handle);
+extern (C) void SourceBuffer_appendBuffer(Handle, BufferSource);
+extern (C) void SourceBuffer_abort(Handle);
+extern (C) void SourceBuffer_remove(Handle, double, double);
+extern (C) uint SourceBufferList_length_Get(Handle);
+extern (C) void SourceBufferList_onaddsourcebuffer_Set(Handle, EventHandler);
+extern (C) EventHandler SourceBufferList_onaddsourcebuffer_Get(Handle);
+extern (C) void SourceBufferList_onremovesourcebuffer_Set(Handle, EventHandler);
+extern (C) EventHandler SourceBufferList_onremovesourcebuffer_Get(Handle);
+extern (C) Handle SourceBufferList_getter__uint(Handle, uint);

@@ -46,6 +46,6 @@ alias Function = Any delegate(Any);
 alias VoidFunction = void delegate();
 
 
-extern (C) string DOMException_name_Get(JsHandle);
-extern (C) string DOMException_message_Get(JsHandle);
-extern (C) ushort DOMException_code_Get(JsHandle);
+extern (C) string DOMException_name_Get(Handle);
+extern (C) string DOMException_message_Get(Handle);
+extern (C) ushort DOMException_code_Get(Handle);

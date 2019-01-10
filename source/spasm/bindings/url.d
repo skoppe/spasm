@@ -65,7 +65,7 @@ struct URL {
     return URL_search_Get(this.handle);
   }
   auto searchParams() {
-    return URLSearchParams(URL_searchParams_Get(this.handle));
+    return URLSearchParams(JsHandle(URL_searchParams_Get(this.handle));
   }
   auto hash(string hash) {
     URL_hash_Set(this.handle, hash);
@@ -77,13 +77,13 @@ struct URL {
     return URL_toJSON(this.handle);
   }
   auto createObjectURL(Blob blob) {
-    return URL_createObjectURL__JsHandle(this.handle, blob.handle);
+    return URL_createObjectURL__Handle(this.handle, blob.handle);
   }
   auto revokeObjectURL(string url) {
     URL_revokeObjectURL(this.handle, url);
   }
   auto createObjectURL(MediaSource mediaSource) {
-    return URL_createObjectURL__JsHandle(this.handle, mediaSource.handle);
+    return URL_createObjectURL__Handle(this.handle, mediaSource.handle);
   }
 }
 struct URLSearchParams {
@@ -99,7 +99,7 @@ struct URLSearchParams {
     return URLSearchParams_get(this.handle, name);
   }
   auto getAll(string name) {
-    return Sequence!(string)(URLSearchParams_getAll(this.handle, name));
+    return Sequence!(string)(JsHandle(URLSearchParams_getAll(this.handle, name));
   }
   auto has(string name) {
     return URLSearchParams_has(this.handle, name);
@@ -113,35 +113,35 @@ struct URLSearchParams {
 }
 
 
-extern (C) void URL_href_Set(JsHandle, string);
-extern (C) string URL_href_Get(JsHandle);
-extern (C) string URL_origin_Get(JsHandle);
-extern (C) void URL_protocol_Set(JsHandle, string);
-extern (C) string URL_protocol_Get(JsHandle);
-extern (C) void URL_username_Set(JsHandle, string);
-extern (C) string URL_username_Get(JsHandle);
-extern (C) void URL_password_Set(JsHandle, string);
-extern (C) string URL_password_Get(JsHandle);
-extern (C) void URL_host_Set(JsHandle, string);
-extern (C) string URL_host_Get(JsHandle);
-extern (C) void URL_hostname_Set(JsHandle, string);
-extern (C) string URL_hostname_Get(JsHandle);
-extern (C) void URL_port_Set(JsHandle, string);
-extern (C) string URL_port_Get(JsHandle);
-extern (C) void URL_pathname_Set(JsHandle, string);
-extern (C) string URL_pathname_Get(JsHandle);
-extern (C) void URL_search_Set(JsHandle, string);
-extern (C) string URL_search_Get(JsHandle);
-extern (C) JsHandle URL_searchParams_Get(JsHandle);
-extern (C) void URL_hash_Set(JsHandle, string);
-extern (C) string URL_hash_Get(JsHandle);
-extern (C) string URL_toJSON(JsHandle);
-extern (C) string URL_createObjectURL__JsHandle(JsHandle, JsHandle);
-extern (C) void URL_revokeObjectURL(JsHandle, string);
-extern (C) void URLSearchParams_append(JsHandle, string, string);
-extern (C) void URLSearchParams_delete(JsHandle, string);
-extern (C) Optional!(string) URLSearchParams_get(JsHandle, string);
-extern (C) JsHandle URLSearchParams_getAll(JsHandle, string);
-extern (C) bool URLSearchParams_has(JsHandle, string);
-extern (C) void URLSearchParams_set(JsHandle, string, string);
-extern (C) void URLSearchParams_sort(JsHandle);
+extern (C) void URL_href_Set(Handle, string);
+extern (C) string URL_href_Get(Handle);
+extern (C) string URL_origin_Get(Handle);
+extern (C) void URL_protocol_Set(Handle, string);
+extern (C) string URL_protocol_Get(Handle);
+extern (C) void URL_username_Set(Handle, string);
+extern (C) string URL_username_Get(Handle);
+extern (C) void URL_password_Set(Handle, string);
+extern (C) string URL_password_Get(Handle);
+extern (C) void URL_host_Set(Handle, string);
+extern (C) string URL_host_Get(Handle);
+extern (C) void URL_hostname_Set(Handle, string);
+extern (C) string URL_hostname_Get(Handle);
+extern (C) void URL_port_Set(Handle, string);
+extern (C) string URL_port_Get(Handle);
+extern (C) void URL_pathname_Set(Handle, string);
+extern (C) string URL_pathname_Get(Handle);
+extern (C) void URL_search_Set(Handle, string);
+extern (C) string URL_search_Get(Handle);
+extern (C) Handle URL_searchParams_Get(Handle);
+extern (C) void URL_hash_Set(Handle, string);
+extern (C) string URL_hash_Get(Handle);
+extern (C) string URL_toJSON(Handle);
+extern (C) string URL_createObjectURL__Handle(Handle, Handle);
+extern (C) void URL_revokeObjectURL(Handle, string);
+extern (C) void URLSearchParams_append(Handle, string, string);
+extern (C) void URLSearchParams_delete(Handle, string);
+extern (C) Optional!(string) URLSearchParams_get(Handle, string);
+extern (C) Handle URLSearchParams_getAll(Handle, string);
+extern (C) bool URLSearchParams_has(Handle, string);
+extern (C) void URLSearchParams_set(Handle, string, string);
+extern (C) void URLSearchParams_sort(Handle);

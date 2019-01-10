@@ -8,7 +8,7 @@ export default {
       return spasm.addObject(spasm.objects[ctx].activeSourceBuffers);
     },
     MediaSource_readyState_Get: function(ctx) {
-      return spasm.encode_ReadyState(spasm.objects[ctx].readyState);
+      return spasm.encode.ReadyState(spasm.objects[ctx].readyState);
     },
     MediaSource_duration_Set: function(ctx, duration) {
       spasm.objects[ctx].duration = duration;
@@ -56,7 +56,7 @@ export default {
       spasm.objects[ctx].mode = spasm.decode_AppendMode(mode);
     },
     SourceBuffer_mode_Get: function(ctx) {
-      return spasm.encode_AppendMode(spasm.objects[ctx].mode);
+      return spasm.encode.AppendMode(spasm.objects[ctx].mode);
     },
     SourceBuffer_updating_Get: function(ctx) {
       return spasm.objects[ctx].updating;

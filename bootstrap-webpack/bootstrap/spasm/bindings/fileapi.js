@@ -5,7 +5,7 @@ export default {
       return spasm.objects[ctx].size;
     },
     Blob_type_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].type);
+      spasm.encode.string(rawResult, spasm.objects[ctx].type);
     },
     Blob_slice: function(ctx, start, end, contentTypeLen, contentTypePtr) {
       return spasm.addObject(spasm.objects[ctx].slice(start, end, spasm.decode_string(contentTypeLen, contentTypePtr)));
@@ -14,22 +14,22 @@ export default {
       spasm.objects[ctx].type = spasm.decode_string(typeLen, typePtr);
     },
     BlobPropertyBag_type_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].type);
+      spasm.encode.string(rawResult, spasm.objects[ctx].type);
     },
     BlobPropertyBag_endings_Set: function(ctx, endings) {
       spasm.objects[ctx].endings = spasm.decode_EndingType(endings);
     },
     BlobPropertyBag_endings_Get: function(ctx) {
-      return spasm.encode_EndingType(spasm.objects[ctx].endings);
+      return spasm.encode.EndingType(spasm.objects[ctx].endings);
     },
     File_name_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].name);
+      spasm.encode.string(rawResult, spasm.objects[ctx].name);
     },
     File_lastModified_Get: function(ctx) {
       return spasm.objects[ctx].lastModified;
     },
     FileList_item_getter: function(rawResult, ctx, index) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].item(index));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].item(index));
     },
     FileList_length_Get: function(ctx) {
       return spasm.objects[ctx].length;
@@ -59,10 +59,10 @@ export default {
       return spasm.objects[ctx].readyState;
     },
     FileReader_result_Get: function(rawResult, ctx) {
-      spasm.encode_optional_union2_string_ArrayBuffer(rawResult, spasm.objects[ctx].result);
+      spasm.encode.optional_union2_string_ArrayBuffer(rawResult, spasm.objects[ctx].result);
     },
     FileReader_error_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].error);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].error);
     },
     FileReader_onloadstart_Set: function(ctx, onloadstart) {
       spasm.objects[ctx].onloadstart = onloadstart;
@@ -104,13 +104,13 @@ export default {
       return spasm.addObject(spasm.objects[ctx].readAsArrayBuffer(spasm.objects[blob]));
     },
     FileReaderSync_readAsBinaryString: function(rawResult, ctx, blob) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].readAsBinaryString(spasm.objects[blob]));
+      spasm.encode.string(rawResult, spasm.objects[ctx].readAsBinaryString(spasm.objects[blob]));
     },
     FileReaderSync_readAsText: function(rawResult, ctx, blob, encodingLen, encodingPtr) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].readAsText(spasm.objects[blob], spasm.decode_string(encodingLen, encodingPtr)));
+      spasm.encode.string(rawResult, spasm.objects[ctx].readAsText(spasm.objects[blob], spasm.decode_string(encodingLen, encodingPtr)));
     },
     FileReaderSync_readAsDataURL: function(rawResult, ctx, blob) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].readAsDataURL(spasm.objects[blob]));
+      spasm.encode.string(rawResult, spasm.objects[ctx].readAsDataURL(spasm.objects[blob]));
     },
   }
 }

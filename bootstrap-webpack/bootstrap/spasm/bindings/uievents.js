@@ -2,13 +2,13 @@ import spasm from './spasm.js';
 export default {
   jsExports: {
     CompositionEvent_data_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].data);
+      spasm.encode.string(rawResult, spasm.objects[ctx].data);
     },
     CompositionEventInit_data_Set: function(ctx, dataLen, dataPtr) {
       spasm.objects[ctx].data = spasm.decode_string(dataLen, dataPtr);
     },
     CompositionEventInit_data_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].data);
+      spasm.encode.string(rawResult, spasm.objects[ctx].data);
     },
     EventModifierInit_ctrlKey_Set: function(ctx, ctrlKey) {
       spasm.objects[ctx].ctrlKey = ctrlKey;
@@ -95,28 +95,28 @@ export default {
       return spasm.objects[ctx].modifierSymbolLock;
     },
     FocusEvent_relatedTarget_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].relatedTarget);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].relatedTarget);
     },
     FocusEventInit_relatedTarget_Set: function(ctx, relatedTargetDefined, relatedTarget) {
       spasm.objects[ctx].relatedTarget = relatedTargetDefined ? spasm.objects[relatedTarget] : undefined;
     },
     FocusEventInit_relatedTarget_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].relatedTarget);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].relatedTarget);
     },
     InputEvent_data_Get: function(rawResult, ctx) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].data);
+      spasm.encode.optional_string(rawResult, spasm.objects[ctx].data);
     },
     InputEvent_isComposing_Get: function(ctx) {
       return spasm.objects[ctx].isComposing;
     },
     InputEvent_inputType_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].inputType);
+      spasm.encode.string(rawResult, spasm.objects[ctx].inputType);
     },
     InputEventInit_data_Set: function(ctx, dataDefined, dataLen, dataPtr) {
       spasm.objects[ctx].data = dataDefined ? spasm.decode_string(dataLen, dataPtr) : undefined;
     },
     InputEventInit_data_Get: function(rawResult, ctx) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].data);
+      spasm.encode.optional_string(rawResult, spasm.objects[ctx].data);
     },
     InputEventInit_isComposing_Set: function(ctx, isComposing) {
       spasm.objects[ctx].isComposing = isComposing;
@@ -128,13 +128,13 @@ export default {
       spasm.objects[ctx].inputType = spasm.decode_string(inputTypeLen, inputTypePtr);
     },
     InputEventInit_inputType_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].inputType);
+      spasm.encode.string(rawResult, spasm.objects[ctx].inputType);
     },
     KeyboardEvent_key_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].key);
+      spasm.encode.string(rawResult, spasm.objects[ctx].key);
     },
     KeyboardEvent_code_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].code);
+      spasm.encode.string(rawResult, spasm.objects[ctx].code);
     },
     KeyboardEvent_location_Get: function(ctx) {
       return spasm.objects[ctx].location;
@@ -170,13 +170,13 @@ export default {
       spasm.objects[ctx].key = spasm.decode_string(keyLen, keyPtr);
     },
     KeyboardEventInit_key_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].key);
+      spasm.encode.string(rawResult, spasm.objects[ctx].key);
     },
     KeyboardEventInit_code_Set: function(ctx, codeLen, codePtr) {
       spasm.objects[ctx].code = spasm.decode_string(codeLen, codePtr);
     },
     KeyboardEventInit_code_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].code);
+      spasm.encode.string(rawResult, spasm.objects[ctx].code);
     },
     KeyboardEventInit_location_Set: function(ctx, location) {
       spasm.objects[ctx].location = location;
@@ -227,7 +227,7 @@ export default {
       return spasm.objects[ctx].buttons;
     },
     MouseEvent_relatedTarget_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].relatedTarget);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].relatedTarget);
     },
     MouseEvent_getModifierState: function(ctx, keyArgLen, keyArgPtr) {
       return spasm.objects[ctx].getModifierState(spasm.decode_string(keyArgLen, keyArgPtr));
@@ -272,10 +272,10 @@ export default {
       spasm.objects[ctx].relatedTarget = relatedTargetDefined ? spasm.objects[relatedTarget] : undefined;
     },
     MouseEventInit_relatedTarget_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].relatedTarget);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].relatedTarget);
     },
     UIEvent_view_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].view);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].view);
     },
     UIEvent_detail_Get: function(ctx) {
       return spasm.objects[ctx].detail;
@@ -287,7 +287,7 @@ export default {
       spasm.objects[ctx].view = viewDefined ? spasm.objects[view] : undefined;
     },
     UIEventInit_view_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].view);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].view);
     },
     UIEventInit_detail_Set: function(ctx, detail) {
       spasm.objects[ctx].detail = detail;

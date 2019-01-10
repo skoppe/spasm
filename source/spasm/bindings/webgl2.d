@@ -285,7 +285,7 @@ struct WebGL2RenderingContextBase {
     WebGL2RenderingContextBase_bufferData__uint_long_uint(this.handle, target, size, usage);
   }
   auto bufferData(uint target, Optional!(ArrayBuffer) srcData, uint usage) {
-    WebGL2RenderingContextBase_bufferData__uint_optional_JsHandle_uint(this.handle, target, !srcData.empty, srcData.front.handle, usage);
+    WebGL2RenderingContextBase_bufferData__uint_optional_Handle_uint(this.handle, target, !srcData.empty, srcData.front.handle, usage);
   }
   auto bufferData(uint target, ArrayBufferView srcData, uint usage) {
     WebGL2RenderingContextBase_bufferData__uint_ArrayBufferView_uint(this.handle, target, srcData, usage);
@@ -321,7 +321,7 @@ struct WebGL2RenderingContextBase {
     WebGL2RenderingContextBase_readBuffer(this.handle, src);
   }
   auto getInternalformatParameter(uint target, uint internalformat, uint pname) {
-    return Any(WebGL2RenderingContextBase_getInternalformatParameter(this.handle, target, internalformat, pname));
+    return Any(JsHandle(WebGL2RenderingContextBase_getInternalformatParameter(this.handle, target, internalformat, pname));
   }
   auto renderbufferStorageMultisample(uint target, int samples, uint internalformat, int width, int height) {
     WebGL2RenderingContextBase_renderbufferStorageMultisample(this.handle, target, samples, internalformat, width, height);
@@ -558,7 +558,7 @@ struct WebGL2RenderingContextBase {
     return WebGL2RenderingContextBase_getQuery(this.handle, target, pname);
   }
   auto getQueryParameter(WebGLQuery query, uint pname) {
-    return Any(WebGL2RenderingContextBase_getQueryParameter(this.handle, query.handle, pname));
+    return Any(JsHandle(WebGL2RenderingContextBase_getQueryParameter(this.handle, query.handle, pname));
   }
   auto createSampler() {
     return WebGL2RenderingContextBase_createSampler(this.handle);
@@ -579,7 +579,7 @@ struct WebGL2RenderingContextBase {
     WebGL2RenderingContextBase_samplerParameterf(this.handle, sampler.handle, pname, param);
   }
   auto getSamplerParameter(WebGLSampler sampler, uint pname) {
-    return Any(WebGL2RenderingContextBase_getSamplerParameter(this.handle, sampler.handle, pname));
+    return Any(JsHandle(WebGL2RenderingContextBase_getSamplerParameter(this.handle, sampler.handle, pname));
   }
   auto fenceSync(uint condition, uint flags) {
     return WebGL2RenderingContextBase_fenceSync(this.handle, condition, flags);
@@ -597,7 +597,7 @@ struct WebGL2RenderingContextBase {
     WebGL2RenderingContextBase_waitSync(this.handle, sync.handle, flags, timeout);
   }
   auto getSyncParameter(WebGLSync sync, uint pname) {
-    return Any(WebGL2RenderingContextBase_getSyncParameter(this.handle, sync.handle, pname));
+    return Any(JsHandle(WebGL2RenderingContextBase_getSyncParameter(this.handle, sync.handle, pname));
   }
   auto createTransformFeedback() {
     return WebGL2RenderingContextBase_createTransformFeedback(this.handle);
@@ -636,19 +636,19 @@ struct WebGL2RenderingContextBase {
     WebGL2RenderingContextBase_bindBufferRange(this.handle, target, index, !buffer.empty, buffer.front.handle, offset, size);
   }
   auto getIndexedParameter(uint target, uint index) {
-    return Any(WebGL2RenderingContextBase_getIndexedParameter(this.handle, target, index));
+    return Any(JsHandle(WebGL2RenderingContextBase_getIndexedParameter(this.handle, target, index));
   }
   auto getUniformIndices(WebGLProgram program, Sequence!(string) uniformNames) {
     return WebGL2RenderingContextBase_getUniformIndices(this.handle, program.handle, uniformNames.handle);
   }
   auto getActiveUniforms(WebGLProgram program, Sequence!(uint) uniformIndices, uint pname) {
-    return Any(WebGL2RenderingContextBase_getActiveUniforms(this.handle, program.handle, uniformIndices.handle, pname));
+    return Any(JsHandle(WebGL2RenderingContextBase_getActiveUniforms(this.handle, program.handle, uniformIndices.handle, pname));
   }
   auto getUniformBlockIndex(WebGLProgram program, string uniformBlockName) {
     return WebGL2RenderingContextBase_getUniformBlockIndex(this.handle, program.handle, uniformBlockName);
   }
   auto getActiveUniformBlockParameter(WebGLProgram program, uint uniformBlockIndex, uint pname) {
-    return Any(WebGL2RenderingContextBase_getActiveUniformBlockParameter(this.handle, program.handle, uniformBlockIndex, pname));
+    return Any(JsHandle(WebGL2RenderingContextBase_getActiveUniformBlockParameter(this.handle, program.handle, uniformBlockIndex, pname));
   }
   auto getActiveUniformBlockName(WebGLProgram program, uint uniformBlockIndex) {
     return WebGL2RenderingContextBase_getActiveUniformBlockName(this.handle, program.handle, uniformBlockIndex);
@@ -706,132 +706,132 @@ struct WebGLVertexArrayObject {
 }
 
 
-extern (C) void WebGL2RenderingContextBase_bufferData__uint_long_uint(JsHandle, uint, long, uint);
-extern (C) void WebGL2RenderingContextBase_bufferData__uint_optional_JsHandle_uint(JsHandle, uint, bool, JsHandle, uint);
-extern (C) void WebGL2RenderingContextBase_bufferData__uint_ArrayBufferView_uint(JsHandle, uint, ArrayBufferView, uint);
-extern (C) void WebGL2RenderingContextBase_bufferSubData__uint_long_BufferDataSource(JsHandle, uint, long, BufferDataSource);
-extern (C) void WebGL2RenderingContextBase_bufferData__uint_ArrayBufferView_uint_uint_uint(JsHandle, uint, ArrayBufferView, uint, uint, uint);
-extern (C) void WebGL2RenderingContextBase_bufferSubData__uint_long_ArrayBufferView_uint_uint(JsHandle, uint, long, ArrayBufferView, uint, uint);
-extern (C) void WebGL2RenderingContextBase_copyBufferSubData(JsHandle, uint, uint, long, long, long);
-extern (C) void WebGL2RenderingContextBase_getBufferSubData(JsHandle, uint, long, ArrayBufferView, uint, uint);
-extern (C) void WebGL2RenderingContextBase_blitFramebuffer(JsHandle, int, int, int, int, int, int, int, int, uint, uint);
-extern (C) void WebGL2RenderingContextBase_framebufferTextureLayer(JsHandle, uint, uint, bool, JsHandle, int, int);
-extern (C) void WebGL2RenderingContextBase_invalidateFramebuffer(JsHandle, uint, JsHandle);
-extern (C) void WebGL2RenderingContextBase_invalidateSubFramebuffer(JsHandle, uint, JsHandle, int, int, int, int);
-extern (C) void WebGL2RenderingContextBase_readBuffer(JsHandle, uint);
-extern (C) JsHandle WebGL2RenderingContextBase_getInternalformatParameter(JsHandle, uint, uint, uint);
-extern (C) void WebGL2RenderingContextBase_renderbufferStorageMultisample(JsHandle, uint, int, uint, int, int);
-extern (C) void WebGL2RenderingContextBase_texStorage2D(JsHandle, uint, int, uint, int, int);
-extern (C) void WebGL2RenderingContextBase_texStorage3D(JsHandle, uint, int, uint, int, int, int);
-extern (C) void WebGL2RenderingContextBase_texImage2D__uint_int_int_int_int_int_uint_uint_optional_ArrayBufferView(JsHandle, uint, int, int, int, int, int, uint, uint, bool, ArrayBufferView);
-extern (C) void WebGL2RenderingContextBase_texImage2D__uint_int_int_uint_uint_TexImageSource(JsHandle, uint, int, int, uint, uint, TexImageSource);
-extern (C) void WebGL2RenderingContextBase_texSubImage2D__uint_int_int_int_int_int_uint_uint_optional_ArrayBufferView(JsHandle, uint, int, int, int, int, int, uint, uint, bool, ArrayBufferView);
-extern (C) void WebGL2RenderingContextBase_texSubImage2D__uint_int_int_int_uint_uint_TexImageSource(JsHandle, uint, int, int, int, uint, uint, TexImageSource);
-extern (C) void WebGL2RenderingContextBase_texImage2D__uint_int_int_int_int_int_uint_uint_long(JsHandle, uint, int, int, int, int, int, uint, uint, long);
-extern (C) void WebGL2RenderingContextBase_texImage2D__uint_int_int_int_int_int_uint_uint_TexImageSource(JsHandle, uint, int, int, int, int, int, uint, uint, TexImageSource);
-extern (C) void WebGL2RenderingContextBase_texImage2D__uint_int_int_int_int_int_uint_uint_ArrayBufferView_uint(JsHandle, uint, int, int, int, int, int, uint, uint, ArrayBufferView, uint);
-extern (C) void WebGL2RenderingContextBase_texImage3D__uint_int_int_int_int_int_int_uint_uint_long(JsHandle, uint, int, int, int, int, int, int, uint, uint, long);
-extern (C) void WebGL2RenderingContextBase_texImage3D__uint_int_int_int_int_int_int_uint_uint_TexImageSource(JsHandle, uint, int, int, int, int, int, int, uint, uint, TexImageSource);
-extern (C) void WebGL2RenderingContextBase_texImage3D__uint_int_int_int_int_int_int_uint_uint_optional_ArrayBufferView(JsHandle, uint, int, int, int, int, int, int, uint, uint, bool, ArrayBufferView);
-extern (C) void WebGL2RenderingContextBase_texImage3D__uint_int_int_int_int_int_int_uint_uint_ArrayBufferView_uint(JsHandle, uint, int, int, int, int, int, int, uint, uint, ArrayBufferView, uint);
-extern (C) void WebGL2RenderingContextBase_texSubImage2D__uint_int_int_int_int_int_uint_uint_long(JsHandle, uint, int, int, int, int, int, uint, uint, long);
-extern (C) void WebGL2RenderingContextBase_texSubImage2D__uint_int_int_int_int_int_uint_uint_TexImageSource(JsHandle, uint, int, int, int, int, int, uint, uint, TexImageSource);
-extern (C) void WebGL2RenderingContextBase_texSubImage2D__uint_int_int_int_int_int_uint_uint_ArrayBufferView_uint(JsHandle, uint, int, int, int, int, int, uint, uint, ArrayBufferView, uint);
-extern (C) void WebGL2RenderingContextBase_texSubImage3D__uint_int_int_int_int_int_int_int_uint_uint_long(JsHandle, uint, int, int, int, int, int, int, int, uint, uint, long);
-extern (C) void WebGL2RenderingContextBase_texSubImage3D__uint_int_int_int_int_int_int_int_uint_uint_TexImageSource(JsHandle, uint, int, int, int, int, int, int, int, uint, uint, TexImageSource);
-extern (C) void WebGL2RenderingContextBase_texSubImage3D__uint_int_int_int_int_int_int_int_uint_uint_optional_ArrayBufferView_uint(JsHandle, uint, int, int, int, int, int, int, int, uint, uint, bool, ArrayBufferView, uint);
-extern (C) void WebGL2RenderingContextBase_copyTexSubImage3D(JsHandle, uint, int, int, int, int, int, int, int, int);
-extern (C) void WebGL2RenderingContextBase_compressedTexImage2D__uint_int_uint_int_int_int_long(JsHandle, uint, int, uint, int, int, int, long);
-extern (C) void WebGL2RenderingContextBase_compressedTexImage2D__uint_int_uint_int_int_int_ArrayBufferView_uint_uint(JsHandle, uint, int, uint, int, int, int, ArrayBufferView, uint, uint);
-extern (C) void WebGL2RenderingContextBase_compressedTexImage3D__uint_int_uint_int_int_int_int_long(JsHandle, uint, int, uint, int, int, int, int, long);
-extern (C) void WebGL2RenderingContextBase_compressedTexImage3D__uint_int_uint_int_int_int_int_ArrayBufferView_uint_uint(JsHandle, uint, int, uint, int, int, int, int, ArrayBufferView, uint, uint);
-extern (C) void WebGL2RenderingContextBase_compressedTexSubImage2D__uint_int_int_int_int_int_uint_long(JsHandle, uint, int, int, int, int, int, uint, long);
-extern (C) void WebGL2RenderingContextBase_compressedTexSubImage2D__uint_int_int_int_int_int_uint_ArrayBufferView_uint_uint(JsHandle, uint, int, int, int, int, int, uint, ArrayBufferView, uint, uint);
-extern (C) void WebGL2RenderingContextBase_compressedTexSubImage3D__uint_int_int_int_int_int_int_int_uint_long(JsHandle, uint, int, int, int, int, int, int, int, uint, long);
-extern (C) void WebGL2RenderingContextBase_compressedTexSubImage3D__uint_int_int_int_int_int_int_int_uint_ArrayBufferView_uint_uint(JsHandle, uint, int, int, int, int, int, int, int, uint, ArrayBufferView, uint, uint);
-extern (C) int WebGL2RenderingContextBase_getFragDataLocation(JsHandle, JsHandle, string);
-extern (C) void WebGL2RenderingContextBase_uniform1ui(JsHandle, bool, JsHandle, uint);
-extern (C) void WebGL2RenderingContextBase_uniform2ui(JsHandle, bool, JsHandle, uint, uint);
-extern (C) void WebGL2RenderingContextBase_uniform3ui(JsHandle, bool, JsHandle, uint, uint, uint);
-extern (C) void WebGL2RenderingContextBase_uniform4ui(JsHandle, bool, JsHandle, uint, uint, uint, uint);
-extern (C) void WebGL2RenderingContextBase_uniform1fv(JsHandle, bool, JsHandle, Float32List, uint, uint);
-extern (C) void WebGL2RenderingContextBase_uniform2fv(JsHandle, bool, JsHandle, Float32List, uint, uint);
-extern (C) void WebGL2RenderingContextBase_uniform3fv(JsHandle, bool, JsHandle, Float32List, uint, uint);
-extern (C) void WebGL2RenderingContextBase_uniform4fv(JsHandle, bool, JsHandle, Float32List, uint, uint);
-extern (C) void WebGL2RenderingContextBase_uniform1iv(JsHandle, bool, JsHandle, Int32List, uint, uint);
-extern (C) void WebGL2RenderingContextBase_uniform2iv(JsHandle, bool, JsHandle, Int32List, uint, uint);
-extern (C) void WebGL2RenderingContextBase_uniform3iv(JsHandle, bool, JsHandle, Int32List, uint, uint);
-extern (C) void WebGL2RenderingContextBase_uniform4iv(JsHandle, bool, JsHandle, Int32List, uint, uint);
-extern (C) void WebGL2RenderingContextBase_uniform1uiv(JsHandle, bool, JsHandle, Uint32List, uint, uint);
-extern (C) void WebGL2RenderingContextBase_uniform2uiv(JsHandle, bool, JsHandle, Uint32List, uint, uint);
-extern (C) void WebGL2RenderingContextBase_uniform3uiv(JsHandle, bool, JsHandle, Uint32List, uint, uint);
-extern (C) void WebGL2RenderingContextBase_uniform4uiv(JsHandle, bool, JsHandle, Uint32List, uint, uint);
-extern (C) void WebGL2RenderingContextBase_uniformMatrix2fv(JsHandle, bool, JsHandle, bool, Float32List, uint, uint);
-extern (C) void WebGL2RenderingContextBase_uniformMatrix3x2fv(JsHandle, bool, JsHandle, bool, Float32List, uint, uint);
-extern (C) void WebGL2RenderingContextBase_uniformMatrix4x2fv(JsHandle, bool, JsHandle, bool, Float32List, uint, uint);
-extern (C) void WebGL2RenderingContextBase_uniformMatrix2x3fv(JsHandle, bool, JsHandle, bool, Float32List, uint, uint);
-extern (C) void WebGL2RenderingContextBase_uniformMatrix3fv(JsHandle, bool, JsHandle, bool, Float32List, uint, uint);
-extern (C) void WebGL2RenderingContextBase_uniformMatrix4x3fv(JsHandle, bool, JsHandle, bool, Float32List, uint, uint);
-extern (C) void WebGL2RenderingContextBase_uniformMatrix2x4fv(JsHandle, bool, JsHandle, bool, Float32List, uint, uint);
-extern (C) void WebGL2RenderingContextBase_uniformMatrix3x4fv(JsHandle, bool, JsHandle, bool, Float32List, uint, uint);
-extern (C) void WebGL2RenderingContextBase_uniformMatrix4fv(JsHandle, bool, JsHandle, bool, Float32List, uint, uint);
-extern (C) void WebGL2RenderingContextBase_vertexAttribI4i(JsHandle, uint, int, int, int, int);
-extern (C) void WebGL2RenderingContextBase_vertexAttribI4iv(JsHandle, uint, Int32List);
-extern (C) void WebGL2RenderingContextBase_vertexAttribI4ui(JsHandle, uint, uint, uint, uint, uint);
-extern (C) void WebGL2RenderingContextBase_vertexAttribI4uiv(JsHandle, uint, Uint32List);
-extern (C) void WebGL2RenderingContextBase_vertexAttribIPointer(JsHandle, uint, int, uint, int, long);
-extern (C) void WebGL2RenderingContextBase_vertexAttribDivisor(JsHandle, uint, uint);
-extern (C) void WebGL2RenderingContextBase_drawArraysInstanced(JsHandle, uint, int, int, int);
-extern (C) void WebGL2RenderingContextBase_drawElementsInstanced(JsHandle, uint, int, uint, long, int);
-extern (C) void WebGL2RenderingContextBase_drawRangeElements(JsHandle, uint, uint, uint, int, uint, long);
-extern (C) void WebGL2RenderingContextBase_readPixels__int_int_int_int_uint_uint_optional_ArrayBufferView(JsHandle, int, int, int, int, uint, uint, bool, ArrayBufferView);
-extern (C) void WebGL2RenderingContextBase_readPixels__int_int_int_int_uint_uint_long(JsHandle, int, int, int, int, uint, uint, long);
-extern (C) void WebGL2RenderingContextBase_readPixels__int_int_int_int_uint_uint_ArrayBufferView_uint(JsHandle, int, int, int, int, uint, uint, ArrayBufferView, uint);
-extern (C) void WebGL2RenderingContextBase_drawBuffers(JsHandle, JsHandle);
-extern (C) void WebGL2RenderingContextBase_clearBufferfv(JsHandle, uint, int, Float32List, uint);
-extern (C) void WebGL2RenderingContextBase_clearBufferiv(JsHandle, uint, int, Int32List, uint);
-extern (C) void WebGL2RenderingContextBase_clearBufferuiv(JsHandle, uint, int, Uint32List, uint);
-extern (C) void WebGL2RenderingContextBase_clearBufferfi(JsHandle, uint, int, float, int);
-extern (C) Optional!(WebGLQuery) WebGL2RenderingContextBase_createQuery(JsHandle);
-extern (C) void WebGL2RenderingContextBase_deleteQuery(JsHandle, bool, JsHandle);
-extern (C) bool WebGL2RenderingContextBase_isQuery(JsHandle, bool, JsHandle);
-extern (C) void WebGL2RenderingContextBase_beginQuery(JsHandle, uint, JsHandle);
-extern (C) void WebGL2RenderingContextBase_endQuery(JsHandle, uint);
-extern (C) Optional!(WebGLQuery) WebGL2RenderingContextBase_getQuery(JsHandle, uint, uint);
-extern (C) JsHandle WebGL2RenderingContextBase_getQueryParameter(JsHandle, JsHandle, uint);
-extern (C) Optional!(WebGLSampler) WebGL2RenderingContextBase_createSampler(JsHandle);
-extern (C) void WebGL2RenderingContextBase_deleteSampler(JsHandle, bool, JsHandle);
-extern (C) bool WebGL2RenderingContextBase_isSampler(JsHandle, bool, JsHandle);
-extern (C) void WebGL2RenderingContextBase_bindSampler(JsHandle, uint, bool, JsHandle);
-extern (C) void WebGL2RenderingContextBase_samplerParameteri(JsHandle, JsHandle, uint, int);
-extern (C) void WebGL2RenderingContextBase_samplerParameterf(JsHandle, JsHandle, uint, float);
-extern (C) JsHandle WebGL2RenderingContextBase_getSamplerParameter(JsHandle, JsHandle, uint);
-extern (C) Optional!(WebGLSync) WebGL2RenderingContextBase_fenceSync(JsHandle, uint, uint);
-extern (C) bool WebGL2RenderingContextBase_isSync(JsHandle, bool, JsHandle);
-extern (C) void WebGL2RenderingContextBase_deleteSync(JsHandle, bool, JsHandle);
-extern (C) uint WebGL2RenderingContextBase_clientWaitSync(JsHandle, JsHandle, uint, ulong);
-extern (C) void WebGL2RenderingContextBase_waitSync(JsHandle, JsHandle, uint, long);
-extern (C) JsHandle WebGL2RenderingContextBase_getSyncParameter(JsHandle, JsHandle, uint);
-extern (C) Optional!(WebGLTransformFeedback) WebGL2RenderingContextBase_createTransformFeedback(JsHandle);
-extern (C) void WebGL2RenderingContextBase_deleteTransformFeedback(JsHandle, bool, JsHandle);
-extern (C) bool WebGL2RenderingContextBase_isTransformFeedback(JsHandle, bool, JsHandle);
-extern (C) void WebGL2RenderingContextBase_bindTransformFeedback(JsHandle, uint, bool, JsHandle);
-extern (C) void WebGL2RenderingContextBase_beginTransformFeedback(JsHandle, uint);
-extern (C) void WebGL2RenderingContextBase_endTransformFeedback(JsHandle);
-extern (C) void WebGL2RenderingContextBase_transformFeedbackVaryings(JsHandle, JsHandle, JsHandle, uint);
-extern (C) Optional!(WebGLActiveInfo) WebGL2RenderingContextBase_getTransformFeedbackVarying(JsHandle, JsHandle, uint);
-extern (C) void WebGL2RenderingContextBase_pauseTransformFeedback(JsHandle);
-extern (C) void WebGL2RenderingContextBase_resumeTransformFeedback(JsHandle);
-extern (C) void WebGL2RenderingContextBase_bindBufferBase(JsHandle, uint, uint, bool, JsHandle);
-extern (C) void WebGL2RenderingContextBase_bindBufferRange(JsHandle, uint, uint, bool, JsHandle, long, long);
-extern (C) JsHandle WebGL2RenderingContextBase_getIndexedParameter(JsHandle, uint, uint);
-extern (C) Optional!(Sequence!(uint)) WebGL2RenderingContextBase_getUniformIndices(JsHandle, JsHandle, JsHandle);
-extern (C) JsHandle WebGL2RenderingContextBase_getActiveUniforms(JsHandle, JsHandle, JsHandle, uint);
-extern (C) uint WebGL2RenderingContextBase_getUniformBlockIndex(JsHandle, JsHandle, string);
-extern (C) JsHandle WebGL2RenderingContextBase_getActiveUniformBlockParameter(JsHandle, JsHandle, uint, uint);
-extern (C) Optional!(string) WebGL2RenderingContextBase_getActiveUniformBlockName(JsHandle, JsHandle, uint);
-extern (C) void WebGL2RenderingContextBase_uniformBlockBinding(JsHandle, JsHandle, uint, uint);
-extern (C) Optional!(WebGLVertexArrayObject) WebGL2RenderingContextBase_createVertexArray(JsHandle);
-extern (C) void WebGL2RenderingContextBase_deleteVertexArray(JsHandle, bool, JsHandle);
-extern (C) bool WebGL2RenderingContextBase_isVertexArray(JsHandle, bool, JsHandle);
-extern (C) void WebGL2RenderingContextBase_bindVertexArray(JsHandle, bool, JsHandle);
+extern (C) void WebGL2RenderingContextBase_bufferData__uint_long_uint(Handle, uint, long, uint);
+extern (C) void WebGL2RenderingContextBase_bufferData__uint_optional_Handle_uint(Handle, uint, bool, Handle, uint);
+extern (C) void WebGL2RenderingContextBase_bufferData__uint_ArrayBufferView_uint(Handle, uint, ArrayBufferView, uint);
+extern (C) void WebGL2RenderingContextBase_bufferSubData__uint_long_BufferDataSource(Handle, uint, long, BufferDataSource);
+extern (C) void WebGL2RenderingContextBase_bufferData__uint_ArrayBufferView_uint_uint_uint(Handle, uint, ArrayBufferView, uint, uint, uint);
+extern (C) void WebGL2RenderingContextBase_bufferSubData__uint_long_ArrayBufferView_uint_uint(Handle, uint, long, ArrayBufferView, uint, uint);
+extern (C) void WebGL2RenderingContextBase_copyBufferSubData(Handle, uint, uint, long, long, long);
+extern (C) void WebGL2RenderingContextBase_getBufferSubData(Handle, uint, long, ArrayBufferView, uint, uint);
+extern (C) void WebGL2RenderingContextBase_blitFramebuffer(Handle, int, int, int, int, int, int, int, int, uint, uint);
+extern (C) void WebGL2RenderingContextBase_framebufferTextureLayer(Handle, uint, uint, bool, Handle, int, int);
+extern (C) void WebGL2RenderingContextBase_invalidateFramebuffer(Handle, uint, Handle);
+extern (C) void WebGL2RenderingContextBase_invalidateSubFramebuffer(Handle, uint, Handle, int, int, int, int);
+extern (C) void WebGL2RenderingContextBase_readBuffer(Handle, uint);
+extern (C) Handle WebGL2RenderingContextBase_getInternalformatParameter(Handle, uint, uint, uint);
+extern (C) void WebGL2RenderingContextBase_renderbufferStorageMultisample(Handle, uint, int, uint, int, int);
+extern (C) void WebGL2RenderingContextBase_texStorage2D(Handle, uint, int, uint, int, int);
+extern (C) void WebGL2RenderingContextBase_texStorage3D(Handle, uint, int, uint, int, int, int);
+extern (C) void WebGL2RenderingContextBase_texImage2D__uint_int_int_int_int_int_uint_uint_optional_ArrayBufferView(Handle, uint, int, int, int, int, int, uint, uint, bool, ArrayBufferView);
+extern (C) void WebGL2RenderingContextBase_texImage2D__uint_int_int_uint_uint_TexImageSource(Handle, uint, int, int, uint, uint, TexImageSource);
+extern (C) void WebGL2RenderingContextBase_texSubImage2D__uint_int_int_int_int_int_uint_uint_optional_ArrayBufferView(Handle, uint, int, int, int, int, int, uint, uint, bool, ArrayBufferView);
+extern (C) void WebGL2RenderingContextBase_texSubImage2D__uint_int_int_int_uint_uint_TexImageSource(Handle, uint, int, int, int, uint, uint, TexImageSource);
+extern (C) void WebGL2RenderingContextBase_texImage2D__uint_int_int_int_int_int_uint_uint_long(Handle, uint, int, int, int, int, int, uint, uint, long);
+extern (C) void WebGL2RenderingContextBase_texImage2D__uint_int_int_int_int_int_uint_uint_TexImageSource(Handle, uint, int, int, int, int, int, uint, uint, TexImageSource);
+extern (C) void WebGL2RenderingContextBase_texImage2D__uint_int_int_int_int_int_uint_uint_ArrayBufferView_uint(Handle, uint, int, int, int, int, int, uint, uint, ArrayBufferView, uint);
+extern (C) void WebGL2RenderingContextBase_texImage3D__uint_int_int_int_int_int_int_uint_uint_long(Handle, uint, int, int, int, int, int, int, uint, uint, long);
+extern (C) void WebGL2RenderingContextBase_texImage3D__uint_int_int_int_int_int_int_uint_uint_TexImageSource(Handle, uint, int, int, int, int, int, int, uint, uint, TexImageSource);
+extern (C) void WebGL2RenderingContextBase_texImage3D__uint_int_int_int_int_int_int_uint_uint_optional_ArrayBufferView(Handle, uint, int, int, int, int, int, int, uint, uint, bool, ArrayBufferView);
+extern (C) void WebGL2RenderingContextBase_texImage3D__uint_int_int_int_int_int_int_uint_uint_ArrayBufferView_uint(Handle, uint, int, int, int, int, int, int, uint, uint, ArrayBufferView, uint);
+extern (C) void WebGL2RenderingContextBase_texSubImage2D__uint_int_int_int_int_int_uint_uint_long(Handle, uint, int, int, int, int, int, uint, uint, long);
+extern (C) void WebGL2RenderingContextBase_texSubImage2D__uint_int_int_int_int_int_uint_uint_TexImageSource(Handle, uint, int, int, int, int, int, uint, uint, TexImageSource);
+extern (C) void WebGL2RenderingContextBase_texSubImage2D__uint_int_int_int_int_int_uint_uint_ArrayBufferView_uint(Handle, uint, int, int, int, int, int, uint, uint, ArrayBufferView, uint);
+extern (C) void WebGL2RenderingContextBase_texSubImage3D__uint_int_int_int_int_int_int_int_uint_uint_long(Handle, uint, int, int, int, int, int, int, int, uint, uint, long);
+extern (C) void WebGL2RenderingContextBase_texSubImage3D__uint_int_int_int_int_int_int_int_uint_uint_TexImageSource(Handle, uint, int, int, int, int, int, int, int, uint, uint, TexImageSource);
+extern (C) void WebGL2RenderingContextBase_texSubImage3D__uint_int_int_int_int_int_int_int_uint_uint_optional_ArrayBufferView_uint(Handle, uint, int, int, int, int, int, int, int, uint, uint, bool, ArrayBufferView, uint);
+extern (C) void WebGL2RenderingContextBase_copyTexSubImage3D(Handle, uint, int, int, int, int, int, int, int, int);
+extern (C) void WebGL2RenderingContextBase_compressedTexImage2D__uint_int_uint_int_int_int_long(Handle, uint, int, uint, int, int, int, long);
+extern (C) void WebGL2RenderingContextBase_compressedTexImage2D__uint_int_uint_int_int_int_ArrayBufferView_uint_uint(Handle, uint, int, uint, int, int, int, ArrayBufferView, uint, uint);
+extern (C) void WebGL2RenderingContextBase_compressedTexImage3D__uint_int_uint_int_int_int_int_long(Handle, uint, int, uint, int, int, int, int, long);
+extern (C) void WebGL2RenderingContextBase_compressedTexImage3D__uint_int_uint_int_int_int_int_ArrayBufferView_uint_uint(Handle, uint, int, uint, int, int, int, int, ArrayBufferView, uint, uint);
+extern (C) void WebGL2RenderingContextBase_compressedTexSubImage2D__uint_int_int_int_int_int_uint_long(Handle, uint, int, int, int, int, int, uint, long);
+extern (C) void WebGL2RenderingContextBase_compressedTexSubImage2D__uint_int_int_int_int_int_uint_ArrayBufferView_uint_uint(Handle, uint, int, int, int, int, int, uint, ArrayBufferView, uint, uint);
+extern (C) void WebGL2RenderingContextBase_compressedTexSubImage3D__uint_int_int_int_int_int_int_int_uint_long(Handle, uint, int, int, int, int, int, int, int, uint, long);
+extern (C) void WebGL2RenderingContextBase_compressedTexSubImage3D__uint_int_int_int_int_int_int_int_uint_ArrayBufferView_uint_uint(Handle, uint, int, int, int, int, int, int, int, uint, ArrayBufferView, uint, uint);
+extern (C) int WebGL2RenderingContextBase_getFragDataLocation(Handle, Handle, string);
+extern (C) void WebGL2RenderingContextBase_uniform1ui(Handle, bool, Handle, uint);
+extern (C) void WebGL2RenderingContextBase_uniform2ui(Handle, bool, Handle, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform3ui(Handle, bool, Handle, uint, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform4ui(Handle, bool, Handle, uint, uint, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform1fv(Handle, bool, Handle, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform2fv(Handle, bool, Handle, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform3fv(Handle, bool, Handle, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform4fv(Handle, bool, Handle, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform1iv(Handle, bool, Handle, Int32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform2iv(Handle, bool, Handle, Int32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform3iv(Handle, bool, Handle, Int32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform4iv(Handle, bool, Handle, Int32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform1uiv(Handle, bool, Handle, Uint32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform2uiv(Handle, bool, Handle, Uint32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform3uiv(Handle, bool, Handle, Uint32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform4uiv(Handle, bool, Handle, Uint32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix2fv(Handle, bool, Handle, bool, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix3x2fv(Handle, bool, Handle, bool, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix4x2fv(Handle, bool, Handle, bool, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix2x3fv(Handle, bool, Handle, bool, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix3fv(Handle, bool, Handle, bool, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix4x3fv(Handle, bool, Handle, bool, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix2x4fv(Handle, bool, Handle, bool, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix3x4fv(Handle, bool, Handle, bool, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix4fv(Handle, bool, Handle, bool, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_vertexAttribI4i(Handle, uint, int, int, int, int);
+extern (C) void WebGL2RenderingContextBase_vertexAttribI4iv(Handle, uint, Int32List);
+extern (C) void WebGL2RenderingContextBase_vertexAttribI4ui(Handle, uint, uint, uint, uint, uint);
+extern (C) void WebGL2RenderingContextBase_vertexAttribI4uiv(Handle, uint, Uint32List);
+extern (C) void WebGL2RenderingContextBase_vertexAttribIPointer(Handle, uint, int, uint, int, long);
+extern (C) void WebGL2RenderingContextBase_vertexAttribDivisor(Handle, uint, uint);
+extern (C) void WebGL2RenderingContextBase_drawArraysInstanced(Handle, uint, int, int, int);
+extern (C) void WebGL2RenderingContextBase_drawElementsInstanced(Handle, uint, int, uint, long, int);
+extern (C) void WebGL2RenderingContextBase_drawRangeElements(Handle, uint, uint, uint, int, uint, long);
+extern (C) void WebGL2RenderingContextBase_readPixels__int_int_int_int_uint_uint_optional_ArrayBufferView(Handle, int, int, int, int, uint, uint, bool, ArrayBufferView);
+extern (C) void WebGL2RenderingContextBase_readPixels__int_int_int_int_uint_uint_long(Handle, int, int, int, int, uint, uint, long);
+extern (C) void WebGL2RenderingContextBase_readPixels__int_int_int_int_uint_uint_ArrayBufferView_uint(Handle, int, int, int, int, uint, uint, ArrayBufferView, uint);
+extern (C) void WebGL2RenderingContextBase_drawBuffers(Handle, Handle);
+extern (C) void WebGL2RenderingContextBase_clearBufferfv(Handle, uint, int, Float32List, uint);
+extern (C) void WebGL2RenderingContextBase_clearBufferiv(Handle, uint, int, Int32List, uint);
+extern (C) void WebGL2RenderingContextBase_clearBufferuiv(Handle, uint, int, Uint32List, uint);
+extern (C) void WebGL2RenderingContextBase_clearBufferfi(Handle, uint, int, float, int);
+extern (C) Optional!(WebGLQuery) WebGL2RenderingContextBase_createQuery(Handle);
+extern (C) void WebGL2RenderingContextBase_deleteQuery(Handle, bool, Handle);
+extern (C) bool WebGL2RenderingContextBase_isQuery(Handle, bool, Handle);
+extern (C) void WebGL2RenderingContextBase_beginQuery(Handle, uint, Handle);
+extern (C) void WebGL2RenderingContextBase_endQuery(Handle, uint);
+extern (C) Optional!(WebGLQuery) WebGL2RenderingContextBase_getQuery(Handle, uint, uint);
+extern (C) Handle WebGL2RenderingContextBase_getQueryParameter(Handle, Handle, uint);
+extern (C) Optional!(WebGLSampler) WebGL2RenderingContextBase_createSampler(Handle);
+extern (C) void WebGL2RenderingContextBase_deleteSampler(Handle, bool, Handle);
+extern (C) bool WebGL2RenderingContextBase_isSampler(Handle, bool, Handle);
+extern (C) void WebGL2RenderingContextBase_bindSampler(Handle, uint, bool, Handle);
+extern (C) void WebGL2RenderingContextBase_samplerParameteri(Handle, Handle, uint, int);
+extern (C) void WebGL2RenderingContextBase_samplerParameterf(Handle, Handle, uint, float);
+extern (C) Handle WebGL2RenderingContextBase_getSamplerParameter(Handle, Handle, uint);
+extern (C) Optional!(WebGLSync) WebGL2RenderingContextBase_fenceSync(Handle, uint, uint);
+extern (C) bool WebGL2RenderingContextBase_isSync(Handle, bool, Handle);
+extern (C) void WebGL2RenderingContextBase_deleteSync(Handle, bool, Handle);
+extern (C) uint WebGL2RenderingContextBase_clientWaitSync(Handle, Handle, uint, ulong);
+extern (C) void WebGL2RenderingContextBase_waitSync(Handle, Handle, uint, long);
+extern (C) Handle WebGL2RenderingContextBase_getSyncParameter(Handle, Handle, uint);
+extern (C) Optional!(WebGLTransformFeedback) WebGL2RenderingContextBase_createTransformFeedback(Handle);
+extern (C) void WebGL2RenderingContextBase_deleteTransformFeedback(Handle, bool, Handle);
+extern (C) bool WebGL2RenderingContextBase_isTransformFeedback(Handle, bool, Handle);
+extern (C) void WebGL2RenderingContextBase_bindTransformFeedback(Handle, uint, bool, Handle);
+extern (C) void WebGL2RenderingContextBase_beginTransformFeedback(Handle, uint);
+extern (C) void WebGL2RenderingContextBase_endTransformFeedback(Handle);
+extern (C) void WebGL2RenderingContextBase_transformFeedbackVaryings(Handle, Handle, Handle, uint);
+extern (C) Optional!(WebGLActiveInfo) WebGL2RenderingContextBase_getTransformFeedbackVarying(Handle, Handle, uint);
+extern (C) void WebGL2RenderingContextBase_pauseTransformFeedback(Handle);
+extern (C) void WebGL2RenderingContextBase_resumeTransformFeedback(Handle);
+extern (C) void WebGL2RenderingContextBase_bindBufferBase(Handle, uint, uint, bool, Handle);
+extern (C) void WebGL2RenderingContextBase_bindBufferRange(Handle, uint, uint, bool, Handle, long, long);
+extern (C) Handle WebGL2RenderingContextBase_getIndexedParameter(Handle, uint, uint);
+extern (C) Optional!(Sequence!(uint)) WebGL2RenderingContextBase_getUniformIndices(Handle, Handle, Handle);
+extern (C) Handle WebGL2RenderingContextBase_getActiveUniforms(Handle, Handle, Handle, uint);
+extern (C) uint WebGL2RenderingContextBase_getUniformBlockIndex(Handle, Handle, string);
+extern (C) Handle WebGL2RenderingContextBase_getActiveUniformBlockParameter(Handle, Handle, uint, uint);
+extern (C) Optional!(string) WebGL2RenderingContextBase_getActiveUniformBlockName(Handle, Handle, uint);
+extern (C) void WebGL2RenderingContextBase_uniformBlockBinding(Handle, Handle, uint, uint);
+extern (C) Optional!(WebGLVertexArrayObject) WebGL2RenderingContextBase_createVertexArray(Handle);
+extern (C) void WebGL2RenderingContextBase_deleteVertexArray(Handle, bool, Handle);
+extern (C) bool WebGL2RenderingContextBase_isVertexArray(Handle, bool, Handle);
+extern (C) void WebGL2RenderingContextBase_bindVertexArray(Handle, bool, Handle);

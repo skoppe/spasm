@@ -44,25 +44,25 @@ export default {
       return spasm.objects[ctx].once;
     },
     Attr_namespaceURI_Get: function(rawResult, ctx) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].namespaceURI);
+      spasm.encode.optional_string(rawResult, spasm.objects[ctx].namespaceURI);
     },
     Attr_prefix_Get: function(rawResult, ctx) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].prefix);
+      spasm.encode.optional_string(rawResult, spasm.objects[ctx].prefix);
     },
     Attr_localName_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].localName);
+      spasm.encode.string(rawResult, spasm.objects[ctx].localName);
     },
     Attr_name_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].name);
+      spasm.encode.string(rawResult, spasm.objects[ctx].name);
     },
     Attr_value_Set: function(ctx, valueLen, valuePtr) {
       spasm.objects[ctx].value = spasm.decode_string(valueLen, valuePtr);
     },
     Attr_value_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].value);
+      spasm.encode.string(rawResult, spasm.objects[ctx].value);
     },
     Attr_ownerElement_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].ownerElement);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].ownerElement);
     },
     Attr_specified_Get: function(ctx) {
       return spasm.objects[ctx].specified;
@@ -71,13 +71,13 @@ export default {
       spasm.objects[ctx].data = spasm.decode_string(dataLen, dataPtr);
     },
     CharacterData_data_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].data);
+      spasm.encode.string(rawResult, spasm.objects[ctx].data);
     },
     CharacterData_length_Get: function(ctx) {
       return spasm.objects[ctx].length;
     },
     CharacterData_substringData: function(rawResult, ctx, offset, count) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].substringData(offset, count));
+      spasm.encode.string(rawResult, spasm.objects[ctx].substringData(offset, count));
     },
     CharacterData_appendData: function(ctx, dataLen, dataPtr) {
       spasm.objects[ctx].appendData(spasm.decode_string(dataLen, dataPtr));
@@ -92,10 +92,10 @@ export default {
       spasm.objects[ctx].replaceData(offset, count, spasm.decode_string(dataLen, dataPtr));
     },
     NonDocumentTypeChildNode_previousElementSibling_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].previousElementSibling);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].previousElementSibling);
     },
     NonDocumentTypeChildNode_nextElementSibling_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].nextElementSibling);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].nextElementSibling);
     },
     ChildNode_before: function(ctx, nodes) {
       spasm.objects[ctx].before(spasm.decode_union2_Node_string(nodes));
@@ -137,7 +137,7 @@ export default {
       return spasm.objects[ctx].length;
     },
     DOMTokenList_item_getter: function(rawResult, ctx, index) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].item(index));
+      spasm.encode.optional_string(rawResult, spasm.objects[ctx].item(index));
     },
     DOMTokenList_contains: function(ctx, tokenLen, tokenPtr) {
       return spasm.objects[ctx].contains(spasm.decode_string(tokenLen, tokenPtr));
@@ -161,40 +161,40 @@ export default {
       spasm.objects[ctx].value = spasm.decode_string(valueLen, valuePtr);
     },
     DOMTokenList_value_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].value);
+      spasm.encode.string(rawResult, spasm.objects[ctx].value);
     },
     Document_implementation_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].implementation);
     },
     Document_URL_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].URL);
+      spasm.encode.string(rawResult, spasm.objects[ctx].URL);
     },
     Document_documentURI_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].documentURI);
+      spasm.encode.string(rawResult, spasm.objects[ctx].documentURI);
     },
     Document_origin_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].origin);
+      spasm.encode.string(rawResult, spasm.objects[ctx].origin);
     },
     Document_compatMode_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].compatMode);
+      spasm.encode.string(rawResult, spasm.objects[ctx].compatMode);
     },
     Document_characterSet_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].characterSet);
+      spasm.encode.string(rawResult, spasm.objects[ctx].characterSet);
     },
     Document_charset_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].charset);
+      spasm.encode.string(rawResult, spasm.objects[ctx].charset);
     },
     Document_inputEncoding_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].inputEncoding);
+      spasm.encode.string(rawResult, spasm.objects[ctx].inputEncoding);
     },
     Document_contentType_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].contentType);
+      spasm.encode.string(rawResult, spasm.objects[ctx].contentType);
     },
     Document_doctype_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].doctype);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].doctype);
     },
     Document_documentElement_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].documentElement);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].documentElement);
     },
     Document_getElementsByTagName: function(ctx, qualifiedNameLen, qualifiedNamePtr) {
       return spasm.addObject(spasm.objects[ctx].getElementsByTagName(spasm.decode_string(qualifiedNameLen, qualifiedNamePtr)));
@@ -251,49 +251,49 @@ export default {
       return spasm.addObject(spasm.objects[ctx].createTreeWalker(spasm.objects[root], whatToShow, filterDefined ? spasm.objects[filter] : undefined));
     },
     Document_location_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].location);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].location);
     },
     Document_domain_Set: function(ctx, domainLen, domainPtr) {
       spasm.objects[ctx].domain = spasm.decode_string(domainLen, domainPtr);
     },
     Document_domain_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].domain);
+      spasm.encode.string(rawResult, spasm.objects[ctx].domain);
     },
     Document_referrer_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].referrer);
+      spasm.encode.string(rawResult, spasm.objects[ctx].referrer);
     },
     Document_cookie_Set: function(ctx, cookieLen, cookiePtr) {
       spasm.objects[ctx].cookie = spasm.decode_string(cookieLen, cookiePtr);
     },
     Document_cookie_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].cookie);
+      spasm.encode.string(rawResult, spasm.objects[ctx].cookie);
     },
     Document_lastModified_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].lastModified);
+      spasm.encode.string(rawResult, spasm.objects[ctx].lastModified);
     },
     Document_readyState_Get: function(ctx) {
-      return spasm.encode_DocumentReadyState(spasm.objects[ctx].readyState);
+      return spasm.encode.DocumentReadyState(spasm.objects[ctx].readyState);
     },
     Document_title_Set: function(ctx, titleLen, titlePtr) {
       spasm.objects[ctx].title = spasm.decode_string(titleLen, titlePtr);
     },
     Document_title_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].title);
+      spasm.encode.string(rawResult, spasm.objects[ctx].title);
     },
     Document_dir_Set: function(ctx, dirLen, dirPtr) {
       spasm.objects[ctx].dir = spasm.decode_string(dirLen, dirPtr);
     },
     Document_dir_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].dir);
+      spasm.encode.string(rawResult, spasm.objects[ctx].dir);
     },
     Document_body_Set: function(ctx, bodyDefined, body) {
       spasm.objects[ctx].body = bodyDefined ? spasm.objects[body] : undefined;
     },
     Document_body_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].body);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].body);
     },
     Document_head_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].head);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].head);
     },
     Document_images_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].images);
@@ -317,13 +317,13 @@ export default {
       return spasm.addObject(spasm.objects[ctx].getElementsByName(spasm.decode_string(elementNameLen, elementNamePtr)));
     },
     Document_currentScript_Get: function(rawResult, ctx) {
-      spasm.encode_optional_HTMLOrSVGScriptElement(rawResult, spasm.objects[ctx].currentScript);
+      spasm.encode.optional_HTMLOrSVGScriptElement(rawResult, spasm.objects[ctx].currentScript);
     },
     Document_open__string_string: function(ctx, unused1Len, unused1Ptr, unused2Len, unused2Ptr) {
       return spasm.addObject(spasm.objects[ctx].open(spasm.decode_string(unused1Len, unused1Ptr), spasm.decode_string(unused2Len, unused2Ptr)));
     },
     Document_open__string_string_string: function(rawResult, ctx, urlLen, urlPtr, nameLen, namePtr, featuresLen, featuresPtr) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].open(spasm.decode_string(urlLen, urlPtr), spasm.decode_string(nameLen, namePtr), spasm.decode_string(featuresLen, featuresPtr)));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].open(spasm.decode_string(urlLen, urlPtr), spasm.decode_string(nameLen, namePtr), spasm.decode_string(featuresLen, featuresPtr)));
     },
     Document_close: function(ctx) {
       spasm.objects[ctx].close();
@@ -335,10 +335,10 @@ export default {
       spasm.objects[ctx].writeln(spasm.decode_string(textLen, textPtr));
     },
     Document_defaultView_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].defaultView);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].defaultView);
     },
     Document_activeElement_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].activeElement);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].activeElement);
     },
     Document_hasFocus: function(ctx) {
       return spasm.objects[ctx].hasFocus();
@@ -347,7 +347,7 @@ export default {
       spasm.objects[ctx].designMode = spasm.decode_string(designModeLen, designModePtr);
     },
     Document_designMode_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].designMode);
+      spasm.encode.string(rawResult, spasm.objects[ctx].designMode);
     },
     Document_execCommand: function(ctx, commandIdLen, commandIdPtr, showUI, valueLen, valuePtr) {
       return spasm.objects[ctx].execCommand(spasm.decode_string(commandIdLen, commandIdPtr), showUI, spasm.decode_string(valueLen, valuePtr));
@@ -365,7 +365,7 @@ export default {
       return spasm.objects[ctx].queryCommandSupported(spasm.decode_string(commandIdLen, commandIdPtr));
     },
     Document_queryCommandValue: function(rawResult, ctx, commandIdLen, commandIdPtr) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].queryCommandValue(spasm.decode_string(commandIdLen, commandIdPtr)));
+      spasm.encode.string(rawResult, spasm.objects[ctx].queryCommandValue(spasm.decode_string(commandIdLen, commandIdPtr)));
     },
     Document_onreadystatechange_Set: function(ctx, onreadystatechange) {
       spasm.objects[ctx].onreadystatechange = onreadystatechange;
@@ -377,31 +377,31 @@ export default {
       spasm.objects[ctx].fgColor = spasm.decode_string(fgColorLen, fgColorPtr);
     },
     Document_fgColor_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].fgColor);
+      spasm.encode.string(rawResult, spasm.objects[ctx].fgColor);
     },
     Document_linkColor_Set: function(ctx, linkColorLen, linkColorPtr) {
       spasm.objects[ctx].linkColor = spasm.decode_string(linkColorLen, linkColorPtr);
     },
     Document_linkColor_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].linkColor);
+      spasm.encode.string(rawResult, spasm.objects[ctx].linkColor);
     },
     Document_vlinkColor_Set: function(ctx, vlinkColorLen, vlinkColorPtr) {
       spasm.objects[ctx].vlinkColor = spasm.decode_string(vlinkColorLen, vlinkColorPtr);
     },
     Document_vlinkColor_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].vlinkColor);
+      spasm.encode.string(rawResult, spasm.objects[ctx].vlinkColor);
     },
     Document_alinkColor_Set: function(ctx, alinkColorLen, alinkColorPtr) {
       spasm.objects[ctx].alinkColor = spasm.decode_string(alinkColorLen, alinkColorPtr);
     },
     Document_alinkColor_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].alinkColor);
+      spasm.encode.string(rawResult, spasm.objects[ctx].alinkColor);
     },
     Document_bgColor_Set: function(ctx, bgColorLen, bgColorPtr) {
       spasm.objects[ctx].bgColor = spasm.decode_string(bgColorLen, bgColorPtr);
     },
     Document_bgColor_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].bgColor);
+      spasm.encode.string(rawResult, spasm.objects[ctx].bgColor);
     },
     Document_anchors_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].anchors);
@@ -425,7 +425,7 @@ export default {
       return spasm.objects[ctx].hidden;
     },
     Document_visibilityState_Get: function(ctx) {
-      return spasm.encode_VisibilityState(spasm.objects[ctx].visibilityState);
+      return spasm.encode.VisibilityState(spasm.objects[ctx].visibilityState);
     },
     Document_onvisibilitychange_Set: function(ctx, onvisibilitychange) {
       spasm.objects[ctx].onvisibilitychange = onvisibilitychange;
@@ -455,22 +455,22 @@ export default {
       return spasm.objects[ctx].onfullscreenerror;
     },
     Document_rootElement_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].rootElement);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].rootElement);
     },
     NonElementParentNode_getElementById: function(rawResult, ctx, elementIdLen, elementIdPtr) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].getElementById(spasm.decode_string(elementIdLen, elementIdPtr)));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].getElementById(spasm.decode_string(elementIdLen, elementIdPtr)));
     },
     DocumentOrShadowRoot_fullscreenElement_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].fullscreenElement);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].fullscreenElement);
     },
     ParentNode_children_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].children);
     },
     ParentNode_firstElementChild_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].firstElementChild);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].firstElementChild);
     },
     ParentNode_lastElementChild_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].lastElementChild);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].lastElementChild);
     },
     ParentNode_childElementCount_Get: function(ctx) {
       return spasm.objects[ctx].childElementCount;
@@ -482,7 +482,7 @@ export default {
       spasm.objects[ctx].append(spasm.decode_union2_Node_string(nodes));
     },
     ParentNode_querySelector: function(rawResult, ctx, selectorsLen, selectorsPtr) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].querySelector(spasm.decode_string(selectorsLen, selectorsPtr)));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].querySelector(spasm.decode_string(selectorsLen, selectorsPtr)));
     },
     ParentNode_querySelectorAll: function(ctx, selectorsLen, selectorsPtr) {
       return spasm.addObject(spasm.objects[ctx].querySelectorAll(spasm.decode_string(selectorsLen, selectorsPtr)));
@@ -572,16 +572,16 @@ export default {
       return spasm.objects[ctx].ontouchcancel;
     },
     NonElementParentNode_getElementById: function(rawResult, ctx, elementIdLen, elementIdPtr) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].getElementById(spasm.decode_string(elementIdLen, elementIdPtr)));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].getElementById(spasm.decode_string(elementIdLen, elementIdPtr)));
     },
     ParentNode_children_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].children);
     },
     ParentNode_firstElementChild_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].firstElementChild);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].firstElementChild);
     },
     ParentNode_lastElementChild_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].lastElementChild);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].lastElementChild);
     },
     ParentNode_childElementCount_Get: function(ctx) {
       return spasm.objects[ctx].childElementCount;
@@ -593,19 +593,19 @@ export default {
       spasm.objects[ctx].append(spasm.decode_union2_Node_string(nodes));
     },
     ParentNode_querySelector: function(rawResult, ctx, selectorsLen, selectorsPtr) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].querySelector(spasm.decode_string(selectorsLen, selectorsPtr)));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].querySelector(spasm.decode_string(selectorsLen, selectorsPtr)));
     },
     ParentNode_querySelectorAll: function(ctx, selectorsLen, selectorsPtr) {
       return spasm.addObject(spasm.objects[ctx].querySelectorAll(spasm.decode_string(selectorsLen, selectorsPtr)));
     },
     DocumentType_name_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].name);
+      spasm.encode.string(rawResult, spasm.objects[ctx].name);
     },
     DocumentType_publicId_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].publicId);
+      spasm.encode.string(rawResult, spasm.objects[ctx].publicId);
     },
     DocumentType_systemId_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].systemId);
+      spasm.encode.string(rawResult, spasm.objects[ctx].systemId);
     },
     ChildNode_before: function(ctx, nodes) {
       spasm.objects[ctx].before(spasm.decode_union2_Node_string(nodes));
@@ -620,28 +620,28 @@ export default {
       spasm.objects[ctx].remove();
     },
     Element_namespaceURI_Get: function(rawResult, ctx) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].namespaceURI);
+      spasm.encode.optional_string(rawResult, spasm.objects[ctx].namespaceURI);
     },
     Element_prefix_Get: function(rawResult, ctx) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].prefix);
+      spasm.encode.optional_string(rawResult, spasm.objects[ctx].prefix);
     },
     Element_localName_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].localName);
+      spasm.encode.string(rawResult, spasm.objects[ctx].localName);
     },
     Element_tagName_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].tagName);
+      spasm.encode.string(rawResult, spasm.objects[ctx].tagName);
     },
     Element_id_Set: function(ctx, idLen, idPtr) {
       spasm.objects[ctx].id = spasm.decode_string(idLen, idPtr);
     },
     Element_id_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].id);
+      spasm.encode.string(rawResult, spasm.objects[ctx].id);
     },
     Element_className_Set: function(ctx, classNameLen, classNamePtr) {
       spasm.objects[ctx].className = spasm.decode_string(classNameLen, classNamePtr);
     },
     Element_className_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].className);
+      spasm.encode.string(rawResult, spasm.objects[ctx].className);
     },
     Element_classList_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].classList);
@@ -650,7 +650,7 @@ export default {
       spasm.objects[ctx].slot = spasm.decode_string(slotLen, slotPtr);
     },
     Element_slot_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].slot);
+      spasm.encode.string(rawResult, spasm.objects[ctx].slot);
     },
     Element_hasAttributes: function(ctx) {
       return spasm.objects[ctx].hasAttributes();
@@ -662,10 +662,10 @@ export default {
       return spasm.addObject(spasm.objects[ctx].getAttributeNames());
     },
     Element_getAttribute: function(rawResult, ctx, qualifiedNameLen, qualifiedNamePtr) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].getAttribute(spasm.decode_string(qualifiedNameLen, qualifiedNamePtr)));
+      spasm.encode.optional_string(rawResult, spasm.objects[ctx].getAttribute(spasm.decode_string(qualifiedNameLen, qualifiedNamePtr)));
     },
     Element_getAttributeNS: function(rawResult, ctx, namespaceDefined, namespaceLen, namespacePtr, localNameLen, localNamePtr) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].getAttributeNS(namespaceDefined ? spasm.decode_string(namespaceLen, namespacePtr) : undefined, spasm.decode_string(localNameLen, localNamePtr)));
+      spasm.encode.optional_string(rawResult, spasm.objects[ctx].getAttributeNS(namespaceDefined ? spasm.decode_string(namespaceLen, namespacePtr) : undefined, spasm.decode_string(localNameLen, localNamePtr)));
     },
     Element_setAttribute: function(ctx, qualifiedNameLen, qualifiedNamePtr, valueLen, valuePtr) {
       spasm.objects[ctx].setAttribute(spasm.decode_string(qualifiedNameLen, qualifiedNamePtr), spasm.decode_string(valueLen, valuePtr));
@@ -689,16 +689,16 @@ export default {
       return spasm.objects[ctx].hasAttributeNS(namespaceDefined ? spasm.decode_string(namespaceLen, namespacePtr) : undefined, spasm.decode_string(localNameLen, localNamePtr));
     },
     Element_getAttributeNode: function(rawResult, ctx, qualifiedNameLen, qualifiedNamePtr) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].getAttributeNode(spasm.decode_string(qualifiedNameLen, qualifiedNamePtr)));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].getAttributeNode(spasm.decode_string(qualifiedNameLen, qualifiedNamePtr)));
     },
     Element_getAttributeNodeNS: function(rawResult, ctx, namespaceDefined, namespaceLen, namespacePtr, localNameLen, localNamePtr) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].getAttributeNodeNS(namespaceDefined ? spasm.decode_string(namespaceLen, namespacePtr) : undefined, spasm.decode_string(localNameLen, localNamePtr)));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].getAttributeNodeNS(namespaceDefined ? spasm.decode_string(namespaceLen, namespacePtr) : undefined, spasm.decode_string(localNameLen, localNamePtr)));
     },
     Element_setAttributeNode: function(rawResult, ctx, attr) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].setAttributeNode(spasm.objects[attr]));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].setAttributeNode(spasm.objects[attr]));
     },
     Element_setAttributeNodeNS: function(rawResult, ctx, attr) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].setAttributeNodeNS(spasm.objects[attr]));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].setAttributeNodeNS(spasm.objects[attr]));
     },
     Element_removeAttributeNode: function(ctx, attr) {
       return spasm.addObject(spasm.objects[ctx].removeAttributeNode(spasm.objects[attr]));
@@ -707,10 +707,10 @@ export default {
       return spasm.addObject(spasm.objects[ctx].attachShadow(spasm.objects[init]));
     },
     Element_shadowRoot_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].shadowRoot);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].shadowRoot);
     },
     Element_closest: function(rawResult, ctx, selectorsLen, selectorsPtr) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].closest(spasm.decode_string(selectorsLen, selectorsPtr)));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].closest(spasm.decode_string(selectorsLen, selectorsPtr)));
     },
     Element_matches: function(ctx, selectorsLen, selectorsPtr) {
       return spasm.objects[ctx].matches(spasm.decode_string(selectorsLen, selectorsPtr));
@@ -728,7 +728,7 @@ export default {
       return spasm.addObject(spasm.objects[ctx].getElementsByClassName(spasm.decode_string(classNamesLen, classNamesPtr)));
     },
     Element_insertAdjacentElement: function(rawResult, ctx, whereLen, wherePtr, element) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].insertAdjacentElement(spasm.decode_string(whereLen, wherePtr), spasm.objects[element]));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].insertAdjacentElement(spasm.decode_string(whereLen, wherePtr), spasm.objects[element]));
     },
     Element_insertAdjacentText: function(ctx, whereLen, wherePtr, dataLen, dataPtr) {
       spasm.objects[ctx].insertAdjacentText(spasm.decode_string(whereLen, wherePtr), spasm.decode_string(dataLen, dataPtr));
@@ -761,10 +761,10 @@ export default {
       return spasm.addObject(spasm.objects[ctx].children);
     },
     ParentNode_firstElementChild_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].firstElementChild);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].firstElementChild);
     },
     ParentNode_lastElementChild_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].lastElementChild);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].lastElementChild);
     },
     ParentNode_childElementCount_Get: function(ctx) {
       return spasm.objects[ctx].childElementCount;
@@ -776,16 +776,16 @@ export default {
       spasm.objects[ctx].append(spasm.decode_union2_Node_string(nodes));
     },
     ParentNode_querySelector: function(rawResult, ctx, selectorsLen, selectorsPtr) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].querySelector(spasm.decode_string(selectorsLen, selectorsPtr)));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].querySelector(spasm.decode_string(selectorsLen, selectorsPtr)));
     },
     ParentNode_querySelectorAll: function(ctx, selectorsLen, selectorsPtr) {
       return spasm.addObject(spasm.objects[ctx].querySelectorAll(spasm.decode_string(selectorsLen, selectorsPtr)));
     },
     NonDocumentTypeChildNode_previousElementSibling_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].previousElementSibling);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].previousElementSibling);
     },
     NonDocumentTypeChildNode_nextElementSibling_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].nextElementSibling);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].nextElementSibling);
     },
     ChildNode_before: function(ctx, nodes) {
       spasm.objects[ctx].before(spasm.decode_union2_Node_string(nodes));
@@ -800,25 +800,25 @@ export default {
       spasm.objects[ctx].remove();
     },
     Slotable_assignedSlot_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].assignedSlot);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].assignedSlot);
     },
     ElementCreationOptions_is_Set: function(ctx, isLen, isPtr) {
       spasm.objects[ctx].is = spasm.decode_string(isLen, isPtr);
     },
     ElementCreationOptions_is_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].is);
+      spasm.encode.string(rawResult, spasm.objects[ctx].is);
     },
     Event_type_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].type);
+      spasm.encode.string(rawResult, spasm.objects[ctx].type);
     },
     Event_target_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].target);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].target);
     },
     Event_srcElement_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].srcElement);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].srcElement);
     },
     Event_currentTarget_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].currentTarget);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].currentTarget);
     },
     Event_composedPath: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].composedPath());
@@ -914,10 +914,10 @@ export default {
       return spasm.objects[ctx].length;
     },
     HTMLCollection_item_getter: function(rawResult, ctx, index) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].item(index));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].item(index));
     },
     HTMLCollection_namedItem_getter: function(rawResult, ctx, nameLen, namePtr) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].namedItem(spasm.decode_string(nameLen, namePtr)));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].namedItem(spasm.decode_string(nameLen, namePtr)));
     },
     MutationObserver_observe: function(ctx, target, options) {
       spasm.objects[ctx].observe(spasm.objects[target], spasm.objects[options]);
@@ -971,7 +971,7 @@ export default {
       return spasm.addObject(spasm.objects[ctx].attributeFilter);
     },
     MutationRecord_type_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].type);
+      spasm.encode.string(rawResult, spasm.objects[ctx].type);
     },
     MutationRecord_target_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].target);
@@ -983,37 +983,37 @@ export default {
       return spasm.addObject(spasm.objects[ctx].removedNodes);
     },
     MutationRecord_previousSibling_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].previousSibling);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].previousSibling);
     },
     MutationRecord_nextSibling_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].nextSibling);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].nextSibling);
     },
     MutationRecord_attributeName_Get: function(rawResult, ctx) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].attributeName);
+      spasm.encode.optional_string(rawResult, spasm.objects[ctx].attributeName);
     },
     MutationRecord_attributeNamespace_Get: function(rawResult, ctx) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].attributeNamespace);
+      spasm.encode.optional_string(rawResult, spasm.objects[ctx].attributeNamespace);
     },
     MutationRecord_oldValue_Get: function(rawResult, ctx) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].oldValue);
+      spasm.encode.optional_string(rawResult, spasm.objects[ctx].oldValue);
     },
     NamedNodeMap_length_Get: function(ctx) {
       return spasm.objects[ctx].length;
     },
     NamedNodeMap_item_getter: function(rawResult, ctx, index) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].item(index));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].item(index));
     },
     NamedNodeMap_getNamedItem_getter: function(rawResult, ctx, qualifiedNameLen, qualifiedNamePtr) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].getNamedItem(spasm.decode_string(qualifiedNameLen, qualifiedNamePtr)));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].getNamedItem(spasm.decode_string(qualifiedNameLen, qualifiedNamePtr)));
     },
     NamedNodeMap_getNamedItemNS: function(rawResult, ctx, namespaceDefined, namespaceLen, namespacePtr, localNameLen, localNamePtr) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].getNamedItemNS(namespaceDefined ? spasm.decode_string(namespaceLen, namespacePtr) : undefined, spasm.decode_string(localNameLen, localNamePtr)));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].getNamedItemNS(namespaceDefined ? spasm.decode_string(namespaceLen, namespacePtr) : undefined, spasm.decode_string(localNameLen, localNamePtr)));
     },
     NamedNodeMap_setNamedItem: function(rawResult, ctx, attr) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].setNamedItem(spasm.objects[attr]));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].setNamedItem(spasm.objects[attr]));
     },
     NamedNodeMap_setNamedItemNS: function(rawResult, ctx, attr) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].setNamedItemNS(spasm.objects[attr]));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].setNamedItemNS(spasm.objects[attr]));
     },
     NamedNodeMap_removeNamedItem: function(ctx, qualifiedNameLen, qualifiedNamePtr) {
       return spasm.addObject(spasm.objects[ctx].removeNamedItem(spasm.decode_string(qualifiedNameLen, qualifiedNamePtr)));
@@ -1025,25 +1025,25 @@ export default {
       return spasm.objects[ctx].nodeType;
     },
     Node_nodeName_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].nodeName);
+      spasm.encode.string(rawResult, spasm.objects[ctx].nodeName);
     },
     Node_baseURI_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].baseURI);
+      spasm.encode.string(rawResult, spasm.objects[ctx].baseURI);
     },
     Node_isConnected_Get: function(ctx) {
       return spasm.objects[ctx].isConnected;
     },
     Node_ownerDocument_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].ownerDocument);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].ownerDocument);
     },
     Node_getRootNode: function(ctx, options) {
       return spasm.addObject(spasm.objects[ctx].getRootNode(spasm.objects[options]));
     },
     Node_parentNode_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].parentNode);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].parentNode);
     },
     Node_parentElement_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].parentElement);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].parentElement);
     },
     Node_hasChildNodes: function(ctx) {
       return spasm.objects[ctx].hasChildNodes();
@@ -1052,28 +1052,28 @@ export default {
       return spasm.addObject(spasm.objects[ctx].childNodes);
     },
     Node_firstChild_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].firstChild);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].firstChild);
     },
     Node_lastChild_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].lastChild);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].lastChild);
     },
     Node_previousSibling_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].previousSibling);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].previousSibling);
     },
     Node_nextSibling_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].nextSibling);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].nextSibling);
     },
     Node_nodeValue_Set: function(ctx, nodeValueDefined, nodeValueLen, nodeValuePtr) {
       spasm.objects[ctx].nodeValue = nodeValueDefined ? spasm.decode_string(nodeValueLen, nodeValuePtr) : undefined;
     },
     Node_nodeValue_Get: function(rawResult, ctx) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].nodeValue);
+      spasm.encode.optional_string(rawResult, spasm.objects[ctx].nodeValue);
     },
     Node_textContent_Set: function(ctx, textContentDefined, textContentLen, textContentPtr) {
       spasm.objects[ctx].textContent = textContentDefined ? spasm.decode_string(textContentLen, textContentPtr) : undefined;
     },
     Node_textContent_Get: function(rawResult, ctx) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].textContent);
+      spasm.encode.optional_string(rawResult, spasm.objects[ctx].textContent);
     },
     Node_normalize: function(ctx) {
       spasm.objects[ctx].normalize();
@@ -1094,10 +1094,10 @@ export default {
       return spasm.objects[ctx].contains(otherDefined ? spasm.objects[other] : undefined);
     },
     Node_lookupPrefix: function(rawResult, ctx, namespaceDefined, namespaceLen, namespacePtr) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].lookupPrefix(namespaceDefined ? spasm.decode_string(namespaceLen, namespacePtr) : undefined));
+      spasm.encode.optional_string(rawResult, spasm.objects[ctx].lookupPrefix(namespaceDefined ? spasm.decode_string(namespaceLen, namespacePtr) : undefined));
     },
     Node_lookupNamespaceURI: function(rawResult, ctx, prefixDefined, prefixLen, prefixPtr) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].lookupNamespaceURI(prefixDefined ? spasm.decode_string(prefixLen, prefixPtr) : undefined));
+      spasm.encode.optional_string(rawResult, spasm.objects[ctx].lookupNamespaceURI(prefixDefined ? spasm.decode_string(prefixLen, prefixPtr) : undefined));
     },
     Node_isDefaultNamespace: function(ctx, namespaceDefined, namespaceLen, namespacePtr) {
       return spasm.objects[ctx].isDefaultNamespace(namespaceDefined ? spasm.decode_string(namespaceLen, namespacePtr) : undefined);
@@ -1130,25 +1130,25 @@ export default {
       return spasm.objects[ctx].whatToShow;
     },
     NodeIterator_filter_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].filter);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].filter);
     },
     NodeIterator_nextNode: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].nextNode());
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].nextNode());
     },
     NodeIterator_previousNode: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].previousNode());
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].previousNode());
     },
     NodeIterator_detach: function(ctx) {
       spasm.objects[ctx].detach();
     },
     NodeList_item_getter: function(rawResult, ctx, index) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].item(index));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].item(index));
     },
     NodeList_length_Get: function(ctx) {
       return spasm.objects[ctx].length;
     },
     ProcessingInstruction_target_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].target);
+      spasm.encode.string(rawResult, spasm.objects[ctx].target);
     },
     Range_commonAncestorContainer_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].commonAncestorContainer);
@@ -1214,28 +1214,28 @@ export default {
       return spasm.objects[ctx].intersectsNode(spasm.objects[node]);
     },
     ShadowRoot_mode_Get: function(ctx) {
-      return spasm.encode_ShadowRootMode(spasm.objects[ctx].mode);
+      return spasm.encode.ShadowRootMode(spasm.objects[ctx].mode);
     },
     ShadowRoot_host_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].host);
     },
     DocumentOrShadowRoot_fullscreenElement_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].fullscreenElement);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].fullscreenElement);
     },
     ShadowRootInit_mode_Set: function(ctx, mode) {
       spasm.objects[ctx].mode = spasm.decode_ShadowRootMode(mode);
     },
     ShadowRootInit_mode_Get: function(ctx) {
-      return spasm.encode_ShadowRootMode(spasm.objects[ctx].mode);
+      return spasm.encode.ShadowRootMode(spasm.objects[ctx].mode);
     },
     Text_splitText: function(ctx, offset) {
       return spasm.addObject(spasm.objects[ctx].splitText(offset));
     },
     Text_wholeText_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].wholeText);
+      spasm.encode.string(rawResult, spasm.objects[ctx].wholeText);
     },
     Slotable_assignedSlot_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].assignedSlot);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].assignedSlot);
     },
     TreeWalker_root_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].root);
@@ -1244,7 +1244,7 @@ export default {
       return spasm.objects[ctx].whatToShow;
     },
     TreeWalker_filter_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].filter);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].filter);
     },
     TreeWalker_currentNode_Set: function(ctx, currentNode) {
       spasm.objects[ctx].currentNode = spasm.objects[currentNode];
@@ -1253,25 +1253,25 @@ export default {
       return spasm.addObject(spasm.objects[ctx].currentNode);
     },
     TreeWalker_parentNode: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].parentNode());
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].parentNode());
     },
     TreeWalker_firstChild: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].firstChild());
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].firstChild());
     },
     TreeWalker_lastChild: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].lastChild());
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].lastChild());
     },
     TreeWalker_previousSibling: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].previousSibling());
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].previousSibling());
     },
     TreeWalker_nextSibling: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].nextSibling());
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].nextSibling());
     },
     TreeWalker_previousNode: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].previousNode());
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].previousNode());
     },
     TreeWalker_nextNode: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].nextNode());
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].nextNode());
     },
   }
 }

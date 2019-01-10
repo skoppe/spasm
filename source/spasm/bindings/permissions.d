@@ -67,7 +67,7 @@ struct PermissionSetParameters {
     PermissionSetParameters_descriptor_Set(this.handle, descriptor.handle);
   }
   auto descriptor() {
-    return PermissionDescriptor(PermissionSetParameters_descriptor_Get(this.handle));
+    return PermissionDescriptor(JsHandle(PermissionSetParameters_descriptor_Get(this.handle));
   }
   auto state(PermissionState state) {
     PermissionSetParameters_state_Set(this.handle, state);
@@ -107,7 +107,7 @@ struct Permissions {
   JsHandle handle;
   alias handle this;
   auto query(JsObject permissionDesc) {
-    return Promise!(PermissionStatus)(Permissions_query(this.handle, permissionDesc.handle));
+    return Promise!(PermissionStatus)(JsHandle(Permissions_query(this.handle, permissionDesc.handle));
   }
 }
 struct PushPermissionDescriptor {
@@ -125,21 +125,21 @@ struct PushPermissionDescriptor {
 }
 
 
-extern (C) void DevicePermissionDescriptor_deviceId_Set(JsHandle, string);
-extern (C) string DevicePermissionDescriptor_deviceId_Get(JsHandle);
-extern (C) void MidiPermissionDescriptor_sysex_Set(JsHandle, bool);
-extern (C) bool MidiPermissionDescriptor_sysex_Get(JsHandle);
-extern (C) void PermissionDescriptor_name_Set(JsHandle, PermissionName);
-extern (C) PermissionName PermissionDescriptor_name_Get(JsHandle);
-extern (C) void PermissionSetParameters_descriptor_Set(JsHandle, JsHandle);
-extern (C) JsHandle PermissionSetParameters_descriptor_Get(JsHandle);
-extern (C) void PermissionSetParameters_state_Set(JsHandle, PermissionState);
-extern (C) PermissionState PermissionSetParameters_state_Get(JsHandle);
-extern (C) void PermissionSetParameters_oneRealm_Set(JsHandle, bool);
-extern (C) bool PermissionSetParameters_oneRealm_Get(JsHandle);
-extern (C) PermissionState PermissionStatus_state_Get(JsHandle);
-extern (C) void PermissionStatus_onchange_Set(JsHandle, EventHandler);
-extern (C) EventHandler PermissionStatus_onchange_Get(JsHandle);
-extern (C) JsHandle Permissions_query(JsHandle, JsHandle);
-extern (C) void PushPermissionDescriptor_userVisibleOnly_Set(JsHandle, bool);
-extern (C) bool PushPermissionDescriptor_userVisibleOnly_Get(JsHandle);
+extern (C) void DevicePermissionDescriptor_deviceId_Set(Handle, string);
+extern (C) string DevicePermissionDescriptor_deviceId_Get(Handle);
+extern (C) void MidiPermissionDescriptor_sysex_Set(Handle, bool);
+extern (C) bool MidiPermissionDescriptor_sysex_Get(Handle);
+extern (C) void PermissionDescriptor_name_Set(Handle, PermissionName);
+extern (C) PermissionName PermissionDescriptor_name_Get(Handle);
+extern (C) void PermissionSetParameters_descriptor_Set(Handle, Handle);
+extern (C) Handle PermissionSetParameters_descriptor_Get(Handle);
+extern (C) void PermissionSetParameters_state_Set(Handle, PermissionState);
+extern (C) PermissionState PermissionSetParameters_state_Get(Handle);
+extern (C) void PermissionSetParameters_oneRealm_Set(Handle, bool);
+extern (C) bool PermissionSetParameters_oneRealm_Get(Handle);
+extern (C) PermissionState PermissionStatus_state_Get(Handle);
+extern (C) void PermissionStatus_onchange_Set(Handle, EventHandler);
+extern (C) EventHandler PermissionStatus_onchange_Get(Handle);
+extern (C) Handle Permissions_query(Handle, Handle);
+extern (C) void PushPermissionDescriptor_userVisibleOnly_Set(Handle, bool);
+extern (C) bool PushPermissionDescriptor_userVisibleOnly_Get(Handle);

@@ -8,10 +8,10 @@ export default {
       return spasm.objects[ctx].stream;
     },
     TextDecoder_decode: function(rawResult, ctx, input, options) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].decode(spasm.decode_BufferSource(input), spasm.objects[options]));
+      spasm.encode.string(rawResult, spasm.objects[ctx].decode(spasm.decode_BufferSource(input), spasm.objects[options]));
     },
     TextDecoderCommon_encoding_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].encoding);
+      spasm.encode.string(rawResult, spasm.objects[ctx].encoding);
     },
     TextDecoderCommon_fatal_Get: function(ctx) {
       return spasm.objects[ctx].fatal;
@@ -32,7 +32,7 @@ export default {
       return spasm.objects[ctx].ignoreBOM;
     },
     TextDecoderCommon_encoding_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].encoding);
+      spasm.encode.string(rawResult, spasm.objects[ctx].encoding);
     },
     TextDecoderCommon_fatal_Get: function(ctx) {
       return spasm.objects[ctx].fatal;
@@ -50,10 +50,10 @@ export default {
       return spasm.addObject(spasm.objects[ctx].encode(spasm.decode_string(inputLen, inputPtr)));
     },
     TextEncoderCommon_encoding_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].encoding);
+      spasm.encode.string(rawResult, spasm.objects[ctx].encoding);
     },
     TextEncoderCommon_encoding_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].encoding);
+      spasm.encode.string(rawResult, spasm.objects[ctx].encoding);
     },
     GenericTransformStream_readable_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].readable);

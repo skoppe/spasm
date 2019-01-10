@@ -446,7 +446,7 @@ struct WebGLRenderingContextBase {
   enum uint UNPACK_COLORSPACE_CONVERSION_WEBGL = 0x9243;
   enum uint BROWSER_DEFAULT_WEBGL = 0x9244;
   auto canvas() {
-    return HTMLCanvasElement(WebGLRenderingContextBase_canvas_Get(this.handle));
+    return HTMLCanvasElement(JsHandle(WebGLRenderingContextBase_canvas_Get(this.handle));
   }
   auto drawingBufferWidth() {
     return WebGLRenderingContextBase_drawingBufferWidth_Get(this.handle);
@@ -644,28 +644,28 @@ struct WebGLRenderingContextBase {
     return WebGLRenderingContextBase_getAttribLocation(this.handle, !program.empty, program.front.handle, name);
   }
   auto getBufferParameter(uint target, uint pname) {
-    return Any(WebGLRenderingContextBase_getBufferParameter(this.handle, target, pname));
+    return Any(JsHandle(WebGLRenderingContextBase_getBufferParameter(this.handle, target, pname));
   }
   auto getParameter(uint pname) {
-    return Any(WebGLRenderingContextBase_getParameter(this.handle, pname));
+    return Any(JsHandle(WebGLRenderingContextBase_getParameter(this.handle, pname));
   }
   auto getError() {
     return WebGLRenderingContextBase_getError(this.handle);
   }
   auto getFramebufferAttachmentParameter(uint target, uint attachment, uint pname) {
-    return Any(WebGLRenderingContextBase_getFramebufferAttachmentParameter(this.handle, target, attachment, pname));
+    return Any(JsHandle(WebGLRenderingContextBase_getFramebufferAttachmentParameter(this.handle, target, attachment, pname));
   }
   auto getProgramParameter(Optional!(WebGLProgram) program, uint pname) {
-    return Any(WebGLRenderingContextBase_getProgramParameter(this.handle, !program.empty, program.front.handle, pname));
+    return Any(JsHandle(WebGLRenderingContextBase_getProgramParameter(this.handle, !program.empty, program.front.handle, pname));
   }
   auto getProgramInfoLog(Optional!(WebGLProgram) program) {
     return WebGLRenderingContextBase_getProgramInfoLog(this.handle, !program.empty, program.front.handle);
   }
   auto getRenderbufferParameter(uint target, uint pname) {
-    return Any(WebGLRenderingContextBase_getRenderbufferParameter(this.handle, target, pname));
+    return Any(JsHandle(WebGLRenderingContextBase_getRenderbufferParameter(this.handle, target, pname));
   }
   auto getShaderParameter(Optional!(WebGLShader) shader, uint pname) {
-    return Any(WebGLRenderingContextBase_getShaderParameter(this.handle, !shader.empty, shader.front.handle, pname));
+    return Any(JsHandle(WebGLRenderingContextBase_getShaderParameter(this.handle, !shader.empty, shader.front.handle, pname));
   }
   auto getShaderPrecisionFormat(uint shadertype, uint precisiontype) {
     return WebGLRenderingContextBase_getShaderPrecisionFormat(this.handle, shadertype, precisiontype);
@@ -677,16 +677,16 @@ struct WebGLRenderingContextBase {
     return WebGLRenderingContextBase_getShaderSource(this.handle, !shader.empty, shader.front.handle);
   }
   auto getTexParameter(uint target, uint pname) {
-    return Any(WebGLRenderingContextBase_getTexParameter(this.handle, target, pname));
+    return Any(JsHandle(WebGLRenderingContextBase_getTexParameter(this.handle, target, pname));
   }
   auto getUniform(Optional!(WebGLProgram) program, Optional!(WebGLUniformLocation) location) {
-    return Any(WebGLRenderingContextBase_getUniform(this.handle, !program.empty, program.front.handle, !location.empty, location.front.handle));
+    return Any(JsHandle(WebGLRenderingContextBase_getUniform(this.handle, !program.empty, program.front.handle, !location.empty, location.front.handle));
   }
   auto getUniformLocation(Optional!(WebGLProgram) program, string name) {
     return WebGLRenderingContextBase_getUniformLocation(this.handle, !program.empty, program.front.handle, name);
   }
   auto getVertexAttrib(uint index, uint pname) {
-    return Any(WebGLRenderingContextBase_getVertexAttrib(this.handle, index, pname));
+    return Any(JsHandle(WebGLRenderingContextBase_getVertexAttrib(this.handle, index, pname));
   }
   auto getVertexAttribOffset(uint index, uint pname) {
     return WebGLRenderingContextBase_getVertexAttribOffset(this.handle, index, pname);
@@ -782,91 +782,91 @@ struct WebGLRenderingContextBase {
     WebGLRenderingContextBase_uniform1f(this.handle, !location.empty, location.front.handle, x);
   }
   auto uniform1fv(Optional!(WebGLUniformLocation) location, Float32Array v) {
-    WebGLRenderingContextBase_uniform1fv__optional_JsHandle_JsHandle(this.handle, !location.empty, location.front.handle, v.handle);
+    WebGLRenderingContextBase_uniform1fv__optional_Handle_Handle(this.handle, !location.empty, location.front.handle, v.handle);
   }
   auto uniform1fv(Optional!(WebGLUniformLocation) location, Sequence!(float) v) {
-    WebGLRenderingContextBase_uniform1fv__optional_JsHandle_sequence_float(this.handle, !location.empty, location.front.handle, v.handle);
+    WebGLRenderingContextBase_uniform1fv__optional_Handle_sequence(this.handle, !location.empty, location.front.handle, v.handle);
   }
   auto uniform1i(Optional!(WebGLUniformLocation) location, int x) {
     WebGLRenderingContextBase_uniform1i(this.handle, !location.empty, location.front.handle, x);
   }
   auto uniform1iv(Optional!(WebGLUniformLocation) location, Int32Array v) {
-    WebGLRenderingContextBase_uniform1iv__optional_JsHandle_JsHandle(this.handle, !location.empty, location.front.handle, v.handle);
+    WebGLRenderingContextBase_uniform1iv__optional_Handle_Handle(this.handle, !location.empty, location.front.handle, v.handle);
   }
   auto uniform1iv(Optional!(WebGLUniformLocation) location, Sequence!(int) v) {
-    WebGLRenderingContextBase_uniform1iv__optional_JsHandle_sequence_int(this.handle, !location.empty, location.front.handle, v.handle);
+    WebGLRenderingContextBase_uniform1iv__optional_Handle_sequence(this.handle, !location.empty, location.front.handle, v.handle);
   }
   auto uniform2f(Optional!(WebGLUniformLocation) location, float x, float y) {
     WebGLRenderingContextBase_uniform2f(this.handle, !location.empty, location.front.handle, x, y);
   }
   auto uniform2fv(Optional!(WebGLUniformLocation) location, Float32Array v) {
-    WebGLRenderingContextBase_uniform2fv__optional_JsHandle_JsHandle(this.handle, !location.empty, location.front.handle, v.handle);
+    WebGLRenderingContextBase_uniform2fv__optional_Handle_Handle(this.handle, !location.empty, location.front.handle, v.handle);
   }
   auto uniform2fv(Optional!(WebGLUniformLocation) location, Sequence!(float) v) {
-    WebGLRenderingContextBase_uniform2fv__optional_JsHandle_sequence_float(this.handle, !location.empty, location.front.handle, v.handle);
+    WebGLRenderingContextBase_uniform2fv__optional_Handle_sequence(this.handle, !location.empty, location.front.handle, v.handle);
   }
   auto uniform2i(Optional!(WebGLUniformLocation) location, int x, int y) {
     WebGLRenderingContextBase_uniform2i(this.handle, !location.empty, location.front.handle, x, y);
   }
   auto uniform2iv(Optional!(WebGLUniformLocation) location, Int32Array v) {
-    WebGLRenderingContextBase_uniform2iv__optional_JsHandle_JsHandle(this.handle, !location.empty, location.front.handle, v.handle);
+    WebGLRenderingContextBase_uniform2iv__optional_Handle_Handle(this.handle, !location.empty, location.front.handle, v.handle);
   }
   auto uniform2iv(Optional!(WebGLUniformLocation) location, Sequence!(int) v) {
-    WebGLRenderingContextBase_uniform2iv__optional_JsHandle_sequence_int(this.handle, !location.empty, location.front.handle, v.handle);
+    WebGLRenderingContextBase_uniform2iv__optional_Handle_sequence(this.handle, !location.empty, location.front.handle, v.handle);
   }
   auto uniform3f(Optional!(WebGLUniformLocation) location, float x, float y, float z) {
     WebGLRenderingContextBase_uniform3f(this.handle, !location.empty, location.front.handle, x, y, z);
   }
   auto uniform3fv(Optional!(WebGLUniformLocation) location, Float32Array v) {
-    WebGLRenderingContextBase_uniform3fv__optional_JsHandle_JsHandle(this.handle, !location.empty, location.front.handle, v.handle);
+    WebGLRenderingContextBase_uniform3fv__optional_Handle_Handle(this.handle, !location.empty, location.front.handle, v.handle);
   }
   auto uniform3fv(Optional!(WebGLUniformLocation) location, Sequence!(float) v) {
-    WebGLRenderingContextBase_uniform3fv__optional_JsHandle_sequence_float(this.handle, !location.empty, location.front.handle, v.handle);
+    WebGLRenderingContextBase_uniform3fv__optional_Handle_sequence(this.handle, !location.empty, location.front.handle, v.handle);
   }
   auto uniform3i(Optional!(WebGLUniformLocation) location, int x, int y, int z) {
     WebGLRenderingContextBase_uniform3i(this.handle, !location.empty, location.front.handle, x, y, z);
   }
   auto uniform3iv(Optional!(WebGLUniformLocation) location, Int32Array v) {
-    WebGLRenderingContextBase_uniform3iv__optional_JsHandle_JsHandle(this.handle, !location.empty, location.front.handle, v.handle);
+    WebGLRenderingContextBase_uniform3iv__optional_Handle_Handle(this.handle, !location.empty, location.front.handle, v.handle);
   }
   auto uniform3iv(Optional!(WebGLUniformLocation) location, Sequence!(int) v) {
-    WebGLRenderingContextBase_uniform3iv__optional_JsHandle_sequence_int(this.handle, !location.empty, location.front.handle, v.handle);
+    WebGLRenderingContextBase_uniform3iv__optional_Handle_sequence(this.handle, !location.empty, location.front.handle, v.handle);
   }
   auto uniform4f(Optional!(WebGLUniformLocation) location, float x, float y, float z, float w) {
     WebGLRenderingContextBase_uniform4f(this.handle, !location.empty, location.front.handle, x, y, z, w);
   }
   auto uniform4fv(Optional!(WebGLUniformLocation) location, Float32Array v) {
-    WebGLRenderingContextBase_uniform4fv__optional_JsHandle_JsHandle(this.handle, !location.empty, location.front.handle, v.handle);
+    WebGLRenderingContextBase_uniform4fv__optional_Handle_Handle(this.handle, !location.empty, location.front.handle, v.handle);
   }
   auto uniform4fv(Optional!(WebGLUniformLocation) location, Sequence!(float) v) {
-    WebGLRenderingContextBase_uniform4fv__optional_JsHandle_sequence_float(this.handle, !location.empty, location.front.handle, v.handle);
+    WebGLRenderingContextBase_uniform4fv__optional_Handle_sequence(this.handle, !location.empty, location.front.handle, v.handle);
   }
   auto uniform4i(Optional!(WebGLUniformLocation) location, int x, int y, int z, int w) {
     WebGLRenderingContextBase_uniform4i(this.handle, !location.empty, location.front.handle, x, y, z, w);
   }
   auto uniform4iv(Optional!(WebGLUniformLocation) location, Int32Array v) {
-    WebGLRenderingContextBase_uniform4iv__optional_JsHandle_JsHandle(this.handle, !location.empty, location.front.handle, v.handle);
+    WebGLRenderingContextBase_uniform4iv__optional_Handle_Handle(this.handle, !location.empty, location.front.handle, v.handle);
   }
   auto uniform4iv(Optional!(WebGLUniformLocation) location, Sequence!(int) v) {
-    WebGLRenderingContextBase_uniform4iv__optional_JsHandle_sequence_int(this.handle, !location.empty, location.front.handle, v.handle);
+    WebGLRenderingContextBase_uniform4iv__optional_Handle_sequence(this.handle, !location.empty, location.front.handle, v.handle);
   }
   auto uniformMatrix2fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32Array value) {
-    WebGLRenderingContextBase_uniformMatrix2fv__optional_JsHandle_bool_JsHandle(this.handle, !location.empty, location.front.handle, transpose, value.handle);
+    WebGLRenderingContextBase_uniformMatrix2fv__optional_Handle_bool_Handle(this.handle, !location.empty, location.front.handle, transpose, value.handle);
   }
   auto uniformMatrix2fv(Optional!(WebGLUniformLocation) location, bool transpose, Sequence!(float) value) {
-    WebGLRenderingContextBase_uniformMatrix2fv__optional_JsHandle_bool_sequence_float(this.handle, !location.empty, location.front.handle, transpose, value.handle);
+    WebGLRenderingContextBase_uniformMatrix2fv__optional_Handle_bool_sequence(this.handle, !location.empty, location.front.handle, transpose, value.handle);
   }
   auto uniformMatrix3fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32Array value) {
-    WebGLRenderingContextBase_uniformMatrix3fv__optional_JsHandle_bool_JsHandle(this.handle, !location.empty, location.front.handle, transpose, value.handle);
+    WebGLRenderingContextBase_uniformMatrix3fv__optional_Handle_bool_Handle(this.handle, !location.empty, location.front.handle, transpose, value.handle);
   }
   auto uniformMatrix3fv(Optional!(WebGLUniformLocation) location, bool transpose, Sequence!(float) value) {
-    WebGLRenderingContextBase_uniformMatrix3fv__optional_JsHandle_bool_sequence_float(this.handle, !location.empty, location.front.handle, transpose, value.handle);
+    WebGLRenderingContextBase_uniformMatrix3fv__optional_Handle_bool_sequence(this.handle, !location.empty, location.front.handle, transpose, value.handle);
   }
   auto uniformMatrix4fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32Array value) {
-    WebGLRenderingContextBase_uniformMatrix4fv__optional_JsHandle_bool_JsHandle(this.handle, !location.empty, location.front.handle, transpose, value.handle);
+    WebGLRenderingContextBase_uniformMatrix4fv__optional_Handle_bool_Handle(this.handle, !location.empty, location.front.handle, transpose, value.handle);
   }
   auto uniformMatrix4fv(Optional!(WebGLUniformLocation) location, bool transpose, Sequence!(float) value) {
-    WebGLRenderingContextBase_uniformMatrix4fv__optional_JsHandle_bool_sequence_float(this.handle, !location.empty, location.front.handle, transpose, value.handle);
+    WebGLRenderingContextBase_uniformMatrix4fv__optional_Handle_bool_sequence(this.handle, !location.empty, location.front.handle, transpose, value.handle);
   }
   auto useProgram(Optional!(WebGLProgram) program) {
     WebGLRenderingContextBase_useProgram(this.handle, !program.empty, program.front.handle);
@@ -878,37 +878,37 @@ struct WebGLRenderingContextBase {
     WebGLRenderingContextBase_vertexAttrib1f(this.handle, indx, x);
   }
   auto vertexAttrib1fv(uint indx, Float32Array values) {
-    WebGLRenderingContextBase_vertexAttrib1fv__uint_JsHandle(this.handle, indx, values.handle);
+    WebGLRenderingContextBase_vertexAttrib1fv__uint_Handle(this.handle, indx, values.handle);
   }
   auto vertexAttrib1fv(uint indx, Sequence!(float) values) {
-    WebGLRenderingContextBase_vertexAttrib1fv__uint_sequence_float(this.handle, indx, values.handle);
+    WebGLRenderingContextBase_vertexAttrib1fv__uint_sequence(this.handle, indx, values.handle);
   }
   auto vertexAttrib2f(uint indx, float x, float y) {
     WebGLRenderingContextBase_vertexAttrib2f(this.handle, indx, x, y);
   }
   auto vertexAttrib2fv(uint indx, Float32Array values) {
-    WebGLRenderingContextBase_vertexAttrib2fv__uint_JsHandle(this.handle, indx, values.handle);
+    WebGLRenderingContextBase_vertexAttrib2fv__uint_Handle(this.handle, indx, values.handle);
   }
   auto vertexAttrib2fv(uint indx, Sequence!(float) values) {
-    WebGLRenderingContextBase_vertexAttrib2fv__uint_sequence_float(this.handle, indx, values.handle);
+    WebGLRenderingContextBase_vertexAttrib2fv__uint_sequence(this.handle, indx, values.handle);
   }
   auto vertexAttrib3f(uint indx, float x, float y, float z) {
     WebGLRenderingContextBase_vertexAttrib3f(this.handle, indx, x, y, z);
   }
   auto vertexAttrib3fv(uint indx, Float32Array values) {
-    WebGLRenderingContextBase_vertexAttrib3fv__uint_JsHandle(this.handle, indx, values.handle);
+    WebGLRenderingContextBase_vertexAttrib3fv__uint_Handle(this.handle, indx, values.handle);
   }
   auto vertexAttrib3fv(uint indx, Sequence!(float) values) {
-    WebGLRenderingContextBase_vertexAttrib3fv__uint_sequence_float(this.handle, indx, values.handle);
+    WebGLRenderingContextBase_vertexAttrib3fv__uint_sequence(this.handle, indx, values.handle);
   }
   auto vertexAttrib4f(uint indx, float x, float y, float z, float w) {
     WebGLRenderingContextBase_vertexAttrib4f(this.handle, indx, x, y, z, w);
   }
   auto vertexAttrib4fv(uint indx, Float32Array values) {
-    WebGLRenderingContextBase_vertexAttrib4fv__uint_JsHandle(this.handle, indx, values.handle);
+    WebGLRenderingContextBase_vertexAttrib4fv__uint_Handle(this.handle, indx, values.handle);
   }
   auto vertexAttrib4fv(uint indx, Sequence!(float) values) {
-    WebGLRenderingContextBase_vertexAttrib4fv__uint_sequence_float(this.handle, indx, values.handle);
+    WebGLRenderingContextBase_vertexAttrib4fv__uint_sequence(this.handle, indx, values.handle);
   }
   auto vertexAttribPointer(uint indx, int size, uint type, bool normalized, int stride, long offset) {
     WebGLRenderingContextBase_vertexAttribPointer(this.handle, indx, size, type, normalized, stride, offset);
@@ -950,185 +950,185 @@ struct WebGLUniformLocation {
 }
 
 
-extern (C) int WebGLActiveInfo_size_Get(JsHandle);
-extern (C) uint WebGLActiveInfo_type_Get(JsHandle);
-extern (C) string WebGLActiveInfo_name_Get(JsHandle);
-extern (C) void WebGLContextAttributes_alpha_Set(JsHandle, bool);
-extern (C) bool WebGLContextAttributes_alpha_Get(JsHandle);
-extern (C) void WebGLContextAttributes_depth_Set(JsHandle, bool);
-extern (C) bool WebGLContextAttributes_depth_Get(JsHandle);
-extern (C) void WebGLContextAttributes_stencil_Set(JsHandle, bool);
-extern (C) bool WebGLContextAttributes_stencil_Get(JsHandle);
-extern (C) void WebGLContextAttributes_antialias_Set(JsHandle, bool);
-extern (C) bool WebGLContextAttributes_antialias_Get(JsHandle);
-extern (C) void WebGLContextAttributes_premultipliedAlpha_Set(JsHandle, bool);
-extern (C) bool WebGLContextAttributes_premultipliedAlpha_Get(JsHandle);
-extern (C) void WebGLContextAttributes_preserveDrawingBuffer_Set(JsHandle, bool);
-extern (C) bool WebGLContextAttributes_preserveDrawingBuffer_Get(JsHandle);
-extern (C) void WebGLContextAttributes_preferLowPowerToHighPerformance_Set(JsHandle, bool);
-extern (C) bool WebGLContextAttributes_preferLowPowerToHighPerformance_Get(JsHandle);
-extern (C) void WebGLContextAttributes_failIfMajorPerformanceCaveat_Set(JsHandle, bool);
-extern (C) bool WebGLContextAttributes_failIfMajorPerformanceCaveat_Get(JsHandle);
-extern (C) string WebGLContextEvent_statusMessage_Get(JsHandle);
-extern (C) void WebGLContextEventInit_statusMessage_Set(JsHandle, string);
-extern (C) string WebGLContextEventInit_statusMessage_Get(JsHandle);
-extern (C) JsHandle WebGLRenderingContextBase_canvas_Get(JsHandle);
-extern (C) int WebGLRenderingContextBase_drawingBufferWidth_Get(JsHandle);
-extern (C) int WebGLRenderingContextBase_drawingBufferHeight_Get(JsHandle);
-extern (C) Optional!(WebGLContextAttributes) WebGLRenderingContextBase_getContextAttributes(JsHandle);
-extern (C) bool WebGLRenderingContextBase_isContextLost(JsHandle);
-extern (C) Optional!(Sequence!(string)) WebGLRenderingContextBase_getSupportedExtensions(JsHandle);
-extern (C) Optional!(JsObject) WebGLRenderingContextBase_getExtension(JsHandle, string);
-extern (C) void WebGLRenderingContextBase_activeTexture(JsHandle, uint);
-extern (C) void WebGLRenderingContextBase_attachShader(JsHandle, bool, JsHandle, bool, JsHandle);
-extern (C) void WebGLRenderingContextBase_bindAttribLocation(JsHandle, bool, JsHandle, uint, string);
-extern (C) void WebGLRenderingContextBase_bindBuffer(JsHandle, uint, bool, JsHandle);
-extern (C) void WebGLRenderingContextBase_bindFramebuffer(JsHandle, uint, bool, JsHandle);
-extern (C) void WebGLRenderingContextBase_bindRenderbuffer(JsHandle, uint, bool, JsHandle);
-extern (C) void WebGLRenderingContextBase_bindTexture(JsHandle, uint, bool, JsHandle);
-extern (C) void WebGLRenderingContextBase_blendColor(JsHandle, float, float, float, float);
-extern (C) void WebGLRenderingContextBase_blendEquation(JsHandle, uint);
-extern (C) void WebGLRenderingContextBase_blendEquationSeparate(JsHandle, uint, uint);
-extern (C) void WebGLRenderingContextBase_blendFunc(JsHandle, uint, uint);
-extern (C) void WebGLRenderingContextBase_blendFuncSeparate(JsHandle, uint, uint, uint, uint);
-extern (C) void WebGLRenderingContextBase_bufferData__uint_long_uint(JsHandle, uint, long, uint);
-extern (C) void WebGLRenderingContextBase_bufferData__uint_optional_BufferDataSource_uint(JsHandle, uint, bool, BufferDataSource, uint);
-extern (C) void WebGLRenderingContextBase_bufferSubData(JsHandle, uint, long, bool, BufferDataSource);
-extern (C) uint WebGLRenderingContextBase_checkFramebufferStatus(JsHandle, uint);
-extern (C) void WebGLRenderingContextBase_clear(JsHandle, uint);
-extern (C) void WebGLRenderingContextBase_clearColor(JsHandle, float, float, float, float);
-extern (C) void WebGLRenderingContextBase_clearDepth(JsHandle, float);
-extern (C) void WebGLRenderingContextBase_clearStencil(JsHandle, int);
-extern (C) void WebGLRenderingContextBase_colorMask(JsHandle, bool, bool, bool, bool);
-extern (C) void WebGLRenderingContextBase_compileShader(JsHandle, bool, JsHandle);
-extern (C) void WebGLRenderingContextBase_compressedTexImage2D(JsHandle, uint, int, uint, int, int, int, ArrayBufferView);
-extern (C) void WebGLRenderingContextBase_compressedTexSubImage2D(JsHandle, uint, int, int, int, int, int, uint, ArrayBufferView);
-extern (C) void WebGLRenderingContextBase_copyTexImage2D(JsHandle, uint, int, uint, int, int, int, int, int);
-extern (C) void WebGLRenderingContextBase_copyTexSubImage2D(JsHandle, uint, int, int, int, int, int, int, int);
-extern (C) Optional!(WebGLBuffer) WebGLRenderingContextBase_createBuffer(JsHandle);
-extern (C) Optional!(WebGLFramebuffer) WebGLRenderingContextBase_createFramebuffer(JsHandle);
-extern (C) Optional!(WebGLProgram) WebGLRenderingContextBase_createProgram(JsHandle);
-extern (C) Optional!(WebGLRenderbuffer) WebGLRenderingContextBase_createRenderbuffer(JsHandle);
-extern (C) Optional!(WebGLShader) WebGLRenderingContextBase_createShader(JsHandle, uint);
-extern (C) Optional!(WebGLTexture) WebGLRenderingContextBase_createTexture(JsHandle);
-extern (C) void WebGLRenderingContextBase_cullFace(JsHandle, uint);
-extern (C) void WebGLRenderingContextBase_deleteBuffer(JsHandle, bool, JsHandle);
-extern (C) void WebGLRenderingContextBase_deleteFramebuffer(JsHandle, bool, JsHandle);
-extern (C) void WebGLRenderingContextBase_deleteProgram(JsHandle, bool, JsHandle);
-extern (C) void WebGLRenderingContextBase_deleteRenderbuffer(JsHandle, bool, JsHandle);
-extern (C) void WebGLRenderingContextBase_deleteShader(JsHandle, bool, JsHandle);
-extern (C) void WebGLRenderingContextBase_deleteTexture(JsHandle, bool, JsHandle);
-extern (C) void WebGLRenderingContextBase_depthFunc(JsHandle, uint);
-extern (C) void WebGLRenderingContextBase_depthMask(JsHandle, bool);
-extern (C) void WebGLRenderingContextBase_depthRange(JsHandle, float, float);
-extern (C) void WebGLRenderingContextBase_detachShader(JsHandle, bool, JsHandle, bool, JsHandle);
-extern (C) void WebGLRenderingContextBase_disable(JsHandle, uint);
-extern (C) void WebGLRenderingContextBase_disableVertexAttribArray(JsHandle, uint);
-extern (C) void WebGLRenderingContextBase_drawArrays(JsHandle, uint, int, int);
-extern (C) void WebGLRenderingContextBase_drawElements(JsHandle, uint, int, uint, long);
-extern (C) void WebGLRenderingContextBase_enable(JsHandle, uint);
-extern (C) void WebGLRenderingContextBase_enableVertexAttribArray(JsHandle, uint);
-extern (C) void WebGLRenderingContextBase_finish(JsHandle);
-extern (C) void WebGLRenderingContextBase_flush(JsHandle);
-extern (C) void WebGLRenderingContextBase_framebufferRenderbuffer(JsHandle, uint, uint, uint, bool, JsHandle);
-extern (C) void WebGLRenderingContextBase_framebufferTexture2D(JsHandle, uint, uint, uint, bool, JsHandle, int);
-extern (C) void WebGLRenderingContextBase_frontFace(JsHandle, uint);
-extern (C) void WebGLRenderingContextBase_generateMipmap(JsHandle, uint);
-extern (C) Optional!(WebGLActiveInfo) WebGLRenderingContextBase_getActiveAttrib(JsHandle, bool, JsHandle, uint);
-extern (C) Optional!(WebGLActiveInfo) WebGLRenderingContextBase_getActiveUniform(JsHandle, bool, JsHandle, uint);
-extern (C) Optional!(Sequence!(WebGLShader)) WebGLRenderingContextBase_getAttachedShaders(JsHandle, bool, JsHandle);
-extern (C) int WebGLRenderingContextBase_getAttribLocation(JsHandle, bool, JsHandle, string);
-extern (C) JsHandle WebGLRenderingContextBase_getBufferParameter(JsHandle, uint, uint);
-extern (C) JsHandle WebGLRenderingContextBase_getParameter(JsHandle, uint);
-extern (C) uint WebGLRenderingContextBase_getError(JsHandle);
-extern (C) JsHandle WebGLRenderingContextBase_getFramebufferAttachmentParameter(JsHandle, uint, uint, uint);
-extern (C) JsHandle WebGLRenderingContextBase_getProgramParameter(JsHandle, bool, JsHandle, uint);
-extern (C) Optional!(string) WebGLRenderingContextBase_getProgramInfoLog(JsHandle, bool, JsHandle);
-extern (C) JsHandle WebGLRenderingContextBase_getRenderbufferParameter(JsHandle, uint, uint);
-extern (C) JsHandle WebGLRenderingContextBase_getShaderParameter(JsHandle, bool, JsHandle, uint);
-extern (C) Optional!(WebGLShaderPrecisionFormat) WebGLRenderingContextBase_getShaderPrecisionFormat(JsHandle, uint, uint);
-extern (C) Optional!(string) WebGLRenderingContextBase_getShaderInfoLog(JsHandle, bool, JsHandle);
-extern (C) Optional!(string) WebGLRenderingContextBase_getShaderSource(JsHandle, bool, JsHandle);
-extern (C) JsHandle WebGLRenderingContextBase_getTexParameter(JsHandle, uint, uint);
-extern (C) JsHandle WebGLRenderingContextBase_getUniform(JsHandle, bool, JsHandle, bool, JsHandle);
-extern (C) Optional!(WebGLUniformLocation) WebGLRenderingContextBase_getUniformLocation(JsHandle, bool, JsHandle, string);
-extern (C) JsHandle WebGLRenderingContextBase_getVertexAttrib(JsHandle, uint, uint);
-extern (C) long WebGLRenderingContextBase_getVertexAttribOffset(JsHandle, uint, uint);
-extern (C) void WebGLRenderingContextBase_hint(JsHandle, uint, uint);
-extern (C) bool WebGLRenderingContextBase_isBuffer(JsHandle, bool, JsHandle);
-extern (C) bool WebGLRenderingContextBase_isEnabled(JsHandle, uint);
-extern (C) bool WebGLRenderingContextBase_isFramebuffer(JsHandle, bool, JsHandle);
-extern (C) bool WebGLRenderingContextBase_isProgram(JsHandle, bool, JsHandle);
-extern (C) bool WebGLRenderingContextBase_isRenderbuffer(JsHandle, bool, JsHandle);
-extern (C) bool WebGLRenderingContextBase_isShader(JsHandle, bool, JsHandle);
-extern (C) bool WebGLRenderingContextBase_isTexture(JsHandle, bool, JsHandle);
-extern (C) void WebGLRenderingContextBase_lineWidth(JsHandle, float);
-extern (C) void WebGLRenderingContextBase_linkProgram(JsHandle, bool, JsHandle);
-extern (C) void WebGLRenderingContextBase_pixelStorei(JsHandle, uint, int);
-extern (C) void WebGLRenderingContextBase_polygonOffset(JsHandle, float, float);
-extern (C) void WebGLRenderingContextBase_readPixels(JsHandle, int, int, int, int, uint, uint, bool, ArrayBufferView);
-extern (C) void WebGLRenderingContextBase_renderbufferStorage(JsHandle, uint, uint, int, int);
-extern (C) void WebGLRenderingContextBase_sampleCoverage(JsHandle, float, bool);
-extern (C) void WebGLRenderingContextBase_scissor(JsHandle, int, int, int, int);
-extern (C) void WebGLRenderingContextBase_shaderSource(JsHandle, bool, JsHandle, string);
-extern (C) void WebGLRenderingContextBase_stencilFunc(JsHandle, uint, int, uint);
-extern (C) void WebGLRenderingContextBase_stencilFuncSeparate(JsHandle, uint, uint, int, uint);
-extern (C) void WebGLRenderingContextBase_stencilMask(JsHandle, uint);
-extern (C) void WebGLRenderingContextBase_stencilMaskSeparate(JsHandle, uint, uint);
-extern (C) void WebGLRenderingContextBase_stencilOp(JsHandle, uint, uint, uint);
-extern (C) void WebGLRenderingContextBase_stencilOpSeparate(JsHandle, uint, uint, uint, uint);
-extern (C) void WebGLRenderingContextBase_texImage2D__uint_int_uint_int_int_int_uint_uint_optional_ArrayBufferView(JsHandle, uint, int, uint, int, int, int, uint, uint, bool, ArrayBufferView);
-extern (C) void WebGLRenderingContextBase_texImage2D__uint_int_uint_uint_uint_optional_TexImageSource(JsHandle, uint, int, uint, uint, uint, bool, TexImageSource);
-extern (C) void WebGLRenderingContextBase_texParameterf(JsHandle, uint, uint, float);
-extern (C) void WebGLRenderingContextBase_texParameteri(JsHandle, uint, uint, int);
-extern (C) void WebGLRenderingContextBase_texSubImage2D__uint_int_int_int_int_int_uint_uint_optional_ArrayBufferView(JsHandle, uint, int, int, int, int, int, uint, uint, bool, ArrayBufferView);
-extern (C) void WebGLRenderingContextBase_texSubImage2D__uint_int_int_int_uint_uint_optional_TexImageSource(JsHandle, uint, int, int, int, uint, uint, bool, TexImageSource);
-extern (C) void WebGLRenderingContextBase_uniform1f(JsHandle, bool, JsHandle, float);
-extern (C) void WebGLRenderingContextBase_uniform1fv__optional_JsHandle_JsHandle(JsHandle, bool, JsHandle, JsHandle);
-extern (C) void WebGLRenderingContextBase_uniform1fv__optional_JsHandle_sequence_float(JsHandle, bool, JsHandle, JsHandle);
-extern (C) void WebGLRenderingContextBase_uniform1i(JsHandle, bool, JsHandle, int);
-extern (C) void WebGLRenderingContextBase_uniform1iv__optional_JsHandle_JsHandle(JsHandle, bool, JsHandle, JsHandle);
-extern (C) void WebGLRenderingContextBase_uniform1iv__optional_JsHandle_sequence_int(JsHandle, bool, JsHandle, JsHandle);
-extern (C) void WebGLRenderingContextBase_uniform2f(JsHandle, bool, JsHandle, float, float);
-extern (C) void WebGLRenderingContextBase_uniform2fv__optional_JsHandle_JsHandle(JsHandle, bool, JsHandle, JsHandle);
-extern (C) void WebGLRenderingContextBase_uniform2fv__optional_JsHandle_sequence_float(JsHandle, bool, JsHandle, JsHandle);
-extern (C) void WebGLRenderingContextBase_uniform2i(JsHandle, bool, JsHandle, int, int);
-extern (C) void WebGLRenderingContextBase_uniform2iv__optional_JsHandle_JsHandle(JsHandle, bool, JsHandle, JsHandle);
-extern (C) void WebGLRenderingContextBase_uniform2iv__optional_JsHandle_sequence_int(JsHandle, bool, JsHandle, JsHandle);
-extern (C) void WebGLRenderingContextBase_uniform3f(JsHandle, bool, JsHandle, float, float, float);
-extern (C) void WebGLRenderingContextBase_uniform3fv__optional_JsHandle_JsHandle(JsHandle, bool, JsHandle, JsHandle);
-extern (C) void WebGLRenderingContextBase_uniform3fv__optional_JsHandle_sequence_float(JsHandle, bool, JsHandle, JsHandle);
-extern (C) void WebGLRenderingContextBase_uniform3i(JsHandle, bool, JsHandle, int, int, int);
-extern (C) void WebGLRenderingContextBase_uniform3iv__optional_JsHandle_JsHandle(JsHandle, bool, JsHandle, JsHandle);
-extern (C) void WebGLRenderingContextBase_uniform3iv__optional_JsHandle_sequence_int(JsHandle, bool, JsHandle, JsHandle);
-extern (C) void WebGLRenderingContextBase_uniform4f(JsHandle, bool, JsHandle, float, float, float, float);
-extern (C) void WebGLRenderingContextBase_uniform4fv__optional_JsHandle_JsHandle(JsHandle, bool, JsHandle, JsHandle);
-extern (C) void WebGLRenderingContextBase_uniform4fv__optional_JsHandle_sequence_float(JsHandle, bool, JsHandle, JsHandle);
-extern (C) void WebGLRenderingContextBase_uniform4i(JsHandle, bool, JsHandle, int, int, int, int);
-extern (C) void WebGLRenderingContextBase_uniform4iv__optional_JsHandle_JsHandle(JsHandle, bool, JsHandle, JsHandle);
-extern (C) void WebGLRenderingContextBase_uniform4iv__optional_JsHandle_sequence_int(JsHandle, bool, JsHandle, JsHandle);
-extern (C) void WebGLRenderingContextBase_uniformMatrix2fv__optional_JsHandle_bool_JsHandle(JsHandle, bool, JsHandle, bool, JsHandle);
-extern (C) void WebGLRenderingContextBase_uniformMatrix2fv__optional_JsHandle_bool_sequence_float(JsHandle, bool, JsHandle, bool, JsHandle);
-extern (C) void WebGLRenderingContextBase_uniformMatrix3fv__optional_JsHandle_bool_JsHandle(JsHandle, bool, JsHandle, bool, JsHandle);
-extern (C) void WebGLRenderingContextBase_uniformMatrix3fv__optional_JsHandle_bool_sequence_float(JsHandle, bool, JsHandle, bool, JsHandle);
-extern (C) void WebGLRenderingContextBase_uniformMatrix4fv__optional_JsHandle_bool_JsHandle(JsHandle, bool, JsHandle, bool, JsHandle);
-extern (C) void WebGLRenderingContextBase_uniformMatrix4fv__optional_JsHandle_bool_sequence_float(JsHandle, bool, JsHandle, bool, JsHandle);
-extern (C) void WebGLRenderingContextBase_useProgram(JsHandle, bool, JsHandle);
-extern (C) void WebGLRenderingContextBase_validateProgram(JsHandle, bool, JsHandle);
-extern (C) void WebGLRenderingContextBase_vertexAttrib1f(JsHandle, uint, float);
-extern (C) void WebGLRenderingContextBase_vertexAttrib1fv__uint_JsHandle(JsHandle, uint, JsHandle);
-extern (C) void WebGLRenderingContextBase_vertexAttrib1fv__uint_sequence_float(JsHandle, uint, JsHandle);
-extern (C) void WebGLRenderingContextBase_vertexAttrib2f(JsHandle, uint, float, float);
-extern (C) void WebGLRenderingContextBase_vertexAttrib2fv__uint_JsHandle(JsHandle, uint, JsHandle);
-extern (C) void WebGLRenderingContextBase_vertexAttrib2fv__uint_sequence_float(JsHandle, uint, JsHandle);
-extern (C) void WebGLRenderingContextBase_vertexAttrib3f(JsHandle, uint, float, float, float);
-extern (C) void WebGLRenderingContextBase_vertexAttrib3fv__uint_JsHandle(JsHandle, uint, JsHandle);
-extern (C) void WebGLRenderingContextBase_vertexAttrib3fv__uint_sequence_float(JsHandle, uint, JsHandle);
-extern (C) void WebGLRenderingContextBase_vertexAttrib4f(JsHandle, uint, float, float, float, float);
-extern (C) void WebGLRenderingContextBase_vertexAttrib4fv__uint_JsHandle(JsHandle, uint, JsHandle);
-extern (C) void WebGLRenderingContextBase_vertexAttrib4fv__uint_sequence_float(JsHandle, uint, JsHandle);
-extern (C) void WebGLRenderingContextBase_vertexAttribPointer(JsHandle, uint, int, uint, bool, int, long);
-extern (C) void WebGLRenderingContextBase_viewport(JsHandle, int, int, int, int);
-extern (C) int WebGLShaderPrecisionFormat_rangeMin_Get(JsHandle);
-extern (C) int WebGLShaderPrecisionFormat_rangeMax_Get(JsHandle);
-extern (C) int WebGLShaderPrecisionFormat_precision_Get(JsHandle);
+extern (C) int WebGLActiveInfo_size_Get(Handle);
+extern (C) uint WebGLActiveInfo_type_Get(Handle);
+extern (C) string WebGLActiveInfo_name_Get(Handle);
+extern (C) void WebGLContextAttributes_alpha_Set(Handle, bool);
+extern (C) bool WebGLContextAttributes_alpha_Get(Handle);
+extern (C) void WebGLContextAttributes_depth_Set(Handle, bool);
+extern (C) bool WebGLContextAttributes_depth_Get(Handle);
+extern (C) void WebGLContextAttributes_stencil_Set(Handle, bool);
+extern (C) bool WebGLContextAttributes_stencil_Get(Handle);
+extern (C) void WebGLContextAttributes_antialias_Set(Handle, bool);
+extern (C) bool WebGLContextAttributes_antialias_Get(Handle);
+extern (C) void WebGLContextAttributes_premultipliedAlpha_Set(Handle, bool);
+extern (C) bool WebGLContextAttributes_premultipliedAlpha_Get(Handle);
+extern (C) void WebGLContextAttributes_preserveDrawingBuffer_Set(Handle, bool);
+extern (C) bool WebGLContextAttributes_preserveDrawingBuffer_Get(Handle);
+extern (C) void WebGLContextAttributes_preferLowPowerToHighPerformance_Set(Handle, bool);
+extern (C) bool WebGLContextAttributes_preferLowPowerToHighPerformance_Get(Handle);
+extern (C) void WebGLContextAttributes_failIfMajorPerformanceCaveat_Set(Handle, bool);
+extern (C) bool WebGLContextAttributes_failIfMajorPerformanceCaveat_Get(Handle);
+extern (C) string WebGLContextEvent_statusMessage_Get(Handle);
+extern (C) void WebGLContextEventInit_statusMessage_Set(Handle, string);
+extern (C) string WebGLContextEventInit_statusMessage_Get(Handle);
+extern (C) Handle WebGLRenderingContextBase_canvas_Get(Handle);
+extern (C) int WebGLRenderingContextBase_drawingBufferWidth_Get(Handle);
+extern (C) int WebGLRenderingContextBase_drawingBufferHeight_Get(Handle);
+extern (C) Optional!(WebGLContextAttributes) WebGLRenderingContextBase_getContextAttributes(Handle);
+extern (C) bool WebGLRenderingContextBase_isContextLost(Handle);
+extern (C) Optional!(Sequence!(string)) WebGLRenderingContextBase_getSupportedExtensions(Handle);
+extern (C) Optional!(JsObject) WebGLRenderingContextBase_getExtension(Handle, string);
+extern (C) void WebGLRenderingContextBase_activeTexture(Handle, uint);
+extern (C) void WebGLRenderingContextBase_attachShader(Handle, bool, Handle, bool, Handle);
+extern (C) void WebGLRenderingContextBase_bindAttribLocation(Handle, bool, Handle, uint, string);
+extern (C) void WebGLRenderingContextBase_bindBuffer(Handle, uint, bool, Handle);
+extern (C) void WebGLRenderingContextBase_bindFramebuffer(Handle, uint, bool, Handle);
+extern (C) void WebGLRenderingContextBase_bindRenderbuffer(Handle, uint, bool, Handle);
+extern (C) void WebGLRenderingContextBase_bindTexture(Handle, uint, bool, Handle);
+extern (C) void WebGLRenderingContextBase_blendColor(Handle, float, float, float, float);
+extern (C) void WebGLRenderingContextBase_blendEquation(Handle, uint);
+extern (C) void WebGLRenderingContextBase_blendEquationSeparate(Handle, uint, uint);
+extern (C) void WebGLRenderingContextBase_blendFunc(Handle, uint, uint);
+extern (C) void WebGLRenderingContextBase_blendFuncSeparate(Handle, uint, uint, uint, uint);
+extern (C) void WebGLRenderingContextBase_bufferData__uint_long_uint(Handle, uint, long, uint);
+extern (C) void WebGLRenderingContextBase_bufferData__uint_optional_BufferDataSource_uint(Handle, uint, bool, BufferDataSource, uint);
+extern (C) void WebGLRenderingContextBase_bufferSubData(Handle, uint, long, bool, BufferDataSource);
+extern (C) uint WebGLRenderingContextBase_checkFramebufferStatus(Handle, uint);
+extern (C) void WebGLRenderingContextBase_clear(Handle, uint);
+extern (C) void WebGLRenderingContextBase_clearColor(Handle, float, float, float, float);
+extern (C) void WebGLRenderingContextBase_clearDepth(Handle, float);
+extern (C) void WebGLRenderingContextBase_clearStencil(Handle, int);
+extern (C) void WebGLRenderingContextBase_colorMask(Handle, bool, bool, bool, bool);
+extern (C) void WebGLRenderingContextBase_compileShader(Handle, bool, Handle);
+extern (C) void WebGLRenderingContextBase_compressedTexImage2D(Handle, uint, int, uint, int, int, int, ArrayBufferView);
+extern (C) void WebGLRenderingContextBase_compressedTexSubImage2D(Handle, uint, int, int, int, int, int, uint, ArrayBufferView);
+extern (C) void WebGLRenderingContextBase_copyTexImage2D(Handle, uint, int, uint, int, int, int, int, int);
+extern (C) void WebGLRenderingContextBase_copyTexSubImage2D(Handle, uint, int, int, int, int, int, int, int);
+extern (C) Optional!(WebGLBuffer) WebGLRenderingContextBase_createBuffer(Handle);
+extern (C) Optional!(WebGLFramebuffer) WebGLRenderingContextBase_createFramebuffer(Handle);
+extern (C) Optional!(WebGLProgram) WebGLRenderingContextBase_createProgram(Handle);
+extern (C) Optional!(WebGLRenderbuffer) WebGLRenderingContextBase_createRenderbuffer(Handle);
+extern (C) Optional!(WebGLShader) WebGLRenderingContextBase_createShader(Handle, uint);
+extern (C) Optional!(WebGLTexture) WebGLRenderingContextBase_createTexture(Handle);
+extern (C) void WebGLRenderingContextBase_cullFace(Handle, uint);
+extern (C) void WebGLRenderingContextBase_deleteBuffer(Handle, bool, Handle);
+extern (C) void WebGLRenderingContextBase_deleteFramebuffer(Handle, bool, Handle);
+extern (C) void WebGLRenderingContextBase_deleteProgram(Handle, bool, Handle);
+extern (C) void WebGLRenderingContextBase_deleteRenderbuffer(Handle, bool, Handle);
+extern (C) void WebGLRenderingContextBase_deleteShader(Handle, bool, Handle);
+extern (C) void WebGLRenderingContextBase_deleteTexture(Handle, bool, Handle);
+extern (C) void WebGLRenderingContextBase_depthFunc(Handle, uint);
+extern (C) void WebGLRenderingContextBase_depthMask(Handle, bool);
+extern (C) void WebGLRenderingContextBase_depthRange(Handle, float, float);
+extern (C) void WebGLRenderingContextBase_detachShader(Handle, bool, Handle, bool, Handle);
+extern (C) void WebGLRenderingContextBase_disable(Handle, uint);
+extern (C) void WebGLRenderingContextBase_disableVertexAttribArray(Handle, uint);
+extern (C) void WebGLRenderingContextBase_drawArrays(Handle, uint, int, int);
+extern (C) void WebGLRenderingContextBase_drawElements(Handle, uint, int, uint, long);
+extern (C) void WebGLRenderingContextBase_enable(Handle, uint);
+extern (C) void WebGLRenderingContextBase_enableVertexAttribArray(Handle, uint);
+extern (C) void WebGLRenderingContextBase_finish(Handle);
+extern (C) void WebGLRenderingContextBase_flush(Handle);
+extern (C) void WebGLRenderingContextBase_framebufferRenderbuffer(Handle, uint, uint, uint, bool, Handle);
+extern (C) void WebGLRenderingContextBase_framebufferTexture2D(Handle, uint, uint, uint, bool, Handle, int);
+extern (C) void WebGLRenderingContextBase_frontFace(Handle, uint);
+extern (C) void WebGLRenderingContextBase_generateMipmap(Handle, uint);
+extern (C) Optional!(WebGLActiveInfo) WebGLRenderingContextBase_getActiveAttrib(Handle, bool, Handle, uint);
+extern (C) Optional!(WebGLActiveInfo) WebGLRenderingContextBase_getActiveUniform(Handle, bool, Handle, uint);
+extern (C) Optional!(Sequence!(WebGLShader)) WebGLRenderingContextBase_getAttachedShaders(Handle, bool, Handle);
+extern (C) int WebGLRenderingContextBase_getAttribLocation(Handle, bool, Handle, string);
+extern (C) Handle WebGLRenderingContextBase_getBufferParameter(Handle, uint, uint);
+extern (C) Handle WebGLRenderingContextBase_getParameter(Handle, uint);
+extern (C) uint WebGLRenderingContextBase_getError(Handle);
+extern (C) Handle WebGLRenderingContextBase_getFramebufferAttachmentParameter(Handle, uint, uint, uint);
+extern (C) Handle WebGLRenderingContextBase_getProgramParameter(Handle, bool, Handle, uint);
+extern (C) Optional!(string) WebGLRenderingContextBase_getProgramInfoLog(Handle, bool, Handle);
+extern (C) Handle WebGLRenderingContextBase_getRenderbufferParameter(Handle, uint, uint);
+extern (C) Handle WebGLRenderingContextBase_getShaderParameter(Handle, bool, Handle, uint);
+extern (C) Optional!(WebGLShaderPrecisionFormat) WebGLRenderingContextBase_getShaderPrecisionFormat(Handle, uint, uint);
+extern (C) Optional!(string) WebGLRenderingContextBase_getShaderInfoLog(Handle, bool, Handle);
+extern (C) Optional!(string) WebGLRenderingContextBase_getShaderSource(Handle, bool, Handle);
+extern (C) Handle WebGLRenderingContextBase_getTexParameter(Handle, uint, uint);
+extern (C) Handle WebGLRenderingContextBase_getUniform(Handle, bool, Handle, bool, Handle);
+extern (C) Optional!(WebGLUniformLocation) WebGLRenderingContextBase_getUniformLocation(Handle, bool, Handle, string);
+extern (C) Handle WebGLRenderingContextBase_getVertexAttrib(Handle, uint, uint);
+extern (C) long WebGLRenderingContextBase_getVertexAttribOffset(Handle, uint, uint);
+extern (C) void WebGLRenderingContextBase_hint(Handle, uint, uint);
+extern (C) bool WebGLRenderingContextBase_isBuffer(Handle, bool, Handle);
+extern (C) bool WebGLRenderingContextBase_isEnabled(Handle, uint);
+extern (C) bool WebGLRenderingContextBase_isFramebuffer(Handle, bool, Handle);
+extern (C) bool WebGLRenderingContextBase_isProgram(Handle, bool, Handle);
+extern (C) bool WebGLRenderingContextBase_isRenderbuffer(Handle, bool, Handle);
+extern (C) bool WebGLRenderingContextBase_isShader(Handle, bool, Handle);
+extern (C) bool WebGLRenderingContextBase_isTexture(Handle, bool, Handle);
+extern (C) void WebGLRenderingContextBase_lineWidth(Handle, float);
+extern (C) void WebGLRenderingContextBase_linkProgram(Handle, bool, Handle);
+extern (C) void WebGLRenderingContextBase_pixelStorei(Handle, uint, int);
+extern (C) void WebGLRenderingContextBase_polygonOffset(Handle, float, float);
+extern (C) void WebGLRenderingContextBase_readPixels(Handle, int, int, int, int, uint, uint, bool, ArrayBufferView);
+extern (C) void WebGLRenderingContextBase_renderbufferStorage(Handle, uint, uint, int, int);
+extern (C) void WebGLRenderingContextBase_sampleCoverage(Handle, float, bool);
+extern (C) void WebGLRenderingContextBase_scissor(Handle, int, int, int, int);
+extern (C) void WebGLRenderingContextBase_shaderSource(Handle, bool, Handle, string);
+extern (C) void WebGLRenderingContextBase_stencilFunc(Handle, uint, int, uint);
+extern (C) void WebGLRenderingContextBase_stencilFuncSeparate(Handle, uint, uint, int, uint);
+extern (C) void WebGLRenderingContextBase_stencilMask(Handle, uint);
+extern (C) void WebGLRenderingContextBase_stencilMaskSeparate(Handle, uint, uint);
+extern (C) void WebGLRenderingContextBase_stencilOp(Handle, uint, uint, uint);
+extern (C) void WebGLRenderingContextBase_stencilOpSeparate(Handle, uint, uint, uint, uint);
+extern (C) void WebGLRenderingContextBase_texImage2D__uint_int_uint_int_int_int_uint_uint_optional_ArrayBufferView(Handle, uint, int, uint, int, int, int, uint, uint, bool, ArrayBufferView);
+extern (C) void WebGLRenderingContextBase_texImage2D__uint_int_uint_uint_uint_optional_TexImageSource(Handle, uint, int, uint, uint, uint, bool, TexImageSource);
+extern (C) void WebGLRenderingContextBase_texParameterf(Handle, uint, uint, float);
+extern (C) void WebGLRenderingContextBase_texParameteri(Handle, uint, uint, int);
+extern (C) void WebGLRenderingContextBase_texSubImage2D__uint_int_int_int_int_int_uint_uint_optional_ArrayBufferView(Handle, uint, int, int, int, int, int, uint, uint, bool, ArrayBufferView);
+extern (C) void WebGLRenderingContextBase_texSubImage2D__uint_int_int_int_uint_uint_optional_TexImageSource(Handle, uint, int, int, int, uint, uint, bool, TexImageSource);
+extern (C) void WebGLRenderingContextBase_uniform1f(Handle, bool, Handle, float);
+extern (C) void WebGLRenderingContextBase_uniform1fv__optional_Handle_Handle(Handle, bool, Handle, Handle);
+extern (C) void WebGLRenderingContextBase_uniform1fv__optional_Handle_sequence(Handle, bool, Handle, Handle);
+extern (C) void WebGLRenderingContextBase_uniform1i(Handle, bool, Handle, int);
+extern (C) void WebGLRenderingContextBase_uniform1iv__optional_Handle_Handle(Handle, bool, Handle, Handle);
+extern (C) void WebGLRenderingContextBase_uniform1iv__optional_Handle_sequence(Handle, bool, Handle, Handle);
+extern (C) void WebGLRenderingContextBase_uniform2f(Handle, bool, Handle, float, float);
+extern (C) void WebGLRenderingContextBase_uniform2fv__optional_Handle_Handle(Handle, bool, Handle, Handle);
+extern (C) void WebGLRenderingContextBase_uniform2fv__optional_Handle_sequence(Handle, bool, Handle, Handle);
+extern (C) void WebGLRenderingContextBase_uniform2i(Handle, bool, Handle, int, int);
+extern (C) void WebGLRenderingContextBase_uniform2iv__optional_Handle_Handle(Handle, bool, Handle, Handle);
+extern (C) void WebGLRenderingContextBase_uniform2iv__optional_Handle_sequence(Handle, bool, Handle, Handle);
+extern (C) void WebGLRenderingContextBase_uniform3f(Handle, bool, Handle, float, float, float);
+extern (C) void WebGLRenderingContextBase_uniform3fv__optional_Handle_Handle(Handle, bool, Handle, Handle);
+extern (C) void WebGLRenderingContextBase_uniform3fv__optional_Handle_sequence(Handle, bool, Handle, Handle);
+extern (C) void WebGLRenderingContextBase_uniform3i(Handle, bool, Handle, int, int, int);
+extern (C) void WebGLRenderingContextBase_uniform3iv__optional_Handle_Handle(Handle, bool, Handle, Handle);
+extern (C) void WebGLRenderingContextBase_uniform3iv__optional_Handle_sequence(Handle, bool, Handle, Handle);
+extern (C) void WebGLRenderingContextBase_uniform4f(Handle, bool, Handle, float, float, float, float);
+extern (C) void WebGLRenderingContextBase_uniform4fv__optional_Handle_Handle(Handle, bool, Handle, Handle);
+extern (C) void WebGLRenderingContextBase_uniform4fv__optional_Handle_sequence(Handle, bool, Handle, Handle);
+extern (C) void WebGLRenderingContextBase_uniform4i(Handle, bool, Handle, int, int, int, int);
+extern (C) void WebGLRenderingContextBase_uniform4iv__optional_Handle_Handle(Handle, bool, Handle, Handle);
+extern (C) void WebGLRenderingContextBase_uniform4iv__optional_Handle_sequence(Handle, bool, Handle, Handle);
+extern (C) void WebGLRenderingContextBase_uniformMatrix2fv__optional_Handle_bool_Handle(Handle, bool, Handle, bool, Handle);
+extern (C) void WebGLRenderingContextBase_uniformMatrix2fv__optional_Handle_bool_sequence(Handle, bool, Handle, bool, Handle);
+extern (C) void WebGLRenderingContextBase_uniformMatrix3fv__optional_Handle_bool_Handle(Handle, bool, Handle, bool, Handle);
+extern (C) void WebGLRenderingContextBase_uniformMatrix3fv__optional_Handle_bool_sequence(Handle, bool, Handle, bool, Handle);
+extern (C) void WebGLRenderingContextBase_uniformMatrix4fv__optional_Handle_bool_Handle(Handle, bool, Handle, bool, Handle);
+extern (C) void WebGLRenderingContextBase_uniformMatrix4fv__optional_Handle_bool_sequence(Handle, bool, Handle, bool, Handle);
+extern (C) void WebGLRenderingContextBase_useProgram(Handle, bool, Handle);
+extern (C) void WebGLRenderingContextBase_validateProgram(Handle, bool, Handle);
+extern (C) void WebGLRenderingContextBase_vertexAttrib1f(Handle, uint, float);
+extern (C) void WebGLRenderingContextBase_vertexAttrib1fv__uint_Handle(Handle, uint, Handle);
+extern (C) void WebGLRenderingContextBase_vertexAttrib1fv__uint_sequence(Handle, uint, Handle);
+extern (C) void WebGLRenderingContextBase_vertexAttrib2f(Handle, uint, float, float);
+extern (C) void WebGLRenderingContextBase_vertexAttrib2fv__uint_Handle(Handle, uint, Handle);
+extern (C) void WebGLRenderingContextBase_vertexAttrib2fv__uint_sequence(Handle, uint, Handle);
+extern (C) void WebGLRenderingContextBase_vertexAttrib3f(Handle, uint, float, float, float);
+extern (C) void WebGLRenderingContextBase_vertexAttrib3fv__uint_Handle(Handle, uint, Handle);
+extern (C) void WebGLRenderingContextBase_vertexAttrib3fv__uint_sequence(Handle, uint, Handle);
+extern (C) void WebGLRenderingContextBase_vertexAttrib4f(Handle, uint, float, float, float, float);
+extern (C) void WebGLRenderingContextBase_vertexAttrib4fv__uint_Handle(Handle, uint, Handle);
+extern (C) void WebGLRenderingContextBase_vertexAttrib4fv__uint_sequence(Handle, uint, Handle);
+extern (C) void WebGLRenderingContextBase_vertexAttribPointer(Handle, uint, int, uint, bool, int, long);
+extern (C) void WebGLRenderingContextBase_viewport(Handle, int, int, int, int);
+extern (C) int WebGLShaderPrecisionFormat_rangeMin_Get(Handle);
+extern (C) int WebGLShaderPrecisionFormat_rangeMax_Get(Handle);
+extern (C) int WebGLShaderPrecisionFormat_precision_Get(Handle);

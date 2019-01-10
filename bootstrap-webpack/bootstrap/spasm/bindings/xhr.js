@@ -4,14 +4,14 @@ export default {
     FormData_append__string_string: function(ctx, nameLen, namePtr, valueLen, valuePtr) {
       spasm.objects[ctx].append(spasm.decode_string(nameLen, namePtr), spasm.decode_string(valueLen, valuePtr));
     },
-    FormData_append__string_JsHandle_string: function(ctx, nameLen, namePtr, blobValue, filenameLen, filenamePtr) {
+    FormData_append__string_Handle_string: function(ctx, nameLen, namePtr, blobValue, filenameLen, filenamePtr) {
       spasm.objects[ctx].append(spasm.decode_string(nameLen, namePtr), spasm.objects[blobValue], spasm.decode_string(filenameLen, filenamePtr));
     },
     FormData_delete: function(ctx, nameLen, namePtr) {
       spasm.objects[ctx].delete(spasm.decode_string(nameLen, namePtr));
     },
     FormData_get: function(rawResult, ctx, nameLen, namePtr) {
-      spasm.encode_optional_FormDataEntryValue(rawResult, spasm.objects[ctx].get(spasm.decode_string(nameLen, namePtr)));
+      spasm.encode.optional_FormDataEntryValue(rawResult, spasm.objects[ctx].get(spasm.decode_string(nameLen, namePtr)));
     },
     FormData_getAll: function(ctx, nameLen, namePtr) {
       return spasm.addObject(spasm.objects[ctx].getAll(spasm.decode_string(nameLen, namePtr)));
@@ -22,7 +22,7 @@ export default {
     FormData_set__string_string: function(ctx, nameLen, namePtr, valueLen, valuePtr) {
       spasm.objects[ctx].set(spasm.decode_string(nameLen, namePtr), spasm.decode_string(valueLen, valuePtr));
     },
-    FormData_set__string_JsHandle_string: function(ctx, nameLen, namePtr, blobValue, filenameLen, filenamePtr) {
+    FormData_set__string_Handle_string: function(ctx, nameLen, namePtr, blobValue, filenameLen, filenamePtr) {
       spasm.objects[ctx].set(spasm.decode_string(nameLen, namePtr), spasm.objects[blobValue], spasm.decode_string(filenameLen, filenamePtr));
     },
     ProgressEvent_lengthComputable_Get: function(ctx) {
@@ -92,19 +92,19 @@ export default {
       spasm.objects[ctx].abort();
     },
     XMLHttpRequest_responseURL_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].responseURL);
+      spasm.encode.string(rawResult, spasm.objects[ctx].responseURL);
     },
     XMLHttpRequest_status_Get: function(ctx) {
       return spasm.objects[ctx].status;
     },
     XMLHttpRequest_statusText_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].statusText);
+      spasm.encode.string(rawResult, spasm.objects[ctx].statusText);
     },
     XMLHttpRequest_getResponseHeader: function(rawResult, ctx, nameLen, namePtr) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].getResponseHeader(spasm.decode_string(nameLen, namePtr)));
+      spasm.encode.optional_string(rawResult, spasm.objects[ctx].getResponseHeader(spasm.decode_string(nameLen, namePtr)));
     },
     XMLHttpRequest_getAllResponseHeaders: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].getAllResponseHeaders());
+      spasm.encode.string(rawResult, spasm.objects[ctx].getAllResponseHeaders());
     },
     XMLHttpRequest_overrideMimeType: function(ctx, mimeLen, mimePtr) {
       spasm.objects[ctx].overrideMimeType(spasm.decode_string(mimeLen, mimePtr));
@@ -113,16 +113,16 @@ export default {
       spasm.objects[ctx].responseType = spasm.decode_XMLHttpRequestResponseType(responseType);
     },
     XMLHttpRequest_responseType_Get: function(ctx) {
-      return spasm.encode_XMLHttpRequestResponseType(spasm.objects[ctx].responseType);
+      return spasm.encode.XMLHttpRequestResponseType(spasm.objects[ctx].responseType);
     },
     XMLHttpRequest_response_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].response);
     },
     XMLHttpRequest_responseText_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].responseText);
+      spasm.encode.string(rawResult, spasm.objects[ctx].responseText);
     },
     XMLHttpRequest_responseXML_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].responseXML);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].responseXML);
     },
     XMLHttpRequestEventTarget_onloadstart_Set: function(ctx, onloadstart) {
       spasm.objects[ctx].onloadstart = onloadstart;

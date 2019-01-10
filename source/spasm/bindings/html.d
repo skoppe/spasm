@@ -139,10 +139,10 @@ struct AudioTrackList {
     return AudioTrackList_length_Get(this._parent);
   }
   auto opIndex(uint index) {
-    return AudioTrack(AudioTrackList_getter__uint(this._parent, index));
+    return AudioTrack(JsHandle(AudioTrackList_getter__uint(this._parent, index));
   }
   auto opDispatch(uint index)() {
-    return AudioTrack(AudioTrackList_getter__uint(this._parent, index));
+    return AudioTrack(JsHandle(AudioTrackList_getter__uint(this._parent, index));
   }
   auto getTrackById(string id) {
     return AudioTrackList_getTrackById(this._parent, id);
@@ -262,7 +262,7 @@ struct CanvasRenderingContext2D {
   JsHandle handle;
   alias handle this;
   auto canvas() {
-    return HTMLCanvasElement(CanvasRenderingContext2D_canvas_Get(this.handle));
+    return HTMLCanvasElement(JsHandle(CanvasRenderingContext2D_canvas_Get(this.handle));
   }
   auto closePath() {
     CanvasPath_closePath(this.handle);
@@ -295,22 +295,22 @@ struct CanvasRenderingContext2D {
     CanvasPathDrawingStyles_setLineDash(this.handle, segments.handle);
   }
   auto getLineDash() {
-    return Sequence!(double)(CanvasPathDrawingStyles_getLineDash(this.handle));
+    return Sequence!(double)(JsHandle(CanvasPathDrawingStyles_getLineDash(this.handle));
   }
   auto createImageData(int sw, int sh) {
-    return ImageData(CanvasImageData_createImageData__int_int(this.handle, sw, sh));
+    return ImageData(JsHandle(CanvasImageData_createImageData__int_int(this.handle, sw, sh));
   }
   auto createImageData(ImageData imagedata) {
-    return ImageData(CanvasImageData_createImageData__JsHandle(this.handle, imagedata.handle));
+    return ImageData(JsHandle(CanvasImageData_createImageData__Handle(this.handle, imagedata.handle));
   }
   auto getImageData(int sx, int sy, int sw, int sh) {
-    return ImageData(CanvasImageData_getImageData(this.handle, sx, sy, sw, sh));
+    return ImageData(JsHandle(CanvasImageData_getImageData(this.handle, sx, sy, sw, sh));
   }
   auto putImageData(ImageData imagedata, int dx, int dy) {
-    CanvasImageData_putImageData__JsHandle_int_int(this.handle, imagedata.handle, dx, dy);
+    CanvasImageData_putImageData__Handle_int_int(this.handle, imagedata.handle, dx, dy);
   }
   auto putImageData(ImageData imagedata, int dx, int dy, int dirtyX, int dirtyY, int dirtyWidth, int dirtyHeight) {
-    CanvasImageData_putImageData__JsHandle_int_int_int_int_int_int(this.handle, imagedata.handle, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight);
+    CanvasImageData_putImageData__Handle_int_int_int_int_int_int(this.handle, imagedata.handle, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight);
   }
   auto drawImage(CanvasImageSource image, double dx, double dy) {
     CanvasDrawImage_drawImage__CanvasImageSource_double_double(this.handle, image, dx, dy);
@@ -328,19 +328,19 @@ struct CanvasRenderingContext2D {
     CanvasText_strokeText(this.handle, text, x, y, maxWidth);
   }
   auto measureText(string text) {
-    return TextMetrics(CanvasText_measureText(this.handle, text));
+    return TextMetrics(JsHandle(CanvasText_measureText(this.handle, text));
   }
   auto drawFocusIfNeeded(Element element) {
-    CanvasUserInterface_drawFocusIfNeeded__JsHandle(this.handle, element.handle);
+    CanvasUserInterface_drawFocusIfNeeded__Handle(this.handle, element.handle);
   }
   auto drawFocusIfNeeded(Path2D path, Element element) {
-    CanvasUserInterface_drawFocusIfNeeded__JsHandle_JsHandle(this.handle, path.handle, element.handle);
+    CanvasUserInterface_drawFocusIfNeeded__Handle_Handle(this.handle, path.handle, element.handle);
   }
   auto scrollPathIntoView() {
     CanvasUserInterface_scrollPathIntoView__(this.handle);
   }
   auto scrollPathIntoView(Path2D path) {
-    CanvasUserInterface_scrollPathIntoView__JsHandle(this.handle, path.handle);
+    CanvasUserInterface_scrollPathIntoView__Handle(this.handle, path.handle);
   }
   auto beginPath() {
     CanvasDrawPath_beginPath(this.handle);
@@ -349,31 +349,31 @@ struct CanvasRenderingContext2D {
     CanvasDrawPath_fill__CanvasFillRule(this.handle, fillRule);
   }
   auto fill(Path2D path, CanvasFillRule fillRule /* = "nonzero" */) {
-    CanvasDrawPath_fill__JsHandle_CanvasFillRule(this.handle, path.handle, fillRule);
+    CanvasDrawPath_fill__Handle_CanvasFillRule(this.handle, path.handle, fillRule);
   }
   auto stroke() {
     CanvasDrawPath_stroke__(this.handle);
   }
   auto stroke(Path2D path) {
-    CanvasDrawPath_stroke__JsHandle(this.handle, path.handle);
+    CanvasDrawPath_stroke__Handle(this.handle, path.handle);
   }
   auto clip(CanvasFillRule fillRule /* = "nonzero" */) {
     CanvasDrawPath_clip__CanvasFillRule(this.handle, fillRule);
   }
   auto clip(Path2D path, CanvasFillRule fillRule /* = "nonzero" */) {
-    CanvasDrawPath_clip__JsHandle_CanvasFillRule(this.handle, path.handle, fillRule);
+    CanvasDrawPath_clip__Handle_CanvasFillRule(this.handle, path.handle, fillRule);
   }
   auto isPointInPath(double x, double y, CanvasFillRule fillRule /* = "nonzero" */) {
     return CanvasDrawPath_isPointInPath__double_double_CanvasFillRule(this.handle, x, y, fillRule);
   }
   auto isPointInPath(Path2D path, double x, double y, CanvasFillRule fillRule /* = "nonzero" */) {
-    return CanvasDrawPath_isPointInPath__JsHandle_double_double_CanvasFillRule(this.handle, path.handle, x, y, fillRule);
+    return CanvasDrawPath_isPointInPath__Handle_double_double_CanvasFillRule(this.handle, path.handle, x, y, fillRule);
   }
   auto isPointInStroke(double x, double y) {
     return CanvasDrawPath_isPointInStroke__double_double(this.handle, x, y);
   }
   auto isPointInStroke(Path2D path, double x, double y) {
-    return CanvasDrawPath_isPointInStroke__JsHandle_double_double(this.handle, path.handle, x, y);
+    return CanvasDrawPath_isPointInStroke__Handle_double_double(this.handle, path.handle, x, y);
   }
   auto clearRect(double x, double y, double w, double h) {
     CanvasRect_clearRect(this.handle, x, y, w, h);
@@ -385,10 +385,10 @@ struct CanvasRenderingContext2D {
     CanvasRect_strokeRect(this.handle, x, y, w, h);
   }
   auto createLinearGradient(double x0, double y0, double x1, double y1) {
-    return CanvasGradient(CanvasFillStrokeStyles_createLinearGradient(this.handle, x0, y0, x1, y1));
+    return CanvasGradient(JsHandle(CanvasFillStrokeStyles_createLinearGradient(this.handle, x0, y0, x1, y1));
   }
   auto createRadialGradient(double x0, double y0, double r0, double x1, double y1, double r1) {
-    return CanvasGradient(CanvasFillStrokeStyles_createRadialGradient(this.handle, x0, y0, r0, x1, y1, r1));
+    return CanvasGradient(JsHandle(CanvasFillStrokeStyles_createRadialGradient(this.handle, x0, y0, r0, x1, y1, r1));
   }
   auto createPattern(CanvasImageSource image, string repetition) {
     return CanvasFillStrokeStyles_createPattern(this.handle, image, repetition);
@@ -406,13 +406,13 @@ struct CanvasRenderingContext2D {
     CanvasTransform_transform(this.handle, a, b, c, d, e, f);
   }
   auto getTransform() {
-    return DOMMatrix(CanvasTransform_getTransform(this.handle));
+    return DOMMatrix(JsHandle(CanvasTransform_getTransform(this.handle));
   }
   auto setTransform(double a, double b, double c, double d, double e, double f) {
     CanvasTransform_setTransform__double_double_double_double_double_double(this.handle, a, b, c, d, e, f);
   }
   auto setTransform(DOMMatrix2DInit transform) {
-    CanvasTransform_setTransform__JsHandle(this.handle, transform.handle);
+    CanvasTransform_setTransform__Handle(this.handle, transform.handle);
   }
   auto resetTransform() {
     CanvasTransform_resetTransform(this.handle);
@@ -502,10 +502,10 @@ struct CustomElementRegistry {
     CustomElementRegistry_define(this.handle, name, constructor, options.handle);
   }
   auto get(string name) {
-    return Any(CustomElementRegistry_get(this.handle, name));
+    return Any(JsHandle(CustomElementRegistry_get(this.handle, name));
   }
   auto whenDefined(string name) {
-    return Promise!(void)(CustomElementRegistry_whenDefined(this.handle, name));
+    return Promise!(void)(JsHandle(CustomElementRegistry_whenDefined(this.handle, name));
   }
   auto upgrade(Node root) {
     CustomElementRegistry_upgrade(this.handle, root.handle);
@@ -559,13 +559,13 @@ struct DataTransfer {
     return DataTransfer_effectAllowed_Get(this.handle);
   }
   auto items() {
-    return DataTransferItemList(DataTransfer_items_Get(this.handle));
+    return DataTransferItemList(JsHandle(DataTransfer_items_Get(this.handle));
   }
   auto setDragImage(Element image, int x, int y) {
     DataTransfer_setDragImage(this.handle, image.handle, x, y);
   }
   auto types() {
-    return FrozenArray!(string)(DataTransfer_types_Get(this.handle));
+    return FrozenArray!(string)(JsHandle(DataTransfer_types_Get(this.handle));
   }
   auto getData(string format) {
     return DataTransfer_getData(this.handle, format);
@@ -577,7 +577,7 @@ struct DataTransfer {
     DataTransfer_clearData(this.handle, format);
   }
   auto files() {
-    return FileList(DataTransfer_files_Get(this.handle));
+    return FileList(JsHandle(DataTransfer_files_Get(this.handle));
   }
 }
 struct DataTransferItem {
@@ -603,16 +603,16 @@ struct DataTransferItemList {
     return DataTransferItemList_length_Get(this.handle);
   }
   auto opIndex(uint index) {
-    return DataTransferItem(DataTransferItemList_getter__uint(this.handle, index));
+    return DataTransferItem(JsHandle(DataTransferItemList_getter__uint(this.handle, index));
   }
   auto opDispatch(uint index)() {
-    return DataTransferItem(DataTransferItemList_getter__uint(this.handle, index));
+    return DataTransferItem(JsHandle(DataTransferItemList_getter__uint(this.handle, index));
   }
   auto add(string data, string type) {
     return DataTransferItemList_add__string_string(this.handle, data, type);
   }
   auto add(File data) {
-    return DataTransferItemList_add__JsHandle(this.handle, data.handle);
+    return DataTransferItemList_add__Handle(this.handle, data.handle);
   }
   auto remove(uint index) {
     DataTransferItemList_remove(this.handle, index);
@@ -631,10 +631,10 @@ struct DedicatedWorkerGlobalScope {
     return DedicatedWorkerGlobalScope_name_Get(this._parent);
   }
   auto postMessage(Any message, Sequence!(JsObject) transfer) {
-    DedicatedWorkerGlobalScope_postMessage__Any_sequence_object(this._parent, message.handle, transfer.handle);
+    DedicatedWorkerGlobalScope_postMessage__Any_sequence(this._parent, message.handle, transfer.handle);
   }
   auto postMessage(Any message, PostMessageOptions options) {
-    DedicatedWorkerGlobalScope_postMessage__Any_JsHandle(this._parent, message.handle, options.handle);
+    DedicatedWorkerGlobalScope_postMessage__Any_Handle(this._parent, message.handle, options.handle);
   }
   auto close() {
     DedicatedWorkerGlobalScope_close(this._parent);
@@ -715,7 +715,7 @@ struct ErrorEvent {
     return ErrorEvent_colno_Get(this._parent);
   }
   auto error() {
-    return Any(ErrorEvent_error_Get(this._parent));
+    return Any(JsHandle(ErrorEvent_error_Get(this._parent));
   }
 }
 struct ErrorEventInit {
@@ -752,7 +752,7 @@ struct ErrorEventInit {
     ErrorEventInit_error_Set(this._parent, error.handle);
   }
   auto error() {
-    return Any(ErrorEventInit_error_Get(this._parent));
+    return Any(JsHandle(ErrorEventInit_error_Get(this._parent));
   }
 }
 alias EventHandler = EventHandlerNonNull;
@@ -836,10 +836,10 @@ struct HTMLAllCollection {
     return HTMLAllCollection_length_Get(this.handle);
   }
   auto opIndex(uint index) {
-    return Element(HTMLAllCollection_getter__uint(this.handle, index));
+    return Element(JsHandle(HTMLAllCollection_getter__uint(this.handle, index));
   }
   auto opDispatch(uint index)() {
-    return Element(HTMLAllCollection_getter__uint(this.handle, index));
+    return Element(JsHandle(HTMLAllCollection_getter__uint(this.handle, index));
   }
   auto namedItem(string name) {
     return HTMLAllCollection_namedItem_getter(this.handle, name);
@@ -879,7 +879,7 @@ struct HTMLAnchorElement {
     return HTMLAnchorElement_rel_Get(this._parent);
   }
   auto relList() {
-    return DOMTokenList(HTMLAnchorElement_relList_Get(this._parent));
+    return DOMTokenList(JsHandle(HTMLAnchorElement_relList_Get(this._parent));
   }
   auto hreflang(string hreflang) {
     HTMLAnchorElement_hreflang_Set(this._parent, hreflang);
@@ -994,7 +994,7 @@ struct HTMLAreaElement {
     return HTMLAreaElement_rel_Get(this._parent);
   }
   auto relList() {
-    return DOMTokenList(HTMLAreaElement_relList_Get(this._parent));
+    return DOMTokenList(JsHandle(HTMLAreaElement_relList_Get(this._parent));
   }
   auto referrerPolicy(string referrerPolicy) {
     HTMLAreaElement_referrerPolicy_Set(this._parent, referrerPolicy);
@@ -1179,7 +1179,7 @@ struct HTMLButtonElement {
     return HTMLButtonElement_willValidate_Get(this._parent);
   }
   auto validity() {
-    return ValidityState(HTMLButtonElement_validity_Get(this._parent));
+    return ValidityState(JsHandle(HTMLButtonElement_validity_Get(this._parent));
   }
   auto validationMessage() {
     return HTMLButtonElement_validationMessage_Get(this._parent);
@@ -1194,7 +1194,7 @@ struct HTMLButtonElement {
     HTMLButtonElement_setCustomValidity(this._parent, error);
   }
   auto labels() {
-    return NodeList(HTMLButtonElement_labels_Get(this._parent));
+    return NodeList(JsHandle(HTMLButtonElement_labels_Get(this._parent));
   }
 }
 struct HTMLCanvasElement {
@@ -1225,7 +1225,7 @@ struct HTMLCanvasElement {
     HTMLCanvasElement_toBlob(this._parent, _callback, type, quality.handle);
   }
   auto transferControlToOffscreen() {
-    return OffscreenCanvas(HTMLCanvasElement_transferControlToOffscreen(this._parent));
+    return OffscreenCanvas(JsHandle(HTMLCanvasElement_transferControlToOffscreen(this._parent));
   }
 }
 struct HTMLDListElement {
@@ -1261,7 +1261,7 @@ struct HTMLDataListElement {
     _parent = HTMLElement(h);
   }
   auto options() {
-    return HTMLCollection(HTMLDataListElement_options_Get(this._parent));
+    return HTMLCollection(JsHandle(HTMLDataListElement_options_Get(this._parent));
   }
 }
 struct HTMLDetailsElement {
@@ -1404,7 +1404,7 @@ struct HTMLElement {
     return HTMLElement_innerText_Get(this._parent);
   }
   auto dataset() {
-    return DOMStringMap(HTMLOrSVGElement_dataset_Get(this.handle));
+    return DOMStringMap(JsHandle(HTMLOrSVGElement_dataset_Get(this.handle));
   }
   auto focus(FocusOptions options) {
     HTMLOrSVGElement_focus(this.handle, options.handle);
@@ -1571,13 +1571,13 @@ struct HTMLFieldSetElement {
     return HTMLFieldSetElement_type_Get(this._parent);
   }
   auto elements() {
-    return HTMLCollection(HTMLFieldSetElement_elements_Get(this._parent));
+    return HTMLCollection(JsHandle(HTMLFieldSetElement_elements_Get(this._parent));
   }
   auto willValidate() {
     return HTMLFieldSetElement_willValidate_Get(this._parent);
   }
   auto validity() {
-    return ValidityState(HTMLFieldSetElement_validity_Get(this._parent));
+    return ValidityState(JsHandle(HTMLFieldSetElement_validity_Get(this._parent));
   }
   auto validationMessage() {
     return HTMLFieldSetElement_validationMessage_Get(this._parent);
@@ -1688,16 +1688,16 @@ struct HTMLFormElement {
     return HTMLFormElement_target_Get(this._parent);
   }
   auto elements() {
-    return HTMLFormControlsCollection(HTMLFormElement_elements_Get(this._parent));
+    return HTMLFormControlsCollection(JsHandle(HTMLFormElement_elements_Get(this._parent));
   }
   auto length() {
     return HTMLFormElement_length_Get(this._parent);
   }
   auto opIndex(uint index) {
-    return Element(HTMLFormElement_getter__uint(this._parent, index));
+    return Element(JsHandle(HTMLFormElement_getter__uint(this._parent, index));
   }
   auto opDispatch(uint index)() {
-    return Element(HTMLFormElement_getter__uint(this._parent, index));
+    return Element(JsHandle(HTMLFormElement_getter__uint(this._parent, index));
   }
   auto opIndex(string name) {
     return HTMLFormElement_getter__string(this._parent, name);
@@ -1893,7 +1893,7 @@ struct HTMLIFrameElement {
     return HTMLIFrameElement_name_Get(this._parent);
   }
   auto sandbox() {
-    return DOMTokenList(HTMLIFrameElement_sandbox_Get(this._parent));
+    return DOMTokenList(JsHandle(HTMLIFrameElement_sandbox_Get(this._parent));
   }
   auto allow(string allow) {
     HTMLIFrameElement_allow_Set(this._parent, allow);
@@ -2062,7 +2062,7 @@ struct HTMLImageElement {
     return HTMLImageElement_decoding_Get(this._parent);
   }
   auto decode() {
-    return Promise!(void)(HTMLImageElement_decode(this._parent));
+    return Promise!(void)(JsHandle(HTMLImageElement_decode(this._parent));
   }
   auto name(string name) {
     HTMLImageElement_name_Set(this._parent, name);
@@ -2339,7 +2339,7 @@ struct HTMLInputElement {
     return HTMLInputElement_willValidate_Get(this._parent);
   }
   auto validity() {
-    return ValidityState(HTMLInputElement_validity_Get(this._parent));
+    return ValidityState(JsHandle(HTMLInputElement_validity_Get(this._parent));
   }
   auto validationMessage() {
     return HTMLInputElement_validationMessage_Get(this._parent);
@@ -2484,7 +2484,7 @@ struct HTMLLinkElement {
     return HTMLLinkElement_as_Get(this._parent);
   }
   auto relList() {
-    return DOMTokenList(HTMLLinkElement_relList_Get(this._parent));
+    return DOMTokenList(JsHandle(HTMLLinkElement_relList_Get(this._parent));
   }
   auto media(string media) {
     HTMLLinkElement_media_Set(this._parent, media);
@@ -2511,7 +2511,7 @@ struct HTMLLinkElement {
     return HTMLLinkElement_type_Get(this._parent);
   }
   auto sizes() {
-    return DOMTokenList(HTMLLinkElement_sizes_Get(this._parent));
+    return DOMTokenList(JsHandle(HTMLLinkElement_sizes_Get(this._parent));
   }
   auto referrerPolicy(string referrerPolicy) {
     HTMLLinkElement_referrerPolicy_Set(this._parent, referrerPolicy);
@@ -2554,7 +2554,7 @@ struct HTMLMapElement {
     return HTMLMapElement_name_Get(this._parent);
   }
   auto areas() {
-    return HTMLCollection(HTMLMapElement_areas_Get(this._parent));
+    return HTMLCollection(JsHandle(HTMLMapElement_areas_Get(this._parent));
   }
 }
 struct HTMLMarqueeElement {
@@ -2698,7 +2698,7 @@ struct HTMLMediaElement {
     return HTMLMediaElement_preload_Get(this._parent);
   }
   auto buffered() {
-    return TimeRanges(HTMLMediaElement_buffered_Get(this._parent));
+    return TimeRanges(JsHandle(HTMLMediaElement_buffered_Get(this._parent));
   }
   auto load() {
     HTMLMediaElement_load(this._parent);
@@ -2730,7 +2730,7 @@ struct HTMLMediaElement {
     return HTMLMediaElement_duration_Get(this._parent);
   }
   auto getStartDate() {
-    return JsObject(HTMLMediaElement_getStartDate(this._parent));
+    return JsObject(JsHandle(HTMLMediaElement_getStartDate(this._parent));
   }
   auto paused() {
     return HTMLMediaElement_paused_Get(this._parent);
@@ -2748,10 +2748,10 @@ struct HTMLMediaElement {
     return HTMLMediaElement_playbackRate_Get(this._parent);
   }
   auto played() {
-    return TimeRanges(HTMLMediaElement_played_Get(this._parent));
+    return TimeRanges(JsHandle(HTMLMediaElement_played_Get(this._parent));
   }
   auto seekable() {
-    return TimeRanges(HTMLMediaElement_seekable_Get(this._parent));
+    return TimeRanges(JsHandle(HTMLMediaElement_seekable_Get(this._parent));
   }
   auto ended() {
     return HTMLMediaElement_ended_Get(this._parent);
@@ -2769,7 +2769,7 @@ struct HTMLMediaElement {
     return HTMLMediaElement_loop_Get(this._parent);
   }
   auto play() {
-    return Promise!(void)(HTMLMediaElement_play(this._parent));
+    return Promise!(void)(JsHandle(HTMLMediaElement_play(this._parent));
   }
   auto pause() {
     HTMLMediaElement_pause(this._parent);
@@ -2799,16 +2799,16 @@ struct HTMLMediaElement {
     return HTMLMediaElement_defaultMuted_Get(this._parent);
   }
   auto audioTracks() {
-    return AudioTrackList(HTMLMediaElement_audioTracks_Get(this._parent));
+    return AudioTrackList(JsHandle(HTMLMediaElement_audioTracks_Get(this._parent));
   }
   auto videoTracks() {
-    return VideoTrackList(HTMLMediaElement_videoTracks_Get(this._parent));
+    return VideoTrackList(JsHandle(HTMLMediaElement_videoTracks_Get(this._parent));
   }
   auto textTracks() {
-    return TextTrackList(HTMLMediaElement_textTracks_Get(this._parent));
+    return TextTrackList(JsHandle(HTMLMediaElement_textTracks_Get(this._parent));
   }
   auto addTextTrack(TextTrackKind kind, string label /* = "" */, string language /* = "" */) {
-    return TextTrack(HTMLMediaElement_addTextTrack(this._parent, kind, label, language));
+    return TextTrack(JsHandle(HTMLMediaElement_addTextTrack(this._parent, kind, label, language));
   }
 }
 struct HTMLMenuElement {
@@ -2898,7 +2898,7 @@ struct HTMLMeterElement {
     return HTMLMeterElement_optimum_Get(this._parent);
   }
   auto labels() {
-    return NodeList(HTMLMeterElement_labels_Get(this._parent));
+    return NodeList(JsHandle(HTMLMeterElement_labels_Get(this._parent));
   }
 }
 struct HTMLModElement {
@@ -3015,7 +3015,7 @@ struct HTMLObjectElement {
     return HTMLObjectElement_willValidate_Get(this._parent);
   }
   auto validity() {
-    return ValidityState(HTMLObjectElement_validity_Get(this._parent));
+    return ValidityState(JsHandle(HTMLObjectElement_validity_Get(this._parent));
   }
   auto validationMessage() {
     return HTMLObjectElement_validationMessage_Get(this._parent);
@@ -3171,10 +3171,10 @@ struct HTMLOptionsCollection {
     return HTMLOptionsCollection_length_Get(this._parent);
   }
   auto opIndexAssign(Optional!(HTMLOptionElement) option, uint index) {
-    HTMLOptionsCollection_setter__uint_optional_JsHandle(this._parent, index, !option.empty, option.front.handle);
+    HTMLOptionsCollection_setter__uint_optional_Handle(this._parent, index, !option.empty, option.front.handle);
   }
   auto opDispatch(uint index)(Optional!(HTMLOptionElement) option) {
-    HTMLOptionsCollection_setter__uint_optional_JsHandle(this._parent, index, !option.empty, option.front.handle);
+    HTMLOptionsCollection_setter__uint_optional_Handle(this._parent, index, !option.empty, option.front.handle);
   }
   auto add(SumType!(HTMLOptionElement, HTMLOptGroupElement) element, Optional!(SumType!(HTMLElement, int)) before /* = no!(SumType!(HTMLElement, int)) */) {
     HTMLOptionsCollection_add(this._parent, element, !before.empty, before.front);
@@ -3198,7 +3198,7 @@ struct HTMLOutputElement {
     _parent = HTMLElement(h);
   }
   auto htmlFor() {
-    return DOMTokenList(HTMLOutputElement_htmlFor_Get(this._parent));
+    return DOMTokenList(JsHandle(HTMLOutputElement_htmlFor_Get(this._parent));
   }
   auto form() {
     return HTMLOutputElement_form_Get(this._parent);
@@ -3228,7 +3228,7 @@ struct HTMLOutputElement {
     return HTMLOutputElement_willValidate_Get(this._parent);
   }
   auto validity() {
-    return ValidityState(HTMLOutputElement_validity_Get(this._parent));
+    return ValidityState(JsHandle(HTMLOutputElement_validity_Get(this._parent));
   }
   auto validationMessage() {
     return HTMLOutputElement_validationMessage_Get(this._parent);
@@ -3243,7 +3243,7 @@ struct HTMLOutputElement {
     HTMLOutputElement_setCustomValidity(this._parent, error);
   }
   auto labels() {
-    return NodeList(HTMLOutputElement_labels_Get(this._parent));
+    return NodeList(JsHandle(HTMLOutputElement_labels_Get(this._parent));
   }
 }
 struct HTMLParagraphElement {
@@ -3332,7 +3332,7 @@ struct HTMLProgressElement {
     return HTMLProgressElement_position_Get(this._parent);
   }
   auto labels() {
-    return NodeList(HTMLProgressElement_labels_Get(this._parent));
+    return NodeList(JsHandle(HTMLProgressElement_labels_Get(this._parent));
   }
 }
 struct HTMLQuoteElement {
@@ -3482,7 +3482,7 @@ struct HTMLSelectElement {
     return HTMLSelectElement_type_Get(this._parent);
   }
   auto options() {
-    return HTMLOptionsCollection(HTMLSelectElement_options_Get(this._parent));
+    return HTMLOptionsCollection(JsHandle(HTMLSelectElement_options_Get(this._parent));
   }
   auto length(uint length) {
     HTMLSelectElement_length_Set(this._parent, length);
@@ -3506,13 +3506,13 @@ struct HTMLSelectElement {
     HTMLSelectElement_remove__int(this._parent, index);
   }
   auto opIndexAssign(Optional!(HTMLOptionElement) option, uint index) {
-    HTMLSelectElement_setter__uint_optional_JsHandle(this._parent, index, !option.empty, option.front.handle);
+    HTMLSelectElement_setter__uint_optional_Handle(this._parent, index, !option.empty, option.front.handle);
   }
   auto opDispatch(uint index)(Optional!(HTMLOptionElement) option) {
-    HTMLSelectElement_setter__uint_optional_JsHandle(this._parent, index, !option.empty, option.front.handle);
+    HTMLSelectElement_setter__uint_optional_Handle(this._parent, index, !option.empty, option.front.handle);
   }
   auto selectedOptions() {
-    return HTMLCollection(HTMLSelectElement_selectedOptions_Get(this._parent));
+    return HTMLCollection(JsHandle(HTMLSelectElement_selectedOptions_Get(this._parent));
   }
   auto selectedIndex(int selectedIndex) {
     HTMLSelectElement_selectedIndex_Set(this._parent, selectedIndex);
@@ -3530,7 +3530,7 @@ struct HTMLSelectElement {
     return HTMLSelectElement_willValidate_Get(this._parent);
   }
   auto validity() {
-    return ValidityState(HTMLSelectElement_validity_Get(this._parent));
+    return ValidityState(JsHandle(HTMLSelectElement_validity_Get(this._parent));
   }
   auto validationMessage() {
     return HTMLSelectElement_validationMessage_Get(this._parent);
@@ -3545,7 +3545,7 @@ struct HTMLSelectElement {
     HTMLSelectElement_setCustomValidity(this._parent, error);
   }
   auto labels() {
-    return NodeList(HTMLSelectElement_labels_Get(this._parent));
+    return NodeList(JsHandle(HTMLSelectElement_labels_Get(this._parent));
   }
 }
 struct HTMLSlotElement {
@@ -3561,10 +3561,10 @@ struct HTMLSlotElement {
     return HTMLSlotElement_name_Get(this._parent);
   }
   auto assignedNodes(AssignedNodesOptions options) {
-    return Sequence!(Node)(HTMLSlotElement_assignedNodes(this._parent, options.handle));
+    return Sequence!(Node)(JsHandle(HTMLSlotElement_assignedNodes(this._parent, options.handle));
   }
   auto assignedElements(AssignedNodesOptions options) {
-    return Sequence!(Element)(HTMLSlotElement_assignedElements(this._parent, options.handle));
+    return Sequence!(Element)(JsHandle(HTMLSlotElement_assignedElements(this._parent, options.handle));
   }
 }
 struct HTMLSourceElement {
@@ -3796,7 +3796,7 @@ struct HTMLTableElement {
     return HTMLTableElement_caption_Get(this._parent);
   }
   auto createCaption() {
-    return HTMLTableCaptionElement(HTMLTableElement_createCaption(this._parent));
+    return HTMLTableCaptionElement(JsHandle(HTMLTableElement_createCaption(this._parent));
   }
   auto deleteCaption() {
     HTMLTableElement_deleteCaption(this._parent);
@@ -3808,7 +3808,7 @@ struct HTMLTableElement {
     return HTMLTableElement_tHead_Get(this._parent);
   }
   auto createTHead() {
-    return HTMLTableSectionElement(HTMLTableElement_createTHead(this._parent));
+    return HTMLTableSectionElement(JsHandle(HTMLTableElement_createTHead(this._parent));
   }
   auto deleteTHead() {
     HTMLTableElement_deleteTHead(this._parent);
@@ -3820,22 +3820,22 @@ struct HTMLTableElement {
     return HTMLTableElement_tFoot_Get(this._parent);
   }
   auto createTFoot() {
-    return HTMLTableSectionElement(HTMLTableElement_createTFoot(this._parent));
+    return HTMLTableSectionElement(JsHandle(HTMLTableElement_createTFoot(this._parent));
   }
   auto deleteTFoot() {
     HTMLTableElement_deleteTFoot(this._parent);
   }
   auto tBodies() {
-    return HTMLCollection(HTMLTableElement_tBodies_Get(this._parent));
+    return HTMLCollection(JsHandle(HTMLTableElement_tBodies_Get(this._parent));
   }
   auto createTBody() {
-    return HTMLTableSectionElement(HTMLTableElement_createTBody(this._parent));
+    return HTMLTableSectionElement(JsHandle(HTMLTableElement_createTBody(this._parent));
   }
   auto rows() {
-    return HTMLCollection(HTMLTableElement_rows_Get(this._parent));
+    return HTMLCollection(JsHandle(HTMLTableElement_rows_Get(this._parent));
   }
   auto insertRow(int index /* = -1 */) {
-    return HTMLTableRowElement(HTMLTableElement_insertRow(this._parent, index));
+    return HTMLTableRowElement(JsHandle(HTMLTableElement_insertRow(this._parent, index));
   }
   auto deleteRow(int index) {
     HTMLTableElement_deleteRow(this._parent, index);
@@ -3908,10 +3908,10 @@ struct HTMLTableRowElement {
     return HTMLTableRowElement_sectionRowIndex_Get(this._parent);
   }
   auto cells() {
-    return HTMLCollection(HTMLTableRowElement_cells_Get(this._parent));
+    return HTMLCollection(JsHandle(HTMLTableRowElement_cells_Get(this._parent));
   }
   auto insertCell(int index /* = -1 */) {
-    return HTMLTableCellElement(HTMLTableRowElement_insertCell(this._parent, index));
+    return HTMLTableCellElement(JsHandle(HTMLTableRowElement_insertCell(this._parent, index));
   }
   auto deleteCell(int index) {
     HTMLTableRowElement_deleteCell(this._parent, index);
@@ -3954,10 +3954,10 @@ struct HTMLTableSectionElement {
     _parent = HTMLElement(h);
   }
   auto rows() {
-    return HTMLCollection(HTMLTableSectionElement_rows_Get(this._parent));
+    return HTMLCollection(JsHandle(HTMLTableSectionElement_rows_Get(this._parent));
   }
   auto insertRow(int index /* = -1 */) {
-    return HTMLTableRowElement(HTMLTableSectionElement_insertRow(this._parent, index));
+    return HTMLTableRowElement(JsHandle(HTMLTableSectionElement_insertRow(this._parent, index));
   }
   auto deleteRow(int index) {
     HTMLTableSectionElement_deleteRow(this._parent, index);
@@ -3994,7 +3994,7 @@ struct HTMLTemplateElement {
     _parent = HTMLElement(h);
   }
   auto content() {
-    return DocumentFragment(HTMLTemplateElement_content_Get(this._parent));
+    return DocumentFragment(JsHandle(HTMLTemplateElement_content_Get(this._parent));
   }
 }
 struct HTMLTextAreaElement {
@@ -4106,7 +4106,7 @@ struct HTMLTextAreaElement {
     return HTMLTextAreaElement_willValidate_Get(this._parent);
   }
   auto validity() {
-    return ValidityState(HTMLTextAreaElement_validity_Get(this._parent));
+    return ValidityState(JsHandle(HTMLTextAreaElement_validity_Get(this._parent));
   }
   auto validationMessage() {
     return HTMLTextAreaElement_validationMessage_Get(this._parent);
@@ -4121,7 +4121,7 @@ struct HTMLTextAreaElement {
     HTMLTextAreaElement_setCustomValidity(this._parent, error);
   }
   auto labels() {
-    return NodeList(HTMLTextAreaElement_labels_Get(this._parent));
+    return NodeList(JsHandle(HTMLTextAreaElement_labels_Get(this._parent));
   }
   auto select() {
     HTMLTextAreaElement_select(this._parent);
@@ -4224,7 +4224,7 @@ struct HTMLTrackElement {
     return HTMLTrackElement_readyState_Get(this._parent);
   }
   auto track() {
-    return TextTrack(HTMLTrackElement_track_Get(this._parent));
+    return TextTrack(JsHandle(HTMLTrackElement_track_Get(this._parent));
   }
 }
 struct HTMLUListElement {
@@ -4335,7 +4335,7 @@ struct History {
     return History_scrollRestoration_Get(this.handle);
   }
   auto state() {
-    return Any(History_state_Get(this.handle));
+    return Any(JsHandle(History_state_Get(this.handle));
   }
   auto go(int delta /* = 0 */) {
     History_go(this.handle, delta);
@@ -4410,7 +4410,7 @@ struct ImageBitmapRenderingContext {
   JsHandle handle;
   alias handle this;
   auto canvas() {
-    return HTMLCanvasElement(ImageBitmapRenderingContext_canvas_Get(this.handle));
+    return HTMLCanvasElement(JsHandle(ImageBitmapRenderingContext_canvas_Get(this.handle));
   }
   auto transferFromImageBitmap(Optional!(ImageBitmap) bitmap) {
     ImageBitmapRenderingContext_transferFromImageBitmap(this.handle, !bitmap.empty, bitmap.front.handle);
@@ -4437,7 +4437,7 @@ struct ImageData {
     return ImageData_height_Get(this.handle);
   }
   auto data() {
-    return Uint8ClampedArray(ImageData_data_Get(this.handle));
+    return Uint8ClampedArray(JsHandle(ImageData_data_Get(this.handle));
   }
 }
 struct ImageEncodeOptions {
@@ -4529,7 +4529,7 @@ struct Location {
     Location_reload(this.handle);
   }
   auto ancestorOrigins() {
-    return DOMStringList(Location_ancestorOrigins_Get(this.handle));
+    return DOMStringList(JsHandle(Location_ancestorOrigins_Get(this.handle));
   }
 }
 struct MediaError {
@@ -4551,10 +4551,10 @@ struct MessageChannel {
   JsHandle handle;
   alias handle this;
   auto port1() {
-    return MessagePort(MessageChannel_port1_Get(this.handle));
+    return MessagePort(JsHandle(MessageChannel_port1_Get(this.handle));
   }
   auto port2() {
-    return MessagePort(MessageChannel_port2_Get(this.handle));
+    return MessagePort(JsHandle(MessageChannel_port2_Get(this.handle));
   }
 }
 struct MessageEvent {
@@ -4564,7 +4564,7 @@ struct MessageEvent {
     _parent = Event(h);
   }
   auto data() {
-    return Any(MessageEvent_data_Get(this._parent));
+    return Any(JsHandle(MessageEvent_data_Get(this._parent));
   }
   auto origin() {
     return MessageEvent_origin_Get(this._parent);
@@ -4576,7 +4576,7 @@ struct MessageEvent {
     return MessageEvent_source_Get(this._parent);
   }
   auto ports() {
-    return FrozenArray!(MessagePort)(MessageEvent_ports_Get(this._parent));
+    return FrozenArray!(MessagePort)(JsHandle(MessageEvent_ports_Get(this._parent));
   }
   auto initMessageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, Any data /* = null */, string origin /* = "" */, string lastEventId /* = "" */, Optional!(MessageEventSource) source /* = no!(MessageEventSource) */, Sequence!(MessagePort) ports /* = [] */) {
     MessageEvent_initMessageEvent(this._parent, type, bubbles, cancelable, data.handle, origin, lastEventId, !source.empty, source.front, ports.handle);
@@ -4592,7 +4592,7 @@ struct MessageEventInit {
     MessageEventInit_data_Set(this._parent, data.handle);
   }
   auto data() {
-    return Any(MessageEventInit_data_Get(this._parent));
+    return Any(JsHandle(MessageEventInit_data_Get(this._parent));
   }
   auto origin(string origin) {
     MessageEventInit_origin_Set(this._parent, origin);
@@ -4616,7 +4616,7 @@ struct MessageEventInit {
     MessageEventInit_ports_Set(this._parent, ports.handle);
   }
   auto ports() {
-    return Sequence!(MessagePort)(MessageEventInit_ports_Get(this._parent));
+    return Sequence!(MessagePort)(JsHandle(MessageEventInit_ports_Get(this._parent));
   }
 }
 alias MessageEventSource = SumType!(Window, MessagePort, ServiceWorker);
@@ -4627,10 +4627,10 @@ struct MessagePort {
     _parent = EventTarget(h);
   }
   auto postMessage(Any message, Sequence!(JsObject) transfer) {
-    MessagePort_postMessage__Any_sequence_object(this._parent, message.handle, transfer.handle);
+    MessagePort_postMessage__Any_sequence(this._parent, message.handle, transfer.handle);
   }
   auto postMessage(Any message, PostMessageOptions options) {
-    MessagePort_postMessage__Any_JsHandle(this._parent, message.handle, options.handle);
+    MessagePort_postMessage__Any_Handle(this._parent, message.handle, options.handle);
   }
   auto start() {
     MessagePort_start(this._parent);
@@ -4664,7 +4664,7 @@ struct MimeType {
     return MimeType_suffixes_Get(this.handle);
   }
   auto enabledPlugin() {
-    return Plugin(MimeType_enabledPlugin_Get(this.handle));
+    return Plugin(JsHandle(MimeType_enabledPlugin_Get(this.handle));
   }
 }
 struct MimeTypeArray {
@@ -4684,16 +4684,16 @@ struct Navigator {
   JsHandle handle;
   alias handle this;
   auto clipboard() {
-    return Clipboard(Navigator_clipboard_Get(this.handle));
+    return Clipboard(JsHandle(Navigator_clipboard_Get(this.handle));
   }
   auto permissions() {
-    return Permissions(Navigator_permissions_Get(this.handle));
+    return Permissions(JsHandle(Navigator_permissions_Get(this.handle));
   }
   auto vibrate(VibratePattern pattern) {
     return Navigator_vibrate(this.handle, pattern);
   }
   auto mediaDevices() {
-    return MediaDevices(Navigator_mediaDevices_Get(this.handle));
+    return MediaDevices(JsHandle(Navigator_mediaDevices_Get(this.handle));
   }
   auto getUserMedia(MediaStreamConstraints constraints, NavigatorUserMediaSuccessCallback successCallback, NavigatorUserMediaErrorCallback errorCallback) {
     Navigator_getUserMedia(this.handle, constraints.handle, successCallback, errorCallback);
@@ -4702,16 +4702,16 @@ struct Navigator {
     return Navigator_maxTouchPoints_Get(this.handle);
   }
   auto serviceWorker() {
-    return ServiceWorkerContainer(Navigator_serviceWorker_Get(this.handle));
+    return ServiceWorkerContainer(JsHandle(Navigator_serviceWorker_Get(this.handle));
   }
   auto hardwareConcurrency() {
     return NavigatorConcurrentHardware_hardwareConcurrency_Get(this.handle);
   }
   auto plugins() {
-    return PluginArray(NavigatorPlugins_plugins_Get(this.handle));
+    return PluginArray(JsHandle(NavigatorPlugins_plugins_Get(this.handle));
   }
   auto mimeTypes() {
-    return MimeTypeArray(NavigatorPlugins_mimeTypes_Get(this.handle));
+    return MimeTypeArray(JsHandle(NavigatorPlugins_mimeTypes_Get(this.handle));
   }
   auto javaEnabled() {
     return NavigatorPlugins_javaEnabled(this.handle);
@@ -4732,7 +4732,7 @@ struct Navigator {
     return NavigatorLanguage_language_Get(this.handle);
   }
   auto languages() {
-    return FrozenArray!(string)(NavigatorLanguage_languages_Get(this.handle));
+    return FrozenArray!(string)(JsHandle(NavigatorLanguage_languages_Get(this.handle));
   }
   auto appCodeName() {
     return NavigatorID_appCodeName_Get(this.handle);
@@ -4790,10 +4790,10 @@ struct OffscreenCanvas {
     return OffscreenCanvas_getContext(this._parent, contextId, options.handle);
   }
   auto transferToImageBitmap() {
-    return ImageBitmap(OffscreenCanvas_transferToImageBitmap(this._parent));
+    return ImageBitmap(JsHandle(OffscreenCanvas_transferToImageBitmap(this._parent));
   }
   auto convertToBlob(ImageEncodeOptions options) {
-    return Promise!(Blob)(OffscreenCanvas_convertToBlob(this._parent, options.handle));
+    return Promise!(Blob)(JsHandle(OffscreenCanvas_convertToBlob(this._parent, options.handle));
   }
 }
 struct OffscreenCanvasRenderingContext2D {
@@ -4803,7 +4803,7 @@ struct OffscreenCanvasRenderingContext2D {
     OffscreenCanvasRenderingContext2D_commit(this.handle);
   }
   auto canvas() {
-    return OffscreenCanvas(OffscreenCanvasRenderingContext2D_canvas_Get(this.handle));
+    return OffscreenCanvas(JsHandle(OffscreenCanvasRenderingContext2D_canvas_Get(this.handle));
   }
   auto closePath() {
     CanvasPath_closePath(this.handle);
@@ -4836,22 +4836,22 @@ struct OffscreenCanvasRenderingContext2D {
     CanvasPathDrawingStyles_setLineDash(this.handle, segments.handle);
   }
   auto getLineDash() {
-    return Sequence!(double)(CanvasPathDrawingStyles_getLineDash(this.handle));
+    return Sequence!(double)(JsHandle(CanvasPathDrawingStyles_getLineDash(this.handle));
   }
   auto createImageData(int sw, int sh) {
-    return ImageData(CanvasImageData_createImageData__int_int(this.handle, sw, sh));
+    return ImageData(JsHandle(CanvasImageData_createImageData__int_int(this.handle, sw, sh));
   }
   auto createImageData(ImageData imagedata) {
-    return ImageData(CanvasImageData_createImageData__JsHandle(this.handle, imagedata.handle));
+    return ImageData(JsHandle(CanvasImageData_createImageData__Handle(this.handle, imagedata.handle));
   }
   auto getImageData(int sx, int sy, int sw, int sh) {
-    return ImageData(CanvasImageData_getImageData(this.handle, sx, sy, sw, sh));
+    return ImageData(JsHandle(CanvasImageData_getImageData(this.handle, sx, sy, sw, sh));
   }
   auto putImageData(ImageData imagedata, int dx, int dy) {
-    CanvasImageData_putImageData__JsHandle_int_int(this.handle, imagedata.handle, dx, dy);
+    CanvasImageData_putImageData__Handle_int_int(this.handle, imagedata.handle, dx, dy);
   }
   auto putImageData(ImageData imagedata, int dx, int dy, int dirtyX, int dirtyY, int dirtyWidth, int dirtyHeight) {
-    CanvasImageData_putImageData__JsHandle_int_int_int_int_int_int(this.handle, imagedata.handle, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight);
+    CanvasImageData_putImageData__Handle_int_int_int_int_int_int(this.handle, imagedata.handle, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight);
   }
   auto drawImage(CanvasImageSource image, double dx, double dy) {
     CanvasDrawImage_drawImage__CanvasImageSource_double_double(this.handle, image, dx, dy);
@@ -4869,7 +4869,7 @@ struct OffscreenCanvasRenderingContext2D {
     CanvasText_strokeText(this.handle, text, x, y, maxWidth);
   }
   auto measureText(string text) {
-    return TextMetrics(CanvasText_measureText(this.handle, text));
+    return TextMetrics(JsHandle(CanvasText_measureText(this.handle, text));
   }
   auto beginPath() {
     CanvasDrawPath_beginPath(this.handle);
@@ -4878,31 +4878,31 @@ struct OffscreenCanvasRenderingContext2D {
     CanvasDrawPath_fill__CanvasFillRule(this.handle, fillRule);
   }
   auto fill(Path2D path, CanvasFillRule fillRule /* = "nonzero" */) {
-    CanvasDrawPath_fill__JsHandle_CanvasFillRule(this.handle, path.handle, fillRule);
+    CanvasDrawPath_fill__Handle_CanvasFillRule(this.handle, path.handle, fillRule);
   }
   auto stroke() {
     CanvasDrawPath_stroke__(this.handle);
   }
   auto stroke(Path2D path) {
-    CanvasDrawPath_stroke__JsHandle(this.handle, path.handle);
+    CanvasDrawPath_stroke__Handle(this.handle, path.handle);
   }
   auto clip(CanvasFillRule fillRule /* = "nonzero" */) {
     CanvasDrawPath_clip__CanvasFillRule(this.handle, fillRule);
   }
   auto clip(Path2D path, CanvasFillRule fillRule /* = "nonzero" */) {
-    CanvasDrawPath_clip__JsHandle_CanvasFillRule(this.handle, path.handle, fillRule);
+    CanvasDrawPath_clip__Handle_CanvasFillRule(this.handle, path.handle, fillRule);
   }
   auto isPointInPath(double x, double y, CanvasFillRule fillRule /* = "nonzero" */) {
     return CanvasDrawPath_isPointInPath__double_double_CanvasFillRule(this.handle, x, y, fillRule);
   }
   auto isPointInPath(Path2D path, double x, double y, CanvasFillRule fillRule /* = "nonzero" */) {
-    return CanvasDrawPath_isPointInPath__JsHandle_double_double_CanvasFillRule(this.handle, path.handle, x, y, fillRule);
+    return CanvasDrawPath_isPointInPath__Handle_double_double_CanvasFillRule(this.handle, path.handle, x, y, fillRule);
   }
   auto isPointInStroke(double x, double y) {
     return CanvasDrawPath_isPointInStroke__double_double(this.handle, x, y);
   }
   auto isPointInStroke(Path2D path, double x, double y) {
-    return CanvasDrawPath_isPointInStroke__JsHandle_double_double(this.handle, path.handle, x, y);
+    return CanvasDrawPath_isPointInStroke__Handle_double_double(this.handle, path.handle, x, y);
   }
   auto clearRect(double x, double y, double w, double h) {
     CanvasRect_clearRect(this.handle, x, y, w, h);
@@ -4914,10 +4914,10 @@ struct OffscreenCanvasRenderingContext2D {
     CanvasRect_strokeRect(this.handle, x, y, w, h);
   }
   auto createLinearGradient(double x0, double y0, double x1, double y1) {
-    return CanvasGradient(CanvasFillStrokeStyles_createLinearGradient(this.handle, x0, y0, x1, y1));
+    return CanvasGradient(JsHandle(CanvasFillStrokeStyles_createLinearGradient(this.handle, x0, y0, x1, y1));
   }
   auto createRadialGradient(double x0, double y0, double r0, double x1, double y1, double r1) {
-    return CanvasGradient(CanvasFillStrokeStyles_createRadialGradient(this.handle, x0, y0, r0, x1, y1, r1));
+    return CanvasGradient(JsHandle(CanvasFillStrokeStyles_createRadialGradient(this.handle, x0, y0, r0, x1, y1, r1));
   }
   auto createPattern(CanvasImageSource image, string repetition) {
     return CanvasFillStrokeStyles_createPattern(this.handle, image, repetition);
@@ -4935,13 +4935,13 @@ struct OffscreenCanvasRenderingContext2D {
     CanvasTransform_transform(this.handle, a, b, c, d, e, f);
   }
   auto getTransform() {
-    return DOMMatrix(CanvasTransform_getTransform(this.handle));
+    return DOMMatrix(JsHandle(CanvasTransform_getTransform(this.handle));
   }
   auto setTransform(double a, double b, double c, double d, double e, double f) {
     CanvasTransform_setTransform__double_double_double_double_double_double(this.handle, a, b, c, d, e, f);
   }
   auto setTransform(DOMMatrix2DInit transform) {
-    CanvasTransform_setTransform__JsHandle(this.handle, transform.handle);
+    CanvasTransform_setTransform__Handle(this.handle, transform.handle);
   }
   auto resetTransform() {
     CanvasTransform_resetTransform(this.handle);
@@ -5065,7 +5065,7 @@ struct PopStateEvent {
     _parent = Event(h);
   }
   auto state() {
-    return Any(PopStateEvent_state_Get(this._parent));
+    return Any(JsHandle(PopStateEvent_state_Get(this._parent));
   }
 }
 struct PopStateEventInit {
@@ -5078,7 +5078,7 @@ struct PopStateEventInit {
     PopStateEventInit_state_Set(this._parent, state.handle);
   }
   auto state() {
-    return Any(PopStateEventInit_state_Get(this._parent));
+    return Any(JsHandle(PopStateEventInit_state_Get(this._parent));
   }
 }
 struct PostMessageOptions {
@@ -5088,7 +5088,7 @@ struct PostMessageOptions {
     PostMessageOptions_transfer_Set(this.handle, transfer.handle);
   }
   auto transfer() {
-    return Sequence!(JsObject)(PostMessageOptions_transfer_Get(this.handle));
+    return Sequence!(JsObject)(JsHandle(PostMessageOptions_transfer_Get(this.handle));
   }
 }
 enum PremultiplyAlpha {
@@ -5103,10 +5103,10 @@ struct PromiseRejectionEvent {
     _parent = Event(h);
   }
   auto promise() {
-    return Promise!(Any)(PromiseRejectionEvent_promise_Get(this._parent));
+    return Promise!(Any)(JsHandle(PromiseRejectionEvent_promise_Get(this._parent));
   }
   auto reason() {
-    return Any(PromiseRejectionEvent_reason_Get(this._parent));
+    return Any(JsHandle(PromiseRejectionEvent_reason_Get(this._parent));
   }
 }
 struct PromiseRejectionEventInit {
@@ -5119,13 +5119,13 @@ struct PromiseRejectionEventInit {
     PromiseRejectionEventInit_promise_Set(this._parent, promise.handle);
   }
   auto promise() {
-    return Promise!(Any)(PromiseRejectionEventInit_promise_Get(this._parent));
+    return Promise!(Any)(JsHandle(PromiseRejectionEventInit_promise_Get(this._parent));
   }
   auto reason(Any reason) {
     PromiseRejectionEventInit_reason_Set(this._parent, reason.handle);
   }
   auto reason() {
-    return Any(PromiseRejectionEventInit_reason_Get(this._parent));
+    return Any(JsHandle(PromiseRejectionEventInit_reason_Get(this._parent));
   }
 }
 struct RadioNodeList {
@@ -5165,7 +5165,7 @@ struct SharedWorker {
     _parent = EventTarget(h);
   }
   auto port() {
-    return MessagePort(SharedWorker_port_Get(this._parent));
+    return MessagePort(JsHandle(SharedWorker_port_Get(this._parent));
   }
 }
 struct SharedWorkerGlobalScope {
@@ -5413,10 +5413,10 @@ struct TextTrackCueList {
     return TextTrackCueList_length_Get(this.handle);
   }
   auto opIndex(uint index) {
-    return TextTrackCue(TextTrackCueList_getter__uint(this.handle, index));
+    return TextTrackCue(JsHandle(TextTrackCueList_getter__uint(this.handle, index));
   }
   auto opDispatch(uint index)() {
-    return TextTrackCue(TextTrackCueList_getter__uint(this.handle, index));
+    return TextTrackCue(JsHandle(TextTrackCueList_getter__uint(this.handle, index));
   }
   auto getCueById(string id) {
     return TextTrackCueList_getCueById(this.handle, id);
@@ -5439,10 +5439,10 @@ struct TextTrackList {
     return TextTrackList_length_Get(this._parent);
   }
   auto opIndex(uint index) {
-    return TextTrack(TextTrackList_getter__uint(this._parent, index));
+    return TextTrack(JsHandle(TextTrackList_getter__uint(this._parent, index));
   }
   auto opDispatch(uint index)() {
-    return TextTrack(TextTrackList_getter__uint(this._parent, index));
+    return TextTrack(JsHandle(TextTrackList_getter__uint(this._parent, index));
   }
   auto getTrackById(string id) {
     return TextTrackList_getTrackById(this._parent, id);
@@ -5580,10 +5580,10 @@ struct VideoTrackList {
     return VideoTrackList_length_Get(this._parent);
   }
   auto opIndex(uint index) {
-    return VideoTrack(VideoTrackList_getter__uint(this._parent, index));
+    return VideoTrack(JsHandle(VideoTrackList_getter__uint(this._parent, index));
   }
   auto opDispatch(uint index)() {
-    return VideoTrack(VideoTrackList_getter__uint(this._parent, index));
+    return VideoTrack(JsHandle(VideoTrackList_getter__uint(this._parent, index));
   }
   auto getTrackById(string id) {
     return VideoTrackList_getTrackById(this._parent, id);
@@ -5672,10 +5672,10 @@ struct WebSocket {
     WebSocket_send__string(this._parent, data);
   }
   auto send(Blob data) {
-    WebSocket_send__JsHandle(this._parent, data.handle);
+    WebSocket_send__Handle(this._parent, data.handle);
   }
   auto send(ArrayBuffer data) {
-    WebSocket_send__JsHandle(this._parent, data.handle);
+    WebSocket_send__Handle(this._parent, data.handle);
   }
   auto send(ArrayBufferView data) {
     WebSocket_send__ArrayBufferView(this._parent, data);
@@ -5688,13 +5688,13 @@ struct Window {
     _parent = EventTarget(h);
   }
   auto window() {
-    return Window(Window_window_Get(this._parent));
+    return Window(JsHandle(Window_window_Get(this._parent));
   }
   auto self() {
-    return Window(Window_self_Get(this._parent));
+    return Window(JsHandle(Window_self_Get(this._parent));
   }
   auto document() {
-    return Document(Window_document_Get(this._parent));
+    return Document(JsHandle(Window_document_Get(this._parent));
   }
   auto name(string name) {
     Window_name_Set(this._parent, name);
@@ -5703,31 +5703,31 @@ struct Window {
     return Window_name_Get(this._parent);
   }
   auto location() {
-    return Location(Window_location_Get(this._parent));
+    return Location(JsHandle(Window_location_Get(this._parent));
   }
   auto history() {
-    return History(Window_history_Get(this._parent));
+    return History(JsHandle(Window_history_Get(this._parent));
   }
   auto customElements() {
-    return CustomElementRegistry(Window_customElements_Get(this._parent));
+    return CustomElementRegistry(JsHandle(Window_customElements_Get(this._parent));
   }
   auto locationbar() {
-    return BarProp(Window_locationbar_Get(this._parent));
+    return BarProp(JsHandle(Window_locationbar_Get(this._parent));
   }
   auto menubar() {
-    return BarProp(Window_menubar_Get(this._parent));
+    return BarProp(JsHandle(Window_menubar_Get(this._parent));
   }
   auto personalbar() {
-    return BarProp(Window_personalbar_Get(this._parent));
+    return BarProp(JsHandle(Window_personalbar_Get(this._parent));
   }
   auto scrollbars() {
-    return BarProp(Window_scrollbars_Get(this._parent));
+    return BarProp(JsHandle(Window_scrollbars_Get(this._parent));
   }
   auto statusbar() {
-    return BarProp(Window_statusbar_Get(this._parent));
+    return BarProp(JsHandle(Window_statusbar_Get(this._parent));
   }
   auto toolbar() {
-    return BarProp(Window_toolbar_Get(this._parent));
+    return BarProp(JsHandle(Window_toolbar_Get(this._parent));
   }
   auto status(string status) {
     Window_status_Set(this._parent, status);
@@ -5751,7 +5751,7 @@ struct Window {
     Window_blur(this._parent);
   }
   auto frames() {
-    return Window(Window_frames_Get(this._parent));
+    return Window(JsHandle(Window_frames_Get(this._parent));
   }
   auto length() {
     return Window_length_Get(this._parent);
@@ -5763,7 +5763,7 @@ struct Window {
     Window_opener_Set(this._parent, opener.handle);
   }
   auto opener() {
-    return Any(Window_opener_Get(this._parent));
+    return Any(JsHandle(Window_opener_Get(this._parent));
   }
   auto parent() {
     return Window_parent_Get(this._parent);
@@ -5775,16 +5775,16 @@ struct Window {
     return Window_open(this._parent, url, target, features);
   }
   auto opIndex(string name) {
-    return JsObject(Window_getter__string(this._parent, name));
+    return JsObject(JsHandle(Window_getter__string(this._parent, name));
   }
   auto opDispatch(string name)() {
-    return JsObject(Window_getter__string(this._parent, name));
+    return JsObject(JsHandle(Window_getter__string(this._parent, name));
   }
   auto navigator() {
-    return Navigator(Window_navigator_Get(this._parent));
+    return Navigator(JsHandle(Window_navigator_Get(this._parent));
   }
   auto applicationCache() {
-    return ApplicationCache(Window_applicationCache_Get(this._parent));
+    return ApplicationCache(JsHandle(Window_applicationCache_Get(this._parent));
   }
   auto alert() {
     Window_alert__(this._parent);
@@ -5802,13 +5802,13 @@ struct Window {
     Window_print(this._parent);
   }
   auto postMessage(Any message, string targetOrigin, Sequence!(JsObject) transfer /* = [] */) {
-    Window_postMessage__Any_string_sequence_object(this._parent, message.handle, targetOrigin, transfer.handle);
+    Window_postMessage__Any_string_sequence(this._parent, message.handle, targetOrigin, transfer.handle);
   }
   auto postMessage(Any message, WindowPostMessageOptions options) {
-    Window_postMessage__Any_JsHandle(this._parent, message.handle, options.handle);
+    Window_postMessage__Any_Handle(this._parent, message.handle, options.handle);
   }
   auto event() {
-    return Any(Window_event_Get(this._parent));
+    return Any(JsHandle(Window_event_Get(this._parent));
   }
   auto captureEvents() {
     Window_captureEvents(this._parent);
@@ -5817,7 +5817,7 @@ struct Window {
     Window_releaseEvents(this._parent);
   }
   auto external() {
-    return External(Window_external_Get(this._parent));
+    return External(JsHandle(Window_external_Get(this._parent));
   }
   auto orientation() {
     return Window_orientation_Get(this._parent);
@@ -5829,10 +5829,10 @@ struct Window {
     return Window_onorientationchange_Get(this._parent);
   }
   auto localStorage() {
-    return Storage(WindowLocalStorage_localStorage_Get(this.handle));
+    return Storage(JsHandle(WindowLocalStorage_localStorage_Get(this.handle));
   }
   auto sessionStorage() {
-    return Storage(WindowSessionStorage_sessionStorage_Get(this.handle));
+    return Storage(JsHandle(WindowSessionStorage_sessionStorage_Get(this.handle));
   }
   auto requestAnimationFrame(FrameRequestCallback callback) {
     return AnimationFrameProvider_requestAnimationFrame(this.handle, callback);
@@ -5865,19 +5865,19 @@ struct Window {
     WindowOrWorkerGlobalScope_queueMicrotask(this.handle, callback);
   }
   auto createImageBitmap(ImageBitmapSource image, ImageBitmapOptions options) {
-    return Promise!(ImageBitmap)(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_JsHandle(this.handle, image, options.handle));
+    return Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_Handle(this.handle, image, options.handle));
   }
   auto createImageBitmap(ImageBitmapSource image, int sx, int sy, int sw, int sh, ImageBitmapOptions options) {
-    return Promise!(ImageBitmap)(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_int_int_int_int_JsHandle(this.handle, image, sx, sy, sw, sh, options.handle));
+    return Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_int_int_int_int_Handle(this.handle, image, sx, sy, sw, sh, options.handle));
   }
   auto fetch(RequestInfo input, RequestInit init) {
-    return Promise!(Response)(WindowOrWorkerGlobalScope_fetch(this.handle, input, init.handle));
+    return Promise!(Response)(JsHandle(WindowOrWorkerGlobalScope_fetch(this.handle, input, init.handle));
   }
   auto indexedDB() {
-    return IDBFactory(WindowOrWorkerGlobalScope_indexedDB_Get(this.handle));
+    return IDBFactory(JsHandle(WindowOrWorkerGlobalScope_indexedDB_Get(this.handle));
   }
   auto caches() {
-    return CacheStorage(WindowOrWorkerGlobalScope_caches_Get(this.handle));
+    return CacheStorage(JsHandle(WindowOrWorkerGlobalScope_caches_Get(this.handle));
   }
   auto ongotpointercapture(EventHandler ongotpointercapture) {
     GlobalEventHandlers_ongotpointercapture_Set(this.handle, ongotpointercapture);
@@ -5988,10 +5988,10 @@ struct Worker {
     Worker_terminate(this._parent);
   }
   auto postMessage(Any message, Sequence!(JsObject) transfer) {
-    Worker_postMessage__Any_sequence_object(this._parent, message.handle, transfer.handle);
+    Worker_postMessage__Any_sequence(this._parent, message.handle, transfer.handle);
   }
   auto postMessage(Any message, PostMessageOptions options) {
-    Worker_postMessage__Any_JsHandle(this._parent, message.handle, options.handle);
+    Worker_postMessage__Any_Handle(this._parent, message.handle, options.handle);
   }
   auto onmessage(EventHandler onmessage) {
     Worker_onmessage_Set(this._parent, onmessage);
@@ -6013,13 +6013,13 @@ struct WorkerGlobalScope {
     _parent = EventTarget(h);
   }
   auto self() {
-    return WorkerGlobalScope(WorkerGlobalScope_self_Get(this._parent));
+    return WorkerGlobalScope(JsHandle(WorkerGlobalScope_self_Get(this._parent));
   }
   auto location() {
-    return WorkerLocation(WorkerGlobalScope_location_Get(this._parent));
+    return WorkerLocation(JsHandle(WorkerGlobalScope_location_Get(this._parent));
   }
   auto navigator() {
-    return WorkerNavigator(WorkerGlobalScope_navigator_Get(this._parent));
+    return WorkerNavigator(JsHandle(WorkerGlobalScope_navigator_Get(this._parent));
   }
   auto importScripts(string urls) {
     WorkerGlobalScope_importScripts(this._parent, urls);
@@ -6085,19 +6085,19 @@ struct WorkerGlobalScope {
     WindowOrWorkerGlobalScope_queueMicrotask(this.handle, callback);
   }
   auto createImageBitmap(ImageBitmapSource image, ImageBitmapOptions options) {
-    return Promise!(ImageBitmap)(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_JsHandle(this.handle, image, options.handle));
+    return Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_Handle(this.handle, image, options.handle));
   }
   auto createImageBitmap(ImageBitmapSource image, int sx, int sy, int sw, int sh, ImageBitmapOptions options) {
-    return Promise!(ImageBitmap)(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_int_int_int_int_JsHandle(this.handle, image, sx, sy, sw, sh, options.handle));
+    return Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_int_int_int_int_Handle(this.handle, image, sx, sy, sw, sh, options.handle));
   }
   auto fetch(RequestInfo input, RequestInit init) {
-    return Promise!(Response)(WindowOrWorkerGlobalScope_fetch(this.handle, input, init.handle));
+    return Promise!(Response)(JsHandle(WindowOrWorkerGlobalScope_fetch(this.handle, input, init.handle));
   }
   auto indexedDB() {
-    return IDBFactory(WindowOrWorkerGlobalScope_indexedDB_Get(this.handle));
+    return IDBFactory(JsHandle(WindowOrWorkerGlobalScope_indexedDB_Get(this.handle));
   }
   auto caches() {
-    return CacheStorage(WindowOrWorkerGlobalScope_caches_Get(this.handle));
+    return CacheStorage(JsHandle(WindowOrWorkerGlobalScope_caches_Get(this.handle));
   }
 }
 struct WorkerLocation {
@@ -6138,10 +6138,10 @@ struct WorkerNavigator {
   JsHandle handle;
   alias handle this;
   auto permissions() {
-    return Permissions(WorkerNavigator_permissions_Get(this.handle));
+    return Permissions(JsHandle(WorkerNavigator_permissions_Get(this.handle));
   }
   auto serviceWorker() {
-    return ServiceWorkerContainer(WorkerNavigator_serviceWorker_Get(this.handle));
+    return ServiceWorkerContainer(JsHandle(WorkerNavigator_serviceWorker_Get(this.handle));
   }
   auto hardwareConcurrency() {
     return NavigatorConcurrentHardware_hardwareConcurrency_Get(this.handle);
@@ -6153,7 +6153,7 @@ struct WorkerNavigator {
     return NavigatorLanguage_language_Get(this.handle);
   }
   auto languages() {
-    return FrozenArray!(string)(NavigatorLanguage_languages_Get(this.handle));
+    return FrozenArray!(string)(JsHandle(NavigatorLanguage_languages_Get(this.handle));
   }
   auto appCodeName() {
     return NavigatorID_appCodeName_Get(this.handle);
@@ -6217,1558 +6217,1558 @@ enum WorkerType {
 }
 
 
-extern (C) uint AnimationFrameProvider_requestAnimationFrame(JsHandle, FrameRequestCallback);
-extern (C) void AnimationFrameProvider_cancelAnimationFrame(JsHandle, uint);
-extern (C) ushort ApplicationCache_status_Get(JsHandle);
-extern (C) void ApplicationCache_update(JsHandle);
-extern (C) void ApplicationCache_abort(JsHandle);
-extern (C) void ApplicationCache_swapCache(JsHandle);
-extern (C) void ApplicationCache_onchecking_Set(JsHandle, EventHandler);
-extern (C) EventHandler ApplicationCache_onchecking_Get(JsHandle);
-extern (C) void ApplicationCache_onerror_Set(JsHandle, EventHandler);
-extern (C) EventHandler ApplicationCache_onerror_Get(JsHandle);
-extern (C) void ApplicationCache_onnoupdate_Set(JsHandle, EventHandler);
-extern (C) EventHandler ApplicationCache_onnoupdate_Get(JsHandle);
-extern (C) void ApplicationCache_ondownloading_Set(JsHandle, EventHandler);
-extern (C) EventHandler ApplicationCache_ondownloading_Get(JsHandle);
-extern (C) void ApplicationCache_onprogress_Set(JsHandle, EventHandler);
-extern (C) EventHandler ApplicationCache_onprogress_Get(JsHandle);
-extern (C) void ApplicationCache_onupdateready_Set(JsHandle, EventHandler);
-extern (C) EventHandler ApplicationCache_onupdateready_Get(JsHandle);
-extern (C) void ApplicationCache_oncached_Set(JsHandle, EventHandler);
-extern (C) EventHandler ApplicationCache_oncached_Get(JsHandle);
-extern (C) void ApplicationCache_onobsolete_Set(JsHandle, EventHandler);
-extern (C) EventHandler ApplicationCache_onobsolete_Get(JsHandle);
-extern (C) void AssignedNodesOptions_flatten_Set(JsHandle, bool);
-extern (C) bool AssignedNodesOptions_flatten_Get(JsHandle);
-extern (C) string AudioTrack_id_Get(JsHandle);
-extern (C) string AudioTrack_kind_Get(JsHandle);
-extern (C) string AudioTrack_label_Get(JsHandle);
-extern (C) string AudioTrack_language_Get(JsHandle);
-extern (C) void AudioTrack_enabled_Set(JsHandle, bool);
-extern (C) bool AudioTrack_enabled_Get(JsHandle);
-extern (C) Optional!(SourceBuffer) AudioTrack_sourceBuffer_Get(JsHandle);
-extern (C) uint AudioTrackList_length_Get(JsHandle);
-extern (C) JsHandle AudioTrackList_getter__uint(JsHandle, uint);
-extern (C) Optional!(AudioTrack) AudioTrackList_getTrackById(JsHandle, string);
-extern (C) void AudioTrackList_onchange_Set(JsHandle, EventHandler);
-extern (C) EventHandler AudioTrackList_onchange_Get(JsHandle);
-extern (C) void AudioTrackList_onaddtrack_Set(JsHandle, EventHandler);
-extern (C) EventHandler AudioTrackList_onaddtrack_Get(JsHandle);
-extern (C) void AudioTrackList_onremovetrack_Set(JsHandle, EventHandler);
-extern (C) EventHandler AudioTrackList_onremovetrack_Get(JsHandle);
-extern (C) bool BarProp_visible_Get(JsHandle);
-extern (C) void BeforeUnloadEvent_returnValue_Set(JsHandle, string);
-extern (C) string BeforeUnloadEvent_returnValue_Get(JsHandle);
-extern (C) string BroadcastChannel_name_Get(JsHandle);
-extern (C) void BroadcastChannel_postMessage(JsHandle, JsHandle);
-extern (C) void BroadcastChannel_close(JsHandle);
-extern (C) void BroadcastChannel_onmessage_Set(JsHandle, EventHandler);
-extern (C) EventHandler BroadcastChannel_onmessage_Get(JsHandle);
-extern (C) void BroadcastChannel_onmessageerror_Set(JsHandle, EventHandler);
-extern (C) EventHandler BroadcastChannel_onmessageerror_Get(JsHandle);
-extern (C) void CanvasDrawImage_drawImage__CanvasImageSource_double_double(JsHandle, CanvasImageSource, double, double);
-extern (C) void CanvasDrawImage_drawImage__CanvasImageSource_double_double_double_double(JsHandle, CanvasImageSource, double, double, double, double);
-extern (C) void CanvasDrawImage_drawImage__CanvasImageSource_double_double_double_double_double_double_double_double(JsHandle, CanvasImageSource, double, double, double, double, double, double, double, double);
-extern (C) void CanvasDrawPath_beginPath(JsHandle);
-extern (C) void CanvasDrawPath_fill__CanvasFillRule(JsHandle, CanvasFillRule);
-extern (C) void CanvasDrawPath_fill__JsHandle_CanvasFillRule(JsHandle, JsHandle, CanvasFillRule);
-extern (C) void CanvasDrawPath_stroke__(JsHandle);
-extern (C) void CanvasDrawPath_stroke__JsHandle(JsHandle, JsHandle);
-extern (C) void CanvasDrawPath_clip__CanvasFillRule(JsHandle, CanvasFillRule);
-extern (C) void CanvasDrawPath_clip__JsHandle_CanvasFillRule(JsHandle, JsHandle, CanvasFillRule);
-extern (C) bool CanvasDrawPath_isPointInPath__double_double_CanvasFillRule(JsHandle, double, double, CanvasFillRule);
-extern (C) bool CanvasDrawPath_isPointInPath__JsHandle_double_double_CanvasFillRule(JsHandle, JsHandle, double, double, CanvasFillRule);
-extern (C) bool CanvasDrawPath_isPointInStroke__double_double(JsHandle, double, double);
-extern (C) bool CanvasDrawPath_isPointInStroke__JsHandle_double_double(JsHandle, JsHandle, double, double);
-extern (C) JsHandle CanvasFillStrokeStyles_createLinearGradient(JsHandle, double, double, double, double);
-extern (C) JsHandle CanvasFillStrokeStyles_createRadialGradient(JsHandle, double, double, double, double, double, double);
-extern (C) Optional!(CanvasPattern) CanvasFillStrokeStyles_createPattern(JsHandle, CanvasImageSource, string);
-extern (C) void CanvasGradient_addColorStop(JsHandle, double, string);
-extern (C) JsHandle CanvasImageData_createImageData__int_int(JsHandle, int, int);
-extern (C) JsHandle CanvasImageData_createImageData__JsHandle(JsHandle, JsHandle);
-extern (C) JsHandle CanvasImageData_getImageData(JsHandle, int, int, int, int);
-extern (C) void CanvasImageData_putImageData__JsHandle_int_int(JsHandle, JsHandle, int, int);
-extern (C) void CanvasImageData_putImageData__JsHandle_int_int_int_int_int_int(JsHandle, JsHandle, int, int, int, int, int, int);
-extern (C) void CanvasPath_closePath(JsHandle);
-extern (C) void CanvasPath_moveTo(JsHandle, double, double);
-extern (C) void CanvasPath_lineTo(JsHandle, double, double);
-extern (C) void CanvasPath_quadraticCurveTo(JsHandle, double, double, double, double);
-extern (C) void CanvasPath_bezierCurveTo(JsHandle, double, double, double, double, double, double);
-extern (C) void CanvasPath_arcTo(JsHandle, double, double, double, double, double);
-extern (C) void CanvasPath_rect(JsHandle, double, double, double, double);
-extern (C) void CanvasPath_arc(JsHandle, double, double, double, double, double, bool);
-extern (C) void CanvasPath_ellipse(JsHandle, double, double, double, double, double, double, double, bool);
-extern (C) void CanvasPathDrawingStyles_setLineDash(JsHandle, JsHandle);
-extern (C) JsHandle CanvasPathDrawingStyles_getLineDash(JsHandle);
-extern (C) void CanvasPattern_setTransform(JsHandle, JsHandle);
-extern (C) void CanvasRect_clearRect(JsHandle, double, double, double, double);
-extern (C) void CanvasRect_fillRect(JsHandle, double, double, double, double);
-extern (C) void CanvasRect_strokeRect(JsHandle, double, double, double, double);
-extern (C) JsHandle CanvasRenderingContext2D_canvas_Get(JsHandle);
-extern (C) void CanvasRenderingContext2DSettings_alpha_Set(JsHandle, bool);
-extern (C) bool CanvasRenderingContext2DSettings_alpha_Get(JsHandle);
-extern (C) void CanvasState_save(JsHandle);
-extern (C) void CanvasState_restore(JsHandle);
-extern (C) void CanvasText_fillText(JsHandle, string, double, double, double);
-extern (C) void CanvasText_strokeText(JsHandle, string, double, double, double);
-extern (C) JsHandle CanvasText_measureText(JsHandle, string);
-extern (C) void CanvasTransform_scale(JsHandle, double, double);
-extern (C) void CanvasTransform_rotate(JsHandle, double);
-extern (C) void CanvasTransform_translate(JsHandle, double, double);
-extern (C) void CanvasTransform_transform(JsHandle, double, double, double, double, double, double);
-extern (C) JsHandle CanvasTransform_getTransform(JsHandle);
-extern (C) void CanvasTransform_setTransform__double_double_double_double_double_double(JsHandle, double, double, double, double, double, double);
-extern (C) void CanvasTransform_setTransform__JsHandle(JsHandle, JsHandle);
-extern (C) void CanvasTransform_resetTransform(JsHandle);
-extern (C) void CanvasUserInterface_drawFocusIfNeeded__JsHandle(JsHandle, JsHandle);
-extern (C) void CanvasUserInterface_drawFocusIfNeeded__JsHandle_JsHandle(JsHandle, JsHandle, JsHandle);
-extern (C) void CanvasUserInterface_scrollPathIntoView__(JsHandle);
-extern (C) void CanvasUserInterface_scrollPathIntoView__JsHandle(JsHandle, JsHandle);
-extern (C) bool CloseEvent_wasClean_Get(JsHandle);
-extern (C) ushort CloseEvent_code_Get(JsHandle);
-extern (C) string CloseEvent_reason_Get(JsHandle);
-extern (C) void CloseEventInit_wasClean_Set(JsHandle, bool);
-extern (C) bool CloseEventInit_wasClean_Get(JsHandle);
-extern (C) void CloseEventInit_code_Set(JsHandle, ushort);
-extern (C) ushort CloseEventInit_code_Get(JsHandle);
-extern (C) void CloseEventInit_reason_Set(JsHandle, string);
-extern (C) string CloseEventInit_reason_Get(JsHandle);
-extern (C) void CustomElementRegistry_define(JsHandle, string, CustomElementConstructor, JsHandle);
-extern (C) JsHandle CustomElementRegistry_get(JsHandle, string);
-extern (C) JsHandle CustomElementRegistry_whenDefined(JsHandle, string);
-extern (C) void CustomElementRegistry_upgrade(JsHandle, JsHandle);
-extern (C) uint DOMStringList_length_Get(JsHandle);
-extern (C) Optional!(string) DOMStringList_item_getter(JsHandle, uint);
-extern (C) bool DOMStringList_contains(JsHandle, string);
-extern (C) string DOMStringMap_getter__string(JsHandle, string);
-extern (C) void DOMStringMap_setter__string_string(JsHandle, string, string);
-extern (C) void DOMStringMap_deleter(JsHandle, string);
-extern (C) void DataTransfer_dropEffect_Set(JsHandle, string);
-extern (C) string DataTransfer_dropEffect_Get(JsHandle);
-extern (C) void DataTransfer_effectAllowed_Set(JsHandle, string);
-extern (C) string DataTransfer_effectAllowed_Get(JsHandle);
-extern (C) JsHandle DataTransfer_items_Get(JsHandle);
-extern (C) void DataTransfer_setDragImage(JsHandle, JsHandle, int, int);
-extern (C) JsHandle DataTransfer_types_Get(JsHandle);
-extern (C) string DataTransfer_getData(JsHandle, string);
-extern (C) void DataTransfer_setData(JsHandle, string, string);
-extern (C) void DataTransfer_clearData(JsHandle, string);
-extern (C) JsHandle DataTransfer_files_Get(JsHandle);
-extern (C) string DataTransferItem_kind_Get(JsHandle);
-extern (C) string DataTransferItem_type_Get(JsHandle);
-extern (C) void DataTransferItem_getAsString(JsHandle, bool, FunctionStringCallback);
-extern (C) Optional!(File) DataTransferItem_getAsFile(JsHandle);
-extern (C) uint DataTransferItemList_length_Get(JsHandle);
-extern (C) JsHandle DataTransferItemList_getter__uint(JsHandle, uint);
-extern (C) Optional!(DataTransferItem) DataTransferItemList_add__string_string(JsHandle, string, string);
-extern (C) Optional!(DataTransferItem) DataTransferItemList_add__JsHandle(JsHandle, JsHandle);
-extern (C) void DataTransferItemList_remove(JsHandle, uint);
-extern (C) void DataTransferItemList_clear(JsHandle);
-extern (C) string DedicatedWorkerGlobalScope_name_Get(JsHandle);
-extern (C) void DedicatedWorkerGlobalScope_postMessage__Any_sequence_object(JsHandle, JsHandle, JsHandle);
-extern (C) void DedicatedWorkerGlobalScope_postMessage__Any_JsHandle(JsHandle, JsHandle, JsHandle);
-extern (C) void DedicatedWorkerGlobalScope_close(JsHandle);
-extern (C) void DedicatedWorkerGlobalScope_onmessage_Set(JsHandle, EventHandler);
-extern (C) EventHandler DedicatedWorkerGlobalScope_onmessage_Get(JsHandle);
-extern (C) void DedicatedWorkerGlobalScope_onmessageerror_Set(JsHandle, EventHandler);
-extern (C) EventHandler DedicatedWorkerGlobalScope_onmessageerror_Get(JsHandle);
-extern (C) Optional!(DataTransfer) DragEvent_dataTransfer_Get(JsHandle);
-extern (C) void DragEventInit_dataTransfer_Set(JsHandle, bool, JsHandle);
-extern (C) Optional!(DataTransfer) DragEventInit_dataTransfer_Get(JsHandle);
-extern (C) bool ElementContentEditable_isContentEditable_Get(JsHandle);
-extern (C) void ElementDefinitionOptions_extends_Set(JsHandle, string);
-extern (C) string ElementDefinitionOptions_extends_Get(JsHandle);
-extern (C) string ErrorEvent_message_Get(JsHandle);
-extern (C) string ErrorEvent_filename_Get(JsHandle);
-extern (C) uint ErrorEvent_lineno_Get(JsHandle);
-extern (C) uint ErrorEvent_colno_Get(JsHandle);
-extern (C) JsHandle ErrorEvent_error_Get(JsHandle);
-extern (C) void ErrorEventInit_message_Set(JsHandle, string);
-extern (C) string ErrorEventInit_message_Get(JsHandle);
-extern (C) void ErrorEventInit_filename_Set(JsHandle, string);
-extern (C) string ErrorEventInit_filename_Get(JsHandle);
-extern (C) void ErrorEventInit_lineno_Set(JsHandle, uint);
-extern (C) uint ErrorEventInit_lineno_Get(JsHandle);
-extern (C) void ErrorEventInit_colno_Set(JsHandle, uint);
-extern (C) uint ErrorEventInit_colno_Get(JsHandle);
-extern (C) void ErrorEventInit_error_Set(JsHandle, JsHandle);
-extern (C) JsHandle ErrorEventInit_error_Get(JsHandle);
-extern (C) string EventSource_url_Get(JsHandle);
-extern (C) bool EventSource_withCredentials_Get(JsHandle);
-extern (C) ushort EventSource_readyState_Get(JsHandle);
-extern (C) void EventSource_onopen_Set(JsHandle, EventHandler);
-extern (C) EventHandler EventSource_onopen_Get(JsHandle);
-extern (C) void EventSource_onmessage_Set(JsHandle, EventHandler);
-extern (C) EventHandler EventSource_onmessage_Get(JsHandle);
-extern (C) void EventSource_onerror_Set(JsHandle, EventHandler);
-extern (C) EventHandler EventSource_onerror_Get(JsHandle);
-extern (C) void EventSource_close(JsHandle);
-extern (C) void EventSourceInit_withCredentials_Set(JsHandle, bool);
-extern (C) bool EventSourceInit_withCredentials_Get(JsHandle);
-extern (C) void External_AddSearchProvider(JsHandle);
-extern (C) void External_IsSearchProviderInstalled(JsHandle);
-extern (C) void FocusOptions_preventScroll_Set(JsHandle, bool);
-extern (C) bool FocusOptions_preventScroll_Get(JsHandle);
-extern (C) void GlobalEventHandlers_ongotpointercapture_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_ongotpointercapture_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onlostpointercapture_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onlostpointercapture_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onpointerdown_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onpointerdown_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onpointermove_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onpointermove_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onpointerup_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onpointerup_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onpointercancel_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onpointercancel_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onpointerover_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onpointerover_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onpointerout_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onpointerout_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onpointerenter_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onpointerenter_Get(JsHandle);
-extern (C) void GlobalEventHandlers_onpointerleave_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_onpointerleave_Get(JsHandle);
-extern (C) void GlobalEventHandlers_ontouchstart_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_ontouchstart_Get(JsHandle);
-extern (C) void GlobalEventHandlers_ontouchend_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_ontouchend_Get(JsHandle);
-extern (C) void GlobalEventHandlers_ontouchmove_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_ontouchmove_Get(JsHandle);
-extern (C) void GlobalEventHandlers_ontouchcancel_Set(JsHandle, EventHandler);
-extern (C) EventHandler GlobalEventHandlers_ontouchcancel_Get(JsHandle);
-extern (C) uint HTMLAllCollection_length_Get(JsHandle);
-extern (C) JsHandle HTMLAllCollection_getter__uint(JsHandle, uint);
-extern (C) Optional!(SumType!(HTMLCollection, Element)) HTMLAllCollection_namedItem_getter(JsHandle, string);
-extern (C) Optional!(SumType!(HTMLCollection, Element)) HTMLAllCollection_item(JsHandle, string);
-extern (C) void HTMLAnchorElement_target_Set(JsHandle, string);
-extern (C) string HTMLAnchorElement_target_Get(JsHandle);
-extern (C) void HTMLAnchorElement_download_Set(JsHandle, string);
-extern (C) string HTMLAnchorElement_download_Get(JsHandle);
-extern (C) void HTMLAnchorElement_ping_Set(JsHandle, string);
-extern (C) string HTMLAnchorElement_ping_Get(JsHandle);
-extern (C) void HTMLAnchorElement_rel_Set(JsHandle, string);
-extern (C) string HTMLAnchorElement_rel_Get(JsHandle);
-extern (C) JsHandle HTMLAnchorElement_relList_Get(JsHandle);
-extern (C) void HTMLAnchorElement_hreflang_Set(JsHandle, string);
-extern (C) string HTMLAnchorElement_hreflang_Get(JsHandle);
-extern (C) void HTMLAnchorElement_type_Set(JsHandle, string);
-extern (C) string HTMLAnchorElement_type_Get(JsHandle);
-extern (C) void HTMLAnchorElement_text_Set(JsHandle, string);
-extern (C) string HTMLAnchorElement_text_Get(JsHandle);
-extern (C) void HTMLAnchorElement_referrerPolicy_Set(JsHandle, string);
-extern (C) string HTMLAnchorElement_referrerPolicy_Get(JsHandle);
-extern (C) void HTMLAnchorElement_coords_Set(JsHandle, string);
-extern (C) string HTMLAnchorElement_coords_Get(JsHandle);
-extern (C) void HTMLAnchorElement_charset_Set(JsHandle, string);
-extern (C) string HTMLAnchorElement_charset_Get(JsHandle);
-extern (C) void HTMLAnchorElement_name_Set(JsHandle, string);
-extern (C) string HTMLAnchorElement_name_Get(JsHandle);
-extern (C) void HTMLAnchorElement_rev_Set(JsHandle, string);
-extern (C) string HTMLAnchorElement_rev_Get(JsHandle);
-extern (C) void HTMLAnchorElement_shape_Set(JsHandle, string);
-extern (C) string HTMLAnchorElement_shape_Get(JsHandle);
-extern (C) void HTMLAreaElement_alt_Set(JsHandle, string);
-extern (C) string HTMLAreaElement_alt_Get(JsHandle);
-extern (C) void HTMLAreaElement_coords_Set(JsHandle, string);
-extern (C) string HTMLAreaElement_coords_Get(JsHandle);
-extern (C) void HTMLAreaElement_shape_Set(JsHandle, string);
-extern (C) string HTMLAreaElement_shape_Get(JsHandle);
-extern (C) void HTMLAreaElement_target_Set(JsHandle, string);
-extern (C) string HTMLAreaElement_target_Get(JsHandle);
-extern (C) void HTMLAreaElement_download_Set(JsHandle, string);
-extern (C) string HTMLAreaElement_download_Get(JsHandle);
-extern (C) void HTMLAreaElement_ping_Set(JsHandle, string);
-extern (C) string HTMLAreaElement_ping_Get(JsHandle);
-extern (C) void HTMLAreaElement_rel_Set(JsHandle, string);
-extern (C) string HTMLAreaElement_rel_Get(JsHandle);
-extern (C) JsHandle HTMLAreaElement_relList_Get(JsHandle);
-extern (C) void HTMLAreaElement_referrerPolicy_Set(JsHandle, string);
-extern (C) string HTMLAreaElement_referrerPolicy_Get(JsHandle);
-extern (C) void HTMLAreaElement_noHref_Set(JsHandle, bool);
-extern (C) bool HTMLAreaElement_noHref_Get(JsHandle);
-extern (C) void HTMLBRElement_clear_Set(JsHandle, string);
-extern (C) string HTMLBRElement_clear_Get(JsHandle);
-extern (C) void HTMLBaseElement_href_Set(JsHandle, string);
-extern (C) string HTMLBaseElement_href_Get(JsHandle);
-extern (C) void HTMLBaseElement_target_Set(JsHandle, string);
-extern (C) string HTMLBaseElement_target_Get(JsHandle);
-extern (C) void HTMLBodyElement_text_Set(JsHandle, string);
-extern (C) string HTMLBodyElement_text_Get(JsHandle);
-extern (C) void HTMLBodyElement_link_Set(JsHandle, string);
-extern (C) string HTMLBodyElement_link_Get(JsHandle);
-extern (C) void HTMLBodyElement_vLink_Set(JsHandle, string);
-extern (C) string HTMLBodyElement_vLink_Get(JsHandle);
-extern (C) void HTMLBodyElement_aLink_Set(JsHandle, string);
-extern (C) string HTMLBodyElement_aLink_Get(JsHandle);
-extern (C) void HTMLBodyElement_bgColor_Set(JsHandle, string);
-extern (C) string HTMLBodyElement_bgColor_Get(JsHandle);
-extern (C) void HTMLBodyElement_background_Set(JsHandle, string);
-extern (C) string HTMLBodyElement_background_Get(JsHandle);
-extern (C) void HTMLBodyElement_onorientationchange_Set(JsHandle, EventHandler);
-extern (C) EventHandler HTMLBodyElement_onorientationchange_Get(JsHandle);
-extern (C) void HTMLButtonElement_autofocus_Set(JsHandle, bool);
-extern (C) bool HTMLButtonElement_autofocus_Get(JsHandle);
-extern (C) void HTMLButtonElement_disabled_Set(JsHandle, bool);
-extern (C) bool HTMLButtonElement_disabled_Get(JsHandle);
-extern (C) Optional!(HTMLFormElement) HTMLButtonElement_form_Get(JsHandle);
-extern (C) void HTMLButtonElement_formAction_Set(JsHandle, string);
-extern (C) string HTMLButtonElement_formAction_Get(JsHandle);
-extern (C) void HTMLButtonElement_formEnctype_Set(JsHandle, string);
-extern (C) string HTMLButtonElement_formEnctype_Get(JsHandle);
-extern (C) void HTMLButtonElement_formMethod_Set(JsHandle, string);
-extern (C) string HTMLButtonElement_formMethod_Get(JsHandle);
-extern (C) void HTMLButtonElement_formNoValidate_Set(JsHandle, bool);
-extern (C) bool HTMLButtonElement_formNoValidate_Get(JsHandle);
-extern (C) void HTMLButtonElement_formTarget_Set(JsHandle, string);
-extern (C) string HTMLButtonElement_formTarget_Get(JsHandle);
-extern (C) void HTMLButtonElement_name_Set(JsHandle, string);
-extern (C) string HTMLButtonElement_name_Get(JsHandle);
-extern (C) void HTMLButtonElement_type_Set(JsHandle, string);
-extern (C) string HTMLButtonElement_type_Get(JsHandle);
-extern (C) void HTMLButtonElement_value_Set(JsHandle, string);
-extern (C) string HTMLButtonElement_value_Get(JsHandle);
-extern (C) bool HTMLButtonElement_willValidate_Get(JsHandle);
-extern (C) JsHandle HTMLButtonElement_validity_Get(JsHandle);
-extern (C) string HTMLButtonElement_validationMessage_Get(JsHandle);
-extern (C) bool HTMLButtonElement_checkValidity(JsHandle);
-extern (C) bool HTMLButtonElement_reportValidity(JsHandle);
-extern (C) void HTMLButtonElement_setCustomValidity(JsHandle, string);
-extern (C) JsHandle HTMLButtonElement_labels_Get(JsHandle);
-extern (C) void HTMLCanvasElement_width_Set(JsHandle, uint);
-extern (C) uint HTMLCanvasElement_width_Get(JsHandle);
-extern (C) void HTMLCanvasElement_height_Set(JsHandle, uint);
-extern (C) uint HTMLCanvasElement_height_Get(JsHandle);
-extern (C) Optional!(RenderingContext) HTMLCanvasElement_getContext(JsHandle, string, JsHandle);
-extern (C) string HTMLCanvasElement_toDataURL(JsHandle, string, JsHandle);
-extern (C) void HTMLCanvasElement_toBlob(JsHandle, BlobCallback, string, JsHandle);
-extern (C) JsHandle HTMLCanvasElement_transferControlToOffscreen(JsHandle);
-extern (C) void HTMLDListElement_compact_Set(JsHandle, bool);
-extern (C) bool HTMLDListElement_compact_Get(JsHandle);
-extern (C) void HTMLDataElement_value_Set(JsHandle, string);
-extern (C) string HTMLDataElement_value_Get(JsHandle);
-extern (C) JsHandle HTMLDataListElement_options_Get(JsHandle);
-extern (C) void HTMLDetailsElement_open_Set(JsHandle, bool);
-extern (C) bool HTMLDetailsElement_open_Get(JsHandle);
-extern (C) void HTMLDialogElement_open_Set(JsHandle, bool);
-extern (C) bool HTMLDialogElement_open_Get(JsHandle);
-extern (C) void HTMLDialogElement_returnValue_Set(JsHandle, string);
-extern (C) string HTMLDialogElement_returnValue_Get(JsHandle);
-extern (C) void HTMLDialogElement_show(JsHandle);
-extern (C) void HTMLDialogElement_showModal(JsHandle);
-extern (C) void HTMLDialogElement_close(JsHandle, string);
-extern (C) void HTMLDirectoryElement_compact_Set(JsHandle, bool);
-extern (C) bool HTMLDirectoryElement_compact_Get(JsHandle);
-extern (C) void HTMLDivElement_align_Set(JsHandle, string);
-extern (C) string HTMLDivElement_align_Get(JsHandle);
-extern (C) void HTMLElement_title_Set(JsHandle, string);
-extern (C) string HTMLElement_title_Get(JsHandle);
-extern (C) void HTMLElement_lang_Set(JsHandle, string);
-extern (C) string HTMLElement_lang_Get(JsHandle);
-extern (C) void HTMLElement_translate_Set(JsHandle, bool);
-extern (C) bool HTMLElement_translate_Get(JsHandle);
-extern (C) void HTMLElement_dir_Set(JsHandle, string);
-extern (C) string HTMLElement_dir_Get(JsHandle);
-extern (C) void HTMLElement_hidden_Set(JsHandle, bool);
-extern (C) bool HTMLElement_hidden_Get(JsHandle);
-extern (C) void HTMLElement_click(JsHandle);
-extern (C) void HTMLElement_accessKey_Set(JsHandle, string);
-extern (C) string HTMLElement_accessKey_Get(JsHandle);
-extern (C) string HTMLElement_accessKeyLabel_Get(JsHandle);
-extern (C) void HTMLElement_draggable_Set(JsHandle, bool);
-extern (C) bool HTMLElement_draggable_Get(JsHandle);
-extern (C) void HTMLElement_spellcheck_Set(JsHandle, bool);
-extern (C) bool HTMLElement_spellcheck_Get(JsHandle);
-extern (C) void HTMLElement_autocapitalize_Set(JsHandle, string);
-extern (C) string HTMLElement_autocapitalize_Get(JsHandle);
-extern (C) void HTMLElement_innerText_Set(JsHandle, string);
-extern (C) string HTMLElement_innerText_Get(JsHandle);
-extern (C) void HTMLEmbedElement_src_Set(JsHandle, string);
-extern (C) string HTMLEmbedElement_src_Get(JsHandle);
-extern (C) void HTMLEmbedElement_type_Set(JsHandle, string);
-extern (C) string HTMLEmbedElement_type_Get(JsHandle);
-extern (C) void HTMLEmbedElement_width_Set(JsHandle, string);
-extern (C) string HTMLEmbedElement_width_Get(JsHandle);
-extern (C) void HTMLEmbedElement_height_Set(JsHandle, string);
-extern (C) string HTMLEmbedElement_height_Get(JsHandle);
-extern (C) Optional!(Document) HTMLEmbedElement_getSVGDocument(JsHandle);
-extern (C) void HTMLEmbedElement_align_Set(JsHandle, string);
-extern (C) string HTMLEmbedElement_align_Get(JsHandle);
-extern (C) void HTMLEmbedElement_name_Set(JsHandle, string);
-extern (C) string HTMLEmbedElement_name_Get(JsHandle);
-extern (C) void HTMLFieldSetElement_disabled_Set(JsHandle, bool);
-extern (C) bool HTMLFieldSetElement_disabled_Get(JsHandle);
-extern (C) Optional!(HTMLFormElement) HTMLFieldSetElement_form_Get(JsHandle);
-extern (C) void HTMLFieldSetElement_name_Set(JsHandle, string);
-extern (C) string HTMLFieldSetElement_name_Get(JsHandle);
-extern (C) string HTMLFieldSetElement_type_Get(JsHandle);
-extern (C) JsHandle HTMLFieldSetElement_elements_Get(JsHandle);
-extern (C) bool HTMLFieldSetElement_willValidate_Get(JsHandle);
-extern (C) JsHandle HTMLFieldSetElement_validity_Get(JsHandle);
-extern (C) string HTMLFieldSetElement_validationMessage_Get(JsHandle);
-extern (C) bool HTMLFieldSetElement_checkValidity(JsHandle);
-extern (C) bool HTMLFieldSetElement_reportValidity(JsHandle);
-extern (C) void HTMLFieldSetElement_setCustomValidity(JsHandle, string);
-extern (C) void HTMLFontElement_color_Set(JsHandle, string);
-extern (C) string HTMLFontElement_color_Get(JsHandle);
-extern (C) void HTMLFontElement_face_Set(JsHandle, string);
-extern (C) string HTMLFontElement_face_Get(JsHandle);
-extern (C) void HTMLFontElement_size_Set(JsHandle, string);
-extern (C) string HTMLFontElement_size_Get(JsHandle);
-extern (C) Optional!(SumType!(RadioNodeList, Element)) HTMLFormControlsCollection_namedItem_getter(JsHandle, string);
-extern (C) void HTMLFormElement_acceptCharset_Set(JsHandle, string);
-extern (C) string HTMLFormElement_acceptCharset_Get(JsHandle);
-extern (C) void HTMLFormElement_action_Set(JsHandle, string);
-extern (C) string HTMLFormElement_action_Get(JsHandle);
-extern (C) void HTMLFormElement_autocomplete_Set(JsHandle, string);
-extern (C) string HTMLFormElement_autocomplete_Get(JsHandle);
-extern (C) void HTMLFormElement_enctype_Set(JsHandle, string);
-extern (C) string HTMLFormElement_enctype_Get(JsHandle);
-extern (C) void HTMLFormElement_encoding_Set(JsHandle, string);
-extern (C) string HTMLFormElement_encoding_Get(JsHandle);
-extern (C) void HTMLFormElement_method_Set(JsHandle, string);
-extern (C) string HTMLFormElement_method_Get(JsHandle);
-extern (C) void HTMLFormElement_name_Set(JsHandle, string);
-extern (C) string HTMLFormElement_name_Get(JsHandle);
-extern (C) void HTMLFormElement_noValidate_Set(JsHandle, bool);
-extern (C) bool HTMLFormElement_noValidate_Get(JsHandle);
-extern (C) void HTMLFormElement_target_Set(JsHandle, string);
-extern (C) string HTMLFormElement_target_Get(JsHandle);
-extern (C) JsHandle HTMLFormElement_elements_Get(JsHandle);
-extern (C) uint HTMLFormElement_length_Get(JsHandle);
-extern (C) JsHandle HTMLFormElement_getter__uint(JsHandle, uint);
-extern (C) SumType!(RadioNodeList, Element) HTMLFormElement_getter__string(JsHandle, string);
-extern (C) void HTMLFormElement_submit(JsHandle);
-extern (C) void HTMLFormElement_reset(JsHandle);
-extern (C) bool HTMLFormElement_checkValidity(JsHandle);
-extern (C) bool HTMLFormElement_reportValidity(JsHandle);
-extern (C) void HTMLFrameElement_name_Set(JsHandle, string);
-extern (C) string HTMLFrameElement_name_Get(JsHandle);
-extern (C) void HTMLFrameElement_scrolling_Set(JsHandle, string);
-extern (C) string HTMLFrameElement_scrolling_Get(JsHandle);
-extern (C) void HTMLFrameElement_src_Set(JsHandle, string);
-extern (C) string HTMLFrameElement_src_Get(JsHandle);
-extern (C) void HTMLFrameElement_frameBorder_Set(JsHandle, string);
-extern (C) string HTMLFrameElement_frameBorder_Get(JsHandle);
-extern (C) void HTMLFrameElement_longDesc_Set(JsHandle, string);
-extern (C) string HTMLFrameElement_longDesc_Get(JsHandle);
-extern (C) void HTMLFrameElement_noResize_Set(JsHandle, bool);
-extern (C) bool HTMLFrameElement_noResize_Get(JsHandle);
-extern (C) Optional!(Document) HTMLFrameElement_contentDocument_Get(JsHandle);
-extern (C) Optional!(Window) HTMLFrameElement_contentWindow_Get(JsHandle);
-extern (C) void HTMLFrameElement_marginHeight_Set(JsHandle, string);
-extern (C) string HTMLFrameElement_marginHeight_Get(JsHandle);
-extern (C) void HTMLFrameElement_marginWidth_Set(JsHandle, string);
-extern (C) string HTMLFrameElement_marginWidth_Get(JsHandle);
-extern (C) void HTMLFrameSetElement_cols_Set(JsHandle, string);
-extern (C) string HTMLFrameSetElement_cols_Get(JsHandle);
-extern (C) void HTMLFrameSetElement_rows_Set(JsHandle, string);
-extern (C) string HTMLFrameSetElement_rows_Get(JsHandle);
-extern (C) void HTMLHRElement_align_Set(JsHandle, string);
-extern (C) string HTMLHRElement_align_Get(JsHandle);
-extern (C) void HTMLHRElement_color_Set(JsHandle, string);
-extern (C) string HTMLHRElement_color_Get(JsHandle);
-extern (C) void HTMLHRElement_noShade_Set(JsHandle, bool);
-extern (C) bool HTMLHRElement_noShade_Get(JsHandle);
-extern (C) void HTMLHRElement_size_Set(JsHandle, string);
-extern (C) string HTMLHRElement_size_Get(JsHandle);
-extern (C) void HTMLHRElement_width_Set(JsHandle, string);
-extern (C) string HTMLHRElement_width_Get(JsHandle);
-extern (C) void HTMLHeadingElement_align_Set(JsHandle, string);
-extern (C) string HTMLHeadingElement_align_Get(JsHandle);
-extern (C) void HTMLHtmlElement_version_Set(JsHandle, string);
-extern (C) string HTMLHtmlElement_version_Get(JsHandle);
-extern (C) void HTMLHyperlinkElementUtils_href_Set(JsHandle, string);
-extern (C) string HTMLHyperlinkElementUtils_href_Get(JsHandle);
-extern (C) string HTMLHyperlinkElementUtils_origin_Get(JsHandle);
-extern (C) void HTMLIFrameElement_src_Set(JsHandle, string);
-extern (C) string HTMLIFrameElement_src_Get(JsHandle);
-extern (C) void HTMLIFrameElement_srcdoc_Set(JsHandle, string);
-extern (C) string HTMLIFrameElement_srcdoc_Get(JsHandle);
-extern (C) void HTMLIFrameElement_name_Set(JsHandle, string);
-extern (C) string HTMLIFrameElement_name_Get(JsHandle);
-extern (C) JsHandle HTMLIFrameElement_sandbox_Get(JsHandle);
-extern (C) void HTMLIFrameElement_allow_Set(JsHandle, string);
-extern (C) string HTMLIFrameElement_allow_Get(JsHandle);
-extern (C) void HTMLIFrameElement_allowFullscreen_Set(JsHandle, bool);
-extern (C) bool HTMLIFrameElement_allowFullscreen_Get(JsHandle);
-extern (C) void HTMLIFrameElement_allowPaymentRequest_Set(JsHandle, bool);
-extern (C) bool HTMLIFrameElement_allowPaymentRequest_Get(JsHandle);
-extern (C) void HTMLIFrameElement_width_Set(JsHandle, string);
-extern (C) string HTMLIFrameElement_width_Get(JsHandle);
-extern (C) void HTMLIFrameElement_height_Set(JsHandle, string);
-extern (C) string HTMLIFrameElement_height_Get(JsHandle);
-extern (C) void HTMLIFrameElement_referrerPolicy_Set(JsHandle, string);
-extern (C) string HTMLIFrameElement_referrerPolicy_Get(JsHandle);
-extern (C) Optional!(Document) HTMLIFrameElement_contentDocument_Get(JsHandle);
-extern (C) Optional!(Window) HTMLIFrameElement_contentWindow_Get(JsHandle);
-extern (C) Optional!(Document) HTMLIFrameElement_getSVGDocument(JsHandle);
-extern (C) void HTMLIFrameElement_align_Set(JsHandle, string);
-extern (C) string HTMLIFrameElement_align_Get(JsHandle);
-extern (C) void HTMLIFrameElement_scrolling_Set(JsHandle, string);
-extern (C) string HTMLIFrameElement_scrolling_Get(JsHandle);
-extern (C) void HTMLIFrameElement_frameBorder_Set(JsHandle, string);
-extern (C) string HTMLIFrameElement_frameBorder_Get(JsHandle);
-extern (C) void HTMLIFrameElement_longDesc_Set(JsHandle, string);
-extern (C) string HTMLIFrameElement_longDesc_Get(JsHandle);
-extern (C) void HTMLIFrameElement_marginHeight_Set(JsHandle, string);
-extern (C) string HTMLIFrameElement_marginHeight_Get(JsHandle);
-extern (C) void HTMLIFrameElement_marginWidth_Set(JsHandle, string);
-extern (C) string HTMLIFrameElement_marginWidth_Get(JsHandle);
-extern (C) void HTMLImageElement_alt_Set(JsHandle, string);
-extern (C) string HTMLImageElement_alt_Get(JsHandle);
-extern (C) void HTMLImageElement_src_Set(JsHandle, string);
-extern (C) string HTMLImageElement_src_Get(JsHandle);
-extern (C) void HTMLImageElement_srcset_Set(JsHandle, string);
-extern (C) string HTMLImageElement_srcset_Get(JsHandle);
-extern (C) void HTMLImageElement_sizes_Set(JsHandle, string);
-extern (C) string HTMLImageElement_sizes_Get(JsHandle);
-extern (C) void HTMLImageElement_crossOrigin_Set(JsHandle, bool, string);
-extern (C) Optional!(string) HTMLImageElement_crossOrigin_Get(JsHandle);
-extern (C) void HTMLImageElement_useMap_Set(JsHandle, string);
-extern (C) string HTMLImageElement_useMap_Get(JsHandle);
-extern (C) void HTMLImageElement_isMap_Set(JsHandle, bool);
-extern (C) bool HTMLImageElement_isMap_Get(JsHandle);
-extern (C) void HTMLImageElement_width_Set(JsHandle, uint);
-extern (C) uint HTMLImageElement_width_Get(JsHandle);
-extern (C) void HTMLImageElement_height_Set(JsHandle, uint);
-extern (C) uint HTMLImageElement_height_Get(JsHandle);
-extern (C) uint HTMLImageElement_naturalWidth_Get(JsHandle);
-extern (C) uint HTMLImageElement_naturalHeight_Get(JsHandle);
-extern (C) bool HTMLImageElement_complete_Get(JsHandle);
-extern (C) string HTMLImageElement_currentSrc_Get(JsHandle);
-extern (C) void HTMLImageElement_referrerPolicy_Set(JsHandle, string);
-extern (C) string HTMLImageElement_referrerPolicy_Get(JsHandle);
-extern (C) void HTMLImageElement_decoding_Set(JsHandle, string);
-extern (C) string HTMLImageElement_decoding_Get(JsHandle);
-extern (C) JsHandle HTMLImageElement_decode(JsHandle);
-extern (C) void HTMLImageElement_name_Set(JsHandle, string);
-extern (C) string HTMLImageElement_name_Get(JsHandle);
-extern (C) void HTMLImageElement_lowsrc_Set(JsHandle, string);
-extern (C) string HTMLImageElement_lowsrc_Get(JsHandle);
-extern (C) void HTMLImageElement_align_Set(JsHandle, string);
-extern (C) string HTMLImageElement_align_Get(JsHandle);
-extern (C) void HTMLImageElement_hspace_Set(JsHandle, uint);
-extern (C) uint HTMLImageElement_hspace_Get(JsHandle);
-extern (C) void HTMLImageElement_vspace_Set(JsHandle, uint);
-extern (C) uint HTMLImageElement_vspace_Get(JsHandle);
-extern (C) void HTMLImageElement_longDesc_Set(JsHandle, string);
-extern (C) string HTMLImageElement_longDesc_Get(JsHandle);
-extern (C) void HTMLImageElement_border_Set(JsHandle, string);
-extern (C) string HTMLImageElement_border_Get(JsHandle);
-extern (C) void HTMLInputElement_accept_Set(JsHandle, string);
-extern (C) string HTMLInputElement_accept_Get(JsHandle);
-extern (C) void HTMLInputElement_alt_Set(JsHandle, string);
-extern (C) string HTMLInputElement_alt_Get(JsHandle);
-extern (C) void HTMLInputElement_autocomplete_Set(JsHandle, string);
-extern (C) string HTMLInputElement_autocomplete_Get(JsHandle);
-extern (C) void HTMLInputElement_autofocus_Set(JsHandle, bool);
-extern (C) bool HTMLInputElement_autofocus_Get(JsHandle);
-extern (C) void HTMLInputElement_defaultChecked_Set(JsHandle, bool);
-extern (C) bool HTMLInputElement_defaultChecked_Get(JsHandle);
-extern (C) void HTMLInputElement_checked_Set(JsHandle, bool);
-extern (C) bool HTMLInputElement_checked_Get(JsHandle);
-extern (C) void HTMLInputElement_dirName_Set(JsHandle, string);
-extern (C) string HTMLInputElement_dirName_Get(JsHandle);
-extern (C) void HTMLInputElement_disabled_Set(JsHandle, bool);
-extern (C) bool HTMLInputElement_disabled_Get(JsHandle);
-extern (C) Optional!(HTMLFormElement) HTMLInputElement_form_Get(JsHandle);
-extern (C) void HTMLInputElement_files_Set(JsHandle, bool, JsHandle);
-extern (C) Optional!(FileList) HTMLInputElement_files_Get(JsHandle);
-extern (C) void HTMLInputElement_formAction_Set(JsHandle, string);
-extern (C) string HTMLInputElement_formAction_Get(JsHandle);
-extern (C) void HTMLInputElement_formEnctype_Set(JsHandle, string);
-extern (C) string HTMLInputElement_formEnctype_Get(JsHandle);
-extern (C) void HTMLInputElement_formMethod_Set(JsHandle, string);
-extern (C) string HTMLInputElement_formMethod_Get(JsHandle);
-extern (C) void HTMLInputElement_formNoValidate_Set(JsHandle, bool);
-extern (C) bool HTMLInputElement_formNoValidate_Get(JsHandle);
-extern (C) void HTMLInputElement_formTarget_Set(JsHandle, string);
-extern (C) string HTMLInputElement_formTarget_Get(JsHandle);
-extern (C) void HTMLInputElement_height_Set(JsHandle, uint);
-extern (C) uint HTMLInputElement_height_Get(JsHandle);
-extern (C) void HTMLInputElement_indeterminate_Set(JsHandle, bool);
-extern (C) bool HTMLInputElement_indeterminate_Get(JsHandle);
-extern (C) Optional!(HTMLElement) HTMLInputElement_list_Get(JsHandle);
-extern (C) void HTMLInputElement_max_Set(JsHandle, string);
-extern (C) string HTMLInputElement_max_Get(JsHandle);
-extern (C) void HTMLInputElement_maxLength_Set(JsHandle, int);
-extern (C) int HTMLInputElement_maxLength_Get(JsHandle);
-extern (C) void HTMLInputElement_min_Set(JsHandle, string);
-extern (C) string HTMLInputElement_min_Get(JsHandle);
-extern (C) void HTMLInputElement_minLength_Set(JsHandle, int);
-extern (C) int HTMLInputElement_minLength_Get(JsHandle);
-extern (C) void HTMLInputElement_multiple_Set(JsHandle, bool);
-extern (C) bool HTMLInputElement_multiple_Get(JsHandle);
-extern (C) void HTMLInputElement_name_Set(JsHandle, string);
-extern (C) string HTMLInputElement_name_Get(JsHandle);
-extern (C) void HTMLInputElement_pattern_Set(JsHandle, string);
-extern (C) string HTMLInputElement_pattern_Get(JsHandle);
-extern (C) void HTMLInputElement_placeholder_Set(JsHandle, string);
-extern (C) string HTMLInputElement_placeholder_Get(JsHandle);
-extern (C) void HTMLInputElement_readOnly_Set(JsHandle, bool);
-extern (C) bool HTMLInputElement_readOnly_Get(JsHandle);
-extern (C) void HTMLInputElement_required_Set(JsHandle, bool);
-extern (C) bool HTMLInputElement_required_Get(JsHandle);
-extern (C) void HTMLInputElement_size_Set(JsHandle, uint);
-extern (C) uint HTMLInputElement_size_Get(JsHandle);
-extern (C) void HTMLInputElement_src_Set(JsHandle, string);
-extern (C) string HTMLInputElement_src_Get(JsHandle);
-extern (C) void HTMLInputElement_step_Set(JsHandle, string);
-extern (C) string HTMLInputElement_step_Get(JsHandle);
-extern (C) void HTMLInputElement_type_Set(JsHandle, string);
-extern (C) string HTMLInputElement_type_Get(JsHandle);
-extern (C) void HTMLInputElement_defaultValue_Set(JsHandle, string);
-extern (C) string HTMLInputElement_defaultValue_Get(JsHandle);
-extern (C) void HTMLInputElement_value_Set(JsHandle, string);
-extern (C) string HTMLInputElement_value_Get(JsHandle);
-extern (C) void HTMLInputElement_valueAsDate_Set(JsHandle, bool, JsHandle);
-extern (C) Optional!(JsObject) HTMLInputElement_valueAsDate_Get(JsHandle);
-extern (C) void HTMLInputElement_valueAsNumber_Set(JsHandle, double);
-extern (C) double HTMLInputElement_valueAsNumber_Get(JsHandle);
-extern (C) void HTMLInputElement_width_Set(JsHandle, uint);
-extern (C) uint HTMLInputElement_width_Get(JsHandle);
-extern (C) void HTMLInputElement_stepUp(JsHandle, int);
-extern (C) void HTMLInputElement_stepDown(JsHandle, int);
-extern (C) bool HTMLInputElement_willValidate_Get(JsHandle);
-extern (C) JsHandle HTMLInputElement_validity_Get(JsHandle);
-extern (C) string HTMLInputElement_validationMessage_Get(JsHandle);
-extern (C) bool HTMLInputElement_checkValidity(JsHandle);
-extern (C) bool HTMLInputElement_reportValidity(JsHandle);
-extern (C) void HTMLInputElement_setCustomValidity(JsHandle, string);
-extern (C) Optional!(NodeList) HTMLInputElement_labels_Get(JsHandle);
-extern (C) void HTMLInputElement_select(JsHandle);
-extern (C) void HTMLInputElement_selectionStart_Set(JsHandle, bool, uint);
-extern (C) Optional!(uint) HTMLInputElement_selectionStart_Get(JsHandle);
-extern (C) void HTMLInputElement_selectionEnd_Set(JsHandle, bool, uint);
-extern (C) Optional!(uint) HTMLInputElement_selectionEnd_Get(JsHandle);
-extern (C) void HTMLInputElement_selectionDirection_Set(JsHandle, bool, string);
-extern (C) Optional!(string) HTMLInputElement_selectionDirection_Get(JsHandle);
-extern (C) void HTMLInputElement_setRangeText__string(JsHandle, string);
-extern (C) void HTMLInputElement_setRangeText__string_uint_uint_SelectionMode(JsHandle, string, uint, uint, SelectionMode);
-extern (C) void HTMLInputElement_setSelectionRange(JsHandle, uint, uint, string);
-extern (C) void HTMLInputElement_align_Set(JsHandle, string);
-extern (C) string HTMLInputElement_align_Get(JsHandle);
-extern (C) void HTMLInputElement_useMap_Set(JsHandle, string);
-extern (C) string HTMLInputElement_useMap_Get(JsHandle);
-extern (C) void HTMLLIElement_value_Set(JsHandle, int);
-extern (C) int HTMLLIElement_value_Get(JsHandle);
-extern (C) void HTMLLIElement_type_Set(JsHandle, string);
-extern (C) string HTMLLIElement_type_Get(JsHandle);
-extern (C) Optional!(HTMLFormElement) HTMLLabelElement_form_Get(JsHandle);
-extern (C) void HTMLLabelElement_htmlFor_Set(JsHandle, string);
-extern (C) string HTMLLabelElement_htmlFor_Get(JsHandle);
-extern (C) Optional!(HTMLElement) HTMLLabelElement_control_Get(JsHandle);
-extern (C) Optional!(HTMLFormElement) HTMLLegendElement_form_Get(JsHandle);
-extern (C) void HTMLLegendElement_align_Set(JsHandle, string);
-extern (C) string HTMLLegendElement_align_Get(JsHandle);
-extern (C) void HTMLLinkElement_href_Set(JsHandle, string);
-extern (C) string HTMLLinkElement_href_Get(JsHandle);
-extern (C) void HTMLLinkElement_crossOrigin_Set(JsHandle, bool, string);
-extern (C) Optional!(string) HTMLLinkElement_crossOrigin_Get(JsHandle);
-extern (C) void HTMLLinkElement_rel_Set(JsHandle, string);
-extern (C) string HTMLLinkElement_rel_Get(JsHandle);
-extern (C) void HTMLLinkElement_as_Set(JsHandle, string);
-extern (C) string HTMLLinkElement_as_Get(JsHandle);
-extern (C) JsHandle HTMLLinkElement_relList_Get(JsHandle);
-extern (C) void HTMLLinkElement_media_Set(JsHandle, string);
-extern (C) string HTMLLinkElement_media_Get(JsHandle);
-extern (C) void HTMLLinkElement_integrity_Set(JsHandle, string);
-extern (C) string HTMLLinkElement_integrity_Get(JsHandle);
-extern (C) void HTMLLinkElement_hreflang_Set(JsHandle, string);
-extern (C) string HTMLLinkElement_hreflang_Get(JsHandle);
-extern (C) void HTMLLinkElement_type_Set(JsHandle, string);
-extern (C) string HTMLLinkElement_type_Get(JsHandle);
-extern (C) JsHandle HTMLLinkElement_sizes_Get(JsHandle);
-extern (C) void HTMLLinkElement_referrerPolicy_Set(JsHandle, string);
-extern (C) string HTMLLinkElement_referrerPolicy_Get(JsHandle);
-extern (C) void HTMLLinkElement_charset_Set(JsHandle, string);
-extern (C) string HTMLLinkElement_charset_Get(JsHandle);
-extern (C) void HTMLLinkElement_rev_Set(JsHandle, string);
-extern (C) string HTMLLinkElement_rev_Get(JsHandle);
-extern (C) void HTMLLinkElement_target_Set(JsHandle, string);
-extern (C) string HTMLLinkElement_target_Get(JsHandle);
-extern (C) void HTMLMapElement_name_Set(JsHandle, string);
-extern (C) string HTMLMapElement_name_Get(JsHandle);
-extern (C) JsHandle HTMLMapElement_areas_Get(JsHandle);
-extern (C) void HTMLMarqueeElement_behavior_Set(JsHandle, string);
-extern (C) string HTMLMarqueeElement_behavior_Get(JsHandle);
-extern (C) void HTMLMarqueeElement_bgColor_Set(JsHandle, string);
-extern (C) string HTMLMarqueeElement_bgColor_Get(JsHandle);
-extern (C) void HTMLMarqueeElement_direction_Set(JsHandle, string);
-extern (C) string HTMLMarqueeElement_direction_Get(JsHandle);
-extern (C) void HTMLMarqueeElement_height_Set(JsHandle, string);
-extern (C) string HTMLMarqueeElement_height_Get(JsHandle);
-extern (C) void HTMLMarqueeElement_hspace_Set(JsHandle, uint);
-extern (C) uint HTMLMarqueeElement_hspace_Get(JsHandle);
-extern (C) void HTMLMarqueeElement_loop_Set(JsHandle, int);
-extern (C) int HTMLMarqueeElement_loop_Get(JsHandle);
-extern (C) void HTMLMarqueeElement_scrollAmount_Set(JsHandle, uint);
-extern (C) uint HTMLMarqueeElement_scrollAmount_Get(JsHandle);
-extern (C) void HTMLMarqueeElement_scrollDelay_Set(JsHandle, uint);
-extern (C) uint HTMLMarqueeElement_scrollDelay_Get(JsHandle);
-extern (C) void HTMLMarqueeElement_trueSpeed_Set(JsHandle, bool);
-extern (C) bool HTMLMarqueeElement_trueSpeed_Get(JsHandle);
-extern (C) void HTMLMarqueeElement_vspace_Set(JsHandle, uint);
-extern (C) uint HTMLMarqueeElement_vspace_Get(JsHandle);
-extern (C) void HTMLMarqueeElement_width_Set(JsHandle, string);
-extern (C) string HTMLMarqueeElement_width_Get(JsHandle);
-extern (C) void HTMLMarqueeElement_onbounce_Set(JsHandle, EventHandler);
-extern (C) EventHandler HTMLMarqueeElement_onbounce_Get(JsHandle);
-extern (C) void HTMLMarqueeElement_onfinish_Set(JsHandle, EventHandler);
-extern (C) EventHandler HTMLMarqueeElement_onfinish_Get(JsHandle);
-extern (C) void HTMLMarqueeElement_onstart_Set(JsHandle, EventHandler);
-extern (C) EventHandler HTMLMarqueeElement_onstart_Get(JsHandle);
-extern (C) void HTMLMarqueeElement_start(JsHandle);
-extern (C) void HTMLMarqueeElement_stop(JsHandle);
-extern (C) Optional!(MediaError) HTMLMediaElement_error_Get(JsHandle);
-extern (C) void HTMLMediaElement_src_Set(JsHandle, string);
-extern (C) string HTMLMediaElement_src_Get(JsHandle);
-extern (C) void HTMLMediaElement_srcObject_Set(JsHandle, bool, MediaProvider);
-extern (C) Optional!(MediaProvider) HTMLMediaElement_srcObject_Get(JsHandle);
-extern (C) string HTMLMediaElement_currentSrc_Get(JsHandle);
-extern (C) void HTMLMediaElement_crossOrigin_Set(JsHandle, bool, string);
-extern (C) Optional!(string) HTMLMediaElement_crossOrigin_Get(JsHandle);
-extern (C) ushort HTMLMediaElement_networkState_Get(JsHandle);
-extern (C) void HTMLMediaElement_preload_Set(JsHandle, string);
-extern (C) string HTMLMediaElement_preload_Get(JsHandle);
-extern (C) JsHandle HTMLMediaElement_buffered_Get(JsHandle);
-extern (C) void HTMLMediaElement_load(JsHandle);
-extern (C) CanPlayTypeResult HTMLMediaElement_canPlayType(JsHandle, string);
-extern (C) ushort HTMLMediaElement_readyState_Get(JsHandle);
-extern (C) bool HTMLMediaElement_seeking_Get(JsHandle);
-extern (C) void HTMLMediaElement_currentTime_Set(JsHandle, double);
-extern (C) double HTMLMediaElement_currentTime_Get(JsHandle);
-extern (C) void HTMLMediaElement_fastSeek(JsHandle, double);
-extern (C) double HTMLMediaElement_duration_Get(JsHandle);
-extern (C) JsHandle HTMLMediaElement_getStartDate(JsHandle);
-extern (C) bool HTMLMediaElement_paused_Get(JsHandle);
-extern (C) void HTMLMediaElement_defaultPlaybackRate_Set(JsHandle, double);
-extern (C) double HTMLMediaElement_defaultPlaybackRate_Get(JsHandle);
-extern (C) void HTMLMediaElement_playbackRate_Set(JsHandle, double);
-extern (C) double HTMLMediaElement_playbackRate_Get(JsHandle);
-extern (C) JsHandle HTMLMediaElement_played_Get(JsHandle);
-extern (C) JsHandle HTMLMediaElement_seekable_Get(JsHandle);
-extern (C) bool HTMLMediaElement_ended_Get(JsHandle);
-extern (C) void HTMLMediaElement_autoplay_Set(JsHandle, bool);
-extern (C) bool HTMLMediaElement_autoplay_Get(JsHandle);
-extern (C) void HTMLMediaElement_loop_Set(JsHandle, bool);
-extern (C) bool HTMLMediaElement_loop_Get(JsHandle);
-extern (C) JsHandle HTMLMediaElement_play(JsHandle);
-extern (C) void HTMLMediaElement_pause(JsHandle);
-extern (C) void HTMLMediaElement_controls_Set(JsHandle, bool);
-extern (C) bool HTMLMediaElement_controls_Get(JsHandle);
-extern (C) void HTMLMediaElement_volume_Set(JsHandle, double);
-extern (C) double HTMLMediaElement_volume_Get(JsHandle);
-extern (C) void HTMLMediaElement_muted_Set(JsHandle, bool);
-extern (C) bool HTMLMediaElement_muted_Get(JsHandle);
-extern (C) void HTMLMediaElement_defaultMuted_Set(JsHandle, bool);
-extern (C) bool HTMLMediaElement_defaultMuted_Get(JsHandle);
-extern (C) JsHandle HTMLMediaElement_audioTracks_Get(JsHandle);
-extern (C) JsHandle HTMLMediaElement_videoTracks_Get(JsHandle);
-extern (C) JsHandle HTMLMediaElement_textTracks_Get(JsHandle);
-extern (C) JsHandle HTMLMediaElement_addTextTrack(JsHandle, TextTrackKind, string, string);
-extern (C) void HTMLMenuElement_compact_Set(JsHandle, bool);
-extern (C) bool HTMLMenuElement_compact_Get(JsHandle);
-extern (C) void HTMLMetaElement_name_Set(JsHandle, string);
-extern (C) string HTMLMetaElement_name_Get(JsHandle);
-extern (C) void HTMLMetaElement_httpEquiv_Set(JsHandle, string);
-extern (C) string HTMLMetaElement_httpEquiv_Get(JsHandle);
-extern (C) void HTMLMetaElement_content_Set(JsHandle, string);
-extern (C) string HTMLMetaElement_content_Get(JsHandle);
-extern (C) void HTMLMetaElement_scheme_Set(JsHandle, string);
-extern (C) string HTMLMetaElement_scheme_Get(JsHandle);
-extern (C) void HTMLMeterElement_value_Set(JsHandle, double);
-extern (C) double HTMLMeterElement_value_Get(JsHandle);
-extern (C) void HTMLMeterElement_min_Set(JsHandle, double);
-extern (C) double HTMLMeterElement_min_Get(JsHandle);
-extern (C) void HTMLMeterElement_max_Set(JsHandle, double);
-extern (C) double HTMLMeterElement_max_Get(JsHandle);
-extern (C) void HTMLMeterElement_low_Set(JsHandle, double);
-extern (C) double HTMLMeterElement_low_Get(JsHandle);
-extern (C) void HTMLMeterElement_high_Set(JsHandle, double);
-extern (C) double HTMLMeterElement_high_Get(JsHandle);
-extern (C) void HTMLMeterElement_optimum_Set(JsHandle, double);
-extern (C) double HTMLMeterElement_optimum_Get(JsHandle);
-extern (C) JsHandle HTMLMeterElement_labels_Get(JsHandle);
-extern (C) void HTMLModElement_cite_Set(JsHandle, string);
-extern (C) string HTMLModElement_cite_Get(JsHandle);
-extern (C) void HTMLModElement_dateTime_Set(JsHandle, string);
-extern (C) string HTMLModElement_dateTime_Get(JsHandle);
-extern (C) void HTMLOListElement_reversed_Set(JsHandle, bool);
-extern (C) bool HTMLOListElement_reversed_Get(JsHandle);
-extern (C) void HTMLOListElement_start_Set(JsHandle, int);
-extern (C) int HTMLOListElement_start_Get(JsHandle);
-extern (C) void HTMLOListElement_type_Set(JsHandle, string);
-extern (C) string HTMLOListElement_type_Get(JsHandle);
-extern (C) void HTMLOListElement_compact_Set(JsHandle, bool);
-extern (C) bool HTMLOListElement_compact_Get(JsHandle);
-extern (C) void HTMLObjectElement_data_Set(JsHandle, string);
-extern (C) string HTMLObjectElement_data_Get(JsHandle);
-extern (C) void HTMLObjectElement_type_Set(JsHandle, string);
-extern (C) string HTMLObjectElement_type_Get(JsHandle);
-extern (C) void HTMLObjectElement_typeMustMatch_Set(JsHandle, bool);
-extern (C) bool HTMLObjectElement_typeMustMatch_Get(JsHandle);
-extern (C) void HTMLObjectElement_name_Set(JsHandle, string);
-extern (C) string HTMLObjectElement_name_Get(JsHandle);
-extern (C) void HTMLObjectElement_useMap_Set(JsHandle, string);
-extern (C) string HTMLObjectElement_useMap_Get(JsHandle);
-extern (C) Optional!(HTMLFormElement) HTMLObjectElement_form_Get(JsHandle);
-extern (C) void HTMLObjectElement_width_Set(JsHandle, string);
-extern (C) string HTMLObjectElement_width_Get(JsHandle);
-extern (C) void HTMLObjectElement_height_Set(JsHandle, string);
-extern (C) string HTMLObjectElement_height_Get(JsHandle);
-extern (C) Optional!(Document) HTMLObjectElement_contentDocument_Get(JsHandle);
-extern (C) Optional!(Window) HTMLObjectElement_contentWindow_Get(JsHandle);
-extern (C) Optional!(Document) HTMLObjectElement_getSVGDocument(JsHandle);
-extern (C) bool HTMLObjectElement_willValidate_Get(JsHandle);
-extern (C) JsHandle HTMLObjectElement_validity_Get(JsHandle);
-extern (C) string HTMLObjectElement_validationMessage_Get(JsHandle);
-extern (C) bool HTMLObjectElement_checkValidity(JsHandle);
-extern (C) bool HTMLObjectElement_reportValidity(JsHandle);
-extern (C) void HTMLObjectElement_setCustomValidity(JsHandle, string);
-extern (C) void HTMLObjectElement_align_Set(JsHandle, string);
-extern (C) string HTMLObjectElement_align_Get(JsHandle);
-extern (C) void HTMLObjectElement_archive_Set(JsHandle, string);
-extern (C) string HTMLObjectElement_archive_Get(JsHandle);
-extern (C) void HTMLObjectElement_code_Set(JsHandle, string);
-extern (C) string HTMLObjectElement_code_Get(JsHandle);
-extern (C) void HTMLObjectElement_declare_Set(JsHandle, bool);
-extern (C) bool HTMLObjectElement_declare_Get(JsHandle);
-extern (C) void HTMLObjectElement_hspace_Set(JsHandle, uint);
-extern (C) uint HTMLObjectElement_hspace_Get(JsHandle);
-extern (C) void HTMLObjectElement_standby_Set(JsHandle, string);
-extern (C) string HTMLObjectElement_standby_Get(JsHandle);
-extern (C) void HTMLObjectElement_vspace_Set(JsHandle, uint);
-extern (C) uint HTMLObjectElement_vspace_Get(JsHandle);
-extern (C) void HTMLObjectElement_codeBase_Set(JsHandle, string);
-extern (C) string HTMLObjectElement_codeBase_Get(JsHandle);
-extern (C) void HTMLObjectElement_codeType_Set(JsHandle, string);
-extern (C) string HTMLObjectElement_codeType_Get(JsHandle);
-extern (C) void HTMLObjectElement_border_Set(JsHandle, string);
-extern (C) string HTMLObjectElement_border_Get(JsHandle);
-extern (C) void HTMLOptGroupElement_disabled_Set(JsHandle, bool);
-extern (C) bool HTMLOptGroupElement_disabled_Get(JsHandle);
-extern (C) void HTMLOptGroupElement_label_Set(JsHandle, string);
-extern (C) string HTMLOptGroupElement_label_Get(JsHandle);
-extern (C) void HTMLOptionElement_disabled_Set(JsHandle, bool);
-extern (C) bool HTMLOptionElement_disabled_Get(JsHandle);
-extern (C) Optional!(HTMLFormElement) HTMLOptionElement_form_Get(JsHandle);
-extern (C) void HTMLOptionElement_label_Set(JsHandle, string);
-extern (C) string HTMLOptionElement_label_Get(JsHandle);
-extern (C) void HTMLOptionElement_defaultSelected_Set(JsHandle, bool);
-extern (C) bool HTMLOptionElement_defaultSelected_Get(JsHandle);
-extern (C) void HTMLOptionElement_selected_Set(JsHandle, bool);
-extern (C) bool HTMLOptionElement_selected_Get(JsHandle);
-extern (C) void HTMLOptionElement_value_Set(JsHandle, string);
-extern (C) string HTMLOptionElement_value_Get(JsHandle);
-extern (C) void HTMLOptionElement_text_Set(JsHandle, string);
-extern (C) string HTMLOptionElement_text_Get(JsHandle);
-extern (C) int HTMLOptionElement_index_Get(JsHandle);
-extern (C) void HTMLOptionsCollection_length_Set(JsHandle, uint);
-extern (C) uint HTMLOptionsCollection_length_Get(JsHandle);
-extern (C) void HTMLOptionsCollection_setter__uint_optional_JsHandle(JsHandle, uint, bool, JsHandle);
-extern (C) void HTMLOptionsCollection_add(JsHandle, SumType!(HTMLOptionElement, HTMLOptGroupElement), bool, SumType!(HTMLElement, int));
-extern (C) void HTMLOptionsCollection_remove(JsHandle, int);
-extern (C) void HTMLOptionsCollection_selectedIndex_Set(JsHandle, int);
-extern (C) int HTMLOptionsCollection_selectedIndex_Get(JsHandle);
-extern (C) JsHandle HTMLOrSVGElement_dataset_Get(JsHandle);
-extern (C) void HTMLOrSVGElement_focus(JsHandle, JsHandle);
-extern (C) void HTMLOrSVGElement_blur(JsHandle);
-extern (C) JsHandle HTMLOutputElement_htmlFor_Get(JsHandle);
-extern (C) Optional!(HTMLFormElement) HTMLOutputElement_form_Get(JsHandle);
-extern (C) void HTMLOutputElement_name_Set(JsHandle, string);
-extern (C) string HTMLOutputElement_name_Get(JsHandle);
-extern (C) string HTMLOutputElement_type_Get(JsHandle);
-extern (C) void HTMLOutputElement_defaultValue_Set(JsHandle, string);
-extern (C) string HTMLOutputElement_defaultValue_Get(JsHandle);
-extern (C) void HTMLOutputElement_value_Set(JsHandle, string);
-extern (C) string HTMLOutputElement_value_Get(JsHandle);
-extern (C) bool HTMLOutputElement_willValidate_Get(JsHandle);
-extern (C) JsHandle HTMLOutputElement_validity_Get(JsHandle);
-extern (C) string HTMLOutputElement_validationMessage_Get(JsHandle);
-extern (C) bool HTMLOutputElement_checkValidity(JsHandle);
-extern (C) bool HTMLOutputElement_reportValidity(JsHandle);
-extern (C) void HTMLOutputElement_setCustomValidity(JsHandle, string);
-extern (C) JsHandle HTMLOutputElement_labels_Get(JsHandle);
-extern (C) void HTMLParagraphElement_align_Set(JsHandle, string);
-extern (C) string HTMLParagraphElement_align_Get(JsHandle);
-extern (C) void HTMLParamElement_name_Set(JsHandle, string);
-extern (C) string HTMLParamElement_name_Get(JsHandle);
-extern (C) void HTMLParamElement_value_Set(JsHandle, string);
-extern (C) string HTMLParamElement_value_Get(JsHandle);
-extern (C) void HTMLParamElement_type_Set(JsHandle, string);
-extern (C) string HTMLParamElement_type_Get(JsHandle);
-extern (C) void HTMLParamElement_valueType_Set(JsHandle, string);
-extern (C) string HTMLParamElement_valueType_Get(JsHandle);
-extern (C) void HTMLPreElement_width_Set(JsHandle, int);
-extern (C) int HTMLPreElement_width_Get(JsHandle);
-extern (C) void HTMLProgressElement_value_Set(JsHandle, double);
-extern (C) double HTMLProgressElement_value_Get(JsHandle);
-extern (C) void HTMLProgressElement_max_Set(JsHandle, double);
-extern (C) double HTMLProgressElement_max_Get(JsHandle);
-extern (C) double HTMLProgressElement_position_Get(JsHandle);
-extern (C) JsHandle HTMLProgressElement_labels_Get(JsHandle);
-extern (C) void HTMLQuoteElement_cite_Set(JsHandle, string);
-extern (C) string HTMLQuoteElement_cite_Get(JsHandle);
-extern (C) void HTMLScriptElement_src_Set(JsHandle, string);
-extern (C) string HTMLScriptElement_src_Get(JsHandle);
-extern (C) void HTMLScriptElement_type_Set(JsHandle, string);
-extern (C) string HTMLScriptElement_type_Get(JsHandle);
-extern (C) void HTMLScriptElement_noModule_Set(JsHandle, bool);
-extern (C) bool HTMLScriptElement_noModule_Get(JsHandle);
-extern (C) void HTMLScriptElement_async_Set(JsHandle, bool);
-extern (C) bool HTMLScriptElement_async_Get(JsHandle);
-extern (C) void HTMLScriptElement_defer_Set(JsHandle, bool);
-extern (C) bool HTMLScriptElement_defer_Get(JsHandle);
-extern (C) void HTMLScriptElement_crossOrigin_Set(JsHandle, bool, string);
-extern (C) Optional!(string) HTMLScriptElement_crossOrigin_Get(JsHandle);
-extern (C) void HTMLScriptElement_text_Set(JsHandle, string);
-extern (C) string HTMLScriptElement_text_Get(JsHandle);
-extern (C) void HTMLScriptElement_integrity_Set(JsHandle, string);
-extern (C) string HTMLScriptElement_integrity_Get(JsHandle);
-extern (C) void HTMLScriptElement_referrerPolicy_Set(JsHandle, string);
-extern (C) string HTMLScriptElement_referrerPolicy_Get(JsHandle);
-extern (C) void HTMLScriptElement_charset_Set(JsHandle, string);
-extern (C) string HTMLScriptElement_charset_Get(JsHandle);
-extern (C) void HTMLScriptElement_event_Set(JsHandle, string);
-extern (C) string HTMLScriptElement_event_Get(JsHandle);
-extern (C) void HTMLScriptElement_htmlFor_Set(JsHandle, string);
-extern (C) string HTMLScriptElement_htmlFor_Get(JsHandle);
-extern (C) void HTMLSelectElement_autocomplete_Set(JsHandle, string);
-extern (C) string HTMLSelectElement_autocomplete_Get(JsHandle);
-extern (C) void HTMLSelectElement_autofocus_Set(JsHandle, bool);
-extern (C) bool HTMLSelectElement_autofocus_Get(JsHandle);
-extern (C) void HTMLSelectElement_disabled_Set(JsHandle, bool);
-extern (C) bool HTMLSelectElement_disabled_Get(JsHandle);
-extern (C) Optional!(HTMLFormElement) HTMLSelectElement_form_Get(JsHandle);
-extern (C) void HTMLSelectElement_multiple_Set(JsHandle, bool);
-extern (C) bool HTMLSelectElement_multiple_Get(JsHandle);
-extern (C) void HTMLSelectElement_name_Set(JsHandle, string);
-extern (C) string HTMLSelectElement_name_Get(JsHandle);
-extern (C) void HTMLSelectElement_required_Set(JsHandle, bool);
-extern (C) bool HTMLSelectElement_required_Get(JsHandle);
-extern (C) void HTMLSelectElement_size_Set(JsHandle, uint);
-extern (C) uint HTMLSelectElement_size_Get(JsHandle);
-extern (C) string HTMLSelectElement_type_Get(JsHandle);
-extern (C) JsHandle HTMLSelectElement_options_Get(JsHandle);
-extern (C) void HTMLSelectElement_length_Set(JsHandle, uint);
-extern (C) uint HTMLSelectElement_length_Get(JsHandle);
-extern (C) Optional!(Element) HTMLSelectElement_item_getter(JsHandle, uint);
-extern (C) Optional!(HTMLOptionElement) HTMLSelectElement_namedItem(JsHandle, string);
-extern (C) void HTMLSelectElement_add(JsHandle, SumType!(HTMLOptionElement, HTMLOptGroupElement), bool, SumType!(HTMLElement, int));
-extern (C) void HTMLSelectElement_remove__(JsHandle);
-extern (C) void HTMLSelectElement_remove__int(JsHandle, int);
-extern (C) void HTMLSelectElement_setter__uint_optional_JsHandle(JsHandle, uint, bool, JsHandle);
-extern (C) JsHandle HTMLSelectElement_selectedOptions_Get(JsHandle);
-extern (C) void HTMLSelectElement_selectedIndex_Set(JsHandle, int);
-extern (C) int HTMLSelectElement_selectedIndex_Get(JsHandle);
-extern (C) void HTMLSelectElement_value_Set(JsHandle, string);
-extern (C) string HTMLSelectElement_value_Get(JsHandle);
-extern (C) bool HTMLSelectElement_willValidate_Get(JsHandle);
-extern (C) JsHandle HTMLSelectElement_validity_Get(JsHandle);
-extern (C) string HTMLSelectElement_validationMessage_Get(JsHandle);
-extern (C) bool HTMLSelectElement_checkValidity(JsHandle);
-extern (C) bool HTMLSelectElement_reportValidity(JsHandle);
-extern (C) void HTMLSelectElement_setCustomValidity(JsHandle, string);
-extern (C) JsHandle HTMLSelectElement_labels_Get(JsHandle);
-extern (C) void HTMLSlotElement_name_Set(JsHandle, string);
-extern (C) string HTMLSlotElement_name_Get(JsHandle);
-extern (C) JsHandle HTMLSlotElement_assignedNodes(JsHandle, JsHandle);
-extern (C) JsHandle HTMLSlotElement_assignedElements(JsHandle, JsHandle);
-extern (C) void HTMLSourceElement_src_Set(JsHandle, string);
-extern (C) string HTMLSourceElement_src_Get(JsHandle);
-extern (C) void HTMLSourceElement_type_Set(JsHandle, string);
-extern (C) string HTMLSourceElement_type_Get(JsHandle);
-extern (C) void HTMLSourceElement_srcset_Set(JsHandle, string);
-extern (C) string HTMLSourceElement_srcset_Get(JsHandle);
-extern (C) void HTMLSourceElement_sizes_Set(JsHandle, string);
-extern (C) string HTMLSourceElement_sizes_Get(JsHandle);
-extern (C) void HTMLSourceElement_media_Set(JsHandle, string);
-extern (C) string HTMLSourceElement_media_Get(JsHandle);
-extern (C) void HTMLStyleElement_media_Set(JsHandle, string);
-extern (C) string HTMLStyleElement_media_Get(JsHandle);
-extern (C) void HTMLStyleElement_type_Set(JsHandle, string);
-extern (C) string HTMLStyleElement_type_Get(JsHandle);
-extern (C) void HTMLTableCaptionElement_align_Set(JsHandle, string);
-extern (C) string HTMLTableCaptionElement_align_Get(JsHandle);
-extern (C) void HTMLTableCellElement_colSpan_Set(JsHandle, uint);
-extern (C) uint HTMLTableCellElement_colSpan_Get(JsHandle);
-extern (C) void HTMLTableCellElement_rowSpan_Set(JsHandle, uint);
-extern (C) uint HTMLTableCellElement_rowSpan_Get(JsHandle);
-extern (C) void HTMLTableCellElement_headers_Set(JsHandle, string);
-extern (C) string HTMLTableCellElement_headers_Get(JsHandle);
-extern (C) int HTMLTableCellElement_cellIndex_Get(JsHandle);
-extern (C) void HTMLTableCellElement_scope_Set(JsHandle, string);
-extern (C) string HTMLTableCellElement_scope_Get(JsHandle);
-extern (C) void HTMLTableCellElement_abbr_Set(JsHandle, string);
-extern (C) string HTMLTableCellElement_abbr_Get(JsHandle);
-extern (C) void HTMLTableCellElement_align_Set(JsHandle, string);
-extern (C) string HTMLTableCellElement_align_Get(JsHandle);
-extern (C) void HTMLTableCellElement_axis_Set(JsHandle, string);
-extern (C) string HTMLTableCellElement_axis_Get(JsHandle);
-extern (C) void HTMLTableCellElement_height_Set(JsHandle, string);
-extern (C) string HTMLTableCellElement_height_Get(JsHandle);
-extern (C) void HTMLTableCellElement_width_Set(JsHandle, string);
-extern (C) string HTMLTableCellElement_width_Get(JsHandle);
-extern (C) void HTMLTableCellElement_ch_Set(JsHandle, string);
-extern (C) string HTMLTableCellElement_ch_Get(JsHandle);
-extern (C) void HTMLTableCellElement_chOff_Set(JsHandle, string);
-extern (C) string HTMLTableCellElement_chOff_Get(JsHandle);
-extern (C) void HTMLTableCellElement_noWrap_Set(JsHandle, bool);
-extern (C) bool HTMLTableCellElement_noWrap_Get(JsHandle);
-extern (C) void HTMLTableCellElement_vAlign_Set(JsHandle, string);
-extern (C) string HTMLTableCellElement_vAlign_Get(JsHandle);
-extern (C) void HTMLTableCellElement_bgColor_Set(JsHandle, string);
-extern (C) string HTMLTableCellElement_bgColor_Get(JsHandle);
-extern (C) void HTMLTableColElement_span_Set(JsHandle, uint);
-extern (C) uint HTMLTableColElement_span_Get(JsHandle);
-extern (C) void HTMLTableColElement_align_Set(JsHandle, string);
-extern (C) string HTMLTableColElement_align_Get(JsHandle);
-extern (C) void HTMLTableColElement_ch_Set(JsHandle, string);
-extern (C) string HTMLTableColElement_ch_Get(JsHandle);
-extern (C) void HTMLTableColElement_chOff_Set(JsHandle, string);
-extern (C) string HTMLTableColElement_chOff_Get(JsHandle);
-extern (C) void HTMLTableColElement_vAlign_Set(JsHandle, string);
-extern (C) string HTMLTableColElement_vAlign_Get(JsHandle);
-extern (C) void HTMLTableColElement_width_Set(JsHandle, string);
-extern (C) string HTMLTableColElement_width_Get(JsHandle);
-extern (C) void HTMLTableElement_caption_Set(JsHandle, bool, JsHandle);
-extern (C) Optional!(HTMLTableCaptionElement) HTMLTableElement_caption_Get(JsHandle);
-extern (C) JsHandle HTMLTableElement_createCaption(JsHandle);
-extern (C) void HTMLTableElement_deleteCaption(JsHandle);
-extern (C) void HTMLTableElement_tHead_Set(JsHandle, bool, JsHandle);
-extern (C) Optional!(HTMLTableSectionElement) HTMLTableElement_tHead_Get(JsHandle);
-extern (C) JsHandle HTMLTableElement_createTHead(JsHandle);
-extern (C) void HTMLTableElement_deleteTHead(JsHandle);
-extern (C) void HTMLTableElement_tFoot_Set(JsHandle, bool, JsHandle);
-extern (C) Optional!(HTMLTableSectionElement) HTMLTableElement_tFoot_Get(JsHandle);
-extern (C) JsHandle HTMLTableElement_createTFoot(JsHandle);
-extern (C) void HTMLTableElement_deleteTFoot(JsHandle);
-extern (C) JsHandle HTMLTableElement_tBodies_Get(JsHandle);
-extern (C) JsHandle HTMLTableElement_createTBody(JsHandle);
-extern (C) JsHandle HTMLTableElement_rows_Get(JsHandle);
-extern (C) JsHandle HTMLTableElement_insertRow(JsHandle, int);
-extern (C) void HTMLTableElement_deleteRow(JsHandle, int);
-extern (C) void HTMLTableElement_align_Set(JsHandle, string);
-extern (C) string HTMLTableElement_align_Get(JsHandle);
-extern (C) void HTMLTableElement_border_Set(JsHandle, string);
-extern (C) string HTMLTableElement_border_Get(JsHandle);
-extern (C) void HTMLTableElement_frame_Set(JsHandle, string);
-extern (C) string HTMLTableElement_frame_Get(JsHandle);
-extern (C) void HTMLTableElement_rules_Set(JsHandle, string);
-extern (C) string HTMLTableElement_rules_Get(JsHandle);
-extern (C) void HTMLTableElement_summary_Set(JsHandle, string);
-extern (C) string HTMLTableElement_summary_Get(JsHandle);
-extern (C) void HTMLTableElement_width_Set(JsHandle, string);
-extern (C) string HTMLTableElement_width_Get(JsHandle);
-extern (C) void HTMLTableElement_bgColor_Set(JsHandle, string);
-extern (C) string HTMLTableElement_bgColor_Get(JsHandle);
-extern (C) void HTMLTableElement_cellPadding_Set(JsHandle, string);
-extern (C) string HTMLTableElement_cellPadding_Get(JsHandle);
-extern (C) void HTMLTableElement_cellSpacing_Set(JsHandle, string);
-extern (C) string HTMLTableElement_cellSpacing_Get(JsHandle);
-extern (C) int HTMLTableRowElement_rowIndex_Get(JsHandle);
-extern (C) int HTMLTableRowElement_sectionRowIndex_Get(JsHandle);
-extern (C) JsHandle HTMLTableRowElement_cells_Get(JsHandle);
-extern (C) JsHandle HTMLTableRowElement_insertCell(JsHandle, int);
-extern (C) void HTMLTableRowElement_deleteCell(JsHandle, int);
-extern (C) void HTMLTableRowElement_align_Set(JsHandle, string);
-extern (C) string HTMLTableRowElement_align_Get(JsHandle);
-extern (C) void HTMLTableRowElement_ch_Set(JsHandle, string);
-extern (C) string HTMLTableRowElement_ch_Get(JsHandle);
-extern (C) void HTMLTableRowElement_chOff_Set(JsHandle, string);
-extern (C) string HTMLTableRowElement_chOff_Get(JsHandle);
-extern (C) void HTMLTableRowElement_vAlign_Set(JsHandle, string);
-extern (C) string HTMLTableRowElement_vAlign_Get(JsHandle);
-extern (C) void HTMLTableRowElement_bgColor_Set(JsHandle, string);
-extern (C) string HTMLTableRowElement_bgColor_Get(JsHandle);
-extern (C) JsHandle HTMLTableSectionElement_rows_Get(JsHandle);
-extern (C) JsHandle HTMLTableSectionElement_insertRow(JsHandle, int);
-extern (C) void HTMLTableSectionElement_deleteRow(JsHandle, int);
-extern (C) void HTMLTableSectionElement_align_Set(JsHandle, string);
-extern (C) string HTMLTableSectionElement_align_Get(JsHandle);
-extern (C) void HTMLTableSectionElement_ch_Set(JsHandle, string);
-extern (C) string HTMLTableSectionElement_ch_Get(JsHandle);
-extern (C) void HTMLTableSectionElement_chOff_Set(JsHandle, string);
-extern (C) string HTMLTableSectionElement_chOff_Get(JsHandle);
-extern (C) void HTMLTableSectionElement_vAlign_Set(JsHandle, string);
-extern (C) string HTMLTableSectionElement_vAlign_Get(JsHandle);
-extern (C) JsHandle HTMLTemplateElement_content_Get(JsHandle);
-extern (C) void HTMLTextAreaElement_autocomplete_Set(JsHandle, string);
-extern (C) string HTMLTextAreaElement_autocomplete_Get(JsHandle);
-extern (C) void HTMLTextAreaElement_autofocus_Set(JsHandle, bool);
-extern (C) bool HTMLTextAreaElement_autofocus_Get(JsHandle);
-extern (C) void HTMLTextAreaElement_cols_Set(JsHandle, uint);
-extern (C) uint HTMLTextAreaElement_cols_Get(JsHandle);
-extern (C) void HTMLTextAreaElement_dirName_Set(JsHandle, string);
-extern (C) string HTMLTextAreaElement_dirName_Get(JsHandle);
-extern (C) void HTMLTextAreaElement_disabled_Set(JsHandle, bool);
-extern (C) bool HTMLTextAreaElement_disabled_Get(JsHandle);
-extern (C) Optional!(HTMLFormElement) HTMLTextAreaElement_form_Get(JsHandle);
-extern (C) void HTMLTextAreaElement_maxLength_Set(JsHandle, int);
-extern (C) int HTMLTextAreaElement_maxLength_Get(JsHandle);
-extern (C) void HTMLTextAreaElement_minLength_Set(JsHandle, int);
-extern (C) int HTMLTextAreaElement_minLength_Get(JsHandle);
-extern (C) void HTMLTextAreaElement_name_Set(JsHandle, string);
-extern (C) string HTMLTextAreaElement_name_Get(JsHandle);
-extern (C) void HTMLTextAreaElement_placeholder_Set(JsHandle, string);
-extern (C) string HTMLTextAreaElement_placeholder_Get(JsHandle);
-extern (C) void HTMLTextAreaElement_readOnly_Set(JsHandle, bool);
-extern (C) bool HTMLTextAreaElement_readOnly_Get(JsHandle);
-extern (C) void HTMLTextAreaElement_required_Set(JsHandle, bool);
-extern (C) bool HTMLTextAreaElement_required_Get(JsHandle);
-extern (C) void HTMLTextAreaElement_rows_Set(JsHandle, uint);
-extern (C) uint HTMLTextAreaElement_rows_Get(JsHandle);
-extern (C) void HTMLTextAreaElement_wrap_Set(JsHandle, string);
-extern (C) string HTMLTextAreaElement_wrap_Get(JsHandle);
-extern (C) string HTMLTextAreaElement_type_Get(JsHandle);
-extern (C) void HTMLTextAreaElement_defaultValue_Set(JsHandle, string);
-extern (C) string HTMLTextAreaElement_defaultValue_Get(JsHandle);
-extern (C) void HTMLTextAreaElement_value_Set(JsHandle, string);
-extern (C) string HTMLTextAreaElement_value_Get(JsHandle);
-extern (C) uint HTMLTextAreaElement_textLength_Get(JsHandle);
-extern (C) bool HTMLTextAreaElement_willValidate_Get(JsHandle);
-extern (C) JsHandle HTMLTextAreaElement_validity_Get(JsHandle);
-extern (C) string HTMLTextAreaElement_validationMessage_Get(JsHandle);
-extern (C) bool HTMLTextAreaElement_checkValidity(JsHandle);
-extern (C) bool HTMLTextAreaElement_reportValidity(JsHandle);
-extern (C) void HTMLTextAreaElement_setCustomValidity(JsHandle, string);
-extern (C) JsHandle HTMLTextAreaElement_labels_Get(JsHandle);
-extern (C) void HTMLTextAreaElement_select(JsHandle);
-extern (C) void HTMLTextAreaElement_selectionStart_Set(JsHandle, uint);
-extern (C) uint HTMLTextAreaElement_selectionStart_Get(JsHandle);
-extern (C) void HTMLTextAreaElement_selectionEnd_Set(JsHandle, uint);
-extern (C) uint HTMLTextAreaElement_selectionEnd_Get(JsHandle);
-extern (C) void HTMLTextAreaElement_selectionDirection_Set(JsHandle, string);
-extern (C) string HTMLTextAreaElement_selectionDirection_Get(JsHandle);
-extern (C) void HTMLTextAreaElement_setRangeText__string(JsHandle, string);
-extern (C) void HTMLTextAreaElement_setRangeText__string_uint_uint_SelectionMode(JsHandle, string, uint, uint, SelectionMode);
-extern (C) void HTMLTextAreaElement_setSelectionRange(JsHandle, uint, uint, string);
-extern (C) void HTMLTimeElement_dateTime_Set(JsHandle, string);
-extern (C) string HTMLTimeElement_dateTime_Get(JsHandle);
-extern (C) void HTMLTitleElement_text_Set(JsHandle, string);
-extern (C) string HTMLTitleElement_text_Get(JsHandle);
-extern (C) void HTMLTrackElement_kind_Set(JsHandle, string);
-extern (C) string HTMLTrackElement_kind_Get(JsHandle);
-extern (C) void HTMLTrackElement_src_Set(JsHandle, string);
-extern (C) string HTMLTrackElement_src_Get(JsHandle);
-extern (C) void HTMLTrackElement_srclang_Set(JsHandle, string);
-extern (C) string HTMLTrackElement_srclang_Get(JsHandle);
-extern (C) void HTMLTrackElement_label_Set(JsHandle, string);
-extern (C) string HTMLTrackElement_label_Get(JsHandle);
-extern (C) void HTMLTrackElement_default_Set(JsHandle, bool);
-extern (C) bool HTMLTrackElement_default_Get(JsHandle);
-extern (C) ushort HTMLTrackElement_readyState_Get(JsHandle);
-extern (C) JsHandle HTMLTrackElement_track_Get(JsHandle);
-extern (C) void HTMLUListElement_compact_Set(JsHandle, bool);
-extern (C) bool HTMLUListElement_compact_Get(JsHandle);
-extern (C) void HTMLUListElement_type_Set(JsHandle, string);
-extern (C) string HTMLUListElement_type_Get(JsHandle);
-extern (C) void HTMLVideoElement_width_Set(JsHandle, uint);
-extern (C) uint HTMLVideoElement_width_Get(JsHandle);
-extern (C) void HTMLVideoElement_height_Set(JsHandle, uint);
-extern (C) uint HTMLVideoElement_height_Get(JsHandle);
-extern (C) uint HTMLVideoElement_videoWidth_Get(JsHandle);
-extern (C) uint HTMLVideoElement_videoHeight_Get(JsHandle);
-extern (C) void HTMLVideoElement_poster_Set(JsHandle, string);
-extern (C) string HTMLVideoElement_poster_Get(JsHandle);
-extern (C) void HTMLVideoElement_playsInline_Set(JsHandle, bool);
-extern (C) bool HTMLVideoElement_playsInline_Get(JsHandle);
-extern (C) string HashChangeEvent_oldURL_Get(JsHandle);
-extern (C) string HashChangeEvent_newURL_Get(JsHandle);
-extern (C) void HashChangeEventInit_oldURL_Set(JsHandle, string);
-extern (C) string HashChangeEventInit_oldURL_Get(JsHandle);
-extern (C) void HashChangeEventInit_newURL_Set(JsHandle, string);
-extern (C) string HashChangeEventInit_newURL_Get(JsHandle);
-extern (C) uint History_length_Get(JsHandle);
-extern (C) void History_scrollRestoration_Set(JsHandle, ScrollRestoration);
-extern (C) ScrollRestoration History_scrollRestoration_Get(JsHandle);
-extern (C) JsHandle History_state_Get(JsHandle);
-extern (C) void History_go(JsHandle, int);
-extern (C) void History_back(JsHandle);
-extern (C) void History_forward(JsHandle);
-extern (C) void History_pushState(JsHandle, JsHandle, string, bool, string);
-extern (C) void History_replaceState(JsHandle, JsHandle, string, bool, string);
-extern (C) uint ImageBitmap_width_Get(JsHandle);
-extern (C) uint ImageBitmap_height_Get(JsHandle);
-extern (C) void ImageBitmap_close(JsHandle);
-extern (C) void ImageBitmapOptions_imageOrientation_Set(JsHandle, ImageOrientation);
-extern (C) ImageOrientation ImageBitmapOptions_imageOrientation_Get(JsHandle);
-extern (C) void ImageBitmapOptions_premultiplyAlpha_Set(JsHandle, PremultiplyAlpha);
-extern (C) PremultiplyAlpha ImageBitmapOptions_premultiplyAlpha_Get(JsHandle);
-extern (C) void ImageBitmapOptions_colorSpaceConversion_Set(JsHandle, ColorSpaceConversion);
-extern (C) ColorSpaceConversion ImageBitmapOptions_colorSpaceConversion_Get(JsHandle);
-extern (C) void ImageBitmapOptions_resizeWidth_Set(JsHandle, uint);
-extern (C) uint ImageBitmapOptions_resizeWidth_Get(JsHandle);
-extern (C) void ImageBitmapOptions_resizeHeight_Set(JsHandle, uint);
-extern (C) uint ImageBitmapOptions_resizeHeight_Get(JsHandle);
-extern (C) void ImageBitmapOptions_resizeQuality_Set(JsHandle, ResizeQuality);
-extern (C) ResizeQuality ImageBitmapOptions_resizeQuality_Get(JsHandle);
-extern (C) JsHandle ImageBitmapRenderingContext_canvas_Get(JsHandle);
-extern (C) void ImageBitmapRenderingContext_transferFromImageBitmap(JsHandle, bool, JsHandle);
-extern (C) void ImageBitmapRenderingContextSettings_alpha_Set(JsHandle, bool);
-extern (C) bool ImageBitmapRenderingContextSettings_alpha_Get(JsHandle);
-extern (C) uint ImageData_width_Get(JsHandle);
-extern (C) uint ImageData_height_Get(JsHandle);
-extern (C) JsHandle ImageData_data_Get(JsHandle);
-extern (C) void ImageEncodeOptions_type_Set(JsHandle, string);
-extern (C) string ImageEncodeOptions_type_Get(JsHandle);
-extern (C) void ImageEncodeOptions_quality_Set(JsHandle, double);
-extern (C) double ImageEncodeOptions_quality_Get(JsHandle);
-extern (C) void Location_href_Set(JsHandle, string);
-extern (C) string Location_href_Get(JsHandle);
-extern (C) string Location_origin_Get(JsHandle);
-extern (C) void Location_protocol_Set(JsHandle, string);
-extern (C) string Location_protocol_Get(JsHandle);
-extern (C) void Location_host_Set(JsHandle, string);
-extern (C) string Location_host_Get(JsHandle);
-extern (C) void Location_hostname_Set(JsHandle, string);
-extern (C) string Location_hostname_Get(JsHandle);
-extern (C) void Location_port_Set(JsHandle, string);
-extern (C) string Location_port_Get(JsHandle);
-extern (C) void Location_pathname_Set(JsHandle, string);
-extern (C) string Location_pathname_Get(JsHandle);
-extern (C) void Location_search_Set(JsHandle, string);
-extern (C) string Location_search_Get(JsHandle);
-extern (C) void Location_hash_Set(JsHandle, string);
-extern (C) string Location_hash_Get(JsHandle);
-extern (C) void Location_assign(JsHandle, string);
-extern (C) void Location_replace(JsHandle, string);
-extern (C) void Location_reload(JsHandle);
-extern (C) JsHandle Location_ancestorOrigins_Get(JsHandle);
-extern (C) ushort MediaError_code_Get(JsHandle);
-extern (C) string MediaError_message_Get(JsHandle);
-extern (C) JsHandle MessageChannel_port1_Get(JsHandle);
-extern (C) JsHandle MessageChannel_port2_Get(JsHandle);
-extern (C) JsHandle MessageEvent_data_Get(JsHandle);
-extern (C) string MessageEvent_origin_Get(JsHandle);
-extern (C) string MessageEvent_lastEventId_Get(JsHandle);
-extern (C) Optional!(MessageEventSource) MessageEvent_source_Get(JsHandle);
-extern (C) JsHandle MessageEvent_ports_Get(JsHandle);
-extern (C) void MessageEvent_initMessageEvent(JsHandle, string, bool, bool, JsHandle, string, string, bool, MessageEventSource, JsHandle);
-extern (C) void MessageEventInit_data_Set(JsHandle, JsHandle);
-extern (C) JsHandle MessageEventInit_data_Get(JsHandle);
-extern (C) void MessageEventInit_origin_Set(JsHandle, string);
-extern (C) string MessageEventInit_origin_Get(JsHandle);
-extern (C) void MessageEventInit_lastEventId_Set(JsHandle, string);
-extern (C) string MessageEventInit_lastEventId_Get(JsHandle);
-extern (C) void MessageEventInit_source_Set(JsHandle, bool, MessageEventSource);
-extern (C) Optional!(MessageEventSource) MessageEventInit_source_Get(JsHandle);
-extern (C) void MessageEventInit_ports_Set(JsHandle, JsHandle);
-extern (C) JsHandle MessageEventInit_ports_Get(JsHandle);
-extern (C) void MessagePort_postMessage__Any_sequence_object(JsHandle, JsHandle, JsHandle);
-extern (C) void MessagePort_postMessage__Any_JsHandle(JsHandle, JsHandle, JsHandle);
-extern (C) void MessagePort_start(JsHandle);
-extern (C) void MessagePort_close(JsHandle);
-extern (C) void MessagePort_onmessage_Set(JsHandle, EventHandler);
-extern (C) EventHandler MessagePort_onmessage_Get(JsHandle);
-extern (C) void MessagePort_onmessageerror_Set(JsHandle, EventHandler);
-extern (C) EventHandler MessagePort_onmessageerror_Get(JsHandle);
-extern (C) string MimeType_type_Get(JsHandle);
-extern (C) string MimeType_description_Get(JsHandle);
-extern (C) string MimeType_suffixes_Get(JsHandle);
-extern (C) JsHandle MimeType_enabledPlugin_Get(JsHandle);
-extern (C) uint MimeTypeArray_length_Get(JsHandle);
-extern (C) Optional!(MimeType) MimeTypeArray_item_getter(JsHandle, uint);
-extern (C) Optional!(MimeType) MimeTypeArray_namedItem_getter(JsHandle, string);
-extern (C) JsHandle Navigator_clipboard_Get(JsHandle);
-extern (C) JsHandle Navigator_permissions_Get(JsHandle);
-extern (C) bool Navigator_vibrate(JsHandle, VibratePattern);
-extern (C) JsHandle Navigator_mediaDevices_Get(JsHandle);
-extern (C) void Navigator_getUserMedia(JsHandle, JsHandle, NavigatorUserMediaSuccessCallback, NavigatorUserMediaErrorCallback);
-extern (C) int Navigator_maxTouchPoints_Get(JsHandle);
-extern (C) JsHandle Navigator_serviceWorker_Get(JsHandle);
-extern (C) ulong NavigatorConcurrentHardware_hardwareConcurrency_Get(JsHandle);
-extern (C) void NavigatorContentUtils_registerProtocolHandler(JsHandle, string, string, string);
-extern (C) void NavigatorContentUtils_unregisterProtocolHandler(JsHandle, string, string);
-extern (C) bool NavigatorCookies_cookieEnabled_Get(JsHandle);
-extern (C) string NavigatorID_appCodeName_Get(JsHandle);
-extern (C) string NavigatorID_appName_Get(JsHandle);
-extern (C) string NavigatorID_appVersion_Get(JsHandle);
-extern (C) string NavigatorID_platform_Get(JsHandle);
-extern (C) string NavigatorID_product_Get(JsHandle);
-extern (C) string NavigatorID_productSub_Get(JsHandle);
-extern (C) string NavigatorID_userAgent_Get(JsHandle);
-extern (C) string NavigatorID_vendor_Get(JsHandle);
-extern (C) string NavigatorID_vendorSub_Get(JsHandle);
-extern (C) bool NavigatorID_taintEnabled(JsHandle);
-extern (C) string NavigatorID_oscpu_Get(JsHandle);
-extern (C) string NavigatorLanguage_language_Get(JsHandle);
-extern (C) JsHandle NavigatorLanguage_languages_Get(JsHandle);
-extern (C) bool NavigatorOnLine_onLine_Get(JsHandle);
-extern (C) JsHandle NavigatorPlugins_plugins_Get(JsHandle);
-extern (C) JsHandle NavigatorPlugins_mimeTypes_Get(JsHandle);
-extern (C) bool NavigatorPlugins_javaEnabled(JsHandle);
-extern (C) void OffscreenCanvas_width_Set(JsHandle, ulong);
-extern (C) ulong OffscreenCanvas_width_Get(JsHandle);
-extern (C) void OffscreenCanvas_height_Set(JsHandle, ulong);
-extern (C) ulong OffscreenCanvas_height_Get(JsHandle);
-extern (C) Optional!(OffscreenRenderingContext) OffscreenCanvas_getContext(JsHandle, OffscreenRenderingContextId, JsHandle);
-extern (C) JsHandle OffscreenCanvas_transferToImageBitmap(JsHandle);
-extern (C) JsHandle OffscreenCanvas_convertToBlob(JsHandle, JsHandle);
-extern (C) void OffscreenCanvasRenderingContext2D_commit(JsHandle);
-extern (C) JsHandle OffscreenCanvasRenderingContext2D_canvas_Get(JsHandle);
-extern (C) bool PageTransitionEvent_persisted_Get(JsHandle);
-extern (C) void PageTransitionEventInit_persisted_Set(JsHandle, bool);
-extern (C) bool PageTransitionEventInit_persisted_Get(JsHandle);
-extern (C) void Path2D_addPath(JsHandle, JsHandle, JsHandle);
-extern (C) string Plugin_name_Get(JsHandle);
-extern (C) string Plugin_description_Get(JsHandle);
-extern (C) string Plugin_filename_Get(JsHandle);
-extern (C) uint Plugin_length_Get(JsHandle);
-extern (C) Optional!(MimeType) Plugin_item_getter(JsHandle, uint);
-extern (C) Optional!(MimeType) Plugin_namedItem_getter(JsHandle, string);
-extern (C) void PluginArray_refresh(JsHandle, bool);
-extern (C) uint PluginArray_length_Get(JsHandle);
-extern (C) Optional!(Plugin) PluginArray_item_getter(JsHandle, uint);
-extern (C) Optional!(Plugin) PluginArray_namedItem_getter(JsHandle, string);
-extern (C) JsHandle PopStateEvent_state_Get(JsHandle);
-extern (C) void PopStateEventInit_state_Set(JsHandle, JsHandle);
-extern (C) JsHandle PopStateEventInit_state_Get(JsHandle);
-extern (C) void PostMessageOptions_transfer_Set(JsHandle, JsHandle);
-extern (C) JsHandle PostMessageOptions_transfer_Get(JsHandle);
-extern (C) JsHandle PromiseRejectionEvent_promise_Get(JsHandle);
-extern (C) JsHandle PromiseRejectionEvent_reason_Get(JsHandle);
-extern (C) void PromiseRejectionEventInit_promise_Set(JsHandle, JsHandle);
-extern (C) JsHandle PromiseRejectionEventInit_promise_Get(JsHandle);
-extern (C) void PromiseRejectionEventInit_reason_Set(JsHandle, JsHandle);
-extern (C) JsHandle PromiseRejectionEventInit_reason_Get(JsHandle);
-extern (C) void RadioNodeList_value_Set(JsHandle, string);
-extern (C) string RadioNodeList_value_Get(JsHandle);
-extern (C) JsHandle SharedWorker_port_Get(JsHandle);
-extern (C) string SharedWorkerGlobalScope_name_Get(JsHandle);
-extern (C) void SharedWorkerGlobalScope_close(JsHandle);
-extern (C) void SharedWorkerGlobalScope_onconnect_Set(JsHandle, EventHandler);
-extern (C) EventHandler SharedWorkerGlobalScope_onconnect_Get(JsHandle);
-extern (C) uint Storage_length_Get(JsHandle);
-extern (C) Optional!(string) Storage_key(JsHandle, uint);
-extern (C) Optional!(string) Storage_getItem_getter(JsHandle, string);
-extern (C) void Storage_setItem_setter(JsHandle, string, string);
-extern (C) void Storage_removeItem(JsHandle, string);
-extern (C) void Storage_clear(JsHandle);
-extern (C) Optional!(string) StorageEvent_key_Get(JsHandle);
-extern (C) Optional!(string) StorageEvent_oldValue_Get(JsHandle);
-extern (C) Optional!(string) StorageEvent_newValue_Get(JsHandle);
-extern (C) string StorageEvent_url_Get(JsHandle);
-extern (C) Optional!(Storage) StorageEvent_storageArea_Get(JsHandle);
-extern (C) void StorageEvent_initStorageEvent(JsHandle, string, bool, bool, bool, string, bool, string, bool, string, string, bool, JsHandle);
-extern (C) void StorageEventInit_key_Set(JsHandle, bool, string);
-extern (C) Optional!(string) StorageEventInit_key_Get(JsHandle);
-extern (C) void StorageEventInit_oldValue_Set(JsHandle, bool, string);
-extern (C) Optional!(string) StorageEventInit_oldValue_Get(JsHandle);
-extern (C) void StorageEventInit_newValue_Set(JsHandle, bool, string);
-extern (C) Optional!(string) StorageEventInit_newValue_Get(JsHandle);
-extern (C) void StorageEventInit_url_Set(JsHandle, string);
-extern (C) string StorageEventInit_url_Get(JsHandle);
-extern (C) void StorageEventInit_storageArea_Set(JsHandle, bool, JsHandle);
-extern (C) Optional!(Storage) StorageEventInit_storageArea_Get(JsHandle);
-extern (C) double TextMetrics_width_Get(JsHandle);
-extern (C) double TextMetrics_actualBoundingBoxLeft_Get(JsHandle);
-extern (C) double TextMetrics_actualBoundingBoxRight_Get(JsHandle);
-extern (C) double TextMetrics_fontBoundingBoxAscent_Get(JsHandle);
-extern (C) double TextMetrics_fontBoundingBoxDescent_Get(JsHandle);
-extern (C) double TextMetrics_actualBoundingBoxAscent_Get(JsHandle);
-extern (C) double TextMetrics_actualBoundingBoxDescent_Get(JsHandle);
-extern (C) double TextMetrics_emHeightAscent_Get(JsHandle);
-extern (C) double TextMetrics_emHeightDescent_Get(JsHandle);
-extern (C) double TextMetrics_hangingBaseline_Get(JsHandle);
-extern (C) double TextMetrics_alphabeticBaseline_Get(JsHandle);
-extern (C) double TextMetrics_ideographicBaseline_Get(JsHandle);
-extern (C) TextTrackKind TextTrack_kind_Get(JsHandle);
-extern (C) string TextTrack_label_Get(JsHandle);
-extern (C) string TextTrack_language_Get(JsHandle);
-extern (C) string TextTrack_id_Get(JsHandle);
-extern (C) string TextTrack_inBandMetadataTrackDispatchType_Get(JsHandle);
-extern (C) void TextTrack_mode_Set(JsHandle, TextTrackMode);
-extern (C) TextTrackMode TextTrack_mode_Get(JsHandle);
-extern (C) Optional!(TextTrackCueList) TextTrack_cues_Get(JsHandle);
-extern (C) Optional!(TextTrackCueList) TextTrack_activeCues_Get(JsHandle);
-extern (C) void TextTrack_addCue(JsHandle, JsHandle);
-extern (C) void TextTrack_removeCue(JsHandle, JsHandle);
-extern (C) void TextTrack_oncuechange_Set(JsHandle, EventHandler);
-extern (C) EventHandler TextTrack_oncuechange_Get(JsHandle);
-extern (C) Optional!(SourceBuffer) TextTrack_sourceBuffer_Get(JsHandle);
-extern (C) Optional!(TextTrack) TextTrackCue_track_Get(JsHandle);
-extern (C) void TextTrackCue_id_Set(JsHandle, string);
-extern (C) string TextTrackCue_id_Get(JsHandle);
-extern (C) void TextTrackCue_startTime_Set(JsHandle, double);
-extern (C) double TextTrackCue_startTime_Get(JsHandle);
-extern (C) void TextTrackCue_endTime_Set(JsHandle, double);
-extern (C) double TextTrackCue_endTime_Get(JsHandle);
-extern (C) void TextTrackCue_pauseOnExit_Set(JsHandle, bool);
-extern (C) bool TextTrackCue_pauseOnExit_Get(JsHandle);
-extern (C) void TextTrackCue_onenter_Set(JsHandle, EventHandler);
-extern (C) EventHandler TextTrackCue_onenter_Get(JsHandle);
-extern (C) void TextTrackCue_onexit_Set(JsHandle, EventHandler);
-extern (C) EventHandler TextTrackCue_onexit_Get(JsHandle);
-extern (C) uint TextTrackCueList_length_Get(JsHandle);
-extern (C) JsHandle TextTrackCueList_getter__uint(JsHandle, uint);
-extern (C) Optional!(TextTrackCue) TextTrackCueList_getCueById(JsHandle, string);
-extern (C) uint TextTrackList_length_Get(JsHandle);
-extern (C) JsHandle TextTrackList_getter__uint(JsHandle, uint);
-extern (C) Optional!(TextTrack) TextTrackList_getTrackById(JsHandle, string);
-extern (C) void TextTrackList_onchange_Set(JsHandle, EventHandler);
-extern (C) EventHandler TextTrackList_onchange_Get(JsHandle);
-extern (C) void TextTrackList_onaddtrack_Set(JsHandle, EventHandler);
-extern (C) EventHandler TextTrackList_onaddtrack_Get(JsHandle);
-extern (C) void TextTrackList_onremovetrack_Set(JsHandle, EventHandler);
-extern (C) EventHandler TextTrackList_onremovetrack_Get(JsHandle);
-extern (C) uint TimeRanges_length_Get(JsHandle);
-extern (C) double TimeRanges_start(JsHandle, uint);
-extern (C) double TimeRanges_end(JsHandle, uint);
-extern (C) Optional!(SumType!(VideoTrack, AudioTrack, TextTrack)) TrackEvent_track_Get(JsHandle);
-extern (C) void TrackEventInit_track_Set(JsHandle, bool, SumType!(VideoTrack, AudioTrack, TextTrack));
-extern (C) Optional!(SumType!(VideoTrack, AudioTrack, TextTrack)) TrackEventInit_track_Get(JsHandle);
-extern (C) bool ValidityState_valueMissing_Get(JsHandle);
-extern (C) bool ValidityState_typeMismatch_Get(JsHandle);
-extern (C) bool ValidityState_patternMismatch_Get(JsHandle);
-extern (C) bool ValidityState_tooLong_Get(JsHandle);
-extern (C) bool ValidityState_tooShort_Get(JsHandle);
-extern (C) bool ValidityState_rangeUnderflow_Get(JsHandle);
-extern (C) bool ValidityState_rangeOverflow_Get(JsHandle);
-extern (C) bool ValidityState_stepMismatch_Get(JsHandle);
-extern (C) bool ValidityState_badInput_Get(JsHandle);
-extern (C) bool ValidityState_customError_Get(JsHandle);
-extern (C) bool ValidityState_valid_Get(JsHandle);
-extern (C) string VideoTrack_id_Get(JsHandle);
-extern (C) string VideoTrack_kind_Get(JsHandle);
-extern (C) string VideoTrack_label_Get(JsHandle);
-extern (C) string VideoTrack_language_Get(JsHandle);
-extern (C) void VideoTrack_selected_Set(JsHandle, bool);
-extern (C) bool VideoTrack_selected_Get(JsHandle);
-extern (C) Optional!(SourceBuffer) VideoTrack_sourceBuffer_Get(JsHandle);
-extern (C) uint VideoTrackList_length_Get(JsHandle);
-extern (C) JsHandle VideoTrackList_getter__uint(JsHandle, uint);
-extern (C) Optional!(VideoTrack) VideoTrackList_getTrackById(JsHandle, string);
-extern (C) int VideoTrackList_selectedIndex_Get(JsHandle);
-extern (C) void VideoTrackList_onchange_Set(JsHandle, EventHandler);
-extern (C) EventHandler VideoTrackList_onchange_Get(JsHandle);
-extern (C) void VideoTrackList_onaddtrack_Set(JsHandle, EventHandler);
-extern (C) EventHandler VideoTrackList_onaddtrack_Get(JsHandle);
-extern (C) void VideoTrackList_onremovetrack_Set(JsHandle, EventHandler);
-extern (C) EventHandler VideoTrackList_onremovetrack_Get(JsHandle);
-extern (C) string WebSocket_url_Get(JsHandle);
-extern (C) ushort WebSocket_readyState_Get(JsHandle);
-extern (C) ulong WebSocket_bufferedAmount_Get(JsHandle);
-extern (C) void WebSocket_onopen_Set(JsHandle, EventHandler);
-extern (C) EventHandler WebSocket_onopen_Get(JsHandle);
-extern (C) void WebSocket_onerror_Set(JsHandle, EventHandler);
-extern (C) EventHandler WebSocket_onerror_Get(JsHandle);
-extern (C) void WebSocket_onclose_Set(JsHandle, EventHandler);
-extern (C) EventHandler WebSocket_onclose_Get(JsHandle);
-extern (C) string WebSocket_extensions_Get(JsHandle);
-extern (C) string WebSocket_protocol_Get(JsHandle);
-extern (C) void WebSocket_close(JsHandle, ushort, string);
-extern (C) void WebSocket_onmessage_Set(JsHandle, EventHandler);
-extern (C) EventHandler WebSocket_onmessage_Get(JsHandle);
-extern (C) void WebSocket_binaryType_Set(JsHandle, BinaryType);
-extern (C) BinaryType WebSocket_binaryType_Get(JsHandle);
-extern (C) void WebSocket_send__string(JsHandle, string);
-extern (C) void WebSocket_send__JsHandle(JsHandle, JsHandle);
-extern (C) void WebSocket_send__ArrayBufferView(JsHandle, ArrayBufferView);
-extern (C) JsHandle Window_window_Get(JsHandle);
-extern (C) JsHandle Window_self_Get(JsHandle);
-extern (C) JsHandle Window_document_Get(JsHandle);
-extern (C) void Window_name_Set(JsHandle, string);
-extern (C) string Window_name_Get(JsHandle);
-extern (C) JsHandle Window_location_Get(JsHandle);
-extern (C) JsHandle Window_history_Get(JsHandle);
-extern (C) JsHandle Window_customElements_Get(JsHandle);
-extern (C) JsHandle Window_locationbar_Get(JsHandle);
-extern (C) JsHandle Window_menubar_Get(JsHandle);
-extern (C) JsHandle Window_personalbar_Get(JsHandle);
-extern (C) JsHandle Window_scrollbars_Get(JsHandle);
-extern (C) JsHandle Window_statusbar_Get(JsHandle);
-extern (C) JsHandle Window_toolbar_Get(JsHandle);
-extern (C) void Window_status_Set(JsHandle, string);
-extern (C) string Window_status_Get(JsHandle);
-extern (C) void Window_close(JsHandle);
-extern (C) bool Window_closed_Get(JsHandle);
-extern (C) void Window_stop(JsHandle);
-extern (C) void Window_focus(JsHandle);
-extern (C) void Window_blur(JsHandle);
-extern (C) JsHandle Window_frames_Get(JsHandle);
-extern (C) uint Window_length_Get(JsHandle);
-extern (C) Optional!(Window) Window_top_Get(JsHandle);
-extern (C) void Window_opener_Set(JsHandle, JsHandle);
-extern (C) JsHandle Window_opener_Get(JsHandle);
-extern (C) Optional!(Window) Window_parent_Get(JsHandle);
-extern (C) Optional!(Element) Window_frameElement_Get(JsHandle);
-extern (C) Optional!(Window) Window_open(JsHandle, string, string, string);
-extern (C) JsHandle Window_getter__string(JsHandle, string);
-extern (C) JsHandle Window_navigator_Get(JsHandle);
-extern (C) JsHandle Window_applicationCache_Get(JsHandle);
-extern (C) void Window_alert__(JsHandle);
-extern (C) void Window_alert__string(JsHandle, string);
-extern (C) bool Window_confirm(JsHandle, string);
-extern (C) Optional!(string) Window_prompt(JsHandle, string, string);
-extern (C) void Window_print(JsHandle);
-extern (C) void Window_postMessage__Any_string_sequence_object(JsHandle, JsHandle, string, JsHandle);
-extern (C) void Window_postMessage__Any_JsHandle(JsHandle, JsHandle, JsHandle);
-extern (C) JsHandle Window_event_Get(JsHandle);
-extern (C) void Window_captureEvents(JsHandle);
-extern (C) void Window_releaseEvents(JsHandle);
-extern (C) JsHandle Window_external_Get(JsHandle);
-extern (C) short Window_orientation_Get(JsHandle);
-extern (C) void Window_onorientationchange_Set(JsHandle, EventHandler);
-extern (C) EventHandler Window_onorientationchange_Get(JsHandle);
-extern (C) JsHandle WindowLocalStorage_localStorage_Get(JsHandle);
-extern (C) string WindowOrWorkerGlobalScope_origin_Get(JsHandle);
-extern (C) string WindowOrWorkerGlobalScope_btoa(JsHandle, string);
-extern (C) string WindowOrWorkerGlobalScope_atob(JsHandle, string);
-extern (C) int WindowOrWorkerGlobalScope_setTimeout(JsHandle, TimerHandler, int, JsHandle);
-extern (C) void WindowOrWorkerGlobalScope_clearTimeout(JsHandle, int);
-extern (C) int WindowOrWorkerGlobalScope_setInterval(JsHandle, TimerHandler, int, JsHandle);
-extern (C) void WindowOrWorkerGlobalScope_clearInterval(JsHandle, int);
-extern (C) void WindowOrWorkerGlobalScope_queueMicrotask(JsHandle, VoidFunction);
-extern (C) JsHandle WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_JsHandle(JsHandle, ImageBitmapSource, JsHandle);
-extern (C) JsHandle WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_int_int_int_int_JsHandle(JsHandle, ImageBitmapSource, int, int, int, int, JsHandle);
-extern (C) JsHandle WindowOrWorkerGlobalScope_fetch(JsHandle, RequestInfo, JsHandle);
-extern (C) JsHandle WindowOrWorkerGlobalScope_indexedDB_Get(JsHandle);
-extern (C) JsHandle WindowOrWorkerGlobalScope_caches_Get(JsHandle);
-extern (C) void WindowPostMessageOptions_targetOrigin_Set(JsHandle, string);
-extern (C) string WindowPostMessageOptions_targetOrigin_Get(JsHandle);
-extern (C) JsHandle WindowSessionStorage_sessionStorage_Get(JsHandle);
-extern (C) void Worker_terminate(JsHandle);
-extern (C) void Worker_postMessage__Any_sequence_object(JsHandle, JsHandle, JsHandle);
-extern (C) void Worker_postMessage__Any_JsHandle(JsHandle, JsHandle, JsHandle);
-extern (C) void Worker_onmessage_Set(JsHandle, EventHandler);
-extern (C) EventHandler Worker_onmessage_Get(JsHandle);
-extern (C) void Worker_onmessageerror_Set(JsHandle, EventHandler);
-extern (C) EventHandler Worker_onmessageerror_Get(JsHandle);
-extern (C) JsHandle WorkerGlobalScope_self_Get(JsHandle);
-extern (C) JsHandle WorkerGlobalScope_location_Get(JsHandle);
-extern (C) JsHandle WorkerGlobalScope_navigator_Get(JsHandle);
-extern (C) void WorkerGlobalScope_importScripts(JsHandle, string);
-extern (C) void WorkerGlobalScope_onerror_Set(JsHandle, bool, OnErrorEventHandlerNonNull);
-extern (C) OnErrorEventHandler WorkerGlobalScope_onerror_Get(JsHandle);
-extern (C) void WorkerGlobalScope_onlanguagechange_Set(JsHandle, EventHandler);
-extern (C) EventHandler WorkerGlobalScope_onlanguagechange_Get(JsHandle);
-extern (C) void WorkerGlobalScope_onoffline_Set(JsHandle, EventHandler);
-extern (C) EventHandler WorkerGlobalScope_onoffline_Get(JsHandle);
-extern (C) void WorkerGlobalScope_ononline_Set(JsHandle, EventHandler);
-extern (C) EventHandler WorkerGlobalScope_ononline_Get(JsHandle);
-extern (C) void WorkerGlobalScope_onrejectionhandled_Set(JsHandle, EventHandler);
-extern (C) EventHandler WorkerGlobalScope_onrejectionhandled_Get(JsHandle);
-extern (C) void WorkerGlobalScope_onunhandledrejection_Set(JsHandle, EventHandler);
-extern (C) EventHandler WorkerGlobalScope_onunhandledrejection_Get(JsHandle);
-extern (C) void WorkerLocation_href_Set(JsHandle, string);
-extern (C) string WorkerLocation_href_Get(JsHandle);
-extern (C) string WorkerLocation_origin_Get(JsHandle);
-extern (C) string WorkerLocation_protocol_Get(JsHandle);
-extern (C) string WorkerLocation_host_Get(JsHandle);
-extern (C) string WorkerLocation_hostname_Get(JsHandle);
-extern (C) string WorkerLocation_port_Get(JsHandle);
-extern (C) string WorkerLocation_pathname_Get(JsHandle);
-extern (C) string WorkerLocation_search_Get(JsHandle);
-extern (C) string WorkerLocation_hash_Get(JsHandle);
-extern (C) JsHandle WorkerNavigator_permissions_Get(JsHandle);
-extern (C) JsHandle WorkerNavigator_serviceWorker_Get(JsHandle);
-extern (C) void WorkerOptions_type_Set(JsHandle, WorkerType);
-extern (C) WorkerType WorkerOptions_type_Get(JsHandle);
-extern (C) void WorkerOptions_credentials_Set(JsHandle, RequestCredentials);
-extern (C) RequestCredentials WorkerOptions_credentials_Get(JsHandle);
-extern (C) void WorkerOptions_name_Set(JsHandle, string);
-extern (C) string WorkerOptions_name_Get(JsHandle);
+extern (C) uint AnimationFrameProvider_requestAnimationFrame(Handle, FrameRequestCallback);
+extern (C) void AnimationFrameProvider_cancelAnimationFrame(Handle, uint);
+extern (C) ushort ApplicationCache_status_Get(Handle);
+extern (C) void ApplicationCache_update(Handle);
+extern (C) void ApplicationCache_abort(Handle);
+extern (C) void ApplicationCache_swapCache(Handle);
+extern (C) void ApplicationCache_onchecking_Set(Handle, EventHandler);
+extern (C) EventHandler ApplicationCache_onchecking_Get(Handle);
+extern (C) void ApplicationCache_onerror_Set(Handle, EventHandler);
+extern (C) EventHandler ApplicationCache_onerror_Get(Handle);
+extern (C) void ApplicationCache_onnoupdate_Set(Handle, EventHandler);
+extern (C) EventHandler ApplicationCache_onnoupdate_Get(Handle);
+extern (C) void ApplicationCache_ondownloading_Set(Handle, EventHandler);
+extern (C) EventHandler ApplicationCache_ondownloading_Get(Handle);
+extern (C) void ApplicationCache_onprogress_Set(Handle, EventHandler);
+extern (C) EventHandler ApplicationCache_onprogress_Get(Handle);
+extern (C) void ApplicationCache_onupdateready_Set(Handle, EventHandler);
+extern (C) EventHandler ApplicationCache_onupdateready_Get(Handle);
+extern (C) void ApplicationCache_oncached_Set(Handle, EventHandler);
+extern (C) EventHandler ApplicationCache_oncached_Get(Handle);
+extern (C) void ApplicationCache_onobsolete_Set(Handle, EventHandler);
+extern (C) EventHandler ApplicationCache_onobsolete_Get(Handle);
+extern (C) void AssignedNodesOptions_flatten_Set(Handle, bool);
+extern (C) bool AssignedNodesOptions_flatten_Get(Handle);
+extern (C) string AudioTrack_id_Get(Handle);
+extern (C) string AudioTrack_kind_Get(Handle);
+extern (C) string AudioTrack_label_Get(Handle);
+extern (C) string AudioTrack_language_Get(Handle);
+extern (C) void AudioTrack_enabled_Set(Handle, bool);
+extern (C) bool AudioTrack_enabled_Get(Handle);
+extern (C) Optional!(SourceBuffer) AudioTrack_sourceBuffer_Get(Handle);
+extern (C) uint AudioTrackList_length_Get(Handle);
+extern (C) Handle AudioTrackList_getter__uint(Handle, uint);
+extern (C) Optional!(AudioTrack) AudioTrackList_getTrackById(Handle, string);
+extern (C) void AudioTrackList_onchange_Set(Handle, EventHandler);
+extern (C) EventHandler AudioTrackList_onchange_Get(Handle);
+extern (C) void AudioTrackList_onaddtrack_Set(Handle, EventHandler);
+extern (C) EventHandler AudioTrackList_onaddtrack_Get(Handle);
+extern (C) void AudioTrackList_onremovetrack_Set(Handle, EventHandler);
+extern (C) EventHandler AudioTrackList_onremovetrack_Get(Handle);
+extern (C) bool BarProp_visible_Get(Handle);
+extern (C) void BeforeUnloadEvent_returnValue_Set(Handle, string);
+extern (C) string BeforeUnloadEvent_returnValue_Get(Handle);
+extern (C) string BroadcastChannel_name_Get(Handle);
+extern (C) void BroadcastChannel_postMessage(Handle, Handle);
+extern (C) void BroadcastChannel_close(Handle);
+extern (C) void BroadcastChannel_onmessage_Set(Handle, EventHandler);
+extern (C) EventHandler BroadcastChannel_onmessage_Get(Handle);
+extern (C) void BroadcastChannel_onmessageerror_Set(Handle, EventHandler);
+extern (C) EventHandler BroadcastChannel_onmessageerror_Get(Handle);
+extern (C) void CanvasDrawImage_drawImage__CanvasImageSource_double_double(Handle, CanvasImageSource, double, double);
+extern (C) void CanvasDrawImage_drawImage__CanvasImageSource_double_double_double_double(Handle, CanvasImageSource, double, double, double, double);
+extern (C) void CanvasDrawImage_drawImage__CanvasImageSource_double_double_double_double_double_double_double_double(Handle, CanvasImageSource, double, double, double, double, double, double, double, double);
+extern (C) void CanvasDrawPath_beginPath(Handle);
+extern (C) void CanvasDrawPath_fill__CanvasFillRule(Handle, CanvasFillRule);
+extern (C) void CanvasDrawPath_fill__Handle_CanvasFillRule(Handle, Handle, CanvasFillRule);
+extern (C) void CanvasDrawPath_stroke__(Handle);
+extern (C) void CanvasDrawPath_stroke__Handle(Handle, Handle);
+extern (C) void CanvasDrawPath_clip__CanvasFillRule(Handle, CanvasFillRule);
+extern (C) void CanvasDrawPath_clip__Handle_CanvasFillRule(Handle, Handle, CanvasFillRule);
+extern (C) bool CanvasDrawPath_isPointInPath__double_double_CanvasFillRule(Handle, double, double, CanvasFillRule);
+extern (C) bool CanvasDrawPath_isPointInPath__Handle_double_double_CanvasFillRule(Handle, Handle, double, double, CanvasFillRule);
+extern (C) bool CanvasDrawPath_isPointInStroke__double_double(Handle, double, double);
+extern (C) bool CanvasDrawPath_isPointInStroke__Handle_double_double(Handle, Handle, double, double);
+extern (C) Handle CanvasFillStrokeStyles_createLinearGradient(Handle, double, double, double, double);
+extern (C) Handle CanvasFillStrokeStyles_createRadialGradient(Handle, double, double, double, double, double, double);
+extern (C) Optional!(CanvasPattern) CanvasFillStrokeStyles_createPattern(Handle, CanvasImageSource, string);
+extern (C) void CanvasGradient_addColorStop(Handle, double, string);
+extern (C) Handle CanvasImageData_createImageData__int_int(Handle, int, int);
+extern (C) Handle CanvasImageData_createImageData__Handle(Handle, Handle);
+extern (C) Handle CanvasImageData_getImageData(Handle, int, int, int, int);
+extern (C) void CanvasImageData_putImageData__Handle_int_int(Handle, Handle, int, int);
+extern (C) void CanvasImageData_putImageData__Handle_int_int_int_int_int_int(Handle, Handle, int, int, int, int, int, int);
+extern (C) void CanvasPath_closePath(Handle);
+extern (C) void CanvasPath_moveTo(Handle, double, double);
+extern (C) void CanvasPath_lineTo(Handle, double, double);
+extern (C) void CanvasPath_quadraticCurveTo(Handle, double, double, double, double);
+extern (C) void CanvasPath_bezierCurveTo(Handle, double, double, double, double, double, double);
+extern (C) void CanvasPath_arcTo(Handle, double, double, double, double, double);
+extern (C) void CanvasPath_rect(Handle, double, double, double, double);
+extern (C) void CanvasPath_arc(Handle, double, double, double, double, double, bool);
+extern (C) void CanvasPath_ellipse(Handle, double, double, double, double, double, double, double, bool);
+extern (C) void CanvasPathDrawingStyles_setLineDash(Handle, Handle);
+extern (C) Handle CanvasPathDrawingStyles_getLineDash(Handle);
+extern (C) void CanvasPattern_setTransform(Handle, Handle);
+extern (C) void CanvasRect_clearRect(Handle, double, double, double, double);
+extern (C) void CanvasRect_fillRect(Handle, double, double, double, double);
+extern (C) void CanvasRect_strokeRect(Handle, double, double, double, double);
+extern (C) Handle CanvasRenderingContext2D_canvas_Get(Handle);
+extern (C) void CanvasRenderingContext2DSettings_alpha_Set(Handle, bool);
+extern (C) bool CanvasRenderingContext2DSettings_alpha_Get(Handle);
+extern (C) void CanvasState_save(Handle);
+extern (C) void CanvasState_restore(Handle);
+extern (C) void CanvasText_fillText(Handle, string, double, double, double);
+extern (C) void CanvasText_strokeText(Handle, string, double, double, double);
+extern (C) Handle CanvasText_measureText(Handle, string);
+extern (C) void CanvasTransform_scale(Handle, double, double);
+extern (C) void CanvasTransform_rotate(Handle, double);
+extern (C) void CanvasTransform_translate(Handle, double, double);
+extern (C) void CanvasTransform_transform(Handle, double, double, double, double, double, double);
+extern (C) Handle CanvasTransform_getTransform(Handle);
+extern (C) void CanvasTransform_setTransform__double_double_double_double_double_double(Handle, double, double, double, double, double, double);
+extern (C) void CanvasTransform_setTransform__Handle(Handle, Handle);
+extern (C) void CanvasTransform_resetTransform(Handle);
+extern (C) void CanvasUserInterface_drawFocusIfNeeded__Handle(Handle, Handle);
+extern (C) void CanvasUserInterface_drawFocusIfNeeded__Handle_Handle(Handle, Handle, Handle);
+extern (C) void CanvasUserInterface_scrollPathIntoView__(Handle);
+extern (C) void CanvasUserInterface_scrollPathIntoView__Handle(Handle, Handle);
+extern (C) bool CloseEvent_wasClean_Get(Handle);
+extern (C) ushort CloseEvent_code_Get(Handle);
+extern (C) string CloseEvent_reason_Get(Handle);
+extern (C) void CloseEventInit_wasClean_Set(Handle, bool);
+extern (C) bool CloseEventInit_wasClean_Get(Handle);
+extern (C) void CloseEventInit_code_Set(Handle, ushort);
+extern (C) ushort CloseEventInit_code_Get(Handle);
+extern (C) void CloseEventInit_reason_Set(Handle, string);
+extern (C) string CloseEventInit_reason_Get(Handle);
+extern (C) void CustomElementRegistry_define(Handle, string, CustomElementConstructor, Handle);
+extern (C) Handle CustomElementRegistry_get(Handle, string);
+extern (C) Handle CustomElementRegistry_whenDefined(Handle, string);
+extern (C) void CustomElementRegistry_upgrade(Handle, Handle);
+extern (C) uint DOMStringList_length_Get(Handle);
+extern (C) Optional!(string) DOMStringList_item_getter(Handle, uint);
+extern (C) bool DOMStringList_contains(Handle, string);
+extern (C) string DOMStringMap_getter__string(Handle, string);
+extern (C) void DOMStringMap_setter__string_string(Handle, string, string);
+extern (C) void DOMStringMap_deleter(Handle, string);
+extern (C) void DataTransfer_dropEffect_Set(Handle, string);
+extern (C) string DataTransfer_dropEffect_Get(Handle);
+extern (C) void DataTransfer_effectAllowed_Set(Handle, string);
+extern (C) string DataTransfer_effectAllowed_Get(Handle);
+extern (C) Handle DataTransfer_items_Get(Handle);
+extern (C) void DataTransfer_setDragImage(Handle, Handle, int, int);
+extern (C) Handle DataTransfer_types_Get(Handle);
+extern (C) string DataTransfer_getData(Handle, string);
+extern (C) void DataTransfer_setData(Handle, string, string);
+extern (C) void DataTransfer_clearData(Handle, string);
+extern (C) Handle DataTransfer_files_Get(Handle);
+extern (C) string DataTransferItem_kind_Get(Handle);
+extern (C) string DataTransferItem_type_Get(Handle);
+extern (C) void DataTransferItem_getAsString(Handle, bool, FunctionStringCallback);
+extern (C) Optional!(File) DataTransferItem_getAsFile(Handle);
+extern (C) uint DataTransferItemList_length_Get(Handle);
+extern (C) Handle DataTransferItemList_getter__uint(Handle, uint);
+extern (C) Optional!(DataTransferItem) DataTransferItemList_add__string_string(Handle, string, string);
+extern (C) Optional!(DataTransferItem) DataTransferItemList_add__Handle(Handle, Handle);
+extern (C) void DataTransferItemList_remove(Handle, uint);
+extern (C) void DataTransferItemList_clear(Handle);
+extern (C) string DedicatedWorkerGlobalScope_name_Get(Handle);
+extern (C) void DedicatedWorkerGlobalScope_postMessage__Any_sequence(Handle, Handle, Handle);
+extern (C) void DedicatedWorkerGlobalScope_postMessage__Any_Handle(Handle, Handle, Handle);
+extern (C) void DedicatedWorkerGlobalScope_close(Handle);
+extern (C) void DedicatedWorkerGlobalScope_onmessage_Set(Handle, EventHandler);
+extern (C) EventHandler DedicatedWorkerGlobalScope_onmessage_Get(Handle);
+extern (C) void DedicatedWorkerGlobalScope_onmessageerror_Set(Handle, EventHandler);
+extern (C) EventHandler DedicatedWorkerGlobalScope_onmessageerror_Get(Handle);
+extern (C) Optional!(DataTransfer) DragEvent_dataTransfer_Get(Handle);
+extern (C) void DragEventInit_dataTransfer_Set(Handle, bool, Handle);
+extern (C) Optional!(DataTransfer) DragEventInit_dataTransfer_Get(Handle);
+extern (C) bool ElementContentEditable_isContentEditable_Get(Handle);
+extern (C) void ElementDefinitionOptions_extends_Set(Handle, string);
+extern (C) string ElementDefinitionOptions_extends_Get(Handle);
+extern (C) string ErrorEvent_message_Get(Handle);
+extern (C) string ErrorEvent_filename_Get(Handle);
+extern (C) uint ErrorEvent_lineno_Get(Handle);
+extern (C) uint ErrorEvent_colno_Get(Handle);
+extern (C) Handle ErrorEvent_error_Get(Handle);
+extern (C) void ErrorEventInit_message_Set(Handle, string);
+extern (C) string ErrorEventInit_message_Get(Handle);
+extern (C) void ErrorEventInit_filename_Set(Handle, string);
+extern (C) string ErrorEventInit_filename_Get(Handle);
+extern (C) void ErrorEventInit_lineno_Set(Handle, uint);
+extern (C) uint ErrorEventInit_lineno_Get(Handle);
+extern (C) void ErrorEventInit_colno_Set(Handle, uint);
+extern (C) uint ErrorEventInit_colno_Get(Handle);
+extern (C) void ErrorEventInit_error_Set(Handle, Handle);
+extern (C) Handle ErrorEventInit_error_Get(Handle);
+extern (C) string EventSource_url_Get(Handle);
+extern (C) bool EventSource_withCredentials_Get(Handle);
+extern (C) ushort EventSource_readyState_Get(Handle);
+extern (C) void EventSource_onopen_Set(Handle, EventHandler);
+extern (C) EventHandler EventSource_onopen_Get(Handle);
+extern (C) void EventSource_onmessage_Set(Handle, EventHandler);
+extern (C) EventHandler EventSource_onmessage_Get(Handle);
+extern (C) void EventSource_onerror_Set(Handle, EventHandler);
+extern (C) EventHandler EventSource_onerror_Get(Handle);
+extern (C) void EventSource_close(Handle);
+extern (C) void EventSourceInit_withCredentials_Set(Handle, bool);
+extern (C) bool EventSourceInit_withCredentials_Get(Handle);
+extern (C) void External_AddSearchProvider(Handle);
+extern (C) void External_IsSearchProviderInstalled(Handle);
+extern (C) void FocusOptions_preventScroll_Set(Handle, bool);
+extern (C) bool FocusOptions_preventScroll_Get(Handle);
+extern (C) void GlobalEventHandlers_ongotpointercapture_Set(Handle, EventHandler);
+extern (C) EventHandler GlobalEventHandlers_ongotpointercapture_Get(Handle);
+extern (C) void GlobalEventHandlers_onlostpointercapture_Set(Handle, EventHandler);
+extern (C) EventHandler GlobalEventHandlers_onlostpointercapture_Get(Handle);
+extern (C) void GlobalEventHandlers_onpointerdown_Set(Handle, EventHandler);
+extern (C) EventHandler GlobalEventHandlers_onpointerdown_Get(Handle);
+extern (C) void GlobalEventHandlers_onpointermove_Set(Handle, EventHandler);
+extern (C) EventHandler GlobalEventHandlers_onpointermove_Get(Handle);
+extern (C) void GlobalEventHandlers_onpointerup_Set(Handle, EventHandler);
+extern (C) EventHandler GlobalEventHandlers_onpointerup_Get(Handle);
+extern (C) void GlobalEventHandlers_onpointercancel_Set(Handle, EventHandler);
+extern (C) EventHandler GlobalEventHandlers_onpointercancel_Get(Handle);
+extern (C) void GlobalEventHandlers_onpointerover_Set(Handle, EventHandler);
+extern (C) EventHandler GlobalEventHandlers_onpointerover_Get(Handle);
+extern (C) void GlobalEventHandlers_onpointerout_Set(Handle, EventHandler);
+extern (C) EventHandler GlobalEventHandlers_onpointerout_Get(Handle);
+extern (C) void GlobalEventHandlers_onpointerenter_Set(Handle, EventHandler);
+extern (C) EventHandler GlobalEventHandlers_onpointerenter_Get(Handle);
+extern (C) void GlobalEventHandlers_onpointerleave_Set(Handle, EventHandler);
+extern (C) EventHandler GlobalEventHandlers_onpointerleave_Get(Handle);
+extern (C) void GlobalEventHandlers_ontouchstart_Set(Handle, EventHandler);
+extern (C) EventHandler GlobalEventHandlers_ontouchstart_Get(Handle);
+extern (C) void GlobalEventHandlers_ontouchend_Set(Handle, EventHandler);
+extern (C) EventHandler GlobalEventHandlers_ontouchend_Get(Handle);
+extern (C) void GlobalEventHandlers_ontouchmove_Set(Handle, EventHandler);
+extern (C) EventHandler GlobalEventHandlers_ontouchmove_Get(Handle);
+extern (C) void GlobalEventHandlers_ontouchcancel_Set(Handle, EventHandler);
+extern (C) EventHandler GlobalEventHandlers_ontouchcancel_Get(Handle);
+extern (C) uint HTMLAllCollection_length_Get(Handle);
+extern (C) Handle HTMLAllCollection_getter__uint(Handle, uint);
+extern (C) Optional!(SumType!(HTMLCollection, Element)) HTMLAllCollection_namedItem_getter(Handle, string);
+extern (C) Optional!(SumType!(HTMLCollection, Element)) HTMLAllCollection_item(Handle, string);
+extern (C) void HTMLAnchorElement_target_Set(Handle, string);
+extern (C) string HTMLAnchorElement_target_Get(Handle);
+extern (C) void HTMLAnchorElement_download_Set(Handle, string);
+extern (C) string HTMLAnchorElement_download_Get(Handle);
+extern (C) void HTMLAnchorElement_ping_Set(Handle, string);
+extern (C) string HTMLAnchorElement_ping_Get(Handle);
+extern (C) void HTMLAnchorElement_rel_Set(Handle, string);
+extern (C) string HTMLAnchorElement_rel_Get(Handle);
+extern (C) Handle HTMLAnchorElement_relList_Get(Handle);
+extern (C) void HTMLAnchorElement_hreflang_Set(Handle, string);
+extern (C) string HTMLAnchorElement_hreflang_Get(Handle);
+extern (C) void HTMLAnchorElement_type_Set(Handle, string);
+extern (C) string HTMLAnchorElement_type_Get(Handle);
+extern (C) void HTMLAnchorElement_text_Set(Handle, string);
+extern (C) string HTMLAnchorElement_text_Get(Handle);
+extern (C) void HTMLAnchorElement_referrerPolicy_Set(Handle, string);
+extern (C) string HTMLAnchorElement_referrerPolicy_Get(Handle);
+extern (C) void HTMLAnchorElement_coords_Set(Handle, string);
+extern (C) string HTMLAnchorElement_coords_Get(Handle);
+extern (C) void HTMLAnchorElement_charset_Set(Handle, string);
+extern (C) string HTMLAnchorElement_charset_Get(Handle);
+extern (C) void HTMLAnchorElement_name_Set(Handle, string);
+extern (C) string HTMLAnchorElement_name_Get(Handle);
+extern (C) void HTMLAnchorElement_rev_Set(Handle, string);
+extern (C) string HTMLAnchorElement_rev_Get(Handle);
+extern (C) void HTMLAnchorElement_shape_Set(Handle, string);
+extern (C) string HTMLAnchorElement_shape_Get(Handle);
+extern (C) void HTMLAreaElement_alt_Set(Handle, string);
+extern (C) string HTMLAreaElement_alt_Get(Handle);
+extern (C) void HTMLAreaElement_coords_Set(Handle, string);
+extern (C) string HTMLAreaElement_coords_Get(Handle);
+extern (C) void HTMLAreaElement_shape_Set(Handle, string);
+extern (C) string HTMLAreaElement_shape_Get(Handle);
+extern (C) void HTMLAreaElement_target_Set(Handle, string);
+extern (C) string HTMLAreaElement_target_Get(Handle);
+extern (C) void HTMLAreaElement_download_Set(Handle, string);
+extern (C) string HTMLAreaElement_download_Get(Handle);
+extern (C) void HTMLAreaElement_ping_Set(Handle, string);
+extern (C) string HTMLAreaElement_ping_Get(Handle);
+extern (C) void HTMLAreaElement_rel_Set(Handle, string);
+extern (C) string HTMLAreaElement_rel_Get(Handle);
+extern (C) Handle HTMLAreaElement_relList_Get(Handle);
+extern (C) void HTMLAreaElement_referrerPolicy_Set(Handle, string);
+extern (C) string HTMLAreaElement_referrerPolicy_Get(Handle);
+extern (C) void HTMLAreaElement_noHref_Set(Handle, bool);
+extern (C) bool HTMLAreaElement_noHref_Get(Handle);
+extern (C) void HTMLBRElement_clear_Set(Handle, string);
+extern (C) string HTMLBRElement_clear_Get(Handle);
+extern (C) void HTMLBaseElement_href_Set(Handle, string);
+extern (C) string HTMLBaseElement_href_Get(Handle);
+extern (C) void HTMLBaseElement_target_Set(Handle, string);
+extern (C) string HTMLBaseElement_target_Get(Handle);
+extern (C) void HTMLBodyElement_text_Set(Handle, string);
+extern (C) string HTMLBodyElement_text_Get(Handle);
+extern (C) void HTMLBodyElement_link_Set(Handle, string);
+extern (C) string HTMLBodyElement_link_Get(Handle);
+extern (C) void HTMLBodyElement_vLink_Set(Handle, string);
+extern (C) string HTMLBodyElement_vLink_Get(Handle);
+extern (C) void HTMLBodyElement_aLink_Set(Handle, string);
+extern (C) string HTMLBodyElement_aLink_Get(Handle);
+extern (C) void HTMLBodyElement_bgColor_Set(Handle, string);
+extern (C) string HTMLBodyElement_bgColor_Get(Handle);
+extern (C) void HTMLBodyElement_background_Set(Handle, string);
+extern (C) string HTMLBodyElement_background_Get(Handle);
+extern (C) void HTMLBodyElement_onorientationchange_Set(Handle, EventHandler);
+extern (C) EventHandler HTMLBodyElement_onorientationchange_Get(Handle);
+extern (C) void HTMLButtonElement_autofocus_Set(Handle, bool);
+extern (C) bool HTMLButtonElement_autofocus_Get(Handle);
+extern (C) void HTMLButtonElement_disabled_Set(Handle, bool);
+extern (C) bool HTMLButtonElement_disabled_Get(Handle);
+extern (C) Optional!(HTMLFormElement) HTMLButtonElement_form_Get(Handle);
+extern (C) void HTMLButtonElement_formAction_Set(Handle, string);
+extern (C) string HTMLButtonElement_formAction_Get(Handle);
+extern (C) void HTMLButtonElement_formEnctype_Set(Handle, string);
+extern (C) string HTMLButtonElement_formEnctype_Get(Handle);
+extern (C) void HTMLButtonElement_formMethod_Set(Handle, string);
+extern (C) string HTMLButtonElement_formMethod_Get(Handle);
+extern (C) void HTMLButtonElement_formNoValidate_Set(Handle, bool);
+extern (C) bool HTMLButtonElement_formNoValidate_Get(Handle);
+extern (C) void HTMLButtonElement_formTarget_Set(Handle, string);
+extern (C) string HTMLButtonElement_formTarget_Get(Handle);
+extern (C) void HTMLButtonElement_name_Set(Handle, string);
+extern (C) string HTMLButtonElement_name_Get(Handle);
+extern (C) void HTMLButtonElement_type_Set(Handle, string);
+extern (C) string HTMLButtonElement_type_Get(Handle);
+extern (C) void HTMLButtonElement_value_Set(Handle, string);
+extern (C) string HTMLButtonElement_value_Get(Handle);
+extern (C) bool HTMLButtonElement_willValidate_Get(Handle);
+extern (C) Handle HTMLButtonElement_validity_Get(Handle);
+extern (C) string HTMLButtonElement_validationMessage_Get(Handle);
+extern (C) bool HTMLButtonElement_checkValidity(Handle);
+extern (C) bool HTMLButtonElement_reportValidity(Handle);
+extern (C) void HTMLButtonElement_setCustomValidity(Handle, string);
+extern (C) Handle HTMLButtonElement_labels_Get(Handle);
+extern (C) void HTMLCanvasElement_width_Set(Handle, uint);
+extern (C) uint HTMLCanvasElement_width_Get(Handle);
+extern (C) void HTMLCanvasElement_height_Set(Handle, uint);
+extern (C) uint HTMLCanvasElement_height_Get(Handle);
+extern (C) Optional!(RenderingContext) HTMLCanvasElement_getContext(Handle, string, Handle);
+extern (C) string HTMLCanvasElement_toDataURL(Handle, string, Handle);
+extern (C) void HTMLCanvasElement_toBlob(Handle, BlobCallback, string, Handle);
+extern (C) Handle HTMLCanvasElement_transferControlToOffscreen(Handle);
+extern (C) void HTMLDListElement_compact_Set(Handle, bool);
+extern (C) bool HTMLDListElement_compact_Get(Handle);
+extern (C) void HTMLDataElement_value_Set(Handle, string);
+extern (C) string HTMLDataElement_value_Get(Handle);
+extern (C) Handle HTMLDataListElement_options_Get(Handle);
+extern (C) void HTMLDetailsElement_open_Set(Handle, bool);
+extern (C) bool HTMLDetailsElement_open_Get(Handle);
+extern (C) void HTMLDialogElement_open_Set(Handle, bool);
+extern (C) bool HTMLDialogElement_open_Get(Handle);
+extern (C) void HTMLDialogElement_returnValue_Set(Handle, string);
+extern (C) string HTMLDialogElement_returnValue_Get(Handle);
+extern (C) void HTMLDialogElement_show(Handle);
+extern (C) void HTMLDialogElement_showModal(Handle);
+extern (C) void HTMLDialogElement_close(Handle, string);
+extern (C) void HTMLDirectoryElement_compact_Set(Handle, bool);
+extern (C) bool HTMLDirectoryElement_compact_Get(Handle);
+extern (C) void HTMLDivElement_align_Set(Handle, string);
+extern (C) string HTMLDivElement_align_Get(Handle);
+extern (C) void HTMLElement_title_Set(Handle, string);
+extern (C) string HTMLElement_title_Get(Handle);
+extern (C) void HTMLElement_lang_Set(Handle, string);
+extern (C) string HTMLElement_lang_Get(Handle);
+extern (C) void HTMLElement_translate_Set(Handle, bool);
+extern (C) bool HTMLElement_translate_Get(Handle);
+extern (C) void HTMLElement_dir_Set(Handle, string);
+extern (C) string HTMLElement_dir_Get(Handle);
+extern (C) void HTMLElement_hidden_Set(Handle, bool);
+extern (C) bool HTMLElement_hidden_Get(Handle);
+extern (C) void HTMLElement_click(Handle);
+extern (C) void HTMLElement_accessKey_Set(Handle, string);
+extern (C) string HTMLElement_accessKey_Get(Handle);
+extern (C) string HTMLElement_accessKeyLabel_Get(Handle);
+extern (C) void HTMLElement_draggable_Set(Handle, bool);
+extern (C) bool HTMLElement_draggable_Get(Handle);
+extern (C) void HTMLElement_spellcheck_Set(Handle, bool);
+extern (C) bool HTMLElement_spellcheck_Get(Handle);
+extern (C) void HTMLElement_autocapitalize_Set(Handle, string);
+extern (C) string HTMLElement_autocapitalize_Get(Handle);
+extern (C) void HTMLElement_innerText_Set(Handle, string);
+extern (C) string HTMLElement_innerText_Get(Handle);
+extern (C) void HTMLEmbedElement_src_Set(Handle, string);
+extern (C) string HTMLEmbedElement_src_Get(Handle);
+extern (C) void HTMLEmbedElement_type_Set(Handle, string);
+extern (C) string HTMLEmbedElement_type_Get(Handle);
+extern (C) void HTMLEmbedElement_width_Set(Handle, string);
+extern (C) string HTMLEmbedElement_width_Get(Handle);
+extern (C) void HTMLEmbedElement_height_Set(Handle, string);
+extern (C) string HTMLEmbedElement_height_Get(Handle);
+extern (C) Optional!(Document) HTMLEmbedElement_getSVGDocument(Handle);
+extern (C) void HTMLEmbedElement_align_Set(Handle, string);
+extern (C) string HTMLEmbedElement_align_Get(Handle);
+extern (C) void HTMLEmbedElement_name_Set(Handle, string);
+extern (C) string HTMLEmbedElement_name_Get(Handle);
+extern (C) void HTMLFieldSetElement_disabled_Set(Handle, bool);
+extern (C) bool HTMLFieldSetElement_disabled_Get(Handle);
+extern (C) Optional!(HTMLFormElement) HTMLFieldSetElement_form_Get(Handle);
+extern (C) void HTMLFieldSetElement_name_Set(Handle, string);
+extern (C) string HTMLFieldSetElement_name_Get(Handle);
+extern (C) string HTMLFieldSetElement_type_Get(Handle);
+extern (C) Handle HTMLFieldSetElement_elements_Get(Handle);
+extern (C) bool HTMLFieldSetElement_willValidate_Get(Handle);
+extern (C) Handle HTMLFieldSetElement_validity_Get(Handle);
+extern (C) string HTMLFieldSetElement_validationMessage_Get(Handle);
+extern (C) bool HTMLFieldSetElement_checkValidity(Handle);
+extern (C) bool HTMLFieldSetElement_reportValidity(Handle);
+extern (C) void HTMLFieldSetElement_setCustomValidity(Handle, string);
+extern (C) void HTMLFontElement_color_Set(Handle, string);
+extern (C) string HTMLFontElement_color_Get(Handle);
+extern (C) void HTMLFontElement_face_Set(Handle, string);
+extern (C) string HTMLFontElement_face_Get(Handle);
+extern (C) void HTMLFontElement_size_Set(Handle, string);
+extern (C) string HTMLFontElement_size_Get(Handle);
+extern (C) Optional!(SumType!(RadioNodeList, Element)) HTMLFormControlsCollection_namedItem_getter(Handle, string);
+extern (C) void HTMLFormElement_acceptCharset_Set(Handle, string);
+extern (C) string HTMLFormElement_acceptCharset_Get(Handle);
+extern (C) void HTMLFormElement_action_Set(Handle, string);
+extern (C) string HTMLFormElement_action_Get(Handle);
+extern (C) void HTMLFormElement_autocomplete_Set(Handle, string);
+extern (C) string HTMLFormElement_autocomplete_Get(Handle);
+extern (C) void HTMLFormElement_enctype_Set(Handle, string);
+extern (C) string HTMLFormElement_enctype_Get(Handle);
+extern (C) void HTMLFormElement_encoding_Set(Handle, string);
+extern (C) string HTMLFormElement_encoding_Get(Handle);
+extern (C) void HTMLFormElement_method_Set(Handle, string);
+extern (C) string HTMLFormElement_method_Get(Handle);
+extern (C) void HTMLFormElement_name_Set(Handle, string);
+extern (C) string HTMLFormElement_name_Get(Handle);
+extern (C) void HTMLFormElement_noValidate_Set(Handle, bool);
+extern (C) bool HTMLFormElement_noValidate_Get(Handle);
+extern (C) void HTMLFormElement_target_Set(Handle, string);
+extern (C) string HTMLFormElement_target_Get(Handle);
+extern (C) Handle HTMLFormElement_elements_Get(Handle);
+extern (C) uint HTMLFormElement_length_Get(Handle);
+extern (C) Handle HTMLFormElement_getter__uint(Handle, uint);
+extern (C) SumType!(RadioNodeList, Element) HTMLFormElement_getter__string(Handle, string);
+extern (C) void HTMLFormElement_submit(Handle);
+extern (C) void HTMLFormElement_reset(Handle);
+extern (C) bool HTMLFormElement_checkValidity(Handle);
+extern (C) bool HTMLFormElement_reportValidity(Handle);
+extern (C) void HTMLFrameElement_name_Set(Handle, string);
+extern (C) string HTMLFrameElement_name_Get(Handle);
+extern (C) void HTMLFrameElement_scrolling_Set(Handle, string);
+extern (C) string HTMLFrameElement_scrolling_Get(Handle);
+extern (C) void HTMLFrameElement_src_Set(Handle, string);
+extern (C) string HTMLFrameElement_src_Get(Handle);
+extern (C) void HTMLFrameElement_frameBorder_Set(Handle, string);
+extern (C) string HTMLFrameElement_frameBorder_Get(Handle);
+extern (C) void HTMLFrameElement_longDesc_Set(Handle, string);
+extern (C) string HTMLFrameElement_longDesc_Get(Handle);
+extern (C) void HTMLFrameElement_noResize_Set(Handle, bool);
+extern (C) bool HTMLFrameElement_noResize_Get(Handle);
+extern (C) Optional!(Document) HTMLFrameElement_contentDocument_Get(Handle);
+extern (C) Optional!(Window) HTMLFrameElement_contentWindow_Get(Handle);
+extern (C) void HTMLFrameElement_marginHeight_Set(Handle, string);
+extern (C) string HTMLFrameElement_marginHeight_Get(Handle);
+extern (C) void HTMLFrameElement_marginWidth_Set(Handle, string);
+extern (C) string HTMLFrameElement_marginWidth_Get(Handle);
+extern (C) void HTMLFrameSetElement_cols_Set(Handle, string);
+extern (C) string HTMLFrameSetElement_cols_Get(Handle);
+extern (C) void HTMLFrameSetElement_rows_Set(Handle, string);
+extern (C) string HTMLFrameSetElement_rows_Get(Handle);
+extern (C) void HTMLHRElement_align_Set(Handle, string);
+extern (C) string HTMLHRElement_align_Get(Handle);
+extern (C) void HTMLHRElement_color_Set(Handle, string);
+extern (C) string HTMLHRElement_color_Get(Handle);
+extern (C) void HTMLHRElement_noShade_Set(Handle, bool);
+extern (C) bool HTMLHRElement_noShade_Get(Handle);
+extern (C) void HTMLHRElement_size_Set(Handle, string);
+extern (C) string HTMLHRElement_size_Get(Handle);
+extern (C) void HTMLHRElement_width_Set(Handle, string);
+extern (C) string HTMLHRElement_width_Get(Handle);
+extern (C) void HTMLHeadingElement_align_Set(Handle, string);
+extern (C) string HTMLHeadingElement_align_Get(Handle);
+extern (C) void HTMLHtmlElement_version_Set(Handle, string);
+extern (C) string HTMLHtmlElement_version_Get(Handle);
+extern (C) void HTMLHyperlinkElementUtils_href_Set(Handle, string);
+extern (C) string HTMLHyperlinkElementUtils_href_Get(Handle);
+extern (C) string HTMLHyperlinkElementUtils_origin_Get(Handle);
+extern (C) void HTMLIFrameElement_src_Set(Handle, string);
+extern (C) string HTMLIFrameElement_src_Get(Handle);
+extern (C) void HTMLIFrameElement_srcdoc_Set(Handle, string);
+extern (C) string HTMLIFrameElement_srcdoc_Get(Handle);
+extern (C) void HTMLIFrameElement_name_Set(Handle, string);
+extern (C) string HTMLIFrameElement_name_Get(Handle);
+extern (C) Handle HTMLIFrameElement_sandbox_Get(Handle);
+extern (C) void HTMLIFrameElement_allow_Set(Handle, string);
+extern (C) string HTMLIFrameElement_allow_Get(Handle);
+extern (C) void HTMLIFrameElement_allowFullscreen_Set(Handle, bool);
+extern (C) bool HTMLIFrameElement_allowFullscreen_Get(Handle);
+extern (C) void HTMLIFrameElement_allowPaymentRequest_Set(Handle, bool);
+extern (C) bool HTMLIFrameElement_allowPaymentRequest_Get(Handle);
+extern (C) void HTMLIFrameElement_width_Set(Handle, string);
+extern (C) string HTMLIFrameElement_width_Get(Handle);
+extern (C) void HTMLIFrameElement_height_Set(Handle, string);
+extern (C) string HTMLIFrameElement_height_Get(Handle);
+extern (C) void HTMLIFrameElement_referrerPolicy_Set(Handle, string);
+extern (C) string HTMLIFrameElement_referrerPolicy_Get(Handle);
+extern (C) Optional!(Document) HTMLIFrameElement_contentDocument_Get(Handle);
+extern (C) Optional!(Window) HTMLIFrameElement_contentWindow_Get(Handle);
+extern (C) Optional!(Document) HTMLIFrameElement_getSVGDocument(Handle);
+extern (C) void HTMLIFrameElement_align_Set(Handle, string);
+extern (C) string HTMLIFrameElement_align_Get(Handle);
+extern (C) void HTMLIFrameElement_scrolling_Set(Handle, string);
+extern (C) string HTMLIFrameElement_scrolling_Get(Handle);
+extern (C) void HTMLIFrameElement_frameBorder_Set(Handle, string);
+extern (C) string HTMLIFrameElement_frameBorder_Get(Handle);
+extern (C) void HTMLIFrameElement_longDesc_Set(Handle, string);
+extern (C) string HTMLIFrameElement_longDesc_Get(Handle);
+extern (C) void HTMLIFrameElement_marginHeight_Set(Handle, string);
+extern (C) string HTMLIFrameElement_marginHeight_Get(Handle);
+extern (C) void HTMLIFrameElement_marginWidth_Set(Handle, string);
+extern (C) string HTMLIFrameElement_marginWidth_Get(Handle);
+extern (C) void HTMLImageElement_alt_Set(Handle, string);
+extern (C) string HTMLImageElement_alt_Get(Handle);
+extern (C) void HTMLImageElement_src_Set(Handle, string);
+extern (C) string HTMLImageElement_src_Get(Handle);
+extern (C) void HTMLImageElement_srcset_Set(Handle, string);
+extern (C) string HTMLImageElement_srcset_Get(Handle);
+extern (C) void HTMLImageElement_sizes_Set(Handle, string);
+extern (C) string HTMLImageElement_sizes_Get(Handle);
+extern (C) void HTMLImageElement_crossOrigin_Set(Handle, bool, string);
+extern (C) Optional!(string) HTMLImageElement_crossOrigin_Get(Handle);
+extern (C) void HTMLImageElement_useMap_Set(Handle, string);
+extern (C) string HTMLImageElement_useMap_Get(Handle);
+extern (C) void HTMLImageElement_isMap_Set(Handle, bool);
+extern (C) bool HTMLImageElement_isMap_Get(Handle);
+extern (C) void HTMLImageElement_width_Set(Handle, uint);
+extern (C) uint HTMLImageElement_width_Get(Handle);
+extern (C) void HTMLImageElement_height_Set(Handle, uint);
+extern (C) uint HTMLImageElement_height_Get(Handle);
+extern (C) uint HTMLImageElement_naturalWidth_Get(Handle);
+extern (C) uint HTMLImageElement_naturalHeight_Get(Handle);
+extern (C) bool HTMLImageElement_complete_Get(Handle);
+extern (C) string HTMLImageElement_currentSrc_Get(Handle);
+extern (C) void HTMLImageElement_referrerPolicy_Set(Handle, string);
+extern (C) string HTMLImageElement_referrerPolicy_Get(Handle);
+extern (C) void HTMLImageElement_decoding_Set(Handle, string);
+extern (C) string HTMLImageElement_decoding_Get(Handle);
+extern (C) Handle HTMLImageElement_decode(Handle);
+extern (C) void HTMLImageElement_name_Set(Handle, string);
+extern (C) string HTMLImageElement_name_Get(Handle);
+extern (C) void HTMLImageElement_lowsrc_Set(Handle, string);
+extern (C) string HTMLImageElement_lowsrc_Get(Handle);
+extern (C) void HTMLImageElement_align_Set(Handle, string);
+extern (C) string HTMLImageElement_align_Get(Handle);
+extern (C) void HTMLImageElement_hspace_Set(Handle, uint);
+extern (C) uint HTMLImageElement_hspace_Get(Handle);
+extern (C) void HTMLImageElement_vspace_Set(Handle, uint);
+extern (C) uint HTMLImageElement_vspace_Get(Handle);
+extern (C) void HTMLImageElement_longDesc_Set(Handle, string);
+extern (C) string HTMLImageElement_longDesc_Get(Handle);
+extern (C) void HTMLImageElement_border_Set(Handle, string);
+extern (C) string HTMLImageElement_border_Get(Handle);
+extern (C) void HTMLInputElement_accept_Set(Handle, string);
+extern (C) string HTMLInputElement_accept_Get(Handle);
+extern (C) void HTMLInputElement_alt_Set(Handle, string);
+extern (C) string HTMLInputElement_alt_Get(Handle);
+extern (C) void HTMLInputElement_autocomplete_Set(Handle, string);
+extern (C) string HTMLInputElement_autocomplete_Get(Handle);
+extern (C) void HTMLInputElement_autofocus_Set(Handle, bool);
+extern (C) bool HTMLInputElement_autofocus_Get(Handle);
+extern (C) void HTMLInputElement_defaultChecked_Set(Handle, bool);
+extern (C) bool HTMLInputElement_defaultChecked_Get(Handle);
+extern (C) void HTMLInputElement_checked_Set(Handle, bool);
+extern (C) bool HTMLInputElement_checked_Get(Handle);
+extern (C) void HTMLInputElement_dirName_Set(Handle, string);
+extern (C) string HTMLInputElement_dirName_Get(Handle);
+extern (C) void HTMLInputElement_disabled_Set(Handle, bool);
+extern (C) bool HTMLInputElement_disabled_Get(Handle);
+extern (C) Optional!(HTMLFormElement) HTMLInputElement_form_Get(Handle);
+extern (C) void HTMLInputElement_files_Set(Handle, bool, Handle);
+extern (C) Optional!(FileList) HTMLInputElement_files_Get(Handle);
+extern (C) void HTMLInputElement_formAction_Set(Handle, string);
+extern (C) string HTMLInputElement_formAction_Get(Handle);
+extern (C) void HTMLInputElement_formEnctype_Set(Handle, string);
+extern (C) string HTMLInputElement_formEnctype_Get(Handle);
+extern (C) void HTMLInputElement_formMethod_Set(Handle, string);
+extern (C) string HTMLInputElement_formMethod_Get(Handle);
+extern (C) void HTMLInputElement_formNoValidate_Set(Handle, bool);
+extern (C) bool HTMLInputElement_formNoValidate_Get(Handle);
+extern (C) void HTMLInputElement_formTarget_Set(Handle, string);
+extern (C) string HTMLInputElement_formTarget_Get(Handle);
+extern (C) void HTMLInputElement_height_Set(Handle, uint);
+extern (C) uint HTMLInputElement_height_Get(Handle);
+extern (C) void HTMLInputElement_indeterminate_Set(Handle, bool);
+extern (C) bool HTMLInputElement_indeterminate_Get(Handle);
+extern (C) Optional!(HTMLElement) HTMLInputElement_list_Get(Handle);
+extern (C) void HTMLInputElement_max_Set(Handle, string);
+extern (C) string HTMLInputElement_max_Get(Handle);
+extern (C) void HTMLInputElement_maxLength_Set(Handle, int);
+extern (C) int HTMLInputElement_maxLength_Get(Handle);
+extern (C) void HTMLInputElement_min_Set(Handle, string);
+extern (C) string HTMLInputElement_min_Get(Handle);
+extern (C) void HTMLInputElement_minLength_Set(Handle, int);
+extern (C) int HTMLInputElement_minLength_Get(Handle);
+extern (C) void HTMLInputElement_multiple_Set(Handle, bool);
+extern (C) bool HTMLInputElement_multiple_Get(Handle);
+extern (C) void HTMLInputElement_name_Set(Handle, string);
+extern (C) string HTMLInputElement_name_Get(Handle);
+extern (C) void HTMLInputElement_pattern_Set(Handle, string);
+extern (C) string HTMLInputElement_pattern_Get(Handle);
+extern (C) void HTMLInputElement_placeholder_Set(Handle, string);
+extern (C) string HTMLInputElement_placeholder_Get(Handle);
+extern (C) void HTMLInputElement_readOnly_Set(Handle, bool);
+extern (C) bool HTMLInputElement_readOnly_Get(Handle);
+extern (C) void HTMLInputElement_required_Set(Handle, bool);
+extern (C) bool HTMLInputElement_required_Get(Handle);
+extern (C) void HTMLInputElement_size_Set(Handle, uint);
+extern (C) uint HTMLInputElement_size_Get(Handle);
+extern (C) void HTMLInputElement_src_Set(Handle, string);
+extern (C) string HTMLInputElement_src_Get(Handle);
+extern (C) void HTMLInputElement_step_Set(Handle, string);
+extern (C) string HTMLInputElement_step_Get(Handle);
+extern (C) void HTMLInputElement_type_Set(Handle, string);
+extern (C) string HTMLInputElement_type_Get(Handle);
+extern (C) void HTMLInputElement_defaultValue_Set(Handle, string);
+extern (C) string HTMLInputElement_defaultValue_Get(Handle);
+extern (C) void HTMLInputElement_value_Set(Handle, string);
+extern (C) string HTMLInputElement_value_Get(Handle);
+extern (C) void HTMLInputElement_valueAsDate_Set(Handle, bool, Handle);
+extern (C) Optional!(JsObject) HTMLInputElement_valueAsDate_Get(Handle);
+extern (C) void HTMLInputElement_valueAsNumber_Set(Handle, double);
+extern (C) double HTMLInputElement_valueAsNumber_Get(Handle);
+extern (C) void HTMLInputElement_width_Set(Handle, uint);
+extern (C) uint HTMLInputElement_width_Get(Handle);
+extern (C) void HTMLInputElement_stepUp(Handle, int);
+extern (C) void HTMLInputElement_stepDown(Handle, int);
+extern (C) bool HTMLInputElement_willValidate_Get(Handle);
+extern (C) Handle HTMLInputElement_validity_Get(Handle);
+extern (C) string HTMLInputElement_validationMessage_Get(Handle);
+extern (C) bool HTMLInputElement_checkValidity(Handle);
+extern (C) bool HTMLInputElement_reportValidity(Handle);
+extern (C) void HTMLInputElement_setCustomValidity(Handle, string);
+extern (C) Optional!(NodeList) HTMLInputElement_labels_Get(Handle);
+extern (C) void HTMLInputElement_select(Handle);
+extern (C) void HTMLInputElement_selectionStart_Set(Handle, bool, uint);
+extern (C) Optional!(uint) HTMLInputElement_selectionStart_Get(Handle);
+extern (C) void HTMLInputElement_selectionEnd_Set(Handle, bool, uint);
+extern (C) Optional!(uint) HTMLInputElement_selectionEnd_Get(Handle);
+extern (C) void HTMLInputElement_selectionDirection_Set(Handle, bool, string);
+extern (C) Optional!(string) HTMLInputElement_selectionDirection_Get(Handle);
+extern (C) void HTMLInputElement_setRangeText__string(Handle, string);
+extern (C) void HTMLInputElement_setRangeText__string_uint_uint_SelectionMode(Handle, string, uint, uint, SelectionMode);
+extern (C) void HTMLInputElement_setSelectionRange(Handle, uint, uint, string);
+extern (C) void HTMLInputElement_align_Set(Handle, string);
+extern (C) string HTMLInputElement_align_Get(Handle);
+extern (C) void HTMLInputElement_useMap_Set(Handle, string);
+extern (C) string HTMLInputElement_useMap_Get(Handle);
+extern (C) void HTMLLIElement_value_Set(Handle, int);
+extern (C) int HTMLLIElement_value_Get(Handle);
+extern (C) void HTMLLIElement_type_Set(Handle, string);
+extern (C) string HTMLLIElement_type_Get(Handle);
+extern (C) Optional!(HTMLFormElement) HTMLLabelElement_form_Get(Handle);
+extern (C) void HTMLLabelElement_htmlFor_Set(Handle, string);
+extern (C) string HTMLLabelElement_htmlFor_Get(Handle);
+extern (C) Optional!(HTMLElement) HTMLLabelElement_control_Get(Handle);
+extern (C) Optional!(HTMLFormElement) HTMLLegendElement_form_Get(Handle);
+extern (C) void HTMLLegendElement_align_Set(Handle, string);
+extern (C) string HTMLLegendElement_align_Get(Handle);
+extern (C) void HTMLLinkElement_href_Set(Handle, string);
+extern (C) string HTMLLinkElement_href_Get(Handle);
+extern (C) void HTMLLinkElement_crossOrigin_Set(Handle, bool, string);
+extern (C) Optional!(string) HTMLLinkElement_crossOrigin_Get(Handle);
+extern (C) void HTMLLinkElement_rel_Set(Handle, string);
+extern (C) string HTMLLinkElement_rel_Get(Handle);
+extern (C) void HTMLLinkElement_as_Set(Handle, string);
+extern (C) string HTMLLinkElement_as_Get(Handle);
+extern (C) Handle HTMLLinkElement_relList_Get(Handle);
+extern (C) void HTMLLinkElement_media_Set(Handle, string);
+extern (C) string HTMLLinkElement_media_Get(Handle);
+extern (C) void HTMLLinkElement_integrity_Set(Handle, string);
+extern (C) string HTMLLinkElement_integrity_Get(Handle);
+extern (C) void HTMLLinkElement_hreflang_Set(Handle, string);
+extern (C) string HTMLLinkElement_hreflang_Get(Handle);
+extern (C) void HTMLLinkElement_type_Set(Handle, string);
+extern (C) string HTMLLinkElement_type_Get(Handle);
+extern (C) Handle HTMLLinkElement_sizes_Get(Handle);
+extern (C) void HTMLLinkElement_referrerPolicy_Set(Handle, string);
+extern (C) string HTMLLinkElement_referrerPolicy_Get(Handle);
+extern (C) void HTMLLinkElement_charset_Set(Handle, string);
+extern (C) string HTMLLinkElement_charset_Get(Handle);
+extern (C) void HTMLLinkElement_rev_Set(Handle, string);
+extern (C) string HTMLLinkElement_rev_Get(Handle);
+extern (C) void HTMLLinkElement_target_Set(Handle, string);
+extern (C) string HTMLLinkElement_target_Get(Handle);
+extern (C) void HTMLMapElement_name_Set(Handle, string);
+extern (C) string HTMLMapElement_name_Get(Handle);
+extern (C) Handle HTMLMapElement_areas_Get(Handle);
+extern (C) void HTMLMarqueeElement_behavior_Set(Handle, string);
+extern (C) string HTMLMarqueeElement_behavior_Get(Handle);
+extern (C) void HTMLMarqueeElement_bgColor_Set(Handle, string);
+extern (C) string HTMLMarqueeElement_bgColor_Get(Handle);
+extern (C) void HTMLMarqueeElement_direction_Set(Handle, string);
+extern (C) string HTMLMarqueeElement_direction_Get(Handle);
+extern (C) void HTMLMarqueeElement_height_Set(Handle, string);
+extern (C) string HTMLMarqueeElement_height_Get(Handle);
+extern (C) void HTMLMarqueeElement_hspace_Set(Handle, uint);
+extern (C) uint HTMLMarqueeElement_hspace_Get(Handle);
+extern (C) void HTMLMarqueeElement_loop_Set(Handle, int);
+extern (C) int HTMLMarqueeElement_loop_Get(Handle);
+extern (C) void HTMLMarqueeElement_scrollAmount_Set(Handle, uint);
+extern (C) uint HTMLMarqueeElement_scrollAmount_Get(Handle);
+extern (C) void HTMLMarqueeElement_scrollDelay_Set(Handle, uint);
+extern (C) uint HTMLMarqueeElement_scrollDelay_Get(Handle);
+extern (C) void HTMLMarqueeElement_trueSpeed_Set(Handle, bool);
+extern (C) bool HTMLMarqueeElement_trueSpeed_Get(Handle);
+extern (C) void HTMLMarqueeElement_vspace_Set(Handle, uint);
+extern (C) uint HTMLMarqueeElement_vspace_Get(Handle);
+extern (C) void HTMLMarqueeElement_width_Set(Handle, string);
+extern (C) string HTMLMarqueeElement_width_Get(Handle);
+extern (C) void HTMLMarqueeElement_onbounce_Set(Handle, EventHandler);
+extern (C) EventHandler HTMLMarqueeElement_onbounce_Get(Handle);
+extern (C) void HTMLMarqueeElement_onfinish_Set(Handle, EventHandler);
+extern (C) EventHandler HTMLMarqueeElement_onfinish_Get(Handle);
+extern (C) void HTMLMarqueeElement_onstart_Set(Handle, EventHandler);
+extern (C) EventHandler HTMLMarqueeElement_onstart_Get(Handle);
+extern (C) void HTMLMarqueeElement_start(Handle);
+extern (C) void HTMLMarqueeElement_stop(Handle);
+extern (C) Optional!(MediaError) HTMLMediaElement_error_Get(Handle);
+extern (C) void HTMLMediaElement_src_Set(Handle, string);
+extern (C) string HTMLMediaElement_src_Get(Handle);
+extern (C) void HTMLMediaElement_srcObject_Set(Handle, bool, MediaProvider);
+extern (C) Optional!(MediaProvider) HTMLMediaElement_srcObject_Get(Handle);
+extern (C) string HTMLMediaElement_currentSrc_Get(Handle);
+extern (C) void HTMLMediaElement_crossOrigin_Set(Handle, bool, string);
+extern (C) Optional!(string) HTMLMediaElement_crossOrigin_Get(Handle);
+extern (C) ushort HTMLMediaElement_networkState_Get(Handle);
+extern (C) void HTMLMediaElement_preload_Set(Handle, string);
+extern (C) string HTMLMediaElement_preload_Get(Handle);
+extern (C) Handle HTMLMediaElement_buffered_Get(Handle);
+extern (C) void HTMLMediaElement_load(Handle);
+extern (C) CanPlayTypeResult HTMLMediaElement_canPlayType(Handle, string);
+extern (C) ushort HTMLMediaElement_readyState_Get(Handle);
+extern (C) bool HTMLMediaElement_seeking_Get(Handle);
+extern (C) void HTMLMediaElement_currentTime_Set(Handle, double);
+extern (C) double HTMLMediaElement_currentTime_Get(Handle);
+extern (C) void HTMLMediaElement_fastSeek(Handle, double);
+extern (C) double HTMLMediaElement_duration_Get(Handle);
+extern (C) Handle HTMLMediaElement_getStartDate(Handle);
+extern (C) bool HTMLMediaElement_paused_Get(Handle);
+extern (C) void HTMLMediaElement_defaultPlaybackRate_Set(Handle, double);
+extern (C) double HTMLMediaElement_defaultPlaybackRate_Get(Handle);
+extern (C) void HTMLMediaElement_playbackRate_Set(Handle, double);
+extern (C) double HTMLMediaElement_playbackRate_Get(Handle);
+extern (C) Handle HTMLMediaElement_played_Get(Handle);
+extern (C) Handle HTMLMediaElement_seekable_Get(Handle);
+extern (C) bool HTMLMediaElement_ended_Get(Handle);
+extern (C) void HTMLMediaElement_autoplay_Set(Handle, bool);
+extern (C) bool HTMLMediaElement_autoplay_Get(Handle);
+extern (C) void HTMLMediaElement_loop_Set(Handle, bool);
+extern (C) bool HTMLMediaElement_loop_Get(Handle);
+extern (C) Handle HTMLMediaElement_play(Handle);
+extern (C) void HTMLMediaElement_pause(Handle);
+extern (C) void HTMLMediaElement_controls_Set(Handle, bool);
+extern (C) bool HTMLMediaElement_controls_Get(Handle);
+extern (C) void HTMLMediaElement_volume_Set(Handle, double);
+extern (C) double HTMLMediaElement_volume_Get(Handle);
+extern (C) void HTMLMediaElement_muted_Set(Handle, bool);
+extern (C) bool HTMLMediaElement_muted_Get(Handle);
+extern (C) void HTMLMediaElement_defaultMuted_Set(Handle, bool);
+extern (C) bool HTMLMediaElement_defaultMuted_Get(Handle);
+extern (C) Handle HTMLMediaElement_audioTracks_Get(Handle);
+extern (C) Handle HTMLMediaElement_videoTracks_Get(Handle);
+extern (C) Handle HTMLMediaElement_textTracks_Get(Handle);
+extern (C) Handle HTMLMediaElement_addTextTrack(Handle, TextTrackKind, string, string);
+extern (C) void HTMLMenuElement_compact_Set(Handle, bool);
+extern (C) bool HTMLMenuElement_compact_Get(Handle);
+extern (C) void HTMLMetaElement_name_Set(Handle, string);
+extern (C) string HTMLMetaElement_name_Get(Handle);
+extern (C) void HTMLMetaElement_httpEquiv_Set(Handle, string);
+extern (C) string HTMLMetaElement_httpEquiv_Get(Handle);
+extern (C) void HTMLMetaElement_content_Set(Handle, string);
+extern (C) string HTMLMetaElement_content_Get(Handle);
+extern (C) void HTMLMetaElement_scheme_Set(Handle, string);
+extern (C) string HTMLMetaElement_scheme_Get(Handle);
+extern (C) void HTMLMeterElement_value_Set(Handle, double);
+extern (C) double HTMLMeterElement_value_Get(Handle);
+extern (C) void HTMLMeterElement_min_Set(Handle, double);
+extern (C) double HTMLMeterElement_min_Get(Handle);
+extern (C) void HTMLMeterElement_max_Set(Handle, double);
+extern (C) double HTMLMeterElement_max_Get(Handle);
+extern (C) void HTMLMeterElement_low_Set(Handle, double);
+extern (C) double HTMLMeterElement_low_Get(Handle);
+extern (C) void HTMLMeterElement_high_Set(Handle, double);
+extern (C) double HTMLMeterElement_high_Get(Handle);
+extern (C) void HTMLMeterElement_optimum_Set(Handle, double);
+extern (C) double HTMLMeterElement_optimum_Get(Handle);
+extern (C) Handle HTMLMeterElement_labels_Get(Handle);
+extern (C) void HTMLModElement_cite_Set(Handle, string);
+extern (C) string HTMLModElement_cite_Get(Handle);
+extern (C) void HTMLModElement_dateTime_Set(Handle, string);
+extern (C) string HTMLModElement_dateTime_Get(Handle);
+extern (C) void HTMLOListElement_reversed_Set(Handle, bool);
+extern (C) bool HTMLOListElement_reversed_Get(Handle);
+extern (C) void HTMLOListElement_start_Set(Handle, int);
+extern (C) int HTMLOListElement_start_Get(Handle);
+extern (C) void HTMLOListElement_type_Set(Handle, string);
+extern (C) string HTMLOListElement_type_Get(Handle);
+extern (C) void HTMLOListElement_compact_Set(Handle, bool);
+extern (C) bool HTMLOListElement_compact_Get(Handle);
+extern (C) void HTMLObjectElement_data_Set(Handle, string);
+extern (C) string HTMLObjectElement_data_Get(Handle);
+extern (C) void HTMLObjectElement_type_Set(Handle, string);
+extern (C) string HTMLObjectElement_type_Get(Handle);
+extern (C) void HTMLObjectElement_typeMustMatch_Set(Handle, bool);
+extern (C) bool HTMLObjectElement_typeMustMatch_Get(Handle);
+extern (C) void HTMLObjectElement_name_Set(Handle, string);
+extern (C) string HTMLObjectElement_name_Get(Handle);
+extern (C) void HTMLObjectElement_useMap_Set(Handle, string);
+extern (C) string HTMLObjectElement_useMap_Get(Handle);
+extern (C) Optional!(HTMLFormElement) HTMLObjectElement_form_Get(Handle);
+extern (C) void HTMLObjectElement_width_Set(Handle, string);
+extern (C) string HTMLObjectElement_width_Get(Handle);
+extern (C) void HTMLObjectElement_height_Set(Handle, string);
+extern (C) string HTMLObjectElement_height_Get(Handle);
+extern (C) Optional!(Document) HTMLObjectElement_contentDocument_Get(Handle);
+extern (C) Optional!(Window) HTMLObjectElement_contentWindow_Get(Handle);
+extern (C) Optional!(Document) HTMLObjectElement_getSVGDocument(Handle);
+extern (C) bool HTMLObjectElement_willValidate_Get(Handle);
+extern (C) Handle HTMLObjectElement_validity_Get(Handle);
+extern (C) string HTMLObjectElement_validationMessage_Get(Handle);
+extern (C) bool HTMLObjectElement_checkValidity(Handle);
+extern (C) bool HTMLObjectElement_reportValidity(Handle);
+extern (C) void HTMLObjectElement_setCustomValidity(Handle, string);
+extern (C) void HTMLObjectElement_align_Set(Handle, string);
+extern (C) string HTMLObjectElement_align_Get(Handle);
+extern (C) void HTMLObjectElement_archive_Set(Handle, string);
+extern (C) string HTMLObjectElement_archive_Get(Handle);
+extern (C) void HTMLObjectElement_code_Set(Handle, string);
+extern (C) string HTMLObjectElement_code_Get(Handle);
+extern (C) void HTMLObjectElement_declare_Set(Handle, bool);
+extern (C) bool HTMLObjectElement_declare_Get(Handle);
+extern (C) void HTMLObjectElement_hspace_Set(Handle, uint);
+extern (C) uint HTMLObjectElement_hspace_Get(Handle);
+extern (C) void HTMLObjectElement_standby_Set(Handle, string);
+extern (C) string HTMLObjectElement_standby_Get(Handle);
+extern (C) void HTMLObjectElement_vspace_Set(Handle, uint);
+extern (C) uint HTMLObjectElement_vspace_Get(Handle);
+extern (C) void HTMLObjectElement_codeBase_Set(Handle, string);
+extern (C) string HTMLObjectElement_codeBase_Get(Handle);
+extern (C) void HTMLObjectElement_codeType_Set(Handle, string);
+extern (C) string HTMLObjectElement_codeType_Get(Handle);
+extern (C) void HTMLObjectElement_border_Set(Handle, string);
+extern (C) string HTMLObjectElement_border_Get(Handle);
+extern (C) void HTMLOptGroupElement_disabled_Set(Handle, bool);
+extern (C) bool HTMLOptGroupElement_disabled_Get(Handle);
+extern (C) void HTMLOptGroupElement_label_Set(Handle, string);
+extern (C) string HTMLOptGroupElement_label_Get(Handle);
+extern (C) void HTMLOptionElement_disabled_Set(Handle, bool);
+extern (C) bool HTMLOptionElement_disabled_Get(Handle);
+extern (C) Optional!(HTMLFormElement) HTMLOptionElement_form_Get(Handle);
+extern (C) void HTMLOptionElement_label_Set(Handle, string);
+extern (C) string HTMLOptionElement_label_Get(Handle);
+extern (C) void HTMLOptionElement_defaultSelected_Set(Handle, bool);
+extern (C) bool HTMLOptionElement_defaultSelected_Get(Handle);
+extern (C) void HTMLOptionElement_selected_Set(Handle, bool);
+extern (C) bool HTMLOptionElement_selected_Get(Handle);
+extern (C) void HTMLOptionElement_value_Set(Handle, string);
+extern (C) string HTMLOptionElement_value_Get(Handle);
+extern (C) void HTMLOptionElement_text_Set(Handle, string);
+extern (C) string HTMLOptionElement_text_Get(Handle);
+extern (C) int HTMLOptionElement_index_Get(Handle);
+extern (C) void HTMLOptionsCollection_length_Set(Handle, uint);
+extern (C) uint HTMLOptionsCollection_length_Get(Handle);
+extern (C) void HTMLOptionsCollection_setter__uint_optional_Handle(Handle, uint, bool, Handle);
+extern (C) void HTMLOptionsCollection_add(Handle, SumType!(HTMLOptionElement, HTMLOptGroupElement), bool, SumType!(HTMLElement, int));
+extern (C) void HTMLOptionsCollection_remove(Handle, int);
+extern (C) void HTMLOptionsCollection_selectedIndex_Set(Handle, int);
+extern (C) int HTMLOptionsCollection_selectedIndex_Get(Handle);
+extern (C) Handle HTMLOrSVGElement_dataset_Get(Handle);
+extern (C) void HTMLOrSVGElement_focus(Handle, Handle);
+extern (C) void HTMLOrSVGElement_blur(Handle);
+extern (C) Handle HTMLOutputElement_htmlFor_Get(Handle);
+extern (C) Optional!(HTMLFormElement) HTMLOutputElement_form_Get(Handle);
+extern (C) void HTMLOutputElement_name_Set(Handle, string);
+extern (C) string HTMLOutputElement_name_Get(Handle);
+extern (C) string HTMLOutputElement_type_Get(Handle);
+extern (C) void HTMLOutputElement_defaultValue_Set(Handle, string);
+extern (C) string HTMLOutputElement_defaultValue_Get(Handle);
+extern (C) void HTMLOutputElement_value_Set(Handle, string);
+extern (C) string HTMLOutputElement_value_Get(Handle);
+extern (C) bool HTMLOutputElement_willValidate_Get(Handle);
+extern (C) Handle HTMLOutputElement_validity_Get(Handle);
+extern (C) string HTMLOutputElement_validationMessage_Get(Handle);
+extern (C) bool HTMLOutputElement_checkValidity(Handle);
+extern (C) bool HTMLOutputElement_reportValidity(Handle);
+extern (C) void HTMLOutputElement_setCustomValidity(Handle, string);
+extern (C) Handle HTMLOutputElement_labels_Get(Handle);
+extern (C) void HTMLParagraphElement_align_Set(Handle, string);
+extern (C) string HTMLParagraphElement_align_Get(Handle);
+extern (C) void HTMLParamElement_name_Set(Handle, string);
+extern (C) string HTMLParamElement_name_Get(Handle);
+extern (C) void HTMLParamElement_value_Set(Handle, string);
+extern (C) string HTMLParamElement_value_Get(Handle);
+extern (C) void HTMLParamElement_type_Set(Handle, string);
+extern (C) string HTMLParamElement_type_Get(Handle);
+extern (C) void HTMLParamElement_valueType_Set(Handle, string);
+extern (C) string HTMLParamElement_valueType_Get(Handle);
+extern (C) void HTMLPreElement_width_Set(Handle, int);
+extern (C) int HTMLPreElement_width_Get(Handle);
+extern (C) void HTMLProgressElement_value_Set(Handle, double);
+extern (C) double HTMLProgressElement_value_Get(Handle);
+extern (C) void HTMLProgressElement_max_Set(Handle, double);
+extern (C) double HTMLProgressElement_max_Get(Handle);
+extern (C) double HTMLProgressElement_position_Get(Handle);
+extern (C) Handle HTMLProgressElement_labels_Get(Handle);
+extern (C) void HTMLQuoteElement_cite_Set(Handle, string);
+extern (C) string HTMLQuoteElement_cite_Get(Handle);
+extern (C) void HTMLScriptElement_src_Set(Handle, string);
+extern (C) string HTMLScriptElement_src_Get(Handle);
+extern (C) void HTMLScriptElement_type_Set(Handle, string);
+extern (C) string HTMLScriptElement_type_Get(Handle);
+extern (C) void HTMLScriptElement_noModule_Set(Handle, bool);
+extern (C) bool HTMLScriptElement_noModule_Get(Handle);
+extern (C) void HTMLScriptElement_async_Set(Handle, bool);
+extern (C) bool HTMLScriptElement_async_Get(Handle);
+extern (C) void HTMLScriptElement_defer_Set(Handle, bool);
+extern (C) bool HTMLScriptElement_defer_Get(Handle);
+extern (C) void HTMLScriptElement_crossOrigin_Set(Handle, bool, string);
+extern (C) Optional!(string) HTMLScriptElement_crossOrigin_Get(Handle);
+extern (C) void HTMLScriptElement_text_Set(Handle, string);
+extern (C) string HTMLScriptElement_text_Get(Handle);
+extern (C) void HTMLScriptElement_integrity_Set(Handle, string);
+extern (C) string HTMLScriptElement_integrity_Get(Handle);
+extern (C) void HTMLScriptElement_referrerPolicy_Set(Handle, string);
+extern (C) string HTMLScriptElement_referrerPolicy_Get(Handle);
+extern (C) void HTMLScriptElement_charset_Set(Handle, string);
+extern (C) string HTMLScriptElement_charset_Get(Handle);
+extern (C) void HTMLScriptElement_event_Set(Handle, string);
+extern (C) string HTMLScriptElement_event_Get(Handle);
+extern (C) void HTMLScriptElement_htmlFor_Set(Handle, string);
+extern (C) string HTMLScriptElement_htmlFor_Get(Handle);
+extern (C) void HTMLSelectElement_autocomplete_Set(Handle, string);
+extern (C) string HTMLSelectElement_autocomplete_Get(Handle);
+extern (C) void HTMLSelectElement_autofocus_Set(Handle, bool);
+extern (C) bool HTMLSelectElement_autofocus_Get(Handle);
+extern (C) void HTMLSelectElement_disabled_Set(Handle, bool);
+extern (C) bool HTMLSelectElement_disabled_Get(Handle);
+extern (C) Optional!(HTMLFormElement) HTMLSelectElement_form_Get(Handle);
+extern (C) void HTMLSelectElement_multiple_Set(Handle, bool);
+extern (C) bool HTMLSelectElement_multiple_Get(Handle);
+extern (C) void HTMLSelectElement_name_Set(Handle, string);
+extern (C) string HTMLSelectElement_name_Get(Handle);
+extern (C) void HTMLSelectElement_required_Set(Handle, bool);
+extern (C) bool HTMLSelectElement_required_Get(Handle);
+extern (C) void HTMLSelectElement_size_Set(Handle, uint);
+extern (C) uint HTMLSelectElement_size_Get(Handle);
+extern (C) string HTMLSelectElement_type_Get(Handle);
+extern (C) Handle HTMLSelectElement_options_Get(Handle);
+extern (C) void HTMLSelectElement_length_Set(Handle, uint);
+extern (C) uint HTMLSelectElement_length_Get(Handle);
+extern (C) Optional!(Element) HTMLSelectElement_item_getter(Handle, uint);
+extern (C) Optional!(HTMLOptionElement) HTMLSelectElement_namedItem(Handle, string);
+extern (C) void HTMLSelectElement_add(Handle, SumType!(HTMLOptionElement, HTMLOptGroupElement), bool, SumType!(HTMLElement, int));
+extern (C) void HTMLSelectElement_remove__(Handle);
+extern (C) void HTMLSelectElement_remove__int(Handle, int);
+extern (C) void HTMLSelectElement_setter__uint_optional_Handle(Handle, uint, bool, Handle);
+extern (C) Handle HTMLSelectElement_selectedOptions_Get(Handle);
+extern (C) void HTMLSelectElement_selectedIndex_Set(Handle, int);
+extern (C) int HTMLSelectElement_selectedIndex_Get(Handle);
+extern (C) void HTMLSelectElement_value_Set(Handle, string);
+extern (C) string HTMLSelectElement_value_Get(Handle);
+extern (C) bool HTMLSelectElement_willValidate_Get(Handle);
+extern (C) Handle HTMLSelectElement_validity_Get(Handle);
+extern (C) string HTMLSelectElement_validationMessage_Get(Handle);
+extern (C) bool HTMLSelectElement_checkValidity(Handle);
+extern (C) bool HTMLSelectElement_reportValidity(Handle);
+extern (C) void HTMLSelectElement_setCustomValidity(Handle, string);
+extern (C) Handle HTMLSelectElement_labels_Get(Handle);
+extern (C) void HTMLSlotElement_name_Set(Handle, string);
+extern (C) string HTMLSlotElement_name_Get(Handle);
+extern (C) Handle HTMLSlotElement_assignedNodes(Handle, Handle);
+extern (C) Handle HTMLSlotElement_assignedElements(Handle, Handle);
+extern (C) void HTMLSourceElement_src_Set(Handle, string);
+extern (C) string HTMLSourceElement_src_Get(Handle);
+extern (C) void HTMLSourceElement_type_Set(Handle, string);
+extern (C) string HTMLSourceElement_type_Get(Handle);
+extern (C) void HTMLSourceElement_srcset_Set(Handle, string);
+extern (C) string HTMLSourceElement_srcset_Get(Handle);
+extern (C) void HTMLSourceElement_sizes_Set(Handle, string);
+extern (C) string HTMLSourceElement_sizes_Get(Handle);
+extern (C) void HTMLSourceElement_media_Set(Handle, string);
+extern (C) string HTMLSourceElement_media_Get(Handle);
+extern (C) void HTMLStyleElement_media_Set(Handle, string);
+extern (C) string HTMLStyleElement_media_Get(Handle);
+extern (C) void HTMLStyleElement_type_Set(Handle, string);
+extern (C) string HTMLStyleElement_type_Get(Handle);
+extern (C) void HTMLTableCaptionElement_align_Set(Handle, string);
+extern (C) string HTMLTableCaptionElement_align_Get(Handle);
+extern (C) void HTMLTableCellElement_colSpan_Set(Handle, uint);
+extern (C) uint HTMLTableCellElement_colSpan_Get(Handle);
+extern (C) void HTMLTableCellElement_rowSpan_Set(Handle, uint);
+extern (C) uint HTMLTableCellElement_rowSpan_Get(Handle);
+extern (C) void HTMLTableCellElement_headers_Set(Handle, string);
+extern (C) string HTMLTableCellElement_headers_Get(Handle);
+extern (C) int HTMLTableCellElement_cellIndex_Get(Handle);
+extern (C) void HTMLTableCellElement_scope_Set(Handle, string);
+extern (C) string HTMLTableCellElement_scope_Get(Handle);
+extern (C) void HTMLTableCellElement_abbr_Set(Handle, string);
+extern (C) string HTMLTableCellElement_abbr_Get(Handle);
+extern (C) void HTMLTableCellElement_align_Set(Handle, string);
+extern (C) string HTMLTableCellElement_align_Get(Handle);
+extern (C) void HTMLTableCellElement_axis_Set(Handle, string);
+extern (C) string HTMLTableCellElement_axis_Get(Handle);
+extern (C) void HTMLTableCellElement_height_Set(Handle, string);
+extern (C) string HTMLTableCellElement_height_Get(Handle);
+extern (C) void HTMLTableCellElement_width_Set(Handle, string);
+extern (C) string HTMLTableCellElement_width_Get(Handle);
+extern (C) void HTMLTableCellElement_ch_Set(Handle, string);
+extern (C) string HTMLTableCellElement_ch_Get(Handle);
+extern (C) void HTMLTableCellElement_chOff_Set(Handle, string);
+extern (C) string HTMLTableCellElement_chOff_Get(Handle);
+extern (C) void HTMLTableCellElement_noWrap_Set(Handle, bool);
+extern (C) bool HTMLTableCellElement_noWrap_Get(Handle);
+extern (C) void HTMLTableCellElement_vAlign_Set(Handle, string);
+extern (C) string HTMLTableCellElement_vAlign_Get(Handle);
+extern (C) void HTMLTableCellElement_bgColor_Set(Handle, string);
+extern (C) string HTMLTableCellElement_bgColor_Get(Handle);
+extern (C) void HTMLTableColElement_span_Set(Handle, uint);
+extern (C) uint HTMLTableColElement_span_Get(Handle);
+extern (C) void HTMLTableColElement_align_Set(Handle, string);
+extern (C) string HTMLTableColElement_align_Get(Handle);
+extern (C) void HTMLTableColElement_ch_Set(Handle, string);
+extern (C) string HTMLTableColElement_ch_Get(Handle);
+extern (C) void HTMLTableColElement_chOff_Set(Handle, string);
+extern (C) string HTMLTableColElement_chOff_Get(Handle);
+extern (C) void HTMLTableColElement_vAlign_Set(Handle, string);
+extern (C) string HTMLTableColElement_vAlign_Get(Handle);
+extern (C) void HTMLTableColElement_width_Set(Handle, string);
+extern (C) string HTMLTableColElement_width_Get(Handle);
+extern (C) void HTMLTableElement_caption_Set(Handle, bool, Handle);
+extern (C) Optional!(HTMLTableCaptionElement) HTMLTableElement_caption_Get(Handle);
+extern (C) Handle HTMLTableElement_createCaption(Handle);
+extern (C) void HTMLTableElement_deleteCaption(Handle);
+extern (C) void HTMLTableElement_tHead_Set(Handle, bool, Handle);
+extern (C) Optional!(HTMLTableSectionElement) HTMLTableElement_tHead_Get(Handle);
+extern (C) Handle HTMLTableElement_createTHead(Handle);
+extern (C) void HTMLTableElement_deleteTHead(Handle);
+extern (C) void HTMLTableElement_tFoot_Set(Handle, bool, Handle);
+extern (C) Optional!(HTMLTableSectionElement) HTMLTableElement_tFoot_Get(Handle);
+extern (C) Handle HTMLTableElement_createTFoot(Handle);
+extern (C) void HTMLTableElement_deleteTFoot(Handle);
+extern (C) Handle HTMLTableElement_tBodies_Get(Handle);
+extern (C) Handle HTMLTableElement_createTBody(Handle);
+extern (C) Handle HTMLTableElement_rows_Get(Handle);
+extern (C) Handle HTMLTableElement_insertRow(Handle, int);
+extern (C) void HTMLTableElement_deleteRow(Handle, int);
+extern (C) void HTMLTableElement_align_Set(Handle, string);
+extern (C) string HTMLTableElement_align_Get(Handle);
+extern (C) void HTMLTableElement_border_Set(Handle, string);
+extern (C) string HTMLTableElement_border_Get(Handle);
+extern (C) void HTMLTableElement_frame_Set(Handle, string);
+extern (C) string HTMLTableElement_frame_Get(Handle);
+extern (C) void HTMLTableElement_rules_Set(Handle, string);
+extern (C) string HTMLTableElement_rules_Get(Handle);
+extern (C) void HTMLTableElement_summary_Set(Handle, string);
+extern (C) string HTMLTableElement_summary_Get(Handle);
+extern (C) void HTMLTableElement_width_Set(Handle, string);
+extern (C) string HTMLTableElement_width_Get(Handle);
+extern (C) void HTMLTableElement_bgColor_Set(Handle, string);
+extern (C) string HTMLTableElement_bgColor_Get(Handle);
+extern (C) void HTMLTableElement_cellPadding_Set(Handle, string);
+extern (C) string HTMLTableElement_cellPadding_Get(Handle);
+extern (C) void HTMLTableElement_cellSpacing_Set(Handle, string);
+extern (C) string HTMLTableElement_cellSpacing_Get(Handle);
+extern (C) int HTMLTableRowElement_rowIndex_Get(Handle);
+extern (C) int HTMLTableRowElement_sectionRowIndex_Get(Handle);
+extern (C) Handle HTMLTableRowElement_cells_Get(Handle);
+extern (C) Handle HTMLTableRowElement_insertCell(Handle, int);
+extern (C) void HTMLTableRowElement_deleteCell(Handle, int);
+extern (C) void HTMLTableRowElement_align_Set(Handle, string);
+extern (C) string HTMLTableRowElement_align_Get(Handle);
+extern (C) void HTMLTableRowElement_ch_Set(Handle, string);
+extern (C) string HTMLTableRowElement_ch_Get(Handle);
+extern (C) void HTMLTableRowElement_chOff_Set(Handle, string);
+extern (C) string HTMLTableRowElement_chOff_Get(Handle);
+extern (C) void HTMLTableRowElement_vAlign_Set(Handle, string);
+extern (C) string HTMLTableRowElement_vAlign_Get(Handle);
+extern (C) void HTMLTableRowElement_bgColor_Set(Handle, string);
+extern (C) string HTMLTableRowElement_bgColor_Get(Handle);
+extern (C) Handle HTMLTableSectionElement_rows_Get(Handle);
+extern (C) Handle HTMLTableSectionElement_insertRow(Handle, int);
+extern (C) void HTMLTableSectionElement_deleteRow(Handle, int);
+extern (C) void HTMLTableSectionElement_align_Set(Handle, string);
+extern (C) string HTMLTableSectionElement_align_Get(Handle);
+extern (C) void HTMLTableSectionElement_ch_Set(Handle, string);
+extern (C) string HTMLTableSectionElement_ch_Get(Handle);
+extern (C) void HTMLTableSectionElement_chOff_Set(Handle, string);
+extern (C) string HTMLTableSectionElement_chOff_Get(Handle);
+extern (C) void HTMLTableSectionElement_vAlign_Set(Handle, string);
+extern (C) string HTMLTableSectionElement_vAlign_Get(Handle);
+extern (C) Handle HTMLTemplateElement_content_Get(Handle);
+extern (C) void HTMLTextAreaElement_autocomplete_Set(Handle, string);
+extern (C) string HTMLTextAreaElement_autocomplete_Get(Handle);
+extern (C) void HTMLTextAreaElement_autofocus_Set(Handle, bool);
+extern (C) bool HTMLTextAreaElement_autofocus_Get(Handle);
+extern (C) void HTMLTextAreaElement_cols_Set(Handle, uint);
+extern (C) uint HTMLTextAreaElement_cols_Get(Handle);
+extern (C) void HTMLTextAreaElement_dirName_Set(Handle, string);
+extern (C) string HTMLTextAreaElement_dirName_Get(Handle);
+extern (C) void HTMLTextAreaElement_disabled_Set(Handle, bool);
+extern (C) bool HTMLTextAreaElement_disabled_Get(Handle);
+extern (C) Optional!(HTMLFormElement) HTMLTextAreaElement_form_Get(Handle);
+extern (C) void HTMLTextAreaElement_maxLength_Set(Handle, int);
+extern (C) int HTMLTextAreaElement_maxLength_Get(Handle);
+extern (C) void HTMLTextAreaElement_minLength_Set(Handle, int);
+extern (C) int HTMLTextAreaElement_minLength_Get(Handle);
+extern (C) void HTMLTextAreaElement_name_Set(Handle, string);
+extern (C) string HTMLTextAreaElement_name_Get(Handle);
+extern (C) void HTMLTextAreaElement_placeholder_Set(Handle, string);
+extern (C) string HTMLTextAreaElement_placeholder_Get(Handle);
+extern (C) void HTMLTextAreaElement_readOnly_Set(Handle, bool);
+extern (C) bool HTMLTextAreaElement_readOnly_Get(Handle);
+extern (C) void HTMLTextAreaElement_required_Set(Handle, bool);
+extern (C) bool HTMLTextAreaElement_required_Get(Handle);
+extern (C) void HTMLTextAreaElement_rows_Set(Handle, uint);
+extern (C) uint HTMLTextAreaElement_rows_Get(Handle);
+extern (C) void HTMLTextAreaElement_wrap_Set(Handle, string);
+extern (C) string HTMLTextAreaElement_wrap_Get(Handle);
+extern (C) string HTMLTextAreaElement_type_Get(Handle);
+extern (C) void HTMLTextAreaElement_defaultValue_Set(Handle, string);
+extern (C) string HTMLTextAreaElement_defaultValue_Get(Handle);
+extern (C) void HTMLTextAreaElement_value_Set(Handle, string);
+extern (C) string HTMLTextAreaElement_value_Get(Handle);
+extern (C) uint HTMLTextAreaElement_textLength_Get(Handle);
+extern (C) bool HTMLTextAreaElement_willValidate_Get(Handle);
+extern (C) Handle HTMLTextAreaElement_validity_Get(Handle);
+extern (C) string HTMLTextAreaElement_validationMessage_Get(Handle);
+extern (C) bool HTMLTextAreaElement_checkValidity(Handle);
+extern (C) bool HTMLTextAreaElement_reportValidity(Handle);
+extern (C) void HTMLTextAreaElement_setCustomValidity(Handle, string);
+extern (C) Handle HTMLTextAreaElement_labels_Get(Handle);
+extern (C) void HTMLTextAreaElement_select(Handle);
+extern (C) void HTMLTextAreaElement_selectionStart_Set(Handle, uint);
+extern (C) uint HTMLTextAreaElement_selectionStart_Get(Handle);
+extern (C) void HTMLTextAreaElement_selectionEnd_Set(Handle, uint);
+extern (C) uint HTMLTextAreaElement_selectionEnd_Get(Handle);
+extern (C) void HTMLTextAreaElement_selectionDirection_Set(Handle, string);
+extern (C) string HTMLTextAreaElement_selectionDirection_Get(Handle);
+extern (C) void HTMLTextAreaElement_setRangeText__string(Handle, string);
+extern (C) void HTMLTextAreaElement_setRangeText__string_uint_uint_SelectionMode(Handle, string, uint, uint, SelectionMode);
+extern (C) void HTMLTextAreaElement_setSelectionRange(Handle, uint, uint, string);
+extern (C) void HTMLTimeElement_dateTime_Set(Handle, string);
+extern (C) string HTMLTimeElement_dateTime_Get(Handle);
+extern (C) void HTMLTitleElement_text_Set(Handle, string);
+extern (C) string HTMLTitleElement_text_Get(Handle);
+extern (C) void HTMLTrackElement_kind_Set(Handle, string);
+extern (C) string HTMLTrackElement_kind_Get(Handle);
+extern (C) void HTMLTrackElement_src_Set(Handle, string);
+extern (C) string HTMLTrackElement_src_Get(Handle);
+extern (C) void HTMLTrackElement_srclang_Set(Handle, string);
+extern (C) string HTMLTrackElement_srclang_Get(Handle);
+extern (C) void HTMLTrackElement_label_Set(Handle, string);
+extern (C) string HTMLTrackElement_label_Get(Handle);
+extern (C) void HTMLTrackElement_default_Set(Handle, bool);
+extern (C) bool HTMLTrackElement_default_Get(Handle);
+extern (C) ushort HTMLTrackElement_readyState_Get(Handle);
+extern (C) Handle HTMLTrackElement_track_Get(Handle);
+extern (C) void HTMLUListElement_compact_Set(Handle, bool);
+extern (C) bool HTMLUListElement_compact_Get(Handle);
+extern (C) void HTMLUListElement_type_Set(Handle, string);
+extern (C) string HTMLUListElement_type_Get(Handle);
+extern (C) void HTMLVideoElement_width_Set(Handle, uint);
+extern (C) uint HTMLVideoElement_width_Get(Handle);
+extern (C) void HTMLVideoElement_height_Set(Handle, uint);
+extern (C) uint HTMLVideoElement_height_Get(Handle);
+extern (C) uint HTMLVideoElement_videoWidth_Get(Handle);
+extern (C) uint HTMLVideoElement_videoHeight_Get(Handle);
+extern (C) void HTMLVideoElement_poster_Set(Handle, string);
+extern (C) string HTMLVideoElement_poster_Get(Handle);
+extern (C) void HTMLVideoElement_playsInline_Set(Handle, bool);
+extern (C) bool HTMLVideoElement_playsInline_Get(Handle);
+extern (C) string HashChangeEvent_oldURL_Get(Handle);
+extern (C) string HashChangeEvent_newURL_Get(Handle);
+extern (C) void HashChangeEventInit_oldURL_Set(Handle, string);
+extern (C) string HashChangeEventInit_oldURL_Get(Handle);
+extern (C) void HashChangeEventInit_newURL_Set(Handle, string);
+extern (C) string HashChangeEventInit_newURL_Get(Handle);
+extern (C) uint History_length_Get(Handle);
+extern (C) void History_scrollRestoration_Set(Handle, ScrollRestoration);
+extern (C) ScrollRestoration History_scrollRestoration_Get(Handle);
+extern (C) Handle History_state_Get(Handle);
+extern (C) void History_go(Handle, int);
+extern (C) void History_back(Handle);
+extern (C) void History_forward(Handle);
+extern (C) void History_pushState(Handle, Handle, string, bool, string);
+extern (C) void History_replaceState(Handle, Handle, string, bool, string);
+extern (C) uint ImageBitmap_width_Get(Handle);
+extern (C) uint ImageBitmap_height_Get(Handle);
+extern (C) void ImageBitmap_close(Handle);
+extern (C) void ImageBitmapOptions_imageOrientation_Set(Handle, ImageOrientation);
+extern (C) ImageOrientation ImageBitmapOptions_imageOrientation_Get(Handle);
+extern (C) void ImageBitmapOptions_premultiplyAlpha_Set(Handle, PremultiplyAlpha);
+extern (C) PremultiplyAlpha ImageBitmapOptions_premultiplyAlpha_Get(Handle);
+extern (C) void ImageBitmapOptions_colorSpaceConversion_Set(Handle, ColorSpaceConversion);
+extern (C) ColorSpaceConversion ImageBitmapOptions_colorSpaceConversion_Get(Handle);
+extern (C) void ImageBitmapOptions_resizeWidth_Set(Handle, uint);
+extern (C) uint ImageBitmapOptions_resizeWidth_Get(Handle);
+extern (C) void ImageBitmapOptions_resizeHeight_Set(Handle, uint);
+extern (C) uint ImageBitmapOptions_resizeHeight_Get(Handle);
+extern (C) void ImageBitmapOptions_resizeQuality_Set(Handle, ResizeQuality);
+extern (C) ResizeQuality ImageBitmapOptions_resizeQuality_Get(Handle);
+extern (C) Handle ImageBitmapRenderingContext_canvas_Get(Handle);
+extern (C) void ImageBitmapRenderingContext_transferFromImageBitmap(Handle, bool, Handle);
+extern (C) void ImageBitmapRenderingContextSettings_alpha_Set(Handle, bool);
+extern (C) bool ImageBitmapRenderingContextSettings_alpha_Get(Handle);
+extern (C) uint ImageData_width_Get(Handle);
+extern (C) uint ImageData_height_Get(Handle);
+extern (C) Handle ImageData_data_Get(Handle);
+extern (C) void ImageEncodeOptions_type_Set(Handle, string);
+extern (C) string ImageEncodeOptions_type_Get(Handle);
+extern (C) void ImageEncodeOptions_quality_Set(Handle, double);
+extern (C) double ImageEncodeOptions_quality_Get(Handle);
+extern (C) void Location_href_Set(Handle, string);
+extern (C) string Location_href_Get(Handle);
+extern (C) string Location_origin_Get(Handle);
+extern (C) void Location_protocol_Set(Handle, string);
+extern (C) string Location_protocol_Get(Handle);
+extern (C) void Location_host_Set(Handle, string);
+extern (C) string Location_host_Get(Handle);
+extern (C) void Location_hostname_Set(Handle, string);
+extern (C) string Location_hostname_Get(Handle);
+extern (C) void Location_port_Set(Handle, string);
+extern (C) string Location_port_Get(Handle);
+extern (C) void Location_pathname_Set(Handle, string);
+extern (C) string Location_pathname_Get(Handle);
+extern (C) void Location_search_Set(Handle, string);
+extern (C) string Location_search_Get(Handle);
+extern (C) void Location_hash_Set(Handle, string);
+extern (C) string Location_hash_Get(Handle);
+extern (C) void Location_assign(Handle, string);
+extern (C) void Location_replace(Handle, string);
+extern (C) void Location_reload(Handle);
+extern (C) Handle Location_ancestorOrigins_Get(Handle);
+extern (C) ushort MediaError_code_Get(Handle);
+extern (C) string MediaError_message_Get(Handle);
+extern (C) Handle MessageChannel_port1_Get(Handle);
+extern (C) Handle MessageChannel_port2_Get(Handle);
+extern (C) Handle MessageEvent_data_Get(Handle);
+extern (C) string MessageEvent_origin_Get(Handle);
+extern (C) string MessageEvent_lastEventId_Get(Handle);
+extern (C) Optional!(MessageEventSource) MessageEvent_source_Get(Handle);
+extern (C) Handle MessageEvent_ports_Get(Handle);
+extern (C) void MessageEvent_initMessageEvent(Handle, string, bool, bool, Handle, string, string, bool, MessageEventSource, Handle);
+extern (C) void MessageEventInit_data_Set(Handle, Handle);
+extern (C) Handle MessageEventInit_data_Get(Handle);
+extern (C) void MessageEventInit_origin_Set(Handle, string);
+extern (C) string MessageEventInit_origin_Get(Handle);
+extern (C) void MessageEventInit_lastEventId_Set(Handle, string);
+extern (C) string MessageEventInit_lastEventId_Get(Handle);
+extern (C) void MessageEventInit_source_Set(Handle, bool, MessageEventSource);
+extern (C) Optional!(MessageEventSource) MessageEventInit_source_Get(Handle);
+extern (C) void MessageEventInit_ports_Set(Handle, Handle);
+extern (C) Handle MessageEventInit_ports_Get(Handle);
+extern (C) void MessagePort_postMessage__Any_sequence(Handle, Handle, Handle);
+extern (C) void MessagePort_postMessage__Any_Handle(Handle, Handle, Handle);
+extern (C) void MessagePort_start(Handle);
+extern (C) void MessagePort_close(Handle);
+extern (C) void MessagePort_onmessage_Set(Handle, EventHandler);
+extern (C) EventHandler MessagePort_onmessage_Get(Handle);
+extern (C) void MessagePort_onmessageerror_Set(Handle, EventHandler);
+extern (C) EventHandler MessagePort_onmessageerror_Get(Handle);
+extern (C) string MimeType_type_Get(Handle);
+extern (C) string MimeType_description_Get(Handle);
+extern (C) string MimeType_suffixes_Get(Handle);
+extern (C) Handle MimeType_enabledPlugin_Get(Handle);
+extern (C) uint MimeTypeArray_length_Get(Handle);
+extern (C) Optional!(MimeType) MimeTypeArray_item_getter(Handle, uint);
+extern (C) Optional!(MimeType) MimeTypeArray_namedItem_getter(Handle, string);
+extern (C) Handle Navigator_clipboard_Get(Handle);
+extern (C) Handle Navigator_permissions_Get(Handle);
+extern (C) bool Navigator_vibrate(Handle, VibratePattern);
+extern (C) Handle Navigator_mediaDevices_Get(Handle);
+extern (C) void Navigator_getUserMedia(Handle, Handle, NavigatorUserMediaSuccessCallback, NavigatorUserMediaErrorCallback);
+extern (C) int Navigator_maxTouchPoints_Get(Handle);
+extern (C) Handle Navigator_serviceWorker_Get(Handle);
+extern (C) ulong NavigatorConcurrentHardware_hardwareConcurrency_Get(Handle);
+extern (C) void NavigatorContentUtils_registerProtocolHandler(Handle, string, string, string);
+extern (C) void NavigatorContentUtils_unregisterProtocolHandler(Handle, string, string);
+extern (C) bool NavigatorCookies_cookieEnabled_Get(Handle);
+extern (C) string NavigatorID_appCodeName_Get(Handle);
+extern (C) string NavigatorID_appName_Get(Handle);
+extern (C) string NavigatorID_appVersion_Get(Handle);
+extern (C) string NavigatorID_platform_Get(Handle);
+extern (C) string NavigatorID_product_Get(Handle);
+extern (C) string NavigatorID_productSub_Get(Handle);
+extern (C) string NavigatorID_userAgent_Get(Handle);
+extern (C) string NavigatorID_vendor_Get(Handle);
+extern (C) string NavigatorID_vendorSub_Get(Handle);
+extern (C) bool NavigatorID_taintEnabled(Handle);
+extern (C) string NavigatorID_oscpu_Get(Handle);
+extern (C) string NavigatorLanguage_language_Get(Handle);
+extern (C) Handle NavigatorLanguage_languages_Get(Handle);
+extern (C) bool NavigatorOnLine_onLine_Get(Handle);
+extern (C) Handle NavigatorPlugins_plugins_Get(Handle);
+extern (C) Handle NavigatorPlugins_mimeTypes_Get(Handle);
+extern (C) bool NavigatorPlugins_javaEnabled(Handle);
+extern (C) void OffscreenCanvas_width_Set(Handle, ulong);
+extern (C) ulong OffscreenCanvas_width_Get(Handle);
+extern (C) void OffscreenCanvas_height_Set(Handle, ulong);
+extern (C) ulong OffscreenCanvas_height_Get(Handle);
+extern (C) Optional!(OffscreenRenderingContext) OffscreenCanvas_getContext(Handle, OffscreenRenderingContextId, Handle);
+extern (C) Handle OffscreenCanvas_transferToImageBitmap(Handle);
+extern (C) Handle OffscreenCanvas_convertToBlob(Handle, Handle);
+extern (C) void OffscreenCanvasRenderingContext2D_commit(Handle);
+extern (C) Handle OffscreenCanvasRenderingContext2D_canvas_Get(Handle);
+extern (C) bool PageTransitionEvent_persisted_Get(Handle);
+extern (C) void PageTransitionEventInit_persisted_Set(Handle, bool);
+extern (C) bool PageTransitionEventInit_persisted_Get(Handle);
+extern (C) void Path2D_addPath(Handle, Handle, Handle);
+extern (C) string Plugin_name_Get(Handle);
+extern (C) string Plugin_description_Get(Handle);
+extern (C) string Plugin_filename_Get(Handle);
+extern (C) uint Plugin_length_Get(Handle);
+extern (C) Optional!(MimeType) Plugin_item_getter(Handle, uint);
+extern (C) Optional!(MimeType) Plugin_namedItem_getter(Handle, string);
+extern (C) void PluginArray_refresh(Handle, bool);
+extern (C) uint PluginArray_length_Get(Handle);
+extern (C) Optional!(Plugin) PluginArray_item_getter(Handle, uint);
+extern (C) Optional!(Plugin) PluginArray_namedItem_getter(Handle, string);
+extern (C) Handle PopStateEvent_state_Get(Handle);
+extern (C) void PopStateEventInit_state_Set(Handle, Handle);
+extern (C) Handle PopStateEventInit_state_Get(Handle);
+extern (C) void PostMessageOptions_transfer_Set(Handle, Handle);
+extern (C) Handle PostMessageOptions_transfer_Get(Handle);
+extern (C) Handle PromiseRejectionEvent_promise_Get(Handle);
+extern (C) Handle PromiseRejectionEvent_reason_Get(Handle);
+extern (C) void PromiseRejectionEventInit_promise_Set(Handle, Handle);
+extern (C) Handle PromiseRejectionEventInit_promise_Get(Handle);
+extern (C) void PromiseRejectionEventInit_reason_Set(Handle, Handle);
+extern (C) Handle PromiseRejectionEventInit_reason_Get(Handle);
+extern (C) void RadioNodeList_value_Set(Handle, string);
+extern (C) string RadioNodeList_value_Get(Handle);
+extern (C) Handle SharedWorker_port_Get(Handle);
+extern (C) string SharedWorkerGlobalScope_name_Get(Handle);
+extern (C) void SharedWorkerGlobalScope_close(Handle);
+extern (C) void SharedWorkerGlobalScope_onconnect_Set(Handle, EventHandler);
+extern (C) EventHandler SharedWorkerGlobalScope_onconnect_Get(Handle);
+extern (C) uint Storage_length_Get(Handle);
+extern (C) Optional!(string) Storage_key(Handle, uint);
+extern (C) Optional!(string) Storage_getItem_getter(Handle, string);
+extern (C) void Storage_setItem_setter(Handle, string, string);
+extern (C) void Storage_removeItem(Handle, string);
+extern (C) void Storage_clear(Handle);
+extern (C) Optional!(string) StorageEvent_key_Get(Handle);
+extern (C) Optional!(string) StorageEvent_oldValue_Get(Handle);
+extern (C) Optional!(string) StorageEvent_newValue_Get(Handle);
+extern (C) string StorageEvent_url_Get(Handle);
+extern (C) Optional!(Storage) StorageEvent_storageArea_Get(Handle);
+extern (C) void StorageEvent_initStorageEvent(Handle, string, bool, bool, bool, string, bool, string, bool, string, string, bool, Handle);
+extern (C) void StorageEventInit_key_Set(Handle, bool, string);
+extern (C) Optional!(string) StorageEventInit_key_Get(Handle);
+extern (C) void StorageEventInit_oldValue_Set(Handle, bool, string);
+extern (C) Optional!(string) StorageEventInit_oldValue_Get(Handle);
+extern (C) void StorageEventInit_newValue_Set(Handle, bool, string);
+extern (C) Optional!(string) StorageEventInit_newValue_Get(Handle);
+extern (C) void StorageEventInit_url_Set(Handle, string);
+extern (C) string StorageEventInit_url_Get(Handle);
+extern (C) void StorageEventInit_storageArea_Set(Handle, bool, Handle);
+extern (C) Optional!(Storage) StorageEventInit_storageArea_Get(Handle);
+extern (C) double TextMetrics_width_Get(Handle);
+extern (C) double TextMetrics_actualBoundingBoxLeft_Get(Handle);
+extern (C) double TextMetrics_actualBoundingBoxRight_Get(Handle);
+extern (C) double TextMetrics_fontBoundingBoxAscent_Get(Handle);
+extern (C) double TextMetrics_fontBoundingBoxDescent_Get(Handle);
+extern (C) double TextMetrics_actualBoundingBoxAscent_Get(Handle);
+extern (C) double TextMetrics_actualBoundingBoxDescent_Get(Handle);
+extern (C) double TextMetrics_emHeightAscent_Get(Handle);
+extern (C) double TextMetrics_emHeightDescent_Get(Handle);
+extern (C) double TextMetrics_hangingBaseline_Get(Handle);
+extern (C) double TextMetrics_alphabeticBaseline_Get(Handle);
+extern (C) double TextMetrics_ideographicBaseline_Get(Handle);
+extern (C) TextTrackKind TextTrack_kind_Get(Handle);
+extern (C) string TextTrack_label_Get(Handle);
+extern (C) string TextTrack_language_Get(Handle);
+extern (C) string TextTrack_id_Get(Handle);
+extern (C) string TextTrack_inBandMetadataTrackDispatchType_Get(Handle);
+extern (C) void TextTrack_mode_Set(Handle, TextTrackMode);
+extern (C) TextTrackMode TextTrack_mode_Get(Handle);
+extern (C) Optional!(TextTrackCueList) TextTrack_cues_Get(Handle);
+extern (C) Optional!(TextTrackCueList) TextTrack_activeCues_Get(Handle);
+extern (C) void TextTrack_addCue(Handle, Handle);
+extern (C) void TextTrack_removeCue(Handle, Handle);
+extern (C) void TextTrack_oncuechange_Set(Handle, EventHandler);
+extern (C) EventHandler TextTrack_oncuechange_Get(Handle);
+extern (C) Optional!(SourceBuffer) TextTrack_sourceBuffer_Get(Handle);
+extern (C) Optional!(TextTrack) TextTrackCue_track_Get(Handle);
+extern (C) void TextTrackCue_id_Set(Handle, string);
+extern (C) string TextTrackCue_id_Get(Handle);
+extern (C) void TextTrackCue_startTime_Set(Handle, double);
+extern (C) double TextTrackCue_startTime_Get(Handle);
+extern (C) void TextTrackCue_endTime_Set(Handle, double);
+extern (C) double TextTrackCue_endTime_Get(Handle);
+extern (C) void TextTrackCue_pauseOnExit_Set(Handle, bool);
+extern (C) bool TextTrackCue_pauseOnExit_Get(Handle);
+extern (C) void TextTrackCue_onenter_Set(Handle, EventHandler);
+extern (C) EventHandler TextTrackCue_onenter_Get(Handle);
+extern (C) void TextTrackCue_onexit_Set(Handle, EventHandler);
+extern (C) EventHandler TextTrackCue_onexit_Get(Handle);
+extern (C) uint TextTrackCueList_length_Get(Handle);
+extern (C) Handle TextTrackCueList_getter__uint(Handle, uint);
+extern (C) Optional!(TextTrackCue) TextTrackCueList_getCueById(Handle, string);
+extern (C) uint TextTrackList_length_Get(Handle);
+extern (C) Handle TextTrackList_getter__uint(Handle, uint);
+extern (C) Optional!(TextTrack) TextTrackList_getTrackById(Handle, string);
+extern (C) void TextTrackList_onchange_Set(Handle, EventHandler);
+extern (C) EventHandler TextTrackList_onchange_Get(Handle);
+extern (C) void TextTrackList_onaddtrack_Set(Handle, EventHandler);
+extern (C) EventHandler TextTrackList_onaddtrack_Get(Handle);
+extern (C) void TextTrackList_onremovetrack_Set(Handle, EventHandler);
+extern (C) EventHandler TextTrackList_onremovetrack_Get(Handle);
+extern (C) uint TimeRanges_length_Get(Handle);
+extern (C) double TimeRanges_start(Handle, uint);
+extern (C) double TimeRanges_end(Handle, uint);
+extern (C) Optional!(SumType!(VideoTrack, AudioTrack, TextTrack)) TrackEvent_track_Get(Handle);
+extern (C) void TrackEventInit_track_Set(Handle, bool, SumType!(VideoTrack, AudioTrack, TextTrack));
+extern (C) Optional!(SumType!(VideoTrack, AudioTrack, TextTrack)) TrackEventInit_track_Get(Handle);
+extern (C) bool ValidityState_valueMissing_Get(Handle);
+extern (C) bool ValidityState_typeMismatch_Get(Handle);
+extern (C) bool ValidityState_patternMismatch_Get(Handle);
+extern (C) bool ValidityState_tooLong_Get(Handle);
+extern (C) bool ValidityState_tooShort_Get(Handle);
+extern (C) bool ValidityState_rangeUnderflow_Get(Handle);
+extern (C) bool ValidityState_rangeOverflow_Get(Handle);
+extern (C) bool ValidityState_stepMismatch_Get(Handle);
+extern (C) bool ValidityState_badInput_Get(Handle);
+extern (C) bool ValidityState_customError_Get(Handle);
+extern (C) bool ValidityState_valid_Get(Handle);
+extern (C) string VideoTrack_id_Get(Handle);
+extern (C) string VideoTrack_kind_Get(Handle);
+extern (C) string VideoTrack_label_Get(Handle);
+extern (C) string VideoTrack_language_Get(Handle);
+extern (C) void VideoTrack_selected_Set(Handle, bool);
+extern (C) bool VideoTrack_selected_Get(Handle);
+extern (C) Optional!(SourceBuffer) VideoTrack_sourceBuffer_Get(Handle);
+extern (C) uint VideoTrackList_length_Get(Handle);
+extern (C) Handle VideoTrackList_getter__uint(Handle, uint);
+extern (C) Optional!(VideoTrack) VideoTrackList_getTrackById(Handle, string);
+extern (C) int VideoTrackList_selectedIndex_Get(Handle);
+extern (C) void VideoTrackList_onchange_Set(Handle, EventHandler);
+extern (C) EventHandler VideoTrackList_onchange_Get(Handle);
+extern (C) void VideoTrackList_onaddtrack_Set(Handle, EventHandler);
+extern (C) EventHandler VideoTrackList_onaddtrack_Get(Handle);
+extern (C) void VideoTrackList_onremovetrack_Set(Handle, EventHandler);
+extern (C) EventHandler VideoTrackList_onremovetrack_Get(Handle);
+extern (C) string WebSocket_url_Get(Handle);
+extern (C) ushort WebSocket_readyState_Get(Handle);
+extern (C) ulong WebSocket_bufferedAmount_Get(Handle);
+extern (C) void WebSocket_onopen_Set(Handle, EventHandler);
+extern (C) EventHandler WebSocket_onopen_Get(Handle);
+extern (C) void WebSocket_onerror_Set(Handle, EventHandler);
+extern (C) EventHandler WebSocket_onerror_Get(Handle);
+extern (C) void WebSocket_onclose_Set(Handle, EventHandler);
+extern (C) EventHandler WebSocket_onclose_Get(Handle);
+extern (C) string WebSocket_extensions_Get(Handle);
+extern (C) string WebSocket_protocol_Get(Handle);
+extern (C) void WebSocket_close(Handle, ushort, string);
+extern (C) void WebSocket_onmessage_Set(Handle, EventHandler);
+extern (C) EventHandler WebSocket_onmessage_Get(Handle);
+extern (C) void WebSocket_binaryType_Set(Handle, BinaryType);
+extern (C) BinaryType WebSocket_binaryType_Get(Handle);
+extern (C) void WebSocket_send__string(Handle, string);
+extern (C) void WebSocket_send__Handle(Handle, Handle);
+extern (C) void WebSocket_send__ArrayBufferView(Handle, ArrayBufferView);
+extern (C) Handle Window_window_Get(Handle);
+extern (C) Handle Window_self_Get(Handle);
+extern (C) Handle Window_document_Get(Handle);
+extern (C) void Window_name_Set(Handle, string);
+extern (C) string Window_name_Get(Handle);
+extern (C) Handle Window_location_Get(Handle);
+extern (C) Handle Window_history_Get(Handle);
+extern (C) Handle Window_customElements_Get(Handle);
+extern (C) Handle Window_locationbar_Get(Handle);
+extern (C) Handle Window_menubar_Get(Handle);
+extern (C) Handle Window_personalbar_Get(Handle);
+extern (C) Handle Window_scrollbars_Get(Handle);
+extern (C) Handle Window_statusbar_Get(Handle);
+extern (C) Handle Window_toolbar_Get(Handle);
+extern (C) void Window_status_Set(Handle, string);
+extern (C) string Window_status_Get(Handle);
+extern (C) void Window_close(Handle);
+extern (C) bool Window_closed_Get(Handle);
+extern (C) void Window_stop(Handle);
+extern (C) void Window_focus(Handle);
+extern (C) void Window_blur(Handle);
+extern (C) Handle Window_frames_Get(Handle);
+extern (C) uint Window_length_Get(Handle);
+extern (C) Optional!(Window) Window_top_Get(Handle);
+extern (C) void Window_opener_Set(Handle, Handle);
+extern (C) Handle Window_opener_Get(Handle);
+extern (C) Optional!(Window) Window_parent_Get(Handle);
+extern (C) Optional!(Element) Window_frameElement_Get(Handle);
+extern (C) Optional!(Window) Window_open(Handle, string, string, string);
+extern (C) Handle Window_getter__string(Handle, string);
+extern (C) Handle Window_navigator_Get(Handle);
+extern (C) Handle Window_applicationCache_Get(Handle);
+extern (C) void Window_alert__(Handle);
+extern (C) void Window_alert__string(Handle, string);
+extern (C) bool Window_confirm(Handle, string);
+extern (C) Optional!(string) Window_prompt(Handle, string, string);
+extern (C) void Window_print(Handle);
+extern (C) void Window_postMessage__Any_string_sequence(Handle, Handle, string, Handle);
+extern (C) void Window_postMessage__Any_Handle(Handle, Handle, Handle);
+extern (C) Handle Window_event_Get(Handle);
+extern (C) void Window_captureEvents(Handle);
+extern (C) void Window_releaseEvents(Handle);
+extern (C) Handle Window_external_Get(Handle);
+extern (C) short Window_orientation_Get(Handle);
+extern (C) void Window_onorientationchange_Set(Handle, EventHandler);
+extern (C) EventHandler Window_onorientationchange_Get(Handle);
+extern (C) Handle WindowLocalStorage_localStorage_Get(Handle);
+extern (C) string WindowOrWorkerGlobalScope_origin_Get(Handle);
+extern (C) string WindowOrWorkerGlobalScope_btoa(Handle, string);
+extern (C) string WindowOrWorkerGlobalScope_atob(Handle, string);
+extern (C) int WindowOrWorkerGlobalScope_setTimeout(Handle, TimerHandler, int, Handle);
+extern (C) void WindowOrWorkerGlobalScope_clearTimeout(Handle, int);
+extern (C) int WindowOrWorkerGlobalScope_setInterval(Handle, TimerHandler, int, Handle);
+extern (C) void WindowOrWorkerGlobalScope_clearInterval(Handle, int);
+extern (C) void WindowOrWorkerGlobalScope_queueMicrotask(Handle, VoidFunction);
+extern (C) Handle WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_Handle(Handle, ImageBitmapSource, Handle);
+extern (C) Handle WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_int_int_int_int_Handle(Handle, ImageBitmapSource, int, int, int, int, Handle);
+extern (C) Handle WindowOrWorkerGlobalScope_fetch(Handle, RequestInfo, Handle);
+extern (C) Handle WindowOrWorkerGlobalScope_indexedDB_Get(Handle);
+extern (C) Handle WindowOrWorkerGlobalScope_caches_Get(Handle);
+extern (C) void WindowPostMessageOptions_targetOrigin_Set(Handle, string);
+extern (C) string WindowPostMessageOptions_targetOrigin_Get(Handle);
+extern (C) Handle WindowSessionStorage_sessionStorage_Get(Handle);
+extern (C) void Worker_terminate(Handle);
+extern (C) void Worker_postMessage__Any_sequence(Handle, Handle, Handle);
+extern (C) void Worker_postMessage__Any_Handle(Handle, Handle, Handle);
+extern (C) void Worker_onmessage_Set(Handle, EventHandler);
+extern (C) EventHandler Worker_onmessage_Get(Handle);
+extern (C) void Worker_onmessageerror_Set(Handle, EventHandler);
+extern (C) EventHandler Worker_onmessageerror_Get(Handle);
+extern (C) Handle WorkerGlobalScope_self_Get(Handle);
+extern (C) Handle WorkerGlobalScope_location_Get(Handle);
+extern (C) Handle WorkerGlobalScope_navigator_Get(Handle);
+extern (C) void WorkerGlobalScope_importScripts(Handle, string);
+extern (C) void WorkerGlobalScope_onerror_Set(Handle, bool, OnErrorEventHandlerNonNull);
+extern (C) OnErrorEventHandler WorkerGlobalScope_onerror_Get(Handle);
+extern (C) void WorkerGlobalScope_onlanguagechange_Set(Handle, EventHandler);
+extern (C) EventHandler WorkerGlobalScope_onlanguagechange_Get(Handle);
+extern (C) void WorkerGlobalScope_onoffline_Set(Handle, EventHandler);
+extern (C) EventHandler WorkerGlobalScope_onoffline_Get(Handle);
+extern (C) void WorkerGlobalScope_ononline_Set(Handle, EventHandler);
+extern (C) EventHandler WorkerGlobalScope_ononline_Get(Handle);
+extern (C) void WorkerGlobalScope_onrejectionhandled_Set(Handle, EventHandler);
+extern (C) EventHandler WorkerGlobalScope_onrejectionhandled_Get(Handle);
+extern (C) void WorkerGlobalScope_onunhandledrejection_Set(Handle, EventHandler);
+extern (C) EventHandler WorkerGlobalScope_onunhandledrejection_Get(Handle);
+extern (C) void WorkerLocation_href_Set(Handle, string);
+extern (C) string WorkerLocation_href_Get(Handle);
+extern (C) string WorkerLocation_origin_Get(Handle);
+extern (C) string WorkerLocation_protocol_Get(Handle);
+extern (C) string WorkerLocation_host_Get(Handle);
+extern (C) string WorkerLocation_hostname_Get(Handle);
+extern (C) string WorkerLocation_port_Get(Handle);
+extern (C) string WorkerLocation_pathname_Get(Handle);
+extern (C) string WorkerLocation_search_Get(Handle);
+extern (C) string WorkerLocation_hash_Get(Handle);
+extern (C) Handle WorkerNavigator_permissions_Get(Handle);
+extern (C) Handle WorkerNavigator_serviceWorker_Get(Handle);
+extern (C) void WorkerOptions_type_Set(Handle, WorkerType);
+extern (C) WorkerType WorkerOptions_type_Get(Handle);
+extern (C) void WorkerOptions_credentials_Set(Handle, RequestCredentials);
+extern (C) RequestCredentials WorkerOptions_credentials_Get(Handle);
+extern (C) void WorkerOptions_name_Set(Handle, string);
+extern (C) string WorkerOptions_name_Get(Handle);

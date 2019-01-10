@@ -44,7 +44,7 @@ export default {
       return spasm.objects[ctx].azimuthAngle;
     },
     Touch_touchType_Get: function(ctx) {
-      return spasm.encode_TouchType(spasm.objects[ctx].touchType);
+      return spasm.encode.TouchType(spasm.objects[ctx].touchType);
     },
     TouchEvent_touches_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].touches);
@@ -173,13 +173,13 @@ export default {
       spasm.objects[ctx].touchType = spasm.decode_TouchType(touchType);
     },
     TouchInit_touchType_Get: function(ctx) {
-      return spasm.encode_TouchType(spasm.objects[ctx].touchType);
+      return spasm.encode.TouchType(spasm.objects[ctx].touchType);
     },
     TouchList_length_Get: function(ctx) {
       return spasm.objects[ctx].length;
     },
     TouchList_item_getter: function(rawResult, ctx, index) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].item(index));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].item(index));
     },
   }
 }

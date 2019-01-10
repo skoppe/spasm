@@ -14,16 +14,16 @@ export default {
       return spasm.objects[ctx].ideal;
     },
     ConstrainDOMStringParameters_exact_Set: function(ctx, exact) {
-      spasm.objects[ctx].exact = spasm.decode_union2_string_sequence_string(exact);
+      spasm.objects[ctx].exact = spasm.decode_union2_string_sequence(exact);
     },
     ConstrainDOMStringParameters_exact_Get: function(rawResult, ctx) {
-      spasm.encode_union2_string_sequence_string(rawResult, spasm.objects[ctx].exact);
+      spasm.encode.union2_string_sequence(rawResult, spasm.objects[ctx].exact);
     },
     ConstrainDOMStringParameters_ideal_Set: function(ctx, ideal) {
-      spasm.objects[ctx].ideal = spasm.decode_union2_string_sequence_string(ideal);
+      spasm.objects[ctx].ideal = spasm.decode_union2_string_sequence(ideal);
     },
     ConstrainDOMStringParameters_ideal_Get: function(rawResult, ctx) {
-      spasm.encode_union2_string_sequence_string(rawResult, spasm.objects[ctx].ideal);
+      spasm.encode.union2_string_sequence(rawResult, spasm.objects[ctx].ideal);
     },
     ConstrainDoubleRange_exact_Set: function(ctx, exact) {
       spasm.objects[ctx].exact = exact;
@@ -89,16 +89,16 @@ export default {
       return spasm.addObject(spasm.objects[ctx].getCapabilities());
     },
     MediaDeviceInfo_deviceId_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].deviceId);
+      spasm.encode.string(rawResult, spasm.objects[ctx].deviceId);
     },
     MediaDeviceInfo_kind_Get: function(ctx) {
-      return spasm.encode_MediaDeviceKind(spasm.objects[ctx].kind);
+      return spasm.encode.MediaDeviceKind(spasm.objects[ctx].kind);
     },
     MediaDeviceInfo_label_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].label);
+      spasm.encode.string(rawResult, spasm.objects[ctx].label);
     },
     MediaDeviceInfo_groupId_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].groupId);
+      spasm.encode.string(rawResult, spasm.objects[ctx].groupId);
     },
     MediaDeviceInfo_toJSON: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].toJSON());
@@ -119,7 +119,7 @@ export default {
       return spasm.addObject(spasm.objects[ctx].getUserMedia(spasm.objects[constraints]));
     },
     MediaStream_id_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].id);
+      spasm.encode.string(rawResult, spasm.objects[ctx].id);
     },
     MediaStream_getAudioTracks: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].getAudioTracks());
@@ -131,7 +131,7 @@ export default {
       return spasm.addObject(spasm.objects[ctx].getTracks());
     },
     MediaStream_getTrackById: function(rawResult, ctx, trackIdLen, trackIdPtr) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].getTrackById(spasm.decode_string(trackIdLen, trackIdPtr)));
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].getTrackById(spasm.decode_string(trackIdLen, trackIdPtr)));
     },
     MediaStream_addTrack: function(ctx, track) {
       spasm.objects[ctx].addTrack(spasm.objects[track]);
@@ -161,22 +161,22 @@ export default {
       spasm.objects[ctx].video = spasm.decode_union2_bool_MediaTrackConstraints(video);
     },
     MediaStreamConstraints_video_Get: function(rawResult, ctx) {
-      spasm.encode_union2_bool_MediaTrackConstraints(rawResult, spasm.objects[ctx].video);
+      spasm.encode.union2_bool_MediaTrackConstraints(rawResult, spasm.objects[ctx].video);
     },
     MediaStreamConstraints_audio_Set: function(ctx, audio) {
       spasm.objects[ctx].audio = spasm.decode_union2_bool_MediaTrackConstraints(audio);
     },
     MediaStreamConstraints_audio_Get: function(rawResult, ctx) {
-      spasm.encode_union2_bool_MediaTrackConstraints(rawResult, spasm.objects[ctx].audio);
+      spasm.encode.union2_bool_MediaTrackConstraints(rawResult, spasm.objects[ctx].audio);
     },
     MediaStreamTrack_kind_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].kind);
+      spasm.encode.string(rawResult, spasm.objects[ctx].kind);
     },
     MediaStreamTrack_id_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].id);
+      spasm.encode.string(rawResult, spasm.objects[ctx].id);
     },
     MediaStreamTrack_label_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].label);
+      spasm.encode.string(rawResult, spasm.objects[ctx].label);
     },
     MediaStreamTrack_enabled_Set: function(ctx, enabled) {
       spasm.objects[ctx].enabled = enabled;
@@ -200,7 +200,7 @@ export default {
       return spasm.objects[ctx].onunmute;
     },
     MediaStreamTrack_readyState_Get: function(ctx) {
-      return spasm.encode_MediaStreamTrackState(spasm.objects[ctx].readyState);
+      return spasm.encode.MediaStreamTrackState(spasm.objects[ctx].readyState);
     },
     MediaStreamTrack_onended_Set: function(ctx, onended) {
       spasm.objects[ctx].onended = onended;
@@ -329,109 +329,109 @@ export default {
       spasm.objects[ctx].deviceId = spasm.decode_string(deviceIdLen, deviceIdPtr);
     },
     MediaTrackCapabilities_deviceId_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].deviceId);
+      spasm.encode.string(rawResult, spasm.objects[ctx].deviceId);
     },
     MediaTrackCapabilities_groupId_Set: function(ctx, groupIdLen, groupIdPtr) {
       spasm.objects[ctx].groupId = spasm.decode_string(groupIdLen, groupIdPtr);
     },
     MediaTrackCapabilities_groupId_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].groupId);
+      spasm.encode.string(rawResult, spasm.objects[ctx].groupId);
     },
     MediaTrackConstraintSet_width_Set: function(ctx, width) {
       spasm.objects[ctx].width = spasm.decode_ConstrainULong(width);
     },
     MediaTrackConstraintSet_width_Get: function(rawResult, ctx) {
-      spasm.encode_ConstrainULong(rawResult, spasm.objects[ctx].width);
+      spasm.encode.ConstrainULong(rawResult, spasm.objects[ctx].width);
     },
     MediaTrackConstraintSet_height_Set: function(ctx, height) {
       spasm.objects[ctx].height = spasm.decode_ConstrainULong(height);
     },
     MediaTrackConstraintSet_height_Get: function(rawResult, ctx) {
-      spasm.encode_ConstrainULong(rawResult, spasm.objects[ctx].height);
+      spasm.encode.ConstrainULong(rawResult, spasm.objects[ctx].height);
     },
     MediaTrackConstraintSet_aspectRatio_Set: function(ctx, aspectRatio) {
       spasm.objects[ctx].aspectRatio = spasm.decode_ConstrainDouble(aspectRatio);
     },
     MediaTrackConstraintSet_aspectRatio_Get: function(rawResult, ctx) {
-      spasm.encode_ConstrainDouble(rawResult, spasm.objects[ctx].aspectRatio);
+      spasm.encode.ConstrainDouble(rawResult, spasm.objects[ctx].aspectRatio);
     },
     MediaTrackConstraintSet_frameRate_Set: function(ctx, frameRate) {
       spasm.objects[ctx].frameRate = spasm.decode_ConstrainDouble(frameRate);
     },
     MediaTrackConstraintSet_frameRate_Get: function(rawResult, ctx) {
-      spasm.encode_ConstrainDouble(rawResult, spasm.objects[ctx].frameRate);
+      spasm.encode.ConstrainDouble(rawResult, spasm.objects[ctx].frameRate);
     },
     MediaTrackConstraintSet_facingMode_Set: function(ctx, facingMode) {
       spasm.objects[ctx].facingMode = spasm.decode_ConstrainDOMString(facingMode);
     },
     MediaTrackConstraintSet_facingMode_Get: function(rawResult, ctx) {
-      spasm.encode_ConstrainDOMString(rawResult, spasm.objects[ctx].facingMode);
+      spasm.encode.ConstrainDOMString(rawResult, spasm.objects[ctx].facingMode);
     },
     MediaTrackConstraintSet_resizeMode_Set: function(ctx, resizeMode) {
       spasm.objects[ctx].resizeMode = spasm.decode_ConstrainDOMString(resizeMode);
     },
     MediaTrackConstraintSet_resizeMode_Get: function(rawResult, ctx) {
-      spasm.encode_ConstrainDOMString(rawResult, spasm.objects[ctx].resizeMode);
+      spasm.encode.ConstrainDOMString(rawResult, spasm.objects[ctx].resizeMode);
     },
     MediaTrackConstraintSet_volume_Set: function(ctx, volume) {
       spasm.objects[ctx].volume = spasm.decode_ConstrainDouble(volume);
     },
     MediaTrackConstraintSet_volume_Get: function(rawResult, ctx) {
-      spasm.encode_ConstrainDouble(rawResult, spasm.objects[ctx].volume);
+      spasm.encode.ConstrainDouble(rawResult, spasm.objects[ctx].volume);
     },
     MediaTrackConstraintSet_sampleRate_Set: function(ctx, sampleRate) {
       spasm.objects[ctx].sampleRate = spasm.decode_ConstrainULong(sampleRate);
     },
     MediaTrackConstraintSet_sampleRate_Get: function(rawResult, ctx) {
-      spasm.encode_ConstrainULong(rawResult, spasm.objects[ctx].sampleRate);
+      spasm.encode.ConstrainULong(rawResult, spasm.objects[ctx].sampleRate);
     },
     MediaTrackConstraintSet_sampleSize_Set: function(ctx, sampleSize) {
       spasm.objects[ctx].sampleSize = spasm.decode_ConstrainULong(sampleSize);
     },
     MediaTrackConstraintSet_sampleSize_Get: function(rawResult, ctx) {
-      spasm.encode_ConstrainULong(rawResult, spasm.objects[ctx].sampleSize);
+      spasm.encode.ConstrainULong(rawResult, spasm.objects[ctx].sampleSize);
     },
     MediaTrackConstraintSet_echoCancellation_Set: function(ctx, echoCancellation) {
       spasm.objects[ctx].echoCancellation = spasm.decode_ConstrainBoolean(echoCancellation);
     },
     MediaTrackConstraintSet_echoCancellation_Get: function(rawResult, ctx) {
-      spasm.encode_ConstrainBoolean(rawResult, spasm.objects[ctx].echoCancellation);
+      spasm.encode.ConstrainBoolean(rawResult, spasm.objects[ctx].echoCancellation);
     },
     MediaTrackConstraintSet_autoGainControl_Set: function(ctx, autoGainControl) {
       spasm.objects[ctx].autoGainControl = spasm.decode_ConstrainBoolean(autoGainControl);
     },
     MediaTrackConstraintSet_autoGainControl_Get: function(rawResult, ctx) {
-      spasm.encode_ConstrainBoolean(rawResult, spasm.objects[ctx].autoGainControl);
+      spasm.encode.ConstrainBoolean(rawResult, spasm.objects[ctx].autoGainControl);
     },
     MediaTrackConstraintSet_noiseSuppression_Set: function(ctx, noiseSuppression) {
       spasm.objects[ctx].noiseSuppression = spasm.decode_ConstrainBoolean(noiseSuppression);
     },
     MediaTrackConstraintSet_noiseSuppression_Get: function(rawResult, ctx) {
-      spasm.encode_ConstrainBoolean(rawResult, spasm.objects[ctx].noiseSuppression);
+      spasm.encode.ConstrainBoolean(rawResult, spasm.objects[ctx].noiseSuppression);
     },
     MediaTrackConstraintSet_latency_Set: function(ctx, latency) {
       spasm.objects[ctx].latency = spasm.decode_ConstrainDouble(latency);
     },
     MediaTrackConstraintSet_latency_Get: function(rawResult, ctx) {
-      spasm.encode_ConstrainDouble(rawResult, spasm.objects[ctx].latency);
+      spasm.encode.ConstrainDouble(rawResult, spasm.objects[ctx].latency);
     },
     MediaTrackConstraintSet_channelCount_Set: function(ctx, channelCount) {
       spasm.objects[ctx].channelCount = spasm.decode_ConstrainULong(channelCount);
     },
     MediaTrackConstraintSet_channelCount_Get: function(rawResult, ctx) {
-      spasm.encode_ConstrainULong(rawResult, spasm.objects[ctx].channelCount);
+      spasm.encode.ConstrainULong(rawResult, spasm.objects[ctx].channelCount);
     },
     MediaTrackConstraintSet_deviceId_Set: function(ctx, deviceId) {
       spasm.objects[ctx].deviceId = spasm.decode_ConstrainDOMString(deviceId);
     },
     MediaTrackConstraintSet_deviceId_Get: function(rawResult, ctx) {
-      spasm.encode_ConstrainDOMString(rawResult, spasm.objects[ctx].deviceId);
+      spasm.encode.ConstrainDOMString(rawResult, spasm.objects[ctx].deviceId);
     },
     MediaTrackConstraintSet_groupId_Set: function(ctx, groupId) {
       spasm.objects[ctx].groupId = spasm.decode_ConstrainDOMString(groupId);
     },
     MediaTrackConstraintSet_groupId_Get: function(rawResult, ctx) {
-      spasm.encode_ConstrainDOMString(rawResult, spasm.objects[ctx].groupId);
+      spasm.encode.ConstrainDOMString(rawResult, spasm.objects[ctx].groupId);
     },
     MediaTrackConstraints_advanced_Set: function(ctx, advanced) {
       spasm.objects[ctx].advanced = spasm.objects[advanced];
@@ -467,13 +467,13 @@ export default {
       spasm.objects[ctx].facingMode = spasm.decode_string(facingModeLen, facingModePtr);
     },
     MediaTrackSettings_facingMode_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].facingMode);
+      spasm.encode.string(rawResult, spasm.objects[ctx].facingMode);
     },
     MediaTrackSettings_resizeMode_Set: function(ctx, resizeModeLen, resizeModePtr) {
       spasm.objects[ctx].resizeMode = spasm.decode_string(resizeModeLen, resizeModePtr);
     },
     MediaTrackSettings_resizeMode_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].resizeMode);
+      spasm.encode.string(rawResult, spasm.objects[ctx].resizeMode);
     },
     MediaTrackSettings_volume_Set: function(ctx, volume) {
       spasm.objects[ctx].volume = volume;
@@ -527,13 +527,13 @@ export default {
       spasm.objects[ctx].deviceId = spasm.decode_string(deviceIdLen, deviceIdPtr);
     },
     MediaTrackSettings_deviceId_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].deviceId);
+      spasm.encode.string(rawResult, spasm.objects[ctx].deviceId);
     },
     MediaTrackSettings_groupId_Set: function(ctx, groupIdLen, groupIdPtr) {
       spasm.objects[ctx].groupId = spasm.decode_string(groupIdLen, groupIdPtr);
     },
     MediaTrackSettings_groupId_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].groupId);
+      spasm.encode.string(rawResult, spasm.objects[ctx].groupId);
     },
     MediaTrackSupportedConstraints_width_Set: function(ctx, width) {
       spasm.objects[ctx].width = width;
@@ -632,13 +632,13 @@ export default {
       return spasm.objects[ctx].groupId;
     },
     OverconstrainedErrorEvent_error_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].error);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].error);
     },
     OverconstrainedErrorEventInit_error_Set: function(ctx, errorDefined, error) {
       spasm.objects[ctx].error = errorDefined ? spasm.objects[error] : undefined;
     },
     OverconstrainedErrorEventInit_error_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].error);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].error);
     },
     ULongRange_max_Set: function(ctx, max) {
       spasm.objects[ctx].max = max;

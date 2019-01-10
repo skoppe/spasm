@@ -12,16 +12,16 @@ struct Clipboard {
     _parent = EventTarget(h);
   }
   auto read() {
-    return Promise!(DataTransfer)(Clipboard_read(this._parent));
+    return Promise!(DataTransfer)(JsHandle(Clipboard_read(this._parent));
   }
   auto readText() {
-    return Promise!(string)(Clipboard_readText(this._parent));
+    return Promise!(string)(JsHandle(Clipboard_readText(this._parent));
   }
   auto write(DataTransfer data) {
-    return Promise!(void)(Clipboard_write(this._parent, data.handle));
+    return Promise!(void)(JsHandle(Clipboard_write(this._parent, data.handle));
   }
   auto writeText(string data) {
-    return Promise!(void)(Clipboard_writeText(this._parent, data));
+    return Promise!(void)(JsHandle(Clipboard_writeText(this._parent, data));
   }
 }
 struct ClipboardEvent {
@@ -62,12 +62,12 @@ struct ClipboardPermissionDescriptor {
 }
 
 
-extern (C) JsHandle Clipboard_read(JsHandle);
-extern (C) JsHandle Clipboard_readText(JsHandle);
-extern (C) JsHandle Clipboard_write(JsHandle, JsHandle);
-extern (C) JsHandle Clipboard_writeText(JsHandle, string);
-extern (C) Optional!(DataTransfer) ClipboardEvent_clipboardData_Get(JsHandle);
-extern (C) void ClipboardEventInit_clipboardData_Set(JsHandle, bool, JsHandle);
-extern (C) Optional!(DataTransfer) ClipboardEventInit_clipboardData_Get(JsHandle);
-extern (C) void ClipboardPermissionDescriptor_allowWithoutGesture_Set(JsHandle, bool);
-extern (C) bool ClipboardPermissionDescriptor_allowWithoutGesture_Get(JsHandle);
+extern (C) Handle Clipboard_read(Handle);
+extern (C) Handle Clipboard_readText(Handle);
+extern (C) Handle Clipboard_write(Handle, Handle);
+extern (C) Handle Clipboard_writeText(Handle, string);
+extern (C) Optional!(DataTransfer) ClipboardEvent_clipboardData_Get(Handle);
+extern (C) void ClipboardEventInit_clipboardData_Set(Handle, bool, Handle);
+extern (C) Optional!(DataTransfer) ClipboardEventInit_clipboardData_Get(Handle);
+extern (C) void ClipboardPermissionDescriptor_allowWithoutGesture_Set(Handle, bool);
+extern (C) bool ClipboardPermissionDescriptor_allowWithoutGesture_Get(Handle);

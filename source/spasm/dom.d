@@ -36,8 +36,10 @@ extern(C) {
   void setSelectionRange(JsHandle node, uint start, uint end);
 }
 
-__gshared JsHandle document = JsHandle(1);
-__gshared JsHandle window = JsHandle(2);
+import spasm.bindings.dom : Document;
+import spasm.bindings.html : Window;
+__gshared document = Document(JsHandle(1));
+__gshared window = Window(JsHandle(2));
 
 void unmount(T)(auto ref T t) if (hasMember!(T, "node")) {
   unmount(t.node.node);

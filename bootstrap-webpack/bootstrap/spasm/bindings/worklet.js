@@ -8,7 +8,7 @@ export default {
       spasm.objects[ctx].credentials = spasm.decode_RequestCredentials(credentials);
     },
     WorkletOptions_credentials_Get: function(ctx) {
-      return spasm.encode_RequestCredentials(spasm.objects[ctx].credentials);
+      return spasm.encode.RequestCredentials(spasm.objects[ctx].credentials);
     },
   }
 }

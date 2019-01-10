@@ -56,16 +56,16 @@ export default {
       return spasm.addObject(spasm.objects[ctx].keys());
     },
     Client_url_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].url);
+      spasm.encode.string(rawResult, spasm.objects[ctx].url);
     },
     Client_frameType_Get: function(ctx) {
-      return spasm.encode_FrameType(spasm.objects[ctx].frameType);
+      return spasm.encode.FrameType(spasm.objects[ctx].frameType);
     },
     Client_id_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].id);
+      spasm.encode.string(rawResult, spasm.objects[ctx].id);
     },
     Client_type_Get: function(ctx) {
-      return spasm.encode_ClientType(spasm.objects[ctx].type);
+      return spasm.encode.ClientType(spasm.objects[ctx].type);
     },
     Client_postMessage: function(ctx, message, transfer) {
       spasm.objects[ctx].postMessage(spasm.objects[message], spasm.objects[transfer]);
@@ -80,7 +80,7 @@ export default {
       spasm.objects[ctx].type = spasm.decode_ClientType(type);
     },
     ClientQueryOptions_type_Get: function(ctx) {
-      return spasm.encode_ClientType(spasm.objects[ctx].type);
+      return spasm.encode.ClientType(spasm.objects[ctx].type);
     },
     Clients_get: function(ctx, idLen, idPtr) {
       return spasm.addObject(spasm.objects[ctx].get(spasm.decode_string(idLen, idPtr)));
@@ -101,13 +101,13 @@ export default {
       return spasm.addObject(spasm.objects[ctx].data);
     },
     ExtendableMessageEvent_origin_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].origin);
+      spasm.encode.string(rawResult, spasm.objects[ctx].origin);
     },
     ExtendableMessageEvent_lastEventId_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].lastEventId);
+      spasm.encode.string(rawResult, spasm.objects[ctx].lastEventId);
     },
     ExtendableMessageEvent_source_Get: function(rawResult, ctx) {
-      spasm.encode_optional_union3_Client_ServiceWorker_MessagePort(rawResult, spasm.objects[ctx].source);
+      spasm.encode.optional_union3_Client_ServiceWorker_MessagePort(rawResult, spasm.objects[ctx].source);
     },
     ExtendableMessageEvent_ports_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].ports);
@@ -122,19 +122,19 @@ export default {
       spasm.objects[ctx].origin = spasm.decode_string(originLen, originPtr);
     },
     ExtendableMessageEventInit_origin_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].origin);
+      spasm.encode.string(rawResult, spasm.objects[ctx].origin);
     },
     ExtendableMessageEventInit_lastEventId_Set: function(ctx, lastEventIdLen, lastEventIdPtr) {
       spasm.objects[ctx].lastEventId = spasm.decode_string(lastEventIdLen, lastEventIdPtr);
     },
     ExtendableMessageEventInit_lastEventId_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].lastEventId);
+      spasm.encode.string(rawResult, spasm.objects[ctx].lastEventId);
     },
     ExtendableMessageEventInit_source_Set: function(ctx, sourceDefined, source) {
       spasm.objects[ctx].source = sourceDefined ? spasm.decode_union3_Client_ServiceWorker_MessagePort(source) : undefined;
     },
     ExtendableMessageEventInit_source_Get: function(rawResult, ctx) {
-      spasm.encode_optional_union3_Client_ServiceWorker_MessagePort(rawResult, spasm.objects[ctx].source);
+      spasm.encode.optional_union3_Client_ServiceWorker_MessagePort(rawResult, spasm.objects[ctx].source);
     },
     ExtendableMessageEventInit_ports_Set: function(ctx, ports) {
       spasm.objects[ctx].ports = spasm.objects[ports];
@@ -149,13 +149,13 @@ export default {
       return spasm.addObject(spasm.objects[ctx].preloadResponse);
     },
     FetchEvent_clientId_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].clientId);
+      spasm.encode.string(rawResult, spasm.objects[ctx].clientId);
     },
     FetchEvent_resultingClientId_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].resultingClientId);
+      spasm.encode.string(rawResult, spasm.objects[ctx].resultingClientId);
     },
     FetchEvent_replacesClientId_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].replacesClientId);
+      spasm.encode.string(rawResult, spasm.objects[ctx].replacesClientId);
     },
     FetchEvent_respondWith: function(ctx, r) {
       spasm.objects[ctx].respondWith(spasm.objects[r]);
@@ -176,25 +176,25 @@ export default {
       spasm.objects[ctx].clientId = spasm.decode_string(clientIdLen, clientIdPtr);
     },
     FetchEventInit_clientId_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].clientId);
+      spasm.encode.string(rawResult, spasm.objects[ctx].clientId);
     },
     FetchEventInit_resultingClientId_Set: function(ctx, resultingClientIdLen, resultingClientIdPtr) {
       spasm.objects[ctx].resultingClientId = spasm.decode_string(resultingClientIdLen, resultingClientIdPtr);
     },
     FetchEventInit_resultingClientId_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].resultingClientId);
+      spasm.encode.string(rawResult, spasm.objects[ctx].resultingClientId);
     },
     FetchEventInit_replacesClientId_Set: function(ctx, replacesClientIdLen, replacesClientIdPtr) {
       spasm.objects[ctx].replacesClientId = spasm.decode_string(replacesClientIdLen, replacesClientIdPtr);
     },
     FetchEventInit_replacesClientId_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].replacesClientId);
+      spasm.encode.string(rawResult, spasm.objects[ctx].replacesClientId);
     },
     MultiCacheQueryOptions_cacheName_Set: function(ctx, cacheNameLen, cacheNamePtr) {
       spasm.objects[ctx].cacheName = spasm.decode_string(cacheNameLen, cacheNamePtr);
     },
     MultiCacheQueryOptions_cacheName_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].cacheName);
+      spasm.encode.string(rawResult, spasm.objects[ctx].cacheName);
     },
     NavigationPreloadManager_enable: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].enable());
@@ -218,31 +218,31 @@ export default {
       spasm.objects[ctx].headerValue = spasm.decode_string(headerValueLen, headerValuePtr);
     },
     NavigationPreloadState_headerValue_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].headerValue);
+      spasm.encode.string(rawResult, spasm.objects[ctx].headerValue);
     },
     RegistrationOptions_scope_Set: function(ctx, scopeLen, scopePtr) {
       spasm.objects[ctx].scope = spasm.decode_string(scopeLen, scopePtr);
     },
     RegistrationOptions_scope_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].scope);
+      spasm.encode.string(rawResult, spasm.objects[ctx].scope);
     },
     RegistrationOptions_type_Set: function(ctx, type) {
       spasm.objects[ctx].type = spasm.decode_WorkerType(type);
     },
     RegistrationOptions_type_Get: function(ctx) {
-      return spasm.encode_WorkerType(spasm.objects[ctx].type);
+      return spasm.encode.WorkerType(spasm.objects[ctx].type);
     },
     RegistrationOptions_updateViaCache_Set: function(ctx, updateViaCache) {
       spasm.objects[ctx].updateViaCache = spasm.decode_ServiceWorkerUpdateViaCache(updateViaCache);
     },
     RegistrationOptions_updateViaCache_Get: function(ctx) {
-      return spasm.encode_ServiceWorkerUpdateViaCache(spasm.objects[ctx].updateViaCache);
+      return spasm.encode.ServiceWorkerUpdateViaCache(spasm.objects[ctx].updateViaCache);
     },
     ServiceWorker_scriptURL_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].scriptURL);
+      spasm.encode.string(rawResult, spasm.objects[ctx].scriptURL);
     },
     ServiceWorker_state_Get: function(ctx) {
-      return spasm.encode_ServiceWorkerState(spasm.objects[ctx].state);
+      return spasm.encode.ServiceWorkerState(spasm.objects[ctx].state);
     },
     ServiceWorker_postMessage: function(ctx, message, transfer) {
       spasm.objects[ctx].postMessage(spasm.objects[message], spasm.objects[transfer]);
@@ -254,7 +254,7 @@ export default {
       return spasm.objects[ctx].onstatechange;
     },
     ServiceWorkerContainer_controller_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].controller);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].controller);
     },
     ServiceWorkerContainer_ready_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].ready);
@@ -341,22 +341,22 @@ export default {
       return spasm.objects[ctx].onnotificationclose;
     },
     ServiceWorkerRegistration_installing_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].installing);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].installing);
     },
     ServiceWorkerRegistration_waiting_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].waiting);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].waiting);
     },
     ServiceWorkerRegistration_active_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].active);
+      spasm.encode.optional_Handle(rawResult, spasm.objects[ctx].active);
     },
     ServiceWorkerRegistration_navigationPreload_Get: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].navigationPreload);
     },
     ServiceWorkerRegistration_scope_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].scope);
+      spasm.encode.string(rawResult, spasm.objects[ctx].scope);
     },
     ServiceWorkerRegistration_updateViaCache_Get: function(ctx) {
-      return spasm.encode_ServiceWorkerUpdateViaCache(spasm.objects[ctx].updateViaCache);
+      return spasm.encode.ServiceWorkerUpdateViaCache(spasm.objects[ctx].updateViaCache);
     },
     ServiceWorkerRegistration_update: function(ctx) {
       return spasm.addObject(spasm.objects[ctx].update());
@@ -377,7 +377,7 @@ export default {
       return spasm.addObject(spasm.objects[ctx].getNotifications(spasm.objects[filter]));
     },
     WindowClient_visibilityState_Get: function(ctx) {
-      return spasm.encode_VisibilityState(spasm.objects[ctx].visibilityState);
+      return spasm.encode.VisibilityState(spasm.objects[ctx].visibilityState);
     },
     WindowClient_focused_Get: function(ctx) {
       return spasm.objects[ctx].focused;

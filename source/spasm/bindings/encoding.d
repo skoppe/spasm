@@ -58,17 +58,17 @@ struct TextDecoderStream {
     return TextDecoderCommon_ignoreBOM_Get(this.handle);
   }
   auto readable() {
-    return ReadableStream(GenericTransformStream_readable_Get(this.handle));
+    return ReadableStream(JsHandle(GenericTransformStream_readable_Get(this.handle));
   }
   auto writable() {
-    return WritableStream(GenericTransformStream_writable_Get(this.handle));
+    return WritableStream(JsHandle(GenericTransformStream_writable_Get(this.handle));
   }
 }
 struct TextEncoder {
   JsHandle handle;
   alias handle this;
   auto encode(string input /* = "" */) {
-    return Uint8Array(TextEncoder_encode(this.handle, input));
+    return Uint8Array(JsHandle(TextEncoder_encode(this.handle, input));
   }
   auto encoding() {
     return TextEncoderCommon_encoding_Get(this.handle);
@@ -81,25 +81,25 @@ struct TextEncoderStream {
     return TextEncoderCommon_encoding_Get(this.handle);
   }
   auto readable() {
-    return ReadableStream(GenericTransformStream_readable_Get(this.handle));
+    return ReadableStream(JsHandle(GenericTransformStream_readable_Get(this.handle));
   }
   auto writable() {
-    return WritableStream(GenericTransformStream_writable_Get(this.handle));
+    return WritableStream(JsHandle(GenericTransformStream_writable_Get(this.handle));
   }
 }
 
 
-extern (C) JsHandle GenericTransformStream_readable_Get(JsHandle);
-extern (C) JsHandle GenericTransformStream_writable_Get(JsHandle);
-extern (C) void TextDecodeOptions_stream_Set(JsHandle, bool);
-extern (C) bool TextDecodeOptions_stream_Get(JsHandle);
-extern (C) string TextDecoder_decode(JsHandle, BufferSource, JsHandle);
-extern (C) string TextDecoderCommon_encoding_Get(JsHandle);
-extern (C) bool TextDecoderCommon_fatal_Get(JsHandle);
-extern (C) bool TextDecoderCommon_ignoreBOM_Get(JsHandle);
-extern (C) void TextDecoderOptions_fatal_Set(JsHandle, bool);
-extern (C) bool TextDecoderOptions_fatal_Get(JsHandle);
-extern (C) void TextDecoderOptions_ignoreBOM_Set(JsHandle, bool);
-extern (C) bool TextDecoderOptions_ignoreBOM_Get(JsHandle);
-extern (C) JsHandle TextEncoder_encode(JsHandle, string);
-extern (C) string TextEncoderCommon_encoding_Get(JsHandle);
+extern (C) Handle GenericTransformStream_readable_Get(Handle);
+extern (C) Handle GenericTransformStream_writable_Get(Handle);
+extern (C) void TextDecodeOptions_stream_Set(Handle, bool);
+extern (C) bool TextDecodeOptions_stream_Get(Handle);
+extern (C) string TextDecoder_decode(Handle, BufferSource, Handle);
+extern (C) string TextDecoderCommon_encoding_Get(Handle);
+extern (C) bool TextDecoderCommon_fatal_Get(Handle);
+extern (C) bool TextDecoderCommon_ignoreBOM_Get(Handle);
+extern (C) void TextDecoderOptions_fatal_Set(Handle, bool);
+extern (C) bool TextDecoderOptions_fatal_Get(Handle);
+extern (C) void TextDecoderOptions_ignoreBOM_Set(Handle, bool);
+extern (C) bool TextDecoderOptions_ignoreBOM_Get(Handle);
+extern (C) Handle TextEncoder_encode(Handle, string);
+extern (C) string TextEncoderCommon_encoding_Get(Handle);

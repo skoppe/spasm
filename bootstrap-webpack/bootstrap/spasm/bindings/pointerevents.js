@@ -53,7 +53,7 @@ export default {
       spasm.objects[ctx].pointerType = spasm.decode_string(pointerTypeLen, pointerTypePtr);
     },
     PointerEventInit_pointerType_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].pointerType);
+      spasm.encode.string(rawResult, spasm.objects[ctx].pointerType);
     },
     PointerEventInit_isPrimary_Set: function(ctx, isPrimary) {
       spasm.objects[ctx].isPrimary = isPrimary;
