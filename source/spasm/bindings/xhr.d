@@ -19,13 +19,16 @@ struct FormData {
     FormData_delete(this.handle, name);
   }
   auto get(string name) {
-    return FormData_get(this.handle, name);
+    auto result = FormData_get(this.handle, name);
+    return result;
   }
   auto getAll(string name) {
-    return Sequence!(FormDataEntryValue)(JsHandle(FormData_getAll(this.handle, name));
+    auto result = Sequence!(FormDataEntryValue)(JsHandle(FormData_getAll(this.handle, name)));
+    return result;
   }
   auto has(string name) {
-    return FormData_has(this.handle, name);
+    auto result = FormData_has(this.handle, name);
+    return result;
   }
   auto set(string name, string value) {
     FormData_set__string_string(this.handle, name, value);
@@ -42,13 +45,16 @@ struct ProgressEvent {
     _parent = Event(h);
   }
   auto lengthComputable() {
-    return ProgressEvent_lengthComputable_Get(this._parent);
+    auto result = ProgressEvent_lengthComputable_Get(this._parent);
+    return result;
   }
   auto loaded() {
-    return ProgressEvent_loaded_Get(this._parent);
+    auto result = ProgressEvent_loaded_Get(this._parent);
+    return result;
   }
   auto total() {
-    return ProgressEvent_total_Get(this._parent);
+    auto result = ProgressEvent_total_Get(this._parent);
+    return result;
   }
 }
 struct ProgressEventInit {
@@ -61,19 +67,22 @@ struct ProgressEventInit {
     ProgressEventInit_lengthComputable_Set(this._parent, lengthComputable);
   }
   auto lengthComputable() {
-    return ProgressEventInit_lengthComputable_Get(this._parent);
+    auto result = ProgressEventInit_lengthComputable_Get(this._parent);
+    return result;
   }
   auto loaded(ulong loaded) {
     ProgressEventInit_loaded_Set(this._parent, loaded);
   }
   auto loaded() {
-    return ProgressEventInit_loaded_Get(this._parent);
+    auto result = ProgressEventInit_loaded_Get(this._parent);
+    return result;
   }
   auto total(ulong total) {
     ProgressEventInit_total_Set(this._parent, total);
   }
   auto total() {
-    return ProgressEventInit_total_Get(this._parent);
+    auto result = ProgressEventInit_total_Get(this._parent);
+    return result;
   }
 }
 struct XMLHttpRequest {
@@ -86,7 +95,8 @@ struct XMLHttpRequest {
     XMLHttpRequest_onreadystatechange_Set(this._parent, onreadystatechange);
   }
   auto onreadystatechange() {
-    return XMLHttpRequest_onreadystatechange_Get(this._parent);
+    auto result = XMLHttpRequest_onreadystatechange_Get(this._parent);
+    return result;
   }
   enum ushort UNSENT = 0;
   enum ushort OPENED = 1;
@@ -94,7 +104,8 @@ struct XMLHttpRequest {
   enum ushort LOADING = 3;
   enum ushort DONE = 4;
   auto readyState() {
-    return XMLHttpRequest_readyState_Get(this._parent);
+    auto result = XMLHttpRequest_readyState_Get(this._parent);
+    return result;
   }
   auto open(string method, string url) {
     XMLHttpRequest_open__string_string(this._parent, method, url);
@@ -109,16 +120,19 @@ struct XMLHttpRequest {
     XMLHttpRequest_timeout_Set(this._parent, timeout);
   }
   auto timeout() {
-    return XMLHttpRequest_timeout_Get(this._parent);
+    auto result = XMLHttpRequest_timeout_Get(this._parent);
+    return result;
   }
   auto withCredentials(bool withCredentials) {
     XMLHttpRequest_withCredentials_Set(this._parent, withCredentials);
   }
   auto withCredentials() {
-    return XMLHttpRequest_withCredentials_Get(this._parent);
+    auto result = XMLHttpRequest_withCredentials_Get(this._parent);
+    return result;
   }
   auto upload() {
-    return XMLHttpRequestUpload(JsHandle(XMLHttpRequest_upload_Get(this._parent));
+    auto result = XMLHttpRequestUpload(JsHandle(XMLHttpRequest_upload_Get(this._parent)));
+    return result;
   }
   auto send(Optional!(SumType!(Document, BodyInit)) body_ /* = no!(SumType!(Document, BodyInit)) */) {
     XMLHttpRequest_send(this._parent, !body_.empty, body_.front);
@@ -127,19 +141,24 @@ struct XMLHttpRequest {
     XMLHttpRequest_abort(this._parent);
   }
   auto responseURL() {
-    return XMLHttpRequest_responseURL_Get(this._parent);
+    auto result = XMLHttpRequest_responseURL_Get(this._parent);
+    return result;
   }
   auto status() {
-    return XMLHttpRequest_status_Get(this._parent);
+    auto result = XMLHttpRequest_status_Get(this._parent);
+    return result;
   }
   auto statusText() {
-    return XMLHttpRequest_statusText_Get(this._parent);
+    auto result = XMLHttpRequest_statusText_Get(this._parent);
+    return result;
   }
   auto getResponseHeader(string name) {
-    return XMLHttpRequest_getResponseHeader(this._parent, name);
+    auto result = XMLHttpRequest_getResponseHeader(this._parent, name);
+    return result;
   }
   auto getAllResponseHeaders() {
-    return XMLHttpRequest_getAllResponseHeaders(this._parent);
+    auto result = XMLHttpRequest_getAllResponseHeaders(this._parent);
+    return result;
   }
   auto overrideMimeType(string mime) {
     XMLHttpRequest_overrideMimeType(this._parent, mime);
@@ -148,16 +167,20 @@ struct XMLHttpRequest {
     XMLHttpRequest_responseType_Set(this._parent, responseType);
   }
   auto responseType() {
-    return XMLHttpRequest_responseType_Get(this._parent);
+    auto result = XMLHttpRequest_responseType_Get(this._parent);
+    return result;
   }
   auto response() {
-    return Any(JsHandle(XMLHttpRequest_response_Get(this._parent));
+    auto result = Any(JsHandle(XMLHttpRequest_response_Get(this._parent)));
+    return result;
   }
   auto responseText() {
-    return XMLHttpRequest_responseText_Get(this._parent);
+    auto result = XMLHttpRequest_responseText_Get(this._parent);
+    return result;
   }
   auto responseXML() {
-    return XMLHttpRequest_responseXML_Get(this._parent);
+    auto result = XMLHttpRequest_responseXML_Get(this._parent);
+    return result;
   }
 }
 struct XMLHttpRequestEventTarget {
@@ -170,43 +193,50 @@ struct XMLHttpRequestEventTarget {
     XMLHttpRequestEventTarget_onloadstart_Set(this._parent, onloadstart);
   }
   auto onloadstart() {
-    return XMLHttpRequestEventTarget_onloadstart_Get(this._parent);
+    auto result = XMLHttpRequestEventTarget_onloadstart_Get(this._parent);
+    return result;
   }
   auto onprogress(EventHandler onprogress) {
     XMLHttpRequestEventTarget_onprogress_Set(this._parent, onprogress);
   }
   auto onprogress() {
-    return XMLHttpRequestEventTarget_onprogress_Get(this._parent);
+    auto result = XMLHttpRequestEventTarget_onprogress_Get(this._parent);
+    return result;
   }
   auto onabort(EventHandler onabort) {
     XMLHttpRequestEventTarget_onabort_Set(this._parent, onabort);
   }
   auto onabort() {
-    return XMLHttpRequestEventTarget_onabort_Get(this._parent);
+    auto result = XMLHttpRequestEventTarget_onabort_Get(this._parent);
+    return result;
   }
   auto onerror(EventHandler onerror) {
     XMLHttpRequestEventTarget_onerror_Set(this._parent, onerror);
   }
   auto onerror() {
-    return XMLHttpRequestEventTarget_onerror_Get(this._parent);
+    auto result = XMLHttpRequestEventTarget_onerror_Get(this._parent);
+    return result;
   }
   auto onload(EventHandler onload) {
     XMLHttpRequestEventTarget_onload_Set(this._parent, onload);
   }
   auto onload() {
-    return XMLHttpRequestEventTarget_onload_Get(this._parent);
+    auto result = XMLHttpRequestEventTarget_onload_Get(this._parent);
+    return result;
   }
   auto ontimeout(EventHandler ontimeout) {
     XMLHttpRequestEventTarget_ontimeout_Set(this._parent, ontimeout);
   }
   auto ontimeout() {
-    return XMLHttpRequestEventTarget_ontimeout_Get(this._parent);
+    auto result = XMLHttpRequestEventTarget_ontimeout_Get(this._parent);
+    return result;
   }
   auto onloadend(EventHandler onloadend) {
     XMLHttpRequestEventTarget_onloadend_Set(this._parent, onloadend);
   }
   auto onloadend() {
-    return XMLHttpRequestEventTarget_onloadend_Get(this._parent);
+    auto result = XMLHttpRequestEventTarget_onloadend_Get(this._parent);
+    return result;
   }
 }
 enum XMLHttpRequestResponseType {

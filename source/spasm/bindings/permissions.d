@@ -14,7 +14,8 @@ struct DevicePermissionDescriptor {
     DevicePermissionDescriptor_deviceId_Set(this._parent, deviceId);
   }
   auto deviceId() {
-    return DevicePermissionDescriptor_deviceId_Get(this._parent);
+    auto result = DevicePermissionDescriptor_deviceId_Get(this._parent);
+    return result;
   }
 }
 struct MidiPermissionDescriptor {
@@ -27,7 +28,8 @@ struct MidiPermissionDescriptor {
     MidiPermissionDescriptor_sysex_Set(this._parent, sysex);
   }
   auto sysex() {
-    return MidiPermissionDescriptor_sysex_Get(this._parent);
+    auto result = MidiPermissionDescriptor_sysex_Get(this._parent);
+    return result;
   }
 }
 struct PermissionDescriptor {
@@ -37,7 +39,8 @@ struct PermissionDescriptor {
     PermissionDescriptor_name_Set(this.handle, name);
   }
   auto name() {
-    return PermissionDescriptor_name_Get(this.handle);
+    auto result = PermissionDescriptor_name_Get(this.handle);
+    return result;
   }
 }
 enum PermissionName {
@@ -67,19 +70,22 @@ struct PermissionSetParameters {
     PermissionSetParameters_descriptor_Set(this.handle, descriptor.handle);
   }
   auto descriptor() {
-    return PermissionDescriptor(JsHandle(PermissionSetParameters_descriptor_Get(this.handle));
+    auto result = PermissionDescriptor(JsHandle(PermissionSetParameters_descriptor_Get(this.handle)));
+    return result;
   }
   auto state(PermissionState state) {
     PermissionSetParameters_state_Set(this.handle, state);
   }
   auto state() {
-    return PermissionSetParameters_state_Get(this.handle);
+    auto result = PermissionSetParameters_state_Get(this.handle);
+    return result;
   }
   auto oneRealm(bool oneRealm) {
     PermissionSetParameters_oneRealm_Set(this.handle, oneRealm);
   }
   auto oneRealm() {
-    return PermissionSetParameters_oneRealm_Get(this.handle);
+    auto result = PermissionSetParameters_oneRealm_Get(this.handle);
+    return result;
   }
 }
 enum PermissionState {
@@ -94,20 +100,23 @@ struct PermissionStatus {
     _parent = EventTarget(h);
   }
   auto state() {
-    return PermissionStatus_state_Get(this._parent);
+    auto result = PermissionStatus_state_Get(this._parent);
+    return result;
   }
   auto onchange(EventHandler onchange) {
     PermissionStatus_onchange_Set(this._parent, onchange);
   }
   auto onchange() {
-    return PermissionStatus_onchange_Get(this._parent);
+    auto result = PermissionStatus_onchange_Get(this._parent);
+    return result;
   }
 }
 struct Permissions {
   JsHandle handle;
   alias handle this;
   auto query(JsObject permissionDesc) {
-    return Promise!(PermissionStatus)(JsHandle(Permissions_query(this.handle, permissionDesc.handle));
+    auto result = Promise!(PermissionStatus)(JsHandle(Permissions_query(this.handle, permissionDesc.handle)));
+    return result;
   }
 }
 struct PushPermissionDescriptor {
@@ -120,7 +129,8 @@ struct PushPermissionDescriptor {
     PushPermissionDescriptor_userVisibleOnly_Set(this._parent, userVisibleOnly);
   }
   auto userVisibleOnly() {
-    return PushPermissionDescriptor_userVisibleOnly_Get(this._parent);
+    auto result = PushPermissionDescriptor_userVisibleOnly_Get(this._parent);
+    return result;
   }
 }
 

@@ -20,40 +20,48 @@ struct MediaSource {
     _parent = EventTarget(h);
   }
   auto sourceBuffers() {
-    return SourceBufferList(JsHandle(MediaSource_sourceBuffers_Get(this._parent));
+    auto result = SourceBufferList(JsHandle(MediaSource_sourceBuffers_Get(this._parent)));
+    return result;
   }
   auto activeSourceBuffers() {
-    return SourceBufferList(JsHandle(MediaSource_activeSourceBuffers_Get(this._parent));
+    auto result = SourceBufferList(JsHandle(MediaSource_activeSourceBuffers_Get(this._parent)));
+    return result;
   }
   auto readyState() {
-    return MediaSource_readyState_Get(this._parent);
+    auto result = MediaSource_readyState_Get(this._parent);
+    return result;
   }
   auto duration(double duration) {
     MediaSource_duration_Set(this._parent, duration);
   }
   auto duration() {
-    return MediaSource_duration_Get(this._parent);
+    auto result = MediaSource_duration_Get(this._parent);
+    return result;
   }
   auto onsourceopen(EventHandler onsourceopen) {
     MediaSource_onsourceopen_Set(this._parent, onsourceopen);
   }
   auto onsourceopen() {
-    return MediaSource_onsourceopen_Get(this._parent);
+    auto result = MediaSource_onsourceopen_Get(this._parent);
+    return result;
   }
   auto onsourceended(EventHandler onsourceended) {
     MediaSource_onsourceended_Set(this._parent, onsourceended);
   }
   auto onsourceended() {
-    return MediaSource_onsourceended_Get(this._parent);
+    auto result = MediaSource_onsourceended_Get(this._parent);
+    return result;
   }
   auto onsourceclose(EventHandler onsourceclose) {
     MediaSource_onsourceclose_Set(this._parent, onsourceclose);
   }
   auto onsourceclose() {
-    return MediaSource_onsourceclose_Get(this._parent);
+    auto result = MediaSource_onsourceclose_Get(this._parent);
+    return result;
   }
   auto addSourceBuffer(string type) {
-    return SourceBuffer(JsHandle(MediaSource_addSourceBuffer(this._parent, type));
+    auto result = SourceBuffer(JsHandle(MediaSource_addSourceBuffer(this._parent, type)));
+    return result;
   }
   auto removeSourceBuffer(SourceBuffer sourceBuffer) {
     MediaSource_removeSourceBuffer(this._parent, sourceBuffer.handle);
@@ -68,7 +76,8 @@ struct MediaSource {
     MediaSource_clearLiveSeekableRange(this._parent);
   }
   auto isTypeSupported(string type) {
-    return MediaSource_isTypeSupported(this._parent, type);
+    auto result = MediaSource_isTypeSupported(this._parent, type);
+    return result;
   }
 }
 enum ReadyState {
@@ -86,70 +95,84 @@ struct SourceBuffer {
     SourceBuffer_mode_Set(this._parent, mode);
   }
   auto mode() {
-    return SourceBuffer_mode_Get(this._parent);
+    auto result = SourceBuffer_mode_Get(this._parent);
+    return result;
   }
   auto updating() {
-    return SourceBuffer_updating_Get(this._parent);
+    auto result = SourceBuffer_updating_Get(this._parent);
+    return result;
   }
   auto buffered() {
-    return TimeRanges(JsHandle(SourceBuffer_buffered_Get(this._parent));
+    auto result = TimeRanges(JsHandle(SourceBuffer_buffered_Get(this._parent)));
+    return result;
   }
   auto timestampOffset(double timestampOffset) {
     SourceBuffer_timestampOffset_Set(this._parent, timestampOffset);
   }
   auto timestampOffset() {
-    return SourceBuffer_timestampOffset_Get(this._parent);
+    auto result = SourceBuffer_timestampOffset_Get(this._parent);
+    return result;
   }
   auto audioTracks() {
-    return AudioTrackList(JsHandle(SourceBuffer_audioTracks_Get(this._parent));
+    auto result = AudioTrackList(JsHandle(SourceBuffer_audioTracks_Get(this._parent)));
+    return result;
   }
   auto videoTracks() {
-    return VideoTrackList(JsHandle(SourceBuffer_videoTracks_Get(this._parent));
+    auto result = VideoTrackList(JsHandle(SourceBuffer_videoTracks_Get(this._parent)));
+    return result;
   }
   auto textTracks() {
-    return TextTrackList(JsHandle(SourceBuffer_textTracks_Get(this._parent));
+    auto result = TextTrackList(JsHandle(SourceBuffer_textTracks_Get(this._parent)));
+    return result;
   }
   auto appendWindowStart(double appendWindowStart) {
     SourceBuffer_appendWindowStart_Set(this._parent, appendWindowStart);
   }
   auto appendWindowStart() {
-    return SourceBuffer_appendWindowStart_Get(this._parent);
+    auto result = SourceBuffer_appendWindowStart_Get(this._parent);
+    return result;
   }
   auto appendWindowEnd(double appendWindowEnd) {
     SourceBuffer_appendWindowEnd_Set(this._parent, appendWindowEnd);
   }
   auto appendWindowEnd() {
-    return SourceBuffer_appendWindowEnd_Get(this._parent);
+    auto result = SourceBuffer_appendWindowEnd_Get(this._parent);
+    return result;
   }
   auto onupdatestart(EventHandler onupdatestart) {
     SourceBuffer_onupdatestart_Set(this._parent, onupdatestart);
   }
   auto onupdatestart() {
-    return SourceBuffer_onupdatestart_Get(this._parent);
+    auto result = SourceBuffer_onupdatestart_Get(this._parent);
+    return result;
   }
   auto onupdate(EventHandler onupdate) {
     SourceBuffer_onupdate_Set(this._parent, onupdate);
   }
   auto onupdate() {
-    return SourceBuffer_onupdate_Get(this._parent);
+    auto result = SourceBuffer_onupdate_Get(this._parent);
+    return result;
   }
   auto onupdateend(EventHandler onupdateend) {
     SourceBuffer_onupdateend_Set(this._parent, onupdateend);
   }
   auto onupdateend() {
-    return SourceBuffer_onupdateend_Get(this._parent);
+    auto result = SourceBuffer_onupdateend_Get(this._parent);
+    return result;
   }
   auto onerror(EventHandler onerror) {
     SourceBuffer_onerror_Set(this._parent, onerror);
   }
   auto onerror() {
-    return SourceBuffer_onerror_Get(this._parent);
+    auto result = SourceBuffer_onerror_Get(this._parent);
+    return result;
   }
   auto onabort(EventHandler onabort) {
     SourceBuffer_onabort_Set(this._parent, onabort);
   }
   auto onabort() {
-    return SourceBuffer_onabort_Get(this._parent);
+    auto result = SourceBuffer_onabort_Get(this._parent);
+    return result;
   }
   auto appendBuffer(BufferSource data) {
     SourceBuffer_appendBuffer(this._parent, data);
@@ -168,25 +191,30 @@ struct SourceBufferList {
     _parent = EventTarget(h);
   }
   auto length() {
-    return SourceBufferList_length_Get(this._parent);
+    auto result = SourceBufferList_length_Get(this._parent);
+    return result;
   }
   auto onaddsourcebuffer(EventHandler onaddsourcebuffer) {
     SourceBufferList_onaddsourcebuffer_Set(this._parent, onaddsourcebuffer);
   }
   auto onaddsourcebuffer() {
-    return SourceBufferList_onaddsourcebuffer_Get(this._parent);
+    auto result = SourceBufferList_onaddsourcebuffer_Get(this._parent);
+    return result;
   }
   auto onremovesourcebuffer(EventHandler onremovesourcebuffer) {
     SourceBufferList_onremovesourcebuffer_Set(this._parent, onremovesourcebuffer);
   }
   auto onremovesourcebuffer() {
-    return SourceBufferList_onremovesourcebuffer_Get(this._parent);
+    auto result = SourceBufferList_onremovesourcebuffer_Get(this._parent);
+    return result;
   }
   auto opIndex(uint index) {
-    return SourceBuffer(JsHandle(SourceBufferList_getter__uint(this._parent, index));
+    auto result = SourceBuffer(JsHandle(SourceBufferList_getter__uint(this._parent, index)));
+    return result;
   }
   auto opDispatch(uint index)() {
-    return SourceBuffer(JsHandle(SourceBufferList_getter__uint(this._parent, index));
+    auto result = SourceBuffer(JsHandle(SourceBufferList_getter__uint(this._parent, index)));
+    return result;
   }
 }
 

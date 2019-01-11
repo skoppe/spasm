@@ -15,7 +15,8 @@ struct FullscreenOptions {
     FullscreenOptions_navigationUI_Set(this.handle, navigationUI);
   }
   auto navigationUI() {
-    return FullscreenOptions_navigationUI_Get(this.handle);
+    auto result = FullscreenOptions_navigationUI_Get(this.handle);
+    return result;
   }
 }
 

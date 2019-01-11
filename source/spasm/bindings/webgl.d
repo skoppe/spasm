@@ -25,13 +25,16 @@ struct WebGLActiveInfo {
   JsHandle handle;
   alias handle this;
   auto size() {
-    return WebGLActiveInfo_size_Get(this.handle);
+    auto result = WebGLActiveInfo_size_Get(this.handle);
+    return result;
   }
   auto type() {
-    return WebGLActiveInfo_type_Get(this.handle);
+    auto result = WebGLActiveInfo_type_Get(this.handle);
+    return result;
   }
   auto name() {
-    return WebGLActiveInfo_name_Get(this.handle);
+    auto result = WebGLActiveInfo_name_Get(this.handle);
+    return result;
   }
 }
 struct WebGLBuffer {
@@ -48,49 +51,57 @@ struct WebGLContextAttributes {
     WebGLContextAttributes_alpha_Set(this.handle, alpha);
   }
   auto alpha() {
-    return WebGLContextAttributes_alpha_Get(this.handle);
+    auto result = WebGLContextAttributes_alpha_Get(this.handle);
+    return result;
   }
   auto depth(bool depth) {
     WebGLContextAttributes_depth_Set(this.handle, depth);
   }
   auto depth() {
-    return WebGLContextAttributes_depth_Get(this.handle);
+    auto result = WebGLContextAttributes_depth_Get(this.handle);
+    return result;
   }
   auto stencil(bool stencil) {
     WebGLContextAttributes_stencil_Set(this.handle, stencil);
   }
   auto stencil() {
-    return WebGLContextAttributes_stencil_Get(this.handle);
+    auto result = WebGLContextAttributes_stencil_Get(this.handle);
+    return result;
   }
   auto antialias(bool antialias) {
     WebGLContextAttributes_antialias_Set(this.handle, antialias);
   }
   auto antialias() {
-    return WebGLContextAttributes_antialias_Get(this.handle);
+    auto result = WebGLContextAttributes_antialias_Get(this.handle);
+    return result;
   }
   auto premultipliedAlpha(bool premultipliedAlpha) {
     WebGLContextAttributes_premultipliedAlpha_Set(this.handle, premultipliedAlpha);
   }
   auto premultipliedAlpha() {
-    return WebGLContextAttributes_premultipliedAlpha_Get(this.handle);
+    auto result = WebGLContextAttributes_premultipliedAlpha_Get(this.handle);
+    return result;
   }
   auto preserveDrawingBuffer(bool preserveDrawingBuffer) {
     WebGLContextAttributes_preserveDrawingBuffer_Set(this.handle, preserveDrawingBuffer);
   }
   auto preserveDrawingBuffer() {
-    return WebGLContextAttributes_preserveDrawingBuffer_Get(this.handle);
+    auto result = WebGLContextAttributes_preserveDrawingBuffer_Get(this.handle);
+    return result;
   }
   auto preferLowPowerToHighPerformance(bool preferLowPowerToHighPerformance) {
     WebGLContextAttributes_preferLowPowerToHighPerformance_Set(this.handle, preferLowPowerToHighPerformance);
   }
   auto preferLowPowerToHighPerformance() {
-    return WebGLContextAttributes_preferLowPowerToHighPerformance_Get(this.handle);
+    auto result = WebGLContextAttributes_preferLowPowerToHighPerformance_Get(this.handle);
+    return result;
   }
   auto failIfMajorPerformanceCaveat(bool failIfMajorPerformanceCaveat) {
     WebGLContextAttributes_failIfMajorPerformanceCaveat_Set(this.handle, failIfMajorPerformanceCaveat);
   }
   auto failIfMajorPerformanceCaveat() {
-    return WebGLContextAttributes_failIfMajorPerformanceCaveat_Get(this.handle);
+    auto result = WebGLContextAttributes_failIfMajorPerformanceCaveat_Get(this.handle);
+    return result;
   }
 }
 struct WebGLContextEvent {
@@ -100,7 +111,8 @@ struct WebGLContextEvent {
     _parent = Event(h);
   }
   auto statusMessage() {
-    return WebGLContextEvent_statusMessage_Get(this._parent);
+    auto result = WebGLContextEvent_statusMessage_Get(this._parent);
+    return result;
   }
 }
 struct WebGLContextEventInit {
@@ -113,7 +125,8 @@ struct WebGLContextEventInit {
     WebGLContextEventInit_statusMessage_Set(this._parent, statusMessage);
   }
   auto statusMessage() {
-    return WebGLContextEventInit_statusMessage_Get(this._parent);
+    auto result = WebGLContextEventInit_statusMessage_Get(this._parent);
+    return result;
   }
 }
 struct WebGLFramebuffer {
@@ -446,25 +459,32 @@ struct WebGLRenderingContextBase {
   enum uint UNPACK_COLORSPACE_CONVERSION_WEBGL = 0x9243;
   enum uint BROWSER_DEFAULT_WEBGL = 0x9244;
   auto canvas() {
-    return HTMLCanvasElement(JsHandle(WebGLRenderingContextBase_canvas_Get(this.handle));
+    auto result = HTMLCanvasElement(JsHandle(WebGLRenderingContextBase_canvas_Get(this.handle)));
+    return result;
   }
   auto drawingBufferWidth() {
-    return WebGLRenderingContextBase_drawingBufferWidth_Get(this.handle);
+    auto result = WebGLRenderingContextBase_drawingBufferWidth_Get(this.handle);
+    return result;
   }
   auto drawingBufferHeight() {
-    return WebGLRenderingContextBase_drawingBufferHeight_Get(this.handle);
+    auto result = WebGLRenderingContextBase_drawingBufferHeight_Get(this.handle);
+    return result;
   }
   auto getContextAttributes() {
-    return WebGLRenderingContextBase_getContextAttributes(this.handle);
+    auto result = WebGLRenderingContextBase_getContextAttributes(this.handle);
+    return result;
   }
   auto isContextLost() {
-    return WebGLRenderingContextBase_isContextLost(this.handle);
+    auto result = WebGLRenderingContextBase_isContextLost(this.handle);
+    return result;
   }
   auto getSupportedExtensions() {
-    return WebGLRenderingContextBase_getSupportedExtensions(this.handle);
+    auto result = WebGLRenderingContextBase_getSupportedExtensions(this.handle);
+    return result;
   }
   auto getExtension(string name) {
-    return WebGLRenderingContextBase_getExtension(this.handle, name);
+    auto result = WebGLRenderingContextBase_getExtension(this.handle, name);
+    return result;
   }
   auto activeTexture(uint texture) {
     WebGLRenderingContextBase_activeTexture(this.handle, texture);
@@ -512,7 +532,8 @@ struct WebGLRenderingContextBase {
     WebGLRenderingContextBase_bufferSubData(this.handle, target, offset, !data.empty, data.front);
   }
   auto checkFramebufferStatus(uint target) {
-    return WebGLRenderingContextBase_checkFramebufferStatus(this.handle, target);
+    auto result = WebGLRenderingContextBase_checkFramebufferStatus(this.handle, target);
+    return result;
   }
   auto clear(uint mask) {
     WebGLRenderingContextBase_clear(this.handle, mask);
@@ -545,22 +566,28 @@ struct WebGLRenderingContextBase {
     WebGLRenderingContextBase_copyTexSubImage2D(this.handle, target, level, xoffset, yoffset, x, y, width, height);
   }
   auto createBuffer() {
-    return WebGLRenderingContextBase_createBuffer(this.handle);
+    auto result = WebGLRenderingContextBase_createBuffer(this.handle);
+    return result;
   }
   auto createFramebuffer() {
-    return WebGLRenderingContextBase_createFramebuffer(this.handle);
+    auto result = WebGLRenderingContextBase_createFramebuffer(this.handle);
+    return result;
   }
   auto createProgram() {
-    return WebGLRenderingContextBase_createProgram(this.handle);
+    auto result = WebGLRenderingContextBase_createProgram(this.handle);
+    return result;
   }
   auto createRenderbuffer() {
-    return WebGLRenderingContextBase_createRenderbuffer(this.handle);
+    auto result = WebGLRenderingContextBase_createRenderbuffer(this.handle);
+    return result;
   }
   auto createShader(uint type) {
-    return WebGLRenderingContextBase_createShader(this.handle, type);
+    auto result = WebGLRenderingContextBase_createShader(this.handle, type);
+    return result;
   }
   auto createTexture() {
-    return WebGLRenderingContextBase_createTexture(this.handle);
+    auto result = WebGLRenderingContextBase_createTexture(this.handle);
+    return result;
   }
   auto cullFace(uint mode) {
     WebGLRenderingContextBase_cullFace(this.handle, mode);
@@ -632,88 +659,115 @@ struct WebGLRenderingContextBase {
     WebGLRenderingContextBase_generateMipmap(this.handle, target);
   }
   auto getActiveAttrib(Optional!(WebGLProgram) program, uint index) {
-    return WebGLRenderingContextBase_getActiveAttrib(this.handle, !program.empty, program.front.handle, index);
+    auto result = WebGLRenderingContextBase_getActiveAttrib(this.handle, !program.empty, program.front.handle, index);
+    return result;
   }
   auto getActiveUniform(Optional!(WebGLProgram) program, uint index) {
-    return WebGLRenderingContextBase_getActiveUniform(this.handle, !program.empty, program.front.handle, index);
+    auto result = WebGLRenderingContextBase_getActiveUniform(this.handle, !program.empty, program.front.handle, index);
+    return result;
   }
   auto getAttachedShaders(Optional!(WebGLProgram) program) {
-    return WebGLRenderingContextBase_getAttachedShaders(this.handle, !program.empty, program.front.handle);
+    auto result = WebGLRenderingContextBase_getAttachedShaders(this.handle, !program.empty, program.front.handle);
+    return result;
   }
   auto getAttribLocation(Optional!(WebGLProgram) program, string name) {
-    return WebGLRenderingContextBase_getAttribLocation(this.handle, !program.empty, program.front.handle, name);
+    auto result = WebGLRenderingContextBase_getAttribLocation(this.handle, !program.empty, program.front.handle, name);
+    return result;
   }
   auto getBufferParameter(uint target, uint pname) {
-    return Any(JsHandle(WebGLRenderingContextBase_getBufferParameter(this.handle, target, pname));
+    auto result = Any(JsHandle(WebGLRenderingContextBase_getBufferParameter(this.handle, target, pname)));
+    return result;
   }
   auto getParameter(uint pname) {
-    return Any(JsHandle(WebGLRenderingContextBase_getParameter(this.handle, pname));
+    auto result = Any(JsHandle(WebGLRenderingContextBase_getParameter(this.handle, pname)));
+    return result;
   }
   auto getError() {
-    return WebGLRenderingContextBase_getError(this.handle);
+    auto result = WebGLRenderingContextBase_getError(this.handle);
+    return result;
   }
   auto getFramebufferAttachmentParameter(uint target, uint attachment, uint pname) {
-    return Any(JsHandle(WebGLRenderingContextBase_getFramebufferAttachmentParameter(this.handle, target, attachment, pname));
+    auto result = Any(JsHandle(WebGLRenderingContextBase_getFramebufferAttachmentParameter(this.handle, target, attachment, pname)));
+    return result;
   }
   auto getProgramParameter(Optional!(WebGLProgram) program, uint pname) {
-    return Any(JsHandle(WebGLRenderingContextBase_getProgramParameter(this.handle, !program.empty, program.front.handle, pname));
+    auto result = Any(JsHandle(WebGLRenderingContextBase_getProgramParameter(this.handle, !program.empty, program.front.handle, pname)));
+    return result;
   }
   auto getProgramInfoLog(Optional!(WebGLProgram) program) {
-    return WebGLRenderingContextBase_getProgramInfoLog(this.handle, !program.empty, program.front.handle);
+    auto result = WebGLRenderingContextBase_getProgramInfoLog(this.handle, !program.empty, program.front.handle);
+    return result;
   }
   auto getRenderbufferParameter(uint target, uint pname) {
-    return Any(JsHandle(WebGLRenderingContextBase_getRenderbufferParameter(this.handle, target, pname));
+    auto result = Any(JsHandle(WebGLRenderingContextBase_getRenderbufferParameter(this.handle, target, pname)));
+    return result;
   }
   auto getShaderParameter(Optional!(WebGLShader) shader, uint pname) {
-    return Any(JsHandle(WebGLRenderingContextBase_getShaderParameter(this.handle, !shader.empty, shader.front.handle, pname));
+    auto result = Any(JsHandle(WebGLRenderingContextBase_getShaderParameter(this.handle, !shader.empty, shader.front.handle, pname)));
+    return result;
   }
   auto getShaderPrecisionFormat(uint shadertype, uint precisiontype) {
-    return WebGLRenderingContextBase_getShaderPrecisionFormat(this.handle, shadertype, precisiontype);
+    auto result = WebGLRenderingContextBase_getShaderPrecisionFormat(this.handle, shadertype, precisiontype);
+    return result;
   }
   auto getShaderInfoLog(Optional!(WebGLShader) shader) {
-    return WebGLRenderingContextBase_getShaderInfoLog(this.handle, !shader.empty, shader.front.handle);
+    auto result = WebGLRenderingContextBase_getShaderInfoLog(this.handle, !shader.empty, shader.front.handle);
+    return result;
   }
   auto getShaderSource(Optional!(WebGLShader) shader) {
-    return WebGLRenderingContextBase_getShaderSource(this.handle, !shader.empty, shader.front.handle);
+    auto result = WebGLRenderingContextBase_getShaderSource(this.handle, !shader.empty, shader.front.handle);
+    return result;
   }
   auto getTexParameter(uint target, uint pname) {
-    return Any(JsHandle(WebGLRenderingContextBase_getTexParameter(this.handle, target, pname));
+    auto result = Any(JsHandle(WebGLRenderingContextBase_getTexParameter(this.handle, target, pname)));
+    return result;
   }
   auto getUniform(Optional!(WebGLProgram) program, Optional!(WebGLUniformLocation) location) {
-    return Any(JsHandle(WebGLRenderingContextBase_getUniform(this.handle, !program.empty, program.front.handle, !location.empty, location.front.handle));
+    auto result = Any(JsHandle(WebGLRenderingContextBase_getUniform(this.handle, !program.empty, program.front.handle, !location.empty, location.front.handle)));
+    return result;
   }
   auto getUniformLocation(Optional!(WebGLProgram) program, string name) {
-    return WebGLRenderingContextBase_getUniformLocation(this.handle, !program.empty, program.front.handle, name);
+    auto result = WebGLRenderingContextBase_getUniformLocation(this.handle, !program.empty, program.front.handle, name);
+    return result;
   }
   auto getVertexAttrib(uint index, uint pname) {
-    return Any(JsHandle(WebGLRenderingContextBase_getVertexAttrib(this.handle, index, pname));
+    auto result = Any(JsHandle(WebGLRenderingContextBase_getVertexAttrib(this.handle, index, pname)));
+    return result;
   }
   auto getVertexAttribOffset(uint index, uint pname) {
-    return WebGLRenderingContextBase_getVertexAttribOffset(this.handle, index, pname);
+    auto result = WebGLRenderingContextBase_getVertexAttribOffset(this.handle, index, pname);
+    return result;
   }
   auto hint(uint target, uint mode) {
     WebGLRenderingContextBase_hint(this.handle, target, mode);
   }
   auto isBuffer(Optional!(WebGLBuffer) buffer) {
-    return WebGLRenderingContextBase_isBuffer(this.handle, !buffer.empty, buffer.front.handle);
+    auto result = WebGLRenderingContextBase_isBuffer(this.handle, !buffer.empty, buffer.front.handle);
+    return result;
   }
   auto isEnabled(uint cap) {
-    return WebGLRenderingContextBase_isEnabled(this.handle, cap);
+    auto result = WebGLRenderingContextBase_isEnabled(this.handle, cap);
+    return result;
   }
   auto isFramebuffer(Optional!(WebGLFramebuffer) framebuffer) {
-    return WebGLRenderingContextBase_isFramebuffer(this.handle, !framebuffer.empty, framebuffer.front.handle);
+    auto result = WebGLRenderingContextBase_isFramebuffer(this.handle, !framebuffer.empty, framebuffer.front.handle);
+    return result;
   }
   auto isProgram(Optional!(WebGLProgram) program) {
-    return WebGLRenderingContextBase_isProgram(this.handle, !program.empty, program.front.handle);
+    auto result = WebGLRenderingContextBase_isProgram(this.handle, !program.empty, program.front.handle);
+    return result;
   }
   auto isRenderbuffer(Optional!(WebGLRenderbuffer) renderbuffer) {
-    return WebGLRenderingContextBase_isRenderbuffer(this.handle, !renderbuffer.empty, renderbuffer.front.handle);
+    auto result = WebGLRenderingContextBase_isRenderbuffer(this.handle, !renderbuffer.empty, renderbuffer.front.handle);
+    return result;
   }
   auto isShader(Optional!(WebGLShader) shader) {
-    return WebGLRenderingContextBase_isShader(this.handle, !shader.empty, shader.front.handle);
+    auto result = WebGLRenderingContextBase_isShader(this.handle, !shader.empty, shader.front.handle);
+    return result;
   }
   auto isTexture(Optional!(WebGLTexture) texture) {
-    return WebGLRenderingContextBase_isTexture(this.handle, !texture.empty, texture.front.handle);
+    auto result = WebGLRenderingContextBase_isTexture(this.handle, !texture.empty, texture.front.handle);
+    return result;
   }
   auto lineWidth(float width) {
     WebGLRenderingContextBase_lineWidth(this.handle, width);
@@ -928,13 +982,16 @@ struct WebGLShaderPrecisionFormat {
   JsHandle handle;
   alias handle this;
   auto rangeMin() {
-    return WebGLShaderPrecisionFormat_rangeMin_Get(this.handle);
+    auto result = WebGLShaderPrecisionFormat_rangeMin_Get(this.handle);
+    return result;
   }
   auto rangeMax() {
-    return WebGLShaderPrecisionFormat_rangeMax_Get(this.handle);
+    auto result = WebGLShaderPrecisionFormat_rangeMax_Get(this.handle);
+    return result;
   }
   auto precision() {
-    return WebGLShaderPrecisionFormat_precision_Get(this.handle);
+    auto result = WebGLShaderPrecisionFormat_precision_Get(this.handle);
+    return result;
   }
 }
 struct WebGLTexture {

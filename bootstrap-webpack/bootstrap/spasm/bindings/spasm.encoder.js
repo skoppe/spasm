@@ -1,4 +1,4 @@
-import spasm from './spasm.js';
+import spasm from '../modules/spasm.js';
 const setBool = (ptr, val) => (spasm.heapi32u[ptr/4] = +val),
       setInt = (ptr, val) => (spasm.heapi32s[ptr/4] = val),
       setUInt = (ptr, val) => (spasm.heapi32u[ptr/4] = val),
@@ -9,7 +9,7 @@ const setBool = (ptr, val) => (spasm.heapi32u[ptr/4] = +val),
       setFloat = (ptr, val) => (spasm.heapf32[ptr/4] = val),
       setDouble = (ptr, val) => (spasm.heapf64[ptr/8] = val),
       isEmpty = (val) => (val == undefined || val == null),
-      handle = (ptr, val) => { setUInt(ptr, spasm.addObject(val); ),}
+      handle = (ptr, val) => { setUInt(ptr, spasm.addObject(val)); },
       string = spasm.encoders.string;
 const AudioContextLatencyCategory = (ptr, val)=>{
     const vals = ["balanced", "interactive", "playback"];

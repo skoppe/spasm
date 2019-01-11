@@ -13,61 +13,71 @@ struct PointerEventInit {
     PointerEventInit_pointerId_Set(this._parent, pointerId);
   }
   auto pointerId() {
-    return PointerEventInit_pointerId_Get(this._parent);
+    auto result = PointerEventInit_pointerId_Get(this._parent);
+    return result;
   }
   auto width(double width) {
     PointerEventInit_width_Set(this._parent, width);
   }
   auto width() {
-    return PointerEventInit_width_Get(this._parent);
+    auto result = PointerEventInit_width_Get(this._parent);
+    return result;
   }
   auto height(double height) {
     PointerEventInit_height_Set(this._parent, height);
   }
   auto height() {
-    return PointerEventInit_height_Get(this._parent);
+    auto result = PointerEventInit_height_Get(this._parent);
+    return result;
   }
   auto pressure(float pressure) {
     PointerEventInit_pressure_Set(this._parent, pressure);
   }
   auto pressure() {
-    return PointerEventInit_pressure_Get(this._parent);
+    auto result = PointerEventInit_pressure_Get(this._parent);
+    return result;
   }
   auto tangentialPressure(float tangentialPressure) {
     PointerEventInit_tangentialPressure_Set(this._parent, tangentialPressure);
   }
   auto tangentialPressure() {
-    return PointerEventInit_tangentialPressure_Get(this._parent);
+    auto result = PointerEventInit_tangentialPressure_Get(this._parent);
+    return result;
   }
   auto tiltX(int tiltX) {
     PointerEventInit_tiltX_Set(this._parent, tiltX);
   }
   auto tiltX() {
-    return PointerEventInit_tiltX_Get(this._parent);
+    auto result = PointerEventInit_tiltX_Get(this._parent);
+    return result;
   }
   auto tiltY(int tiltY) {
     PointerEventInit_tiltY_Set(this._parent, tiltY);
   }
   auto tiltY() {
-    return PointerEventInit_tiltY_Get(this._parent);
+    auto result = PointerEventInit_tiltY_Get(this._parent);
+    return result;
   }
   auto twist(int twist) {
     PointerEventInit_twist_Set(this._parent, twist);
   }
   auto twist() {
-    return PointerEventInit_twist_Get(this._parent);
+    auto result = PointerEventInit_twist_Get(this._parent);
+    return result;
   }
   auto pointerType(string pointerType) {
     PointerEventInit_pointerType_Set(this._parent, pointerType);
   }
   auto pointerType() {
-    return PointerEventInit_pointerType_Get(this._parent);
+    auto result = PointerEventInit_pointerType_Get(this._parent);
+    return result;
   }
   auto isPrimary(bool isPrimary) {
     PointerEventInit_isPrimary_Set(this._parent, isPrimary);
   }
   auto isPrimary() {
-    return PointerEventInit_isPrimary_Get(this._parent);
+    auto result = PointerEventInit_isPrimary_Get(this._parent);
+    return result;
   }
 }
 

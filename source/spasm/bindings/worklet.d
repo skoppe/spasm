@@ -7,7 +7,8 @@ struct Worklet {
   JsHandle handle;
   alias handle this;
   auto addModule(string moduleURL, WorkletOptions options) {
-    return Promise!(void)(JsHandle(Worklet_addModule(this.handle, moduleURL, options.handle));
+    auto result = Promise!(void)(JsHandle(Worklet_addModule(this.handle, moduleURL, options.handle)));
+    return result;
   }
 }
 struct WorkletGlobalScope {
@@ -21,7 +22,8 @@ struct WorkletOptions {
     WorkletOptions_credentials_Set(this.handle, credentials);
   }
   auto credentials() {
-    return WorkletOptions_credentials_Get(this.handle);
+    auto result = WorkletOptions_credentials_Get(this.handle);
+    return result;
   }
 }
 

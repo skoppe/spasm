@@ -1,4 +1,4 @@
-import spasm from './spasm.js';
+import spasm from '../modules/spasm.js';
 export default {
   jsExports: {
     Worklet_addModule: function(ctx, moduleURLLen, moduleURLPtr, options) {

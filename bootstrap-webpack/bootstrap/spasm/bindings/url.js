@@ -1,4 +1,4 @@
-import spasm from './spasm.js';
+import spasm from '../modules/spasm.js';
 export default {
   jsExports: {
     URL_href_Set: function(ctx, hrefLen, hrefPtr) {

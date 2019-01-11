@@ -11,7 +11,8 @@ struct CompositionEvent {
     _parent = UIEvent(h);
   }
   auto data() {
-    return CompositionEvent_data_Get(this._parent);
+    auto result = CompositionEvent_data_Get(this._parent);
+    return result;
   }
 }
 struct CompositionEventInit {
@@ -24,7 +25,8 @@ struct CompositionEventInit {
     CompositionEventInit_data_Set(this._parent, data);
   }
   auto data() {
-    return CompositionEventInit_data_Get(this._parent);
+    auto result = CompositionEventInit_data_Get(this._parent);
+    return result;
   }
 }
 struct EventModifierInit {
@@ -37,85 +39,99 @@ struct EventModifierInit {
     EventModifierInit_ctrlKey_Set(this._parent, ctrlKey);
   }
   auto ctrlKey() {
-    return EventModifierInit_ctrlKey_Get(this._parent);
+    auto result = EventModifierInit_ctrlKey_Get(this._parent);
+    return result;
   }
   auto shiftKey(bool shiftKey) {
     EventModifierInit_shiftKey_Set(this._parent, shiftKey);
   }
   auto shiftKey() {
-    return EventModifierInit_shiftKey_Get(this._parent);
+    auto result = EventModifierInit_shiftKey_Get(this._parent);
+    return result;
   }
   auto altKey(bool altKey) {
     EventModifierInit_altKey_Set(this._parent, altKey);
   }
   auto altKey() {
-    return EventModifierInit_altKey_Get(this._parent);
+    auto result = EventModifierInit_altKey_Get(this._parent);
+    return result;
   }
   auto metaKey(bool metaKey) {
     EventModifierInit_metaKey_Set(this._parent, metaKey);
   }
   auto metaKey() {
-    return EventModifierInit_metaKey_Get(this._parent);
+    auto result = EventModifierInit_metaKey_Get(this._parent);
+    return result;
   }
   auto modifierAltGraph(bool modifierAltGraph) {
     EventModifierInit_modifierAltGraph_Set(this._parent, modifierAltGraph);
   }
   auto modifierAltGraph() {
-    return EventModifierInit_modifierAltGraph_Get(this._parent);
+    auto result = EventModifierInit_modifierAltGraph_Get(this._parent);
+    return result;
   }
   auto modifierCapsLock(bool modifierCapsLock) {
     EventModifierInit_modifierCapsLock_Set(this._parent, modifierCapsLock);
   }
   auto modifierCapsLock() {
-    return EventModifierInit_modifierCapsLock_Get(this._parent);
+    auto result = EventModifierInit_modifierCapsLock_Get(this._parent);
+    return result;
   }
   auto modifierFn(bool modifierFn) {
     EventModifierInit_modifierFn_Set(this._parent, modifierFn);
   }
   auto modifierFn() {
-    return EventModifierInit_modifierFn_Get(this._parent);
+    auto result = EventModifierInit_modifierFn_Get(this._parent);
+    return result;
   }
   auto modifierFnLock(bool modifierFnLock) {
     EventModifierInit_modifierFnLock_Set(this._parent, modifierFnLock);
   }
   auto modifierFnLock() {
-    return EventModifierInit_modifierFnLock_Get(this._parent);
+    auto result = EventModifierInit_modifierFnLock_Get(this._parent);
+    return result;
   }
   auto modifierHyper(bool modifierHyper) {
     EventModifierInit_modifierHyper_Set(this._parent, modifierHyper);
   }
   auto modifierHyper() {
-    return EventModifierInit_modifierHyper_Get(this._parent);
+    auto result = EventModifierInit_modifierHyper_Get(this._parent);
+    return result;
   }
   auto modifierNumLock(bool modifierNumLock) {
     EventModifierInit_modifierNumLock_Set(this._parent, modifierNumLock);
   }
   auto modifierNumLock() {
-    return EventModifierInit_modifierNumLock_Get(this._parent);
+    auto result = EventModifierInit_modifierNumLock_Get(this._parent);
+    return result;
   }
   auto modifierScrollLock(bool modifierScrollLock) {
     EventModifierInit_modifierScrollLock_Set(this._parent, modifierScrollLock);
   }
   auto modifierScrollLock() {
-    return EventModifierInit_modifierScrollLock_Get(this._parent);
+    auto result = EventModifierInit_modifierScrollLock_Get(this._parent);
+    return result;
   }
   auto modifierSuper(bool modifierSuper) {
     EventModifierInit_modifierSuper_Set(this._parent, modifierSuper);
   }
   auto modifierSuper() {
-    return EventModifierInit_modifierSuper_Get(this._parent);
+    auto result = EventModifierInit_modifierSuper_Get(this._parent);
+    return result;
   }
   auto modifierSymbol(bool modifierSymbol) {
     EventModifierInit_modifierSymbol_Set(this._parent, modifierSymbol);
   }
   auto modifierSymbol() {
-    return EventModifierInit_modifierSymbol_Get(this._parent);
+    auto result = EventModifierInit_modifierSymbol_Get(this._parent);
+    return result;
   }
   auto modifierSymbolLock(bool modifierSymbolLock) {
     EventModifierInit_modifierSymbolLock_Set(this._parent, modifierSymbolLock);
   }
   auto modifierSymbolLock() {
-    return EventModifierInit_modifierSymbolLock_Get(this._parent);
+    auto result = EventModifierInit_modifierSymbolLock_Get(this._parent);
+    return result;
   }
 }
 struct FocusEvent {
@@ -125,7 +141,8 @@ struct FocusEvent {
     _parent = UIEvent(h);
   }
   auto relatedTarget() {
-    return FocusEvent_relatedTarget_Get(this._parent);
+    auto result = FocusEvent_relatedTarget_Get(this._parent);
+    return result;
   }
 }
 struct FocusEventInit {
@@ -138,7 +155,8 @@ struct FocusEventInit {
     FocusEventInit_relatedTarget_Set(this._parent, !relatedTarget.empty, relatedTarget.front.handle);
   }
   auto relatedTarget() {
-    return FocusEventInit_relatedTarget_Get(this._parent);
+    auto result = FocusEventInit_relatedTarget_Get(this._parent);
+    return result;
   }
 }
 struct InputEvent {
@@ -148,13 +166,16 @@ struct InputEvent {
     _parent = UIEvent(h);
   }
   auto data() {
-    return InputEvent_data_Get(this._parent);
+    auto result = InputEvent_data_Get(this._parent);
+    return result;
   }
   auto isComposing() {
-    return InputEvent_isComposing_Get(this._parent);
+    auto result = InputEvent_isComposing_Get(this._parent);
+    return result;
   }
   auto inputType() {
-    return InputEvent_inputType_Get(this._parent);
+    auto result = InputEvent_inputType_Get(this._parent);
+    return result;
   }
 }
 struct InputEventInit {
@@ -167,19 +188,22 @@ struct InputEventInit {
     InputEventInit_data_Set(this._parent, !data.empty, data.front);
   }
   auto data() {
-    return InputEventInit_data_Get(this._parent);
+    auto result = InputEventInit_data_Get(this._parent);
+    return result;
   }
   auto isComposing(bool isComposing) {
     InputEventInit_isComposing_Set(this._parent, isComposing);
   }
   auto isComposing() {
-    return InputEventInit_isComposing_Get(this._parent);
+    auto result = InputEventInit_isComposing_Get(this._parent);
+    return result;
   }
   auto inputType(string inputType) {
     InputEventInit_inputType_Set(this._parent, inputType);
   }
   auto inputType() {
-    return InputEventInit_inputType_Get(this._parent);
+    auto result = InputEventInit_inputType_Get(this._parent);
+    return result;
   }
 }
 struct KeyboardEvent {
@@ -193,40 +217,52 @@ struct KeyboardEvent {
   enum uint DOM_KEY_LOCATION_RIGHT = 0x02;
   enum uint DOM_KEY_LOCATION_NUMPAD = 0x03;
   auto key() {
-    return KeyboardEvent_key_Get(this._parent);
+    auto result = KeyboardEvent_key_Get(this._parent);
+    return result;
   }
   auto code() {
-    return KeyboardEvent_code_Get(this._parent);
+    auto result = KeyboardEvent_code_Get(this._parent);
+    return result;
   }
   auto location() {
-    return KeyboardEvent_location_Get(this._parent);
+    auto result = KeyboardEvent_location_Get(this._parent);
+    return result;
   }
   auto ctrlKey() {
-    return KeyboardEvent_ctrlKey_Get(this._parent);
+    auto result = KeyboardEvent_ctrlKey_Get(this._parent);
+    return result;
   }
   auto shiftKey() {
-    return KeyboardEvent_shiftKey_Get(this._parent);
+    auto result = KeyboardEvent_shiftKey_Get(this._parent);
+    return result;
   }
   auto altKey() {
-    return KeyboardEvent_altKey_Get(this._parent);
+    auto result = KeyboardEvent_altKey_Get(this._parent);
+    return result;
   }
   auto metaKey() {
-    return KeyboardEvent_metaKey_Get(this._parent);
+    auto result = KeyboardEvent_metaKey_Get(this._parent);
+    return result;
   }
   auto repeat() {
-    return KeyboardEvent_repeat_Get(this._parent);
+    auto result = KeyboardEvent_repeat_Get(this._parent);
+    return result;
   }
   auto isComposing() {
-    return KeyboardEvent_isComposing_Get(this._parent);
+    auto result = KeyboardEvent_isComposing_Get(this._parent);
+    return result;
   }
   auto getModifierState(string keyArg) {
-    return KeyboardEvent_getModifierState(this._parent, keyArg);
+    auto result = KeyboardEvent_getModifierState(this._parent, keyArg);
+    return result;
   }
   auto charCode() {
-    return KeyboardEvent_charCode_Get(this._parent);
+    auto result = KeyboardEvent_charCode_Get(this._parent);
+    return result;
   }
   auto keyCode() {
-    return KeyboardEvent_keyCode_Get(this._parent);
+    auto result = KeyboardEvent_keyCode_Get(this._parent);
+    return result;
   }
 }
 struct KeyboardEventInit {
@@ -239,31 +275,36 @@ struct KeyboardEventInit {
     KeyboardEventInit_key_Set(this._parent, key);
   }
   auto key() {
-    return KeyboardEventInit_key_Get(this._parent);
+    auto result = KeyboardEventInit_key_Get(this._parent);
+    return result;
   }
   auto code(string code) {
     KeyboardEventInit_code_Set(this._parent, code);
   }
   auto code() {
-    return KeyboardEventInit_code_Get(this._parent);
+    auto result = KeyboardEventInit_code_Get(this._parent);
+    return result;
   }
   auto location(uint location) {
     KeyboardEventInit_location_Set(this._parent, location);
   }
   auto location() {
-    return KeyboardEventInit_location_Get(this._parent);
+    auto result = KeyboardEventInit_location_Get(this._parent);
+    return result;
   }
   auto repeat(bool repeat) {
     KeyboardEventInit_repeat_Set(this._parent, repeat);
   }
   auto repeat() {
-    return KeyboardEventInit_repeat_Get(this._parent);
+    auto result = KeyboardEventInit_repeat_Get(this._parent);
+    return result;
   }
   auto isComposing(bool isComposing) {
     KeyboardEventInit_isComposing_Set(this._parent, isComposing);
   }
   auto isComposing() {
-    return KeyboardEventInit_isComposing_Get(this._parent);
+    auto result = KeyboardEventInit_isComposing_Get(this._parent);
+    return result;
   }
 }
 struct MouseEvent {
@@ -273,40 +314,52 @@ struct MouseEvent {
     _parent = UIEvent(h);
   }
   auto screenX() {
-    return MouseEvent_screenX_Get(this._parent);
+    auto result = MouseEvent_screenX_Get(this._parent);
+    return result;
   }
   auto screenY() {
-    return MouseEvent_screenY_Get(this._parent);
+    auto result = MouseEvent_screenY_Get(this._parent);
+    return result;
   }
   auto clientX() {
-    return MouseEvent_clientX_Get(this._parent);
+    auto result = MouseEvent_clientX_Get(this._parent);
+    return result;
   }
   auto clientY() {
-    return MouseEvent_clientY_Get(this._parent);
+    auto result = MouseEvent_clientY_Get(this._parent);
+    return result;
   }
   auto ctrlKey() {
-    return MouseEvent_ctrlKey_Get(this._parent);
+    auto result = MouseEvent_ctrlKey_Get(this._parent);
+    return result;
   }
   auto shiftKey() {
-    return MouseEvent_shiftKey_Get(this._parent);
+    auto result = MouseEvent_shiftKey_Get(this._parent);
+    return result;
   }
   auto altKey() {
-    return MouseEvent_altKey_Get(this._parent);
+    auto result = MouseEvent_altKey_Get(this._parent);
+    return result;
   }
   auto metaKey() {
-    return MouseEvent_metaKey_Get(this._parent);
+    auto result = MouseEvent_metaKey_Get(this._parent);
+    return result;
   }
   auto button() {
-    return MouseEvent_button_Get(this._parent);
+    auto result = MouseEvent_button_Get(this._parent);
+    return result;
   }
   auto buttons() {
-    return MouseEvent_buttons_Get(this._parent);
+    auto result = MouseEvent_buttons_Get(this._parent);
+    return result;
   }
   auto relatedTarget() {
-    return MouseEvent_relatedTarget_Get(this._parent);
+    auto result = MouseEvent_relatedTarget_Get(this._parent);
+    return result;
   }
   auto getModifierState(string keyArg) {
-    return MouseEvent_getModifierState(this._parent, keyArg);
+    auto result = MouseEvent_getModifierState(this._parent, keyArg);
+    return result;
   }
 }
 struct MouseEventInit {
@@ -319,43 +372,50 @@ struct MouseEventInit {
     MouseEventInit_screenX_Set(this._parent, screenX);
   }
   auto screenX() {
-    return MouseEventInit_screenX_Get(this._parent);
+    auto result = MouseEventInit_screenX_Get(this._parent);
+    return result;
   }
   auto screenY(int screenY) {
     MouseEventInit_screenY_Set(this._parent, screenY);
   }
   auto screenY() {
-    return MouseEventInit_screenY_Get(this._parent);
+    auto result = MouseEventInit_screenY_Get(this._parent);
+    return result;
   }
   auto clientX(int clientX) {
     MouseEventInit_clientX_Set(this._parent, clientX);
   }
   auto clientX() {
-    return MouseEventInit_clientX_Get(this._parent);
+    auto result = MouseEventInit_clientX_Get(this._parent);
+    return result;
   }
   auto clientY(int clientY) {
     MouseEventInit_clientY_Set(this._parent, clientY);
   }
   auto clientY() {
-    return MouseEventInit_clientY_Get(this._parent);
+    auto result = MouseEventInit_clientY_Get(this._parent);
+    return result;
   }
   auto button(short button) {
     MouseEventInit_button_Set(this._parent, button);
   }
   auto button() {
-    return MouseEventInit_button_Get(this._parent);
+    auto result = MouseEventInit_button_Get(this._parent);
+    return result;
   }
   auto buttons(ushort buttons) {
     MouseEventInit_buttons_Set(this._parent, buttons);
   }
   auto buttons() {
-    return MouseEventInit_buttons_Get(this._parent);
+    auto result = MouseEventInit_buttons_Get(this._parent);
+    return result;
   }
   auto relatedTarget(Optional!(EventTarget) relatedTarget) {
     MouseEventInit_relatedTarget_Set(this._parent, !relatedTarget.empty, relatedTarget.front.handle);
   }
   auto relatedTarget() {
-    return MouseEventInit_relatedTarget_Get(this._parent);
+    auto result = MouseEventInit_relatedTarget_Get(this._parent);
+    return result;
   }
 }
 struct UIEvent {
@@ -365,13 +425,16 @@ struct UIEvent {
     _parent = Event(h);
   }
   auto view() {
-    return UIEvent_view_Get(this._parent);
+    auto result = UIEvent_view_Get(this._parent);
+    return result;
   }
   auto detail() {
-    return UIEvent_detail_Get(this._parent);
+    auto result = UIEvent_detail_Get(this._parent);
+    return result;
   }
   auto which() {
-    return UIEvent_which_Get(this._parent);
+    auto result = UIEvent_which_Get(this._parent);
+    return result;
   }
 }
 struct UIEventInit {
@@ -384,13 +447,15 @@ struct UIEventInit {
     UIEventInit_view_Set(this._parent, !view.empty, view.front.handle);
   }
   auto view() {
-    return UIEventInit_view_Get(this._parent);
+    auto result = UIEventInit_view_Get(this._parent);
+    return result;
   }
   auto detail(int detail) {
     UIEventInit_detail_Set(this._parent, detail);
   }
   auto detail() {
-    return UIEventInit_detail_Get(this._parent);
+    auto result = UIEventInit_detail_Get(this._parent);
+    return result;
   }
 }
 struct WheelEvent {
@@ -403,16 +468,20 @@ struct WheelEvent {
   enum uint DOM_DELTA_LINE = 0x01;
   enum uint DOM_DELTA_PAGE = 0x02;
   auto deltaX() {
-    return WheelEvent_deltaX_Get(this._parent);
+    auto result = WheelEvent_deltaX_Get(this._parent);
+    return result;
   }
   auto deltaY() {
-    return WheelEvent_deltaY_Get(this._parent);
+    auto result = WheelEvent_deltaY_Get(this._parent);
+    return result;
   }
   auto deltaZ() {
-    return WheelEvent_deltaZ_Get(this._parent);
+    auto result = WheelEvent_deltaZ_Get(this._parent);
+    return result;
   }
   auto deltaMode() {
-    return WheelEvent_deltaMode_Get(this._parent);
+    auto result = WheelEvent_deltaMode_Get(this._parent);
+    return result;
   }
 }
 struct WheelEventInit {
@@ -425,25 +494,29 @@ struct WheelEventInit {
     WheelEventInit_deltaX_Set(this._parent, deltaX);
   }
   auto deltaX() {
-    return WheelEventInit_deltaX_Get(this._parent);
+    auto result = WheelEventInit_deltaX_Get(this._parent);
+    return result;
   }
   auto deltaY(double deltaY) {
     WheelEventInit_deltaY_Set(this._parent, deltaY);
   }
   auto deltaY() {
-    return WheelEventInit_deltaY_Get(this._parent);
+    auto result = WheelEventInit_deltaY_Get(this._parent);
+    return result;
   }
   auto deltaZ(double deltaZ) {
     WheelEventInit_deltaZ_Set(this._parent, deltaZ);
   }
   auto deltaZ() {
-    return WheelEventInit_deltaZ_Get(this._parent);
+    auto result = WheelEventInit_deltaZ_Get(this._parent);
+    return result;
   }
   auto deltaMode(uint deltaMode) {
     WheelEventInit_deltaMode_Set(this._parent, deltaMode);
   }
   auto deltaMode() {
-    return WheelEventInit_deltaMode_Get(this._parent);
+    auto result = WheelEventInit_deltaMode_Get(this._parent);
+    return result;
   }
 }
 

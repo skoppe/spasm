@@ -14,7 +14,8 @@ struct GetNotificationOptions {
     GetNotificationOptions_tag_Set(this.handle, tag);
   }
   auto tag() {
-    return GetNotificationOptions_tag_Get(this.handle);
+    auto result = GetNotificationOptions_tag_Get(this.handle);
+    return result;
   }
 }
 struct Notification {
@@ -27,85 +28,107 @@ struct Notification {
     Notification_permission_Set(this._parent, permission);
   }
   auto permission() {
-    return Notification_permission_Get(this._parent);
+    auto result = Notification_permission_Get(this._parent);
+    return result;
   }
   auto requestPermission(NotificationPermissionCallback deprecatedCallback) {
-    return Promise!(NotificationPermission)(JsHandle(Notification_requestPermission(this._parent, deprecatedCallback));
+    auto result = Promise!(NotificationPermission)(JsHandle(Notification_requestPermission(this._parent, deprecatedCallback)));
+    return result;
   }
   auto maxActions(uint maxActions) {
     Notification_maxActions_Set(this._parent, maxActions);
   }
   auto maxActions() {
-    return Notification_maxActions_Get(this._parent);
+    auto result = Notification_maxActions_Get(this._parent);
+    return result;
   }
   auto onclick(EventHandler onclick) {
     Notification_onclick_Set(this._parent, onclick);
   }
   auto onclick() {
-    return Notification_onclick_Get(this._parent);
+    auto result = Notification_onclick_Get(this._parent);
+    return result;
   }
   auto onshow(EventHandler onshow) {
     Notification_onshow_Set(this._parent, onshow);
   }
   auto onshow() {
-    return Notification_onshow_Get(this._parent);
+    auto result = Notification_onshow_Get(this._parent);
+    return result;
   }
   auto onerror(EventHandler onerror) {
     Notification_onerror_Set(this._parent, onerror);
   }
   auto onerror() {
-    return Notification_onerror_Get(this._parent);
+    auto result = Notification_onerror_Get(this._parent);
+    return result;
   }
   auto onclose(EventHandler onclose) {
     Notification_onclose_Set(this._parent, onclose);
   }
   auto onclose() {
-    return Notification_onclose_Get(this._parent);
+    auto result = Notification_onclose_Get(this._parent);
+    return result;
   }
   auto title() {
-    return Notification_title_Get(this._parent);
+    auto result = Notification_title_Get(this._parent);
+    return result;
   }
   auto dir() {
-    return Notification_dir_Get(this._parent);
+    auto result = Notification_dir_Get(this._parent);
+    return result;
   }
   auto lang() {
-    return Notification_lang_Get(this._parent);
+    auto result = Notification_lang_Get(this._parent);
+    return result;
   }
   auto body_() {
-    return Notification_body_Get(this._parent);
+    auto result = Notification_body_Get(this._parent);
+    return result;
   }
   auto tag() {
-    return Notification_tag_Get(this._parent);
+    auto result = Notification_tag_Get(this._parent);
+    return result;
   }
   auto image() {
-    return Notification_image_Get(this._parent);
+    auto result = Notification_image_Get(this._parent);
+    return result;
   }
   auto icon() {
-    return Notification_icon_Get(this._parent);
+    auto result = Notification_icon_Get(this._parent);
+    return result;
   }
   auto badge() {
-    return Notification_badge_Get(this._parent);
+    auto result = Notification_badge_Get(this._parent);
+    return result;
   }
   auto vibrate() {
-    return FrozenArray!(uint)(JsHandle(Notification_vibrate_Get(this._parent));
+    auto result = FrozenArray!(uint)(JsHandle(Notification_vibrate_Get(this._parent)));
+    return result;
   }
   auto timestamp() {
-    return Notification_timestamp_Get(this._parent);
+    auto result = Notification_timestamp_Get(this._parent);
+    return result;
   }
   auto renotify() {
-    return Notification_renotify_Get(this._parent);
+    auto result = Notification_renotify_Get(this._parent);
+    return result;
   }
   auto silent() {
-    return Notification_silent_Get(this._parent);
+    auto result = Notification_silent_Get(this._parent);
+    return result;
   }
   auto requireInteraction() {
-    return Notification_requireInteraction_Get(this._parent);
+    auto result = Notification_requireInteraction_Get(this._parent);
+    return result;
   }
   auto data() {
-    return Any(JsHandle(Notification_data_Get(this._parent));
+    auto result = Any(JsHandle(Notification_data_Get(this._parent)));
+    return result;
   }
   auto actions() {
-    return FrozenArray!(NotificationAction)(JsHandle(Notification_actions_Get(this._parent));
+    auto result = FrozenArray!(NotificationAction)(JsHandle(Notification_actions_Get(this._parent)));
+    return result;
   }
   auto close() {
     Notification_close(this._parent);
@@ -118,19 +141,22 @@ struct NotificationAction {
     NotificationAction_action_Set(this.handle, action);
   }
   auto action() {
-    return NotificationAction_action_Get(this.handle);
+    auto result = NotificationAction_action_Get(this.handle);
+    return result;
   }
   auto title(string title) {
     NotificationAction_title_Set(this.handle, title);
   }
   auto title() {
-    return NotificationAction_title_Get(this.handle);
+    auto result = NotificationAction_title_Get(this.handle);
+    return result;
   }
   auto icon(string icon) {
     NotificationAction_icon_Set(this.handle, icon);
   }
   auto icon() {
-    return NotificationAction_icon_Get(this.handle);
+    auto result = NotificationAction_icon_Get(this.handle);
+    return result;
   }
 }
 enum NotificationDirection {
@@ -145,10 +171,12 @@ struct NotificationEvent {
     _parent = ExtendableEvent(h);
   }
   auto notification() {
-    return Notification(JsHandle(NotificationEvent_notification_Get(this._parent));
+    auto result = Notification(JsHandle(NotificationEvent_notification_Get(this._parent)));
+    return result;
   }
   auto action() {
-    return NotificationEvent_action_Get(this._parent);
+    auto result = NotificationEvent_action_Get(this._parent);
+    return result;
   }
 }
 struct NotificationEventInit {
@@ -161,13 +189,15 @@ struct NotificationEventInit {
     NotificationEventInit_notification_Set(this._parent, notification.handle);
   }
   auto notification() {
-    return Notification(JsHandle(NotificationEventInit_notification_Get(this._parent));
+    auto result = Notification(JsHandle(NotificationEventInit_notification_Get(this._parent)));
+    return result;
   }
   auto action(string action) {
     NotificationEventInit_action_Set(this._parent, action);
   }
   auto action() {
-    return NotificationEventInit_action_Get(this._parent);
+    auto result = NotificationEventInit_action_Get(this._parent);
+    return result;
   }
 }
 struct NotificationOptions {
@@ -177,85 +207,101 @@ struct NotificationOptions {
     NotificationOptions_dir_Set(this.handle, dir);
   }
   auto dir() {
-    return NotificationOptions_dir_Get(this.handle);
+    auto result = NotificationOptions_dir_Get(this.handle);
+    return result;
   }
   auto lang(string lang) {
     NotificationOptions_lang_Set(this.handle, lang);
   }
   auto lang() {
-    return NotificationOptions_lang_Get(this.handle);
+    auto result = NotificationOptions_lang_Get(this.handle);
+    return result;
   }
   auto body_(string body_) {
     NotificationOptions_body_Set(this.handle, body_);
   }
   auto body_() {
-    return NotificationOptions_body_Get(this.handle);
+    auto result = NotificationOptions_body_Get(this.handle);
+    return result;
   }
   auto tag(string tag) {
     NotificationOptions_tag_Set(this.handle, tag);
   }
   auto tag() {
-    return NotificationOptions_tag_Get(this.handle);
+    auto result = NotificationOptions_tag_Get(this.handle);
+    return result;
   }
   auto image(string image) {
     NotificationOptions_image_Set(this.handle, image);
   }
   auto image() {
-    return NotificationOptions_image_Get(this.handle);
+    auto result = NotificationOptions_image_Get(this.handle);
+    return result;
   }
   auto icon(string icon) {
     NotificationOptions_icon_Set(this.handle, icon);
   }
   auto icon() {
-    return NotificationOptions_icon_Get(this.handle);
+    auto result = NotificationOptions_icon_Get(this.handle);
+    return result;
   }
   auto badge(string badge) {
     NotificationOptions_badge_Set(this.handle, badge);
   }
   auto badge() {
-    return NotificationOptions_badge_Get(this.handle);
+    auto result = NotificationOptions_badge_Get(this.handle);
+    return result;
   }
   auto vibrate(VibratePattern vibrate) {
     NotificationOptions_vibrate_Set(this.handle, vibrate);
   }
   auto vibrate() {
-    return NotificationOptions_vibrate_Get(this.handle);
+    auto result = NotificationOptions_vibrate_Get(this.handle);
+    return result;
   }
   auto timestamp(ulong timestamp) {
     NotificationOptions_timestamp_Set(this.handle, timestamp);
   }
   auto timestamp() {
-    return NotificationOptions_timestamp_Get(this.handle);
+    auto result = NotificationOptions_timestamp_Get(this.handle);
+    return result;
   }
   auto renotify(bool renotify) {
     NotificationOptions_renotify_Set(this.handle, renotify);
   }
   auto renotify() {
-    return NotificationOptions_renotify_Get(this.handle);
+    auto result = NotificationOptions_renotify_Get(this.handle);
+    return result;
   }
   auto silent(bool silent) {
     NotificationOptions_silent_Set(this.handle, silent);
   }
   auto silent() {
-    return NotificationOptions_silent_Get(this.handle);
+    auto result = NotificationOptions_silent_Get(this.handle);
+    return result;
   }
   auto requireInteraction(bool requireInteraction) {
     NotificationOptions_requireInteraction_Set(this.handle, requireInteraction);
   }
   auto requireInteraction() {
-    return NotificationOptions_requireInteraction_Get(this.handle);
+    auto result = NotificationOptions_requireInteraction_Get(this.handle);
+    return result;
   }
-  auto data(Any data) {
-    NotificationOptions_data_Set(this.handle, data.handle);
+  auto data(T0)(T0 data) {
+    Handle _handle_data = getOrCreateHandle(data);
+    NotificationOptions_data_Set(this.handle, _handle_data);
+    dropHandle!(T0)(_handle_data);
   }
   auto data() {
-    return Any(JsHandle(NotificationOptions_data_Get(this.handle));
+    auto result = Any(JsHandle(NotificationOptions_data_Get(this.handle)));
+    return result;
   }
   auto actions(Sequence!(NotificationAction) actions) {
     NotificationOptions_actions_Set(this.handle, actions.handle);
   }
   auto actions() {
-    return Sequence!(NotificationAction)(JsHandle(NotificationOptions_actions_Get(this.handle));
+    auto result = Sequence!(NotificationAction)(JsHandle(NotificationOptions_actions_Get(this.handle)));
+    return result;
   }
 }
 enum NotificationPermission {

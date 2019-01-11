@@ -1,4 +1,4 @@
-import spasm from './spasm.js';
+import spasm from '../modules/spasm.js';
 export default {
   jsExports: {
     WebGL2RenderingContextBase_bufferData__uint_long_uint: function(ctx, target, size, usage) {

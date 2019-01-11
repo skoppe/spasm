@@ -8,181 +8,218 @@ struct DOMMatrix {
     _parent = DOMMatrixReadOnly(h);
   }
   auto fromMatrix(DOMMatrixInit other) {
-    return DOMMatrix(JsHandle(DOMMatrix_fromMatrix(this._parent, other.handle));
+    auto result = DOMMatrix(JsHandle(DOMMatrix_fromMatrix(this._parent, other.handle)));
+    return result;
   }
   auto fromFloat32Array(Float32Array array32) {
-    return DOMMatrix(JsHandle(DOMMatrix_fromFloat32Array(this._parent, array32.handle));
+    auto result = DOMMatrix(JsHandle(DOMMatrix_fromFloat32Array(this._parent, array32.handle)));
+    return result;
   }
   auto fromFloat64Array(Float64Array array64) {
-    return DOMMatrix(JsHandle(DOMMatrix_fromFloat64Array(this._parent, array64.handle));
+    auto result = DOMMatrix(JsHandle(DOMMatrix_fromFloat64Array(this._parent, array64.handle)));
+    return result;
   }
   auto a(double a) {
     DOMMatrix_a_Set(this._parent, a);
   }
   auto a() {
-    return DOMMatrix_a_Get(this._parent);
+    auto result = DOMMatrix_a_Get(this._parent);
+    return result;
   }
   auto b(double b) {
     DOMMatrix_b_Set(this._parent, b);
   }
   auto b() {
-    return DOMMatrix_b_Get(this._parent);
+    auto result = DOMMatrix_b_Get(this._parent);
+    return result;
   }
   auto c(double c) {
     DOMMatrix_c_Set(this._parent, c);
   }
   auto c() {
-    return DOMMatrix_c_Get(this._parent);
+    auto result = DOMMatrix_c_Get(this._parent);
+    return result;
   }
   auto d(double d) {
     DOMMatrix_d_Set(this._parent, d);
   }
   auto d() {
-    return DOMMatrix_d_Get(this._parent);
+    auto result = DOMMatrix_d_Get(this._parent);
+    return result;
   }
   auto e(double e) {
     DOMMatrix_e_Set(this._parent, e);
   }
   auto e() {
-    return DOMMatrix_e_Get(this._parent);
+    auto result = DOMMatrix_e_Get(this._parent);
+    return result;
   }
   auto f(double f) {
     DOMMatrix_f_Set(this._parent, f);
   }
   auto f() {
-    return DOMMatrix_f_Get(this._parent);
+    auto result = DOMMatrix_f_Get(this._parent);
+    return result;
   }
   auto m11(double m11) {
     DOMMatrix_m11_Set(this._parent, m11);
   }
   auto m11() {
-    return DOMMatrix_m11_Get(this._parent);
+    auto result = DOMMatrix_m11_Get(this._parent);
+    return result;
   }
   auto m12(double m12) {
     DOMMatrix_m12_Set(this._parent, m12);
   }
   auto m12() {
-    return DOMMatrix_m12_Get(this._parent);
+    auto result = DOMMatrix_m12_Get(this._parent);
+    return result;
   }
   auto m13(double m13) {
     DOMMatrix_m13_Set(this._parent, m13);
   }
   auto m13() {
-    return DOMMatrix_m13_Get(this._parent);
+    auto result = DOMMatrix_m13_Get(this._parent);
+    return result;
   }
   auto m14(double m14) {
     DOMMatrix_m14_Set(this._parent, m14);
   }
   auto m14() {
-    return DOMMatrix_m14_Get(this._parent);
+    auto result = DOMMatrix_m14_Get(this._parent);
+    return result;
   }
   auto m21(double m21) {
     DOMMatrix_m21_Set(this._parent, m21);
   }
   auto m21() {
-    return DOMMatrix_m21_Get(this._parent);
+    auto result = DOMMatrix_m21_Get(this._parent);
+    return result;
   }
   auto m22(double m22) {
     DOMMatrix_m22_Set(this._parent, m22);
   }
   auto m22() {
-    return DOMMatrix_m22_Get(this._parent);
+    auto result = DOMMatrix_m22_Get(this._parent);
+    return result;
   }
   auto m23(double m23) {
     DOMMatrix_m23_Set(this._parent, m23);
   }
   auto m23() {
-    return DOMMatrix_m23_Get(this._parent);
+    auto result = DOMMatrix_m23_Get(this._parent);
+    return result;
   }
   auto m24(double m24) {
     DOMMatrix_m24_Set(this._parent, m24);
   }
   auto m24() {
-    return DOMMatrix_m24_Get(this._parent);
+    auto result = DOMMatrix_m24_Get(this._parent);
+    return result;
   }
   auto m31(double m31) {
     DOMMatrix_m31_Set(this._parent, m31);
   }
   auto m31() {
-    return DOMMatrix_m31_Get(this._parent);
+    auto result = DOMMatrix_m31_Get(this._parent);
+    return result;
   }
   auto m32(double m32) {
     DOMMatrix_m32_Set(this._parent, m32);
   }
   auto m32() {
-    return DOMMatrix_m32_Get(this._parent);
+    auto result = DOMMatrix_m32_Get(this._parent);
+    return result;
   }
   auto m33(double m33) {
     DOMMatrix_m33_Set(this._parent, m33);
   }
   auto m33() {
-    return DOMMatrix_m33_Get(this._parent);
+    auto result = DOMMatrix_m33_Get(this._parent);
+    return result;
   }
   auto m34(double m34) {
     DOMMatrix_m34_Set(this._parent, m34);
   }
   auto m34() {
-    return DOMMatrix_m34_Get(this._parent);
+    auto result = DOMMatrix_m34_Get(this._parent);
+    return result;
   }
   auto m41(double m41) {
     DOMMatrix_m41_Set(this._parent, m41);
   }
   auto m41() {
-    return DOMMatrix_m41_Get(this._parent);
+    auto result = DOMMatrix_m41_Get(this._parent);
+    return result;
   }
   auto m42(double m42) {
     DOMMatrix_m42_Set(this._parent, m42);
   }
   auto m42() {
-    return DOMMatrix_m42_Get(this._parent);
+    auto result = DOMMatrix_m42_Get(this._parent);
+    return result;
   }
   auto m43(double m43) {
     DOMMatrix_m43_Set(this._parent, m43);
   }
   auto m43() {
-    return DOMMatrix_m43_Get(this._parent);
+    auto result = DOMMatrix_m43_Get(this._parent);
+    return result;
   }
   auto m44(double m44) {
     DOMMatrix_m44_Set(this._parent, m44);
   }
   auto m44() {
-    return DOMMatrix_m44_Get(this._parent);
+    auto result = DOMMatrix_m44_Get(this._parent);
+    return result;
   }
   auto multiplySelf(DOMMatrixInit other) {
-    return DOMMatrix(JsHandle(DOMMatrix_multiplySelf(this._parent, other.handle));
+    auto result = DOMMatrix(JsHandle(DOMMatrix_multiplySelf(this._parent, other.handle)));
+    return result;
   }
   auto preMultiplySelf(DOMMatrixInit other) {
-    return DOMMatrix(JsHandle(DOMMatrix_preMultiplySelf(this._parent, other.handle));
+    auto result = DOMMatrix(JsHandle(DOMMatrix_preMultiplySelf(this._parent, other.handle)));
+    return result;
   }
   auto translateSelf(double tx /* = 0 */, double ty /* = 0 */, double tz /* = 0 */) {
-    return DOMMatrix(JsHandle(DOMMatrix_translateSelf(this._parent, tx, ty, tz));
+    auto result = DOMMatrix(JsHandle(DOMMatrix_translateSelf(this._parent, tx, ty, tz)));
+    return result;
   }
   auto scaleSelf(double scaleX /* = 1 */, double scaleY, double scaleZ /* = 1 */, double originX /* = 0 */, double originY /* = 0 */, double originZ /* = 0 */) {
-    return DOMMatrix(JsHandle(DOMMatrix_scaleSelf(this._parent, scaleX, scaleY, scaleZ, originX, originY, originZ));
+    auto result = DOMMatrix(JsHandle(DOMMatrix_scaleSelf(this._parent, scaleX, scaleY, scaleZ, originX, originY, originZ)));
+    return result;
   }
   auto scale3dSelf(double scale /* = 1 */, double originX /* = 0 */, double originY /* = 0 */, double originZ /* = 0 */) {
-    return DOMMatrix(JsHandle(DOMMatrix_scale3dSelf(this._parent, scale, originX, originY, originZ));
+    auto result = DOMMatrix(JsHandle(DOMMatrix_scale3dSelf(this._parent, scale, originX, originY, originZ)));
+    return result;
   }
   auto rotateSelf(double rotX /* = 0 */, double rotY, double rotZ) {
-    return DOMMatrix(JsHandle(DOMMatrix_rotateSelf(this._parent, rotX, rotY, rotZ));
+    auto result = DOMMatrix(JsHandle(DOMMatrix_rotateSelf(this._parent, rotX, rotY, rotZ)));
+    return result;
   }
   auto rotateFromVectorSelf(double x /* = 0 */, double y /* = 0 */) {
-    return DOMMatrix(JsHandle(DOMMatrix_rotateFromVectorSelf(this._parent, x, y));
+    auto result = DOMMatrix(JsHandle(DOMMatrix_rotateFromVectorSelf(this._parent, x, y)));
+    return result;
   }
   auto rotateAxisAngleSelf(double x /* = 0 */, double y /* = 0 */, double z /* = 0 */, double angle /* = 0 */) {
-    return DOMMatrix(JsHandle(DOMMatrix_rotateAxisAngleSelf(this._parent, x, y, z, angle));
+    auto result = DOMMatrix(JsHandle(DOMMatrix_rotateAxisAngleSelf(this._parent, x, y, z, angle)));
+    return result;
   }
   auto skewXSelf(double sx /* = 0 */) {
-    return DOMMatrix(JsHandle(DOMMatrix_skewXSelf(this._parent, sx));
+    auto result = DOMMatrix(JsHandle(DOMMatrix_skewXSelf(this._parent, sx)));
+    return result;
   }
   auto skewYSelf(double sy /* = 0 */) {
-    return DOMMatrix(JsHandle(DOMMatrix_skewYSelf(this._parent, sy));
+    auto result = DOMMatrix(JsHandle(DOMMatrix_skewYSelf(this._parent, sy)));
+    return result;
   }
   auto invertSelf() {
-    return DOMMatrix(JsHandle(DOMMatrix_invertSelf(this._parent));
+    auto result = DOMMatrix(JsHandle(DOMMatrix_invertSelf(this._parent)));
+    return result;
   }
   auto setMatrixValue(string transformList) {
-    return DOMMatrix(JsHandle(DOMMatrix_setMatrixValue(this._parent, transformList));
+    auto result = DOMMatrix(JsHandle(DOMMatrix_setMatrixValue(this._parent, transformList)));
+    return result;
   }
 }
 struct DOMMatrix2DInit {
@@ -192,73 +229,85 @@ struct DOMMatrix2DInit {
     DOMMatrix2DInit_a_Set(this.handle, a);
   }
   auto a() {
-    return DOMMatrix2DInit_a_Get(this.handle);
+    auto result = DOMMatrix2DInit_a_Get(this.handle);
+    return result;
   }
   auto b(double b) {
     DOMMatrix2DInit_b_Set(this.handle, b);
   }
   auto b() {
-    return DOMMatrix2DInit_b_Get(this.handle);
+    auto result = DOMMatrix2DInit_b_Get(this.handle);
+    return result;
   }
   auto c(double c) {
     DOMMatrix2DInit_c_Set(this.handle, c);
   }
   auto c() {
-    return DOMMatrix2DInit_c_Get(this.handle);
+    auto result = DOMMatrix2DInit_c_Get(this.handle);
+    return result;
   }
   auto d(double d) {
     DOMMatrix2DInit_d_Set(this.handle, d);
   }
   auto d() {
-    return DOMMatrix2DInit_d_Get(this.handle);
+    auto result = DOMMatrix2DInit_d_Get(this.handle);
+    return result;
   }
   auto e(double e) {
     DOMMatrix2DInit_e_Set(this.handle, e);
   }
   auto e() {
-    return DOMMatrix2DInit_e_Get(this.handle);
+    auto result = DOMMatrix2DInit_e_Get(this.handle);
+    return result;
   }
   auto f(double f) {
     DOMMatrix2DInit_f_Set(this.handle, f);
   }
   auto f() {
-    return DOMMatrix2DInit_f_Get(this.handle);
+    auto result = DOMMatrix2DInit_f_Get(this.handle);
+    return result;
   }
   auto m11(double m11) {
     DOMMatrix2DInit_m11_Set(this.handle, m11);
   }
   auto m11() {
-    return DOMMatrix2DInit_m11_Get(this.handle);
+    auto result = DOMMatrix2DInit_m11_Get(this.handle);
+    return result;
   }
   auto m12(double m12) {
     DOMMatrix2DInit_m12_Set(this.handle, m12);
   }
   auto m12() {
-    return DOMMatrix2DInit_m12_Get(this.handle);
+    auto result = DOMMatrix2DInit_m12_Get(this.handle);
+    return result;
   }
   auto m21(double m21) {
     DOMMatrix2DInit_m21_Set(this.handle, m21);
   }
   auto m21() {
-    return DOMMatrix2DInit_m21_Get(this.handle);
+    auto result = DOMMatrix2DInit_m21_Get(this.handle);
+    return result;
   }
   auto m22(double m22) {
     DOMMatrix2DInit_m22_Set(this.handle, m22);
   }
   auto m22() {
-    return DOMMatrix2DInit_m22_Get(this.handle);
+    auto result = DOMMatrix2DInit_m22_Get(this.handle);
+    return result;
   }
   auto m41(double m41) {
     DOMMatrix2DInit_m41_Set(this.handle, m41);
   }
   auto m41() {
-    return DOMMatrix2DInit_m41_Get(this.handle);
+    auto result = DOMMatrix2DInit_m41_Get(this.handle);
+    return result;
   }
   auto m42(double m42) {
     DOMMatrix2DInit_m42_Set(this.handle, m42);
   }
   auto m42() {
-    return DOMMatrix2DInit_m42_Get(this.handle);
+    auto result = DOMMatrix2DInit_m42_Get(this.handle);
+    return result;
   }
 }
 struct DOMMatrixInit {
@@ -271,203 +320,258 @@ struct DOMMatrixInit {
     DOMMatrixInit_m13_Set(this._parent, m13);
   }
   auto m13() {
-    return DOMMatrixInit_m13_Get(this._parent);
+    auto result = DOMMatrixInit_m13_Get(this._parent);
+    return result;
   }
   auto m14(double m14) {
     DOMMatrixInit_m14_Set(this._parent, m14);
   }
   auto m14() {
-    return DOMMatrixInit_m14_Get(this._parent);
+    auto result = DOMMatrixInit_m14_Get(this._parent);
+    return result;
   }
   auto m23(double m23) {
     DOMMatrixInit_m23_Set(this._parent, m23);
   }
   auto m23() {
-    return DOMMatrixInit_m23_Get(this._parent);
+    auto result = DOMMatrixInit_m23_Get(this._parent);
+    return result;
   }
   auto m24(double m24) {
     DOMMatrixInit_m24_Set(this._parent, m24);
   }
   auto m24() {
-    return DOMMatrixInit_m24_Get(this._parent);
+    auto result = DOMMatrixInit_m24_Get(this._parent);
+    return result;
   }
   auto m31(double m31) {
     DOMMatrixInit_m31_Set(this._parent, m31);
   }
   auto m31() {
-    return DOMMatrixInit_m31_Get(this._parent);
+    auto result = DOMMatrixInit_m31_Get(this._parent);
+    return result;
   }
   auto m32(double m32) {
     DOMMatrixInit_m32_Set(this._parent, m32);
   }
   auto m32() {
-    return DOMMatrixInit_m32_Get(this._parent);
+    auto result = DOMMatrixInit_m32_Get(this._parent);
+    return result;
   }
   auto m33(double m33) {
     DOMMatrixInit_m33_Set(this._parent, m33);
   }
   auto m33() {
-    return DOMMatrixInit_m33_Get(this._parent);
+    auto result = DOMMatrixInit_m33_Get(this._parent);
+    return result;
   }
   auto m34(double m34) {
     DOMMatrixInit_m34_Set(this._parent, m34);
   }
   auto m34() {
-    return DOMMatrixInit_m34_Get(this._parent);
+    auto result = DOMMatrixInit_m34_Get(this._parent);
+    return result;
   }
   auto m43(double m43) {
     DOMMatrixInit_m43_Set(this._parent, m43);
   }
   auto m43() {
-    return DOMMatrixInit_m43_Get(this._parent);
+    auto result = DOMMatrixInit_m43_Get(this._parent);
+    return result;
   }
   auto m44(double m44) {
     DOMMatrixInit_m44_Set(this._parent, m44);
   }
   auto m44() {
-    return DOMMatrixInit_m44_Get(this._parent);
+    auto result = DOMMatrixInit_m44_Get(this._parent);
+    return result;
   }
   auto is2D(bool is2D) {
     DOMMatrixInit_is2D_Set(this._parent, is2D);
   }
   auto is2D() {
-    return DOMMatrixInit_is2D_Get(this._parent);
+    auto result = DOMMatrixInit_is2D_Get(this._parent);
+    return result;
   }
 }
 struct DOMMatrixReadOnly {
   JsHandle handle;
   alias handle this;
   auto fromMatrix(DOMMatrixInit other) {
-    return DOMMatrixReadOnly(JsHandle(DOMMatrixReadOnly_fromMatrix(this.handle, other.handle));
+    auto result = DOMMatrixReadOnly(JsHandle(DOMMatrixReadOnly_fromMatrix(this.handle, other.handle)));
+    return result;
   }
   auto fromFloat32Array(Float32Array array32) {
-    return DOMMatrixReadOnly(JsHandle(DOMMatrixReadOnly_fromFloat32Array(this.handle, array32.handle));
+    auto result = DOMMatrixReadOnly(JsHandle(DOMMatrixReadOnly_fromFloat32Array(this.handle, array32.handle)));
+    return result;
   }
   auto fromFloat64Array(Float64Array array64) {
-    return DOMMatrixReadOnly(JsHandle(DOMMatrixReadOnly_fromFloat64Array(this.handle, array64.handle));
+    auto result = DOMMatrixReadOnly(JsHandle(DOMMatrixReadOnly_fromFloat64Array(this.handle, array64.handle)));
+    return result;
   }
   auto a() {
-    return DOMMatrixReadOnly_a_Get(this.handle);
+    auto result = DOMMatrixReadOnly_a_Get(this.handle);
+    return result;
   }
   auto b() {
-    return DOMMatrixReadOnly_b_Get(this.handle);
+    auto result = DOMMatrixReadOnly_b_Get(this.handle);
+    return result;
   }
   auto c() {
-    return DOMMatrixReadOnly_c_Get(this.handle);
+    auto result = DOMMatrixReadOnly_c_Get(this.handle);
+    return result;
   }
   auto d() {
-    return DOMMatrixReadOnly_d_Get(this.handle);
+    auto result = DOMMatrixReadOnly_d_Get(this.handle);
+    return result;
   }
   auto e() {
-    return DOMMatrixReadOnly_e_Get(this.handle);
+    auto result = DOMMatrixReadOnly_e_Get(this.handle);
+    return result;
   }
   auto f() {
-    return DOMMatrixReadOnly_f_Get(this.handle);
+    auto result = DOMMatrixReadOnly_f_Get(this.handle);
+    return result;
   }
   auto m11() {
-    return DOMMatrixReadOnly_m11_Get(this.handle);
+    auto result = DOMMatrixReadOnly_m11_Get(this.handle);
+    return result;
   }
   auto m12() {
-    return DOMMatrixReadOnly_m12_Get(this.handle);
+    auto result = DOMMatrixReadOnly_m12_Get(this.handle);
+    return result;
   }
   auto m13() {
-    return DOMMatrixReadOnly_m13_Get(this.handle);
+    auto result = DOMMatrixReadOnly_m13_Get(this.handle);
+    return result;
   }
   auto m14() {
-    return DOMMatrixReadOnly_m14_Get(this.handle);
+    auto result = DOMMatrixReadOnly_m14_Get(this.handle);
+    return result;
   }
   auto m21() {
-    return DOMMatrixReadOnly_m21_Get(this.handle);
+    auto result = DOMMatrixReadOnly_m21_Get(this.handle);
+    return result;
   }
   auto m22() {
-    return DOMMatrixReadOnly_m22_Get(this.handle);
+    auto result = DOMMatrixReadOnly_m22_Get(this.handle);
+    return result;
   }
   auto m23() {
-    return DOMMatrixReadOnly_m23_Get(this.handle);
+    auto result = DOMMatrixReadOnly_m23_Get(this.handle);
+    return result;
   }
   auto m24() {
-    return DOMMatrixReadOnly_m24_Get(this.handle);
+    auto result = DOMMatrixReadOnly_m24_Get(this.handle);
+    return result;
   }
   auto m31() {
-    return DOMMatrixReadOnly_m31_Get(this.handle);
+    auto result = DOMMatrixReadOnly_m31_Get(this.handle);
+    return result;
   }
   auto m32() {
-    return DOMMatrixReadOnly_m32_Get(this.handle);
+    auto result = DOMMatrixReadOnly_m32_Get(this.handle);
+    return result;
   }
   auto m33() {
-    return DOMMatrixReadOnly_m33_Get(this.handle);
+    auto result = DOMMatrixReadOnly_m33_Get(this.handle);
+    return result;
   }
   auto m34() {
-    return DOMMatrixReadOnly_m34_Get(this.handle);
+    auto result = DOMMatrixReadOnly_m34_Get(this.handle);
+    return result;
   }
   auto m41() {
-    return DOMMatrixReadOnly_m41_Get(this.handle);
+    auto result = DOMMatrixReadOnly_m41_Get(this.handle);
+    return result;
   }
   auto m42() {
-    return DOMMatrixReadOnly_m42_Get(this.handle);
+    auto result = DOMMatrixReadOnly_m42_Get(this.handle);
+    return result;
   }
   auto m43() {
-    return DOMMatrixReadOnly_m43_Get(this.handle);
+    auto result = DOMMatrixReadOnly_m43_Get(this.handle);
+    return result;
   }
   auto m44() {
-    return DOMMatrixReadOnly_m44_Get(this.handle);
+    auto result = DOMMatrixReadOnly_m44_Get(this.handle);
+    return result;
   }
   auto is2D() {
-    return DOMMatrixReadOnly_is2D_Get(this.handle);
+    auto result = DOMMatrixReadOnly_is2D_Get(this.handle);
+    return result;
   }
   auto isIdentity() {
-    return DOMMatrixReadOnly_isIdentity_Get(this.handle);
+    auto result = DOMMatrixReadOnly_isIdentity_Get(this.handle);
+    return result;
   }
   auto translate(double tx /* = 0 */, double ty /* = 0 */, double tz /* = 0 */) {
-    return DOMMatrix(JsHandle(DOMMatrixReadOnly_translate(this.handle, tx, ty, tz));
+    auto result = DOMMatrix(JsHandle(DOMMatrixReadOnly_translate(this.handle, tx, ty, tz)));
+    return result;
   }
   auto scale(double scaleX /* = 1 */, double scaleY, double scaleZ /* = 1 */, double originX /* = 0 */, double originY /* = 0 */, double originZ /* = 0 */) {
-    return DOMMatrix(JsHandle(DOMMatrixReadOnly_scale(this.handle, scaleX, scaleY, scaleZ, originX, originY, originZ));
+    auto result = DOMMatrix(JsHandle(DOMMatrixReadOnly_scale(this.handle, scaleX, scaleY, scaleZ, originX, originY, originZ)));
+    return result;
   }
   auto scaleNonUniform(double scaleX /* = 1 */, double scaleY /* = 1 */) {
-    return DOMMatrix(JsHandle(DOMMatrixReadOnly_scaleNonUniform(this.handle, scaleX, scaleY));
+    auto result = DOMMatrix(JsHandle(DOMMatrixReadOnly_scaleNonUniform(this.handle, scaleX, scaleY)));
+    return result;
   }
   auto scale3d(double scale /* = 1 */, double originX /* = 0 */, double originY /* = 0 */, double originZ /* = 0 */) {
-    return DOMMatrix(JsHandle(DOMMatrixReadOnly_scale3d(this.handle, scale, originX, originY, originZ));
+    auto result = DOMMatrix(JsHandle(DOMMatrixReadOnly_scale3d(this.handle, scale, originX, originY, originZ)));
+    return result;
   }
   auto rotate(double rotX /* = 0 */, double rotY, double rotZ) {
-    return DOMMatrix(JsHandle(DOMMatrixReadOnly_rotate(this.handle, rotX, rotY, rotZ));
+    auto result = DOMMatrix(JsHandle(DOMMatrixReadOnly_rotate(this.handle, rotX, rotY, rotZ)));
+    return result;
   }
   auto rotateFromVector(double x /* = 0 */, double y /* = 0 */) {
-    return DOMMatrix(JsHandle(DOMMatrixReadOnly_rotateFromVector(this.handle, x, y));
+    auto result = DOMMatrix(JsHandle(DOMMatrixReadOnly_rotateFromVector(this.handle, x, y)));
+    return result;
   }
   auto rotateAxisAngle(double x /* = 0 */, double y /* = 0 */, double z /* = 0 */, double angle /* = 0 */) {
-    return DOMMatrix(JsHandle(DOMMatrixReadOnly_rotateAxisAngle(this.handle, x, y, z, angle));
+    auto result = DOMMatrix(JsHandle(DOMMatrixReadOnly_rotateAxisAngle(this.handle, x, y, z, angle)));
+    return result;
   }
   auto skewX(double sx /* = 0 */) {
-    return DOMMatrix(JsHandle(DOMMatrixReadOnly_skewX(this.handle, sx));
+    auto result = DOMMatrix(JsHandle(DOMMatrixReadOnly_skewX(this.handle, sx)));
+    return result;
   }
   auto skewY(double sy /* = 0 */) {
-    return DOMMatrix(JsHandle(DOMMatrixReadOnly_skewY(this.handle, sy));
+    auto result = DOMMatrix(JsHandle(DOMMatrixReadOnly_skewY(this.handle, sy)));
+    return result;
   }
   auto multiply(DOMMatrixInit other) {
-    return DOMMatrix(JsHandle(DOMMatrixReadOnly_multiply(this.handle, other.handle));
+    auto result = DOMMatrix(JsHandle(DOMMatrixReadOnly_multiply(this.handle, other.handle)));
+    return result;
   }
   auto flipX() {
-    return DOMMatrix(JsHandle(DOMMatrixReadOnly_flipX(this.handle));
+    auto result = DOMMatrix(JsHandle(DOMMatrixReadOnly_flipX(this.handle)));
+    return result;
   }
   auto flipY() {
-    return DOMMatrix(JsHandle(DOMMatrixReadOnly_flipY(this.handle));
+    auto result = DOMMatrix(JsHandle(DOMMatrixReadOnly_flipY(this.handle)));
+    return result;
   }
   auto inverse() {
-    return DOMMatrix(JsHandle(DOMMatrixReadOnly_inverse(this.handle));
+    auto result = DOMMatrix(JsHandle(DOMMatrixReadOnly_inverse(this.handle)));
+    return result;
   }
   auto transformPoint(DOMPointInit point) {
-    return DOMPoint(JsHandle(DOMMatrixReadOnly_transformPoint(this.handle, point.handle));
+    auto result = DOMPoint(JsHandle(DOMMatrixReadOnly_transformPoint(this.handle, point.handle)));
+    return result;
   }
   auto toFloat32Array() {
-    return Float32Array(JsHandle(DOMMatrixReadOnly_toFloat32Array(this.handle));
+    auto result = Float32Array(JsHandle(DOMMatrixReadOnly_toFloat32Array(this.handle)));
+    return result;
   }
   auto toFloat64Array() {
-    return Float64Array(JsHandle(DOMMatrixReadOnly_toFloat64Array(this.handle));
+    auto result = Float64Array(JsHandle(DOMMatrixReadOnly_toFloat64Array(this.handle)));
+    return result;
   }
   auto toJSON() {
-    return JsObject(JsHandle(DOMMatrixReadOnly_toJSON(this.handle));
+    auto result = JsObject(JsHandle(DOMMatrixReadOnly_toJSON(this.handle)));
+    return result;
   }
 }
 struct DOMPoint {
@@ -477,31 +581,36 @@ struct DOMPoint {
     _parent = DOMPointReadOnly(h);
   }
   auto fromPoint(DOMPointInit other) {
-    return DOMPoint(JsHandle(DOMPoint_fromPoint(this._parent, other.handle));
+    auto result = DOMPoint(JsHandle(DOMPoint_fromPoint(this._parent, other.handle)));
+    return result;
   }
   auto x(double x) {
     DOMPoint_x_Set(this._parent, x);
   }
   auto x() {
-    return DOMPoint_x_Get(this._parent);
+    auto result = DOMPoint_x_Get(this._parent);
+    return result;
   }
   auto y(double y) {
     DOMPoint_y_Set(this._parent, y);
   }
   auto y() {
-    return DOMPoint_y_Get(this._parent);
+    auto result = DOMPoint_y_Get(this._parent);
+    return result;
   }
   auto z(double z) {
     DOMPoint_z_Set(this._parent, z);
   }
   auto z() {
-    return DOMPoint_z_Get(this._parent);
+    auto result = DOMPoint_z_Get(this._parent);
+    return result;
   }
   auto w(double w) {
     DOMPoint_w_Set(this._parent, w);
   }
   auto w() {
-    return DOMPoint_w_Get(this._parent);
+    auto result = DOMPoint_w_Get(this._parent);
+    return result;
   }
 }
 struct DOMPointInit {
@@ -511,78 +620,97 @@ struct DOMPointInit {
     DOMPointInit_x_Set(this.handle, x);
   }
   auto x() {
-    return DOMPointInit_x_Get(this.handle);
+    auto result = DOMPointInit_x_Get(this.handle);
+    return result;
   }
   auto y(double y) {
     DOMPointInit_y_Set(this.handle, y);
   }
   auto y() {
-    return DOMPointInit_y_Get(this.handle);
+    auto result = DOMPointInit_y_Get(this.handle);
+    return result;
   }
   auto z(double z) {
     DOMPointInit_z_Set(this.handle, z);
   }
   auto z() {
-    return DOMPointInit_z_Get(this.handle);
+    auto result = DOMPointInit_z_Get(this.handle);
+    return result;
   }
   auto w(double w) {
     DOMPointInit_w_Set(this.handle, w);
   }
   auto w() {
-    return DOMPointInit_w_Get(this.handle);
+    auto result = DOMPointInit_w_Get(this.handle);
+    return result;
   }
 }
 struct DOMPointReadOnly {
   JsHandle handle;
   alias handle this;
   auto fromPoint(DOMPointInit other) {
-    return DOMPointReadOnly(JsHandle(DOMPointReadOnly_fromPoint(this.handle, other.handle));
+    auto result = DOMPointReadOnly(JsHandle(DOMPointReadOnly_fromPoint(this.handle, other.handle)));
+    return result;
   }
   auto x() {
-    return DOMPointReadOnly_x_Get(this.handle);
+    auto result = DOMPointReadOnly_x_Get(this.handle);
+    return result;
   }
   auto y() {
-    return DOMPointReadOnly_y_Get(this.handle);
+    auto result = DOMPointReadOnly_y_Get(this.handle);
+    return result;
   }
   auto z() {
-    return DOMPointReadOnly_z_Get(this.handle);
+    auto result = DOMPointReadOnly_z_Get(this.handle);
+    return result;
   }
   auto w() {
-    return DOMPointReadOnly_w_Get(this.handle);
+    auto result = DOMPointReadOnly_w_Get(this.handle);
+    return result;
   }
   auto matrixTransform(DOMMatrixInit matrix) {
-    return DOMPoint(JsHandle(DOMPointReadOnly_matrixTransform(this.handle, matrix.handle));
+    auto result = DOMPoint(JsHandle(DOMPointReadOnly_matrixTransform(this.handle, matrix.handle)));
+    return result;
   }
   auto toJSON() {
-    return JsObject(JsHandle(DOMPointReadOnly_toJSON(this.handle));
+    auto result = JsObject(JsHandle(DOMPointReadOnly_toJSON(this.handle)));
+    return result;
   }
 }
 struct DOMQuad {
   JsHandle handle;
   alias handle this;
   auto fromRect(DOMRectInit other) {
-    return DOMQuad(JsHandle(DOMQuad_fromRect(this.handle, other.handle));
+    auto result = DOMQuad(JsHandle(DOMQuad_fromRect(this.handle, other.handle)));
+    return result;
   }
   auto fromQuad(DOMQuadInit other) {
-    return DOMQuad(JsHandle(DOMQuad_fromQuad(this.handle, other.handle));
+    auto result = DOMQuad(JsHandle(DOMQuad_fromQuad(this.handle, other.handle)));
+    return result;
   }
   auto p1() {
-    return DOMPoint(JsHandle(DOMQuad_p1_Get(this.handle));
+    auto result = DOMPoint(JsHandle(DOMQuad_p1_Get(this.handle)));
+    return result;
   }
   auto p2() {
-    return DOMPoint(JsHandle(DOMQuad_p2_Get(this.handle));
+    auto result = DOMPoint(JsHandle(DOMQuad_p2_Get(this.handle)));
+    return result;
   }
   auto p3() {
-    return DOMPoint(JsHandle(DOMQuad_p3_Get(this.handle));
+    auto result = DOMPoint(JsHandle(DOMQuad_p3_Get(this.handle)));
+    return result;
   }
   auto p4() {
-    return DOMPoint(JsHandle(DOMQuad_p4_Get(this.handle));
+    auto result = DOMPoint(JsHandle(DOMQuad_p4_Get(this.handle)));
+    return result;
   }
   auto getBounds() {
-    return DOMRect(JsHandle(DOMQuad_getBounds(this.handle));
+    auto result = DOMRect(JsHandle(DOMQuad_getBounds(this.handle)));
+    return result;
   }
   auto toJSON() {
-    return JsObject(JsHandle(DOMQuad_toJSON(this.handle));
+    auto result = JsObject(JsHandle(DOMQuad_toJSON(this.handle)));
+    return result;
   }
 }
 struct DOMQuadInit {
@@ -592,25 +720,29 @@ struct DOMQuadInit {
     DOMQuadInit_p1_Set(this.handle, p1.handle);
   }
   auto p1() {
-    return DOMPointInit(JsHandle(DOMQuadInit_p1_Get(this.handle));
+    auto result = DOMPointInit(JsHandle(DOMQuadInit_p1_Get(this.handle)));
+    return result;
   }
   auto p2(DOMPointInit p2) {
     DOMQuadInit_p2_Set(this.handle, p2.handle);
   }
   auto p2() {
-    return DOMPointInit(JsHandle(DOMQuadInit_p2_Get(this.handle));
+    auto result = DOMPointInit(JsHandle(DOMQuadInit_p2_Get(this.handle)));
+    return result;
   }
   auto p3(DOMPointInit p3) {
     DOMQuadInit_p3_Set(this.handle, p3.handle);
   }
   auto p3() {
-    return DOMPointInit(JsHandle(DOMQuadInit_p3_Get(this.handle));
+    auto result = DOMPointInit(JsHandle(DOMQuadInit_p3_Get(this.handle)));
+    return result;
   }
   auto p4(DOMPointInit p4) {
     DOMQuadInit_p4_Set(this.handle, p4.handle);
   }
   auto p4() {
-    return DOMPointInit(JsHandle(DOMQuadInit_p4_Get(this.handle));
+    auto result = DOMPointInit(JsHandle(DOMQuadInit_p4_Get(this.handle)));
+    return result;
   }
 }
 struct DOMRect {
@@ -620,31 +752,36 @@ struct DOMRect {
     _parent = DOMRectReadOnly(h);
   }
   auto fromRect(DOMRectInit other) {
-    return DOMRect(JsHandle(DOMRect_fromRect(this._parent, other.handle));
+    auto result = DOMRect(JsHandle(DOMRect_fromRect(this._parent, other.handle)));
+    return result;
   }
   auto x(double x) {
     DOMRect_x_Set(this._parent, x);
   }
   auto x() {
-    return DOMRect_x_Get(this._parent);
+    auto result = DOMRect_x_Get(this._parent);
+    return result;
   }
   auto y(double y) {
     DOMRect_y_Set(this._parent, y);
   }
   auto y() {
-    return DOMRect_y_Get(this._parent);
+    auto result = DOMRect_y_Get(this._parent);
+    return result;
   }
   auto width(double width) {
     DOMRect_width_Set(this._parent, width);
   }
   auto width() {
-    return DOMRect_width_Get(this._parent);
+    auto result = DOMRect_width_Get(this._parent);
+    return result;
   }
   auto height(double height) {
     DOMRect_height_Set(this._parent, height);
   }
   auto height() {
-    return DOMRect_height_Get(this._parent);
+    auto result = DOMRect_height_Get(this._parent);
+    return result;
   }
 }
 struct DOMRectInit {
@@ -654,69 +791,85 @@ struct DOMRectInit {
     DOMRectInit_x_Set(this.handle, x);
   }
   auto x() {
-    return DOMRectInit_x_Get(this.handle);
+    auto result = DOMRectInit_x_Get(this.handle);
+    return result;
   }
   auto y(double y) {
     DOMRectInit_y_Set(this.handle, y);
   }
   auto y() {
-    return DOMRectInit_y_Get(this.handle);
+    auto result = DOMRectInit_y_Get(this.handle);
+    return result;
   }
   auto width(double width) {
     DOMRectInit_width_Set(this.handle, width);
   }
   auto width() {
-    return DOMRectInit_width_Get(this.handle);
+    auto result = DOMRectInit_width_Get(this.handle);
+    return result;
   }
   auto height(double height) {
     DOMRectInit_height_Set(this.handle, height);
   }
   auto height() {
-    return DOMRectInit_height_Get(this.handle);
+    auto result = DOMRectInit_height_Get(this.handle);
+    return result;
   }
 }
 struct DOMRectList {
   JsHandle handle;
   alias handle this;
   auto length() {
-    return DOMRectList_length_Get(this.handle);
+    auto result = DOMRectList_length_Get(this.handle);
+    return result;
   }
   auto item(uint index) {
-    return DOMRectList_item_getter(this.handle, index);
+    auto result = DOMRectList_item_getter(this.handle, index);
+    return result;
   }
 }
 struct DOMRectReadOnly {
   JsHandle handle;
   alias handle this;
   auto fromRect(DOMRectInit other) {
-    return DOMRectReadOnly(JsHandle(DOMRectReadOnly_fromRect(this.handle, other.handle));
+    auto result = DOMRectReadOnly(JsHandle(DOMRectReadOnly_fromRect(this.handle, other.handle)));
+    return result;
   }
   auto x() {
-    return DOMRectReadOnly_x_Get(this.handle);
+    auto result = DOMRectReadOnly_x_Get(this.handle);
+    return result;
   }
   auto y() {
-    return DOMRectReadOnly_y_Get(this.handle);
+    auto result = DOMRectReadOnly_y_Get(this.handle);
+    return result;
   }
   auto width() {
-    return DOMRectReadOnly_width_Get(this.handle);
+    auto result = DOMRectReadOnly_width_Get(this.handle);
+    return result;
   }
   auto height() {
-    return DOMRectReadOnly_height_Get(this.handle);
+    auto result = DOMRectReadOnly_height_Get(this.handle);
+    return result;
   }
   auto top() {
-    return DOMRectReadOnly_top_Get(this.handle);
+    auto result = DOMRectReadOnly_top_Get(this.handle);
+    return result;
   }
   auto right() {
-    return DOMRectReadOnly_right_Get(this.handle);
+    auto result = DOMRectReadOnly_right_Get(this.handle);
+    return result;
   }
   auto bottom() {
-    return DOMRectReadOnly_bottom_Get(this.handle);
+    auto result = DOMRectReadOnly_bottom_Get(this.handle);
+    return result;
   }
   auto left() {
-    return DOMRectReadOnly_left_Get(this.handle);
+    auto result = DOMRectReadOnly_left_Get(this.handle);
+    return result;
   }
   auto toJSON() {
-    return JsObject(JsHandle(DOMRectReadOnly_toJSON(this.handle));
+    auto result = JsObject(JsHandle(DOMRectReadOnly_toJSON(this.handle)));
+    return result;
   }
 }
 

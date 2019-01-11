@@ -1,4 +1,4 @@
-import spasm from './spasm.js';
+import spasm from '../modules/spasm.js';
 export default {
   jsExports: {
     FormData_append__string_string: function(ctx, nameLen, namePtr, valueLen, valuePtr) {

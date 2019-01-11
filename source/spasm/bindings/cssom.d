@@ -11,13 +11,16 @@ struct MediaList {
     MediaList_mediaText_Set(this.handle, mediaText);
   }
   auto mediaText() {
-    return MediaList_mediaText_Get(this.handle);
+    auto result = MediaList_mediaText_Get(this.handle);
+    return result;
   }
   auto length() {
-    return MediaList_length_Get(this.handle);
+    auto result = MediaList_length_Get(this.handle);
+    return result;
   }
   auto item(uint index) {
-    return MediaList_item_getter(this.handle, index);
+    auto result = MediaList_item_getter(this.handle, index);
+    return result;
   }
   auto appendMedium(string medium) {
     MediaList_appendMedium(this.handle, medium);
@@ -30,28 +33,35 @@ struct StyleSheet {
   JsHandle handle;
   alias handle this;
   auto type() {
-    return StyleSheet_type_Get(this.handle);
+    auto result = StyleSheet_type_Get(this.handle);
+    return result;
   }
   auto href() {
-    return StyleSheet_href_Get(this.handle);
+    auto result = StyleSheet_href_Get(this.handle);
+    return result;
   }
   auto ownerNode() {
-    return StyleSheet_ownerNode_Get(this.handle);
+    auto result = StyleSheet_ownerNode_Get(this.handle);
+    return result;
   }
   auto parentStyleSheet() {
-    return StyleSheet_parentStyleSheet_Get(this.handle);
+    auto result = StyleSheet_parentStyleSheet_Get(this.handle);
+    return result;
   }
   auto title() {
-    return StyleSheet_title_Get(this.handle);
+    auto result = StyleSheet_title_Get(this.handle);
+    return result;
   }
   auto media() {
-    return MediaList(JsHandle(StyleSheet_media_Get(this.handle));
+    auto result = MediaList(JsHandle(StyleSheet_media_Get(this.handle)));
+    return result;
   }
   auto disabled(bool disabled) {
     StyleSheet_disabled_Set(this.handle, disabled);
   }
   auto disabled() {
-    return StyleSheet_disabled_Get(this.handle);
+    auto result = StyleSheet_disabled_Get(this.handle);
+    return result;
   }
 }
 

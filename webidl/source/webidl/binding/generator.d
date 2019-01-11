@@ -324,25 +324,25 @@ class MaplikeNode : Node {
   a.putLn(["  ", manglePrefix, "delete(handle, key);"]);
   a.putLn("}");
   a.putLn(["Iterator!(ArrayPair!(",keyType,", ",valueType,")) entries() {"]);
-  a.putLn(["  return Iterator!(ArrayPair!(",keyType,", ",valueType,"))(", manglePrefix, "entries(handle));"]);
+  a.putLn(["  return Iterator!(ArrayPair!(",keyType,", ",valueType,"))(JsHandle(", manglePrefix, "entries(handle)));"]);
   a.putLn("}");
   a.putLn(["extern(C) void forEach(void delegate(",keyType,", Handle, Handle) callback) {"]);
   a.putLn(["  ", manglePrefix, "forEach(handle, callback);"]);
   a.putLn("}");
   a.putLn(["",valueType," get(",keyType," key) {"]);
-  a.putLn(["  return ",valueType,"(", manglePrefix, "get(handle, key));"]);
+  a.putLn(["  return ",valueType,"(JsHandle(", manglePrefix, "get(handle, key)));"]);
   a.putLn("}");
   a.putLn(["bool has(",keyType," key) {"]);
   a.putLn(["  return ", manglePrefix, "has(handle, key);"]);
   a.putLn("}");
   a.putLn(["Iterator!(",keyType,") keys() {"]);
-  a.putLn(["  return Iterator!(",keyType,")(", manglePrefix, "keys(handle));"]);
+  a.putLn(["  return Iterator!(",keyType,")(JsHandle(", manglePrefix, "keys(handle)));"]);
   a.putLn("}");
   a.putLn(["void set(",keyType," key, ",valueType," value) {"]);
   a.putLn(["  ", manglePrefix, "set(handle, key, value.handle);"]);
   a.putLn("}");
   a.putLn(["Iterator!(",valueType,") values() {"]);
-  a.putLn(["  return Iterator!(",valueType,")(", manglePrefix, "values(handle));"]);
+  a.putLn(["  return Iterator!(",valueType,")(JsHandle(", manglePrefix, "values(handle)));"]);
   a.putLn("}");
 }
 @method void _toDImport(MaplikeNode node, StructNode parent, Semantics semantics, IndentedStringAppender* a) {
@@ -566,6 +566,10 @@ void dump(Appender)(ref Semantics semantics, DImportFunction item, ref Appender 
   a.putLn(");");
 }
 
+auto getTemplatedTypeName(size_t idx) {
+  import std.conv : to;
+  return "T"~idx.to!string;
+}
 void dump(Appender)(ref Semantics semantics, DBindingFunction item, ref Appender a) {
   // if (item.result != ParseTree.init) {
   //   item.result.generateDType(a, Context(semantics));
@@ -587,17 +591,27 @@ void dump(Appender)(ref Semantics semantics, DBindingFunction item, ref Appender
     a.put(item.name.friendlyName);
     break;
   }
+  auto anys = item.args.enumerate.filter!(a => semantics.isAny(a.value.type)).array();
   auto templArgs = item.args.filter!(a => a.templated).array();
   auto runArgs = item.args.filter!(a => !a.templated).array();
   if (templArgs.length > 0) {
+    assert(anys.length == 0);
     a.put("(");
     semantics.dumpDParameters(templArgs, a);
+    a.put(")");
+  } else if (anys.length > 0) {
+    a.put("(");
+    foreach(any; anys[0..$-1]) {
+      a.put(getTemplatedTypeName(any.index));
+      a.put(", ");
+    }
+    a.put(getTemplatedTypeName(anys[$-1].index));
     a.put(")");
   }
   a.put("(");
   if (item.type & FunctionType.OpIndexAssign) {
     assert(runArgs.length > 1);
-    semantics.dumpDParameter(runArgs[$-1], a);
+    semantics.dumpDParameter(runArgs[$-1], a, 0);
     a.put(", ");
     semantics.dumpDParameters(runArgs[0..$-1], a);
   } else
@@ -605,8 +619,11 @@ void dump(Appender)(ref Semantics semantics, DBindingFunction item, ref Appender
   a.putLn(") {");
   a.indent();
   bool returns = item.result != ParseTree.init && item.result.matches[0] != "void";
+  foreach(any; anys) {
+    a.putLn(["Handle _handle_", any.value.name, " = getOrCreateHandle(", any.value.name.friendlyName, ");"]);
+  }
   if (returns) {
-    a.put("return ");
+    a.put("auto result = ");
     if (!semantics.isPrimitive(item.result) && !semantics.isUnion(item.result) && !semantics.isNullable(item.result)) {
       item.result.generateDType(a, Context(semantics));
       a.put("(JsHandle(");
@@ -622,24 +639,32 @@ void dump(Appender)(ref Semantics semantics, DBindingFunction item, ref Appender
   semantics.dumpDJsArguments(item.args, a);
   if (returns) {
     if (!semantics.isPrimitive(item.result) && !semantics.isUnion(item.result) && !semantics.isNullable(item.result)) {
-      a.put(")");
+      a.put("))");
     }
   }
   a.putLn(");");
+  foreach(any; anys) {
+    a.putLn(["dropHandle!(T", any.index.to!string, ")(_handle_", any.value.name, ");"]);
+  }
+  if (returns)
+    a.putLn("return result;");
   a.undent();
   a.putLn("}");
 }
 void dumpDParameters(Appender)(ref Semantics semantics, Argument[] args, ref Appender a) {
   if (args.length == 0)
     return;
-  foreach(arg; args[0..$-1]) {
-    semantics.dumpDParameter(arg, a);
+  foreach(i, arg; args[0..$-1]) {
+    semantics.dumpDParameter(arg, a, i);
     a.put(", ");
   }
-  semantics.dumpDParameter(args[$-1], a);
+  semantics.dumpDParameter(args[$-1], a, args.length-1);
 }
-void dumpDParameter(Appender)(ref Semantics semantics, Argument arg, ref Appender a) {
-  arg.type.generateDType(a, Context(semantics));
+void dumpDParameter(Appender)(ref Semantics semantics, Argument arg, ref Appender a, size_t idx) {
+  if (semantics.isAny(arg.type))
+    a.put(getTemplatedTypeName(idx));
+  else
+    arg.type.generateDType(a, Context(semantics));
   a.put(" ");
   a.putCamelCase(arg.name.friendlyName);
   if (arg.default_.matches.length > 1) {
@@ -667,6 +692,11 @@ void dumpDJsArguments(Appender)(ref Semantics semantics, Argument[] args, ref Ap
 }
 
 void dumpDJsArgument(Appender)(ref Semantics semantics, Argument arg, ref Appender a) {
+  if (semantics.isAny(arg.type)) {
+    a.put("_handle_");
+    a.put(arg.name.friendlyName);
+    return;
+  }
   bool optional = semantics.isNullable(arg.type);
   if (optional)
     a.put("!");
@@ -2169,7 +2199,7 @@ string generateDImports(IR ir, Module module_) {
 
 string generateJsExports(IR ir, Module module_) {
   auto app = IndentedStringAppender();
-  app.putLn("import spasm from './spasm.js';");
+  app.putLn("import spasm from '../modules/spasm.js';");
   app.putLn("export default {");
   app.indent();
   app.putLn("jsExports: {");
@@ -2191,7 +2221,7 @@ string generateJsEncoders(IR ir, Semantics semantics) {
   import std.typecons : tuple;
   auto encodedTypes = ir.generateEncodedTypes(semantics).sort!((a,b){return a.mangled < b.mangled;}).uniq!((a, b){return a.mangled == b.mangled;});
   auto app = IndentedStringAppender();
-  app.putLn("import spasm from './spasm.js';");
+  app.putLn("import spasm from '../modules/spasm.js';");
   app.putLn("const setBool = (ptr, val) => (spasm.heapi32u[ptr/4] = +val),");
   app.putLn("      setInt = (ptr, val) => (spasm.heapi32s[ptr/4] = val),");
   app.putLn("      setUInt = (ptr, val) => (spasm.heapi32u[ptr/4] = val),");
@@ -2202,7 +2232,7 @@ string generateJsEncoders(IR ir, Semantics semantics) {
   app.putLn("      setFloat = (ptr, val) => (spasm.heapf32[ptr/4] = val),");
   app.putLn("      setDouble = (ptr, val) => (spasm.heapf64[ptr/8] = val),");
   app.putLn("      isEmpty = (val) => (val == undefined || val == null),");
-  app.putLn("      handle = (ptr, val) => { setUInt(ptr, spasm.addObject(val); ),}");
+  app.putLn("      handle = (ptr, val) => { setUInt(ptr, spasm.addObject(val)); },");
   app.putLn("      string = spasm.encoders.string;");
   app.put("const ");
   app.indent();

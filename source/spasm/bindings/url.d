@@ -11,79 +11,94 @@ struct URL {
     URL_href_Set(this.handle, href);
   }
   auto href() {
-    return URL_href_Get(this.handle);
+    auto result = URL_href_Get(this.handle);
+    return result;
   }
   auto origin() {
-    return URL_origin_Get(this.handle);
+    auto result = URL_origin_Get(this.handle);
+    return result;
   }
   auto protocol(string protocol) {
     URL_protocol_Set(this.handle, protocol);
   }
   auto protocol() {
-    return URL_protocol_Get(this.handle);
+    auto result = URL_protocol_Get(this.handle);
+    return result;
   }
   auto username(string username) {
     URL_username_Set(this.handle, username);
   }
   auto username() {
-    return URL_username_Get(this.handle);
+    auto result = URL_username_Get(this.handle);
+    return result;
   }
   auto password(string password) {
     URL_password_Set(this.handle, password);
   }
   auto password() {
-    return URL_password_Get(this.handle);
+    auto result = URL_password_Get(this.handle);
+    return result;
   }
   auto host(string host) {
     URL_host_Set(this.handle, host);
   }
   auto host() {
-    return URL_host_Get(this.handle);
+    auto result = URL_host_Get(this.handle);
+    return result;
   }
   auto hostname(string hostname) {
     URL_hostname_Set(this.handle, hostname);
   }
   auto hostname() {
-    return URL_hostname_Get(this.handle);
+    auto result = URL_hostname_Get(this.handle);
+    return result;
   }
   auto port(string port) {
     URL_port_Set(this.handle, port);
   }
   auto port() {
-    return URL_port_Get(this.handle);
+    auto result = URL_port_Get(this.handle);
+    return result;
   }
   auto pathname(string pathname) {
     URL_pathname_Set(this.handle, pathname);
   }
   auto pathname() {
-    return URL_pathname_Get(this.handle);
+    auto result = URL_pathname_Get(this.handle);
+    return result;
   }
   auto search(string search) {
     URL_search_Set(this.handle, search);
   }
   auto search() {
-    return URL_search_Get(this.handle);
+    auto result = URL_search_Get(this.handle);
+    return result;
   }
   auto searchParams() {
-    return URLSearchParams(JsHandle(URL_searchParams_Get(this.handle));
+    auto result = URLSearchParams(JsHandle(URL_searchParams_Get(this.handle)));
+    return result;
   }
   auto hash(string hash) {
     URL_hash_Set(this.handle, hash);
   }
   auto hash() {
-    return URL_hash_Get(this.handle);
+    auto result = URL_hash_Get(this.handle);
+    return result;
   }
   auto toJSON() {
-    return URL_toJSON(this.handle);
+    auto result = URL_toJSON(this.handle);
+    return result;
   }
   auto createObjectURL(Blob blob) {
-    return URL_createObjectURL__Handle(this.handle, blob.handle);
+    auto result = URL_createObjectURL__Handle(this.handle, blob.handle);
+    return result;
   }
   auto revokeObjectURL(string url) {
     URL_revokeObjectURL(this.handle, url);
   }
   auto createObjectURL(MediaSource mediaSource) {
-    return URL_createObjectURL__Handle(this.handle, mediaSource.handle);
+    auto result = URL_createObjectURL__Handle(this.handle, mediaSource.handle);
+    return result;
   }
 }
 struct URLSearchParams {
@@ -96,13 +111,16 @@ struct URLSearchParams {
     URLSearchParams_delete(this.handle, name);
   }
   auto get(string name) {
-    return URLSearchParams_get(this.handle, name);
+    auto result = URLSearchParams_get(this.handle, name);
+    return result;
   }
   auto getAll(string name) {
-    return Sequence!(string)(JsHandle(URLSearchParams_getAll(this.handle, name));
+    auto result = Sequence!(string)(JsHandle(URLSearchParams_getAll(this.handle, name)));
+    return result;
   }
   auto has(string name) {
-    return URLSearchParams_has(this.handle, name);
+    auto result = URLSearchParams_has(this.handle, name);
+    return result;
   }
   auto set(string name, string value) {
     URLSearchParams_set(this.handle, name, value);

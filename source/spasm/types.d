@@ -6,11 +6,29 @@ public import spasm.sumtype;
 pragma(LDC_no_moduleinfo);
 pragma(LDC_no_typeinfo);
 
+extern (C) {
+  void doLog(uint val);
+  Handle spasm_addPrimitive__bool(bool);
+  Handle spasm_addPrimitive__int(int);
+  Handle spasm_addPrimitive__uint(uint);
+  Handle spasm_addPrimitive__long(long);
+  Handle spasm_addPrimitive__ulong(ulong);
+  Handle spasm_addPrimitive__short(short);
+  Handle spasm_addPrimitive__ushort(ushort);
+  Handle spasm_addPrimitive__float(float);
+  Handle spasm_addPrimitive__double(double);
+  Handle spasm_addPrimitive__byte(byte);
+  Handle spasm_addPrimitive__ubyte(ubyte);
+  Handle spasm_addPrimitive__string(string);
+  void spasm_removeObject(Handle);
+}
+
 alias Handle = uint;
 struct JsHandle {
-  uint handle;
+  Handle handle;
   alias handle this;
 }
+
 enum JsHandle invalidHandle = JsHandle(0);
 alias EventHandle = uint;
 
@@ -195,8 +213,23 @@ enum EventType {
   event = 44
 }
 
-extern (C) {
-  void doLog(uint val);
+Handle getOrCreateHandle(T)(auto ref T data) {
+  import std.traits : isBasicType;
+  static if (isBasicType!T || is(T : string)) {
+    mixin("return spasm_addPrimitive__" ~ T.stringof~ "(data);");
+  } else static if (is(T : Optional!U, U)) {
+    if (data.empty)
+      return 0;
+    return data.front;
+  } else
+    return data;
+}
+
+auto dropHandle(T)(Handle data) {
+  import std.traits : isBasicType;
+  static if (isBasicType!T || is(T : string)) {
+    spasm_removeObject(data);
+  }
 }
 
 struct Any {

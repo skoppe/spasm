@@ -12,16 +12,20 @@ struct Clipboard {
     _parent = EventTarget(h);
   }
   auto read() {
-    return Promise!(DataTransfer)(JsHandle(Clipboard_read(this._parent));
+    auto result = Promise!(DataTransfer)(JsHandle(Clipboard_read(this._parent)));
+    return result;
   }
   auto readText() {
-    return Promise!(string)(JsHandle(Clipboard_readText(this._parent));
+    auto result = Promise!(string)(JsHandle(Clipboard_readText(this._parent)));
+    return result;
   }
   auto write(DataTransfer data) {
-    return Promise!(void)(JsHandle(Clipboard_write(this._parent, data.handle));
+    auto result = Promise!(void)(JsHandle(Clipboard_write(this._parent, data.handle)));
+    return result;
   }
   auto writeText(string data) {
-    return Promise!(void)(JsHandle(Clipboard_writeText(this._parent, data));
+    auto result = Promise!(void)(JsHandle(Clipboard_writeText(this._parent, data)));
+    return result;
   }
 }
 struct ClipboardEvent {
@@ -31,7 +35,8 @@ struct ClipboardEvent {
     _parent = Event(h);
   }
   auto clipboardData() {
-    return ClipboardEvent_clipboardData_Get(this._parent);
+    auto result = ClipboardEvent_clipboardData_Get(this._parent);
+    return result;
   }
 }
 struct ClipboardEventInit {
@@ -44,7 +49,8 @@ struct ClipboardEventInit {
     ClipboardEventInit_clipboardData_Set(this._parent, !clipboardData.empty, clipboardData.front.handle);
   }
   auto clipboardData() {
-    return ClipboardEventInit_clipboardData_Get(this._parent);
+    auto result = ClipboardEventInit_clipboardData_Get(this._parent);
+    return result;
   }
 }
 struct ClipboardPermissionDescriptor {
@@ -57,7 +63,8 @@ struct ClipboardPermissionDescriptor {
     ClipboardPermissionDescriptor_allowWithoutGesture_Set(this._parent, allowWithoutGesture);
   }
   auto allowWithoutGesture() {
-    return ClipboardPermissionDescriptor_allowWithoutGesture_Get(this._parent);
+    auto result = ClipboardPermissionDescriptor_allowWithoutGesture_Get(this._parent);
+    return result;
   }
 }
 

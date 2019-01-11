@@ -19,10 +19,12 @@ struct Headers {
     Headers_delete(this.handle, name);
   }
   auto get(string name) {
-    return Headers_get(this.handle, name);
+    auto result = Headers_get(this.handle, name);
+    return result;
   }
   auto has(string name) {
-    return Headers_has(this.handle, name);
+    auto result = Headers_has(this.handle, name);
+    return result;
   }
   auto set(string name, string value) {
     Headers_set(this.handle, name, value);
@@ -33,73 +35,96 @@ struct Request {
   JsHandle handle;
   alias handle this;
   auto method() {
-    return Request_method_Get(this.handle);
+    auto result = Request_method_Get(this.handle);
+    return result;
   }
   auto url() {
-    return Request_url_Get(this.handle);
+    auto result = Request_url_Get(this.handle);
+    return result;
   }
   auto headers() {
-    return Headers(JsHandle(Request_headers_Get(this.handle));
+    auto result = Headers(JsHandle(Request_headers_Get(this.handle)));
+    return result;
   }
   auto destination() {
-    return Request_destination_Get(this.handle);
+    auto result = Request_destination_Get(this.handle);
+    return result;
   }
   auto referrer() {
-    return Request_referrer_Get(this.handle);
+    auto result = Request_referrer_Get(this.handle);
+    return result;
   }
   auto referrerPolicy() {
-    return Request_referrerPolicy_Get(this.handle);
+    auto result = Request_referrerPolicy_Get(this.handle);
+    return result;
   }
   auto mode() {
-    return Request_mode_Get(this.handle);
+    auto result = Request_mode_Get(this.handle);
+    return result;
   }
   auto credentials() {
-    return Request_credentials_Get(this.handle);
+    auto result = Request_credentials_Get(this.handle);
+    return result;
   }
   auto cache() {
-    return Request_cache_Get(this.handle);
+    auto result = Request_cache_Get(this.handle);
+    return result;
   }
   auto redirect() {
-    return Request_redirect_Get(this.handle);
+    auto result = Request_redirect_Get(this.handle);
+    return result;
   }
   auto integrity() {
-    return Request_integrity_Get(this.handle);
+    auto result = Request_integrity_Get(this.handle);
+    return result;
   }
   auto keepalive() {
-    return Request_keepalive_Get(this.handle);
+    auto result = Request_keepalive_Get(this.handle);
+    return result;
   }
   auto isReloadNavigation() {
-    return Request_isReloadNavigation_Get(this.handle);
+    auto result = Request_isReloadNavigation_Get(this.handle);
+    return result;
   }
   auto isHistoryNavigation() {
-    return Request_isHistoryNavigation_Get(this.handle);
+    auto result = Request_isHistoryNavigation_Get(this.handle);
+    return result;
   }
   auto signal() {
-    return AbortSignal(JsHandle(Request_signal_Get(this.handle));
+    auto result = AbortSignal(JsHandle(Request_signal_Get(this.handle)));
+    return result;
   }
   auto clone() {
-    return Request(JsHandle(Request_clone(this.handle));
+    auto result = Request(JsHandle(Request_clone(this.handle)));
+    return result;
   }
   auto body_() {
-    return Body_body_Get(this.handle);
+    auto result = Body_body_Get(this.handle);
+    return result;
   }
   auto bodyUsed() {
-    return Body_bodyUsed_Get(this.handle);
+    auto result = Body_bodyUsed_Get(this.handle);
+    return result;
   }
   auto arrayBuffer() {
-    return Promise!(ArrayBuffer)(JsHandle(Body_arrayBuffer(this.handle));
+    auto result = Promise!(ArrayBuffer)(JsHandle(Body_arrayBuffer(this.handle)));
+    return result;
   }
   auto blob() {
-    return Promise!(Blob)(JsHandle(Body_blob(this.handle));
+    auto result = Promise!(Blob)(JsHandle(Body_blob(this.handle)));
+    return result;
   }
   auto formData() {
-    return Promise!(FormData)(JsHandle(Body_formData(this.handle));
+    auto result = Promise!(FormData)(JsHandle(Body_formData(this.handle)));
+    return result;
   }
   auto json() {
-    return Promise!(Any)(JsHandle(Body_json(this.handle));
+    auto result = Promise!(Any)(JsHandle(Body_json(this.handle)));
+    return result;
   }
   auto text() {
-    return Promise!(string)(JsHandle(Body_text(this.handle));
+    auto result = Promise!(string)(JsHandle(Body_text(this.handle)));
+    return result;
   }
 }
 enum RequestCache {
@@ -143,79 +168,94 @@ struct RequestInit {
     RequestInit_method_Set(this.handle, method);
   }
   auto method() {
-    return RequestInit_method_Get(this.handle);
+    auto result = RequestInit_method_Get(this.handle);
+    return result;
   }
   auto headers(HeadersInit headers) {
     RequestInit_headers_Set(this.handle, headers);
   }
   auto headers() {
-    return RequestInit_headers_Get(this.handle);
+    auto result = RequestInit_headers_Get(this.handle);
+    return result;
   }
   auto body_(Optional!(BodyInit) body_) {
     RequestInit_body_Set(this.handle, !body_.empty, body_.front);
   }
   auto body_() {
-    return RequestInit_body_Get(this.handle);
+    auto result = RequestInit_body_Get(this.handle);
+    return result;
   }
   auto referrer(string referrer) {
     RequestInit_referrer_Set(this.handle, referrer);
   }
   auto referrer() {
-    return RequestInit_referrer_Get(this.handle);
+    auto result = RequestInit_referrer_Get(this.handle);
+    return result;
   }
   auto referrerPolicy(ReferrerPolicy referrerPolicy) {
     RequestInit_referrerPolicy_Set(this.handle, referrerPolicy);
   }
   auto referrerPolicy() {
-    return RequestInit_referrerPolicy_Get(this.handle);
+    auto result = RequestInit_referrerPolicy_Get(this.handle);
+    return result;
   }
   auto mode(RequestMode mode) {
     RequestInit_mode_Set(this.handle, mode);
   }
   auto mode() {
-    return RequestInit_mode_Get(this.handle);
+    auto result = RequestInit_mode_Get(this.handle);
+    return result;
   }
   auto credentials(RequestCredentials credentials) {
     RequestInit_credentials_Set(this.handle, credentials);
   }
   auto credentials() {
-    return RequestInit_credentials_Get(this.handle);
+    auto result = RequestInit_credentials_Get(this.handle);
+    return result;
   }
   auto cache(RequestCache cache) {
     RequestInit_cache_Set(this.handle, cache);
   }
   auto cache() {
-    return RequestInit_cache_Get(this.handle);
+    auto result = RequestInit_cache_Get(this.handle);
+    return result;
   }
   auto redirect(RequestRedirect redirect) {
     RequestInit_redirect_Set(this.handle, redirect);
   }
   auto redirect() {
-    return RequestInit_redirect_Get(this.handle);
+    auto result = RequestInit_redirect_Get(this.handle);
+    return result;
   }
   auto integrity(string integrity) {
     RequestInit_integrity_Set(this.handle, integrity);
   }
   auto integrity() {
-    return RequestInit_integrity_Get(this.handle);
+    auto result = RequestInit_integrity_Get(this.handle);
+    return result;
   }
   auto keepalive(bool keepalive) {
     RequestInit_keepalive_Set(this.handle, keepalive);
   }
   auto keepalive() {
-    return RequestInit_keepalive_Get(this.handle);
+    auto result = RequestInit_keepalive_Get(this.handle);
+    return result;
   }
   auto signal(Optional!(AbortSignal) signal) {
     RequestInit_signal_Set(this.handle, !signal.empty, signal.front.handle);
   }
   auto signal() {
-    return RequestInit_signal_Get(this.handle);
+    auto result = RequestInit_signal_Get(this.handle);
+    return result;
   }
-  auto window(Any window) {
-    RequestInit_window_Set(this.handle, window.handle);
+  auto window(T0)(T0 window) {
+    Handle _handle_window = getOrCreateHandle(window);
+    RequestInit_window_Set(this.handle, _handle_window);
+    dropHandle!(T0)(_handle_window);
   }
   auto window() {
-    return Any(JsHandle(RequestInit_window_Get(this.handle));
+    auto result = Any(JsHandle(RequestInit_window_Get(this.handle)));
+    return result;
   }
 }
 enum RequestMode {
@@ -233,58 +273,76 @@ struct Response {
   JsHandle handle;
   alias handle this;
   auto error() {
-    return Response(JsHandle(Response_error(this.handle));
+    auto result = Response(JsHandle(Response_error(this.handle)));
+    return result;
   }
   auto redirect(string url, ushort status /* = 302 */) {
-    return Response(JsHandle(Response_redirect(this.handle, url, status));
+    auto result = Response(JsHandle(Response_redirect(this.handle, url, status)));
+    return result;
   }
   auto type() {
-    return Response_type_Get(this.handle);
+    auto result = Response_type_Get(this.handle);
+    return result;
   }
   auto url() {
-    return Response_url_Get(this.handle);
+    auto result = Response_url_Get(this.handle);
+    return result;
   }
   auto redirected() {
-    return Response_redirected_Get(this.handle);
+    auto result = Response_redirected_Get(this.handle);
+    return result;
   }
   auto status() {
-    return Response_status_Get(this.handle);
+    auto result = Response_status_Get(this.handle);
+    return result;
   }
   auto ok() {
-    return Response_ok_Get(this.handle);
+    auto result = Response_ok_Get(this.handle);
+    return result;
   }
   auto statusText() {
-    return Response_statusText_Get(this.handle);
+    auto result = Response_statusText_Get(this.handle);
+    return result;
   }
   auto headers() {
-    return Headers(JsHandle(Response_headers_Get(this.handle));
+    auto result = Headers(JsHandle(Response_headers_Get(this.handle)));
+    return result;
   }
   auto trailer() {
-    return Promise!(Headers)(JsHandle(Response_trailer_Get(this.handle));
+    auto result = Promise!(Headers)(JsHandle(Response_trailer_Get(this.handle)));
+    return result;
   }
   auto clone() {
-    return Response(JsHandle(Response_clone(this.handle));
+    auto result = Response(JsHandle(Response_clone(this.handle)));
+    return result;
   }
   auto body_() {
-    return Body_body_Get(this.handle);
+    auto result = Body_body_Get(this.handle);
+    return result;
   }
   auto bodyUsed() {
-    return Body_bodyUsed_Get(this.handle);
+    auto result = Body_bodyUsed_Get(this.handle);
+    return result;
   }
   auto arrayBuffer() {
-    return Promise!(ArrayBuffer)(JsHandle(Body_arrayBuffer(this.handle));
+    auto result = Promise!(ArrayBuffer)(JsHandle(Body_arrayBuffer(this.handle)));
+    return result;
   }
   auto blob() {
-    return Promise!(Blob)(JsHandle(Body_blob(this.handle));
+    auto result = Promise!(Blob)(JsHandle(Body_blob(this.handle)));
+    return result;
   }
   auto formData() {
-    return Promise!(FormData)(JsHandle(Body_formData(this.handle));
+    auto result = Promise!(FormData)(JsHandle(Body_formData(this.handle)));
+    return result;
   }
   auto json() {
-    return Promise!(Any)(JsHandle(Body_json(this.handle));
+    auto result = Promise!(Any)(JsHandle(Body_json(this.handle)));
+    return result;
   }
   auto text() {
-    return Promise!(string)(JsHandle(Body_text(this.handle));
+    auto result = Promise!(string)(JsHandle(Body_text(this.handle)));
+    return result;
   }
 }
 struct ResponseInit {
@@ -294,19 +352,22 @@ struct ResponseInit {
     ResponseInit_status_Set(this.handle, status);
   }
   auto status() {
-    return ResponseInit_status_Get(this.handle);
+    auto result = ResponseInit_status_Get(this.handle);
+    return result;
   }
   auto statusText(string statusText) {
     ResponseInit_statusText_Set(this.handle, statusText);
   }
   auto statusText() {
-    return ResponseInit_statusText_Get(this.handle);
+    auto result = ResponseInit_statusText_Get(this.handle);
+    return result;
   }
   auto headers(HeadersInit headers) {
     ResponseInit_headers_Set(this.handle, headers);
   }
   auto headers() {
-    return ResponseInit_headers_Get(this.handle);
+    auto result = ResponseInit_headers_Get(this.handle);
+    return result;
   }
 }
 enum ResponseType {

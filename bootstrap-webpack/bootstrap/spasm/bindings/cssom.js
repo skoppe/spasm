@@ -1,4 +1,4 @@
-import spasm from './spasm.js';
+import spasm from '../modules/spasm.js';
 export default {
   jsExports: {
     MediaList_mediaText_Set: function(ctx, mediaTextLen, mediaTextPtr) {

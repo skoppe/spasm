@@ -321,7 +321,8 @@ struct WebGL2RenderingContextBase {
     WebGL2RenderingContextBase_readBuffer(this.handle, src);
   }
   auto getInternalformatParameter(uint target, uint internalformat, uint pname) {
-    return Any(JsHandle(WebGL2RenderingContextBase_getInternalformatParameter(this.handle, target, internalformat, pname));
+    auto result = Any(JsHandle(WebGL2RenderingContextBase_getInternalformatParameter(this.handle, target, internalformat, pname)));
+    return result;
   }
   auto renderbufferStorageMultisample(uint target, int samples, uint internalformat, int width, int height) {
     WebGL2RenderingContextBase_renderbufferStorageMultisample(this.handle, target, samples, internalformat, width, height);
@@ -411,7 +412,8 @@ struct WebGL2RenderingContextBase {
     WebGL2RenderingContextBase_compressedTexSubImage3D__uint_int_int_int_int_int_int_int_uint_ArrayBufferView_uint_uint(this.handle, target, level, xoffset, yoffset, zoffset, width, height, depth, format, srcData, srcOffset, srcLengthOverride);
   }
   auto getFragDataLocation(WebGLProgram program, string name) {
-    return WebGL2RenderingContextBase_getFragDataLocation(this.handle, program.handle, name);
+    auto result = WebGL2RenderingContextBase_getFragDataLocation(this.handle, program.handle, name);
+    return result;
   }
   auto uniform1ui(Optional!(WebGLUniformLocation) location, uint v0) {
     WebGL2RenderingContextBase_uniform1ui(this.handle, !location.empty, location.front.handle, v0);
@@ -540,13 +542,15 @@ struct WebGL2RenderingContextBase {
     WebGL2RenderingContextBase_clearBufferfi(this.handle, buffer, drawbuffer, depth, stencil);
   }
   auto createQuery() {
-    return WebGL2RenderingContextBase_createQuery(this.handle);
+    auto result = WebGL2RenderingContextBase_createQuery(this.handle);
+    return result;
   }
   auto deleteQuery(Optional!(WebGLQuery) query) {
     WebGL2RenderingContextBase_deleteQuery(this.handle, !query.empty, query.front.handle);
   }
   auto isQuery(Optional!(WebGLQuery) query) {
-    return WebGL2RenderingContextBase_isQuery(this.handle, !query.empty, query.front.handle);
+    auto result = WebGL2RenderingContextBase_isQuery(this.handle, !query.empty, query.front.handle);
+    return result;
   }
   auto beginQuery(uint target, WebGLQuery query) {
     WebGL2RenderingContextBase_beginQuery(this.handle, target, query.handle);
@@ -555,19 +559,23 @@ struct WebGL2RenderingContextBase {
     WebGL2RenderingContextBase_endQuery(this.handle, target);
   }
   auto getQuery(uint target, uint pname) {
-    return WebGL2RenderingContextBase_getQuery(this.handle, target, pname);
+    auto result = WebGL2RenderingContextBase_getQuery(this.handle, target, pname);
+    return result;
   }
   auto getQueryParameter(WebGLQuery query, uint pname) {
-    return Any(JsHandle(WebGL2RenderingContextBase_getQueryParameter(this.handle, query.handle, pname));
+    auto result = Any(JsHandle(WebGL2RenderingContextBase_getQueryParameter(this.handle, query.handle, pname)));
+    return result;
   }
   auto createSampler() {
-    return WebGL2RenderingContextBase_createSampler(this.handle);
+    auto result = WebGL2RenderingContextBase_createSampler(this.handle);
+    return result;
   }
   auto deleteSampler(Optional!(WebGLSampler) sampler) {
     WebGL2RenderingContextBase_deleteSampler(this.handle, !sampler.empty, sampler.front.handle);
   }
   auto isSampler(Optional!(WebGLSampler) sampler) {
-    return WebGL2RenderingContextBase_isSampler(this.handle, !sampler.empty, sampler.front.handle);
+    auto result = WebGL2RenderingContextBase_isSampler(this.handle, !sampler.empty, sampler.front.handle);
+    return result;
   }
   auto bindSampler(uint unit, Optional!(WebGLSampler) sampler) {
     WebGL2RenderingContextBase_bindSampler(this.handle, unit, !sampler.empty, sampler.front.handle);
@@ -579,34 +587,41 @@ struct WebGL2RenderingContextBase {
     WebGL2RenderingContextBase_samplerParameterf(this.handle, sampler.handle, pname, param);
   }
   auto getSamplerParameter(WebGLSampler sampler, uint pname) {
-    return Any(JsHandle(WebGL2RenderingContextBase_getSamplerParameter(this.handle, sampler.handle, pname));
+    auto result = Any(JsHandle(WebGL2RenderingContextBase_getSamplerParameter(this.handle, sampler.handle, pname)));
+    return result;
   }
   auto fenceSync(uint condition, uint flags) {
-    return WebGL2RenderingContextBase_fenceSync(this.handle, condition, flags);
+    auto result = WebGL2RenderingContextBase_fenceSync(this.handle, condition, flags);
+    return result;
   }
   auto isSync(Optional!(WebGLSync) sync) {
-    return WebGL2RenderingContextBase_isSync(this.handle, !sync.empty, sync.front.handle);
+    auto result = WebGL2RenderingContextBase_isSync(this.handle, !sync.empty, sync.front.handle);
+    return result;
   }
   auto deleteSync(Optional!(WebGLSync) sync) {
     WebGL2RenderingContextBase_deleteSync(this.handle, !sync.empty, sync.front.handle);
   }
   auto clientWaitSync(WebGLSync sync, uint flags, ulong timeout) {
-    return WebGL2RenderingContextBase_clientWaitSync(this.handle, sync.handle, flags, timeout);
+    auto result = WebGL2RenderingContextBase_clientWaitSync(this.handle, sync.handle, flags, timeout);
+    return result;
   }
   auto waitSync(WebGLSync sync, uint flags, long timeout) {
     WebGL2RenderingContextBase_waitSync(this.handle, sync.handle, flags, timeout);
   }
   auto getSyncParameter(WebGLSync sync, uint pname) {
-    return Any(JsHandle(WebGL2RenderingContextBase_getSyncParameter(this.handle, sync.handle, pname));
+    auto result = Any(JsHandle(WebGL2RenderingContextBase_getSyncParameter(this.handle, sync.handle, pname)));
+    return result;
   }
   auto createTransformFeedback() {
-    return WebGL2RenderingContextBase_createTransformFeedback(this.handle);
+    auto result = WebGL2RenderingContextBase_createTransformFeedback(this.handle);
+    return result;
   }
   auto deleteTransformFeedback(Optional!(WebGLTransformFeedback) tf) {
     WebGL2RenderingContextBase_deleteTransformFeedback(this.handle, !tf.empty, tf.front.handle);
   }
   auto isTransformFeedback(Optional!(WebGLTransformFeedback) tf) {
-    return WebGL2RenderingContextBase_isTransformFeedback(this.handle, !tf.empty, tf.front.handle);
+    auto result = WebGL2RenderingContextBase_isTransformFeedback(this.handle, !tf.empty, tf.front.handle);
+    return result;
   }
   auto bindTransformFeedback(uint target, Optional!(WebGLTransformFeedback) tf) {
     WebGL2RenderingContextBase_bindTransformFeedback(this.handle, target, !tf.empty, tf.front.handle);
@@ -621,7 +636,8 @@ struct WebGL2RenderingContextBase {
     WebGL2RenderingContextBase_transformFeedbackVaryings(this.handle, program.handle, varyings.handle, bufferMode);
   }
   auto getTransformFeedbackVarying(WebGLProgram program, uint index) {
-    return WebGL2RenderingContextBase_getTransformFeedbackVarying(this.handle, program.handle, index);
+    auto result = WebGL2RenderingContextBase_getTransformFeedbackVarying(this.handle, program.handle, index);
+    return result;
   }
   auto pauseTransformFeedback() {
     WebGL2RenderingContextBase_pauseTransformFeedback(this.handle);
@@ -636,34 +652,42 @@ struct WebGL2RenderingContextBase {
     WebGL2RenderingContextBase_bindBufferRange(this.handle, target, index, !buffer.empty, buffer.front.handle, offset, size);
   }
   auto getIndexedParameter(uint target, uint index) {
-    return Any(JsHandle(WebGL2RenderingContextBase_getIndexedParameter(this.handle, target, index));
+    auto result = Any(JsHandle(WebGL2RenderingContextBase_getIndexedParameter(this.handle, target, index)));
+    return result;
   }
   auto getUniformIndices(WebGLProgram program, Sequence!(string) uniformNames) {
-    return WebGL2RenderingContextBase_getUniformIndices(this.handle, program.handle, uniformNames.handle);
+    auto result = WebGL2RenderingContextBase_getUniformIndices(this.handle, program.handle, uniformNames.handle);
+    return result;
   }
   auto getActiveUniforms(WebGLProgram program, Sequence!(uint) uniformIndices, uint pname) {
-    return Any(JsHandle(WebGL2RenderingContextBase_getActiveUniforms(this.handle, program.handle, uniformIndices.handle, pname));
+    auto result = Any(JsHandle(WebGL2RenderingContextBase_getActiveUniforms(this.handle, program.handle, uniformIndices.handle, pname)));
+    return result;
   }
   auto getUniformBlockIndex(WebGLProgram program, string uniformBlockName) {
-    return WebGL2RenderingContextBase_getUniformBlockIndex(this.handle, program.handle, uniformBlockName);
+    auto result = WebGL2RenderingContextBase_getUniformBlockIndex(this.handle, program.handle, uniformBlockName);
+    return result;
   }
   auto getActiveUniformBlockParameter(WebGLProgram program, uint uniformBlockIndex, uint pname) {
-    return Any(JsHandle(WebGL2RenderingContextBase_getActiveUniformBlockParameter(this.handle, program.handle, uniformBlockIndex, pname));
+    auto result = Any(JsHandle(WebGL2RenderingContextBase_getActiveUniformBlockParameter(this.handle, program.handle, uniformBlockIndex, pname)));
+    return result;
   }
   auto getActiveUniformBlockName(WebGLProgram program, uint uniformBlockIndex) {
-    return WebGL2RenderingContextBase_getActiveUniformBlockName(this.handle, program.handle, uniformBlockIndex);
+    auto result = WebGL2RenderingContextBase_getActiveUniformBlockName(this.handle, program.handle, uniformBlockIndex);
+    return result;
   }
   auto uniformBlockBinding(WebGLProgram program, uint uniformBlockIndex, uint uniformBlockBinding) {
     WebGL2RenderingContextBase_uniformBlockBinding(this.handle, program.handle, uniformBlockIndex, uniformBlockBinding);
   }
   auto createVertexArray() {
-    return WebGL2RenderingContextBase_createVertexArray(this.handle);
+    auto result = WebGL2RenderingContextBase_createVertexArray(this.handle);
+    return result;
   }
   auto deleteVertexArray(Optional!(WebGLVertexArrayObject) vertexArray) {
     WebGL2RenderingContextBase_deleteVertexArray(this.handle, !vertexArray.empty, vertexArray.front.handle);
   }
   auto isVertexArray(Optional!(WebGLVertexArrayObject) vertexArray) {
-    return WebGL2RenderingContextBase_isVertexArray(this.handle, !vertexArray.empty, vertexArray.front.handle);
+    auto result = WebGL2RenderingContextBase_isVertexArray(this.handle, !vertexArray.empty, vertexArray.front.handle);
+    return result;
   }
   auto bindVertexArray(Optional!(WebGLVertexArrayObject) array) {
     WebGL2RenderingContextBase_bindVertexArray(this.handle, !array.empty, array.front.handle);
