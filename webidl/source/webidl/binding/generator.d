@@ -407,7 +407,9 @@ void dumpJsArgument(Appender)(ref Semantics semantics, Argument arg, ref Appende
     auto arguments = extractArguments(argList);
     auto types = extractTypes(argList);
     string base = arg.name.friendlyJsName;
-    a.put([ "(", arguments.joiner(", ").text, ")=>{spasm.", callbackName, "(", base, "Ctx, ", base ~ "Ptr, "]);
+    a.put([ "(", arguments.joiner(", ").text, ")=>{spasm.", callbackName, "(", base, "Ctx, ", base ~ "Ptr"]);
+    if (arguments.length > 0)
+      a.put(", ");
     zip(arguments, types).each!((t) {
       auto arg = t[0];
       auto type = t[1];
@@ -1268,8 +1270,10 @@ void mangleTypeJsImpl(Appender)(ParseTree tree, ref Appender a, ref Semantics se
   case "WebIDL.CallbackRest":
     a.put("callback_");
     tree.children[1].mangleTypeJsImpl(a, semantics, context);
-    a.put("_");
-    tree.children[2].mangleTypeJsImpl(a, semantics, context);
+    if (tree.children[2].children.length > 0) {
+      a.put("_");
+      tree.children[2].mangleTypeJsImpl(a, semantics, context);
+    }
     break;
   case "WebIDL.ArgumentList":
     tree.children.putWithDelimiter!(mangleTypeJsImpl)("_", a, semantics, context);

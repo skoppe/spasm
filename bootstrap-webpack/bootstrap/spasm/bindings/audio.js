@@ -440,7 +440,7 @@ export default {
       return spasm.objects[ctx].performanceTime;
     },
     AudioWorkletGlobalScope_registerProcessor: function(ctx, nameLen, namePtr, processorCtorCtx, processorCtorPtr) {
-      spasm.objects[ctx].registerProcessor(spasm.decode_string(nameLen, namePtr), ()=>{spasm.callback_void_(processorCtorCtx, processorCtorPtr, )});
+      spasm.objects[ctx].registerProcessor(spasm.decode_string(nameLen, namePtr), ()=>{spasm.callback_void(processorCtorCtx, processorCtorPtr)});
     },
     AudioWorkletGlobalScope_currentFrame_Get: function(ctx) {
       return spasm.objects[ctx].currentFrame;

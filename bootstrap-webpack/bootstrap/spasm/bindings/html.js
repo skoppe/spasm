@@ -347,7 +347,7 @@ export default {
       spasm.encode.string(rawResult, spasm.objects[ctx].reason);
     },
     CustomElementRegistry_define: function(ctx, nameLen, namePtr, constructorCtx, constructorPtr, options) {
-      spasm.objects[ctx].define(spasm.decode_string(nameLen, namePtr), ()=>{spasm.callback_Any_(constructorCtx, constructorPtr, )}, spasm.objects[options]);
+      spasm.objects[ctx].define(spasm.decode_string(nameLen, namePtr), ()=>{spasm.callback_Any(constructorCtx, constructorPtr)}, spasm.objects[options]);
     },
     CustomElementRegistry_get: function(ctx, nameLen, namePtr) {
       return spasm.addObject(spasm.objects[ctx].get(spasm.decode_string(nameLen, namePtr)));
@@ -4715,7 +4715,7 @@ export default {
       spasm.objects[ctx].clearInterval(handle);
     },
     WindowOrWorkerGlobalScope_queueMicrotask: function(ctx, callbackCtx, callbackPtr) {
-      spasm.objects[ctx].queueMicrotask(()=>{spasm.callback_void_(callbackCtx, callbackPtr, )});
+      spasm.objects[ctx].queueMicrotask(()=>{spasm.callback_void(callbackCtx, callbackPtr)});
     },
     WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_Handle: function(ctx, image, options) {
       return spasm.addObject(spasm.objects[ctx].createImageBitmap(spasm.decode_ImageBitmapSource(image), spasm.objects[options]));
@@ -4913,7 +4913,7 @@ export default {
       spasm.objects[ctx].clearInterval(handle);
     },
     WindowOrWorkerGlobalScope_queueMicrotask: function(ctx, callbackCtx, callbackPtr) {
-      spasm.objects[ctx].queueMicrotask(()=>{spasm.callback_void_(callbackCtx, callbackPtr, )});
+      spasm.objects[ctx].queueMicrotask(()=>{spasm.callback_void(callbackCtx, callbackPtr)});
     },
     WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_Handle: function(ctx, image, options) {
       return spasm.addObject(spasm.objects[ctx].createImageBitmap(spasm.decode_ImageBitmapSource(image), spasm.objects[options]));
