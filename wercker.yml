@@ -5,6 +5,8 @@ build:
     - script:
         name: build main
         code: |
+          mkdir -p $WERCKER_CACHE_DIR/dub
+          ln -s $WERCKER_CACHE_DIR/dub ~/.dub
           dub build --compiler=ldc2 --build=release
     - script:
         name: build todo-mvc example
