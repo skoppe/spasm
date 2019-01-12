@@ -1,26 +1,18 @@
-box: ubuntu:18.04
+box: dlang2/ldc-ubuntu:1.13.0
 
 build:
   steps:
     - script:
-        name: deps
-        code: |
-          apt-get update && apt-get -y install curl xz-utils
-          curl -fsS https://dlang.org/install.sh | bash -s ldc-1.12.0
-    - script:
         name: build main
         code: |
-          source ~/dlang/ldc-1.12.0/activate
           dub build --compiler=ldc2 --build=release
     - script:
         name: build todo-mvc example
         code: |
-          source ~/dlang/ldc-1.12.0/activate
           cd examples/todo-mvc
           dub build --compiler=ldc2 --build=release
     - script:
         name: build underrun example
         code: |
-          source ~/dlang/ldc-1.12.0/activate
           cd examples/underrun
           dub build --compiler=ldc2 --build=release
