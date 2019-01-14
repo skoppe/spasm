@@ -6,6 +6,9 @@ import spasm.bindings.common;
 struct TextDecodeOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return TextDecodeOptions(JsHandle(spasm_add__object()));
+  }
   auto stream(bool stream) {
     TextDecodeOptions_stream_Set(this.handle, stream);
   }
@@ -37,6 +40,9 @@ struct TextDecoder {
 struct TextDecoderOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return TextDecoderOptions(JsHandle(spasm_add__object()));
+  }
   auto fatal(bool fatal) {
     TextDecoderOptions_fatal_Set(this.handle, fatal);
   }
@@ -108,12 +114,14 @@ struct TextEncoderStream {
 
 extern (C) Handle GenericTransformStream_readable_Get(Handle);
 extern (C) Handle GenericTransformStream_writable_Get(Handle);
+extern (C) void TextDecodeOptions_create(Handle);
 extern (C) void TextDecodeOptions_stream_Set(Handle, bool);
 extern (C) bool TextDecodeOptions_stream_Get(Handle);
 extern (C) string TextDecoder_decode(Handle, BufferSource, Handle);
 extern (C) string TextDecoderCommon_encoding_Get(Handle);
 extern (C) bool TextDecoderCommon_fatal_Get(Handle);
 extern (C) bool TextDecoderCommon_ignoreBOM_Get(Handle);
+extern (C) void TextDecoderOptions_create(Handle);
 extern (C) void TextDecoderOptions_fatal_Set(Handle, bool);
 extern (C) bool TextDecoderOptions_fatal_Get(Handle);
 extern (C) void TextDecoderOptions_ignoreBOM_Set(Handle, bool);

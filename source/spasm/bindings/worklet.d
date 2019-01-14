@@ -18,6 +18,9 @@ struct WorkletGlobalScope {
 struct WorkletOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return WorkletOptions(JsHandle(spasm_add__object()));
+  }
   auto credentials(RequestCredentials credentials) {
     WorkletOptions_credentials_Set(this.handle, credentials);
   }
@@ -29,5 +32,6 @@ struct WorkletOptions {
 
 
 extern (C) Handle Worklet_addModule(Handle, string, Handle);
+extern (C) void WorkletOptions_create(Handle);
 extern (C) void WorkletOptions_credentials_Set(Handle, RequestCredentials);
 extern (C) RequestCredentials WorkletOptions_credentials_Get(Handle);

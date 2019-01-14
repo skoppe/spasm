@@ -109,6 +109,9 @@ struct TouchEventInit {
   this(JsHandle h) {
     _parent = EventModifierInit(h);
   }
+  static auto create() {
+    return TouchEventInit(JsHandle(spasm_add__object()));
+  }
   auto touches(Sequence!(Touch) touches) {
     TouchEventInit_touches_Set(this._parent, touches.handle);
   }
@@ -134,6 +137,9 @@ struct TouchEventInit {
 struct TouchInit {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return TouchInit(JsHandle(spasm_add__object()));
+  }
   auto identifier(int identifier) {
     TouchInit_identifier_Set(this.handle, identifier);
   }
@@ -280,12 +286,14 @@ extern (C) bool TouchEvent_altKey_Get(Handle);
 extern (C) bool TouchEvent_metaKey_Get(Handle);
 extern (C) bool TouchEvent_ctrlKey_Get(Handle);
 extern (C) bool TouchEvent_shiftKey_Get(Handle);
+extern (C) void TouchEventInit_create(Handle);
 extern (C) void TouchEventInit_touches_Set(Handle, Handle);
 extern (C) Handle TouchEventInit_touches_Get(Handle);
 extern (C) void TouchEventInit_targetTouches_Set(Handle, Handle);
 extern (C) Handle TouchEventInit_targetTouches_Get(Handle);
 extern (C) void TouchEventInit_changedTouches_Set(Handle, Handle);
 extern (C) Handle TouchEventInit_changedTouches_Get(Handle);
+extern (C) void TouchInit_create(Handle);
 extern (C) void TouchInit_identifier_Set(Handle, int);
 extern (C) int TouchInit_identifier_Get(Handle);
 extern (C) void TouchInit_target_Set(Handle, Handle);

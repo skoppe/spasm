@@ -225,6 +225,9 @@ struct DOMMatrix {
 struct DOMMatrix2DInit {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return DOMMatrix2DInit(JsHandle(spasm_add__object()));
+  }
   auto a(double a) {
     DOMMatrix2DInit_a_Set(this.handle, a);
   }
@@ -315,6 +318,9 @@ struct DOMMatrixInit {
   alias _parent this;
   this(JsHandle h) {
     _parent = DOMMatrix2DInit(h);
+  }
+  static auto create() {
+    return DOMMatrixInit(JsHandle(spasm_add__object()));
   }
   auto m13(double m13) {
     DOMMatrixInit_m13_Set(this._parent, m13);
@@ -616,6 +622,9 @@ struct DOMPoint {
 struct DOMPointInit {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return DOMPointInit(JsHandle(spasm_add__object()));
+  }
   auto x(double x) {
     DOMPointInit_x_Set(this.handle, x);
   }
@@ -716,6 +725,9 @@ struct DOMQuad {
 struct DOMQuadInit {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return DOMQuadInit(JsHandle(spasm_add__object()));
+  }
   auto p1(DOMPointInit p1) {
     DOMQuadInit_p1_Set(this.handle, p1.handle);
   }
@@ -787,6 +799,9 @@ struct DOMRect {
 struct DOMRectInit {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return DOMRectInit(JsHandle(spasm_add__object()));
+  }
   auto x(double x) {
     DOMRectInit_x_Set(this.handle, x);
   }
@@ -933,6 +948,7 @@ extern (C) Handle DOMMatrix_skewXSelf(Handle, double);
 extern (C) Handle DOMMatrix_skewYSelf(Handle, double);
 extern (C) Handle DOMMatrix_invertSelf(Handle);
 extern (C) Handle DOMMatrix_setMatrixValue(Handle, string);
+extern (C) void DOMMatrix2DInit_create(Handle);
 extern (C) void DOMMatrix2DInit_a_Set(Handle, double);
 extern (C) double DOMMatrix2DInit_a_Get(Handle);
 extern (C) void DOMMatrix2DInit_b_Set(Handle, double);
@@ -957,6 +973,7 @@ extern (C) void DOMMatrix2DInit_m41_Set(Handle, double);
 extern (C) double DOMMatrix2DInit_m41_Get(Handle);
 extern (C) void DOMMatrix2DInit_m42_Set(Handle, double);
 extern (C) double DOMMatrix2DInit_m42_Get(Handle);
+extern (C) void DOMMatrixInit_create(Handle);
 extern (C) void DOMMatrixInit_m13_Set(Handle, double);
 extern (C) double DOMMatrixInit_m13_Get(Handle);
 extern (C) void DOMMatrixInit_m14_Set(Handle, double);
@@ -1032,6 +1049,7 @@ extern (C) void DOMPoint_z_Set(Handle, double);
 extern (C) double DOMPoint_z_Get(Handle);
 extern (C) void DOMPoint_w_Set(Handle, double);
 extern (C) double DOMPoint_w_Get(Handle);
+extern (C) void DOMPointInit_create(Handle);
 extern (C) void DOMPointInit_x_Set(Handle, double);
 extern (C) double DOMPointInit_x_Get(Handle);
 extern (C) void DOMPointInit_y_Set(Handle, double);
@@ -1055,6 +1073,7 @@ extern (C) Handle DOMQuad_p3_Get(Handle);
 extern (C) Handle DOMQuad_p4_Get(Handle);
 extern (C) Handle DOMQuad_getBounds(Handle);
 extern (C) Handle DOMQuad_toJSON(Handle);
+extern (C) void DOMQuadInit_create(Handle);
 extern (C) void DOMQuadInit_p1_Set(Handle, Handle);
 extern (C) Handle DOMQuadInit_p1_Get(Handle);
 extern (C) void DOMQuadInit_p2_Set(Handle, Handle);
@@ -1072,6 +1091,7 @@ extern (C) void DOMRect_width_Set(Handle, double);
 extern (C) double DOMRect_width_Get(Handle);
 extern (C) void DOMRect_height_Set(Handle, double);
 extern (C) double DOMRect_height_Get(Handle);
+extern (C) void DOMRectInit_create(Handle);
 extern (C) void DOMRectInit_x_Set(Handle, double);
 extern (C) double DOMRectInit_x_Get(Handle);
 extern (C) void DOMRectInit_y_Set(Handle, double);

@@ -65,6 +65,9 @@ struct AnalyserOptions {
   this(JsHandle h) {
     _parent = AudioNodeOptions(h);
   }
+  static auto create() {
+    return AnalyserOptions(JsHandle(spasm_add__object()));
+  }
   auto fftSize(uint fftSize) {
     AnalyserOptions_fftSize_Set(this._parent, fftSize);
   }
@@ -127,6 +130,9 @@ struct AudioBuffer {
 struct AudioBufferOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return AudioBufferOptions(JsHandle(spasm_add__object()));
+  }
   auto numberOfChannels(uint numberOfChannels) {
     AudioBufferOptions_numberOfChannels_Set(this.handle, numberOfChannels);
   }
@@ -198,6 +204,9 @@ struct AudioBufferSourceNode {
 struct AudioBufferSourceOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return AudioBufferSourceOptions(JsHandle(spasm_add__object()));
+  }
   auto buffer(Optional!(AudioBuffer) buffer) {
     AudioBufferSourceOptions_buffer_Set(this.handle, !buffer.empty, buffer.front.handle);
   }
@@ -296,6 +305,9 @@ enum AudioContextLatencyCategory {
 struct AudioContextOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return AudioContextOptions(JsHandle(spasm_add__object()));
+  }
   auto latencyHint(SumType!(AudioContextLatencyCategory, double) latencyHint) {
     AudioContextOptions_latencyHint_Set(this.handle, latencyHint);
   }
@@ -444,6 +456,9 @@ struct AudioNode {
 struct AudioNodeOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return AudioNodeOptions(JsHandle(spasm_add__object()));
+  }
   auto channelCount(uint channelCount) {
     AudioNodeOptions_channelCount_Set(this.handle, channelCount);
   }
@@ -527,6 +542,9 @@ struct AudioParam {
 struct AudioParamDescriptor {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return AudioParamDescriptor(JsHandle(spasm_add__object()));
+  }
   auto name(string name) {
     AudioParamDescriptor_name_Set(this.handle, name);
   }
@@ -622,6 +640,9 @@ struct AudioProcessingEventInit {
   this(JsHandle h) {
     _parent = EventInit(h);
   }
+  static auto create() {
+    return AudioProcessingEventInit(JsHandle(spasm_add__object()));
+  }
   auto playbackTime(double playbackTime) {
     AudioProcessingEventInit_playbackTime_Set(this._parent, playbackTime);
   }
@@ -667,6 +688,9 @@ struct AudioScheduledSourceNode {
 struct AudioTimestamp {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return AudioTimestamp(JsHandle(spasm_add__object()));
+  }
   auto contextTime(double contextTime) {
     AudioTimestamp_contextTime_Set(this.handle, contextTime);
   }
@@ -738,6 +762,9 @@ struct AudioWorkletNodeOptions {
   alias _parent this;
   this(JsHandle h) {
     _parent = AudioNodeOptions(h);
+  }
+  static auto create() {
+    return AudioWorkletNodeOptions(JsHandle(spasm_add__object()));
   }
   auto numberOfInputs(uint numberOfInputs) {
     AudioWorkletNodeOptions_numberOfInputs_Set(this._parent, numberOfInputs);
@@ -940,6 +967,9 @@ struct BiquadFilterOptions {
   this(JsHandle h) {
     _parent = AudioNodeOptions(h);
   }
+  static auto create() {
+    return BiquadFilterOptions(JsHandle(spasm_add__object()));
+  }
   auto type(BiquadFilterType type) {
     BiquadFilterOptions_type_Set(this._parent, type);
   }
@@ -1008,6 +1038,9 @@ struct ChannelMergerOptions {
   this(JsHandle h) {
     _parent = AudioNodeOptions(h);
   }
+  static auto create() {
+    return ChannelMergerOptions(JsHandle(spasm_add__object()));
+  }
   auto numberOfInputs(uint numberOfInputs) {
     ChannelMergerOptions_numberOfInputs_Set(this._parent, numberOfInputs);
   }
@@ -1028,6 +1061,9 @@ struct ChannelSplitterOptions {
   alias _parent this;
   this(JsHandle h) {
     _parent = AudioNodeOptions(h);
+  }
+  static auto create() {
+    return ChannelSplitterOptions(JsHandle(spasm_add__object()));
   }
   auto numberOfOutputs(uint numberOfOutputs) {
     ChannelSplitterOptions_numberOfOutputs_Set(this._parent, numberOfOutputs);
@@ -1051,6 +1087,9 @@ struct ConstantSourceNode {
 struct ConstantSourceOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return ConstantSourceOptions(JsHandle(spasm_add__object()));
+  }
   auto offset(float offset) {
     ConstantSourceOptions_offset_Set(this.handle, offset);
   }
@@ -1086,6 +1125,9 @@ struct ConvolverOptions {
   this(JsHandle h) {
     _parent = AudioNodeOptions(h);
   }
+  static auto create() {
+    return ConvolverOptions(JsHandle(spasm_add__object()));
+  }
   auto buffer(Optional!(AudioBuffer) buffer) {
     ConvolverOptions_buffer_Set(this._parent, !buffer.empty, buffer.front.handle);
   }
@@ -1119,6 +1161,9 @@ struct DelayOptions {
   alias _parent this;
   this(JsHandle h) {
     _parent = AudioNodeOptions(h);
+  }
+  static auto create() {
+    return DelayOptions(JsHandle(spasm_add__object()));
   }
   auto maxDelayTime(double maxDelayTime) {
     DelayOptions_maxDelayTime_Set(this._parent, maxDelayTime);
@@ -1177,6 +1222,9 @@ struct DynamicsCompressorOptions {
   this(JsHandle h) {
     _parent = AudioNodeOptions(h);
   }
+  static auto create() {
+    return DynamicsCompressorOptions(JsHandle(spasm_add__object()));
+  }
   auto attack(float attack) {
     DynamicsCompressorOptions_attack_Set(this._parent, attack);
   }
@@ -1230,6 +1278,9 @@ struct GainOptions {
   this(JsHandle h) {
     _parent = AudioNodeOptions(h);
   }
+  static auto create() {
+    return GainOptions(JsHandle(spasm_add__object()));
+  }
   auto gain(float gain) {
     GainOptions_gain_Set(this._parent, gain);
   }
@@ -1253,6 +1304,9 @@ struct IIRFilterOptions {
   alias _parent this;
   this(JsHandle h) {
     _parent = AudioNodeOptions(h);
+  }
+  static auto create() {
+    return IIRFilterOptions(JsHandle(spasm_add__object()));
   }
   auto feedforward(Sequence!(double) feedforward) {
     IIRFilterOptions_feedforward_Set(this._parent, feedforward.handle);
@@ -1283,6 +1337,9 @@ struct MediaElementAudioSourceNode {
 struct MediaElementAudioSourceOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return MediaElementAudioSourceOptions(JsHandle(spasm_add__object()));
+  }
   auto mediaElement(HTMLMediaElement mediaElement) {
     MediaElementAudioSourceOptions_mediaElement_Set(this.handle, mediaElement.handle);
   }
@@ -1316,6 +1373,9 @@ struct MediaStreamAudioSourceNode {
 struct MediaStreamAudioSourceOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return MediaStreamAudioSourceOptions(JsHandle(spasm_add__object()));
+  }
   auto mediaStream(MediaStream mediaStream) {
     MediaStreamAudioSourceOptions_mediaStream_Set(this.handle, mediaStream.handle);
   }
@@ -1334,6 +1394,9 @@ struct MediaStreamTrackAudioSourceNode {
 struct MediaStreamTrackAudioSourceOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return MediaStreamTrackAudioSourceOptions(JsHandle(spasm_add__object()));
+  }
   auto mediaStreamTrack(MediaStreamTrack mediaStreamTrack) {
     MediaStreamTrackAudioSourceOptions_mediaStreamTrack_Set(this.handle, mediaStreamTrack.handle);
   }
@@ -1358,6 +1421,9 @@ struct OfflineAudioCompletionEventInit {
   alias _parent this;
   this(JsHandle h) {
     _parent = EventInit(h);
+  }
+  static auto create() {
+    return OfflineAudioCompletionEventInit(JsHandle(spasm_add__object()));
   }
   auto renderedBuffer(AudioBuffer renderedBuffer) {
     OfflineAudioCompletionEventInit_renderedBuffer_Set(this._parent, renderedBuffer.handle);
@@ -1400,6 +1466,9 @@ struct OfflineAudioContext {
 struct OfflineAudioContextOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return OfflineAudioContextOptions(JsHandle(spasm_add__object()));
+  }
   auto numberOfChannels(uint numberOfChannels) {
     OfflineAudioContextOptions_numberOfChannels_Set(this.handle, numberOfChannels);
   }
@@ -1452,6 +1521,9 @@ struct OscillatorOptions {
   alias _parent this;
   this(JsHandle h) {
     _parent = AudioNodeOptions(h);
+  }
+  static auto create() {
+    return OscillatorOptions(JsHandle(spasm_add__object()));
   }
   auto type(OscillatorType type) {
     OscillatorOptions_type_Set(this._parent, type);
@@ -1593,6 +1665,9 @@ struct PannerOptions {
   this(JsHandle h) {
     _parent = AudioNodeOptions(h);
   }
+  static auto create() {
+    return PannerOptions(JsHandle(spasm_add__object()));
+  }
   auto panningModel(PanningModelType panningModel) {
     PannerOptions_panningModel_Set(this._parent, panningModel);
   }
@@ -1703,6 +1778,9 @@ struct PeriodicWave {
 struct PeriodicWaveConstraints {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return PeriodicWaveConstraints(JsHandle(spasm_add__object()));
+  }
   auto disableNormalization(bool disableNormalization) {
     PeriodicWaveConstraints_disableNormalization_Set(this.handle, disableNormalization);
   }
@@ -1716,6 +1794,9 @@ struct PeriodicWaveOptions {
   alias _parent this;
   this(JsHandle h) {
     _parent = PeriodicWaveConstraints(h);
+  }
+  static auto create() {
+    return PeriodicWaveOptions(JsHandle(spasm_add__object()));
   }
   auto real_(Sequence!(float) real_) {
     PeriodicWaveOptions_real_Set(this._parent, real_.handle);
@@ -1767,6 +1848,9 @@ struct StereoPannerOptions {
   this(JsHandle h) {
     _parent = AudioNodeOptions(h);
   }
+  static auto create() {
+    return StereoPannerOptions(JsHandle(spasm_add__object()));
+  }
   auto pan(float pan) {
     StereoPannerOptions_pan_Set(this._parent, pan);
   }
@@ -1802,6 +1886,9 @@ struct WaveShaperOptions {
   this(JsHandle h) {
     _parent = AudioNodeOptions(h);
   }
+  static auto create() {
+    return WaveShaperOptions(JsHandle(spasm_add__object()));
+  }
   auto curve(Sequence!(float) curve) {
     WaveShaperOptions_curve_Set(this._parent, curve.handle);
   }
@@ -1832,6 +1919,7 @@ extern (C) void AnalyserNode_maxDecibels_Set(Handle, double);
 extern (C) double AnalyserNode_maxDecibels_Get(Handle);
 extern (C) void AnalyserNode_smoothingTimeConstant_Set(Handle, double);
 extern (C) double AnalyserNode_smoothingTimeConstant_Get(Handle);
+extern (C) void AnalyserOptions_create(Handle);
 extern (C) void AnalyserOptions_fftSize_Set(Handle, uint);
 extern (C) uint AnalyserOptions_fftSize_Get(Handle);
 extern (C) void AnalyserOptions_maxDecibels_Set(Handle, double);
@@ -1847,6 +1935,7 @@ extern (C) uint AudioBuffer_numberOfChannels_Get(Handle);
 extern (C) Handle AudioBuffer_getChannelData(Handle, uint);
 extern (C) void AudioBuffer_copyFromChannel(Handle, Handle, uint, uint);
 extern (C) void AudioBuffer_copyToChannel(Handle, Handle, uint, uint);
+extern (C) void AudioBufferOptions_create(Handle);
 extern (C) void AudioBufferOptions_numberOfChannels_Set(Handle, uint);
 extern (C) uint AudioBufferOptions_numberOfChannels_Get(Handle);
 extern (C) void AudioBufferOptions_length_Set(Handle, uint);
@@ -1864,6 +1953,7 @@ extern (C) double AudioBufferSourceNode_loopStart_Get(Handle);
 extern (C) void AudioBufferSourceNode_loopEnd_Set(Handle, double);
 extern (C) double AudioBufferSourceNode_loopEnd_Get(Handle);
 extern (C) void AudioBufferSourceNode_start(Handle, double, double, double);
+extern (C) void AudioBufferSourceOptions_create(Handle);
 extern (C) void AudioBufferSourceOptions_buffer_Set(Handle, bool, Handle);
 extern (C) Optional!(AudioBuffer) AudioBufferSourceOptions_buffer_Get(Handle);
 extern (C) void AudioBufferSourceOptions_detune_Set(Handle, float);
@@ -1886,6 +1976,7 @@ extern (C) Handle AudioContext_createMediaElementSource(Handle, Handle);
 extern (C) Handle AudioContext_createMediaStreamSource(Handle, Handle);
 extern (C) Handle AudioContext_createMediaStreamTrackSource(Handle, Handle);
 extern (C) Handle AudioContext_createMediaStreamDestination(Handle);
+extern (C) void AudioContextOptions_create(Handle);
 extern (C) void AudioContextOptions_latencyHint_Set(Handle, SumType!(AudioContextLatencyCategory, double));
 extern (C) SumType!(AudioContextLatencyCategory, double) AudioContextOptions_latencyHint_Get(Handle);
 extern (C) void AudioContextOptions_sampleRate_Set(Handle, float);
@@ -1918,6 +2009,7 @@ extern (C) void AudioNode_channelCountMode_Set(Handle, ChannelCountMode);
 extern (C) ChannelCountMode AudioNode_channelCountMode_Get(Handle);
 extern (C) void AudioNode_channelInterpretation_Set(Handle, ChannelInterpretation);
 extern (C) ChannelInterpretation AudioNode_channelInterpretation_Get(Handle);
+extern (C) void AudioNodeOptions_create(Handle);
 extern (C) void AudioNodeOptions_channelCount_Set(Handle, uint);
 extern (C) uint AudioNodeOptions_channelCount_Get(Handle);
 extern (C) void AudioNodeOptions_channelCountMode_Set(Handle, ChannelCountMode);
@@ -1938,6 +2030,7 @@ extern (C) Handle AudioParam_setTargetAtTime(Handle, float, double, float);
 extern (C) Handle AudioParam_setValueCurveAtTime(Handle, Handle, double, double);
 extern (C) Handle AudioParam_cancelScheduledValues(Handle, double);
 extern (C) Handle AudioParam_cancelAndHoldAtTime(Handle, double);
+extern (C) void AudioParamDescriptor_create(Handle);
 extern (C) void AudioParamDescriptor_name_Set(Handle, string);
 extern (C) string AudioParamDescriptor_name_Get(Handle);
 extern (C) void AudioParamDescriptor_defaultValue_Set(Handle, float);
@@ -1961,6 +2054,7 @@ extern (C) Handle Maplike_string_Handle_values(Handle);
 extern (C) double AudioProcessingEvent_playbackTime_Get(Handle);
 extern (C) Handle AudioProcessingEvent_inputBuffer_Get(Handle);
 extern (C) Handle AudioProcessingEvent_outputBuffer_Get(Handle);
+extern (C) void AudioProcessingEventInit_create(Handle);
 extern (C) void AudioProcessingEventInit_playbackTime_Set(Handle, double);
 extern (C) double AudioProcessingEventInit_playbackTime_Get(Handle);
 extern (C) void AudioProcessingEventInit_inputBuffer_Set(Handle, Handle);
@@ -1971,6 +2065,7 @@ extern (C) void AudioScheduledSourceNode_onended_Set(Handle, EventHandler);
 extern (C) EventHandler AudioScheduledSourceNode_onended_Get(Handle);
 extern (C) void AudioScheduledSourceNode_start(Handle, double);
 extern (C) void AudioScheduledSourceNode_stop(Handle, double);
+extern (C) void AudioTimestamp_create(Handle);
 extern (C) void AudioTimestamp_contextTime_Set(Handle, double);
 extern (C) double AudioTimestamp_contextTime_Get(Handle);
 extern (C) void AudioTimestamp_performanceTime_Set(Handle, double);
@@ -1983,6 +2078,7 @@ extern (C) Handle AudioWorkletNode_parameters_Get(Handle);
 extern (C) Handle AudioWorkletNode_port_Get(Handle);
 extern (C) void AudioWorkletNode_onprocessorerror_Set(Handle, EventHandler);
 extern (C) EventHandler AudioWorkletNode_onprocessorerror_Get(Handle);
+extern (C) void AudioWorkletNodeOptions_create(Handle);
 extern (C) void AudioWorkletNodeOptions_numberOfInputs_Set(Handle, uint);
 extern (C) uint AudioWorkletNodeOptions_numberOfInputs_Get(Handle);
 extern (C) void AudioWorkletNodeOptions_numberOfOutputs_Set(Handle, uint);
@@ -2028,6 +2124,7 @@ extern (C) Handle BiquadFilterNode_detune_Get(Handle);
 extern (C) Handle BiquadFilterNode_Q_Get(Handle);
 extern (C) Handle BiquadFilterNode_gain_Get(Handle);
 extern (C) void BiquadFilterNode_getFrequencyResponse(Handle, Handle, Handle, Handle);
+extern (C) void BiquadFilterOptions_create(Handle);
 extern (C) void BiquadFilterOptions_type_Set(Handle, BiquadFilterType);
 extern (C) BiquadFilterType BiquadFilterOptions_type_Get(Handle);
 extern (C) void BiquadFilterOptions_Q_Set(Handle, float);
@@ -2038,22 +2135,27 @@ extern (C) void BiquadFilterOptions_frequency_Set(Handle, float);
 extern (C) float BiquadFilterOptions_frequency_Get(Handle);
 extern (C) void BiquadFilterOptions_gain_Set(Handle, float);
 extern (C) float BiquadFilterOptions_gain_Get(Handle);
+extern (C) void ChannelMergerOptions_create(Handle);
 extern (C) void ChannelMergerOptions_numberOfInputs_Set(Handle, uint);
 extern (C) uint ChannelMergerOptions_numberOfInputs_Get(Handle);
+extern (C) void ChannelSplitterOptions_create(Handle);
 extern (C) void ChannelSplitterOptions_numberOfOutputs_Set(Handle, uint);
 extern (C) uint ChannelSplitterOptions_numberOfOutputs_Get(Handle);
 extern (C) Handle ConstantSourceNode_offset_Get(Handle);
+extern (C) void ConstantSourceOptions_create(Handle);
 extern (C) void ConstantSourceOptions_offset_Set(Handle, float);
 extern (C) float ConstantSourceOptions_offset_Get(Handle);
 extern (C) void ConvolverNode_buffer_Set(Handle, bool, Handle);
 extern (C) Optional!(AudioBuffer) ConvolverNode_buffer_Get(Handle);
 extern (C) void ConvolverNode_normalize_Set(Handle, bool);
 extern (C) bool ConvolverNode_normalize_Get(Handle);
+extern (C) void ConvolverOptions_create(Handle);
 extern (C) void ConvolverOptions_buffer_Set(Handle, bool, Handle);
 extern (C) Optional!(AudioBuffer) ConvolverOptions_buffer_Get(Handle);
 extern (C) void ConvolverOptions_disableNormalization_Set(Handle, bool);
 extern (C) bool ConvolverOptions_disableNormalization_Get(Handle);
 extern (C) Handle DelayNode_delayTime_Get(Handle);
+extern (C) void DelayOptions_create(Handle);
 extern (C) void DelayOptions_maxDelayTime_Set(Handle, double);
 extern (C) double DelayOptions_maxDelayTime_Get(Handle);
 extern (C) void DelayOptions_delayTime_Set(Handle, double);
@@ -2064,6 +2166,7 @@ extern (C) Handle DynamicsCompressorNode_ratio_Get(Handle);
 extern (C) float DynamicsCompressorNode_reduction_Get(Handle);
 extern (C) Handle DynamicsCompressorNode_attack_Get(Handle);
 extern (C) Handle DynamicsCompressorNode_release_Get(Handle);
+extern (C) void DynamicsCompressorOptions_create(Handle);
 extern (C) void DynamicsCompressorOptions_attack_Set(Handle, float);
 extern (C) float DynamicsCompressorOptions_attack_Get(Handle);
 extern (C) void DynamicsCompressorOptions_knee_Set(Handle, float);
@@ -2075,23 +2178,29 @@ extern (C) float DynamicsCompressorOptions_release_Get(Handle);
 extern (C) void DynamicsCompressorOptions_threshold_Set(Handle, float);
 extern (C) float DynamicsCompressorOptions_threshold_Get(Handle);
 extern (C) Handle GainNode_gain_Get(Handle);
+extern (C) void GainOptions_create(Handle);
 extern (C) void GainOptions_gain_Set(Handle, float);
 extern (C) float GainOptions_gain_Get(Handle);
 extern (C) void IIRFilterNode_getFrequencyResponse(Handle, Handle, Handle, Handle);
+extern (C) void IIRFilterOptions_create(Handle);
 extern (C) void IIRFilterOptions_feedforward_Set(Handle, Handle);
 extern (C) Handle IIRFilterOptions_feedforward_Get(Handle);
 extern (C) void IIRFilterOptions_feedback_Set(Handle, Handle);
 extern (C) Handle IIRFilterOptions_feedback_Get(Handle);
 extern (C) Handle MediaElementAudioSourceNode_mediaElement_Get(Handle);
+extern (C) void MediaElementAudioSourceOptions_create(Handle);
 extern (C) void MediaElementAudioSourceOptions_mediaElement_Set(Handle, Handle);
 extern (C) Handle MediaElementAudioSourceOptions_mediaElement_Get(Handle);
 extern (C) Handle MediaStreamAudioDestinationNode_stream_Get(Handle);
 extern (C) Handle MediaStreamAudioSourceNode_mediaStream_Get(Handle);
+extern (C) void MediaStreamAudioSourceOptions_create(Handle);
 extern (C) void MediaStreamAudioSourceOptions_mediaStream_Set(Handle, Handle);
 extern (C) Handle MediaStreamAudioSourceOptions_mediaStream_Get(Handle);
+extern (C) void MediaStreamTrackAudioSourceOptions_create(Handle);
 extern (C) void MediaStreamTrackAudioSourceOptions_mediaStreamTrack_Set(Handle, Handle);
 extern (C) Handle MediaStreamTrackAudioSourceOptions_mediaStreamTrack_Get(Handle);
 extern (C) Handle OfflineAudioCompletionEvent_renderedBuffer_Get(Handle);
+extern (C) void OfflineAudioCompletionEventInit_create(Handle);
 extern (C) void OfflineAudioCompletionEventInit_renderedBuffer_Set(Handle, Handle);
 extern (C) Handle OfflineAudioCompletionEventInit_renderedBuffer_Get(Handle);
 extern (C) Handle OfflineAudioContext_startRendering(Handle);
@@ -2100,6 +2209,7 @@ extern (C) Handle OfflineAudioContext_suspend(Handle, double);
 extern (C) uint OfflineAudioContext_length_Get(Handle);
 extern (C) void OfflineAudioContext_oncomplete_Set(Handle, EventHandler);
 extern (C) EventHandler OfflineAudioContext_oncomplete_Get(Handle);
+extern (C) void OfflineAudioContextOptions_create(Handle);
 extern (C) void OfflineAudioContextOptions_numberOfChannels_Set(Handle, uint);
 extern (C) uint OfflineAudioContextOptions_numberOfChannels_Get(Handle);
 extern (C) void OfflineAudioContextOptions_length_Set(Handle, uint);
@@ -2111,6 +2221,7 @@ extern (C) OscillatorType OscillatorNode_type_Get(Handle);
 extern (C) Handle OscillatorNode_frequency_Get(Handle);
 extern (C) Handle OscillatorNode_detune_Get(Handle);
 extern (C) void OscillatorNode_setPeriodicWave(Handle, Handle);
+extern (C) void OscillatorOptions_create(Handle);
 extern (C) void OscillatorOptions_type_Set(Handle, OscillatorType);
 extern (C) OscillatorType OscillatorOptions_type_Get(Handle);
 extern (C) void OscillatorOptions_frequency_Set(Handle, float);
@@ -2143,6 +2254,7 @@ extern (C) void PannerNode_coneOuterGain_Set(Handle, double);
 extern (C) double PannerNode_coneOuterGain_Get(Handle);
 extern (C) void PannerNode_setPosition(Handle, float, float, float);
 extern (C) void PannerNode_setOrientation(Handle, float, float, float);
+extern (C) void PannerOptions_create(Handle);
 extern (C) void PannerOptions_panningModel_Set(Handle, PanningModelType);
 extern (C) PanningModelType PannerOptions_panningModel_Get(Handle);
 extern (C) void PannerOptions_distanceModel_Set(Handle, DistanceModelType);
@@ -2171,8 +2283,10 @@ extern (C) void PannerOptions_coneOuterAngle_Set(Handle, double);
 extern (C) double PannerOptions_coneOuterAngle_Get(Handle);
 extern (C) void PannerOptions_coneOuterGain_Set(Handle, double);
 extern (C) double PannerOptions_coneOuterGain_Get(Handle);
+extern (C) void PeriodicWaveConstraints_create(Handle);
 extern (C) void PeriodicWaveConstraints_disableNormalization_Set(Handle, bool);
 extern (C) bool PeriodicWaveConstraints_disableNormalization_Get(Handle);
+extern (C) void PeriodicWaveOptions_create(Handle);
 extern (C) void PeriodicWaveOptions_real_Set(Handle, Handle);
 extern (C) Handle PeriodicWaveOptions_real_Get(Handle);
 extern (C) void PeriodicWaveOptions_imag_Set(Handle, Handle);
@@ -2181,12 +2295,14 @@ extern (C) void ScriptProcessorNode_onaudioprocess_Set(Handle, EventHandler);
 extern (C) EventHandler ScriptProcessorNode_onaudioprocess_Get(Handle);
 extern (C) int ScriptProcessorNode_bufferSize_Get(Handle);
 extern (C) Handle StereoPannerNode_pan_Get(Handle);
+extern (C) void StereoPannerOptions_create(Handle);
 extern (C) void StereoPannerOptions_pan_Set(Handle, float);
 extern (C) float StereoPannerOptions_pan_Get(Handle);
 extern (C) void WaveShaperNode_curve_Set(Handle, bool, Handle);
 extern (C) Optional!(Float32Array) WaveShaperNode_curve_Get(Handle);
 extern (C) void WaveShaperNode_oversample_Set(Handle, OverSampleType);
 extern (C) OverSampleType WaveShaperNode_oversample_Get(Handle);
+extern (C) void WaveShaperOptions_create(Handle);
 extern (C) void WaveShaperOptions_curve_Set(Handle, Handle);
 extern (C) Handle WaveShaperOptions_curve_Get(Handle);
 extern (C) void WaveShaperOptions_oversample_Set(Handle, OverSampleType);

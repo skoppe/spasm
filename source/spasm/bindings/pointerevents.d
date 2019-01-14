@@ -9,6 +9,9 @@ struct PointerEventInit {
   this(JsHandle h) {
     _parent = MouseEventInit(h);
   }
+  static auto create() {
+    return PointerEventInit(JsHandle(spasm_add__object()));
+  }
   auto pointerId(int pointerId) {
     PointerEventInit_pointerId_Set(this._parent, pointerId);
   }
@@ -82,6 +85,7 @@ struct PointerEventInit {
 }
 
 
+extern (C) void PointerEventInit_create(Handle);
 extern (C) void PointerEventInit_pointerId_Set(Handle, int);
 extern (C) int PointerEventInit_pointerId_Get(Handle);
 extern (C) void PointerEventInit_width_Set(Handle, double);

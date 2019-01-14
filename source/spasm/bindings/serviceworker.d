@@ -42,6 +42,9 @@ struct Cache {
 struct CacheQueryOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return CacheQueryOptions(JsHandle(spasm_add__object()));
+  }
   auto ignoreSearch(bool ignoreSearch) {
     CacheQueryOptions_ignoreSearch_Set(this.handle, ignoreSearch);
   }
@@ -116,6 +119,9 @@ struct Client {
 struct ClientQueryOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return ClientQueryOptions(JsHandle(spasm_add__object()));
+  }
   auto includeUncontrolled(bool includeUncontrolled) {
     ClientQueryOptions_includeUncontrolled_Set(this.handle, includeUncontrolled);
   }
@@ -173,6 +179,9 @@ struct ExtendableEventInit {
   this(JsHandle h) {
     _parent = EventInit(h);
   }
+  static auto create() {
+    return ExtendableEventInit(JsHandle(spasm_add__object()));
+  }
 }
 struct ExtendableMessageEvent {
   ExtendableEvent _parent;
@@ -206,6 +215,9 @@ struct ExtendableMessageEventInit {
   alias _parent this;
   this(JsHandle h) {
     _parent = ExtendableEventInit(h);
+  }
+  static auto create() {
+    return ExtendableMessageEventInit(JsHandle(spasm_add__object()));
   }
   auto data(T0)(T0 data) {
     Handle _handle_data = getOrCreateHandle(data);
@@ -281,6 +293,9 @@ struct FetchEventInit {
   this(JsHandle h) {
     _parent = ExtendableEventInit(h);
   }
+  static auto create() {
+    return FetchEventInit(JsHandle(spasm_add__object()));
+  }
   auto request(Request request) {
     FetchEventInit_request_Set(this._parent, request.handle);
   }
@@ -329,6 +344,9 @@ struct MultiCacheQueryOptions {
   this(JsHandle h) {
     _parent = CacheQueryOptions(h);
   }
+  static auto create() {
+    return MultiCacheQueryOptions(JsHandle(spasm_add__object()));
+  }
   auto cacheName(string cacheName) {
     MultiCacheQueryOptions_cacheName_Set(this._parent, cacheName);
   }
@@ -360,6 +378,9 @@ struct NavigationPreloadManager {
 struct NavigationPreloadState {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return NavigationPreloadState(JsHandle(spasm_add__object()));
+  }
   auto enabled(bool enabled) {
     NavigationPreloadState_enabled_Set(this.handle, enabled);
   }
@@ -378,6 +399,9 @@ struct NavigationPreloadState {
 struct RegistrationOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return RegistrationOptions(JsHandle(spasm_add__object()));
+  }
   auto scope_(string scope_) {
     RegistrationOptions_scope_Set(this.handle, scope_);
   }
@@ -648,6 +672,7 @@ extern (C) Handle Cache_addAll(Handle, Handle);
 extern (C) Handle Cache_put(Handle, RequestInfo, Handle);
 extern (C) Handle Cache_delete(Handle, RequestInfo, Handle);
 extern (C) Handle Cache_keys(Handle, RequestInfo, Handle);
+extern (C) void CacheQueryOptions_create(Handle);
 extern (C) void CacheQueryOptions_ignoreSearch_Set(Handle, bool);
 extern (C) bool CacheQueryOptions_ignoreSearch_Get(Handle);
 extern (C) void CacheQueryOptions_ignoreMethod_Set(Handle, bool);
@@ -664,6 +689,7 @@ extern (C) FrameType Client_frameType_Get(Handle);
 extern (C) string Client_id_Get(Handle);
 extern (C) ClientType Client_type_Get(Handle);
 extern (C) void Client_postMessage(Handle, Handle, Handle);
+extern (C) void ClientQueryOptions_create(Handle);
 extern (C) void ClientQueryOptions_includeUncontrolled_Set(Handle, bool);
 extern (C) bool ClientQueryOptions_includeUncontrolled_Get(Handle);
 extern (C) void ClientQueryOptions_type_Set(Handle, ClientType);
@@ -673,11 +699,13 @@ extern (C) Handle Clients_matchAll(Handle, Handle);
 extern (C) Handle Clients_openWindow(Handle, string);
 extern (C) Handle Clients_claim(Handle);
 extern (C) void ExtendableEvent_waitUntil(Handle, Handle);
+extern (C) void ExtendableEventInit_create(Handle);
 extern (C) Handle ExtendableMessageEvent_data_Get(Handle);
 extern (C) string ExtendableMessageEvent_origin_Get(Handle);
 extern (C) string ExtendableMessageEvent_lastEventId_Get(Handle);
 extern (C) Optional!(SumType!(Client, ServiceWorker, MessagePort)) ExtendableMessageEvent_source_Get(Handle);
 extern (C) Handle ExtendableMessageEvent_ports_Get(Handle);
+extern (C) void ExtendableMessageEventInit_create(Handle);
 extern (C) void ExtendableMessageEventInit_data_Set(Handle, Handle);
 extern (C) Handle ExtendableMessageEventInit_data_Get(Handle);
 extern (C) void ExtendableMessageEventInit_origin_Set(Handle, string);
@@ -694,6 +722,7 @@ extern (C) string FetchEvent_clientId_Get(Handle);
 extern (C) string FetchEvent_resultingClientId_Get(Handle);
 extern (C) string FetchEvent_replacesClientId_Get(Handle);
 extern (C) void FetchEvent_respondWith(Handle, Handle);
+extern (C) void FetchEventInit_create(Handle);
 extern (C) void FetchEventInit_request_Set(Handle, Handle);
 extern (C) Handle FetchEventInit_request_Get(Handle);
 extern (C) void FetchEventInit_preloadResponse_Set(Handle, Handle);
@@ -704,16 +733,19 @@ extern (C) void FetchEventInit_resultingClientId_Set(Handle, string);
 extern (C) string FetchEventInit_resultingClientId_Get(Handle);
 extern (C) void FetchEventInit_replacesClientId_Set(Handle, string);
 extern (C) string FetchEventInit_replacesClientId_Get(Handle);
+extern (C) void MultiCacheQueryOptions_create(Handle);
 extern (C) void MultiCacheQueryOptions_cacheName_Set(Handle, string);
 extern (C) string MultiCacheQueryOptions_cacheName_Get(Handle);
 extern (C) Handle NavigationPreloadManager_enable(Handle);
 extern (C) Handle NavigationPreloadManager_disable(Handle);
 extern (C) Handle NavigationPreloadManager_setHeaderValue(Handle, string);
 extern (C) Handle NavigationPreloadManager_getState(Handle);
+extern (C) void NavigationPreloadState_create(Handle);
 extern (C) void NavigationPreloadState_enabled_Set(Handle, bool);
 extern (C) bool NavigationPreloadState_enabled_Get(Handle);
 extern (C) void NavigationPreloadState_headerValue_Set(Handle, string);
 extern (C) string NavigationPreloadState_headerValue_Get(Handle);
+extern (C) void RegistrationOptions_create(Handle);
 extern (C) void RegistrationOptions_scope_Set(Handle, string);
 extern (C) string RegistrationOptions_scope_Get(Handle);
 extern (C) void RegistrationOptions_type_Set(Handle, WorkerType);

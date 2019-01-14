@@ -2,24 +2,26 @@ module spasm.types;
 
 public import optional;
 public import spasm.sumtype;
+import std.traits : hasMember;
 
 pragma(LDC_no_moduleinfo);
 pragma(LDC_no_typeinfo);
 
 extern (C) {
   void doLog(uint val);
-  Handle spasm_addPrimitive__bool(bool);
-  Handle spasm_addPrimitive__int(int);
-  Handle spasm_addPrimitive__uint(uint);
-  Handle spasm_addPrimitive__long(long);
-  Handle spasm_addPrimitive__ulong(ulong);
-  Handle spasm_addPrimitive__short(short);
-  Handle spasm_addPrimitive__ushort(ushort);
-  Handle spasm_addPrimitive__float(float);
-  Handle spasm_addPrimitive__double(double);
-  Handle spasm_addPrimitive__byte(byte);
-  Handle spasm_addPrimitive__ubyte(ubyte);
-  Handle spasm_addPrimitive__string(string);
+  Handle spasm_add__bool(bool);
+  Handle spasm_add__int(int);
+  Handle spasm_add__uint(uint);
+  Handle spasm_add__long(long);
+  Handle spasm_add__ulong(ulong);
+  Handle spasm_add__short(short);
+  Handle spasm_add__ushort(ushort);
+  Handle spasm_add__float(float);
+  Handle spasm_add__double(double);
+  Handle spasm_add__byte(byte);
+  Handle spasm_add__ubyte(ubyte);
+  Handle spasm_add__string(string);
+  Handle spasm_add__object();
   void spasm_removeObject(Handle);
 }
 
@@ -216,7 +218,7 @@ enum EventType {
 Handle getOrCreateHandle(T)(auto ref T data) {
   import std.traits : isBasicType;
   static if (isBasicType!T || is(T : string)) {
-    mixin("return spasm_addPrimitive__" ~ T.stringof~ "(data);");
+    mixin("return spasm_add__" ~ T.stringof~ "(data);");
   } else static if (is(T : Optional!U, U)) {
     if (data.empty)
       return 0;
@@ -237,10 +239,51 @@ struct Any {
   alias handle this;
 }
 
-struct Promise(T) {
+mixin template ExternPromiseCallback(string funName, T, U) {
+  static if (is(T == void)) {
+    pragma(mangle, funName)
+      mixin("extern(C) Handle "~funName~"(Handle, void delegate());");
+  } else {
+    import spasm.bindings;
+    pragma(mangle, funName)
+      mixin("extern(C) Handle "~funName~"(Handle, void delegate("~T.stringof~"));");
+  }
+}
+
+struct Promise(T, U = Any) {
   JsHandle handle;
   alias handle this;
+  static if (hasMember!(T, "handle") || hasMember!(T, "_parent")) {
+    // NOTE: we map all P delegate(T) to P delegate(JsHandle) when T is a struct from spasm.bindings
+    // this saves a lot of space and all those functions would be doing the same work regardless
+    enum ResultMangled = "handle";
+    alias JoinedType = JsHandle;
+  } else {
+    enum ResultMangled = T.mangleof;
+    alias JoinedType = T;
+  }
+  static if (is(T == void)) {
+    alias FulfillCallback(P = void) = P delegate();
+    alias JoinedCallback(P = void) = extern(C) P delegate();
+  } else {
+    alias FulfillCallback(P) = P delegate(T);
+    alias JoinedCallback(P) = extern(C) P delegate(JoinedType);
+  }
+  alias RejectCallback = void delegate(U);
+  // NOTE: right now we only support callbacks which return void. Also no error callback
+  auto then(FulfillCallback!(void) cb) {
+    static if (is(T == void))
+      enum funName = "promise_then_void";
+    else
+      enum funName = "promise_then_"~ResultMangled;
+    mixin ExternPromiseCallback!(funName, JoinedType, void);
+    static if (is(T == void))
+      mixin("return Promise!(void, U)(JsHandle("~funName~"(handle, cast(JoinedCallback!void)cb)));");
+    else
+      mixin("return Promise!(void, U)(JsHandle("~funName~"(handle, cast(JoinedCallback!void)cb)));");
+  }
 }
+
 struct Sequence(T) {
   JsHandle handle;
   alias handle this;

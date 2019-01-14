@@ -10,6 +10,9 @@ struct DevicePermissionDescriptor {
   this(JsHandle h) {
     _parent = PermissionDescriptor(h);
   }
+  static auto create() {
+    return DevicePermissionDescriptor(JsHandle(spasm_add__object()));
+  }
   auto deviceId(string deviceId) {
     DevicePermissionDescriptor_deviceId_Set(this._parent, deviceId);
   }
@@ -24,6 +27,9 @@ struct MidiPermissionDescriptor {
   this(JsHandle h) {
     _parent = PermissionDescriptor(h);
   }
+  static auto create() {
+    return MidiPermissionDescriptor(JsHandle(spasm_add__object()));
+  }
   auto sysex(bool sysex) {
     MidiPermissionDescriptor_sysex_Set(this._parent, sysex);
   }
@@ -35,6 +41,9 @@ struct MidiPermissionDescriptor {
 struct PermissionDescriptor {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return PermissionDescriptor(JsHandle(spasm_add__object()));
+  }
   auto name(PermissionName name) {
     PermissionDescriptor_name_Set(this.handle, name);
   }
@@ -66,6 +75,9 @@ enum PermissionName {
 struct PermissionSetParameters {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return PermissionSetParameters(JsHandle(spasm_add__object()));
+  }
   auto descriptor(PermissionDescriptor descriptor) {
     PermissionSetParameters_descriptor_Set(this.handle, descriptor.handle);
   }
@@ -125,6 +137,9 @@ struct PushPermissionDescriptor {
   this(JsHandle h) {
     _parent = PermissionDescriptor(h);
   }
+  static auto create() {
+    return PushPermissionDescriptor(JsHandle(spasm_add__object()));
+  }
   auto userVisibleOnly(bool userVisibleOnly) {
     PushPermissionDescriptor_userVisibleOnly_Set(this._parent, userVisibleOnly);
   }
@@ -135,12 +150,16 @@ struct PushPermissionDescriptor {
 }
 
 
+extern (C) void DevicePermissionDescriptor_create(Handle);
 extern (C) void DevicePermissionDescriptor_deviceId_Set(Handle, string);
 extern (C) string DevicePermissionDescriptor_deviceId_Get(Handle);
+extern (C) void MidiPermissionDescriptor_create(Handle);
 extern (C) void MidiPermissionDescriptor_sysex_Set(Handle, bool);
 extern (C) bool MidiPermissionDescriptor_sysex_Get(Handle);
+extern (C) void PermissionDescriptor_create(Handle);
 extern (C) void PermissionDescriptor_name_Set(Handle, PermissionName);
 extern (C) PermissionName PermissionDescriptor_name_Get(Handle);
+extern (C) void PermissionSetParameters_create(Handle);
 extern (C) void PermissionSetParameters_descriptor_Set(Handle, Handle);
 extern (C) Handle PermissionSetParameters_descriptor_Get(Handle);
 extern (C) void PermissionSetParameters_state_Set(Handle, PermissionState);
@@ -151,5 +170,6 @@ extern (C) PermissionState PermissionStatus_state_Get(Handle);
 extern (C) void PermissionStatus_onchange_Set(Handle, EventHandler);
 extern (C) EventHandler PermissionStatus_onchange_Get(Handle);
 extern (C) Handle Permissions_query(Handle, Handle);
+extern (C) void PushPermissionDescriptor_create(Handle);
 extern (C) void PushPermissionDescriptor_userVisibleOnly_Set(Handle, bool);
 extern (C) bool PushPermissionDescriptor_userVisibleOnly_Get(Handle);

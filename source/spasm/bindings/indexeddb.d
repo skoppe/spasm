@@ -131,6 +131,9 @@ struct IDBDatabase {
 struct IDBDatabaseInfo {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return IDBDatabaseInfo(JsHandle(spasm_add__object()));
+  }
   auto name(string name) {
     IDBDatabaseInfo_name_Set(this.handle, name);
   }
@@ -242,6 +245,9 @@ struct IDBIndex {
 struct IDBIndexParameters {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return IDBIndexParameters(JsHandle(spasm_add__object()));
+  }
   auto unique(bool unique) {
     IDBIndexParameters_unique_Set(this.handle, unique);
   }
@@ -418,6 +424,9 @@ struct IDBObjectStore {
 struct IDBObjectStoreParameters {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return IDBObjectStoreParameters(JsHandle(spasm_add__object()));
+  }
   auto keyPath(Optional!(SumType!(string, Sequence!(string))) keyPath) {
     IDBObjectStoreParameters_keyPath_Set(this.handle, !keyPath.empty, keyPath.front);
   }
@@ -576,6 +585,9 @@ struct IDBVersionChangeEventInit {
   this(JsHandle h) {
     _parent = EventInit(h);
   }
+  static auto create() {
+    return IDBVersionChangeEventInit(JsHandle(spasm_add__object()));
+  }
   auto oldVersion(ulong oldVersion) {
     IDBVersionChangeEventInit_oldVersion_Set(this._parent, oldVersion);
   }
@@ -618,6 +630,7 @@ extern (C) void IDBDatabase_onerror_Set(Handle, EventHandler);
 extern (C) EventHandler IDBDatabase_onerror_Get(Handle);
 extern (C) void IDBDatabase_onversionchange_Set(Handle, EventHandler);
 extern (C) EventHandler IDBDatabase_onversionchange_Get(Handle);
+extern (C) void IDBDatabaseInfo_create(Handle);
 extern (C) void IDBDatabaseInfo_name_Set(Handle, string);
 extern (C) string IDBDatabaseInfo_name_Get(Handle);
 extern (C) void IDBDatabaseInfo_version_Set(Handle, ulong);
@@ -639,6 +652,7 @@ extern (C) Handle IDBIndex_getAllKeys(Handle, Handle, uint);
 extern (C) Handle IDBIndex_count(Handle, Handle);
 extern (C) Handle IDBIndex_openCursor(Handle, Handle, IDBCursorDirection);
 extern (C) Handle IDBIndex_openKeyCursor(Handle, Handle, IDBCursorDirection);
+extern (C) void IDBIndexParameters_create(Handle);
 extern (C) void IDBIndexParameters_unique_Set(Handle, bool);
 extern (C) bool IDBIndexParameters_unique_Get(Handle);
 extern (C) void IDBIndexParameters_multiEntry_Set(Handle, bool);
@@ -672,6 +686,7 @@ extern (C) Handle IDBObjectStore_openKeyCursor(Handle, Handle, IDBCursorDirectio
 extern (C) Handle IDBObjectStore_index(Handle, string);
 extern (C) Handle IDBObjectStore_createIndex(Handle, string, SumType!(string, Sequence!(string)), Handle);
 extern (C) void IDBObjectStore_deleteIndex(Handle, string);
+extern (C) void IDBObjectStoreParameters_create(Handle);
 extern (C) void IDBObjectStoreParameters_keyPath_Set(Handle, bool, SumType!(string, Sequence!(string)));
 extern (C) Optional!(SumType!(string, Sequence!(string))) IDBObjectStoreParameters_keyPath_Get(Handle);
 extern (C) void IDBObjectStoreParameters_autoIncrement_Set(Handle, bool);
@@ -703,6 +718,7 @@ extern (C) void IDBTransaction_onerror_Set(Handle, EventHandler);
 extern (C) EventHandler IDBTransaction_onerror_Get(Handle);
 extern (C) ulong IDBVersionChangeEvent_oldVersion_Get(Handle);
 extern (C) Optional!(ulong) IDBVersionChangeEvent_newVersion_Get(Handle);
+extern (C) void IDBVersionChangeEventInit_create(Handle);
 extern (C) void IDBVersionChangeEventInit_oldVersion_Set(Handle, ulong);
 extern (C) ulong IDBVersionChangeEventInit_oldVersion_Get(Handle);
 extern (C) void IDBVersionChangeEventInit_newVersion_Set(Handle, bool, ulong);

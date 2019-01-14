@@ -47,6 +47,9 @@ struct WebGLBuffer {
 struct WebGLContextAttributes {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return WebGLContextAttributes(JsHandle(spasm_add__object()));
+  }
   auto alpha(bool alpha) {
     WebGLContextAttributes_alpha_Set(this.handle, alpha);
   }
@@ -120,6 +123,9 @@ struct WebGLContextEventInit {
   alias _parent this;
   this(JsHandle h) {
     _parent = EventInit(h);
+  }
+  static auto create() {
+    return WebGLContextEventInit(JsHandle(spasm_add__object()));
   }
   auto statusMessage(string statusMessage) {
     WebGLContextEventInit_statusMessage_Set(this._parent, statusMessage);
@@ -1010,6 +1016,7 @@ struct WebGLUniformLocation {
 extern (C) int WebGLActiveInfo_size_Get(Handle);
 extern (C) uint WebGLActiveInfo_type_Get(Handle);
 extern (C) string WebGLActiveInfo_name_Get(Handle);
+extern (C) void WebGLContextAttributes_create(Handle);
 extern (C) void WebGLContextAttributes_alpha_Set(Handle, bool);
 extern (C) bool WebGLContextAttributes_alpha_Get(Handle);
 extern (C) void WebGLContextAttributes_depth_Set(Handle, bool);
@@ -1027,6 +1034,7 @@ extern (C) bool WebGLContextAttributes_preferLowPowerToHighPerformance_Get(Handl
 extern (C) void WebGLContextAttributes_failIfMajorPerformanceCaveat_Set(Handle, bool);
 extern (C) bool WebGLContextAttributes_failIfMajorPerformanceCaveat_Get(Handle);
 extern (C) string WebGLContextEvent_statusMessage_Get(Handle);
+extern (C) void WebGLContextEventInit_create(Handle);
 extern (C) void WebGLContextEventInit_statusMessage_Set(Handle, string);
 extern (C) string WebGLContextEventInit_statusMessage_Get(Handle);
 extern (C) Handle WebGLRenderingContextBase_canvas_Get(Handle);

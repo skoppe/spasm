@@ -1,9 +1,14 @@
 {
 	"fileVersion": 1,
 	"versions": {
+		"asdf": "0.3.2",
+		"libinputvisitor": "1.2.2",
 		"openmethods": "1.1.1",
 		"pegged": "0.4.4",
+		"sdlang-d": "0.10.4",
+		"taggedalgebraic": "0.10.12",
 		"unit-threaded": "0.7.53",
+		"wasm-reader": "0.0.2",
 		"webidl-grammar": "0.0.6"
 	}
 }

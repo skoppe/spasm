@@ -63,6 +63,9 @@ struct ProgressEventInit {
   this(JsHandle h) {
     _parent = EventInit(h);
   }
+  static auto create() {
+    return ProgressEventInit(JsHandle(spasm_add__object()));
+  }
   auto lengthComputable(bool lengthComputable) {
     ProgressEventInit_lengthComputable_Set(this._parent, lengthComputable);
   }
@@ -267,6 +270,7 @@ extern (C) void FormData_set__string_Handle_string(Handle, string, Handle, strin
 extern (C) bool ProgressEvent_lengthComputable_Get(Handle);
 extern (C) ulong ProgressEvent_loaded_Get(Handle);
 extern (C) ulong ProgressEvent_total_Get(Handle);
+extern (C) void ProgressEventInit_create(Handle);
 extern (C) void ProgressEventInit_lengthComputable_Set(Handle, bool);
 extern (C) bool ProgressEventInit_lengthComputable_Get(Handle);
 extern (C) void ProgressEventInit_loaded_Set(Handle, ulong);

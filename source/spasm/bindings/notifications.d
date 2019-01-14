@@ -10,6 +10,9 @@ import spasm.bindings.vibration;
 struct GetNotificationOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return GetNotificationOptions(JsHandle(spasm_add__object()));
+  }
   auto tag(string tag) {
     GetNotificationOptions_tag_Set(this.handle, tag);
   }
@@ -137,6 +140,9 @@ struct Notification {
 struct NotificationAction {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return NotificationAction(JsHandle(spasm_add__object()));
+  }
   auto action(string action) {
     NotificationAction_action_Set(this.handle, action);
   }
@@ -185,6 +191,9 @@ struct NotificationEventInit {
   this(JsHandle h) {
     _parent = ExtendableEventInit(h);
   }
+  static auto create() {
+    return NotificationEventInit(JsHandle(spasm_add__object()));
+  }
   auto notification(Notification notification) {
     NotificationEventInit_notification_Set(this._parent, notification.handle);
   }
@@ -203,6 +212,9 @@ struct NotificationEventInit {
 struct NotificationOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return NotificationOptions(JsHandle(spasm_add__object()));
+  }
   auto dir(NotificationDirection dir) {
     NotificationOptions_dir_Set(this.handle, dir);
   }
@@ -312,6 +324,7 @@ enum NotificationPermission {
 alias NotificationPermissionCallback = void delegate(NotificationPermission);
 
 
+extern (C) void GetNotificationOptions_create(Handle);
 extern (C) void GetNotificationOptions_tag_Set(Handle, string);
 extern (C) string GetNotificationOptions_tag_Get(Handle);
 extern (C) void Notification_permission_Set(Handle, NotificationPermission);
@@ -343,6 +356,7 @@ extern (C) bool Notification_requireInteraction_Get(Handle);
 extern (C) Handle Notification_data_Get(Handle);
 extern (C) Handle Notification_actions_Get(Handle);
 extern (C) void Notification_close(Handle);
+extern (C) void NotificationAction_create(Handle);
 extern (C) void NotificationAction_action_Set(Handle, string);
 extern (C) string NotificationAction_action_Get(Handle);
 extern (C) void NotificationAction_title_Set(Handle, string);
@@ -351,10 +365,12 @@ extern (C) void NotificationAction_icon_Set(Handle, string);
 extern (C) string NotificationAction_icon_Get(Handle);
 extern (C) Handle NotificationEvent_notification_Get(Handle);
 extern (C) string NotificationEvent_action_Get(Handle);
+extern (C) void NotificationEventInit_create(Handle);
 extern (C) void NotificationEventInit_notification_Set(Handle, Handle);
 extern (C) Handle NotificationEventInit_notification_Get(Handle);
 extern (C) void NotificationEventInit_action_Set(Handle, string);
 extern (C) string NotificationEventInit_action_Get(Handle);
+extern (C) void NotificationOptions_create(Handle);
 extern (C) void NotificationOptions_dir_Set(Handle, NotificationDirection);
 extern (C) NotificationDirection NotificationOptions_dir_Get(Handle);
 extern (C) void NotificationOptions_lang_Set(Handle, string);

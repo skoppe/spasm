@@ -25,6 +25,9 @@ alias BlobPart = SumType!(BufferSource, Blob, string);
 struct BlobPropertyBag {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return BlobPropertyBag(JsHandle(spasm_add__object()));
+  }
   auto type(string type) {
     BlobPropertyBag_type_Set(this.handle, type);
   }
@@ -76,6 +79,9 @@ struct FilePropertyBag {
   alias _parent this;
   this(JsHandle h) {
     _parent = BlobPropertyBag(h);
+  }
+  static auto create() {
+    return FilePropertyBag(JsHandle(spasm_add__object()));
   }
   auto lastModified(long lastModified) {
     FilePropertyBag_lastModified_Set(this._parent, lastModified);
@@ -189,6 +195,7 @@ struct FileReaderSync {
 extern (C) ulong Blob_size_Get(Handle);
 extern (C) string Blob_type_Get(Handle);
 extern (C) Handle Blob_slice(Handle, long, long, string);
+extern (C) void BlobPropertyBag_create(Handle);
 extern (C) void BlobPropertyBag_type_Set(Handle, string);
 extern (C) string BlobPropertyBag_type_Get(Handle);
 extern (C) void BlobPropertyBag_endings_Set(Handle, EndingType);
@@ -197,6 +204,7 @@ extern (C) string File_name_Get(Handle);
 extern (C) long File_lastModified_Get(Handle);
 extern (C) Optional!(File) FileList_item_getter(Handle, uint);
 extern (C) uint FileList_length_Get(Handle);
+extern (C) void FilePropertyBag_create(Handle);
 extern (C) void FilePropertyBag_lastModified_Set(Handle, long);
 extern (C) long FilePropertyBag_lastModified_Get(Handle);
 extern (C) void FileReader_readAsArrayBuffer(Handle, Handle);

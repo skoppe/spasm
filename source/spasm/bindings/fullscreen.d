@@ -11,6 +11,9 @@ enum FullscreenNavigationUI {
 struct FullscreenOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return FullscreenOptions(JsHandle(spasm_add__object()));
+  }
   auto navigationUI(FullscreenNavigationUI navigationUI) {
     FullscreenOptions_navigationUI_Set(this.handle, navigationUI);
   }
@@ -21,5 +24,6 @@ struct FullscreenOptions {
 }
 
 
+extern (C) void FullscreenOptions_create(Handle);
 extern (C) void FullscreenOptions_navigationUI_Set(Handle, FullscreenNavigationUI);
 extern (C) FullscreenNavigationUI FullscreenOptions_navigationUI_Get(Handle);

@@ -106,6 +106,9 @@ struct ApplicationCache {
 struct AssignedNodesOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return AssignedNodesOptions(JsHandle(spasm_add__object()));
+  }
   auto flatten(bool flatten) {
     AssignedNodesOptions_flatten_Set(this.handle, flatten);
   }
@@ -471,6 +474,9 @@ struct CanvasRenderingContext2D {
 struct CanvasRenderingContext2DSettings {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return CanvasRenderingContext2DSettings(JsHandle(spasm_add__object()));
+  }
   auto alpha(bool alpha) {
     CanvasRenderingContext2DSettings_alpha_Set(this.handle, alpha);
   }
@@ -518,6 +524,9 @@ struct CloseEventInit {
   alias _parent this;
   this(JsHandle h) {
     _parent = EventInit(h);
+  }
+  static auto create() {
+    return CloseEventInit(JsHandle(spasm_add__object()));
   }
   auto wasClean(bool wasClean) {
     CloseEventInit_wasClean_Set(this._parent, wasClean);
@@ -731,11 +740,11 @@ struct DedicatedWorkerGlobalScope {
     return result;
   }
   auto requestAnimationFrame(FrameRequestCallback callback) {
-    auto result = AnimationFrameProvider_requestAnimationFrame(this.handle, callback);
+    auto result = AnimationFrameProvider_requestAnimationFrame(this._parent, callback);
     return result;
   }
   auto cancelAnimationFrame(uint handle) {
-    AnimationFrameProvider_cancelAnimationFrame(this.handle, handle);
+    AnimationFrameProvider_cancelAnimationFrame(this._parent, handle);
   }
 }
 enum DocumentReadyState {
@@ -760,6 +769,9 @@ struct DragEventInit {
   this(JsHandle h) {
     _parent = MouseEventInit(h);
   }
+  static auto create() {
+    return DragEventInit(JsHandle(spasm_add__object()));
+  }
   auto dataTransfer(Optional!(DataTransfer) dataTransfer) {
     DragEventInit_dataTransfer_Set(this._parent, !dataTransfer.empty, dataTransfer.front.handle);
   }
@@ -771,6 +783,9 @@ struct DragEventInit {
 struct ElementDefinitionOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return ElementDefinitionOptions(JsHandle(spasm_add__object()));
+  }
   auto extends(string extends) {
     ElementDefinitionOptions_extends_Set(this.handle, extends);
   }
@@ -811,6 +826,9 @@ struct ErrorEventInit {
   alias _parent this;
   this(JsHandle h) {
     _parent = EventInit(h);
+  }
+  static auto create() {
+    return ErrorEventInit(JsHandle(spasm_add__object()));
   }
   auto message(string message) {
     ErrorEventInit_message_Set(this._parent, message);
@@ -901,6 +919,9 @@ struct EventSource {
 struct EventSourceInit {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return EventSourceInit(JsHandle(spasm_add__object()));
+  }
   auto withCredentials(bool withCredentials) {
     EventSourceInit_withCredentials_Set(this.handle, withCredentials);
   }
@@ -922,6 +943,9 @@ struct External {
 struct FocusOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return FocusOptions(JsHandle(spasm_add__object()));
+  }
   auto preventScroll(bool preventScroll) {
     FocusOptions_preventScroll_Set(this.handle, preventScroll);
   }
@@ -1058,14 +1082,14 @@ struct HTMLAnchorElement {
     return result;
   }
   auto href(string href) {
-    HTMLHyperlinkElementUtils_href_Set(this.handle, href);
+    HTMLHyperlinkElementUtils_href_Set(this._parent, href);
   }
   auto href() {
-    auto result = HTMLHyperlinkElementUtils_href_Get(this.handle);
+    auto result = HTMLHyperlinkElementUtils_href_Get(this._parent);
     return result;
   }
   auto origin() {
-    auto result = HTMLHyperlinkElementUtils_origin_Get(this.handle);
+    auto result = HTMLHyperlinkElementUtils_origin_Get(this._parent);
     return result;
   }
 }
@@ -1143,14 +1167,14 @@ struct HTMLAreaElement {
     return result;
   }
   auto href(string href) {
-    HTMLHyperlinkElementUtils_href_Set(this.handle, href);
+    HTMLHyperlinkElementUtils_href_Set(this._parent, href);
   }
   auto href() {
-    auto result = HTMLHyperlinkElementUtils_href_Get(this.handle);
+    auto result = HTMLHyperlinkElementUtils_href_Get(this._parent);
     return result;
   }
   auto origin() {
-    auto result = HTMLHyperlinkElementUtils_origin_Get(this.handle);
+    auto result = HTMLHyperlinkElementUtils_origin_Get(this._parent);
     return result;
   }
 }
@@ -1597,115 +1621,115 @@ struct HTMLElement {
     return result;
   }
   auto dataset() {
-    auto result = DOMStringMap(JsHandle(HTMLOrSVGElement_dataset_Get(this.handle)));
+    auto result = DOMStringMap(JsHandle(HTMLOrSVGElement_dataset_Get(this._parent)));
     return result;
   }
   auto focus(FocusOptions options) {
-    HTMLOrSVGElement_focus(this.handle, options.handle);
+    HTMLOrSVGElement_focus(this._parent, options.handle);
   }
   auto blur() {
-    HTMLOrSVGElement_blur(this.handle);
+    HTMLOrSVGElement_blur(this._parent);
   }
   auto isContentEditable() {
-    auto result = ElementContentEditable_isContentEditable_Get(this.handle);
+    auto result = ElementContentEditable_isContentEditable_Get(this._parent);
     return result;
   }
   auto ongotpointercapture(EventHandler ongotpointercapture) {
-    GlobalEventHandlers_ongotpointercapture_Set(this.handle, ongotpointercapture);
+    GlobalEventHandlers_ongotpointercapture_Set(this._parent, ongotpointercapture);
   }
   auto ongotpointercapture() {
-    auto result = GlobalEventHandlers_ongotpointercapture_Get(this.handle);
+    auto result = GlobalEventHandlers_ongotpointercapture_Get(this._parent);
     return result;
   }
   auto onlostpointercapture(EventHandler onlostpointercapture) {
-    GlobalEventHandlers_onlostpointercapture_Set(this.handle, onlostpointercapture);
+    GlobalEventHandlers_onlostpointercapture_Set(this._parent, onlostpointercapture);
   }
   auto onlostpointercapture() {
-    auto result = GlobalEventHandlers_onlostpointercapture_Get(this.handle);
+    auto result = GlobalEventHandlers_onlostpointercapture_Get(this._parent);
     return result;
   }
   auto onpointerdown(EventHandler onpointerdown) {
-    GlobalEventHandlers_onpointerdown_Set(this.handle, onpointerdown);
+    GlobalEventHandlers_onpointerdown_Set(this._parent, onpointerdown);
   }
   auto onpointerdown() {
-    auto result = GlobalEventHandlers_onpointerdown_Get(this.handle);
+    auto result = GlobalEventHandlers_onpointerdown_Get(this._parent);
     return result;
   }
   auto onpointermove(EventHandler onpointermove) {
-    GlobalEventHandlers_onpointermove_Set(this.handle, onpointermove);
+    GlobalEventHandlers_onpointermove_Set(this._parent, onpointermove);
   }
   auto onpointermove() {
-    auto result = GlobalEventHandlers_onpointermove_Get(this.handle);
+    auto result = GlobalEventHandlers_onpointermove_Get(this._parent);
     return result;
   }
   auto onpointerup(EventHandler onpointerup) {
-    GlobalEventHandlers_onpointerup_Set(this.handle, onpointerup);
+    GlobalEventHandlers_onpointerup_Set(this._parent, onpointerup);
   }
   auto onpointerup() {
-    auto result = GlobalEventHandlers_onpointerup_Get(this.handle);
+    auto result = GlobalEventHandlers_onpointerup_Get(this._parent);
     return result;
   }
   auto onpointercancel(EventHandler onpointercancel) {
-    GlobalEventHandlers_onpointercancel_Set(this.handle, onpointercancel);
+    GlobalEventHandlers_onpointercancel_Set(this._parent, onpointercancel);
   }
   auto onpointercancel() {
-    auto result = GlobalEventHandlers_onpointercancel_Get(this.handle);
+    auto result = GlobalEventHandlers_onpointercancel_Get(this._parent);
     return result;
   }
   auto onpointerover(EventHandler onpointerover) {
-    GlobalEventHandlers_onpointerover_Set(this.handle, onpointerover);
+    GlobalEventHandlers_onpointerover_Set(this._parent, onpointerover);
   }
   auto onpointerover() {
-    auto result = GlobalEventHandlers_onpointerover_Get(this.handle);
+    auto result = GlobalEventHandlers_onpointerover_Get(this._parent);
     return result;
   }
   auto onpointerout(EventHandler onpointerout) {
-    GlobalEventHandlers_onpointerout_Set(this.handle, onpointerout);
+    GlobalEventHandlers_onpointerout_Set(this._parent, onpointerout);
   }
   auto onpointerout() {
-    auto result = GlobalEventHandlers_onpointerout_Get(this.handle);
+    auto result = GlobalEventHandlers_onpointerout_Get(this._parent);
     return result;
   }
   auto onpointerenter(EventHandler onpointerenter) {
-    GlobalEventHandlers_onpointerenter_Set(this.handle, onpointerenter);
+    GlobalEventHandlers_onpointerenter_Set(this._parent, onpointerenter);
   }
   auto onpointerenter() {
-    auto result = GlobalEventHandlers_onpointerenter_Get(this.handle);
+    auto result = GlobalEventHandlers_onpointerenter_Get(this._parent);
     return result;
   }
   auto onpointerleave(EventHandler onpointerleave) {
-    GlobalEventHandlers_onpointerleave_Set(this.handle, onpointerleave);
+    GlobalEventHandlers_onpointerleave_Set(this._parent, onpointerleave);
   }
   auto onpointerleave() {
-    auto result = GlobalEventHandlers_onpointerleave_Get(this.handle);
+    auto result = GlobalEventHandlers_onpointerleave_Get(this._parent);
     return result;
   }
   auto ontouchstart(EventHandler ontouchstart) {
-    GlobalEventHandlers_ontouchstart_Set(this.handle, ontouchstart);
+    GlobalEventHandlers_ontouchstart_Set(this._parent, ontouchstart);
   }
   auto ontouchstart() {
-    auto result = GlobalEventHandlers_ontouchstart_Get(this.handle);
+    auto result = GlobalEventHandlers_ontouchstart_Get(this._parent);
     return result;
   }
   auto ontouchend(EventHandler ontouchend) {
-    GlobalEventHandlers_ontouchend_Set(this.handle, ontouchend);
+    GlobalEventHandlers_ontouchend_Set(this._parent, ontouchend);
   }
   auto ontouchend() {
-    auto result = GlobalEventHandlers_ontouchend_Get(this.handle);
+    auto result = GlobalEventHandlers_ontouchend_Get(this._parent);
     return result;
   }
   auto ontouchmove(EventHandler ontouchmove) {
-    GlobalEventHandlers_ontouchmove_Set(this.handle, ontouchmove);
+    GlobalEventHandlers_ontouchmove_Set(this._parent, ontouchmove);
   }
   auto ontouchmove() {
-    auto result = GlobalEventHandlers_ontouchmove_Get(this.handle);
+    auto result = GlobalEventHandlers_ontouchmove_Get(this._parent);
     return result;
   }
   auto ontouchcancel(EventHandler ontouchcancel) {
-    GlobalEventHandlers_ontouchcancel_Set(this.handle, ontouchcancel);
+    GlobalEventHandlers_ontouchcancel_Set(this._parent, ontouchcancel);
   }
   auto ontouchcancel() {
-    auto result = GlobalEventHandlers_ontouchcancel_Get(this.handle);
+    auto result = GlobalEventHandlers_ontouchcancel_Get(this._parent);
     return result;
   }
 }
@@ -2915,7 +2939,7 @@ struct HTMLLinkElement {
     return result;
   }
   auto sheet() {
-    auto result = LinkStyle_sheet_Get(this.handle);
+    auto result = LinkStyle_sheet_Get(this._parent);
     return result;
   }
 }
@@ -4178,7 +4202,7 @@ struct HTMLStyleElement {
     return result;
   }
   auto sheet() {
-    auto result = LinkStyle_sheet_Get(this.handle);
+    auto result = LinkStyle_sheet_Get(this._parent);
     return result;
   }
 }
@@ -4961,6 +4985,9 @@ struct HashChangeEventInit {
   this(JsHandle h) {
     _parent = EventInit(h);
   }
+  static auto create() {
+    return HashChangeEventInit(JsHandle(spasm_add__object()));
+  }
   auto oldURL(string oldURL) {
     HashChangeEventInit_oldURL_Set(this._parent, oldURL);
   }
@@ -5032,6 +5059,9 @@ struct ImageBitmap {
 struct ImageBitmapOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return ImageBitmapOptions(JsHandle(spasm_add__object()));
+  }
   auto imageOrientation(ImageOrientation imageOrientation) {
     ImageBitmapOptions_imageOrientation_Set(this.handle, imageOrientation);
   }
@@ -5089,6 +5119,9 @@ struct ImageBitmapRenderingContext {
 struct ImageBitmapRenderingContextSettings {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return ImageBitmapRenderingContextSettings(JsHandle(spasm_add__object()));
+  }
   auto alpha(bool alpha) {
     ImageBitmapRenderingContextSettings_alpha_Set(this.handle, alpha);
   }
@@ -5117,6 +5150,9 @@ struct ImageData {
 struct ImageEncodeOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return ImageEncodeOptions(JsHandle(spasm_add__object()));
+  }
   auto type(string type) {
     ImageEncodeOptions_type_Set(this.handle, type);
   }
@@ -5284,6 +5320,9 @@ struct MessageEventInit {
   alias _parent this;
   this(JsHandle h) {
     _parent = EventInit(h);
+  }
+  static auto create() {
+    return MessageEventInit(JsHandle(spasm_add__object()));
   }
   auto data(T0)(T0 data) {
     Handle _handle_data = getOrCreateHandle(data);
@@ -5743,6 +5782,9 @@ struct PageTransitionEventInit {
   this(JsHandle h) {
     _parent = EventInit(h);
   }
+  static auto create() {
+    return PageTransitionEventInit(JsHandle(spasm_add__object()));
+  }
   auto persisted(bool persisted) {
     PageTransitionEventInit_persisted_Set(this._parent, persisted);
   }
@@ -5849,6 +5891,9 @@ struct PopStateEventInit {
   this(JsHandle h) {
     _parent = EventInit(h);
   }
+  static auto create() {
+    return PopStateEventInit(JsHandle(spasm_add__object()));
+  }
   auto state(T0)(T0 state) {
     Handle _handle_state = getOrCreateHandle(state);
     PopStateEventInit_state_Set(this._parent, _handle_state);
@@ -5862,6 +5907,9 @@ struct PopStateEventInit {
 struct PostMessageOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return PostMessageOptions(JsHandle(spasm_add__object()));
+  }
   auto transfer(Sequence!(JsObject) transfer) {
     PostMessageOptions_transfer_Set(this.handle, transfer.handle);
   }
@@ -5895,6 +5943,9 @@ struct PromiseRejectionEventInit {
   alias _parent this;
   this(JsHandle h) {
     _parent = EventInit(h);
+  }
+  static auto create() {
+    return PromiseRejectionEventInit(JsHandle(spasm_add__object()));
   }
   auto promise(Promise!(Any) promise) {
     PromiseRejectionEventInit_promise_Set(this._parent, promise.handle);
@@ -6036,6 +6087,9 @@ struct StorageEventInit {
   alias _parent this;
   this(JsHandle h) {
     _parent = EventInit(h);
+  }
+  static auto create() {
+    return StorageEventInit(JsHandle(spasm_add__object()));
   }
   auto key(Optional!(string) key) {
     StorageEventInit_key_Set(this._parent, !key.empty, key.front);
@@ -6346,6 +6400,9 @@ struct TrackEventInit {
   alias _parent this;
   this(JsHandle h) {
     _parent = EventInit(h);
+  }
+  static auto create() {
+    return TrackEventInit(JsHandle(spasm_add__object()));
   }
   auto track(Optional!(SumType!(VideoTrack, AudioTrack, TextTrack)) track) {
     TrackEventInit_track_Set(this._parent, !track.empty, track.front);
@@ -6747,169 +6804,169 @@ struct Window {
     return result;
   }
   auto localStorage() {
-    auto result = Storage(JsHandle(WindowLocalStorage_localStorage_Get(this.handle)));
+    auto result = Storage(JsHandle(WindowLocalStorage_localStorage_Get(this._parent)));
     return result;
   }
   auto sessionStorage() {
-    auto result = Storage(JsHandle(WindowSessionStorage_sessionStorage_Get(this.handle)));
+    auto result = Storage(JsHandle(WindowSessionStorage_sessionStorage_Get(this._parent)));
     return result;
   }
   auto requestAnimationFrame(FrameRequestCallback callback) {
-    auto result = AnimationFrameProvider_requestAnimationFrame(this.handle, callback);
+    auto result = AnimationFrameProvider_requestAnimationFrame(this._parent, callback);
     return result;
   }
   auto cancelAnimationFrame(uint handle) {
-    AnimationFrameProvider_cancelAnimationFrame(this.handle, handle);
+    AnimationFrameProvider_cancelAnimationFrame(this._parent, handle);
   }
   auto origin() {
-    auto result = WindowOrWorkerGlobalScope_origin_Get(this.handle);
+    auto result = WindowOrWorkerGlobalScope_origin_Get(this._parent);
     return result;
   }
   auto btoa(string data) {
-    auto result = WindowOrWorkerGlobalScope_btoa(this.handle, data);
+    auto result = WindowOrWorkerGlobalScope_btoa(this._parent, data);
     return result;
   }
   auto atob(string data) {
-    auto result = WindowOrWorkerGlobalScope_atob(this.handle, data);
+    auto result = WindowOrWorkerGlobalScope_atob(this._parent, data);
     return result;
   }
   auto setTimeout(T2)(TimerHandler handler, int timeout /* = 0 */, T2 arguments) {
     Handle _handle_arguments = getOrCreateHandle(arguments);
-    auto result = WindowOrWorkerGlobalScope_setTimeout(this.handle, handler, timeout, _handle_arguments);
+    auto result = WindowOrWorkerGlobalScope_setTimeout(this._parent, handler, timeout, _handle_arguments);
     dropHandle!(T2)(_handle_arguments);
     return result;
   }
   auto clearTimeout(int handle /* = 0 */) {
-    WindowOrWorkerGlobalScope_clearTimeout(this.handle, handle);
+    WindowOrWorkerGlobalScope_clearTimeout(this._parent, handle);
   }
   auto setInterval(T2)(TimerHandler handler, int timeout /* = 0 */, T2 arguments) {
     Handle _handle_arguments = getOrCreateHandle(arguments);
-    auto result = WindowOrWorkerGlobalScope_setInterval(this.handle, handler, timeout, _handle_arguments);
+    auto result = WindowOrWorkerGlobalScope_setInterval(this._parent, handler, timeout, _handle_arguments);
     dropHandle!(T2)(_handle_arguments);
     return result;
   }
   auto clearInterval(int handle /* = 0 */) {
-    WindowOrWorkerGlobalScope_clearInterval(this.handle, handle);
+    WindowOrWorkerGlobalScope_clearInterval(this._parent, handle);
   }
   auto queueMicrotask(VoidFunction callback) {
-    WindowOrWorkerGlobalScope_queueMicrotask(this.handle, callback);
+    WindowOrWorkerGlobalScope_queueMicrotask(this._parent, callback);
   }
   auto createImageBitmap(ImageBitmapSource image, ImageBitmapOptions options) {
-    auto result = Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_Handle(this.handle, image, options.handle)));
+    auto result = Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_Handle(this._parent, image, options.handle)));
     return result;
   }
   auto createImageBitmap(ImageBitmapSource image, int sx, int sy, int sw, int sh, ImageBitmapOptions options) {
-    auto result = Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_int_int_int_int_Handle(this.handle, image, sx, sy, sw, sh, options.handle)));
+    auto result = Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_int_int_int_int_Handle(this._parent, image, sx, sy, sw, sh, options.handle)));
     return result;
   }
   auto fetch(RequestInfo input, RequestInit init) {
-    auto result = Promise!(Response)(JsHandle(WindowOrWorkerGlobalScope_fetch(this.handle, input, init.handle)));
+    auto result = Promise!(Response)(JsHandle(WindowOrWorkerGlobalScope_fetch(this._parent, input, init.handle)));
     return result;
   }
   auto indexedDB() {
-    auto result = IDBFactory(JsHandle(WindowOrWorkerGlobalScope_indexedDB_Get(this.handle)));
+    auto result = IDBFactory(JsHandle(WindowOrWorkerGlobalScope_indexedDB_Get(this._parent)));
     return result;
   }
   auto caches() {
-    auto result = CacheStorage(JsHandle(WindowOrWorkerGlobalScope_caches_Get(this.handle)));
+    auto result = CacheStorage(JsHandle(WindowOrWorkerGlobalScope_caches_Get(this._parent)));
     return result;
   }
   auto ongotpointercapture(EventHandler ongotpointercapture) {
-    GlobalEventHandlers_ongotpointercapture_Set(this.handle, ongotpointercapture);
+    GlobalEventHandlers_ongotpointercapture_Set(this._parent, ongotpointercapture);
   }
   auto ongotpointercapture() {
-    auto result = GlobalEventHandlers_ongotpointercapture_Get(this.handle);
+    auto result = GlobalEventHandlers_ongotpointercapture_Get(this._parent);
     return result;
   }
   auto onlostpointercapture(EventHandler onlostpointercapture) {
-    GlobalEventHandlers_onlostpointercapture_Set(this.handle, onlostpointercapture);
+    GlobalEventHandlers_onlostpointercapture_Set(this._parent, onlostpointercapture);
   }
   auto onlostpointercapture() {
-    auto result = GlobalEventHandlers_onlostpointercapture_Get(this.handle);
+    auto result = GlobalEventHandlers_onlostpointercapture_Get(this._parent);
     return result;
   }
   auto onpointerdown(EventHandler onpointerdown) {
-    GlobalEventHandlers_onpointerdown_Set(this.handle, onpointerdown);
+    GlobalEventHandlers_onpointerdown_Set(this._parent, onpointerdown);
   }
   auto onpointerdown() {
-    auto result = GlobalEventHandlers_onpointerdown_Get(this.handle);
+    auto result = GlobalEventHandlers_onpointerdown_Get(this._parent);
     return result;
   }
   auto onpointermove(EventHandler onpointermove) {
-    GlobalEventHandlers_onpointermove_Set(this.handle, onpointermove);
+    GlobalEventHandlers_onpointermove_Set(this._parent, onpointermove);
   }
   auto onpointermove() {
-    auto result = GlobalEventHandlers_onpointermove_Get(this.handle);
+    auto result = GlobalEventHandlers_onpointermove_Get(this._parent);
     return result;
   }
   auto onpointerup(EventHandler onpointerup) {
-    GlobalEventHandlers_onpointerup_Set(this.handle, onpointerup);
+    GlobalEventHandlers_onpointerup_Set(this._parent, onpointerup);
   }
   auto onpointerup() {
-    auto result = GlobalEventHandlers_onpointerup_Get(this.handle);
+    auto result = GlobalEventHandlers_onpointerup_Get(this._parent);
     return result;
   }
   auto onpointercancel(EventHandler onpointercancel) {
-    GlobalEventHandlers_onpointercancel_Set(this.handle, onpointercancel);
+    GlobalEventHandlers_onpointercancel_Set(this._parent, onpointercancel);
   }
   auto onpointercancel() {
-    auto result = GlobalEventHandlers_onpointercancel_Get(this.handle);
+    auto result = GlobalEventHandlers_onpointercancel_Get(this._parent);
     return result;
   }
   auto onpointerover(EventHandler onpointerover) {
-    GlobalEventHandlers_onpointerover_Set(this.handle, onpointerover);
+    GlobalEventHandlers_onpointerover_Set(this._parent, onpointerover);
   }
   auto onpointerover() {
-    auto result = GlobalEventHandlers_onpointerover_Get(this.handle);
+    auto result = GlobalEventHandlers_onpointerover_Get(this._parent);
     return result;
   }
   auto onpointerout(EventHandler onpointerout) {
-    GlobalEventHandlers_onpointerout_Set(this.handle, onpointerout);
+    GlobalEventHandlers_onpointerout_Set(this._parent, onpointerout);
   }
   auto onpointerout() {
-    auto result = GlobalEventHandlers_onpointerout_Get(this.handle);
+    auto result = GlobalEventHandlers_onpointerout_Get(this._parent);
     return result;
   }
   auto onpointerenter(EventHandler onpointerenter) {
-    GlobalEventHandlers_onpointerenter_Set(this.handle, onpointerenter);
+    GlobalEventHandlers_onpointerenter_Set(this._parent, onpointerenter);
   }
   auto onpointerenter() {
-    auto result = GlobalEventHandlers_onpointerenter_Get(this.handle);
+    auto result = GlobalEventHandlers_onpointerenter_Get(this._parent);
     return result;
   }
   auto onpointerleave(EventHandler onpointerleave) {
-    GlobalEventHandlers_onpointerleave_Set(this.handle, onpointerleave);
+    GlobalEventHandlers_onpointerleave_Set(this._parent, onpointerleave);
   }
   auto onpointerleave() {
-    auto result = GlobalEventHandlers_onpointerleave_Get(this.handle);
+    auto result = GlobalEventHandlers_onpointerleave_Get(this._parent);
     return result;
   }
   auto ontouchstart(EventHandler ontouchstart) {
-    GlobalEventHandlers_ontouchstart_Set(this.handle, ontouchstart);
+    GlobalEventHandlers_ontouchstart_Set(this._parent, ontouchstart);
   }
   auto ontouchstart() {
-    auto result = GlobalEventHandlers_ontouchstart_Get(this.handle);
+    auto result = GlobalEventHandlers_ontouchstart_Get(this._parent);
     return result;
   }
   auto ontouchend(EventHandler ontouchend) {
-    GlobalEventHandlers_ontouchend_Set(this.handle, ontouchend);
+    GlobalEventHandlers_ontouchend_Set(this._parent, ontouchend);
   }
   auto ontouchend() {
-    auto result = GlobalEventHandlers_ontouchend_Get(this.handle);
+    auto result = GlobalEventHandlers_ontouchend_Get(this._parent);
     return result;
   }
   auto ontouchmove(EventHandler ontouchmove) {
-    GlobalEventHandlers_ontouchmove_Set(this.handle, ontouchmove);
+    GlobalEventHandlers_ontouchmove_Set(this._parent, ontouchmove);
   }
   auto ontouchmove() {
-    auto result = GlobalEventHandlers_ontouchmove_Get(this.handle);
+    auto result = GlobalEventHandlers_ontouchmove_Get(this._parent);
     return result;
   }
   auto ontouchcancel(EventHandler ontouchcancel) {
-    GlobalEventHandlers_ontouchcancel_Set(this.handle, ontouchcancel);
+    GlobalEventHandlers_ontouchcancel_Set(this._parent, ontouchcancel);
   }
   auto ontouchcancel() {
-    auto result = GlobalEventHandlers_ontouchcancel_Get(this.handle);
+    auto result = GlobalEventHandlers_ontouchcancel_Get(this._parent);
     return result;
   }
 }
@@ -6918,6 +6975,9 @@ struct WindowPostMessageOptions {
   alias _parent this;
   this(JsHandle h) {
     _parent = PostMessageOptions(h);
+  }
+  static auto create() {
+    return WindowPostMessageOptions(JsHandle(spasm_add__object()));
   }
   auto targetOrigin(string targetOrigin) {
     WindowPostMessageOptions_targetOrigin_Set(this._parent, targetOrigin);
@@ -7026,56 +7086,56 @@ struct WorkerGlobalScope {
     return result;
   }
   auto origin() {
-    auto result = WindowOrWorkerGlobalScope_origin_Get(this.handle);
+    auto result = WindowOrWorkerGlobalScope_origin_Get(this._parent);
     return result;
   }
   auto btoa(string data) {
-    auto result = WindowOrWorkerGlobalScope_btoa(this.handle, data);
+    auto result = WindowOrWorkerGlobalScope_btoa(this._parent, data);
     return result;
   }
   auto atob(string data) {
-    auto result = WindowOrWorkerGlobalScope_atob(this.handle, data);
+    auto result = WindowOrWorkerGlobalScope_atob(this._parent, data);
     return result;
   }
   auto setTimeout(T2)(TimerHandler handler, int timeout /* = 0 */, T2 arguments) {
     Handle _handle_arguments = getOrCreateHandle(arguments);
-    auto result = WindowOrWorkerGlobalScope_setTimeout(this.handle, handler, timeout, _handle_arguments);
+    auto result = WindowOrWorkerGlobalScope_setTimeout(this._parent, handler, timeout, _handle_arguments);
     dropHandle!(T2)(_handle_arguments);
     return result;
   }
   auto clearTimeout(int handle /* = 0 */) {
-    WindowOrWorkerGlobalScope_clearTimeout(this.handle, handle);
+    WindowOrWorkerGlobalScope_clearTimeout(this._parent, handle);
   }
   auto setInterval(T2)(TimerHandler handler, int timeout /* = 0 */, T2 arguments) {
     Handle _handle_arguments = getOrCreateHandle(arguments);
-    auto result = WindowOrWorkerGlobalScope_setInterval(this.handle, handler, timeout, _handle_arguments);
+    auto result = WindowOrWorkerGlobalScope_setInterval(this._parent, handler, timeout, _handle_arguments);
     dropHandle!(T2)(_handle_arguments);
     return result;
   }
   auto clearInterval(int handle /* = 0 */) {
-    WindowOrWorkerGlobalScope_clearInterval(this.handle, handle);
+    WindowOrWorkerGlobalScope_clearInterval(this._parent, handle);
   }
   auto queueMicrotask(VoidFunction callback) {
-    WindowOrWorkerGlobalScope_queueMicrotask(this.handle, callback);
+    WindowOrWorkerGlobalScope_queueMicrotask(this._parent, callback);
   }
   auto createImageBitmap(ImageBitmapSource image, ImageBitmapOptions options) {
-    auto result = Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_Handle(this.handle, image, options.handle)));
+    auto result = Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_Handle(this._parent, image, options.handle)));
     return result;
   }
   auto createImageBitmap(ImageBitmapSource image, int sx, int sy, int sw, int sh, ImageBitmapOptions options) {
-    auto result = Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_int_int_int_int_Handle(this.handle, image, sx, sy, sw, sh, options.handle)));
+    auto result = Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_int_int_int_int_Handle(this._parent, image, sx, sy, sw, sh, options.handle)));
     return result;
   }
   auto fetch(RequestInfo input, RequestInit init) {
-    auto result = Promise!(Response)(JsHandle(WindowOrWorkerGlobalScope_fetch(this.handle, input, init.handle)));
+    auto result = Promise!(Response)(JsHandle(WindowOrWorkerGlobalScope_fetch(this._parent, input, init.handle)));
     return result;
   }
   auto indexedDB() {
-    auto result = IDBFactory(JsHandle(WindowOrWorkerGlobalScope_indexedDB_Get(this.handle)));
+    auto result = IDBFactory(JsHandle(WindowOrWorkerGlobalScope_indexedDB_Get(this._parent)));
     return result;
   }
   auto caches() {
-    auto result = CacheStorage(JsHandle(WindowOrWorkerGlobalScope_caches_Get(this.handle)));
+    auto result = CacheStorage(JsHandle(WindowOrWorkerGlobalScope_caches_Get(this._parent)));
     return result;
   }
 }
@@ -7197,6 +7257,9 @@ struct WorkerNavigator {
 struct WorkerOptions {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return WorkerOptions(JsHandle(spasm_add__object()));
+  }
   auto type(WorkerType type) {
     WorkerOptions_type_Set(this.handle, type);
   }
@@ -7247,6 +7310,7 @@ extern (C) void ApplicationCache_oncached_Set(Handle, EventHandler);
 extern (C) EventHandler ApplicationCache_oncached_Get(Handle);
 extern (C) void ApplicationCache_onobsolete_Set(Handle, EventHandler);
 extern (C) EventHandler ApplicationCache_onobsolete_Get(Handle);
+extern (C) void AssignedNodesOptions_create(Handle);
 extern (C) void AssignedNodesOptions_flatten_Set(Handle, bool);
 extern (C) bool AssignedNodesOptions_flatten_Get(Handle);
 extern (C) string AudioTrack_id_Get(Handle);
@@ -7314,6 +7378,7 @@ extern (C) void CanvasRect_clearRect(Handle, double, double, double, double);
 extern (C) void CanvasRect_fillRect(Handle, double, double, double, double);
 extern (C) void CanvasRect_strokeRect(Handle, double, double, double, double);
 extern (C) Handle CanvasRenderingContext2D_canvas_Get(Handle);
+extern (C) void CanvasRenderingContext2DSettings_create(Handle);
 extern (C) void CanvasRenderingContext2DSettings_alpha_Set(Handle, bool);
 extern (C) bool CanvasRenderingContext2DSettings_alpha_Get(Handle);
 extern (C) void CanvasState_save(Handle);
@@ -7336,6 +7401,7 @@ extern (C) void CanvasUserInterface_scrollPathIntoView__Handle(Handle, Handle);
 extern (C) bool CloseEvent_wasClean_Get(Handle);
 extern (C) ushort CloseEvent_code_Get(Handle);
 extern (C) string CloseEvent_reason_Get(Handle);
+extern (C) void CloseEventInit_create(Handle);
 extern (C) void CloseEventInit_wasClean_Set(Handle, bool);
 extern (C) bool CloseEventInit_wasClean_Get(Handle);
 extern (C) void CloseEventInit_code_Set(Handle, ushort);
@@ -7382,9 +7448,11 @@ extern (C) EventHandler DedicatedWorkerGlobalScope_onmessage_Get(Handle);
 extern (C) void DedicatedWorkerGlobalScope_onmessageerror_Set(Handle, EventHandler);
 extern (C) EventHandler DedicatedWorkerGlobalScope_onmessageerror_Get(Handle);
 extern (C) Optional!(DataTransfer) DragEvent_dataTransfer_Get(Handle);
+extern (C) void DragEventInit_create(Handle);
 extern (C) void DragEventInit_dataTransfer_Set(Handle, bool, Handle);
 extern (C) Optional!(DataTransfer) DragEventInit_dataTransfer_Get(Handle);
 extern (C) bool ElementContentEditable_isContentEditable_Get(Handle);
+extern (C) void ElementDefinitionOptions_create(Handle);
 extern (C) void ElementDefinitionOptions_extends_Set(Handle, string);
 extern (C) string ElementDefinitionOptions_extends_Get(Handle);
 extern (C) string ErrorEvent_message_Get(Handle);
@@ -7392,6 +7460,7 @@ extern (C) string ErrorEvent_filename_Get(Handle);
 extern (C) uint ErrorEvent_lineno_Get(Handle);
 extern (C) uint ErrorEvent_colno_Get(Handle);
 extern (C) Handle ErrorEvent_error_Get(Handle);
+extern (C) void ErrorEventInit_create(Handle);
 extern (C) void ErrorEventInit_message_Set(Handle, string);
 extern (C) string ErrorEventInit_message_Get(Handle);
 extern (C) void ErrorEventInit_filename_Set(Handle, string);
@@ -7412,10 +7481,12 @@ extern (C) EventHandler EventSource_onmessage_Get(Handle);
 extern (C) void EventSource_onerror_Set(Handle, EventHandler);
 extern (C) EventHandler EventSource_onerror_Get(Handle);
 extern (C) void EventSource_close(Handle);
+extern (C) void EventSourceInit_create(Handle);
 extern (C) void EventSourceInit_withCredentials_Set(Handle, bool);
 extern (C) bool EventSourceInit_withCredentials_Get(Handle);
 extern (C) void External_AddSearchProvider(Handle);
 extern (C) void External_IsSearchProviderInstalled(Handle);
+extern (C) void FocusOptions_create(Handle);
 extern (C) void FocusOptions_preventScroll_Set(Handle, bool);
 extern (C) bool FocusOptions_preventScroll_Get(Handle);
 extern (C) void GlobalEventHandlers_ongotpointercapture_Set(Handle, EventHandler);
@@ -8386,6 +8457,7 @@ extern (C) void HTMLVideoElement_playsInline_Set(Handle, bool);
 extern (C) bool HTMLVideoElement_playsInline_Get(Handle);
 extern (C) string HashChangeEvent_oldURL_Get(Handle);
 extern (C) string HashChangeEvent_newURL_Get(Handle);
+extern (C) void HashChangeEventInit_create(Handle);
 extern (C) void HashChangeEventInit_oldURL_Set(Handle, string);
 extern (C) string HashChangeEventInit_oldURL_Get(Handle);
 extern (C) void HashChangeEventInit_newURL_Set(Handle, string);
@@ -8402,6 +8474,7 @@ extern (C) void History_replaceState(Handle, Handle, string, bool, string);
 extern (C) uint ImageBitmap_width_Get(Handle);
 extern (C) uint ImageBitmap_height_Get(Handle);
 extern (C) void ImageBitmap_close(Handle);
+extern (C) void ImageBitmapOptions_create(Handle);
 extern (C) void ImageBitmapOptions_imageOrientation_Set(Handle, ImageOrientation);
 extern (C) ImageOrientation ImageBitmapOptions_imageOrientation_Get(Handle);
 extern (C) void ImageBitmapOptions_premultiplyAlpha_Set(Handle, PremultiplyAlpha);
@@ -8416,11 +8489,13 @@ extern (C) void ImageBitmapOptions_resizeQuality_Set(Handle, ResizeQuality);
 extern (C) ResizeQuality ImageBitmapOptions_resizeQuality_Get(Handle);
 extern (C) Handle ImageBitmapRenderingContext_canvas_Get(Handle);
 extern (C) void ImageBitmapRenderingContext_transferFromImageBitmap(Handle, bool, Handle);
+extern (C) void ImageBitmapRenderingContextSettings_create(Handle);
 extern (C) void ImageBitmapRenderingContextSettings_alpha_Set(Handle, bool);
 extern (C) bool ImageBitmapRenderingContextSettings_alpha_Get(Handle);
 extern (C) uint ImageData_width_Get(Handle);
 extern (C) uint ImageData_height_Get(Handle);
 extern (C) Handle ImageData_data_Get(Handle);
+extern (C) void ImageEncodeOptions_create(Handle);
 extern (C) void ImageEncodeOptions_type_Set(Handle, string);
 extern (C) string ImageEncodeOptions_type_Get(Handle);
 extern (C) void ImageEncodeOptions_quality_Set(Handle, double);
@@ -8456,6 +8531,7 @@ extern (C) string MessageEvent_lastEventId_Get(Handle);
 extern (C) Optional!(MessageEventSource) MessageEvent_source_Get(Handle);
 extern (C) Handle MessageEvent_ports_Get(Handle);
 extern (C) void MessageEvent_initMessageEvent(Handle, string, bool, bool, Handle, string, string, bool, MessageEventSource, Handle);
+extern (C) void MessageEventInit_create(Handle);
 extern (C) void MessageEventInit_data_Set(Handle, Handle);
 extern (C) Handle MessageEventInit_data_Get(Handle);
 extern (C) void MessageEventInit_origin_Set(Handle, string);
@@ -8519,6 +8595,7 @@ extern (C) Handle OffscreenCanvas_convertToBlob(Handle, Handle);
 extern (C) void OffscreenCanvasRenderingContext2D_commit(Handle);
 extern (C) Handle OffscreenCanvasRenderingContext2D_canvas_Get(Handle);
 extern (C) bool PageTransitionEvent_persisted_Get(Handle);
+extern (C) void PageTransitionEventInit_create(Handle);
 extern (C) void PageTransitionEventInit_persisted_Set(Handle, bool);
 extern (C) bool PageTransitionEventInit_persisted_Get(Handle);
 extern (C) void Path2D_addPath(Handle, Handle, Handle);
@@ -8533,12 +8610,15 @@ extern (C) uint PluginArray_length_Get(Handle);
 extern (C) Optional!(Plugin) PluginArray_item_getter(Handle, uint);
 extern (C) Optional!(Plugin) PluginArray_namedItem_getter(Handle, string);
 extern (C) Handle PopStateEvent_state_Get(Handle);
+extern (C) void PopStateEventInit_create(Handle);
 extern (C) void PopStateEventInit_state_Set(Handle, Handle);
 extern (C) Handle PopStateEventInit_state_Get(Handle);
+extern (C) void PostMessageOptions_create(Handle);
 extern (C) void PostMessageOptions_transfer_Set(Handle, Handle);
 extern (C) Handle PostMessageOptions_transfer_Get(Handle);
 extern (C) Handle PromiseRejectionEvent_promise_Get(Handle);
 extern (C) Handle PromiseRejectionEvent_reason_Get(Handle);
+extern (C) void PromiseRejectionEventInit_create(Handle);
 extern (C) void PromiseRejectionEventInit_promise_Set(Handle, Handle);
 extern (C) Handle PromiseRejectionEventInit_promise_Get(Handle);
 extern (C) void PromiseRejectionEventInit_reason_Set(Handle, Handle);
@@ -8562,6 +8642,7 @@ extern (C) Optional!(string) StorageEvent_newValue_Get(Handle);
 extern (C) string StorageEvent_url_Get(Handle);
 extern (C) Optional!(Storage) StorageEvent_storageArea_Get(Handle);
 extern (C) void StorageEvent_initStorageEvent(Handle, string, bool, bool, bool, string, bool, string, bool, string, string, bool, Handle);
+extern (C) void StorageEventInit_create(Handle);
 extern (C) void StorageEventInit_key_Set(Handle, bool, string);
 extern (C) Optional!(string) StorageEventInit_key_Get(Handle);
 extern (C) void StorageEventInit_oldValue_Set(Handle, bool, string);
@@ -8627,6 +8708,7 @@ extern (C) uint TimeRanges_length_Get(Handle);
 extern (C) double TimeRanges_start(Handle, uint);
 extern (C) double TimeRanges_end(Handle, uint);
 extern (C) Optional!(SumType!(VideoTrack, AudioTrack, TextTrack)) TrackEvent_track_Get(Handle);
+extern (C) void TrackEventInit_create(Handle);
 extern (C) void TrackEventInit_track_Set(Handle, bool, SumType!(VideoTrack, AudioTrack, TextTrack));
 extern (C) Optional!(SumType!(VideoTrack, AudioTrack, TextTrack)) TrackEventInit_track_Get(Handle);
 extern (C) bool ValidityState_valueMissing_Get(Handle);
@@ -8736,6 +8818,7 @@ extern (C) Handle WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource
 extern (C) Handle WindowOrWorkerGlobalScope_fetch(Handle, RequestInfo, Handle);
 extern (C) Handle WindowOrWorkerGlobalScope_indexedDB_Get(Handle);
 extern (C) Handle WindowOrWorkerGlobalScope_caches_Get(Handle);
+extern (C) void WindowPostMessageOptions_create(Handle);
 extern (C) void WindowPostMessageOptions_targetOrigin_Set(Handle, string);
 extern (C) string WindowPostMessageOptions_targetOrigin_Get(Handle);
 extern (C) Handle WindowSessionStorage_sessionStorage_Get(Handle);
@@ -8774,6 +8857,7 @@ extern (C) string WorkerLocation_search_Get(Handle);
 extern (C) string WorkerLocation_hash_Get(Handle);
 extern (C) Handle WorkerNavigator_permissions_Get(Handle);
 extern (C) Handle WorkerNavigator_serviceWorker_Get(Handle);
+extern (C) void WorkerOptions_create(Handle);
 extern (C) void WorkerOptions_type_Set(Handle, WorkerType);
 extern (C) WorkerType WorkerOptions_type_Get(Handle);
 extern (C) void WorkerOptions_credentials_Set(Handle, RequestCredentials);

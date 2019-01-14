@@ -21,6 +21,9 @@ struct CompositionEventInit {
   this(JsHandle h) {
     _parent = UIEventInit(h);
   }
+  static auto create() {
+    return CompositionEventInit(JsHandle(spasm_add__object()));
+  }
   auto data(string data) {
     CompositionEventInit_data_Set(this._parent, data);
   }
@@ -34,6 +37,9 @@ struct EventModifierInit {
   alias _parent this;
   this(JsHandle h) {
     _parent = UIEventInit(h);
+  }
+  static auto create() {
+    return EventModifierInit(JsHandle(spasm_add__object()));
   }
   auto ctrlKey(bool ctrlKey) {
     EventModifierInit_ctrlKey_Set(this._parent, ctrlKey);
@@ -151,6 +157,9 @@ struct FocusEventInit {
   this(JsHandle h) {
     _parent = UIEventInit(h);
   }
+  static auto create() {
+    return FocusEventInit(JsHandle(spasm_add__object()));
+  }
   auto relatedTarget(Optional!(EventTarget) relatedTarget) {
     FocusEventInit_relatedTarget_Set(this._parent, !relatedTarget.empty, relatedTarget.front.handle);
   }
@@ -183,6 +192,9 @@ struct InputEventInit {
   alias _parent this;
   this(JsHandle h) {
     _parent = UIEventInit(h);
+  }
+  static auto create() {
+    return InputEventInit(JsHandle(spasm_add__object()));
   }
   auto data(Optional!(string) data) {
     InputEventInit_data_Set(this._parent, !data.empty, data.front);
@@ -270,6 +282,9 @@ struct KeyboardEventInit {
   alias _parent this;
   this(JsHandle h) {
     _parent = EventModifierInit(h);
+  }
+  static auto create() {
+    return KeyboardEventInit(JsHandle(spasm_add__object()));
   }
   auto key(string key) {
     KeyboardEventInit_key_Set(this._parent, key);
@@ -368,6 +383,9 @@ struct MouseEventInit {
   this(JsHandle h) {
     _parent = EventModifierInit(h);
   }
+  static auto create() {
+    return MouseEventInit(JsHandle(spasm_add__object()));
+  }
   auto screenX(int screenX) {
     MouseEventInit_screenX_Set(this._parent, screenX);
   }
@@ -443,6 +461,9 @@ struct UIEventInit {
   this(JsHandle h) {
     _parent = EventInit(h);
   }
+  static auto create() {
+    return UIEventInit(JsHandle(spasm_add__object()));
+  }
   auto view(Optional!(Window) view) {
     UIEventInit_view_Set(this._parent, !view.empty, view.front.handle);
   }
@@ -490,6 +511,9 @@ struct WheelEventInit {
   this(JsHandle h) {
     _parent = MouseEventInit(h);
   }
+  static auto create() {
+    return WheelEventInit(JsHandle(spasm_add__object()));
+  }
   auto deltaX(double deltaX) {
     WheelEventInit_deltaX_Set(this._parent, deltaX);
   }
@@ -522,8 +546,10 @@ struct WheelEventInit {
 
 
 extern (C) string CompositionEvent_data_Get(Handle);
+extern (C) void CompositionEventInit_create(Handle);
 extern (C) void CompositionEventInit_data_Set(Handle, string);
 extern (C) string CompositionEventInit_data_Get(Handle);
+extern (C) void EventModifierInit_create(Handle);
 extern (C) void EventModifierInit_ctrlKey_Set(Handle, bool);
 extern (C) bool EventModifierInit_ctrlKey_Get(Handle);
 extern (C) void EventModifierInit_shiftKey_Set(Handle, bool);
@@ -553,11 +579,13 @@ extern (C) bool EventModifierInit_modifierSymbol_Get(Handle);
 extern (C) void EventModifierInit_modifierSymbolLock_Set(Handle, bool);
 extern (C) bool EventModifierInit_modifierSymbolLock_Get(Handle);
 extern (C) Optional!(EventTarget) FocusEvent_relatedTarget_Get(Handle);
+extern (C) void FocusEventInit_create(Handle);
 extern (C) void FocusEventInit_relatedTarget_Set(Handle, bool, Handle);
 extern (C) Optional!(EventTarget) FocusEventInit_relatedTarget_Get(Handle);
 extern (C) Optional!(string) InputEvent_data_Get(Handle);
 extern (C) bool InputEvent_isComposing_Get(Handle);
 extern (C) string InputEvent_inputType_Get(Handle);
+extern (C) void InputEventInit_create(Handle);
 extern (C) void InputEventInit_data_Set(Handle, bool, string);
 extern (C) Optional!(string) InputEventInit_data_Get(Handle);
 extern (C) void InputEventInit_isComposing_Set(Handle, bool);
@@ -576,6 +604,7 @@ extern (C) bool KeyboardEvent_isComposing_Get(Handle);
 extern (C) bool KeyboardEvent_getModifierState(Handle, string);
 extern (C) uint KeyboardEvent_charCode_Get(Handle);
 extern (C) uint KeyboardEvent_keyCode_Get(Handle);
+extern (C) void KeyboardEventInit_create(Handle);
 extern (C) void KeyboardEventInit_key_Set(Handle, string);
 extern (C) string KeyboardEventInit_key_Get(Handle);
 extern (C) void KeyboardEventInit_code_Set(Handle, string);
@@ -598,6 +627,7 @@ extern (C) short MouseEvent_button_Get(Handle);
 extern (C) ushort MouseEvent_buttons_Get(Handle);
 extern (C) Optional!(EventTarget) MouseEvent_relatedTarget_Get(Handle);
 extern (C) bool MouseEvent_getModifierState(Handle, string);
+extern (C) void MouseEventInit_create(Handle);
 extern (C) void MouseEventInit_screenX_Set(Handle, int);
 extern (C) int MouseEventInit_screenX_Get(Handle);
 extern (C) void MouseEventInit_screenY_Set(Handle, int);
@@ -615,6 +645,7 @@ extern (C) Optional!(EventTarget) MouseEventInit_relatedTarget_Get(Handle);
 extern (C) Optional!(Window) UIEvent_view_Get(Handle);
 extern (C) int UIEvent_detail_Get(Handle);
 extern (C) uint UIEvent_which_Get(Handle);
+extern (C) void UIEventInit_create(Handle);
 extern (C) void UIEventInit_view_Set(Handle, bool, Handle);
 extern (C) Optional!(Window) UIEventInit_view_Get(Handle);
 extern (C) void UIEventInit_detail_Set(Handle, int);
@@ -623,6 +654,7 @@ extern (C) double WheelEvent_deltaX_Get(Handle);
 extern (C) double WheelEvent_deltaY_Get(Handle);
 extern (C) double WheelEvent_deltaZ_Get(Handle);
 extern (C) uint WheelEvent_deltaMode_Get(Handle);
+extern (C) void WheelEventInit_create(Handle);
 extern (C) void WheelEventInit_deltaX_Set(Handle, double);
 extern (C) double WheelEventInit_deltaX_Get(Handle);
 extern (C) void WheelEventInit_deltaY_Set(Handle, double);

@@ -7,11 +7,17 @@ import spasm.bindings.html;
 struct Capabilities {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return Capabilities(JsHandle(spasm_add__object()));
+  }
 }
 alias ConstrainBoolean = SumType!(bool, ConstrainBooleanParameters);
 struct ConstrainBooleanParameters {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return ConstrainBooleanParameters(JsHandle(spasm_add__object()));
+  }
   auto exact(bool exact) {
     ConstrainBooleanParameters_exact_Set(this.handle, exact);
   }
@@ -31,6 +37,9 @@ alias ConstrainDOMString = SumType!(string, Sequence!(string), ConstrainDOMStrin
 struct ConstrainDOMStringParameters {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return ConstrainDOMStringParameters(JsHandle(spasm_add__object()));
+  }
   auto exact(SumType!(string, Sequence!(string)) exact) {
     ConstrainDOMStringParameters_exact_Set(this.handle, exact);
   }
@@ -53,6 +62,9 @@ struct ConstrainDoubleRange {
   this(JsHandle h) {
     _parent = DoubleRange(h);
   }
+  static auto create() {
+    return ConstrainDoubleRange(JsHandle(spasm_add__object()));
+  }
   auto exact(double exact) {
     ConstrainDoubleRange_exact_Set(this._parent, exact);
   }
@@ -74,6 +86,9 @@ struct ConstrainULongRange {
   alias _parent this;
   this(JsHandle h) {
     _parent = ULongRange(h);
+  }
+  static auto create() {
+    return ConstrainULongRange(JsHandle(spasm_add__object()));
   }
   auto exact(uint exact) {
     ConstrainULongRange_exact_Set(this._parent, exact);
@@ -120,12 +135,18 @@ struct ConstrainablePattern {
 struct ConstraintSet {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return ConstraintSet(JsHandle(spasm_add__object()));
+  }
 }
 struct Constraints {
   ConstraintSet _parent;
   alias _parent this;
   this(JsHandle h) {
     _parent = ConstraintSet(h);
+  }
+  static auto create() {
+    return Constraints(JsHandle(spasm_add__object()));
   }
   auto advanced(Sequence!(ConstraintSet) advanced) {
     Constraints_advanced_Set(this._parent, advanced.handle);
@@ -138,6 +159,9 @@ struct Constraints {
 struct DoubleRange {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return DoubleRange(JsHandle(spasm_add__object()));
+  }
   auto max(double max) {
     DoubleRange_max_Set(this.handle, max);
   }
@@ -277,6 +301,9 @@ struct MediaStream {
 struct MediaStreamConstraints {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return MediaStreamConstraints(JsHandle(spasm_add__object()));
+  }
   auto video(SumType!(bool, MediaTrackConstraints) video) {
     MediaStreamConstraints_video_Set(this.handle, video);
   }
@@ -395,6 +422,9 @@ struct MediaStreamTrackEventInit {
   this(JsHandle h) {
     _parent = EventInit(h);
   }
+  static auto create() {
+    return MediaStreamTrackEventInit(JsHandle(spasm_add__object()));
+  }
   auto track(MediaStreamTrack track) {
     MediaStreamTrackEventInit_track_Set(this._parent, track.handle);
   }
@@ -410,6 +440,9 @@ enum MediaStreamTrackState {
 struct MediaTrackCapabilities {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return MediaTrackCapabilities(JsHandle(spasm_add__object()));
+  }
   auto width(ULongRange width) {
     MediaTrackCapabilities_width_Set(this.handle, width.handle);
   }
@@ -526,6 +559,9 @@ struct MediaTrackCapabilities {
 struct MediaTrackConstraintSet {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return MediaTrackConstraintSet(JsHandle(spasm_add__object()));
+  }
   auto width(ConstrainULong width) {
     MediaTrackConstraintSet_width_Set(this.handle, width);
   }
@@ -645,6 +681,9 @@ struct MediaTrackConstraints {
   this(JsHandle h) {
     _parent = MediaTrackConstraintSet(h);
   }
+  static auto create() {
+    return MediaTrackConstraints(JsHandle(spasm_add__object()));
+  }
   auto advanced(Sequence!(MediaTrackConstraintSet) advanced) {
     MediaTrackConstraints_advanced_Set(this._parent, advanced.handle);
   }
@@ -656,6 +695,9 @@ struct MediaTrackConstraints {
 struct MediaTrackSettings {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return MediaTrackSettings(JsHandle(spasm_add__object()));
+  }
   auto width(int width) {
     MediaTrackSettings_width_Set(this.handle, width);
   }
@@ -772,6 +814,9 @@ struct MediaTrackSettings {
 struct MediaTrackSupportedConstraints {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return MediaTrackSupportedConstraints(JsHandle(spasm_add__object()));
+  }
   auto width(bool width) {
     MediaTrackSupportedConstraints_width_Set(this.handle, width);
   }
@@ -908,6 +953,9 @@ struct OverconstrainedErrorEventInit {
   this(JsHandle h) {
     _parent = EventInit(h);
   }
+  static auto create() {
+    return OverconstrainedErrorEventInit(JsHandle(spasm_add__object()));
+  }
   auto error(Optional!(OverconstrainedError) error) {
     OverconstrainedErrorEventInit_error_Set(this._parent, !error.empty, error.front.handle);
   }
@@ -919,10 +967,16 @@ struct OverconstrainedErrorEventInit {
 struct Settings {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return Settings(JsHandle(spasm_add__object()));
+  }
 }
 struct ULongRange {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return ULongRange(JsHandle(spasm_add__object()));
+  }
   auto max(uint max) {
     ULongRange_max_Set(this.handle, max);
   }
@@ -950,18 +1004,23 @@ enum VideoResizeModeEnum {
 }
 
 
+extern (C) void Capabilities_create(Handle);
+extern (C) void ConstrainBooleanParameters_create(Handle);
 extern (C) void ConstrainBooleanParameters_exact_Set(Handle, bool);
 extern (C) bool ConstrainBooleanParameters_exact_Get(Handle);
 extern (C) void ConstrainBooleanParameters_ideal_Set(Handle, bool);
 extern (C) bool ConstrainBooleanParameters_ideal_Get(Handle);
+extern (C) void ConstrainDOMStringParameters_create(Handle);
 extern (C) void ConstrainDOMStringParameters_exact_Set(Handle, SumType!(string, Sequence!(string)));
 extern (C) SumType!(string, Sequence!(string)) ConstrainDOMStringParameters_exact_Get(Handle);
 extern (C) void ConstrainDOMStringParameters_ideal_Set(Handle, SumType!(string, Sequence!(string)));
 extern (C) SumType!(string, Sequence!(string)) ConstrainDOMStringParameters_ideal_Get(Handle);
+extern (C) void ConstrainDoubleRange_create(Handle);
 extern (C) void ConstrainDoubleRange_exact_Set(Handle, double);
 extern (C) double ConstrainDoubleRange_exact_Get(Handle);
 extern (C) void ConstrainDoubleRange_ideal_Set(Handle, double);
 extern (C) double ConstrainDoubleRange_ideal_Get(Handle);
+extern (C) void ConstrainULongRange_create(Handle);
 extern (C) void ConstrainULongRange_exact_Set(Handle, uint);
 extern (C) uint ConstrainULongRange_exact_Get(Handle);
 extern (C) void ConstrainULongRange_ideal_Set(Handle, uint);
@@ -972,8 +1031,11 @@ extern (C) Handle ConstrainablePattern_getSettings(Handle);
 extern (C) Handle ConstrainablePattern_applyConstraints(Handle, Handle);
 extern (C) void ConstrainablePattern_onoverconstrained_Set(Handle, EventHandler);
 extern (C) EventHandler ConstrainablePattern_onoverconstrained_Get(Handle);
+extern (C) void ConstraintSet_create(Handle);
+extern (C) void Constraints_create(Handle);
 extern (C) void Constraints_advanced_Set(Handle, Handle);
 extern (C) Handle Constraints_advanced_Get(Handle);
+extern (C) void DoubleRange_create(Handle);
 extern (C) void DoubleRange_max_Set(Handle, double);
 extern (C) double DoubleRange_max_Get(Handle);
 extern (C) void DoubleRange_min_Set(Handle, double);
@@ -1002,6 +1064,7 @@ extern (C) void MediaStream_onaddtrack_Set(Handle, EventHandler);
 extern (C) EventHandler MediaStream_onaddtrack_Get(Handle);
 extern (C) void MediaStream_onremovetrack_Set(Handle, EventHandler);
 extern (C) EventHandler MediaStream_onremovetrack_Get(Handle);
+extern (C) void MediaStreamConstraints_create(Handle);
 extern (C) void MediaStreamConstraints_video_Set(Handle, SumType!(bool, MediaTrackConstraints));
 extern (C) SumType!(bool, MediaTrackConstraints) MediaStreamConstraints_video_Get(Handle);
 extern (C) void MediaStreamConstraints_audio_Set(Handle, SumType!(bool, MediaTrackConstraints));
@@ -1028,8 +1091,10 @@ extern (C) Handle MediaStreamTrack_applyConstraints(Handle, Handle);
 extern (C) void MediaStreamTrack_onoverconstrained_Set(Handle, EventHandler);
 extern (C) EventHandler MediaStreamTrack_onoverconstrained_Get(Handle);
 extern (C) Handle MediaStreamTrackEvent_track_Get(Handle);
+extern (C) void MediaStreamTrackEventInit_create(Handle);
 extern (C) void MediaStreamTrackEventInit_track_Set(Handle, Handle);
 extern (C) Handle MediaStreamTrackEventInit_track_Get(Handle);
+extern (C) void MediaTrackCapabilities_create(Handle);
 extern (C) void MediaTrackCapabilities_width_Set(Handle, Handle);
 extern (C) Handle MediaTrackCapabilities_width_Get(Handle);
 extern (C) void MediaTrackCapabilities_height_Set(Handle, Handle);
@@ -1062,6 +1127,7 @@ extern (C) void MediaTrackCapabilities_deviceId_Set(Handle, string);
 extern (C) string MediaTrackCapabilities_deviceId_Get(Handle);
 extern (C) void MediaTrackCapabilities_groupId_Set(Handle, string);
 extern (C) string MediaTrackCapabilities_groupId_Get(Handle);
+extern (C) void MediaTrackConstraintSet_create(Handle);
 extern (C) void MediaTrackConstraintSet_width_Set(Handle, ConstrainULong);
 extern (C) ConstrainULong MediaTrackConstraintSet_width_Get(Handle);
 extern (C) void MediaTrackConstraintSet_height_Set(Handle, ConstrainULong);
@@ -1094,8 +1160,10 @@ extern (C) void MediaTrackConstraintSet_deviceId_Set(Handle, ConstrainDOMString)
 extern (C) ConstrainDOMString MediaTrackConstraintSet_deviceId_Get(Handle);
 extern (C) void MediaTrackConstraintSet_groupId_Set(Handle, ConstrainDOMString);
 extern (C) ConstrainDOMString MediaTrackConstraintSet_groupId_Get(Handle);
+extern (C) void MediaTrackConstraints_create(Handle);
 extern (C) void MediaTrackConstraints_advanced_Set(Handle, Handle);
 extern (C) Handle MediaTrackConstraints_advanced_Get(Handle);
+extern (C) void MediaTrackSettings_create(Handle);
 extern (C) void MediaTrackSettings_width_Set(Handle, int);
 extern (C) int MediaTrackSettings_width_Get(Handle);
 extern (C) void MediaTrackSettings_height_Set(Handle, int);
@@ -1128,6 +1196,7 @@ extern (C) void MediaTrackSettings_deviceId_Set(Handle, string);
 extern (C) string MediaTrackSettings_deviceId_Get(Handle);
 extern (C) void MediaTrackSettings_groupId_Set(Handle, string);
 extern (C) string MediaTrackSettings_groupId_Get(Handle);
+extern (C) void MediaTrackSupportedConstraints_create(Handle);
 extern (C) void MediaTrackSupportedConstraints_width_Set(Handle, bool);
 extern (C) bool MediaTrackSupportedConstraints_width_Get(Handle);
 extern (C) void MediaTrackSupportedConstraints_height_Set(Handle, bool);
@@ -1161,8 +1230,11 @@ extern (C) bool MediaTrackSupportedConstraints_deviceId_Get(Handle);
 extern (C) void MediaTrackSupportedConstraints_groupId_Set(Handle, bool);
 extern (C) bool MediaTrackSupportedConstraints_groupId_Get(Handle);
 extern (C) Optional!(OverconstrainedError) OverconstrainedErrorEvent_error_Get(Handle);
+extern (C) void OverconstrainedErrorEventInit_create(Handle);
 extern (C) void OverconstrainedErrorEventInit_error_Set(Handle, bool, Handle);
 extern (C) Optional!(OverconstrainedError) OverconstrainedErrorEventInit_error_Get(Handle);
+extern (C) void Settings_create(Handle);
+extern (C) void ULongRange_create(Handle);
 extern (C) void ULongRange_max_Set(Handle, uint);
 extern (C) uint ULongRange_max_Get(Handle);
 extern (C) void ULongRange_min_Set(Handle, uint);

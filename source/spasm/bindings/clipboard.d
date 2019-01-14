@@ -45,6 +45,9 @@ struct ClipboardEventInit {
   this(JsHandle h) {
     _parent = EventInit(h);
   }
+  static auto create() {
+    return ClipboardEventInit(JsHandle(spasm_add__object()));
+  }
   auto clipboardData(Optional!(DataTransfer) clipboardData) {
     ClipboardEventInit_clipboardData_Set(this._parent, !clipboardData.empty, clipboardData.front.handle);
   }
@@ -58,6 +61,9 @@ struct ClipboardPermissionDescriptor {
   alias _parent this;
   this(JsHandle h) {
     _parent = PermissionDescriptor(h);
+  }
+  static auto create() {
+    return ClipboardPermissionDescriptor(JsHandle(spasm_add__object()));
   }
   auto allowWithoutGesture(bool allowWithoutGesture) {
     ClipboardPermissionDescriptor_allowWithoutGesture_Set(this._parent, allowWithoutGesture);
@@ -74,7 +80,9 @@ extern (C) Handle Clipboard_readText(Handle);
 extern (C) Handle Clipboard_write(Handle, Handle);
 extern (C) Handle Clipboard_writeText(Handle, string);
 extern (C) Optional!(DataTransfer) ClipboardEvent_clipboardData_Get(Handle);
+extern (C) void ClipboardEventInit_create(Handle);
 extern (C) void ClipboardEventInit_clipboardData_Set(Handle, bool, Handle);
 extern (C) Optional!(DataTransfer) ClipboardEventInit_clipboardData_Get(Handle);
+extern (C) void ClipboardPermissionDescriptor_create(Handle);
 extern (C) void ClipboardPermissionDescriptor_allowWithoutGesture_Set(Handle, bool);
 extern (C) bool ClipboardPermissionDescriptor_allowWithoutGesture_Get(Handle);

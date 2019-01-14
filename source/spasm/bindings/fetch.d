@@ -164,6 +164,9 @@ alias RequestInfo = SumType!(Request, string);
 struct RequestInit {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return RequestInit(JsHandle(spasm_add__object()));
+  }
   auto method(string method) {
     RequestInit_method_Set(this.handle, method);
   }
@@ -348,6 +351,9 @@ struct Response {
 struct ResponseInit {
   JsHandle handle;
   alias handle this;
+  static auto create() {
+    return ResponseInit(JsHandle(spasm_add__object()));
+  }
   auto status(ushort status) {
     ResponseInit_status_Set(this.handle, status);
   }
@@ -408,6 +414,7 @@ extern (C) bool Request_isReloadNavigation_Get(Handle);
 extern (C) bool Request_isHistoryNavigation_Get(Handle);
 extern (C) Handle Request_signal_Get(Handle);
 extern (C) Handle Request_clone(Handle);
+extern (C) void RequestInit_create(Handle);
 extern (C) void RequestInit_method_Set(Handle, string);
 extern (C) string RequestInit_method_Get(Handle);
 extern (C) void RequestInit_headers_Set(Handle, HeadersInit);
@@ -445,6 +452,7 @@ extern (C) string Response_statusText_Get(Handle);
 extern (C) Handle Response_headers_Get(Handle);
 extern (C) Handle Response_trailer_Get(Handle);
 extern (C) Handle Response_clone(Handle);
+extern (C) void ResponseInit_create(Handle);
 extern (C) void ResponseInit_status_Set(Handle, ushort);
 extern (C) ushort ResponseInit_status_Get(Handle);
 extern (C) void ResponseInit_statusText_Set(Handle, string);

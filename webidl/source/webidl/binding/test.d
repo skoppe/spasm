@@ -30,7 +30,7 @@ version (unittest) {
       Semantics semantics;
       string generateDBindings() { return ir.generateDBindings(module_); }
       string generateDImports() { return ir.generateDImports(module_); }
-      string generateJsExports() { return ir.generateJsExports(module_); }
+      string generateJsExports() { return ir.generateSingleJsBinding([]); }
     }
     return Helper(semantics.toIr(), semantics.modules["mod"], semantics);
   }
@@ -1583,3 +1583,43 @@ export default {
 }");
 }
 
+@("inheritance.mixin")
+unittest {
+  auto gen = getGenerator(q{
+      interface mixin GenericTransformStream {
+        readonly attribute WritableStream writable;
+      };
+      interface TextDecoderStream : Foo {
+      };
+      TextDecoderStream includes GenericTransformStream;
+    });
+  gen.generateDBindings.shouldBeLike(q{
+      struct TextDecoderStream {
+        Foo _parent;
+        alias _parent this;
+        this(JsHandle h) {
+          _parent = Foo(h);
+        }
+        auto writable() {
+          auto result = WritableStream(JsHandle(GenericTransformStream_writable_Get(this._parent)));
+          return result;
+        }
+      }
+    });
+  gen.generateDImports.shouldBeLike(q{
+      extern (C) Handle GenericTransformStream_writable_Get(Handle);
+    });
+  gen.generateJsExports.shouldBeLike("
+import spasm from './spasm.js';
+export default {
+  jsExports: {
+    GenericTransformStream_writable_Get: function(ctx) {
+      return spasm.addObject(spasm.objects[ctx].writable);
+    },
+    GenericTransformStream_readable_Get: function(ctx) {
+      return spasm.addObject(spasm.objects[ctx].readable);
+    },
+  }
+}
+");
+}

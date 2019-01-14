@@ -11,6 +11,7 @@ void main(string[] args)
   import std.file;
   import sdlang;
   import std.array : replace;
+  immutable string indexjs = import("./spasm/modules/index.js");
   immutable string spasmjs = import("./spasm/modules/spasm.js");
   immutable string domjs = import("./spasm/modules/dom.js");
   immutable string entryjs = import("./spasm/entry.js");
@@ -40,6 +41,7 @@ void main(string[] args)
   mkdir("spasm/modules").ignore();
   write("spasm/entry.js", entryjs);
   write("spasm/modules/spasm.js", spasmjs.replace("@@targetProjectName@@", name));
+  write("spasm/modules/index.js", indexjs);
   write("spasm/modules/dom.js", domjs);
   if (exists("index.template.html"))
     rename("index.template.html","spasm/index.template.html");
