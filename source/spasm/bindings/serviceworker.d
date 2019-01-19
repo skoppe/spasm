@@ -11,32 +11,25 @@ struct Cache {
   JsHandle handle;
   alias handle this;
   auto match(RequestInfo request, CacheQueryOptions options) {
-    auto result = Promise!(Any)(JsHandle(Cache_match(this.handle, request, options.handle)));
-    return result;
+    return Promise!(Any)(JsHandle(Cache_match(this.handle, request, options.handle)));
   }
   auto matchAll(RequestInfo request, CacheQueryOptions options) {
-    auto result = Promise!(FrozenArray!(Response))(JsHandle(Cache_matchAll(this.handle, request, options.handle)));
-    return result;
+    return Promise!(FrozenArray!(Response))(JsHandle(Cache_matchAll(this.handle, request, options.handle)));
   }
   auto add(RequestInfo request) {
-    auto result = Promise!(void)(JsHandle(Cache_add(this.handle, request)));
-    return result;
+    return Promise!(void)(JsHandle(Cache_add(this.handle, request)));
   }
   auto addAll(Sequence!(RequestInfo) requests) {
-    auto result = Promise!(void)(JsHandle(Cache_addAll(this.handle, requests.handle)));
-    return result;
+    return Promise!(void)(JsHandle(Cache_addAll(this.handle, requests.handle)));
   }
   auto put(RequestInfo request, Response response) {
-    auto result = Promise!(void)(JsHandle(Cache_put(this.handle, request, response.handle)));
-    return result;
+    return Promise!(void)(JsHandle(Cache_put(this.handle, request, response.handle)));
   }
   auto delete_(RequestInfo request, CacheQueryOptions options) {
-    auto result = Promise!(bool)(JsHandle(Cache_delete(this.handle, request, options.handle)));
-    return result;
+    return Promise!(bool)(JsHandle(Cache_delete(this.handle, request, options.handle)));
   }
   auto keys(RequestInfo request, CacheQueryOptions options) {
-    auto result = Promise!(FrozenArray!(Request))(JsHandle(Cache_keys(this.handle, request, options.handle)));
-    return result;
+    return Promise!(FrozenArray!(Request))(JsHandle(Cache_keys(this.handle, request, options.handle)));
   }
 }
 struct CacheQueryOptions {
@@ -45,72 +38,60 @@ struct CacheQueryOptions {
   static auto create() {
     return CacheQueryOptions(JsHandle(spasm_add__object()));
   }
-  auto ignoreSearch(bool ignoreSearch) {
+  void ignoreSearch(bool ignoreSearch) {
     CacheQueryOptions_ignoreSearch_Set(this.handle, ignoreSearch);
   }
   auto ignoreSearch() {
-    auto result = CacheQueryOptions_ignoreSearch_Get(this.handle);
-    return result;
+    return CacheQueryOptions_ignoreSearch_Get(this.handle);
   }
-  auto ignoreMethod(bool ignoreMethod) {
+  void ignoreMethod(bool ignoreMethod) {
     CacheQueryOptions_ignoreMethod_Set(this.handle, ignoreMethod);
   }
   auto ignoreMethod() {
-    auto result = CacheQueryOptions_ignoreMethod_Get(this.handle);
-    return result;
+    return CacheQueryOptions_ignoreMethod_Get(this.handle);
   }
-  auto ignoreVary(bool ignoreVary) {
+  void ignoreVary(bool ignoreVary) {
     CacheQueryOptions_ignoreVary_Set(this.handle, ignoreVary);
   }
   auto ignoreVary() {
-    auto result = CacheQueryOptions_ignoreVary_Get(this.handle);
-    return result;
+    return CacheQueryOptions_ignoreVary_Get(this.handle);
   }
 }
 struct CacheStorage {
   JsHandle handle;
   alias handle this;
   auto match(RequestInfo request, MultiCacheQueryOptions options) {
-    auto result = Promise!(Any)(JsHandle(CacheStorage_match(this.handle, request, options.handle)));
-    return result;
+    return Promise!(Any)(JsHandle(CacheStorage_match(this.handle, request, options.handle)));
   }
   auto has(string cacheName) {
-    auto result = Promise!(bool)(JsHandle(CacheStorage_has(this.handle, cacheName)));
-    return result;
+    return Promise!(bool)(JsHandle(CacheStorage_has(this.handle, cacheName)));
   }
   auto open(string cacheName) {
-    auto result = Promise!(Cache)(JsHandle(CacheStorage_open(this.handle, cacheName)));
-    return result;
+    return Promise!(Cache)(JsHandle(CacheStorage_open(this.handle, cacheName)));
   }
   auto delete_(string cacheName) {
-    auto result = Promise!(bool)(JsHandle(CacheStorage_delete(this.handle, cacheName)));
-    return result;
+    return Promise!(bool)(JsHandle(CacheStorage_delete(this.handle, cacheName)));
   }
   auto keys() {
-    auto result = Promise!(Sequence!(string))(JsHandle(CacheStorage_keys(this.handle)));
-    return result;
+    return Promise!(Sequence!(string))(JsHandle(CacheStorage_keys(this.handle)));
   }
 }
 struct Client {
   JsHandle handle;
   alias handle this;
   auto url() {
-    auto result = Client_url_Get(this.handle);
-    return result;
+    return Client_url_Get(this.handle);
   }
   auto frameType() {
-    auto result = Client_frameType_Get(this.handle);
-    return result;
+    return Client_frameType_Get(this.handle);
   }
   auto id() {
-    auto result = Client_id_Get(this.handle);
-    return result;
+    return Client_id_Get(this.handle);
   }
   auto type() {
-    auto result = Client_type_Get(this.handle);
-    return result;
+    return Client_type_Get(this.handle);
   }
-  auto postMessage(T0)(T0 message, Sequence!(JsObject) transfer /* = [] */) {
+  void postMessage(T0)(T0 message, Sequence!(JsObject) transfer /* = [] */) {
     Handle _handle_message = getOrCreateHandle(message);
     Client_postMessage(this.handle, _handle_message, transfer.handle);
     dropHandle!(T0)(_handle_message);
@@ -122,19 +103,17 @@ struct ClientQueryOptions {
   static auto create() {
     return ClientQueryOptions(JsHandle(spasm_add__object()));
   }
-  auto includeUncontrolled(bool includeUncontrolled) {
+  void includeUncontrolled(bool includeUncontrolled) {
     ClientQueryOptions_includeUncontrolled_Set(this.handle, includeUncontrolled);
   }
   auto includeUncontrolled() {
-    auto result = ClientQueryOptions_includeUncontrolled_Get(this.handle);
-    return result;
+    return ClientQueryOptions_includeUncontrolled_Get(this.handle);
   }
-  auto type(ClientType type) {
+  void type(ClientType type) {
     ClientQueryOptions_type_Set(this.handle, type);
   }
   auto type() {
-    auto result = ClientQueryOptions_type_Get(this.handle);
-    return result;
+    return ClientQueryOptions_type_Get(this.handle);
   }
 }
 enum ClientType {
@@ -147,20 +126,16 @@ struct Clients {
   JsHandle handle;
   alias handle this;
   auto get(string id) {
-    auto result = Promise!(Any)(JsHandle(Clients_get(this.handle, id)));
-    return result;
+    return Promise!(Any)(JsHandle(Clients_get(this.handle, id)));
   }
   auto matchAll(ClientQueryOptions options) {
-    auto result = Promise!(FrozenArray!(Client))(JsHandle(Clients_matchAll(this.handle, options.handle)));
-    return result;
+    return Promise!(FrozenArray!(Client))(JsHandle(Clients_matchAll(this.handle, options.handle)));
   }
   auto openWindow(string url) {
-    auto result = Promise!(Optional!(WindowClient))(JsHandle(Clients_openWindow(this.handle, url)));
-    return result;
+    return Promise!(Optional!(WindowClient))(JsHandle(Clients_openWindow(this.handle, url)));
   }
   auto claim() {
-    auto result = Promise!(void)(JsHandle(Clients_claim(this.handle)));
-    return result;
+    return Promise!(void)(JsHandle(Clients_claim(this.handle)));
   }
 }
 struct ExtendableEvent {
@@ -169,7 +144,7 @@ struct ExtendableEvent {
   this(JsHandle h) {
     _parent = Event(h);
   }
-  auto waitUntil(Promise!(Any) f) {
+  void waitUntil(Promise!(Any) f) {
     ExtendableEvent_waitUntil(this._parent, f.handle);
   }
 }
@@ -190,24 +165,19 @@ struct ExtendableMessageEvent {
     _parent = ExtendableEvent(h);
   }
   auto data() {
-    auto result = Any(JsHandle(ExtendableMessageEvent_data_Get(this._parent)));
-    return result;
+    return Any(JsHandle(ExtendableMessageEvent_data_Get(this._parent)));
   }
   auto origin() {
-    auto result = ExtendableMessageEvent_origin_Get(this._parent);
-    return result;
+    return ExtendableMessageEvent_origin_Get(this._parent);
   }
   auto lastEventId() {
-    auto result = ExtendableMessageEvent_lastEventId_Get(this._parent);
-    return result;
+    return ExtendableMessageEvent_lastEventId_Get(this._parent);
   }
   auto source() {
-    auto result = ExtendableMessageEvent_source_Get(this._parent);
-    return result;
+    return ExtendableMessageEvent_source_Get(this._parent);
   }
   auto ports() {
-    auto result = FrozenArray!(MessagePort)(JsHandle(ExtendableMessageEvent_ports_Get(this._parent)));
-    return result;
+    return FrozenArray!(MessagePort)(JsHandle(ExtendableMessageEvent_ports_Get(this._parent)));
   }
 }
 struct ExtendableMessageEventInit {
@@ -219,42 +189,37 @@ struct ExtendableMessageEventInit {
   static auto create() {
     return ExtendableMessageEventInit(JsHandle(spasm_add__object()));
   }
-  auto data(T0)(T0 data) {
+  void data(T0)(T0 data) {
     Handle _handle_data = getOrCreateHandle(data);
     ExtendableMessageEventInit_data_Set(this._parent, _handle_data);
     dropHandle!(T0)(_handle_data);
   }
   auto data() {
-    auto result = Any(JsHandle(ExtendableMessageEventInit_data_Get(this._parent)));
-    return result;
+    return Any(JsHandle(ExtendableMessageEventInit_data_Get(this._parent)));
   }
-  auto origin(string origin) {
+  void origin(string origin) {
     ExtendableMessageEventInit_origin_Set(this._parent, origin);
   }
   auto origin() {
-    auto result = ExtendableMessageEventInit_origin_Get(this._parent);
-    return result;
+    return ExtendableMessageEventInit_origin_Get(this._parent);
   }
-  auto lastEventId(string lastEventId) {
+  void lastEventId(string lastEventId) {
     ExtendableMessageEventInit_lastEventId_Set(this._parent, lastEventId);
   }
   auto lastEventId() {
-    auto result = ExtendableMessageEventInit_lastEventId_Get(this._parent);
-    return result;
+    return ExtendableMessageEventInit_lastEventId_Get(this._parent);
   }
-  auto source(Optional!(SumType!(Client, ServiceWorker, MessagePort)) source) {
+  void source(Optional!(SumType!(Client, ServiceWorker, MessagePort)) source) {
     ExtendableMessageEventInit_source_Set(this._parent, !source.empty, source.front);
   }
   auto source() {
-    auto result = ExtendableMessageEventInit_source_Get(this._parent);
-    return result;
+    return ExtendableMessageEventInit_source_Get(this._parent);
   }
-  auto ports(Sequence!(MessagePort) ports) {
+  void ports(Sequence!(MessagePort) ports) {
     ExtendableMessageEventInit_ports_Set(this._parent, ports.handle);
   }
   auto ports() {
-    auto result = Sequence!(MessagePort)(JsHandle(ExtendableMessageEventInit_ports_Get(this._parent)));
-    return result;
+    return Sequence!(MessagePort)(JsHandle(ExtendableMessageEventInit_ports_Get(this._parent)));
   }
 }
 struct FetchEvent {
@@ -264,26 +229,21 @@ struct FetchEvent {
     _parent = ExtendableEvent(h);
   }
   auto request() {
-    auto result = Request(JsHandle(FetchEvent_request_Get(this._parent)));
-    return result;
+    return Request(JsHandle(FetchEvent_request_Get(this._parent)));
   }
   auto preloadResponse() {
-    auto result = Promise!(Any)(JsHandle(FetchEvent_preloadResponse_Get(this._parent)));
-    return result;
+    return Promise!(Any)(JsHandle(FetchEvent_preloadResponse_Get(this._parent)));
   }
   auto clientId() {
-    auto result = FetchEvent_clientId_Get(this._parent);
-    return result;
+    return FetchEvent_clientId_Get(this._parent);
   }
   auto resultingClientId() {
-    auto result = FetchEvent_resultingClientId_Get(this._parent);
-    return result;
+    return FetchEvent_resultingClientId_Get(this._parent);
   }
   auto replacesClientId() {
-    auto result = FetchEvent_replacesClientId_Get(this._parent);
-    return result;
+    return FetchEvent_replacesClientId_Get(this._parent);
   }
-  auto respondWith(Promise!(Response) r) {
+  void respondWith(Promise!(Response) r) {
     FetchEvent_respondWith(this._parent, r.handle);
   }
 }
@@ -296,40 +256,35 @@ struct FetchEventInit {
   static auto create() {
     return FetchEventInit(JsHandle(spasm_add__object()));
   }
-  auto request(Request request) {
+  void request(Request request) {
     FetchEventInit_request_Set(this._parent, request.handle);
   }
   auto request() {
-    auto result = Request(JsHandle(FetchEventInit_request_Get(this._parent)));
-    return result;
+    return Request(JsHandle(FetchEventInit_request_Get(this._parent)));
   }
-  auto preloadResponse(Promise!(Any) preloadResponse) {
+  void preloadResponse(Promise!(Any) preloadResponse) {
     FetchEventInit_preloadResponse_Set(this._parent, preloadResponse.handle);
   }
   auto preloadResponse() {
-    auto result = Promise!(Any)(JsHandle(FetchEventInit_preloadResponse_Get(this._parent)));
-    return result;
+    return Promise!(Any)(JsHandle(FetchEventInit_preloadResponse_Get(this._parent)));
   }
-  auto clientId(string clientId) {
+  void clientId(string clientId) {
     FetchEventInit_clientId_Set(this._parent, clientId);
   }
   auto clientId() {
-    auto result = FetchEventInit_clientId_Get(this._parent);
-    return result;
+    return FetchEventInit_clientId_Get(this._parent);
   }
-  auto resultingClientId(string resultingClientId) {
+  void resultingClientId(string resultingClientId) {
     FetchEventInit_resultingClientId_Set(this._parent, resultingClientId);
   }
   auto resultingClientId() {
-    auto result = FetchEventInit_resultingClientId_Get(this._parent);
-    return result;
+    return FetchEventInit_resultingClientId_Get(this._parent);
   }
-  auto replacesClientId(string replacesClientId) {
+  void replacesClientId(string replacesClientId) {
     FetchEventInit_replacesClientId_Set(this._parent, replacesClientId);
   }
   auto replacesClientId() {
-    auto result = FetchEventInit_replacesClientId_Get(this._parent);
-    return result;
+    return FetchEventInit_replacesClientId_Get(this._parent);
   }
 }
 enum FrameType {
@@ -347,32 +302,27 @@ struct MultiCacheQueryOptions {
   static auto create() {
     return MultiCacheQueryOptions(JsHandle(spasm_add__object()));
   }
-  auto cacheName(string cacheName) {
+  void cacheName(string cacheName) {
     MultiCacheQueryOptions_cacheName_Set(this._parent, cacheName);
   }
   auto cacheName() {
-    auto result = MultiCacheQueryOptions_cacheName_Get(this._parent);
-    return result;
+    return MultiCacheQueryOptions_cacheName_Get(this._parent);
   }
 }
 struct NavigationPreloadManager {
   JsHandle handle;
   alias handle this;
   auto enable() {
-    auto result = Promise!(void)(JsHandle(NavigationPreloadManager_enable(this.handle)));
-    return result;
+    return Promise!(void)(JsHandle(NavigationPreloadManager_enable(this.handle)));
   }
   auto disable() {
-    auto result = Promise!(void)(JsHandle(NavigationPreloadManager_disable(this.handle)));
-    return result;
+    return Promise!(void)(JsHandle(NavigationPreloadManager_disable(this.handle)));
   }
   auto setHeaderValue(string value) {
-    auto result = Promise!(void)(JsHandle(NavigationPreloadManager_setHeaderValue(this.handle, value)));
-    return result;
+    return Promise!(void)(JsHandle(NavigationPreloadManager_setHeaderValue(this.handle, value)));
   }
   auto getState() {
-    auto result = Promise!(NavigationPreloadState)(JsHandle(NavigationPreloadManager_getState(this.handle)));
-    return result;
+    return Promise!(NavigationPreloadState)(JsHandle(NavigationPreloadManager_getState(this.handle)));
   }
 }
 struct NavigationPreloadState {
@@ -381,19 +331,17 @@ struct NavigationPreloadState {
   static auto create() {
     return NavigationPreloadState(JsHandle(spasm_add__object()));
   }
-  auto enabled(bool enabled) {
+  void enabled(bool enabled) {
     NavigationPreloadState_enabled_Set(this.handle, enabled);
   }
   auto enabled() {
-    auto result = NavigationPreloadState_enabled_Get(this.handle);
-    return result;
+    return NavigationPreloadState_enabled_Get(this.handle);
   }
-  auto headerValue(string headerValue) {
+  void headerValue(string headerValue) {
     NavigationPreloadState_headerValue_Set(this.handle, headerValue);
   }
   auto headerValue() {
-    auto result = NavigationPreloadState_headerValue_Get(this.handle);
-    return result;
+    return NavigationPreloadState_headerValue_Get(this.handle);
   }
 }
 struct RegistrationOptions {
@@ -402,26 +350,23 @@ struct RegistrationOptions {
   static auto create() {
     return RegistrationOptions(JsHandle(spasm_add__object()));
   }
-  auto scope_(string scope_) {
+  void scope_(string scope_) {
     RegistrationOptions_scope_Set(this.handle, scope_);
   }
   auto scope_() {
-    auto result = RegistrationOptions_scope_Get(this.handle);
-    return result;
+    return RegistrationOptions_scope_Get(this.handle);
   }
-  auto type(WorkerType type) {
+  void type(WorkerType type) {
     RegistrationOptions_type_Set(this.handle, type);
   }
   auto type() {
-    auto result = RegistrationOptions_type_Get(this.handle);
-    return result;
+    return RegistrationOptions_type_Get(this.handle);
   }
-  auto updateViaCache(ServiceWorkerUpdateViaCache updateViaCache) {
+  void updateViaCache(ServiceWorkerUpdateViaCache updateViaCache) {
     RegistrationOptions_updateViaCache_Set(this.handle, updateViaCache);
   }
   auto updateViaCache() {
-    auto result = RegistrationOptions_updateViaCache_Get(this.handle);
-    return result;
+    return RegistrationOptions_updateViaCache_Get(this.handle);
   }
 }
 struct ServiceWorker {
@@ -431,24 +376,21 @@ struct ServiceWorker {
     _parent = EventTarget(h);
   }
   auto scriptURL() {
-    auto result = ServiceWorker_scriptURL_Get(this._parent);
-    return result;
+    return ServiceWorker_scriptURL_Get(this._parent);
   }
   auto state() {
-    auto result = ServiceWorker_state_Get(this._parent);
-    return result;
+    return ServiceWorker_state_Get(this._parent);
   }
-  auto postMessage(T0)(T0 message, Sequence!(JsObject) transfer /* = [] */) {
+  void postMessage(T0)(T0 message, Sequence!(JsObject) transfer /* = [] */) {
     Handle _handle_message = getOrCreateHandle(message);
     ServiceWorker_postMessage(this._parent, _handle_message, transfer.handle);
     dropHandle!(T0)(_handle_message);
   }
-  auto onstatechange(EventHandler onstatechange) {
+  void onstatechange(EventHandler onstatechange) {
     ServiceWorker_onstatechange_Set(this._parent, onstatechange);
   }
   auto onstatechange() {
-    auto result = ServiceWorker_onstatechange_Get(this._parent);
-    return result;
+    return ServiceWorker_onstatechange_Get(this._parent);
   }
 }
 struct ServiceWorkerContainer {
@@ -458,48 +400,40 @@ struct ServiceWorkerContainer {
     _parent = EventTarget(h);
   }
   auto controller() {
-    auto result = ServiceWorkerContainer_controller_Get(this._parent);
-    return result;
+    return ServiceWorkerContainer_controller_Get(this._parent);
   }
   auto ready() {
-    auto result = Promise!(ServiceWorkerRegistration)(JsHandle(ServiceWorkerContainer_ready_Get(this._parent)));
-    return result;
+    return Promise!(ServiceWorkerRegistration)(JsHandle(ServiceWorkerContainer_ready_Get(this._parent)));
   }
   auto register(string scriptURL, RegistrationOptions options) {
-    auto result = Promise!(ServiceWorkerRegistration)(JsHandle(ServiceWorkerContainer_register(this._parent, scriptURL, options.handle)));
-    return result;
+    return Promise!(ServiceWorkerRegistration)(JsHandle(ServiceWorkerContainer_register(this._parent, scriptURL, options.handle)));
   }
   auto getRegistration(string clientURL /* = "" */) {
-    auto result = Promise!(Any)(JsHandle(ServiceWorkerContainer_getRegistration(this._parent, clientURL)));
-    return result;
+    return Promise!(Any)(JsHandle(ServiceWorkerContainer_getRegistration(this._parent, clientURL)));
   }
   auto getRegistrations() {
-    auto result = Promise!(FrozenArray!(ServiceWorkerRegistration))(JsHandle(ServiceWorkerContainer_getRegistrations(this._parent)));
-    return result;
+    return Promise!(FrozenArray!(ServiceWorkerRegistration))(JsHandle(ServiceWorkerContainer_getRegistrations(this._parent)));
   }
-  auto startMessages() {
+  void startMessages() {
     ServiceWorkerContainer_startMessages(this._parent);
   }
-  auto oncontrollerchange(EventHandler oncontrollerchange) {
+  void oncontrollerchange(EventHandler oncontrollerchange) {
     ServiceWorkerContainer_oncontrollerchange_Set(this._parent, oncontrollerchange);
   }
   auto oncontrollerchange() {
-    auto result = ServiceWorkerContainer_oncontrollerchange_Get(this._parent);
-    return result;
+    return ServiceWorkerContainer_oncontrollerchange_Get(this._parent);
   }
-  auto onmessage(EventHandler onmessage) {
+  void onmessage(EventHandler onmessage) {
     ServiceWorkerContainer_onmessage_Set(this._parent, onmessage);
   }
   auto onmessage() {
-    auto result = ServiceWorkerContainer_onmessage_Get(this._parent);
-    return result;
+    return ServiceWorkerContainer_onmessage_Get(this._parent);
   }
-  auto onmessageerror(EventHandler onmessageerror) {
+  void onmessageerror(EventHandler onmessageerror) {
     ServiceWorkerContainer_onmessageerror_Set(this._parent, onmessageerror);
   }
   auto onmessageerror() {
-    auto result = ServiceWorkerContainer_onmessageerror_Get(this._parent);
-    return result;
+    return ServiceWorkerContainer_onmessageerror_Get(this._parent);
   }
 }
 struct ServiceWorkerGlobalScope {
@@ -509,65 +443,55 @@ struct ServiceWorkerGlobalScope {
     _parent = WorkerGlobalScope(h);
   }
   auto clients() {
-    auto result = Clients(JsHandle(ServiceWorkerGlobalScope_clients_Get(this._parent)));
-    return result;
+    return Clients(JsHandle(ServiceWorkerGlobalScope_clients_Get(this._parent)));
   }
   auto registration() {
-    auto result = ServiceWorkerRegistration(JsHandle(ServiceWorkerGlobalScope_registration_Get(this._parent)));
-    return result;
+    return ServiceWorkerRegistration(JsHandle(ServiceWorkerGlobalScope_registration_Get(this._parent)));
   }
   auto skipWaiting() {
-    auto result = Promise!(void)(JsHandle(ServiceWorkerGlobalScope_skipWaiting(this._parent)));
-    return result;
+    return Promise!(void)(JsHandle(ServiceWorkerGlobalScope_skipWaiting(this._parent)));
   }
-  auto oninstall(EventHandler oninstall) {
+  void oninstall(EventHandler oninstall) {
     ServiceWorkerGlobalScope_oninstall_Set(this._parent, oninstall);
   }
   auto oninstall() {
-    auto result = ServiceWorkerGlobalScope_oninstall_Get(this._parent);
-    return result;
+    return ServiceWorkerGlobalScope_oninstall_Get(this._parent);
   }
-  auto onactivate(EventHandler onactivate) {
+  void onactivate(EventHandler onactivate) {
     ServiceWorkerGlobalScope_onactivate_Set(this._parent, onactivate);
   }
   auto onactivate() {
-    auto result = ServiceWorkerGlobalScope_onactivate_Get(this._parent);
-    return result;
+    return ServiceWorkerGlobalScope_onactivate_Get(this._parent);
   }
-  auto onfetch(EventHandler onfetch) {
+  void onfetch(EventHandler onfetch) {
     ServiceWorkerGlobalScope_onfetch_Set(this._parent, onfetch);
   }
   auto onfetch() {
-    auto result = ServiceWorkerGlobalScope_onfetch_Get(this._parent);
-    return result;
+    return ServiceWorkerGlobalScope_onfetch_Get(this._parent);
   }
-  auto onmessage(EventHandler onmessage) {
+  void onmessage(EventHandler onmessage) {
     ServiceWorkerGlobalScope_onmessage_Set(this._parent, onmessage);
   }
   auto onmessage() {
-    auto result = ServiceWorkerGlobalScope_onmessage_Get(this._parent);
-    return result;
+    return ServiceWorkerGlobalScope_onmessage_Get(this._parent);
   }
-  auto onmessageerror(EventHandler onmessageerror) {
+  void onmessageerror(EventHandler onmessageerror) {
     ServiceWorkerGlobalScope_onmessageerror_Set(this._parent, onmessageerror);
   }
   auto onmessageerror() {
-    auto result = ServiceWorkerGlobalScope_onmessageerror_Get(this._parent);
-    return result;
+    return ServiceWorkerGlobalScope_onmessageerror_Get(this._parent);
   }
-  auto onnotificationclick(EventHandler onnotificationclick) {
+  void onnotificationclick(EventHandler onnotificationclick) {
     ServiceWorkerGlobalScope_onnotificationclick_Set(this._parent, onnotificationclick);
   }
   auto onnotificationclick() {
-    auto result = ServiceWorkerGlobalScope_onnotificationclick_Get(this._parent);
-    return result;
+    return ServiceWorkerGlobalScope_onnotificationclick_Get(this._parent);
   }
-  auto onnotificationclose(EventHandler onnotificationclose) {
+  void onnotificationclose(EventHandler onnotificationclose) {
     ServiceWorkerGlobalScope_onnotificationclose_Set(this._parent, onnotificationclose);
   }
   auto onnotificationclose() {
-    auto result = ServiceWorkerGlobalScope_onnotificationclose_Get(this._parent);
-    return result;
+    return ServiceWorkerGlobalScope_onnotificationclose_Get(this._parent);
   }
 }
 struct ServiceWorkerRegistration {
@@ -577,51 +501,40 @@ struct ServiceWorkerRegistration {
     _parent = EventTarget(h);
   }
   auto installing() {
-    auto result = ServiceWorkerRegistration_installing_Get(this._parent);
-    return result;
+    return ServiceWorkerRegistration_installing_Get(this._parent);
   }
   auto waiting() {
-    auto result = ServiceWorkerRegistration_waiting_Get(this._parent);
-    return result;
+    return ServiceWorkerRegistration_waiting_Get(this._parent);
   }
   auto active() {
-    auto result = ServiceWorkerRegistration_active_Get(this._parent);
-    return result;
+    return ServiceWorkerRegistration_active_Get(this._parent);
   }
   auto navigationPreload() {
-    auto result = NavigationPreloadManager(JsHandle(ServiceWorkerRegistration_navigationPreload_Get(this._parent)));
-    return result;
+    return NavigationPreloadManager(JsHandle(ServiceWorkerRegistration_navigationPreload_Get(this._parent)));
   }
   auto scope_() {
-    auto result = ServiceWorkerRegistration_scope_Get(this._parent);
-    return result;
+    return ServiceWorkerRegistration_scope_Get(this._parent);
   }
   auto updateViaCache() {
-    auto result = ServiceWorkerRegistration_updateViaCache_Get(this._parent);
-    return result;
+    return ServiceWorkerRegistration_updateViaCache_Get(this._parent);
   }
   auto update() {
-    auto result = Promise!(void)(JsHandle(ServiceWorkerRegistration_update(this._parent)));
-    return result;
+    return Promise!(void)(JsHandle(ServiceWorkerRegistration_update(this._parent)));
   }
   auto unregister() {
-    auto result = Promise!(bool)(JsHandle(ServiceWorkerRegistration_unregister(this._parent)));
-    return result;
+    return Promise!(bool)(JsHandle(ServiceWorkerRegistration_unregister(this._parent)));
   }
-  auto onupdatefound(EventHandler onupdatefound) {
+  void onupdatefound(EventHandler onupdatefound) {
     ServiceWorkerRegistration_onupdatefound_Set(this._parent, onupdatefound);
   }
   auto onupdatefound() {
-    auto result = ServiceWorkerRegistration_onupdatefound_Get(this._parent);
-    return result;
+    return ServiceWorkerRegistration_onupdatefound_Get(this._parent);
   }
   auto showNotification(string title, NotificationOptions options) {
-    auto result = Promise!(void)(JsHandle(ServiceWorkerRegistration_showNotification(this._parent, title, options.handle)));
-    return result;
+    return Promise!(void)(JsHandle(ServiceWorkerRegistration_showNotification(this._parent, title, options.handle)));
   }
   auto getNotifications(GetNotificationOptions filter) {
-    auto result = Promise!(Sequence!(Notification))(JsHandle(ServiceWorkerRegistration_getNotifications(this._parent, filter.handle)));
-    return result;
+    return Promise!(Sequence!(Notification))(JsHandle(ServiceWorkerRegistration_getNotifications(this._parent, filter.handle)));
   }
 }
 enum ServiceWorkerState {
@@ -643,24 +556,19 @@ struct WindowClient {
     _parent = Client(h);
   }
   auto visibilityState() {
-    auto result = WindowClient_visibilityState_Get(this._parent);
-    return result;
+    return WindowClient_visibilityState_Get(this._parent);
   }
   auto focused() {
-    auto result = WindowClient_focused_Get(this._parent);
-    return result;
+    return WindowClient_focused_Get(this._parent);
   }
   auto ancestorOrigins() {
-    auto result = FrozenArray!(string)(JsHandle(WindowClient_ancestorOrigins_Get(this._parent)));
-    return result;
+    return FrozenArray!(string)(JsHandle(WindowClient_ancestorOrigins_Get(this._parent)));
   }
   auto focus() {
-    auto result = Promise!(WindowClient)(JsHandle(WindowClient_focus(this._parent)));
-    return result;
+    return Promise!(WindowClient)(JsHandle(WindowClient_focus(this._parent)));
   }
   auto navigate(string url) {
-    auto result = Promise!(Optional!(WindowClient))(JsHandle(WindowClient_navigate(this._parent, url)));
-    return result;
+    return Promise!(Optional!(WindowClient))(JsHandle(WindowClient_navigate(this._parent, url)));
   }
 }
 
@@ -672,7 +580,6 @@ extern (C) Handle Cache_addAll(Handle, Handle);
 extern (C) Handle Cache_put(Handle, RequestInfo, Handle);
 extern (C) Handle Cache_delete(Handle, RequestInfo, Handle);
 extern (C) Handle Cache_keys(Handle, RequestInfo, Handle);
-extern (C) void CacheQueryOptions_create(Handle);
 extern (C) void CacheQueryOptions_ignoreSearch_Set(Handle, bool);
 extern (C) bool CacheQueryOptions_ignoreSearch_Get(Handle);
 extern (C) void CacheQueryOptions_ignoreMethod_Set(Handle, bool);
@@ -689,7 +596,6 @@ extern (C) FrameType Client_frameType_Get(Handle);
 extern (C) string Client_id_Get(Handle);
 extern (C) ClientType Client_type_Get(Handle);
 extern (C) void Client_postMessage(Handle, Handle, Handle);
-extern (C) void ClientQueryOptions_create(Handle);
 extern (C) void ClientQueryOptions_includeUncontrolled_Set(Handle, bool);
 extern (C) bool ClientQueryOptions_includeUncontrolled_Get(Handle);
 extern (C) void ClientQueryOptions_type_Set(Handle, ClientType);
@@ -699,13 +605,11 @@ extern (C) Handle Clients_matchAll(Handle, Handle);
 extern (C) Handle Clients_openWindow(Handle, string);
 extern (C) Handle Clients_claim(Handle);
 extern (C) void ExtendableEvent_waitUntil(Handle, Handle);
-extern (C) void ExtendableEventInit_create(Handle);
 extern (C) Handle ExtendableMessageEvent_data_Get(Handle);
 extern (C) string ExtendableMessageEvent_origin_Get(Handle);
 extern (C) string ExtendableMessageEvent_lastEventId_Get(Handle);
 extern (C) Optional!(SumType!(Client, ServiceWorker, MessagePort)) ExtendableMessageEvent_source_Get(Handle);
 extern (C) Handle ExtendableMessageEvent_ports_Get(Handle);
-extern (C) void ExtendableMessageEventInit_create(Handle);
 extern (C) void ExtendableMessageEventInit_data_Set(Handle, Handle);
 extern (C) Handle ExtendableMessageEventInit_data_Get(Handle);
 extern (C) void ExtendableMessageEventInit_origin_Set(Handle, string);
@@ -722,7 +626,6 @@ extern (C) string FetchEvent_clientId_Get(Handle);
 extern (C) string FetchEvent_resultingClientId_Get(Handle);
 extern (C) string FetchEvent_replacesClientId_Get(Handle);
 extern (C) void FetchEvent_respondWith(Handle, Handle);
-extern (C) void FetchEventInit_create(Handle);
 extern (C) void FetchEventInit_request_Set(Handle, Handle);
 extern (C) Handle FetchEventInit_request_Get(Handle);
 extern (C) void FetchEventInit_preloadResponse_Set(Handle, Handle);
@@ -733,19 +636,16 @@ extern (C) void FetchEventInit_resultingClientId_Set(Handle, string);
 extern (C) string FetchEventInit_resultingClientId_Get(Handle);
 extern (C) void FetchEventInit_replacesClientId_Set(Handle, string);
 extern (C) string FetchEventInit_replacesClientId_Get(Handle);
-extern (C) void MultiCacheQueryOptions_create(Handle);
 extern (C) void MultiCacheQueryOptions_cacheName_Set(Handle, string);
 extern (C) string MultiCacheQueryOptions_cacheName_Get(Handle);
 extern (C) Handle NavigationPreloadManager_enable(Handle);
 extern (C) Handle NavigationPreloadManager_disable(Handle);
 extern (C) Handle NavigationPreloadManager_setHeaderValue(Handle, string);
 extern (C) Handle NavigationPreloadManager_getState(Handle);
-extern (C) void NavigationPreloadState_create(Handle);
 extern (C) void NavigationPreloadState_enabled_Set(Handle, bool);
 extern (C) bool NavigationPreloadState_enabled_Get(Handle);
 extern (C) void NavigationPreloadState_headerValue_Set(Handle, string);
 extern (C) string NavigationPreloadState_headerValue_Get(Handle);
-extern (C) void RegistrationOptions_create(Handle);
 extern (C) void RegistrationOptions_scope_Set(Handle, string);
 extern (C) string RegistrationOptions_scope_Get(Handle);
 extern (C) void RegistrationOptions_type_Set(Handle, WorkerType);

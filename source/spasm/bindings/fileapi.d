@@ -9,16 +9,13 @@ struct Blob {
   JsHandle handle;
   alias handle this;
   auto size() {
-    auto result = Blob_size_Get(this.handle);
-    return result;
+    return Blob_size_Get(this.handle);
   }
   auto type() {
-    auto result = Blob_type_Get(this.handle);
-    return result;
+    return Blob_type_Get(this.handle);
   }
   auto slice(long start, long end, string contentType) {
-    auto result = Blob(JsHandle(Blob_slice(this.handle, start, end, contentType)));
-    return result;
+    return Blob(JsHandle(Blob_slice(this.handle, start, end, contentType)));
   }
 }
 alias BlobPart = SumType!(BufferSource, Blob, string);
@@ -28,19 +25,17 @@ struct BlobPropertyBag {
   static auto create() {
     return BlobPropertyBag(JsHandle(spasm_add__object()));
   }
-  auto type(string type) {
+  void type(string type) {
     BlobPropertyBag_type_Set(this.handle, type);
   }
   auto type() {
-    auto result = BlobPropertyBag_type_Get(this.handle);
-    return result;
+    return BlobPropertyBag_type_Get(this.handle);
   }
-  auto endings(EndingType endings) {
+  void endings(EndingType endings) {
     BlobPropertyBag_endings_Set(this.handle, endings);
   }
   auto endings() {
-    auto result = BlobPropertyBag_endings_Get(this.handle);
-    return result;
+    return BlobPropertyBag_endings_Get(this.handle);
   }
 }
 enum EndingType {
@@ -54,24 +49,20 @@ struct File {
     _parent = Blob(h);
   }
   auto name() {
-    auto result = File_name_Get(this._parent);
-    return result;
+    return File_name_Get(this._parent);
   }
   auto lastModified() {
-    auto result = File_lastModified_Get(this._parent);
-    return result;
+    return File_lastModified_Get(this._parent);
   }
 }
 struct FileList {
   JsHandle handle;
   alias handle this;
   auto item(uint index) {
-    auto result = FileList_item_getter(this.handle, index);
-    return result;
+    return FileList_item_getter(this.handle, index);
   }
   auto length() {
-    auto result = FileList_length_Get(this.handle);
-    return result;
+    return FileList_length_Get(this.handle);
   }
 }
 struct FilePropertyBag {
@@ -83,12 +74,11 @@ struct FilePropertyBag {
   static auto create() {
     return FilePropertyBag(JsHandle(spasm_add__object()));
   }
-  auto lastModified(long lastModified) {
+  void lastModified(long lastModified) {
     FilePropertyBag_lastModified_Set(this._parent, lastModified);
   }
   auto lastModified() {
-    auto result = FilePropertyBag_lastModified_Get(this._parent);
-    return result;
+    return FilePropertyBag_lastModified_Get(this._parent);
   }
 }
 struct FileReader {
@@ -97,97 +87,84 @@ struct FileReader {
   this(JsHandle h) {
     _parent = EventTarget(h);
   }
-  auto readAsArrayBuffer(Blob blob) {
+  void readAsArrayBuffer(Blob blob) {
     FileReader_readAsArrayBuffer(this._parent, blob.handle);
   }
-  auto readAsBinaryString(Blob blob) {
+  void readAsBinaryString(Blob blob) {
     FileReader_readAsBinaryString(this._parent, blob.handle);
   }
-  auto readAsText(Blob blob, string encoding) {
+  void readAsText(Blob blob, string encoding) {
     FileReader_readAsText(this._parent, blob.handle, encoding);
   }
-  auto readAsDataURL(Blob blob) {
+  void readAsDataURL(Blob blob) {
     FileReader_readAsDataURL(this._parent, blob.handle);
   }
-  auto abort() {
+  void abort() {
     FileReader_abort(this._parent);
   }
   enum ushort EMPTY = 0;
   enum ushort LOADING = 1;
   enum ushort DONE = 2;
   auto readyState() {
-    auto result = FileReader_readyState_Get(this._parent);
-    return result;
+    return FileReader_readyState_Get(this._parent);
   }
   auto result() {
-    auto result = FileReader_result_Get(this._parent);
-    return result;
+    return FileReader_result_Get(this._parent);
   }
   auto error() {
-    auto result = FileReader_error_Get(this._parent);
-    return result;
+    return FileReader_error_Get(this._parent);
   }
-  auto onloadstart(EventHandler onloadstart) {
+  void onloadstart(EventHandler onloadstart) {
     FileReader_onloadstart_Set(this._parent, onloadstart);
   }
   auto onloadstart() {
-    auto result = FileReader_onloadstart_Get(this._parent);
-    return result;
+    return FileReader_onloadstart_Get(this._parent);
   }
-  auto onprogress(EventHandler onprogress) {
+  void onprogress(EventHandler onprogress) {
     FileReader_onprogress_Set(this._parent, onprogress);
   }
   auto onprogress() {
-    auto result = FileReader_onprogress_Get(this._parent);
-    return result;
+    return FileReader_onprogress_Get(this._parent);
   }
-  auto onload(EventHandler onload) {
+  void onload(EventHandler onload) {
     FileReader_onload_Set(this._parent, onload);
   }
   auto onload() {
-    auto result = FileReader_onload_Get(this._parent);
-    return result;
+    return FileReader_onload_Get(this._parent);
   }
-  auto onabort(EventHandler onabort) {
+  void onabort(EventHandler onabort) {
     FileReader_onabort_Set(this._parent, onabort);
   }
   auto onabort() {
-    auto result = FileReader_onabort_Get(this._parent);
-    return result;
+    return FileReader_onabort_Get(this._parent);
   }
-  auto onerror(EventHandler onerror) {
+  void onerror(EventHandler onerror) {
     FileReader_onerror_Set(this._parent, onerror);
   }
   auto onerror() {
-    auto result = FileReader_onerror_Get(this._parent);
-    return result;
+    return FileReader_onerror_Get(this._parent);
   }
-  auto onloadend(EventHandler onloadend) {
+  void onloadend(EventHandler onloadend) {
     FileReader_onloadend_Set(this._parent, onloadend);
   }
   auto onloadend() {
-    auto result = FileReader_onloadend_Get(this._parent);
-    return result;
+    return FileReader_onloadend_Get(this._parent);
   }
 }
 struct FileReaderSync {
   JsHandle handle;
   alias handle this;
   auto readAsArrayBuffer(Blob blob) {
-    auto result = ArrayBuffer(JsHandle(FileReaderSync_readAsArrayBuffer(this.handle, blob.handle)));
-    return result;
+    return ArrayBuffer(JsHandle(FileReaderSync_readAsArrayBuffer(this.handle, blob.handle)));
   }
   auto readAsBinaryString(Blob blob) {
-    auto result = FileReaderSync_readAsBinaryString(this.handle, blob.handle);
-    return result;
+    return FileReaderSync_readAsBinaryString(this.handle, blob.handle);
   }
   auto readAsText(Blob blob, string encoding) {
-    auto result = FileReaderSync_readAsText(this.handle, blob.handle, encoding);
-    return result;
+    return FileReaderSync_readAsText(this.handle, blob.handle, encoding);
   }
   auto readAsDataURL(Blob blob) {
-    auto result = FileReaderSync_readAsDataURL(this.handle, blob.handle);
-    return result;
+    return FileReaderSync_readAsDataURL(this.handle, blob.handle);
   }
 }
 
@@ -195,7 +172,6 @@ struct FileReaderSync {
 extern (C) ulong Blob_size_Get(Handle);
 extern (C) string Blob_type_Get(Handle);
 extern (C) Handle Blob_slice(Handle, long, long, string);
-extern (C) void BlobPropertyBag_create(Handle);
 extern (C) void BlobPropertyBag_type_Set(Handle, string);
 extern (C) string BlobPropertyBag_type_Get(Handle);
 extern (C) void BlobPropertyBag_endings_Set(Handle, EndingType);
@@ -204,7 +180,6 @@ extern (C) string File_name_Get(Handle);
 extern (C) long File_lastModified_Get(Handle);
 extern (C) Optional!(File) FileList_item_getter(Handle, uint);
 extern (C) uint FileList_length_Get(Handle);
-extern (C) void FilePropertyBag_create(Handle);
 extern (C) void FilePropertyBag_lastModified_Set(Handle, long);
 extern (C) long FilePropertyBag_lastModified_Get(Handle);
 extern (C) void FileReader_readAsArrayBuffer(Handle, Handle);

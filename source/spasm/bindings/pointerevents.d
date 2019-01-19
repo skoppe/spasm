@@ -12,80 +12,69 @@ struct PointerEventInit {
   static auto create() {
     return PointerEventInit(JsHandle(spasm_add__object()));
   }
-  auto pointerId(int pointerId) {
+  void pointerId(int pointerId) {
     PointerEventInit_pointerId_Set(this._parent, pointerId);
   }
   auto pointerId() {
-    auto result = PointerEventInit_pointerId_Get(this._parent);
-    return result;
+    return PointerEventInit_pointerId_Get(this._parent);
   }
-  auto width(double width) {
+  void width(double width) {
     PointerEventInit_width_Set(this._parent, width);
   }
   auto width() {
-    auto result = PointerEventInit_width_Get(this._parent);
-    return result;
+    return PointerEventInit_width_Get(this._parent);
   }
-  auto height(double height) {
+  void height(double height) {
     PointerEventInit_height_Set(this._parent, height);
   }
   auto height() {
-    auto result = PointerEventInit_height_Get(this._parent);
-    return result;
+    return PointerEventInit_height_Get(this._parent);
   }
-  auto pressure(float pressure) {
+  void pressure(float pressure) {
     PointerEventInit_pressure_Set(this._parent, pressure);
   }
   auto pressure() {
-    auto result = PointerEventInit_pressure_Get(this._parent);
-    return result;
+    return PointerEventInit_pressure_Get(this._parent);
   }
-  auto tangentialPressure(float tangentialPressure) {
+  void tangentialPressure(float tangentialPressure) {
     PointerEventInit_tangentialPressure_Set(this._parent, tangentialPressure);
   }
   auto tangentialPressure() {
-    auto result = PointerEventInit_tangentialPressure_Get(this._parent);
-    return result;
+    return PointerEventInit_tangentialPressure_Get(this._parent);
   }
-  auto tiltX(int tiltX) {
+  void tiltX(int tiltX) {
     PointerEventInit_tiltX_Set(this._parent, tiltX);
   }
   auto tiltX() {
-    auto result = PointerEventInit_tiltX_Get(this._parent);
-    return result;
+    return PointerEventInit_tiltX_Get(this._parent);
   }
-  auto tiltY(int tiltY) {
+  void tiltY(int tiltY) {
     PointerEventInit_tiltY_Set(this._parent, tiltY);
   }
   auto tiltY() {
-    auto result = PointerEventInit_tiltY_Get(this._parent);
-    return result;
+    return PointerEventInit_tiltY_Get(this._parent);
   }
-  auto twist(int twist) {
+  void twist(int twist) {
     PointerEventInit_twist_Set(this._parent, twist);
   }
   auto twist() {
-    auto result = PointerEventInit_twist_Get(this._parent);
-    return result;
+    return PointerEventInit_twist_Get(this._parent);
   }
-  auto pointerType(string pointerType) {
+  void pointerType(string pointerType) {
     PointerEventInit_pointerType_Set(this._parent, pointerType);
   }
   auto pointerType() {
-    auto result = PointerEventInit_pointerType_Get(this._parent);
-    return result;
+    return PointerEventInit_pointerType_Get(this._parent);
   }
-  auto isPrimary(bool isPrimary) {
+  void isPrimary(bool isPrimary) {
     PointerEventInit_isPrimary_Set(this._parent, isPrimary);
   }
   auto isPrimary() {
-    auto result = PointerEventInit_isPrimary_Get(this._parent);
-    return result;
+    return PointerEventInit_isPrimary_Get(this._parent);
   }
 }
 
 
-extern (C) void PointerEventInit_create(Handle);
 extern (C) void PointerEventInit_pointerId_Set(Handle, int);
 extern (C) int PointerEventInit_pointerId_Get(Handle);
 extern (C) void PointerEventInit_width_Set(Handle, double);

@@ -9,32 +9,27 @@ struct TextDecodeOptions {
   static auto create() {
     return TextDecodeOptions(JsHandle(spasm_add__object()));
   }
-  auto stream(bool stream) {
+  void stream(bool stream) {
     TextDecodeOptions_stream_Set(this.handle, stream);
   }
   auto stream() {
-    auto result = TextDecodeOptions_stream_Get(this.handle);
-    return result;
+    return TextDecodeOptions_stream_Get(this.handle);
   }
 }
 struct TextDecoder {
   JsHandle handle;
   alias handle this;
   auto decode(BufferSource input, TextDecodeOptions options) {
-    auto result = TextDecoder_decode(this.handle, input, options.handle);
-    return result;
+    return TextDecoder_decode(this.handle, input, options.handle);
   }
   auto encoding() {
-    auto result = TextDecoderCommon_encoding_Get(this.handle);
-    return result;
+    return TextDecoderCommon_encoding_Get(this.handle);
   }
   auto fatal() {
-    auto result = TextDecoderCommon_fatal_Get(this.handle);
-    return result;
+    return TextDecoderCommon_fatal_Get(this.handle);
   }
   auto ignoreBOM() {
-    auto result = TextDecoderCommon_ignoreBOM_Get(this.handle);
-    return result;
+    return TextDecoderCommon_ignoreBOM_Get(this.handle);
   }
 }
 struct TextDecoderOptions {
@@ -43,85 +38,71 @@ struct TextDecoderOptions {
   static auto create() {
     return TextDecoderOptions(JsHandle(spasm_add__object()));
   }
-  auto fatal(bool fatal) {
+  void fatal(bool fatal) {
     TextDecoderOptions_fatal_Set(this.handle, fatal);
   }
   auto fatal() {
-    auto result = TextDecoderOptions_fatal_Get(this.handle);
-    return result;
+    return TextDecoderOptions_fatal_Get(this.handle);
   }
-  auto ignoreBOM(bool ignoreBOM) {
+  void ignoreBOM(bool ignoreBOM) {
     TextDecoderOptions_ignoreBOM_Set(this.handle, ignoreBOM);
   }
   auto ignoreBOM() {
-    auto result = TextDecoderOptions_ignoreBOM_Get(this.handle);
-    return result;
+    return TextDecoderOptions_ignoreBOM_Get(this.handle);
   }
 }
 struct TextDecoderStream {
   JsHandle handle;
   alias handle this;
   auto encoding() {
-    auto result = TextDecoderCommon_encoding_Get(this.handle);
-    return result;
+    return TextDecoderCommon_encoding_Get(this.handle);
   }
   auto fatal() {
-    auto result = TextDecoderCommon_fatal_Get(this.handle);
-    return result;
+    return TextDecoderCommon_fatal_Get(this.handle);
   }
   auto ignoreBOM() {
-    auto result = TextDecoderCommon_ignoreBOM_Get(this.handle);
-    return result;
+    return TextDecoderCommon_ignoreBOM_Get(this.handle);
   }
   auto readable() {
-    auto result = ReadableStream(JsHandle(GenericTransformStream_readable_Get(this.handle)));
-    return result;
+    return ReadableStream(JsHandle(GenericTransformStream_readable_Get(this.handle)));
   }
   auto writable() {
-    auto result = WritableStream(JsHandle(GenericTransformStream_writable_Get(this.handle)));
-    return result;
+    return WritableStream(JsHandle(GenericTransformStream_writable_Get(this.handle)));
   }
 }
 struct TextEncoder {
   JsHandle handle;
   alias handle this;
   auto encode(string input /* = "" */) {
-    auto result = Uint8Array(JsHandle(TextEncoder_encode(this.handle, input)));
-    return result;
+    return Uint8Array(JsHandle(TextEncoder_encode(this.handle, input)));
   }
   auto encoding() {
-    auto result = TextEncoderCommon_encoding_Get(this.handle);
-    return result;
+    return TextEncoderCommon_encoding_Get(this.handle);
   }
 }
 struct TextEncoderStream {
   JsHandle handle;
   alias handle this;
   auto encoding() {
-    auto result = TextEncoderCommon_encoding_Get(this.handle);
-    return result;
+    return TextEncoderCommon_encoding_Get(this.handle);
   }
   auto readable() {
-    auto result = ReadableStream(JsHandle(GenericTransformStream_readable_Get(this.handle)));
-    return result;
+    return ReadableStream(JsHandle(GenericTransformStream_readable_Get(this.handle)));
   }
   auto writable() {
-    auto result = WritableStream(JsHandle(GenericTransformStream_writable_Get(this.handle)));
-    return result;
+    return WritableStream(JsHandle(GenericTransformStream_writable_Get(this.handle)));
   }
 }
 
 
 extern (C) Handle GenericTransformStream_readable_Get(Handle);
 extern (C) Handle GenericTransformStream_writable_Get(Handle);
-extern (C) void TextDecodeOptions_create(Handle);
 extern (C) void TextDecodeOptions_stream_Set(Handle, bool);
 extern (C) bool TextDecodeOptions_stream_Get(Handle);
 extern (C) string TextDecoder_decode(Handle, BufferSource, Handle);
 extern (C) string TextDecoderCommon_encoding_Get(Handle);
 extern (C) bool TextDecoderCommon_fatal_Get(Handle);
 extern (C) bool TextDecoderCommon_ignoreBOM_Get(Handle);
-extern (C) void TextDecoderOptions_create(Handle);
 extern (C) void TextDecoderOptions_fatal_Set(Handle, bool);
 extern (C) bool TextDecoderOptions_fatal_Get(Handle);
 extern (C) void TextDecoderOptions_ignoreBOM_Set(Handle, bool);

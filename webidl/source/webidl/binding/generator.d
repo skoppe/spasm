@@ -18,7 +18,7 @@ enum dKeywords = ["abstract","alias","align","asm","assert","auto","body","bool"
 enum jsKeywords = ["default", "arguments"];
 mixin(registerMethods);
 
-enum FunctionType { Function = 1, Attribute = 2, Static = 4, OpIndex = 8, OpIndexAssign = 16, OpDispatch = 32, Getter = 64, Setter = 128, Deleter = 256, Includes = 512, Partial = 1024, DictionaryConstructor = 2048 };
+enum FunctionType { Function = 1, Attribute = 2, Static = 4, OpIndex = 8, OpIndexAssign = 16, OpDispatch = 32, Getter = 64, Setter = 128, Deleter = 256, Includes = 512, Partial = 1024, DictionaryConstructor = 2048, ExposedConstructor = 4096 };
 
 struct Argument {
   string name;
@@ -342,6 +342,45 @@ class FunctionNode : Node {
   semantics.dump(tmp, a);
 }
 
+class ExposedConstructorNode : Node {
+  string name;
+  Argument[] args;
+  ParseTree result;
+  string baseType;
+  this(string name, Argument[] args, ParseTree result, string baseType) {
+    this.name = name;
+    this.args = args;
+    this.result = result;
+    this.baseType = baseType;
+  }
+  void toString(scope void delegate(const(char)[]) sink) {
+    sink("ExposedConstructor ");
+    sink(name);
+    sink("(");
+    sink(args.map!(a => a.name).joiner(", ").text());
+    sink(")");
+  }
+}
+@method void _toDBinding(ExposedConstructorNode node, StructNode parent, Semantics semantics, IndentedStringAppender* a) {
+  if (parent.name != node.baseType)
+    return;
+  auto tmp = DBindingFunction(parent.name, node.name, node.args, node.result, FunctionType.ExposedConstructor);
+  semantics.dump(tmp, a);
+}
+@method void _toJsExport(ExposedConstructorNode node, StructNode parent, Semantics semantics, string[] filter, IndentedStringAppender* a) {
+  if (parent.name != node.baseType)
+    return;
+  auto tmp = JsExportFunction(parent.name, node.name, node.args, node.result, FunctionType.ExposedConstructor);
+  auto context = Context(semantics);
+  context.dump(tmp, a);
+}
+@method void _toDImport(ExposedConstructorNode node, StructNode parent, Semantics semantics, IndentedStringAppender* a) {
+  if (parent.name != node.baseType)
+    return;
+  auto tmp = DImportFunction(parent.name, node.name, node.args, node.result, FunctionType.ExposedConstructor);
+  semantics.dump(tmp, a);
+}
+
 class TypedefNode : Node {
   string name;
   string def;
@@ -557,12 +596,12 @@ void dump(Appender)(ref Context context, JsExportFunction item, ref Appender a) 
   bool rawResult = item.result != ParseTree.init && semantics.isRawResultType(item.result);
   if (rawResult)
     a.put("rawResult");
-  if (!(item.type & FunctionType.Static)) {
+  if (!(item.type & FunctionType.Static) && !(item.type & FunctionType.ExposedConstructor)) {
     if (rawResult)
       a.put(", ");
     a.put("ctx");
   }
-  if ((rawResult || !(item.type & FunctionType.Static)) && item.args.length > 0)
+  if ((rawResult || (!(item.type & FunctionType.Static) && !(item.type & FunctionType.ExposedConstructor))) && item.args.length > 0)
     a.put(", ");
   item.args.enumerate.each!((e){
       auto arg = e.value;
@@ -603,6 +642,8 @@ void dump(Appender)(ref Context context, JsExportFunction item, ref Appender a) 
     a.put("delete ");
   if (item.type & FunctionType.Static)
     a.put(item.parentTypeName);
+  else if (item.type & FunctionType.ExposedConstructor)
+    a.put(["new ", item.parentTypeName]);
   else
     a.put("spasm.objects[ctx]");
   if (item.type & (FunctionType.Getter | FunctionType.Setter | FunctionType.Deleter)) {
@@ -649,7 +690,7 @@ void dump(Appender)(ref Semantics semantics, DImportFunction item, ref Appender 
   a.put(" ");
   a.put(mangleName(item.parentTypeName,item.name,item.manglePostfix));
   a.put("(");
-  if (!(item.type & FunctionType.Static)) {
+  if (!(item.type & FunctionType.Static) && !(item.type & FunctionType.ExposedConstructor)) {
     a.put("Handle");
     if (item.args.length > 0)
       a.put(", ");
@@ -799,13 +840,16 @@ void dump(Appender)(ref Semantics semantics, DBindingFunction item, ref Appender
     else
       a.put("return ");
     if (!semantics.isPrimitive(item.result) && !semantics.isUnion(item.result) && !semantics.isNullable(item.result)) {
-      item.result.generateDType(a, Context(semantics));
+      if (item.type == FunctionType.ExposedConstructor)
+        a.put(item.name);
+      else
+        item.result.generateDType(a, Context(semantics));
       a.put("(JsHandle(");
     }
   }
   a.put(mangleName(item.parentTypeName, item.customName.length > 0 ? item.customName : item.name,item.manglePostfix));
   a.put("(");
-  if (!(item.type & FunctionType.Static)) {
+  if (!(item.type & FunctionType.Static) && !(item.type & FunctionType.ExposedConstructor)) {
     a.put(["this.", item.handle]);
     if (item.args.length > 0)
       a.put(", ");
@@ -1125,6 +1169,8 @@ bool isNullable(ref Semantics semantics, ParseTree tree) {
     return semantics.isNullable(tree.children[1]);
   if (tree.name == "WebIDL.UnionMemberType")
     return tree.matches[$-1] == "?";
+  if (tree.name == "WebIDL.InterfaceRest")
+    return false;
   assert(tree.name == "WebIDL.Type");
   if (tree.matches[$-1] == "?")
     return true;
@@ -1143,6 +1189,8 @@ bool isRawResultType(ref Semantics semantics, ParseTree tree) {
   }
   if (tree.name == "WebIDL.TypeWithExtendedAttributes")
     return semantics.isRawResultType(tree.children[1]);
+  if (tree.name == "WebIDL.InterfaceRest")
+    return false;
   assert(tree.name == "WebIDL.Type");
   return semantics.isNullable(tree) ||
     semantics.isStringType(tree) || semantics.isUnion(tree);
@@ -1156,6 +1204,8 @@ bool isStringType(ref Semantics semantics, ParseTree tree) {
   }
   if (tree.name == "WebIDL.TypeWithExtendedAttributes")
     return semantics.isStringType(tree.children[1]);
+  if (tree.name == "WebIDL.InterfaceRest")
+    return false;
   assert(tree.name == "WebIDL.Type");
   string typeName = tree.getTypeName();
   if (semantics.isTypedef(typeName)) {
@@ -1181,6 +1231,8 @@ bool isUnion(ref Semantics semantics, ParseTree tree) {
   }
   if (tree.name == "WebIDL.TypeWithExtendedAttributes")
     return semantics.isUnion(tree.children[1]);
+  if (tree.name == "WebIDL.InterfaceRest")
+    return false;
   assert(tree.name == "WebIDL.Type" || tree.name == "WebIDL.UnionMemberType");
   if (tree.children[0].name == "WebIDL.UnionType")
     return true;
@@ -1220,6 +1272,8 @@ bool isPrimitive(ref Semantics semantics, ParseTree tree) {
       return false;
     return tree.children[1].children[0].name == "WebIDL.PrimitiveType";
   }
+  if (tree.name == "WebIDL.InterfaceRest")
+    return false;
   assert(tree.name == "WebIDL.Type");
   if (semantics.isEnum(typeName) || semantics.isCallback(typeName))
     return true;
@@ -1241,6 +1295,9 @@ string getTypeName(ParseTree tree) {
   if (tree.name == "WebIDL.ReturnType") {
     assert(tree.matches[0] != "void");
     return tree.children[0].getTypeName();
+  }
+  if (tree.name == "WebIDL.InterfaceRest") {
+    return tree.matches[0];
   }
   assert(tree.name == "WebIDL.TypeWithExtendedAttributes" || tree.name == "WebIDL.Type" || tree.name == "WebIDL.UnionMemberType");
   if (tree.name == "WebIDL.UnionMemberType") {
@@ -1803,6 +1860,23 @@ void toIr(Appender)(ParseTree tree, ref Appender a, Context context) {
     auto app = appender!(Node[]);
     tree.children[2..$].each!(c => toIr(c, app, context));
     a.put(new StructNode(tree.children[0].matches[0], baseType, app.data));
+    if (context.extendedAttributeList != ParseTree.init) {
+      auto constructors = context.extendedAttributeList.children.filter!(attr => attr.matches[0] == "Constructor");
+      auto exposeds = context.extendedAttributeList.children.filter!(attr => attr.matches[0] == "Exposed").map!(e => e.children[0].children[1].children).joiner();
+      foreach(constructor; constructors) {
+        Argument[] args;
+        if (constructor.children[0].children.length > 1) {
+          auto argList = constructor.children[0].children[1];
+          args = zip(argList.extractArguments,argList.extractTypes,argList.extractDefaults).map!(a=>Argument(a[0],a[1],a[2])).array();
+        }
+        auto name = tree.children[0].matches[0];
+        auto result = context.semantics.getType(tree.children[0].matches[0]);
+        foreach(exposed; exposeds) {
+          auto baseTypeName = exposed.matches[0];
+          a.put(new ExposedConstructorNode(name, args, result, baseTypeName));
+        }
+      }
+    }
     break;
   case "WebIDL.IncludesStatement":
     context.isIncludes = true;
@@ -1881,6 +1955,7 @@ void toIr(Appender)(ParseTree tree, ref Appender a, Context context) {
     a.put(new FunctionNode( name, [], attrType, FunctionType.Attribute, "Get", "", ""));
     break;
   case "WebIDL.ExtendedAttributeList":
+    context.extendedAttributeList = tree;
     break;
   case "WebIDL.SpecialOperation":
     if (tree.children[1].children[1].children[0].matches[0] != "") {
@@ -2413,6 +2488,7 @@ class IR {
         }));
     this.resolvePartialsAndIncludes();
     this.mangleJsOverloads(semantics);
+    this.moveExposedConstructors();
   }
 }
 
@@ -2499,6 +2575,16 @@ auto resolvePartialsAndIncludes(IR ir) {
         else
           writeln("Error: Type ", n.baseType, " is unknown");
       }));
+}
+auto moveExposedConstructors(IR ir) {
+  foreach(mod; ir.nodes) {
+    mod.children.map!(n => cast(ExposedConstructorNode)n).filter!(n=>n!is null).each!((constructor){
+      if (auto p = constructor.baseType in ir.structs) {
+        p.children ~= constructor;
+      } else
+        writeln("Error: cannot find type ", constructor.baseType," to exposed constructor ",constructor.name, " on.");
+      });
+  }
 }
 auto mangleJsOverloads(IR ir, Semantics semantics) {
   void handleSet(Node[] nodes) {

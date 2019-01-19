@@ -7,25 +7,22 @@ alias CSSOMString = string;
 struct MediaList {
   JsHandle handle;
   alias handle this;
-  auto mediaText(string mediaText) {
+  void mediaText(string mediaText) {
     MediaList_mediaText_Set(this.handle, mediaText);
   }
   auto mediaText() {
-    auto result = MediaList_mediaText_Get(this.handle);
-    return result;
+    return MediaList_mediaText_Get(this.handle);
   }
   auto length() {
-    auto result = MediaList_length_Get(this.handle);
-    return result;
+    return MediaList_length_Get(this.handle);
   }
   auto item(uint index) {
-    auto result = MediaList_item_getter(this.handle, index);
-    return result;
+    return MediaList_item_getter(this.handle, index);
   }
-  auto appendMedium(string medium) {
+  void appendMedium(string medium) {
     MediaList_appendMedium(this.handle, medium);
   }
-  auto deleteMedium(string medium) {
+  void deleteMedium(string medium) {
     MediaList_deleteMedium(this.handle, medium);
   }
 }
@@ -33,35 +30,28 @@ struct StyleSheet {
   JsHandle handle;
   alias handle this;
   auto type() {
-    auto result = StyleSheet_type_Get(this.handle);
-    return result;
+    return StyleSheet_type_Get(this.handle);
   }
   auto href() {
-    auto result = StyleSheet_href_Get(this.handle);
-    return result;
+    return StyleSheet_href_Get(this.handle);
   }
   auto ownerNode() {
-    auto result = StyleSheet_ownerNode_Get(this.handle);
-    return result;
+    return StyleSheet_ownerNode_Get(this.handle);
   }
   auto parentStyleSheet() {
-    auto result = StyleSheet_parentStyleSheet_Get(this.handle);
-    return result;
+    return StyleSheet_parentStyleSheet_Get(this.handle);
   }
   auto title() {
-    auto result = StyleSheet_title_Get(this.handle);
-    return result;
+    return StyleSheet_title_Get(this.handle);
   }
   auto media() {
-    auto result = MediaList(JsHandle(StyleSheet_media_Get(this.handle)));
-    return result;
+    return MediaList(JsHandle(StyleSheet_media_Get(this.handle)));
   }
-  auto disabled(bool disabled) {
+  void disabled(bool disabled) {
     StyleSheet_disabled_Set(this.handle, disabled);
   }
   auto disabled() {
-    auto result = StyleSheet_disabled_Get(this.handle);
-    return result;
+    return StyleSheet_disabled_Get(this.handle);
   }
 }
 

@@ -120,8 +120,19 @@ unittest {
         const unsigned short NONE = 0;
         attribute unsigned short eventPhase;
       };
+      interface Window {
+      };
+      interface AudioWorklet {
+      };
     });
   gen.generateDBindings.shouldBeLike(q{
+      struct AudioWorklet {
+        JsHandle handle;
+        alias handle this;
+        auto Event(string type, EventInit eventInitDict) {
+          return Event(JsHandle(AudioWorklet_Event(type, eventInitDict.handle)));
+        }
+      }
       struct Event {
         JsHandle handle;
         alias handle this;
@@ -145,16 +156,28 @@ unittest {
           return Event_eventPhase_Get(this.handle);
         }
       }
+      struct Window {
+        JsHandle handle;
+        alias handle this;
+        auto Event(string type, EventInit eventInitDict) {
+          return Event(JsHandle(Window_Event(type, eventInitDict.handle)));
+        }
+      }
     });
   gen.generateDImports.shouldBeLike(q{
+      extern (C) Handle AudioWorklet_Event(string, Handle);
       extern (C) string Event_type_Get(Handle);
       extern (C) void Event_target_Set(Handle, bool, Handle);
       extern (C) Optional!(EventTarget) Event_target_Get(Handle);
       extern (C) Handle Event_composedPath(Handle);
       extern (C) void Event_eventPhase_Set(Handle, ushort);
       extern (C) ushort Event_eventPhase_Get(Handle);
+      extern (C) Handle Window_Event(string, Handle);
     });
   gen.generateJsExports.shouldBeLike("
+          AudioWorklet_Event: (typeLen, typePtr, eventInitDict) => {
+            return spasm.addObject(new AudioWorklet.Event(spasm_decode_string(typeLen, typePtr), spasm.objects[eventInitDict]));
+          },
           Event_type_Get: (rawResult, ctx) => {
             spasm_encode_string(rawResult, spasm.objects[ctx].type);
           },
@@ -172,6 +195,9 @@ unittest {
           },
           Event_eventPhase_Get: (ctx) => {
             return spasm.objects[ctx].eventPhase;
+          },
+          Window_Event: (typeLen, typePtr, eventInitDict) => {
+            return spasm.addObject(new Window.Event(spasm_decode_string(typeLen, typePtr), spasm.objects[eventInitDict]));
           },
       ");
 }

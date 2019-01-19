@@ -9,30 +9,26 @@ struct IDBCursor {
   JsHandle handle;
   alias handle this;
   auto source() {
-    auto result = IDBCursor_source_Get(this.handle);
-    return result;
+    return IDBCursor_source_Get(this.handle);
   }
   auto direction() {
-    auto result = IDBCursor_direction_Get(this.handle);
-    return result;
+    return IDBCursor_direction_Get(this.handle);
   }
   auto key() {
-    auto result = Any(JsHandle(IDBCursor_key_Get(this.handle)));
-    return result;
+    return Any(JsHandle(IDBCursor_key_Get(this.handle)));
   }
   auto primaryKey() {
-    auto result = Any(JsHandle(IDBCursor_primaryKey_Get(this.handle)));
-    return result;
+    return Any(JsHandle(IDBCursor_primaryKey_Get(this.handle)));
   }
-  auto advance(uint count) {
+  void advance(uint count) {
     IDBCursor_advance(this.handle, count);
   }
-  auto continue_(T0)(T0 key) {
+  void continue_(T0)(T0 key) {
     Handle _handle_key = getOrCreateHandle(key);
     IDBCursor_continue(this.handle, _handle_key);
     dropHandle!(T0)(_handle_key);
   }
-  auto continuePrimaryKey(T0, T1)(T0 key, T1 primaryKey) {
+  void continuePrimaryKey(T0, T1)(T0 key, T1 primaryKey) {
     Handle _handle_key = getOrCreateHandle(key);
     Handle _handle_primaryKey = getOrCreateHandle(primaryKey);
     IDBCursor_continuePrimaryKey(this.handle, _handle_key, _handle_primaryKey);
@@ -46,8 +42,7 @@ struct IDBCursor {
     return result;
   }
   auto delete_() {
-    auto result = IDBRequest(JsHandle(IDBCursor_delete(this.handle)));
-    return result;
+    return IDBRequest(JsHandle(IDBCursor_delete(this.handle)));
   }
 }
 enum IDBCursorDirection {
@@ -63,8 +58,7 @@ struct IDBCursorWithValue {
     _parent = IDBCursor(h);
   }
   auto value() {
-    auto result = Any(JsHandle(IDBCursorWithValue_value_Get(this._parent)));
-    return result;
+    return Any(JsHandle(IDBCursorWithValue_value_Get(this._parent)));
   }
 }
 struct IDBDatabase {
@@ -74,58 +68,49 @@ struct IDBDatabase {
     _parent = EventTarget(h);
   }
   auto name() {
-    auto result = IDBDatabase_name_Get(this._parent);
-    return result;
+    return IDBDatabase_name_Get(this._parent);
   }
   auto version_() {
-    auto result = IDBDatabase_version_Get(this._parent);
-    return result;
+    return IDBDatabase_version_Get(this._parent);
   }
   auto objectStoreNames() {
-    auto result = DOMStringList(JsHandle(IDBDatabase_objectStoreNames_Get(this._parent)));
-    return result;
+    return DOMStringList(JsHandle(IDBDatabase_objectStoreNames_Get(this._parent)));
   }
   auto transaction(SumType!(string, Sequence!(string)) storeNames, IDBTransactionMode mode /* = "readonly" */) {
-    auto result = IDBTransaction(JsHandle(IDBDatabase_transaction(this._parent, storeNames, mode)));
-    return result;
+    return IDBTransaction(JsHandle(IDBDatabase_transaction(this._parent, storeNames, mode)));
   }
-  auto close() {
+  void close() {
     IDBDatabase_close(this._parent);
   }
   auto createObjectStore(string name, IDBObjectStoreParameters options) {
-    auto result = IDBObjectStore(JsHandle(IDBDatabase_createObjectStore(this._parent, name, options.handle)));
-    return result;
+    return IDBObjectStore(JsHandle(IDBDatabase_createObjectStore(this._parent, name, options.handle)));
   }
-  auto deleteObjectStore(string name) {
+  void deleteObjectStore(string name) {
     IDBDatabase_deleteObjectStore(this._parent, name);
   }
-  auto onabort(EventHandler onabort) {
+  void onabort(EventHandler onabort) {
     IDBDatabase_onabort_Set(this._parent, onabort);
   }
   auto onabort() {
-    auto result = IDBDatabase_onabort_Get(this._parent);
-    return result;
+    return IDBDatabase_onabort_Get(this._parent);
   }
-  auto onclose(EventHandler onclose) {
+  void onclose(EventHandler onclose) {
     IDBDatabase_onclose_Set(this._parent, onclose);
   }
   auto onclose() {
-    auto result = IDBDatabase_onclose_Get(this._parent);
-    return result;
+    return IDBDatabase_onclose_Get(this._parent);
   }
-  auto onerror(EventHandler onerror) {
+  void onerror(EventHandler onerror) {
     IDBDatabase_onerror_Set(this._parent, onerror);
   }
   auto onerror() {
-    auto result = IDBDatabase_onerror_Get(this._parent);
-    return result;
+    return IDBDatabase_onerror_Get(this._parent);
   }
-  auto onversionchange(EventHandler onversionchange) {
+  void onversionchange(EventHandler onversionchange) {
     IDBDatabase_onversionchange_Set(this._parent, onversionchange);
   }
   auto onversionchange() {
-    auto result = IDBDatabase_onversionchange_Get(this._parent);
-    return result;
+    return IDBDatabase_onversionchange_Get(this._parent);
   }
 }
 struct IDBDatabaseInfo {
@@ -134,35 +119,30 @@ struct IDBDatabaseInfo {
   static auto create() {
     return IDBDatabaseInfo(JsHandle(spasm_add__object()));
   }
-  auto name(string name) {
+  void name(string name) {
     IDBDatabaseInfo_name_Set(this.handle, name);
   }
   auto name() {
-    auto result = IDBDatabaseInfo_name_Get(this.handle);
-    return result;
+    return IDBDatabaseInfo_name_Get(this.handle);
   }
-  auto version_(ulong version_) {
+  void version_(ulong version_) {
     IDBDatabaseInfo_version_Set(this.handle, version_);
   }
   auto version_() {
-    auto result = IDBDatabaseInfo_version_Get(this.handle);
-    return result;
+    return IDBDatabaseInfo_version_Get(this.handle);
   }
 }
 struct IDBFactory {
   JsHandle handle;
   alias handle this;
   auto open(string name, ulong version_) {
-    auto result = IDBOpenDBRequest(JsHandle(IDBFactory_open(this.handle, name, version_)));
-    return result;
+    return IDBOpenDBRequest(JsHandle(IDBFactory_open(this.handle, name, version_)));
   }
   auto deleteDatabase(string name) {
-    auto result = IDBOpenDBRequest(JsHandle(IDBFactory_deleteDatabase(this.handle, name)));
-    return result;
+    return IDBOpenDBRequest(JsHandle(IDBFactory_deleteDatabase(this.handle, name)));
   }
   auto databases() {
-    auto result = Promise!(Sequence!(IDBDatabaseInfo))(JsHandle(IDBFactory_databases(this.handle)));
-    return result;
+    return Promise!(Sequence!(IDBDatabaseInfo))(JsHandle(IDBFactory_databases(this.handle)));
   }
   auto cmp(T0, T1)(T0 first, T1 second) {
     Handle _handle_first = getOrCreateHandle(first);
@@ -176,28 +156,23 @@ struct IDBFactory {
 struct IDBIndex {
   JsHandle handle;
   alias handle this;
-  auto name(string name) {
+  void name(string name) {
     IDBIndex_name_Set(this.handle, name);
   }
   auto name() {
-    auto result = IDBIndex_name_Get(this.handle);
-    return result;
+    return IDBIndex_name_Get(this.handle);
   }
   auto objectStore() {
-    auto result = IDBObjectStore(JsHandle(IDBIndex_objectStore_Get(this.handle)));
-    return result;
+    return IDBObjectStore(JsHandle(IDBIndex_objectStore_Get(this.handle)));
   }
   auto keyPath() {
-    auto result = Any(JsHandle(IDBIndex_keyPath_Get(this.handle)));
-    return result;
+    return Any(JsHandle(IDBIndex_keyPath_Get(this.handle)));
   }
   auto multiEntry() {
-    auto result = IDBIndex_multiEntry_Get(this.handle);
-    return result;
+    return IDBIndex_multiEntry_Get(this.handle);
   }
   auto unique() {
-    auto result = IDBIndex_unique_Get(this.handle);
-    return result;
+    return IDBIndex_unique_Get(this.handle);
   }
   auto get(T0)(T0 query) {
     Handle _handle_query = getOrCreateHandle(query);
@@ -248,39 +223,33 @@ struct IDBIndexParameters {
   static auto create() {
     return IDBIndexParameters(JsHandle(spasm_add__object()));
   }
-  auto unique(bool unique) {
+  void unique(bool unique) {
     IDBIndexParameters_unique_Set(this.handle, unique);
   }
   auto unique() {
-    auto result = IDBIndexParameters_unique_Get(this.handle);
-    return result;
+    return IDBIndexParameters_unique_Get(this.handle);
   }
-  auto multiEntry(bool multiEntry) {
+  void multiEntry(bool multiEntry) {
     IDBIndexParameters_multiEntry_Set(this.handle, multiEntry);
   }
   auto multiEntry() {
-    auto result = IDBIndexParameters_multiEntry_Get(this.handle);
-    return result;
+    return IDBIndexParameters_multiEntry_Get(this.handle);
   }
 }
 struct IDBKeyRange {
   JsHandle handle;
   alias handle this;
   auto lower() {
-    auto result = Any(JsHandle(IDBKeyRange_lower_Get(this.handle)));
-    return result;
+    return Any(JsHandle(IDBKeyRange_lower_Get(this.handle)));
   }
   auto upper() {
-    auto result = Any(JsHandle(IDBKeyRange_upper_Get(this.handle)));
-    return result;
+    return Any(JsHandle(IDBKeyRange_upper_Get(this.handle)));
   }
   auto lowerOpen() {
-    auto result = IDBKeyRange_lowerOpen_Get(this.handle);
-    return result;
+    return IDBKeyRange_lowerOpen_Get(this.handle);
   }
   auto upperOpen() {
-    auto result = IDBKeyRange_upperOpen_Get(this.handle);
-    return result;
+    return IDBKeyRange_upperOpen_Get(this.handle);
   }
   auto only(T0)(T0 value) {
     Handle _handle_value = getOrCreateHandle(value);
@@ -318,28 +287,23 @@ struct IDBKeyRange {
 struct IDBObjectStore {
   JsHandle handle;
   alias handle this;
-  auto name(string name) {
+  void name(string name) {
     IDBObjectStore_name_Set(this.handle, name);
   }
   auto name() {
-    auto result = IDBObjectStore_name_Get(this.handle);
-    return result;
+    return IDBObjectStore_name_Get(this.handle);
   }
   auto keyPath() {
-    auto result = Any(JsHandle(IDBObjectStore_keyPath_Get(this.handle)));
-    return result;
+    return Any(JsHandle(IDBObjectStore_keyPath_Get(this.handle)));
   }
   auto indexNames() {
-    auto result = DOMStringList(JsHandle(IDBObjectStore_indexNames_Get(this.handle)));
-    return result;
+    return DOMStringList(JsHandle(IDBObjectStore_indexNames_Get(this.handle)));
   }
   auto transaction() {
-    auto result = IDBTransaction(JsHandle(IDBObjectStore_transaction_Get(this.handle)));
-    return result;
+    return IDBTransaction(JsHandle(IDBObjectStore_transaction_Get(this.handle)));
   }
   auto autoIncrement() {
-    auto result = IDBObjectStore_autoIncrement_Get(this.handle);
-    return result;
+    return IDBObjectStore_autoIncrement_Get(this.handle);
   }
   auto put(T0, T1)(T0 value, T1 key) {
     Handle _handle_value = getOrCreateHandle(value);
@@ -364,8 +328,7 @@ struct IDBObjectStore {
     return result;
   }
   auto clear() {
-    auto result = IDBRequest(JsHandle(IDBObjectStore_clear(this.handle)));
-    return result;
+    return IDBRequest(JsHandle(IDBObjectStore_clear(this.handle)));
   }
   auto get(T0)(T0 query) {
     Handle _handle_query = getOrCreateHandle(query);
@@ -410,14 +373,12 @@ struct IDBObjectStore {
     return result;
   }
   auto index(string name) {
-    auto result = IDBIndex(JsHandle(IDBObjectStore_index(this.handle, name)));
-    return result;
+    return IDBIndex(JsHandle(IDBObjectStore_index(this.handle, name)));
   }
   auto createIndex(string name, SumType!(string, Sequence!(string)) keyPath, IDBIndexParameters options) {
-    auto result = IDBIndex(JsHandle(IDBObjectStore_createIndex(this.handle, name, keyPath, options.handle)));
-    return result;
+    return IDBIndex(JsHandle(IDBObjectStore_createIndex(this.handle, name, keyPath, options.handle)));
   }
-  auto deleteIndex(string name) {
+  void deleteIndex(string name) {
     IDBObjectStore_deleteIndex(this.handle, name);
   }
 }
@@ -427,19 +388,17 @@ struct IDBObjectStoreParameters {
   static auto create() {
     return IDBObjectStoreParameters(JsHandle(spasm_add__object()));
   }
-  auto keyPath(Optional!(SumType!(string, Sequence!(string))) keyPath) {
+  void keyPath(Optional!(SumType!(string, Sequence!(string))) keyPath) {
     IDBObjectStoreParameters_keyPath_Set(this.handle, !keyPath.empty, keyPath.front);
   }
   auto keyPath() {
-    auto result = IDBObjectStoreParameters_keyPath_Get(this.handle);
-    return result;
+    return IDBObjectStoreParameters_keyPath_Get(this.handle);
   }
-  auto autoIncrement(bool autoIncrement) {
+  void autoIncrement(bool autoIncrement) {
     IDBObjectStoreParameters_autoIncrement_Set(this.handle, autoIncrement);
   }
   auto autoIncrement() {
-    auto result = IDBObjectStoreParameters_autoIncrement_Get(this.handle);
-    return result;
+    return IDBObjectStoreParameters_autoIncrement_Get(this.handle);
   }
 }
 struct IDBOpenDBRequest {
@@ -448,19 +407,17 @@ struct IDBOpenDBRequest {
   this(JsHandle h) {
     _parent = IDBRequest(h);
   }
-  auto onblocked(EventHandler onblocked) {
+  void onblocked(EventHandler onblocked) {
     IDBOpenDBRequest_onblocked_Set(this._parent, onblocked);
   }
   auto onblocked() {
-    auto result = IDBOpenDBRequest_onblocked_Get(this._parent);
-    return result;
+    return IDBOpenDBRequest_onblocked_Get(this._parent);
   }
-  auto onupgradeneeded(EventHandler onupgradeneeded) {
+  void onupgradeneeded(EventHandler onupgradeneeded) {
     IDBOpenDBRequest_onupgradeneeded_Set(this._parent, onupgradeneeded);
   }
   auto onupgradeneeded() {
-    auto result = IDBOpenDBRequest_onupgradeneeded_Get(this._parent);
-    return result;
+    return IDBOpenDBRequest_onupgradeneeded_Get(this._parent);
   }
 }
 struct IDBRequest {
@@ -470,38 +427,31 @@ struct IDBRequest {
     _parent = EventTarget(h);
   }
   auto result() {
-    auto result = Any(JsHandle(IDBRequest_result_Get(this._parent)));
-    return result;
+    return Any(JsHandle(IDBRequest_result_Get(this._parent)));
   }
   auto error() {
-    auto result = IDBRequest_error_Get(this._parent);
-    return result;
+    return IDBRequest_error_Get(this._parent);
   }
   auto source() {
-    auto result = IDBRequest_source_Get(this._parent);
-    return result;
+    return IDBRequest_source_Get(this._parent);
   }
   auto transaction() {
-    auto result = IDBRequest_transaction_Get(this._parent);
-    return result;
+    return IDBRequest_transaction_Get(this._parent);
   }
   auto readyState() {
-    auto result = IDBRequest_readyState_Get(this._parent);
-    return result;
+    return IDBRequest_readyState_Get(this._parent);
   }
-  auto onsuccess(EventHandler onsuccess) {
+  void onsuccess(EventHandler onsuccess) {
     IDBRequest_onsuccess_Set(this._parent, onsuccess);
   }
   auto onsuccess() {
-    auto result = IDBRequest_onsuccess_Get(this._parent);
-    return result;
+    return IDBRequest_onsuccess_Get(this._parent);
   }
-  auto onerror(EventHandler onerror) {
+  void onerror(EventHandler onerror) {
     IDBRequest_onerror_Set(this._parent, onerror);
   }
   auto onerror() {
-    auto result = IDBRequest_onerror_Get(this._parent);
-    return result;
+    return IDBRequest_onerror_Get(this._parent);
   }
 }
 enum IDBRequestReadyState {
@@ -515,48 +465,40 @@ struct IDBTransaction {
     _parent = EventTarget(h);
   }
   auto objectStoreNames() {
-    auto result = DOMStringList(JsHandle(IDBTransaction_objectStoreNames_Get(this._parent)));
-    return result;
+    return DOMStringList(JsHandle(IDBTransaction_objectStoreNames_Get(this._parent)));
   }
   auto mode() {
-    auto result = IDBTransaction_mode_Get(this._parent);
-    return result;
+    return IDBTransaction_mode_Get(this._parent);
   }
   auto db() {
-    auto result = IDBDatabase(JsHandle(IDBTransaction_db_Get(this._parent)));
-    return result;
+    return IDBDatabase(JsHandle(IDBTransaction_db_Get(this._parent)));
   }
   auto error() {
-    auto result = DOMException(JsHandle(IDBTransaction_error_Get(this._parent)));
-    return result;
+    return DOMException(JsHandle(IDBTransaction_error_Get(this._parent)));
   }
   auto objectStore(string name) {
-    auto result = IDBObjectStore(JsHandle(IDBTransaction_objectStore(this._parent, name)));
-    return result;
+    return IDBObjectStore(JsHandle(IDBTransaction_objectStore(this._parent, name)));
   }
-  auto abort() {
+  void abort() {
     IDBTransaction_abort(this._parent);
   }
-  auto onabort(EventHandler onabort) {
+  void onabort(EventHandler onabort) {
     IDBTransaction_onabort_Set(this._parent, onabort);
   }
   auto onabort() {
-    auto result = IDBTransaction_onabort_Get(this._parent);
-    return result;
+    return IDBTransaction_onabort_Get(this._parent);
   }
-  auto oncomplete(EventHandler oncomplete) {
+  void oncomplete(EventHandler oncomplete) {
     IDBTransaction_oncomplete_Set(this._parent, oncomplete);
   }
   auto oncomplete() {
-    auto result = IDBTransaction_oncomplete_Get(this._parent);
-    return result;
+    return IDBTransaction_oncomplete_Get(this._parent);
   }
-  auto onerror(EventHandler onerror) {
+  void onerror(EventHandler onerror) {
     IDBTransaction_onerror_Set(this._parent, onerror);
   }
   auto onerror() {
-    auto result = IDBTransaction_onerror_Get(this._parent);
-    return result;
+    return IDBTransaction_onerror_Get(this._parent);
   }
 }
 enum IDBTransactionMode {
@@ -571,12 +513,10 @@ struct IDBVersionChangeEvent {
     _parent = Event(h);
   }
   auto oldVersion() {
-    auto result = IDBVersionChangeEvent_oldVersion_Get(this._parent);
-    return result;
+    return IDBVersionChangeEvent_oldVersion_Get(this._parent);
   }
   auto newVersion() {
-    auto result = IDBVersionChangeEvent_newVersion_Get(this._parent);
-    return result;
+    return IDBVersionChangeEvent_newVersion_Get(this._parent);
   }
 }
 struct IDBVersionChangeEventInit {
@@ -588,19 +528,17 @@ struct IDBVersionChangeEventInit {
   static auto create() {
     return IDBVersionChangeEventInit(JsHandle(spasm_add__object()));
   }
-  auto oldVersion(ulong oldVersion) {
+  void oldVersion(ulong oldVersion) {
     IDBVersionChangeEventInit_oldVersion_Set(this._parent, oldVersion);
   }
   auto oldVersion() {
-    auto result = IDBVersionChangeEventInit_oldVersion_Get(this._parent);
-    return result;
+    return IDBVersionChangeEventInit_oldVersion_Get(this._parent);
   }
-  auto newVersion(Optional!(ulong) newVersion) {
+  void newVersion(Optional!(ulong) newVersion) {
     IDBVersionChangeEventInit_newVersion_Set(this._parent, !newVersion.empty, newVersion.front);
   }
   auto newVersion() {
-    auto result = IDBVersionChangeEventInit_newVersion_Get(this._parent);
-    return result;
+    return IDBVersionChangeEventInit_newVersion_Get(this._parent);
   }
 }
 
@@ -630,7 +568,6 @@ extern (C) void IDBDatabase_onerror_Set(Handle, EventHandler);
 extern (C) EventHandler IDBDatabase_onerror_Get(Handle);
 extern (C) void IDBDatabase_onversionchange_Set(Handle, EventHandler);
 extern (C) EventHandler IDBDatabase_onversionchange_Get(Handle);
-extern (C) void IDBDatabaseInfo_create(Handle);
 extern (C) void IDBDatabaseInfo_name_Set(Handle, string);
 extern (C) string IDBDatabaseInfo_name_Get(Handle);
 extern (C) void IDBDatabaseInfo_version_Set(Handle, ulong);
@@ -652,7 +589,6 @@ extern (C) Handle IDBIndex_getAllKeys(Handle, Handle, uint);
 extern (C) Handle IDBIndex_count(Handle, Handle);
 extern (C) Handle IDBIndex_openCursor(Handle, Handle, IDBCursorDirection);
 extern (C) Handle IDBIndex_openKeyCursor(Handle, Handle, IDBCursorDirection);
-extern (C) void IDBIndexParameters_create(Handle);
 extern (C) void IDBIndexParameters_unique_Set(Handle, bool);
 extern (C) bool IDBIndexParameters_unique_Get(Handle);
 extern (C) void IDBIndexParameters_multiEntry_Set(Handle, bool);
@@ -686,7 +622,6 @@ extern (C) Handle IDBObjectStore_openKeyCursor(Handle, Handle, IDBCursorDirectio
 extern (C) Handle IDBObjectStore_index(Handle, string);
 extern (C) Handle IDBObjectStore_createIndex(Handle, string, SumType!(string, Sequence!(string)), Handle);
 extern (C) void IDBObjectStore_deleteIndex(Handle, string);
-extern (C) void IDBObjectStoreParameters_create(Handle);
 extern (C) void IDBObjectStoreParameters_keyPath_Set(Handle, bool, SumType!(string, Sequence!(string)));
 extern (C) Optional!(SumType!(string, Sequence!(string))) IDBObjectStoreParameters_keyPath_Get(Handle);
 extern (C) void IDBObjectStoreParameters_autoIncrement_Set(Handle, bool);
@@ -718,7 +653,6 @@ extern (C) void IDBTransaction_onerror_Set(Handle, EventHandler);
 extern (C) EventHandler IDBTransaction_onerror_Get(Handle);
 extern (C) ulong IDBVersionChangeEvent_oldVersion_Get(Handle);
 extern (C) Optional!(ulong) IDBVersionChangeEvent_newVersion_Get(Handle);
-extern (C) void IDBVersionChangeEventInit_create(Handle);
 extern (C) void IDBVersionChangeEventInit_oldVersion_Set(Handle, ulong);
 extern (C) ulong IDBVersionChangeEventInit_oldVersion_Get(Handle);
 extern (C) void IDBVersionChangeEventInit_newVersion_Set(Handle, bool, ulong);

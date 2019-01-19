@@ -25,16 +25,13 @@ struct WebGLActiveInfo {
   JsHandle handle;
   alias handle this;
   auto size() {
-    auto result = WebGLActiveInfo_size_Get(this.handle);
-    return result;
+    return WebGLActiveInfo_size_Get(this.handle);
   }
   auto type() {
-    auto result = WebGLActiveInfo_type_Get(this.handle);
-    return result;
+    return WebGLActiveInfo_type_Get(this.handle);
   }
   auto name() {
-    auto result = WebGLActiveInfo_name_Get(this.handle);
-    return result;
+    return WebGLActiveInfo_name_Get(this.handle);
   }
 }
 struct WebGLBuffer {
@@ -50,61 +47,53 @@ struct WebGLContextAttributes {
   static auto create() {
     return WebGLContextAttributes(JsHandle(spasm_add__object()));
   }
-  auto alpha(bool alpha) {
+  void alpha(bool alpha) {
     WebGLContextAttributes_alpha_Set(this.handle, alpha);
   }
   auto alpha() {
-    auto result = WebGLContextAttributes_alpha_Get(this.handle);
-    return result;
+    return WebGLContextAttributes_alpha_Get(this.handle);
   }
-  auto depth(bool depth) {
+  void depth(bool depth) {
     WebGLContextAttributes_depth_Set(this.handle, depth);
   }
   auto depth() {
-    auto result = WebGLContextAttributes_depth_Get(this.handle);
-    return result;
+    return WebGLContextAttributes_depth_Get(this.handle);
   }
-  auto stencil(bool stencil) {
+  void stencil(bool stencil) {
     WebGLContextAttributes_stencil_Set(this.handle, stencil);
   }
   auto stencil() {
-    auto result = WebGLContextAttributes_stencil_Get(this.handle);
-    return result;
+    return WebGLContextAttributes_stencil_Get(this.handle);
   }
-  auto antialias(bool antialias) {
+  void antialias(bool antialias) {
     WebGLContextAttributes_antialias_Set(this.handle, antialias);
   }
   auto antialias() {
-    auto result = WebGLContextAttributes_antialias_Get(this.handle);
-    return result;
+    return WebGLContextAttributes_antialias_Get(this.handle);
   }
-  auto premultipliedAlpha(bool premultipliedAlpha) {
+  void premultipliedAlpha(bool premultipliedAlpha) {
     WebGLContextAttributes_premultipliedAlpha_Set(this.handle, premultipliedAlpha);
   }
   auto premultipliedAlpha() {
-    auto result = WebGLContextAttributes_premultipliedAlpha_Get(this.handle);
-    return result;
+    return WebGLContextAttributes_premultipliedAlpha_Get(this.handle);
   }
-  auto preserveDrawingBuffer(bool preserveDrawingBuffer) {
+  void preserveDrawingBuffer(bool preserveDrawingBuffer) {
     WebGLContextAttributes_preserveDrawingBuffer_Set(this.handle, preserveDrawingBuffer);
   }
   auto preserveDrawingBuffer() {
-    auto result = WebGLContextAttributes_preserveDrawingBuffer_Get(this.handle);
-    return result;
+    return WebGLContextAttributes_preserveDrawingBuffer_Get(this.handle);
   }
-  auto preferLowPowerToHighPerformance(bool preferLowPowerToHighPerformance) {
+  void preferLowPowerToHighPerformance(bool preferLowPowerToHighPerformance) {
     WebGLContextAttributes_preferLowPowerToHighPerformance_Set(this.handle, preferLowPowerToHighPerformance);
   }
   auto preferLowPowerToHighPerformance() {
-    auto result = WebGLContextAttributes_preferLowPowerToHighPerformance_Get(this.handle);
-    return result;
+    return WebGLContextAttributes_preferLowPowerToHighPerformance_Get(this.handle);
   }
-  auto failIfMajorPerformanceCaveat(bool failIfMajorPerformanceCaveat) {
+  void failIfMajorPerformanceCaveat(bool failIfMajorPerformanceCaveat) {
     WebGLContextAttributes_failIfMajorPerformanceCaveat_Set(this.handle, failIfMajorPerformanceCaveat);
   }
   auto failIfMajorPerformanceCaveat() {
-    auto result = WebGLContextAttributes_failIfMajorPerformanceCaveat_Get(this.handle);
-    return result;
+    return WebGLContextAttributes_failIfMajorPerformanceCaveat_Get(this.handle);
   }
 }
 struct WebGLContextEvent {
@@ -114,8 +103,7 @@ struct WebGLContextEvent {
     _parent = Event(h);
   }
   auto statusMessage() {
-    auto result = WebGLContextEvent_statusMessage_Get(this._parent);
-    return result;
+    return WebGLContextEvent_statusMessage_Get(this._parent);
   }
 }
 struct WebGLContextEventInit {
@@ -127,12 +115,11 @@ struct WebGLContextEventInit {
   static auto create() {
     return WebGLContextEventInit(JsHandle(spasm_add__object()));
   }
-  auto statusMessage(string statusMessage) {
+  void statusMessage(string statusMessage) {
     WebGLContextEventInit_statusMessage_Set(this._parent, statusMessage);
   }
   auto statusMessage() {
-    auto result = WebGLContextEventInit_statusMessage_Get(this._parent);
-    return result;
+    return WebGLContextEventInit_statusMessage_Get(this._parent);
   }
 }
 struct WebGLFramebuffer {
@@ -465,515 +452,474 @@ struct WebGLRenderingContextBase {
   enum uint UNPACK_COLORSPACE_CONVERSION_WEBGL = 0x9243;
   enum uint BROWSER_DEFAULT_WEBGL = 0x9244;
   auto canvas() {
-    auto result = HTMLCanvasElement(JsHandle(WebGLRenderingContextBase_canvas_Get(this.handle)));
-    return result;
+    return HTMLCanvasElement(JsHandle(WebGLRenderingContextBase_canvas_Get(this.handle)));
   }
   auto drawingBufferWidth() {
-    auto result = WebGLRenderingContextBase_drawingBufferWidth_Get(this.handle);
-    return result;
+    return WebGLRenderingContextBase_drawingBufferWidth_Get(this.handle);
   }
   auto drawingBufferHeight() {
-    auto result = WebGLRenderingContextBase_drawingBufferHeight_Get(this.handle);
-    return result;
+    return WebGLRenderingContextBase_drawingBufferHeight_Get(this.handle);
   }
   auto getContextAttributes() {
-    auto result = WebGLRenderingContextBase_getContextAttributes(this.handle);
-    return result;
+    return WebGLRenderingContextBase_getContextAttributes(this.handle);
   }
   auto isContextLost() {
-    auto result = WebGLRenderingContextBase_isContextLost(this.handle);
-    return result;
+    return WebGLRenderingContextBase_isContextLost(this.handle);
   }
   auto getSupportedExtensions() {
-    auto result = WebGLRenderingContextBase_getSupportedExtensions(this.handle);
-    return result;
+    return WebGLRenderingContextBase_getSupportedExtensions(this.handle);
   }
   auto getExtension(string name) {
-    auto result = WebGLRenderingContextBase_getExtension(this.handle, name);
-    return result;
+    return WebGLRenderingContextBase_getExtension(this.handle, name);
   }
-  auto activeTexture(uint texture) {
+  void activeTexture(uint texture) {
     WebGLRenderingContextBase_activeTexture(this.handle, texture);
   }
-  auto attachShader(Optional!(WebGLProgram) program, Optional!(WebGLShader) shader) {
+  void attachShader(Optional!(WebGLProgram) program, Optional!(WebGLShader) shader) {
     WebGLRenderingContextBase_attachShader(this.handle, !program.empty, program.front.handle, !shader.empty, shader.front.handle);
   }
-  auto bindAttribLocation(Optional!(WebGLProgram) program, uint index, string name) {
+  void bindAttribLocation(Optional!(WebGLProgram) program, uint index, string name) {
     WebGLRenderingContextBase_bindAttribLocation(this.handle, !program.empty, program.front.handle, index, name);
   }
-  auto bindBuffer(uint target, Optional!(WebGLBuffer) buffer) {
+  void bindBuffer(uint target, Optional!(WebGLBuffer) buffer) {
     WebGLRenderingContextBase_bindBuffer(this.handle, target, !buffer.empty, buffer.front.handle);
   }
-  auto bindFramebuffer(uint target, Optional!(WebGLFramebuffer) framebuffer) {
+  void bindFramebuffer(uint target, Optional!(WebGLFramebuffer) framebuffer) {
     WebGLRenderingContextBase_bindFramebuffer(this.handle, target, !framebuffer.empty, framebuffer.front.handle);
   }
-  auto bindRenderbuffer(uint target, Optional!(WebGLRenderbuffer) renderbuffer) {
+  void bindRenderbuffer(uint target, Optional!(WebGLRenderbuffer) renderbuffer) {
     WebGLRenderingContextBase_bindRenderbuffer(this.handle, target, !renderbuffer.empty, renderbuffer.front.handle);
   }
-  auto bindTexture(uint target, Optional!(WebGLTexture) texture) {
+  void bindTexture(uint target, Optional!(WebGLTexture) texture) {
     WebGLRenderingContextBase_bindTexture(this.handle, target, !texture.empty, texture.front.handle);
   }
-  auto blendColor(float red, float green, float blue, float alpha) {
+  void blendColor(float red, float green, float blue, float alpha) {
     WebGLRenderingContextBase_blendColor(this.handle, red, green, blue, alpha);
   }
-  auto blendEquation(uint mode) {
+  void blendEquation(uint mode) {
     WebGLRenderingContextBase_blendEquation(this.handle, mode);
   }
-  auto blendEquationSeparate(uint modeRGB, uint modeAlpha) {
+  void blendEquationSeparate(uint modeRGB, uint modeAlpha) {
     WebGLRenderingContextBase_blendEquationSeparate(this.handle, modeRGB, modeAlpha);
   }
-  auto blendFunc(uint sfactor, uint dfactor) {
+  void blendFunc(uint sfactor, uint dfactor) {
     WebGLRenderingContextBase_blendFunc(this.handle, sfactor, dfactor);
   }
-  auto blendFuncSeparate(uint srcRGB, uint dstRGB, uint srcAlpha, uint dstAlpha) {
+  void blendFuncSeparate(uint srcRGB, uint dstRGB, uint srcAlpha, uint dstAlpha) {
     WebGLRenderingContextBase_blendFuncSeparate(this.handle, srcRGB, dstRGB, srcAlpha, dstAlpha);
   }
-  auto bufferData(uint target, long size, uint usage) {
+  void bufferData(uint target, long size, uint usage) {
     WebGLRenderingContextBase_bufferData__uint_long_uint(this.handle, target, size, usage);
   }
-  auto bufferData(uint target, Optional!(BufferDataSource) data, uint usage) {
+  void bufferData(uint target, Optional!(BufferDataSource) data, uint usage) {
     WebGLRenderingContextBase_bufferData__uint_optional_BufferDataSource_uint(this.handle, target, !data.empty, data.front, usage);
   }
-  auto bufferSubData(uint target, long offset, Optional!(BufferDataSource) data) {
+  void bufferSubData(uint target, long offset, Optional!(BufferDataSource) data) {
     WebGLRenderingContextBase_bufferSubData(this.handle, target, offset, !data.empty, data.front);
   }
   auto checkFramebufferStatus(uint target) {
-    auto result = WebGLRenderingContextBase_checkFramebufferStatus(this.handle, target);
-    return result;
+    return WebGLRenderingContextBase_checkFramebufferStatus(this.handle, target);
   }
-  auto clear(uint mask) {
+  void clear(uint mask) {
     WebGLRenderingContextBase_clear(this.handle, mask);
   }
-  auto clearColor(float red, float green, float blue, float alpha) {
+  void clearColor(float red, float green, float blue, float alpha) {
     WebGLRenderingContextBase_clearColor(this.handle, red, green, blue, alpha);
   }
-  auto clearDepth(float depth) {
+  void clearDepth(float depth) {
     WebGLRenderingContextBase_clearDepth(this.handle, depth);
   }
-  auto clearStencil(int s) {
+  void clearStencil(int s) {
     WebGLRenderingContextBase_clearStencil(this.handle, s);
   }
-  auto colorMask(bool red, bool green, bool blue, bool alpha) {
+  void colorMask(bool red, bool green, bool blue, bool alpha) {
     WebGLRenderingContextBase_colorMask(this.handle, red, green, blue, alpha);
   }
-  auto compileShader(Optional!(WebGLShader) shader) {
+  void compileShader(Optional!(WebGLShader) shader) {
     WebGLRenderingContextBase_compileShader(this.handle, !shader.empty, shader.front.handle);
   }
-  auto compressedTexImage2D(uint target, int level, uint internalformat, int width, int height, int border, ArrayBufferView data) {
+  void compressedTexImage2D(uint target, int level, uint internalformat, int width, int height, int border, ArrayBufferView data) {
     WebGLRenderingContextBase_compressedTexImage2D(this.handle, target, level, internalformat, width, height, border, data);
   }
-  auto compressedTexSubImage2D(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, ArrayBufferView data) {
+  void compressedTexSubImage2D(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, ArrayBufferView data) {
     WebGLRenderingContextBase_compressedTexSubImage2D(this.handle, target, level, xoffset, yoffset, width, height, format, data);
   }
-  auto copyTexImage2D(uint target, int level, uint internalformat, int x, int y, int width, int height, int border) {
+  void copyTexImage2D(uint target, int level, uint internalformat, int x, int y, int width, int height, int border) {
     WebGLRenderingContextBase_copyTexImage2D(this.handle, target, level, internalformat, x, y, width, height, border);
   }
-  auto copyTexSubImage2D(uint target, int level, int xoffset, int yoffset, int x, int y, int width, int height) {
+  void copyTexSubImage2D(uint target, int level, int xoffset, int yoffset, int x, int y, int width, int height) {
     WebGLRenderingContextBase_copyTexSubImage2D(this.handle, target, level, xoffset, yoffset, x, y, width, height);
   }
   auto createBuffer() {
-    auto result = WebGLRenderingContextBase_createBuffer(this.handle);
-    return result;
+    return WebGLRenderingContextBase_createBuffer(this.handle);
   }
   auto createFramebuffer() {
-    auto result = WebGLRenderingContextBase_createFramebuffer(this.handle);
-    return result;
+    return WebGLRenderingContextBase_createFramebuffer(this.handle);
   }
   auto createProgram() {
-    auto result = WebGLRenderingContextBase_createProgram(this.handle);
-    return result;
+    return WebGLRenderingContextBase_createProgram(this.handle);
   }
   auto createRenderbuffer() {
-    auto result = WebGLRenderingContextBase_createRenderbuffer(this.handle);
-    return result;
+    return WebGLRenderingContextBase_createRenderbuffer(this.handle);
   }
   auto createShader(uint type) {
-    auto result = WebGLRenderingContextBase_createShader(this.handle, type);
-    return result;
+    return WebGLRenderingContextBase_createShader(this.handle, type);
   }
   auto createTexture() {
-    auto result = WebGLRenderingContextBase_createTexture(this.handle);
-    return result;
+    return WebGLRenderingContextBase_createTexture(this.handle);
   }
-  auto cullFace(uint mode) {
+  void cullFace(uint mode) {
     WebGLRenderingContextBase_cullFace(this.handle, mode);
   }
-  auto deleteBuffer(Optional!(WebGLBuffer) buffer) {
+  void deleteBuffer(Optional!(WebGLBuffer) buffer) {
     WebGLRenderingContextBase_deleteBuffer(this.handle, !buffer.empty, buffer.front.handle);
   }
-  auto deleteFramebuffer(Optional!(WebGLFramebuffer) framebuffer) {
+  void deleteFramebuffer(Optional!(WebGLFramebuffer) framebuffer) {
     WebGLRenderingContextBase_deleteFramebuffer(this.handle, !framebuffer.empty, framebuffer.front.handle);
   }
-  auto deleteProgram(Optional!(WebGLProgram) program) {
+  void deleteProgram(Optional!(WebGLProgram) program) {
     WebGLRenderingContextBase_deleteProgram(this.handle, !program.empty, program.front.handle);
   }
-  auto deleteRenderbuffer(Optional!(WebGLRenderbuffer) renderbuffer) {
+  void deleteRenderbuffer(Optional!(WebGLRenderbuffer) renderbuffer) {
     WebGLRenderingContextBase_deleteRenderbuffer(this.handle, !renderbuffer.empty, renderbuffer.front.handle);
   }
-  auto deleteShader(Optional!(WebGLShader) shader) {
+  void deleteShader(Optional!(WebGLShader) shader) {
     WebGLRenderingContextBase_deleteShader(this.handle, !shader.empty, shader.front.handle);
   }
-  auto deleteTexture(Optional!(WebGLTexture) texture) {
+  void deleteTexture(Optional!(WebGLTexture) texture) {
     WebGLRenderingContextBase_deleteTexture(this.handle, !texture.empty, texture.front.handle);
   }
-  auto depthFunc(uint func) {
+  void depthFunc(uint func) {
     WebGLRenderingContextBase_depthFunc(this.handle, func);
   }
-  auto depthMask(bool flag) {
+  void depthMask(bool flag) {
     WebGLRenderingContextBase_depthMask(this.handle, flag);
   }
-  auto depthRange(float zNear, float zFar) {
+  void depthRange(float zNear, float zFar) {
     WebGLRenderingContextBase_depthRange(this.handle, zNear, zFar);
   }
-  auto detachShader(Optional!(WebGLProgram) program, Optional!(WebGLShader) shader) {
+  void detachShader(Optional!(WebGLProgram) program, Optional!(WebGLShader) shader) {
     WebGLRenderingContextBase_detachShader(this.handle, !program.empty, program.front.handle, !shader.empty, shader.front.handle);
   }
-  auto disable(uint cap) {
+  void disable(uint cap) {
     WebGLRenderingContextBase_disable(this.handle, cap);
   }
-  auto disableVertexAttribArray(uint index) {
+  void disableVertexAttribArray(uint index) {
     WebGLRenderingContextBase_disableVertexAttribArray(this.handle, index);
   }
-  auto drawArrays(uint mode, int first, int count) {
+  void drawArrays(uint mode, int first, int count) {
     WebGLRenderingContextBase_drawArrays(this.handle, mode, first, count);
   }
-  auto drawElements(uint mode, int count, uint type, long offset) {
+  void drawElements(uint mode, int count, uint type, long offset) {
     WebGLRenderingContextBase_drawElements(this.handle, mode, count, type, offset);
   }
-  auto enable(uint cap) {
+  void enable(uint cap) {
     WebGLRenderingContextBase_enable(this.handle, cap);
   }
-  auto enableVertexAttribArray(uint index) {
+  void enableVertexAttribArray(uint index) {
     WebGLRenderingContextBase_enableVertexAttribArray(this.handle, index);
   }
-  auto finish() {
+  void finish() {
     WebGLRenderingContextBase_finish(this.handle);
   }
-  auto flush() {
+  void flush() {
     WebGLRenderingContextBase_flush(this.handle);
   }
-  auto framebufferRenderbuffer(uint target, uint attachment, uint renderbuffertarget, Optional!(WebGLRenderbuffer) renderbuffer) {
+  void framebufferRenderbuffer(uint target, uint attachment, uint renderbuffertarget, Optional!(WebGLRenderbuffer) renderbuffer) {
     WebGLRenderingContextBase_framebufferRenderbuffer(this.handle, target, attachment, renderbuffertarget, !renderbuffer.empty, renderbuffer.front.handle);
   }
-  auto framebufferTexture2D(uint target, uint attachment, uint textarget, Optional!(WebGLTexture) texture, int level) {
+  void framebufferTexture2D(uint target, uint attachment, uint textarget, Optional!(WebGLTexture) texture, int level) {
     WebGLRenderingContextBase_framebufferTexture2D(this.handle, target, attachment, textarget, !texture.empty, texture.front.handle, level);
   }
-  auto frontFace(uint mode) {
+  void frontFace(uint mode) {
     WebGLRenderingContextBase_frontFace(this.handle, mode);
   }
-  auto generateMipmap(uint target) {
+  void generateMipmap(uint target) {
     WebGLRenderingContextBase_generateMipmap(this.handle, target);
   }
   auto getActiveAttrib(Optional!(WebGLProgram) program, uint index) {
-    auto result = WebGLRenderingContextBase_getActiveAttrib(this.handle, !program.empty, program.front.handle, index);
-    return result;
+    return WebGLRenderingContextBase_getActiveAttrib(this.handle, !program.empty, program.front.handle, index);
   }
   auto getActiveUniform(Optional!(WebGLProgram) program, uint index) {
-    auto result = WebGLRenderingContextBase_getActiveUniform(this.handle, !program.empty, program.front.handle, index);
-    return result;
+    return WebGLRenderingContextBase_getActiveUniform(this.handle, !program.empty, program.front.handle, index);
   }
   auto getAttachedShaders(Optional!(WebGLProgram) program) {
-    auto result = WebGLRenderingContextBase_getAttachedShaders(this.handle, !program.empty, program.front.handle);
-    return result;
+    return WebGLRenderingContextBase_getAttachedShaders(this.handle, !program.empty, program.front.handle);
   }
   auto getAttribLocation(Optional!(WebGLProgram) program, string name) {
-    auto result = WebGLRenderingContextBase_getAttribLocation(this.handle, !program.empty, program.front.handle, name);
-    return result;
+    return WebGLRenderingContextBase_getAttribLocation(this.handle, !program.empty, program.front.handle, name);
   }
   auto getBufferParameter(uint target, uint pname) {
-    auto result = Any(JsHandle(WebGLRenderingContextBase_getBufferParameter(this.handle, target, pname)));
-    return result;
+    return Any(JsHandle(WebGLRenderingContextBase_getBufferParameter(this.handle, target, pname)));
   }
   auto getParameter(uint pname) {
-    auto result = Any(JsHandle(WebGLRenderingContextBase_getParameter(this.handle, pname)));
-    return result;
+    return Any(JsHandle(WebGLRenderingContextBase_getParameter(this.handle, pname)));
   }
   auto getError() {
-    auto result = WebGLRenderingContextBase_getError(this.handle);
-    return result;
+    return WebGLRenderingContextBase_getError(this.handle);
   }
   auto getFramebufferAttachmentParameter(uint target, uint attachment, uint pname) {
-    auto result = Any(JsHandle(WebGLRenderingContextBase_getFramebufferAttachmentParameter(this.handle, target, attachment, pname)));
-    return result;
+    return Any(JsHandle(WebGLRenderingContextBase_getFramebufferAttachmentParameter(this.handle, target, attachment, pname)));
   }
   auto getProgramParameter(Optional!(WebGLProgram) program, uint pname) {
-    auto result = Any(JsHandle(WebGLRenderingContextBase_getProgramParameter(this.handle, !program.empty, program.front.handle, pname)));
-    return result;
+    return Any(JsHandle(WebGLRenderingContextBase_getProgramParameter(this.handle, !program.empty, program.front.handle, pname)));
   }
   auto getProgramInfoLog(Optional!(WebGLProgram) program) {
-    auto result = WebGLRenderingContextBase_getProgramInfoLog(this.handle, !program.empty, program.front.handle);
-    return result;
+    return WebGLRenderingContextBase_getProgramInfoLog(this.handle, !program.empty, program.front.handle);
   }
   auto getRenderbufferParameter(uint target, uint pname) {
-    auto result = Any(JsHandle(WebGLRenderingContextBase_getRenderbufferParameter(this.handle, target, pname)));
-    return result;
+    return Any(JsHandle(WebGLRenderingContextBase_getRenderbufferParameter(this.handle, target, pname)));
   }
   auto getShaderParameter(Optional!(WebGLShader) shader, uint pname) {
-    auto result = Any(JsHandle(WebGLRenderingContextBase_getShaderParameter(this.handle, !shader.empty, shader.front.handle, pname)));
-    return result;
+    return Any(JsHandle(WebGLRenderingContextBase_getShaderParameter(this.handle, !shader.empty, shader.front.handle, pname)));
   }
   auto getShaderPrecisionFormat(uint shadertype, uint precisiontype) {
-    auto result = WebGLRenderingContextBase_getShaderPrecisionFormat(this.handle, shadertype, precisiontype);
-    return result;
+    return WebGLRenderingContextBase_getShaderPrecisionFormat(this.handle, shadertype, precisiontype);
   }
   auto getShaderInfoLog(Optional!(WebGLShader) shader) {
-    auto result = WebGLRenderingContextBase_getShaderInfoLog(this.handle, !shader.empty, shader.front.handle);
-    return result;
+    return WebGLRenderingContextBase_getShaderInfoLog(this.handle, !shader.empty, shader.front.handle);
   }
   auto getShaderSource(Optional!(WebGLShader) shader) {
-    auto result = WebGLRenderingContextBase_getShaderSource(this.handle, !shader.empty, shader.front.handle);
-    return result;
+    return WebGLRenderingContextBase_getShaderSource(this.handle, !shader.empty, shader.front.handle);
   }
   auto getTexParameter(uint target, uint pname) {
-    auto result = Any(JsHandle(WebGLRenderingContextBase_getTexParameter(this.handle, target, pname)));
-    return result;
+    return Any(JsHandle(WebGLRenderingContextBase_getTexParameter(this.handle, target, pname)));
   }
   auto getUniform(Optional!(WebGLProgram) program, Optional!(WebGLUniformLocation) location) {
-    auto result = Any(JsHandle(WebGLRenderingContextBase_getUniform(this.handle, !program.empty, program.front.handle, !location.empty, location.front.handle)));
-    return result;
+    return Any(JsHandle(WebGLRenderingContextBase_getUniform(this.handle, !program.empty, program.front.handle, !location.empty, location.front.handle)));
   }
   auto getUniformLocation(Optional!(WebGLProgram) program, string name) {
-    auto result = WebGLRenderingContextBase_getUniformLocation(this.handle, !program.empty, program.front.handle, name);
-    return result;
+    return WebGLRenderingContextBase_getUniformLocation(this.handle, !program.empty, program.front.handle, name);
   }
   auto getVertexAttrib(uint index, uint pname) {
-    auto result = Any(JsHandle(WebGLRenderingContextBase_getVertexAttrib(this.handle, index, pname)));
-    return result;
+    return Any(JsHandle(WebGLRenderingContextBase_getVertexAttrib(this.handle, index, pname)));
   }
   auto getVertexAttribOffset(uint index, uint pname) {
-    auto result = WebGLRenderingContextBase_getVertexAttribOffset(this.handle, index, pname);
-    return result;
+    return WebGLRenderingContextBase_getVertexAttribOffset(this.handle, index, pname);
   }
-  auto hint(uint target, uint mode) {
+  void hint(uint target, uint mode) {
     WebGLRenderingContextBase_hint(this.handle, target, mode);
   }
   auto isBuffer(Optional!(WebGLBuffer) buffer) {
-    auto result = WebGLRenderingContextBase_isBuffer(this.handle, !buffer.empty, buffer.front.handle);
-    return result;
+    return WebGLRenderingContextBase_isBuffer(this.handle, !buffer.empty, buffer.front.handle);
   }
   auto isEnabled(uint cap) {
-    auto result = WebGLRenderingContextBase_isEnabled(this.handle, cap);
-    return result;
+    return WebGLRenderingContextBase_isEnabled(this.handle, cap);
   }
   auto isFramebuffer(Optional!(WebGLFramebuffer) framebuffer) {
-    auto result = WebGLRenderingContextBase_isFramebuffer(this.handle, !framebuffer.empty, framebuffer.front.handle);
-    return result;
+    return WebGLRenderingContextBase_isFramebuffer(this.handle, !framebuffer.empty, framebuffer.front.handle);
   }
   auto isProgram(Optional!(WebGLProgram) program) {
-    auto result = WebGLRenderingContextBase_isProgram(this.handle, !program.empty, program.front.handle);
-    return result;
+    return WebGLRenderingContextBase_isProgram(this.handle, !program.empty, program.front.handle);
   }
   auto isRenderbuffer(Optional!(WebGLRenderbuffer) renderbuffer) {
-    auto result = WebGLRenderingContextBase_isRenderbuffer(this.handle, !renderbuffer.empty, renderbuffer.front.handle);
-    return result;
+    return WebGLRenderingContextBase_isRenderbuffer(this.handle, !renderbuffer.empty, renderbuffer.front.handle);
   }
   auto isShader(Optional!(WebGLShader) shader) {
-    auto result = WebGLRenderingContextBase_isShader(this.handle, !shader.empty, shader.front.handle);
-    return result;
+    return WebGLRenderingContextBase_isShader(this.handle, !shader.empty, shader.front.handle);
   }
   auto isTexture(Optional!(WebGLTexture) texture) {
-    auto result = WebGLRenderingContextBase_isTexture(this.handle, !texture.empty, texture.front.handle);
-    return result;
+    return WebGLRenderingContextBase_isTexture(this.handle, !texture.empty, texture.front.handle);
   }
-  auto lineWidth(float width) {
+  void lineWidth(float width) {
     WebGLRenderingContextBase_lineWidth(this.handle, width);
   }
-  auto linkProgram(Optional!(WebGLProgram) program) {
+  void linkProgram(Optional!(WebGLProgram) program) {
     WebGLRenderingContextBase_linkProgram(this.handle, !program.empty, program.front.handle);
   }
-  auto pixelStorei(uint pname, int param) {
+  void pixelStorei(uint pname, int param) {
     WebGLRenderingContextBase_pixelStorei(this.handle, pname, param);
   }
-  auto polygonOffset(float factor, float units) {
+  void polygonOffset(float factor, float units) {
     WebGLRenderingContextBase_polygonOffset(this.handle, factor, units);
   }
-  auto readPixels(int x, int y, int width, int height, uint format, uint type, Optional!(ArrayBufferView) pixels) {
+  void readPixels(int x, int y, int width, int height, uint format, uint type, Optional!(ArrayBufferView) pixels) {
     WebGLRenderingContextBase_readPixels(this.handle, x, y, width, height, format, type, !pixels.empty, pixels.front);
   }
-  auto renderbufferStorage(uint target, uint internalformat, int width, int height) {
+  void renderbufferStorage(uint target, uint internalformat, int width, int height) {
     WebGLRenderingContextBase_renderbufferStorage(this.handle, target, internalformat, width, height);
   }
-  auto sampleCoverage(float value, bool invert) {
+  void sampleCoverage(float value, bool invert) {
     WebGLRenderingContextBase_sampleCoverage(this.handle, value, invert);
   }
-  auto scissor(int x, int y, int width, int height) {
+  void scissor(int x, int y, int width, int height) {
     WebGLRenderingContextBase_scissor(this.handle, x, y, width, height);
   }
-  auto shaderSource(Optional!(WebGLShader) shader, string source) {
+  void shaderSource(Optional!(WebGLShader) shader, string source) {
     WebGLRenderingContextBase_shaderSource(this.handle, !shader.empty, shader.front.handle, source);
   }
-  auto stencilFunc(uint func, int ref_, uint mask) {
+  void stencilFunc(uint func, int ref_, uint mask) {
     WebGLRenderingContextBase_stencilFunc(this.handle, func, ref_, mask);
   }
-  auto stencilFuncSeparate(uint face, uint func, int ref_, uint mask) {
+  void stencilFuncSeparate(uint face, uint func, int ref_, uint mask) {
     WebGLRenderingContextBase_stencilFuncSeparate(this.handle, face, func, ref_, mask);
   }
-  auto stencilMask(uint mask) {
+  void stencilMask(uint mask) {
     WebGLRenderingContextBase_stencilMask(this.handle, mask);
   }
-  auto stencilMaskSeparate(uint face, uint mask) {
+  void stencilMaskSeparate(uint face, uint mask) {
     WebGLRenderingContextBase_stencilMaskSeparate(this.handle, face, mask);
   }
-  auto stencilOp(uint fail, uint zfail, uint zpass) {
+  void stencilOp(uint fail, uint zfail, uint zpass) {
     WebGLRenderingContextBase_stencilOp(this.handle, fail, zfail, zpass);
   }
-  auto stencilOpSeparate(uint face, uint fail, uint zfail, uint zpass) {
+  void stencilOpSeparate(uint face, uint fail, uint zfail, uint zpass) {
     WebGLRenderingContextBase_stencilOpSeparate(this.handle, face, fail, zfail, zpass);
   }
-  auto texImage2D(uint target, int level, uint internalformat, int width, int height, int border, uint format, uint type, Optional!(ArrayBufferView) pixels) {
+  void texImage2D(uint target, int level, uint internalformat, int width, int height, int border, uint format, uint type, Optional!(ArrayBufferView) pixels) {
     WebGLRenderingContextBase_texImage2D__uint_int_uint_int_int_int_uint_uint_optional_ArrayBufferView(this.handle, target, level, internalformat, width, height, border, format, type, !pixels.empty, pixels.front);
   }
-  auto texImage2D(uint target, int level, uint internalformat, uint format, uint type, Optional!(TexImageSource) source) {
+  void texImage2D(uint target, int level, uint internalformat, uint format, uint type, Optional!(TexImageSource) source) {
     WebGLRenderingContextBase_texImage2D__uint_int_uint_uint_uint_optional_TexImageSource(this.handle, target, level, internalformat, format, type, !source.empty, source.front);
   }
-  auto texParameterf(uint target, uint pname, float param) {
+  void texParameterf(uint target, uint pname, float param) {
     WebGLRenderingContextBase_texParameterf(this.handle, target, pname, param);
   }
-  auto texParameteri(uint target, uint pname, int param) {
+  void texParameteri(uint target, uint pname, int param) {
     WebGLRenderingContextBase_texParameteri(this.handle, target, pname, param);
   }
-  auto texSubImage2D(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, uint type, Optional!(ArrayBufferView) pixels) {
+  void texSubImage2D(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, uint type, Optional!(ArrayBufferView) pixels) {
     WebGLRenderingContextBase_texSubImage2D__uint_int_int_int_int_int_uint_uint_optional_ArrayBufferView(this.handle, target, level, xoffset, yoffset, width, height, format, type, !pixels.empty, pixels.front);
   }
-  auto texSubImage2D(uint target, int level, int xoffset, int yoffset, uint format, uint type, Optional!(TexImageSource) source) {
+  void texSubImage2D(uint target, int level, int xoffset, int yoffset, uint format, uint type, Optional!(TexImageSource) source) {
     WebGLRenderingContextBase_texSubImage2D__uint_int_int_int_uint_uint_optional_TexImageSource(this.handle, target, level, xoffset, yoffset, format, type, !source.empty, source.front);
   }
-  auto uniform1f(Optional!(WebGLUniformLocation) location, float x) {
+  void uniform1f(Optional!(WebGLUniformLocation) location, float x) {
     WebGLRenderingContextBase_uniform1f(this.handle, !location.empty, location.front.handle, x);
   }
-  auto uniform1fv(Optional!(WebGLUniformLocation) location, Float32Array v) {
+  void uniform1fv(Optional!(WebGLUniformLocation) location, Float32Array v) {
     WebGLRenderingContextBase_uniform1fv__optional_Handle_Handle(this.handle, !location.empty, location.front.handle, v.handle);
   }
-  auto uniform1fv(Optional!(WebGLUniformLocation) location, Sequence!(float) v) {
+  void uniform1fv(Optional!(WebGLUniformLocation) location, Sequence!(float) v) {
     WebGLRenderingContextBase_uniform1fv__optional_Handle_sequence(this.handle, !location.empty, location.front.handle, v.handle);
   }
-  auto uniform1i(Optional!(WebGLUniformLocation) location, int x) {
+  void uniform1i(Optional!(WebGLUniformLocation) location, int x) {
     WebGLRenderingContextBase_uniform1i(this.handle, !location.empty, location.front.handle, x);
   }
-  auto uniform1iv(Optional!(WebGLUniformLocation) location, Int32Array v) {
+  void uniform1iv(Optional!(WebGLUniformLocation) location, Int32Array v) {
     WebGLRenderingContextBase_uniform1iv__optional_Handle_Handle(this.handle, !location.empty, location.front.handle, v.handle);
   }
-  auto uniform1iv(Optional!(WebGLUniformLocation) location, Sequence!(int) v) {
+  void uniform1iv(Optional!(WebGLUniformLocation) location, Sequence!(int) v) {
     WebGLRenderingContextBase_uniform1iv__optional_Handle_sequence(this.handle, !location.empty, location.front.handle, v.handle);
   }
-  auto uniform2f(Optional!(WebGLUniformLocation) location, float x, float y) {
+  void uniform2f(Optional!(WebGLUniformLocation) location, float x, float y) {
     WebGLRenderingContextBase_uniform2f(this.handle, !location.empty, location.front.handle, x, y);
   }
-  auto uniform2fv(Optional!(WebGLUniformLocation) location, Float32Array v) {
+  void uniform2fv(Optional!(WebGLUniformLocation) location, Float32Array v) {
     WebGLRenderingContextBase_uniform2fv__optional_Handle_Handle(this.handle, !location.empty, location.front.handle, v.handle);
   }
-  auto uniform2fv(Optional!(WebGLUniformLocation) location, Sequence!(float) v) {
+  void uniform2fv(Optional!(WebGLUniformLocation) location, Sequence!(float) v) {
     WebGLRenderingContextBase_uniform2fv__optional_Handle_sequence(this.handle, !location.empty, location.front.handle, v.handle);
   }
-  auto uniform2i(Optional!(WebGLUniformLocation) location, int x, int y) {
+  void uniform2i(Optional!(WebGLUniformLocation) location, int x, int y) {
     WebGLRenderingContextBase_uniform2i(this.handle, !location.empty, location.front.handle, x, y);
   }
-  auto uniform2iv(Optional!(WebGLUniformLocation) location, Int32Array v) {
+  void uniform2iv(Optional!(WebGLUniformLocation) location, Int32Array v) {
     WebGLRenderingContextBase_uniform2iv__optional_Handle_Handle(this.handle, !location.empty, location.front.handle, v.handle);
   }
-  auto uniform2iv(Optional!(WebGLUniformLocation) location, Sequence!(int) v) {
+  void uniform2iv(Optional!(WebGLUniformLocation) location, Sequence!(int) v) {
     WebGLRenderingContextBase_uniform2iv__optional_Handle_sequence(this.handle, !location.empty, location.front.handle, v.handle);
   }
-  auto uniform3f(Optional!(WebGLUniformLocation) location, float x, float y, float z) {
+  void uniform3f(Optional!(WebGLUniformLocation) location, float x, float y, float z) {
     WebGLRenderingContextBase_uniform3f(this.handle, !location.empty, location.front.handle, x, y, z);
   }
-  auto uniform3fv(Optional!(WebGLUniformLocation) location, Float32Array v) {
+  void uniform3fv(Optional!(WebGLUniformLocation) location, Float32Array v) {
     WebGLRenderingContextBase_uniform3fv__optional_Handle_Handle(this.handle, !location.empty, location.front.handle, v.handle);
   }
-  auto uniform3fv(Optional!(WebGLUniformLocation) location, Sequence!(float) v) {
+  void uniform3fv(Optional!(WebGLUniformLocation) location, Sequence!(float) v) {
     WebGLRenderingContextBase_uniform3fv__optional_Handle_sequence(this.handle, !location.empty, location.front.handle, v.handle);
   }
-  auto uniform3i(Optional!(WebGLUniformLocation) location, int x, int y, int z) {
+  void uniform3i(Optional!(WebGLUniformLocation) location, int x, int y, int z) {
     WebGLRenderingContextBase_uniform3i(this.handle, !location.empty, location.front.handle, x, y, z);
   }
-  auto uniform3iv(Optional!(WebGLUniformLocation) location, Int32Array v) {
+  void uniform3iv(Optional!(WebGLUniformLocation) location, Int32Array v) {
     WebGLRenderingContextBase_uniform3iv__optional_Handle_Handle(this.handle, !location.empty, location.front.handle, v.handle);
   }
-  auto uniform3iv(Optional!(WebGLUniformLocation) location, Sequence!(int) v) {
+  void uniform3iv(Optional!(WebGLUniformLocation) location, Sequence!(int) v) {
     WebGLRenderingContextBase_uniform3iv__optional_Handle_sequence(this.handle, !location.empty, location.front.handle, v.handle);
   }
-  auto uniform4f(Optional!(WebGLUniformLocation) location, float x, float y, float z, float w) {
+  void uniform4f(Optional!(WebGLUniformLocation) location, float x, float y, float z, float w) {
     WebGLRenderingContextBase_uniform4f(this.handle, !location.empty, location.front.handle, x, y, z, w);
   }
-  auto uniform4fv(Optional!(WebGLUniformLocation) location, Float32Array v) {
+  void uniform4fv(Optional!(WebGLUniformLocation) location, Float32Array v) {
     WebGLRenderingContextBase_uniform4fv__optional_Handle_Handle(this.handle, !location.empty, location.front.handle, v.handle);
   }
-  auto uniform4fv(Optional!(WebGLUniformLocation) location, Sequence!(float) v) {
+  void uniform4fv(Optional!(WebGLUniformLocation) location, Sequence!(float) v) {
     WebGLRenderingContextBase_uniform4fv__optional_Handle_sequence(this.handle, !location.empty, location.front.handle, v.handle);
   }
-  auto uniform4i(Optional!(WebGLUniformLocation) location, int x, int y, int z, int w) {
+  void uniform4i(Optional!(WebGLUniformLocation) location, int x, int y, int z, int w) {
     WebGLRenderingContextBase_uniform4i(this.handle, !location.empty, location.front.handle, x, y, z, w);
   }
-  auto uniform4iv(Optional!(WebGLUniformLocation) location, Int32Array v) {
+  void uniform4iv(Optional!(WebGLUniformLocation) location, Int32Array v) {
     WebGLRenderingContextBase_uniform4iv__optional_Handle_Handle(this.handle, !location.empty, location.front.handle, v.handle);
   }
-  auto uniform4iv(Optional!(WebGLUniformLocation) location, Sequence!(int) v) {
+  void uniform4iv(Optional!(WebGLUniformLocation) location, Sequence!(int) v) {
     WebGLRenderingContextBase_uniform4iv__optional_Handle_sequence(this.handle, !location.empty, location.front.handle, v.handle);
   }
-  auto uniformMatrix2fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32Array value) {
+  void uniformMatrix2fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32Array value) {
     WebGLRenderingContextBase_uniformMatrix2fv__optional_Handle_bool_Handle(this.handle, !location.empty, location.front.handle, transpose, value.handle);
   }
-  auto uniformMatrix2fv(Optional!(WebGLUniformLocation) location, bool transpose, Sequence!(float) value) {
+  void uniformMatrix2fv(Optional!(WebGLUniformLocation) location, bool transpose, Sequence!(float) value) {
     WebGLRenderingContextBase_uniformMatrix2fv__optional_Handle_bool_sequence(this.handle, !location.empty, location.front.handle, transpose, value.handle);
   }
-  auto uniformMatrix3fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32Array value) {
+  void uniformMatrix3fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32Array value) {
     WebGLRenderingContextBase_uniformMatrix3fv__optional_Handle_bool_Handle(this.handle, !location.empty, location.front.handle, transpose, value.handle);
   }
-  auto uniformMatrix3fv(Optional!(WebGLUniformLocation) location, bool transpose, Sequence!(float) value) {
+  void uniformMatrix3fv(Optional!(WebGLUniformLocation) location, bool transpose, Sequence!(float) value) {
     WebGLRenderingContextBase_uniformMatrix3fv__optional_Handle_bool_sequence(this.handle, !location.empty, location.front.handle, transpose, value.handle);
   }
-  auto uniformMatrix4fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32Array value) {
+  void uniformMatrix4fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32Array value) {
     WebGLRenderingContextBase_uniformMatrix4fv__optional_Handle_bool_Handle(this.handle, !location.empty, location.front.handle, transpose, value.handle);
   }
-  auto uniformMatrix4fv(Optional!(WebGLUniformLocation) location, bool transpose, Sequence!(float) value) {
+  void uniformMatrix4fv(Optional!(WebGLUniformLocation) location, bool transpose, Sequence!(float) value) {
     WebGLRenderingContextBase_uniformMatrix4fv__optional_Handle_bool_sequence(this.handle, !location.empty, location.front.handle, transpose, value.handle);
   }
-  auto useProgram(Optional!(WebGLProgram) program) {
+  void useProgram(Optional!(WebGLProgram) program) {
     WebGLRenderingContextBase_useProgram(this.handle, !program.empty, program.front.handle);
   }
-  auto validateProgram(Optional!(WebGLProgram) program) {
+  void validateProgram(Optional!(WebGLProgram) program) {
     WebGLRenderingContextBase_validateProgram(this.handle, !program.empty, program.front.handle);
   }
-  auto vertexAttrib1f(uint indx, float x) {
+  void vertexAttrib1f(uint indx, float x) {
     WebGLRenderingContextBase_vertexAttrib1f(this.handle, indx, x);
   }
-  auto vertexAttrib1fv(uint indx, Float32Array values) {
+  void vertexAttrib1fv(uint indx, Float32Array values) {
     WebGLRenderingContextBase_vertexAttrib1fv__uint_Handle(this.handle, indx, values.handle);
   }
-  auto vertexAttrib1fv(uint indx, Sequence!(float) values) {
+  void vertexAttrib1fv(uint indx, Sequence!(float) values) {
     WebGLRenderingContextBase_vertexAttrib1fv__uint_sequence(this.handle, indx, values.handle);
   }
-  auto vertexAttrib2f(uint indx, float x, float y) {
+  void vertexAttrib2f(uint indx, float x, float y) {
     WebGLRenderingContextBase_vertexAttrib2f(this.handle, indx, x, y);
   }
-  auto vertexAttrib2fv(uint indx, Float32Array values) {
+  void vertexAttrib2fv(uint indx, Float32Array values) {
     WebGLRenderingContextBase_vertexAttrib2fv__uint_Handle(this.handle, indx, values.handle);
   }
-  auto vertexAttrib2fv(uint indx, Sequence!(float) values) {
+  void vertexAttrib2fv(uint indx, Sequence!(float) values) {
     WebGLRenderingContextBase_vertexAttrib2fv__uint_sequence(this.handle, indx, values.handle);
   }
-  auto vertexAttrib3f(uint indx, float x, float y, float z) {
+  void vertexAttrib3f(uint indx, float x, float y, float z) {
     WebGLRenderingContextBase_vertexAttrib3f(this.handle, indx, x, y, z);
   }
-  auto vertexAttrib3fv(uint indx, Float32Array values) {
+  void vertexAttrib3fv(uint indx, Float32Array values) {
     WebGLRenderingContextBase_vertexAttrib3fv__uint_Handle(this.handle, indx, values.handle);
   }
-  auto vertexAttrib3fv(uint indx, Sequence!(float) values) {
+  void vertexAttrib3fv(uint indx, Sequence!(float) values) {
     WebGLRenderingContextBase_vertexAttrib3fv__uint_sequence(this.handle, indx, values.handle);
   }
-  auto vertexAttrib4f(uint indx, float x, float y, float z, float w) {
+  void vertexAttrib4f(uint indx, float x, float y, float z, float w) {
     WebGLRenderingContextBase_vertexAttrib4f(this.handle, indx, x, y, z, w);
   }
-  auto vertexAttrib4fv(uint indx, Float32Array values) {
+  void vertexAttrib4fv(uint indx, Float32Array values) {
     WebGLRenderingContextBase_vertexAttrib4fv__uint_Handle(this.handle, indx, values.handle);
   }
-  auto vertexAttrib4fv(uint indx, Sequence!(float) values) {
+  void vertexAttrib4fv(uint indx, Sequence!(float) values) {
     WebGLRenderingContextBase_vertexAttrib4fv__uint_sequence(this.handle, indx, values.handle);
   }
-  auto vertexAttribPointer(uint indx, int size, uint type, bool normalized, int stride, long offset) {
+  void vertexAttribPointer(uint indx, int size, uint type, bool normalized, int stride, long offset) {
     WebGLRenderingContextBase_vertexAttribPointer(this.handle, indx, size, type, normalized, stride, offset);
   }
-  auto viewport(int x, int y, int width, int height) {
+  void viewport(int x, int y, int width, int height) {
     WebGLRenderingContextBase_viewport(this.handle, x, y, width, height);
   }
 }
@@ -988,16 +934,13 @@ struct WebGLShaderPrecisionFormat {
   JsHandle handle;
   alias handle this;
   auto rangeMin() {
-    auto result = WebGLShaderPrecisionFormat_rangeMin_Get(this.handle);
-    return result;
+    return WebGLShaderPrecisionFormat_rangeMin_Get(this.handle);
   }
   auto rangeMax() {
-    auto result = WebGLShaderPrecisionFormat_rangeMax_Get(this.handle);
-    return result;
+    return WebGLShaderPrecisionFormat_rangeMax_Get(this.handle);
   }
   auto precision() {
-    auto result = WebGLShaderPrecisionFormat_precision_Get(this.handle);
-    return result;
+    return WebGLShaderPrecisionFormat_precision_Get(this.handle);
   }
 }
 struct WebGLTexture {
@@ -1016,7 +959,6 @@ struct WebGLUniformLocation {
 extern (C) int WebGLActiveInfo_size_Get(Handle);
 extern (C) uint WebGLActiveInfo_type_Get(Handle);
 extern (C) string WebGLActiveInfo_name_Get(Handle);
-extern (C) void WebGLContextAttributes_create(Handle);
 extern (C) void WebGLContextAttributes_alpha_Set(Handle, bool);
 extern (C) bool WebGLContextAttributes_alpha_Get(Handle);
 extern (C) void WebGLContextAttributes_depth_Set(Handle, bool);
@@ -1034,7 +976,6 @@ extern (C) bool WebGLContextAttributes_preferLowPowerToHighPerformance_Get(Handl
 extern (C) void WebGLContextAttributes_failIfMajorPerformanceCaveat_Set(Handle, bool);
 extern (C) bool WebGLContextAttributes_failIfMajorPerformanceCaveat_Get(Handle);
 extern (C) string WebGLContextEvent_statusMessage_Get(Handle);
-extern (C) void WebGLContextEventInit_create(Handle);
 extern (C) void WebGLContextEventInit_statusMessage_Set(Handle, string);
 extern (C) string WebGLContextEventInit_statusMessage_Get(Handle);
 extern (C) Handle WebGLRenderingContextBase_canvas_Get(Handle);

@@ -7,125 +7,107 @@ import spasm.bindings.mediasource;
 struct URL {
   JsHandle handle;
   alias handle this;
-  auto href(string href) {
+  void href(string href) {
     URL_href_Set(this.handle, href);
   }
   auto href() {
-    auto result = URL_href_Get(this.handle);
-    return result;
+    return URL_href_Get(this.handle);
   }
   auto origin() {
-    auto result = URL_origin_Get(this.handle);
-    return result;
+    return URL_origin_Get(this.handle);
   }
-  auto protocol(string protocol) {
+  void protocol(string protocol) {
     URL_protocol_Set(this.handle, protocol);
   }
   auto protocol() {
-    auto result = URL_protocol_Get(this.handle);
-    return result;
+    return URL_protocol_Get(this.handle);
   }
-  auto username(string username) {
+  void username(string username) {
     URL_username_Set(this.handle, username);
   }
   auto username() {
-    auto result = URL_username_Get(this.handle);
-    return result;
+    return URL_username_Get(this.handle);
   }
-  auto password(string password) {
+  void password(string password) {
     URL_password_Set(this.handle, password);
   }
   auto password() {
-    auto result = URL_password_Get(this.handle);
-    return result;
+    return URL_password_Get(this.handle);
   }
-  auto host(string host) {
+  void host(string host) {
     URL_host_Set(this.handle, host);
   }
   auto host() {
-    auto result = URL_host_Get(this.handle);
-    return result;
+    return URL_host_Get(this.handle);
   }
-  auto hostname(string hostname) {
+  void hostname(string hostname) {
     URL_hostname_Set(this.handle, hostname);
   }
   auto hostname() {
-    auto result = URL_hostname_Get(this.handle);
-    return result;
+    return URL_hostname_Get(this.handle);
   }
-  auto port(string port) {
+  void port(string port) {
     URL_port_Set(this.handle, port);
   }
   auto port() {
-    auto result = URL_port_Get(this.handle);
-    return result;
+    return URL_port_Get(this.handle);
   }
-  auto pathname(string pathname) {
+  void pathname(string pathname) {
     URL_pathname_Set(this.handle, pathname);
   }
   auto pathname() {
-    auto result = URL_pathname_Get(this.handle);
-    return result;
+    return URL_pathname_Get(this.handle);
   }
-  auto search(string search) {
+  void search(string search) {
     URL_search_Set(this.handle, search);
   }
   auto search() {
-    auto result = URL_search_Get(this.handle);
-    return result;
+    return URL_search_Get(this.handle);
   }
   auto searchParams() {
-    auto result = URLSearchParams(JsHandle(URL_searchParams_Get(this.handle)));
-    return result;
+    return URLSearchParams(JsHandle(URL_searchParams_Get(this.handle)));
   }
-  auto hash(string hash) {
+  void hash(string hash) {
     URL_hash_Set(this.handle, hash);
   }
   auto hash() {
-    auto result = URL_hash_Get(this.handle);
-    return result;
+    return URL_hash_Get(this.handle);
   }
   auto toJSON() {
-    auto result = URL_toJSON(this.handle);
-    return result;
+    return URL_toJSON(this.handle);
   }
   auto createObjectURL(Blob blob) {
-    auto result = URL_createObjectURL__Handle(this.handle, blob.handle);
-    return result;
+    return URL_createObjectURL__Handle(this.handle, blob.handle);
   }
-  auto revokeObjectURL(string url) {
+  void revokeObjectURL(string url) {
     URL_revokeObjectURL(this.handle, url);
   }
   auto createObjectURL(MediaSource mediaSource) {
-    auto result = URL_createObjectURL__Handle(this.handle, mediaSource.handle);
-    return result;
+    return URL_createObjectURL__Handle(this.handle, mediaSource.handle);
   }
 }
 struct URLSearchParams {
   JsHandle handle;
   alias handle this;
-  auto append(string name, string value) {
+  void append(string name, string value) {
     URLSearchParams_append(this.handle, name, value);
   }
-  auto delete_(string name) {
+  void delete_(string name) {
     URLSearchParams_delete(this.handle, name);
   }
   auto get(string name) {
-    auto result = URLSearchParams_get(this.handle, name);
-    return result;
+    return URLSearchParams_get(this.handle, name);
   }
   auto getAll(string name) {
-    auto result = Sequence!(string)(JsHandle(URLSearchParams_getAll(this.handle, name)));
-    return result;
+    return Sequence!(string)(JsHandle(URLSearchParams_getAll(this.handle, name)));
   }
   auto has(string name) {
-    auto result = URLSearchParams_has(this.handle, name);
-    return result;
+    return URLSearchParams_has(this.handle, name);
   }
-  auto set(string name, string value) {
+  void set(string name, string value) {
     URLSearchParams_set(this.handle, name, value);
   }
-  auto sort() {
+  void sort() {
     URLSearchParams_sort(this.handle);
   }
 }

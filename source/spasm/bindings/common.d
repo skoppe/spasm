@@ -7,16 +7,13 @@ struct DOMException {
   JsHandle handle;
   alias handle this;
   auto name() {
-    auto result = DOMException_name_Get(this.handle);
-    return result;
+    return DOMException_name_Get(this.handle);
   }
   auto message() {
-    auto result = DOMException_message_Get(this.handle);
-    return result;
+    return DOMException_message_Get(this.handle);
   }
   auto code() {
-    auto result = DOMException_code_Get(this.handle);
-    return result;
+    return DOMException_code_Get(this.handle);
   }
   enum ushort INDEX_SIZE_ERR = 1;
   enum ushort DOMSTRING_SIZE_ERR = 2;

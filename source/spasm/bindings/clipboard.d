@@ -12,20 +12,16 @@ struct Clipboard {
     _parent = EventTarget(h);
   }
   auto read() {
-    auto result = Promise!(DataTransfer)(JsHandle(Clipboard_read(this._parent)));
-    return result;
+    return Promise!(DataTransfer)(JsHandle(Clipboard_read(this._parent)));
   }
   auto readText() {
-    auto result = Promise!(string)(JsHandle(Clipboard_readText(this._parent)));
-    return result;
+    return Promise!(string)(JsHandle(Clipboard_readText(this._parent)));
   }
   auto write(DataTransfer data) {
-    auto result = Promise!(void)(JsHandle(Clipboard_write(this._parent, data.handle)));
-    return result;
+    return Promise!(void)(JsHandle(Clipboard_write(this._parent, data.handle)));
   }
   auto writeText(string data) {
-    auto result = Promise!(void)(JsHandle(Clipboard_writeText(this._parent, data)));
-    return result;
+    return Promise!(void)(JsHandle(Clipboard_writeText(this._parent, data)));
   }
 }
 struct ClipboardEvent {
@@ -35,8 +31,7 @@ struct ClipboardEvent {
     _parent = Event(h);
   }
   auto clipboardData() {
-    auto result = ClipboardEvent_clipboardData_Get(this._parent);
-    return result;
+    return ClipboardEvent_clipboardData_Get(this._parent);
   }
 }
 struct ClipboardEventInit {
@@ -48,12 +43,11 @@ struct ClipboardEventInit {
   static auto create() {
     return ClipboardEventInit(JsHandle(spasm_add__object()));
   }
-  auto clipboardData(Optional!(DataTransfer) clipboardData) {
+  void clipboardData(Optional!(DataTransfer) clipboardData) {
     ClipboardEventInit_clipboardData_Set(this._parent, !clipboardData.empty, clipboardData.front.handle);
   }
   auto clipboardData() {
-    auto result = ClipboardEventInit_clipboardData_Get(this._parent);
-    return result;
+    return ClipboardEventInit_clipboardData_Get(this._parent);
   }
 }
 struct ClipboardPermissionDescriptor {
@@ -65,12 +59,11 @@ struct ClipboardPermissionDescriptor {
   static auto create() {
     return ClipboardPermissionDescriptor(JsHandle(spasm_add__object()));
   }
-  auto allowWithoutGesture(bool allowWithoutGesture) {
+  void allowWithoutGesture(bool allowWithoutGesture) {
     ClipboardPermissionDescriptor_allowWithoutGesture_Set(this._parent, allowWithoutGesture);
   }
   auto allowWithoutGesture() {
-    auto result = ClipboardPermissionDescriptor_allowWithoutGesture_Get(this._parent);
-    return result;
+    return ClipboardPermissionDescriptor_allowWithoutGesture_Get(this._parent);
   }
 }
 
@@ -80,9 +73,7 @@ extern (C) Handle Clipboard_readText(Handle);
 extern (C) Handle Clipboard_write(Handle, Handle);
 extern (C) Handle Clipboard_writeText(Handle, string);
 extern (C) Optional!(DataTransfer) ClipboardEvent_clipboardData_Get(Handle);
-extern (C) void ClipboardEventInit_create(Handle);
 extern (C) void ClipboardEventInit_clipboardData_Set(Handle, bool, Handle);
 extern (C) Optional!(DataTransfer) ClipboardEventInit_clipboardData_Get(Handle);
-extern (C) void ClipboardPermissionDescriptor_create(Handle);
 extern (C) void ClipboardPermissionDescriptor_allowWithoutGesture_Set(Handle, bool);
 extern (C) bool ClipboardPermissionDescriptor_allowWithoutGesture_Get(Handle);

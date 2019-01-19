@@ -14,16 +14,14 @@ struct FullscreenOptions {
   static auto create() {
     return FullscreenOptions(JsHandle(spasm_add__object()));
   }
-  auto navigationUI(FullscreenNavigationUI navigationUI) {
+  void navigationUI(FullscreenNavigationUI navigationUI) {
     FullscreenOptions_navigationUI_Set(this.handle, navigationUI);
   }
   auto navigationUI() {
-    auto result = FullscreenOptions_navigationUI_Get(this.handle);
-    return result;
+    return FullscreenOptions_navigationUI_Get(this.handle);
   }
 }
 
 
-extern (C) void FullscreenOptions_create(Handle);
 extern (C) void FullscreenOptions_navigationUI_Set(Handle, FullscreenNavigationUI);
 extern (C) FullscreenNavigationUI FullscreenOptions_navigationUI_Get(Handle);
