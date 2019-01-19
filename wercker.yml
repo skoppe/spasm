@@ -9,6 +9,12 @@ build:
           ln -s $WERCKER_CACHE_DIR/dub ~/.dub
           dub build --compiler=ldc2 --build=release
     - script:
+        name: build generator
+        code: |
+          cd webidl
+          dub test --compiler=ldc2
+          dub build --compiler=ldc2
+    - script:
         name: build todo-mvc example
         code: |
           cd examples/todo-mvc
