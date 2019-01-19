@@ -30,7 +30,42 @@ version (unittest) {
       Semantics semantics;
       string generateDBindings() { return ir.generateDBindings(module_); }
       string generateDImports() { return ir.generateDImports(module_); }
-      string generateJsExports() { return ir.generateSingleJsBinding([]); }
+      string generateJsExports(string[] filtered = []) {
+        auto app = IndentedStringAppender();
+        ir.nodes.each!(n => n.toJsExport(semantics, filtered, &app));
+        return app.data;
+      }
+      string generateJsGlobalBindings(string[] filtered = []) {
+        auto app = IndentedStringAppender();
+        ir.generateJsGlobalBindings(filtered, app);
+        return app.data;
+      }
+      string generateJsDecoders(string[] filtered = []) {
+        auto decodedTypes = ir.generateDecodedTypes(filtered).sort!((a,b){return a.mangled < b.mangled;}).uniq!((a, b){return a.mangled == b.mangled;});
+        bool first = true;
+        auto app = IndentedStringAppender();
+        foreach(decoder; decodedTypes.filter!(e => e.mangled != "string")) {
+          if (!first)
+            app.putLn(",");
+          else
+            first = false;
+          decoder.generateJsDecoder(app, semantics, true);
+        }
+        return app.data;
+      }
+      string generateJsEncoders(string[] filtered = []) {
+        auto encodedTypes = ir.generateEncodedTypes(filtered).sort!((a,b){return a.mangled < b.mangled;}).uniq!((a, b){return a.mangled == b.mangled;});
+        bool first = true;
+        auto app = IndentedStringAppender();
+        foreach(encoder; encodedTypes.filter!(e => e.mangled != "string")) {
+          if (!first)
+            app.putLn(",");
+          else
+            first = false;
+          encoder.generateJsEncoder(app, semantics, true);
+        }
+        return app.data;
+      }
     }
     return Helper(semantics.toIr(), semantics.modules["mod"], semantics);
   }
@@ -62,13 +97,13 @@ unittest {
       struct Event {
         JsHandle handle;
         alias handle this;
-        DelayNode createDelay(double maxDelayTime /* = 1.0 */) {
-          return DelayNode(Event_createDelay(handle, maxDelayTime));
+        auto createDelay(double maxDelayTime /* = 1.0 */) {
+          return DelayNode(JsHandle(Event_createDelay(this.handle, maxDelayTime)));
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) JsHandle Event_createDelay(JsHandle, double);
+      extern (C) Handle Event_createDelay(Handle, double);
     });
 }
 
@@ -86,64 +121,59 @@ unittest {
         attribute unsigned short eventPhase;
       };
     });
-  // TODO: optional JsHandle don't need empty when we have an invalid JsHandle number 
   gen.generateDBindings.shouldBeLike(q{
       struct Event {
         JsHandle handle;
         alias handle this;
-        string type() {
-          return Event_type_Get(handle);
+        auto type() {
+          return Event_type_Get(this.handle);
         }
         void target(Optional!(EventTarget) target) {
-          Event_target_Set(handle, !target.empty, target.front.handle);
+          Event_target_Set(this.handle, !target.empty, target.front.handle);
         }
-        Optional!(EventTarget) target() {
-          return Event_target_Get(handle);
+        auto target() {
+          return Event_target_Get(this.handle);
         }
-        Sequence!(EventTarget) composedPath() {
-          return Sequence!(EventTarget)(Event_composedPath(handle));
+        auto composedPath() {
+          return Sequence!(EventTarget)(JsHandle(Event_composedPath(this.handle)));
         }
         enum ushort NONE = 0;
         void eventPhase(ushort eventPhase) {
-          Event_eventPhase_Set(handle, eventPhase);
+          Event_eventPhase_Set(this.handle, eventPhase);
         }
-        ushort eventPhase() {
-          return Event_eventPhase_Get(handle);
+        auto eventPhase() {
+          return Event_eventPhase_Get(this.handle);
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) string Event_type_Get(JsHandle);
-      extern (C) void Event_target_Set(JsHandle, bool, JsHandle);
-      extern (C) Optional!(EventTarget) Event_target_Get(JsHandle);
-      extern (C) JsHandle Event_composedPath(JsHandle);
-      extern (C) void Event_eventPhase_Set(JsHandle, ushort);
-      extern (C) ushort Event_eventPhase_Get(JsHandle);
+      extern (C) string Event_type_Get(Handle);
+      extern (C) void Event_target_Set(Handle, bool, Handle);
+      extern (C) Optional!(EventTarget) Event_target_Get(Handle);
+      extern (C) Handle Event_composedPath(Handle);
+      extern (C) void Event_eventPhase_Set(Handle, ushort);
+      extern (C) ushort Event_eventPhase_Get(Handle);
     });
   gen.generateJsExports.shouldBeLike("
-      import spasm from './spasm.js';
-      export default {
-        jsExports: {
-          Event_type_Get: function(rawResult, ctx) {
-            spasm.encode_string(rawResult, spasm.objects[ctx].type);
+          Event_type_Get: (rawResult, ctx) => {
+            spasm_encode_string(rawResult, spasm.objects[ctx].type);
           },
-          Event_target_Set: function(ctx, targetDefined, target) {
+          Event_target_Set: (ctx, targetDefined, target) => {
             spasm.objects[ctx].target = targetDefined ? spasm.objects[target] : undefined;
           },
-          Event_target_Get: function(rawResult, ctx) {
-            spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].target);
+          Event_target_Get: (rawResult, ctx) => {
+            spasm_encode_optional_Handle(rawResult, spasm.objects[ctx].target);
           },
-          Event_composedPath: function(ctx) {
+          Event_composedPath: (ctx) => {
             return spasm.addObject(spasm.objects[ctx].composedPath());
           },
-          Event_eventPhase_Set: function(ctx, eventPhase) {
+          Event_eventPhase_Set: (ctx, eventPhase) => {
             spasm.objects[ctx].eventPhase = eventPhase;
           },
-          Event_eventPhase_Get: function(ctx) {
+          Event_eventPhase_Get: (ctx) => {
             return spasm.objects[ctx].eventPhase;
           },
-        }
-      }");
+      ");
 }
 
 @("enum")
@@ -162,16 +192,16 @@ unittest {
         JsHandle handle;
         alias handle this;
         void orientation(ImageOrientation orientation) {
-          Foo_orientation_Set(handle, orientation);
+          Foo_orientation_Set(this.handle, orientation);
         }
-        ImageOrientation orientation() {
-          return Foo_orientation_Get(handle);
+        auto orientation() {
+          return Foo_orientation_Get(this.handle);
         }
-        ImageOrientation needs() {
-          return Foo_needs(handle);
+        auto needs() {
+          return Foo_needs(this.handle);
         }
         void wants(ImageOrientation o) {
-          Foo_wants(handle, o);
+          Foo_wants(this.handle, o);
         }
       }
       enum ImageOrientation {
@@ -181,29 +211,25 @@ unittest {
       }
   });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) void Foo_orientation_Set(JsHandle, ImageOrientation);
-      extern (C) ImageOrientation Foo_orientation_Get(JsHandle);
-      extern (C) ImageOrientation Foo_needs(JsHandle);
-      extern (C) void Foo_wants(JsHandle, ImageOrientation);
+      extern (C) void Foo_orientation_Set(Handle, ImageOrientation);
+      extern (C) ImageOrientation Foo_orientation_Get(Handle);
+      extern (C) ImageOrientation Foo_needs(Handle);
+      extern (C) void Foo_wants(Handle, ImageOrientation);
     });
   gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-    Foo_orientation_Set: function(ctx, orientation) {
-      spasm.objects[ctx].orientation = spasm.decode_ImageOrientation(orientation);
+    Foo_orientation_Set: (ctx, orientation) => {
+      spasm.objects[ctx].orientation = spasm_decode_ImageOrientation(orientation);
     },
-    Foo_orientation_Get: function(ctx) {
-      return spasm.encode_ImageOrientation(spasm.objects[ctx].orientation);
+    Foo_orientation_Get: (ctx) => {
+      return spasm_encode_ImageOrientation(spasm.objects[ctx].orientation);
     },
-    Foo_needs: function(ctx) {
-      return spasm.encode_ImageOrientation(spasm.objects[ctx].needs());
+    Foo_needs: (ctx) => {
+      return spasm_encode_ImageOrientation(spasm.objects[ctx].needs());
     },
-    Foo_wants: function(ctx, o) {
-      spasm.objects[ctx].wants(spasm.decode_ImageOrientation(o));
+    Foo_wants: (ctx, o) => {
+      spasm.objects[ctx].wants(spasm_decode_ImageOrientation(o));
     },
-  }
-}");
+");
 }
 
 unittest {
@@ -216,13 +242,7 @@ unittest {
       alias SomethingCallback = string delegate(string, bool);
     });
   gen.generateDImports.shouldBeEmpty;
-  gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-  }
-}");
-
+  gen.generateJsExports.shouldBeLike("");
 }
 
 @("sequence")
@@ -239,23 +259,19 @@ unittest {
         this(JsHandle h) {
           _parent = EventTarget(h);
         }
-        PeriodicWave createPeriodicWave(Sequence!(float) real_, PeriodicWaveConstraints constraints) {
-          return PeriodicWave(BaseAudioContext_createPeriodicWave(handle, real_.handle, constraints.handle));
+        auto createPeriodicWave(Sequence!(float) real_, PeriodicWaveConstraints constraints) {
+          return PeriodicWave(JsHandle(BaseAudioContext_createPeriodicWave(this._parent, real_.handle, constraints.handle)));
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) JsHandle BaseAudioContext_createPeriodicWave(JsHandle, JsHandle, JsHandle);
+      extern (C) Handle BaseAudioContext_createPeriodicWave(Handle, Handle, Handle);
     });
   gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-    BaseAudioContext_createPeriodicWave: function(ctx, real, constraints) {
+    BaseAudioContext_createPeriodicWave: (ctx, real, constraints) => {
       return spasm.addObject(spasm.objects[ctx].createPeriodicWave(spasm.objects[real], spasm.objects[constraints]));
     },
-  }
-}");
+");
 }
 
 @("optional")
@@ -270,22 +286,18 @@ unittest {
         JsHandle handle;
         alias handle this;
         void bar(uint number) {
-          Foo_bar(handle, number);
+          Foo_bar(this.handle, number);
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) void Foo_bar(JsHandle, uint);
+      extern (C) void Foo_bar(Handle, uint);
     });
   gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-    Foo_bar: function(ctx, number) {
+    Foo_bar: (ctx, number) => {
       spasm.objects[ctx].bar(number);
     },
-  }
-}");
+");
 }
 
 @("null")
@@ -300,22 +312,18 @@ unittest {
         JsHandle handle;
         alias handle this;
         void bar(Optional!(uint) number, Optional!(Bar) constraints) {
-          Foo_bar(handle, !number.empty, number.front, !constraints.empty, constraints.front.handle);
+          Foo_bar(this.handle, !number.empty, number.front, !constraints.empty, constraints.front.handle);
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) void Foo_bar(JsHandle, bool, uint, bool, JsHandle);
+      extern (C) void Foo_bar(Handle, bool, uint, bool, Handle);
     });
   gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-    Foo_bar: function(ctx, numberDefined, number, constraintsDefined, constraints) {
+    Foo_bar: (ctx, numberDefined, number, constraintsDefined, constraints) => {
       spasm.objects[ctx].bar(numberDefined ? number : undefined, constraintsDefined ? spasm.objects[constraints] : undefined);
     },
-  }
-}");
+");
 }
 
 @("interface.callback")
@@ -334,25 +342,21 @@ unittest {
         this(JsHandle h) {
           _parent = EventTarget(h);
         }
-        Promise!(AudioBuffer) decodeAudioData(ArrayBuffer audioData, Optional!(DecodeSuccessCallback) successCallback, Optional!(DecodeErrorCallback) errorCallback) {
-          return Promise!(AudioBuffer)(BaseAudioContext_decodeAudioData(handle, audioData.handle, !successCallback.empty, successCallback.front, !errorCallback.empty, errorCallback.front));
+        auto decodeAudioData(ArrayBuffer audioData, Optional!(DecodeSuccessCallback) successCallback, Optional!(DecodeErrorCallback) errorCallback) {
+          return Promise!(AudioBuffer)(JsHandle(BaseAudioContext_decodeAudioData(this._parent, audioData.handle, !successCallback.empty, successCallback.front, !errorCallback.empty, errorCallback.front)));
         }
       }
       alias DecodeErrorCallback = void delegate(DOMException);
       alias DecodeSuccessCallback = void delegate(AudioBuffer);
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) JsHandle BaseAudioContext_decodeAudioData(JsHandle, JsHandle, bool, DecodeSuccessCallback, bool, DecodeErrorCallback);
+      extern (C) Handle BaseAudioContext_decodeAudioData(Handle, Handle, bool, DecodeSuccessCallback, bool, DecodeErrorCallback);
     });
   gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-    BaseAudioContext_decodeAudioData: function(ctx, audioData, successCallbackDefined, successCallbackCtx, successCallbackPtr, errorCallbackDefined, errorCallbackCtx, errorCallbackPtr) {
-      return spasm.addObject(spasm.objects[ctx].decodeAudioData(spasm.objects[audioData], successCallbackDefined ? (decodedData)=>{spasm.callback_void_JsHandle(successCallbackCtx, successCallbackPtr, spasm.addObject(decodedData))} : undefined, errorCallbackDefined ? (error)=>{spasm.callback_void_JsHandle(errorCallbackCtx, errorCallbackPtr, spasm.addObject(error))} : undefined));
+    BaseAudioContext_decodeAudioData: (ctx, audioData, successCallbackDefined, successCallbackCtx, successCallbackPtr, errorCallbackDefined, errorCallbackCtx, errorCallbackPtr) => {
+      return spasm.addObject(spasm.objects[ctx].decodeAudioData(spasm.objects[audioData], successCallbackDefined ? (decodedData)=>{spasm.callback_void_Handle(successCallbackCtx, successCallbackPtr, spasm.addObject(decodedData))} : undefined, errorCallbackDefined ? (error)=>{spasm.callback_void_Handle(errorCallbackCtx, errorCallbackPtr, spasm.addObject(error))} : undefined));
     },
-  }
-}"
+"
 );
 }
 
@@ -376,51 +380,47 @@ unittest {
         JsHandle handle;
         alias handle this;
         void latencyHint(SumType!(AudioContextLatencyCategory, double) latencyHint) {
-          AudioContextOptions_latencyHint_Set(handle, latencyHint);
+          AudioContextOptions_latencyHint_Set(this.handle, latencyHint);
         }
-        SumType!(AudioContextLatencyCategory, double) latencyHint() {
-          return AudioContextOptions_latencyHint_Get(handle);
+        auto latencyHint() {
+          return AudioContextOptions_latencyHint_Get(this.handle);
         }
         void sampleRate(Optional!(SumType!(bool, double)) sampleRate) {
-          AudioContextOptions_sampleRate_Set(handle, !sampleRate.empty, sampleRate.front);
+          AudioContextOptions_sampleRate_Set(this.handle, !sampleRate.empty, sampleRate.front);
         }
-        Optional!(SumType!(bool, double)) sampleRate() {
-          return AudioContextOptions_sampleRate_Get(handle);
+        auto sampleRate() {
+          return AudioContextOptions_sampleRate_Get(this.handle);
         }
-        SumType!(string, AudioContextLatencyCategory) fooBar() {
-          return AudioContextOptions_fooBar(handle);
+        auto fooBar() {
+          return AudioContextOptions_fooBar(this.handle);
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) void AudioContextOptions_latencyHint_Set(JsHandle, SumType!(AudioContextLatencyCategory, double));
-      extern (C) SumType!(AudioContextLatencyCategory, double) AudioContextOptions_latencyHint_Get(JsHandle);
-      extern (C) void AudioContextOptions_sampleRate_Set(JsHandle, bool, SumType!(bool, double));
-      extern (C) Optional!(SumType!(bool, double)) AudioContextOptions_sampleRate_Get(JsHandle);
-      extern (C) SumType!(string, AudioContextLatencyCategory) AudioContextOptions_fooBar(JsHandle);
+      extern (C) void AudioContextOptions_latencyHint_Set(Handle, SumType!(AudioContextLatencyCategory, double));
+      extern (C) SumType!(AudioContextLatencyCategory, double) AudioContextOptions_latencyHint_Get(Handle);
+      extern (C) void AudioContextOptions_sampleRate_Set(Handle, bool, SumType!(bool, double));
+      extern (C) Optional!(SumType!(bool, double)) AudioContextOptions_sampleRate_Get(Handle);
+      extern (C) SumType!(string, AudioContextLatencyCategory) AudioContextOptions_fooBar(Handle);
     });
   // TODO: the optionals and unions returned from js should probably be stored in first extra param
   gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-    AudioContextOptions_latencyHint_Set: function(ctx, latencyHint) {
-      spasm.objects[ctx].latencyHint = spasm.decode_union2_AudioContextLatencyCategory_double(latencyHint);
+    AudioContextOptions_latencyHint_Set: (ctx, latencyHint) => {
+      spasm.objects[ctx].latencyHint = spasm_decode_union2_AudioContextLatencyCategory_double(latencyHint);
     },
-    AudioContextOptions_latencyHint_Get: function(rawResult, ctx) {
-      spasm.encode_union2_AudioContextLatencyCategory_double(rawResult, spasm.objects[ctx].latencyHint);
+    AudioContextOptions_latencyHint_Get: (rawResult, ctx) => {
+      spasm_encode_union2_AudioContextLatencyCategory_double(rawResult, spasm.objects[ctx].latencyHint);
     },
-    AudioContextOptions_sampleRate_Set: function(ctx, sampleRateDefined, sampleRate) {
-      spasm.objects[ctx].sampleRate = sampleRateDefined ? spasm.decode_union2_bool_double(sampleRate) : undefined;
+    AudioContextOptions_sampleRate_Set: (ctx, sampleRateDefined, sampleRate) => {
+      spasm.objects[ctx].sampleRate = sampleRateDefined ? spasm_decode_union2_bool_double(sampleRate) : undefined;
     },
-    AudioContextOptions_sampleRate_Get: function(rawResult, ctx) {
-      spasm.encode_optional_union2_bool_double(rawResult, spasm.objects[ctx].sampleRate);
+    AudioContextOptions_sampleRate_Get: (rawResult, ctx) => {
+      spasm_encode_optional_union2_bool_double(rawResult, spasm.objects[ctx].sampleRate);
     },
-    AudioContextOptions_fooBar: function(rawResult, ctx) {
-      spasm.encode_union2_string_AudioContextLatencyCategory(rawResult, spasm.objects[ctx].fooBar());
+    AudioContextOptions_fooBar: (rawResult, ctx) => {
+      spasm_encode_union2_string_AudioContextLatencyCategory(rawResult, spasm.objects[ctx].fooBar());
     },
-  }
-}");
+");
 }
 
 @("sumType.dictionary")
@@ -441,44 +441,43 @@ unittest {
       struct AudioContextOptions {
         JsHandle handle;
         alias handle this;
-        void latencyHint(SumType!(AudioContextLatencyCategory, double) latencyHint) {
-          AudioContextOptions_latencyHint_Set(handle, latencyHint);
+        static auto create() {
+          return AudioContextOptions(JsHandle(spasm_add__object()));
         }
-        SumType!(AudioContextLatencyCategory, double) latencyHint() {
-          return AudioContextOptions_latencyHint_Get(handle);
+        void latencyHint(SumType!(AudioContextLatencyCategory, double) latencyHint) {
+          AudioContextOptions_latencyHint_Set(this.handle, latencyHint);
+        }
+        auto latencyHint() {
+          return AudioContextOptions_latencyHint_Get(this.handle);
         }
         void sampleRate(Optional!(SumType!(bool, double)) sampleRate) {
-          AudioContextOptions_sampleRate_Set(handle, !sampleRate.empty, sampleRate.front);
+          AudioContextOptions_sampleRate_Set(this.handle, !sampleRate.empty, sampleRate.front);
         }
-        Optional!(SumType!(bool, double)) sampleRate() {
-          return AudioContextOptions_sampleRate_Get(handle);
+        auto sampleRate() {
+          return AudioContextOptions_sampleRate_Get(this.handle);
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) void AudioContextOptions_latencyHint_Set(JsHandle, SumType!(AudioContextLatencyCategory, double));
-      extern (C) SumType!(AudioContextLatencyCategory, double) AudioContextOptions_latencyHint_Get(JsHandle);
-      extern (C) void AudioContextOptions_sampleRate_Set(JsHandle, bool, SumType!(bool, double));
-      extern (C) Optional!(SumType!(bool, double)) AudioContextOptions_sampleRate_Get(JsHandle);
+      extern (C) void AudioContextOptions_latencyHint_Set(Handle, SumType!(AudioContextLatencyCategory, double));
+      extern (C) SumType!(AudioContextLatencyCategory, double) AudioContextOptions_latencyHint_Get(Handle);
+      extern (C) void AudioContextOptions_sampleRate_Set(Handle, bool, SumType!(bool, double));
+      extern (C) Optional!(SumType!(bool, double)) AudioContextOptions_sampleRate_Get(Handle);
     });
   gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-    AudioContextOptions_latencyHint_Set: function(ctx, latencyHint) {
-      spasm.objects[ctx].latencyHint = spasm.decode_union2_AudioContextLatencyCategory_double(latencyHint);
+    AudioContextOptions_latencyHint_Set: (ctx, latencyHint) => {
+      spasm.objects[ctx].latencyHint = spasm_decode_union2_AudioContextLatencyCategory_double(latencyHint);
     },
-    AudioContextOptions_latencyHint_Get: function(rawResult, ctx) {
-      spasm.encode_union2_AudioContextLatencyCategory_double(rawResult, spasm.objects[ctx].latencyHint);
+    AudioContextOptions_latencyHint_Get: (rawResult, ctx) => {
+      spasm_encode_union2_AudioContextLatencyCategory_double(rawResult, spasm.objects[ctx].latencyHint);
     },
-    AudioContextOptions_sampleRate_Set: function(ctx, sampleRateDefined, sampleRate) {
-      spasm.objects[ctx].sampleRate = sampleRateDefined ? spasm.decode_union2_bool_double(sampleRate) : undefined;
+    AudioContextOptions_sampleRate_Set: (ctx, sampleRateDefined, sampleRate) => {
+      spasm.objects[ctx].sampleRate = sampleRateDefined ? spasm_decode_union2_bool_double(sampleRate) : undefined;
     },
-    AudioContextOptions_sampleRate_Get: function(rawResult, ctx) {
-      spasm.encode_optional_union2_bool_double(rawResult, spasm.objects[ctx].sampleRate);
+    AudioContextOptions_sampleRate_Get: (rawResult, ctx) => {
+      spasm_encode_optional_union2_bool_double(rawResult, spasm.objects[ctx].sampleRate);
     },
-  }
-}");
+");
 
 }
 
@@ -501,29 +500,25 @@ unittest {
         JsHandle handle;
         alias handle this;
         void real_(string real_) {
-          double_real_Set(handle, real_);
+          double_real_Set(this.handle, real_);
         }
-        string real_() {
-          return double_real_Get(handle);
+        auto real_() {
+          return double_real_Get(this.handle);
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) void double_real_Set(JsHandle, string);
-      extern (C) string double_real_Get(JsHandle);
+      extern (C) void double_real_Set(Handle, string);
+      extern (C) string double_real_Get(Handle);
     });
   gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-    double_real_Set: function(ctx, realLen, realPtr) {
-      spasm.objects[ctx].real = spasm.decode_string(realLen, realPtr);
+    double_real_Set: (ctx, realLen, realPtr) => {
+      spasm.objects[ctx].real = spasm_decode_string(realLen, realPtr);
     },
-    double_real_Get: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].real);
+    double_real_Get: (rawResult, ctx) => {
+      spasm_encode_string(rawResult, spasm.objects[ctx].real);
     },
-  }
-}");
+");
 }
 
 @("dictionary.primitives")
@@ -537,30 +532,29 @@ unittest {
       struct AudioTimestamp {
         JsHandle handle;
         alias handle this;
-        void contextTime(double contextTime) {
-          AudioTimestamp_contextTime_Set(handle, contextTime);
+        static auto create() {
+          return AudioTimestamp(JsHandle(spasm_add__object()));
         }
-        double contextTime() {
-          return AudioTimestamp_contextTime_Get(handle);
+        void contextTime(double contextTime) {
+          AudioTimestamp_contextTime_Set(this.handle, contextTime);
+        }
+        auto contextTime() {
+          return AudioTimestamp_contextTime_Get(this.handle);
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) void AudioTimestamp_contextTime_Set(JsHandle, double);
-      extern (C) double AudioTimestamp_contextTime_Get(JsHandle);
+      extern (C) void AudioTimestamp_contextTime_Set(Handle, double);
+      extern (C) double AudioTimestamp_contextTime_Get(Handle);
     });
   gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-    AudioTimestamp_contextTime_Set: function(ctx, contextTime) {
+    AudioTimestamp_contextTime_Set: (ctx, contextTime) => {
       spasm.objects[ctx].contextTime = contextTime;
     },
-    AudioTimestamp_contextTime_Get: function(ctx) {
+    AudioTimestamp_contextTime_Get: (ctx) => {
       return spasm.objects[ctx].contextTime;
     },
-  }
-}");
+");
 }
 
 @("dictionary.inheritance")
@@ -576,15 +570,13 @@ unittest {
         this(JsHandle h) {
           _parent = AudioNodeOptions(h);
         }
+        static auto create() {
+          return AudioWorkletNodeOptions(JsHandle(spasm_add__object()));
+        }
       }
     });
   gen.generateDImports.shouldBeLike(q{});
-  gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-  }
-}");
+  gen.generateJsExports.shouldBeLike("");
 }
 
 @("interface.friendlyName")
@@ -599,29 +591,25 @@ unittest {
         JsHandle handle;
         alias handle this;
         void real_(double real_) {
-          double_real_Set(handle, real_);
+          double_real_Set(this.handle, real_);
         }
-        double real_() {
-          return double_real_Get(handle);
+        auto real_() {
+          return double_real_Get(this.handle);
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) void double_real_Set(JsHandle, double);
-      extern (C) double double_real_Get(JsHandle);
+      extern (C) void double_real_Set(Handle, double);
+      extern (C) double double_real_Get(Handle);
     });
   gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-    double_real_Set: function(ctx, real) {
+    double_real_Set: (ctx, real) => {
       spasm.objects[ctx].real = real;
     },
-    double_real_Get: function(ctx) {
+    double_real_Get: (ctx) => {
       return spasm.objects[ctx].real;
     },
-  }
-}");
+");
 }
 
 @("dictionary.record")
@@ -635,17 +623,20 @@ unittest {
       struct AudioWorkletNodeOptions {
         JsHandle handle;
         alias handle this;
-        void real_(Record!(string, double) real_) {
-          AudioWorkletNodeOptions_real_Set(handle, real_.handle);
+        static auto create() {
+          return AudioWorkletNodeOptions(JsHandle(spasm_add__object()));
         }
-        Record!(string, double) real_() {
-          return Record!(string, double)(AudioWorkletNodeOptions_real_Get(handle));
+        void real_(Record!(string, double) real_) {
+          AudioWorkletNodeOptions_real_Set(this.handle, real_.handle);
+        }
+        auto real_() {
+          return Record!(string, double)(JsHandle(AudioWorkletNodeOptions_real_Get(this.handle)));
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) void AudioWorkletNodeOptions_real_Set(JsHandle, JsHandle);
-      extern (C) JsHandle AudioWorkletNodeOptions_real_Get(JsHandle);
+      extern (C) void AudioWorkletNodeOptions_real_Set(Handle, Handle);
+      extern (C) Handle AudioWorkletNodeOptions_real_Get(Handle);
     });
   // TODO: jsExports
 }
@@ -662,44 +653,43 @@ unittest {
       struct AudioParamDescriptor {
         JsHandle handle;
         alias handle this;
-        void maxValue(float maxValue) {
-          AudioParamDescriptor_maxValue_Set(handle, maxValue);
+        static auto create() {
+          return AudioParamDescriptor(JsHandle(spasm_add__object()));
         }
-        float maxValue() {
-          return AudioParamDescriptor_maxValue_Get(handle);
+        void maxValue(float maxValue) {
+          AudioParamDescriptor_maxValue_Set(this.handle, maxValue);
+        }
+        auto maxValue() {
+          return AudioParamDescriptor_maxValue_Get(this.handle);
         }
         void minValue(float minValue) {
-          AudioParamDescriptor_minValue_Set(handle, minValue);
+          AudioParamDescriptor_minValue_Set(this.handle, minValue);
         }
-        float minValue() {
-          return AudioParamDescriptor_minValue_Get(handle);
+        auto minValue() {
+          return AudioParamDescriptor_minValue_Get(this.handle);
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) void AudioParamDescriptor_maxValue_Set(JsHandle, float);
-      extern (C) float AudioParamDescriptor_maxValue_Get(JsHandle);
-      extern (C) void AudioParamDescriptor_minValue_Set(JsHandle, float);
-      extern (C) float AudioParamDescriptor_minValue_Get(JsHandle);
+      extern (C) void AudioParamDescriptor_maxValue_Set(Handle, float);
+      extern (C) float AudioParamDescriptor_maxValue_Get(Handle);
+      extern (C) void AudioParamDescriptor_minValue_Set(Handle, float);
+      extern (C) float AudioParamDescriptor_minValue_Get(Handle);
     });
   gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-    AudioParamDescriptor_maxValue_Set: function(ctx, maxValue) {
+    AudioParamDescriptor_maxValue_Set: (ctx, maxValue) => {
       spasm.objects[ctx].maxValue = maxValue;
     },
-    AudioParamDescriptor_maxValue_Get: function(ctx) {
+    AudioParamDescriptor_maxValue_Get: (ctx) => {
       return spasm.objects[ctx].maxValue;
     },
-    AudioParamDescriptor_minValue_Set: function(ctx, minValue) {
+    AudioParamDescriptor_minValue_Set: (ctx, minValue) => {
       spasm.objects[ctx].minValue = minValue;
     },
-    AudioParamDescriptor_minValue_Get: function(ctx) {
+    AudioParamDescriptor_minValue_Get: (ctx) => {
       return spasm.objects[ctx].minValue;
     },
-  }
-}");
+");
 }
 
 @("interface.maplike")
@@ -716,55 +706,50 @@ unittest {
         JsHandle handle;
         alias handle this;
         uint size() {
-          return Maplike_string_JsHandle_size(handle);
+          return Maplike_string_Handle_size(this.handle);
         }
         void clear() {
-          Maplike_string_JsHandle_clear(handle);
+          Maplike_string_Handle_clear(this.handle);
         }
         void delete_(string key) {
-          Maplike_string_JsHandle_delete(handle, key);
+          Maplike_string_Handle_delete(this.handle, key);
         }
         Iterator!(ArrayPair!(string, AudioParam)) entries() {
-          return Iterator!(ArrayPair!(string, AudioParam))(Maplike_string_JsHandle_entries(handle));
+          return Iterator!(ArrayPair!(string, AudioParam))(JsHandle(Maplike_string_Handle_entries(this.handle)));
         }
-        extern(C) void forEach(void delegate(string, JsHandle, JsHandle) callback) {
-          Maplike_string_JsHandle_forEach(handle, callback);
+        extern(C) void forEach(void delegate(string, Handle, Handle) callback) {
+          Maplike_string_Handle_forEach(this.handle, callback);
         }
         AudioParam get(string key) {
-          return AudioParam(Maplike_string_JsHandle_get(handle, key));
+          return AudioParam(JsHandle(Maplike_string_Handle_get(this.handle, key)));
         }
         bool has(string key) {
-          return Maplike_string_JsHandle_has(handle, key);
+          return Maplike_string_Handle_has(this.handle, key);
         }
         Iterator!(string) keys() {
-          return Iterator!(string)(Maplike_string_JsHandle_keys(handle));
+          return Iterator!(string)(JsHandle(Maplike_string_Handle_keys(this.handle)));
         }
         void set(string key, AudioParam value) {
-          Maplike_string_JsHandle_set(handle, key, value.handle);
+          Maplike_string_Handle_set(this.handle, key, value.handle);
         }
         Iterator!(AudioParam) values() {
-          return Iterator!(AudioParam)(Maplike_string_JsHandle_values(handle));
+          return Iterator!(AudioParam)(JsHandle(Maplike_string_Handle_values(this.handle)));
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) uint Maplike_string_JsHandle_size(JsHandle);
-      extern (C) void Maplike_string_JsHandle_clear(JsHandle);
-      extern (C) void Maplike_string_JsHandle_delete(JsHandle, string key);
-      extern (C) JsHandle Maplike_string_JsHandle_entries(JsHandle);
-      extern (C) void Maplike_string_JsHandle_forEach(JsHandle, void delegate(string, JsHandle, JsHandle));
-      extern (C) AudioParam Maplike_string_JsHandle_get(JsHandle, string);
-      extern (C) bool Maplike_string_JsHandle_has(JsHandle, string);
-      extern (C) JsHandle Maplike_string_JsHandle_keys(JsHandle);
-      extern (C) void Maplike_string_JsHandle_set(JsHandle, string key, JsHandle value);
-      extern (C) JsHandle Maplike_string_JsHandle_values(JsHandle);
+      extern (C) uint Maplike_string_Handle_size(Handle);
+      extern (C) void Maplike_string_Handle_clear(Handle);
+      extern (C) void Maplike_string_Handle_delete(Handle, string key);
+      extern (C) Handle Maplike_string_Handle_entries(Handle);
+      extern (C) void Maplike_string_Handle_forEach(Handle, void delegate(string, Handle, Handle));
+      extern (C) AudioParam Maplike_string_Handle_get(Handle, string);
+      extern (C) bool Maplike_string_Handle_has(Handle, string);
+      extern (C) Handle Maplike_string_Handle_keys(Handle);
+      extern (C) void Maplike_string_Handle_set(Handle, string key, Handle value);
+      extern (C) Handle Maplike_string_Handle_values(Handle);
     });
-  gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-  }
-}");
+  gen.generateJsExports.shouldBeLike("");
 }
 
 @("friendlyName")
@@ -809,44 +794,40 @@ unittest {
         this(JsHandle h) {
           _parent = EventTarget(h);
         }
-        Optional!(string) createPeriodicWave() {
-          return BaseAudioContext_createPeriodicWave(handle);
+        auto createPeriodicWave() {
+          return BaseAudioContext_createPeriodicWave(this._parent);
         }
         void name(Optional!(string) name) {
-          BaseAudioContext_name_Set(handle, !name.empty, name.front);
+          BaseAudioContext_name_Set(this._parent, !name.empty, name.front);
         }
-        Optional!(string) name() {
-          return BaseAudioContext_name_Get(handle);
+        auto name() {
+          return BaseAudioContext_name_Get(this._parent);
         }
         void foo(Optional!(string) title) {
-          BaseAudioContext_foo(handle, !title.empty, title.front);
+          BaseAudioContext_foo(this._parent, !title.empty, title.front);
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) Optional!(string) BaseAudioContext_createPeriodicWave(JsHandle);
-      extern (C) void BaseAudioContext_name_Set(JsHandle, bool, string);
-      extern (C) Optional!(string) BaseAudioContext_name_Get(JsHandle);
-      extern (C) void BaseAudioContext_foo(JsHandle, bool, string);
+      extern (C) Optional!(string) BaseAudioContext_createPeriodicWave(Handle);
+      extern (C) void BaseAudioContext_name_Set(Handle, bool, string);
+      extern (C) Optional!(string) BaseAudioContext_name_Get(Handle);
+      extern (C) void BaseAudioContext_foo(Handle, bool, string);
     });
   gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-    BaseAudioContext_createPeriodicWave: function(rawResult, ctx) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].createPeriodicWave());
+    BaseAudioContext_createPeriodicWave: (rawResult, ctx) => {
+      spasm_encode_optional_string(rawResult, spasm.objects[ctx].createPeriodicWave());
     },
-    BaseAudioContext_name_Set: function(ctx, nameDefined, nameLen, namePtr) {
-      spasm.objects[ctx].name = nameDefined ? spasm.decode_string(nameLen, namePtr) : undefined;
+    BaseAudioContext_name_Set: (ctx, nameDefined, nameLen, namePtr) => {
+      spasm.objects[ctx].name = nameDefined ? spasm_decode_string(nameLen, namePtr) : undefined;
     },
-    BaseAudioContext_name_Get: function(rawResult, ctx) {
-      spasm.encode_optional_string(rawResult, spasm.objects[ctx].name);
+    BaseAudioContext_name_Get: (rawResult, ctx) => {
+      spasm_encode_optional_string(rawResult, spasm.objects[ctx].name);
     },
-    BaseAudioContext_foo: function(ctx, titleDefined, titleLen, titlePtr) {
-      spasm.objects[ctx].foo(titleDefined ? spasm.decode_string(titleLen, titlePtr) : undefined);
+    BaseAudioContext_foo: (ctx, titleDefined, titleLen, titlePtr) => {
+      spasm.objects[ctx].foo(titleDefined ? spasm_decode_string(titleLen, titlePtr) : undefined);
     },
-  }
-}");
+");
 }
 
 @("interface.nullable")
@@ -863,23 +844,19 @@ unittest {
         this(JsHandle h) {
           _parent = Event(h);
         }
-        Optional!(DataTransfer) clipboardData() {
-          return ClipboardEvent_clipboardData_Get(handle);
+        auto clipboardData() {
+          return ClipboardEvent_clipboardData_Get(this._parent);
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) Optional!(DataTransfer) ClipboardEvent_clipboardData_Get(JsHandle);
+      extern (C) Optional!(DataTransfer) ClipboardEvent_clipboardData_Get(Handle);
     });
   gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-    ClipboardEvent_clipboardData_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].clipboardData);
+    ClipboardEvent_clipboardData_Get: (rawResult, ctx) => {
+      spasm_encode_optional_Handle(rawResult, spasm.objects[ctx].clipboardData);
     },
-  }
-}");
+");
 }
 
 @("dictionary.nullable")
@@ -893,30 +870,29 @@ unittest {
       struct FocusEventInit {
         JsHandle handle;
         alias handle this;
-        void relatedTarget(Optional!(EventTarget) relatedTarget) {
-          FocusEventInit_relatedTarget_Set(handle, !relatedTarget.empty, relatedTarget.front.handle);
+        static auto create() {
+          return FocusEventInit(JsHandle(spasm_add__object()));
         }
-        Optional!(EventTarget) relatedTarget() {
-          return FocusEventInit_relatedTarget_Get(handle);
+        void relatedTarget(Optional!(EventTarget) relatedTarget) {
+          FocusEventInit_relatedTarget_Set(this.handle, !relatedTarget.empty, relatedTarget.front.handle);
+        }
+        auto relatedTarget() {
+          return FocusEventInit_relatedTarget_Get(this.handle);
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) void FocusEventInit_relatedTarget_Set(JsHandle, bool, JsHandle);
-      extern (C) Optional!(EventTarget) FocusEventInit_relatedTarget_Get(JsHandle);
+      extern (C) void FocusEventInit_relatedTarget_Set(Handle, bool, Handle);
+      extern (C) Optional!(EventTarget) FocusEventInit_relatedTarget_Get(Handle);
     });
   gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-    FocusEventInit_relatedTarget_Set: function(ctx, relatedTargetDefined, relatedTarget) {
+    FocusEventInit_relatedTarget_Set: (ctx, relatedTargetDefined, relatedTarget) => {
       spasm.objects[ctx].relatedTarget = relatedTargetDefined ? spasm.objects[relatedTarget] : undefined;
     },
-    FocusEventInit_relatedTarget_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].relatedTarget);
+    FocusEventInit_relatedTarget_Get: (rawResult, ctx) => {
+      spasm_encode_optional_Handle(rawResult, spasm.objects[ctx].relatedTarget);
     },
-  }
-}");
+");
 }
 
 @("interface.mixin")
@@ -934,30 +910,25 @@ unittest {
       struct TextDecoderStream {
         JsHandle handle;
         alias handle this;
-        WritableStream writable() {
-          return WritableStream(GenericTransformStream_writable_Get(handle));
+        auto writable() {
+          return WritableStream(JsHandle(GenericTransformStream_writable_Get(this.handle)));
         }
-        ReadbleStream readable() {
-          return ReadbleStream(GenericTransformStream_readable_Get(handle));
+        auto readable() {
+          return ReadbleStream(JsHandle(GenericTransformStream_readable_Get(this.handle)));
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) JsHandle GenericTransformStream_writable_Get(JsHandle);
-      extern (C) JsHandle GenericTransformStream_readable_Get(JsHandle);
+      extern (C) Handle GenericTransformStream_writable_Get(Handle);
+      extern (C) Handle GenericTransformStream_readable_Get(Handle);
     });
   gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-    GenericTransformStream_writable_Get: function(ctx) {
+    GenericTransformStream_writable_Get: (ctx) => {
       return spasm.addObject(spasm.objects[ctx].writable);
     },
-    GenericTransformStream_readable_Get: function(ctx) {
+    GenericTransformStream_readable_Get: (ctx) => {
       return spasm.addObject(spasm.objects[ctx].readable);
     },
-  }
-}
 ");
 }
 
@@ -972,23 +943,18 @@ unittest {
       struct HTMLOrSVGElement {
         JsHandle handle;
         alias handle this;
-        DOMStringMap datacube() {
-          return DOMStringMap(HTMLOrSVGElement_datacube_Get(handle));
+        auto datacube() {
+          return DOMStringMap(JsHandle(HTMLOrSVGElement_datacube_Get(this.handle)));
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) JsHandle HTMLOrSVGElement_datacube_Get(JsHandle);
+      extern (C) Handle HTMLOrSVGElement_datacube_Get(Handle);
     });
   gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-    HTMLOrSVGElement_datacube_Get: function(ctx) {
+    HTMLOrSVGElement_datacube_Get: (ctx) => {
       return spasm.addObject(spasm.objects[ctx].datacube);
     },
-  }
-}
 ");
 }
 
@@ -1009,57 +975,53 @@ unittest {
       struct DOMStringMap {
         JsHandle handle;
         alias handle this;
-        string opIndex(string name) {
-          return DOMStringMap_getter__string(handle, name);
+        auto opIndex(string name) {
+          return DOMStringMap_getter__string(this.handle, name);
         }
-        string opDispatch(string name)() {
-          return DOMStringMap_getter__string(handle, name);
+        auto opDispatch(string name)() {
+          return DOMStringMap_getter__string(this.handle, name);
         }
         void opIndexAssign(string value, string name) {
-          DOMStringMap_setter__string_string(handle, name, value);
+          DOMStringMap_setter__string_string(this.handle, name, value);
         }
         void opDispatch(string name)(string value) {
-          DOMStringMap_setter__string_string(handle, name, value);
+          DOMStringMap_setter__string_string(this.handle, name, value);
         }
         void remove(string name) {
-          DOMStringMap_deleter(handle, name);
+          DOMStringMap_deleter(this.handle, name);
         }
-        string byKey(string name) {
-          return DOMStringMap_byKey_getter(handle, name);
+        auto byKey(string name) {
+          return DOMStringMap_byKey_getter(this.handle, name);
         }
         void byKey(string name, string value) {
-          DOMStringMap_byKey_setter(handle, name, value);
+          DOMStringMap_byKey_setter(this.handle, name, value);
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) string DOMStringMap_getter__string(JsHandle, string);
-      extern (C) void DOMStringMap_setter__string_string(JsHandle, string, string);
-      extern (C) void DOMStringMap_deleter(JsHandle, string);
-      extern (C) string DOMStringMap_byKey_getter(JsHandle, string);
-      extern (C) void DOMStringMap_byKey_setter(JsHandle, string, string);
+      extern (C) string DOMStringMap_getter__string(Handle, string);
+      extern (C) void DOMStringMap_setter__string_string(Handle, string, string);
+      extern (C) void DOMStringMap_deleter(Handle, string);
+      extern (C) string DOMStringMap_byKey_getter(Handle, string);
+      extern (C) void DOMStringMap_byKey_setter(Handle, string, string);
     });
   gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-    DOMStringMap_getter__string: function(rawResult, ctx, nameLen, namePtr) {
-      spasm.encode_string(rawResult, spasm.objects[ctx][spasm.decode_string(nameLen, namePtr)]);
+    DOMStringMap_getter__string: (rawResult, ctx, nameLen, namePtr) => {
+      spasm_encode_string(rawResult, spasm.objects[ctx][spasm_decode_string(nameLen, namePtr)]);
     },
-    DOMStringMap_setter__string_string: function(ctx, nameLen, namePtr, valueLen, valuePtr) {
-      spasm.objects[ctx][spasm.decode_string(nameLen, namePtr)] = spasm.decode_string(valueLen, valuePtr);
+    DOMStringMap_setter__string_string: (ctx, nameLen, namePtr, valueLen, valuePtr) => {
+      spasm.objects[ctx][spasm_decode_string(nameLen, namePtr)] = spasm_decode_string(valueLen, valuePtr);
     },
-    DOMStringMap_deleter: function(ctx, nameLen, namePtr) {
-      delete spasm.objects[ctx][spasm.decode_string(nameLen, namePtr)];
+    DOMStringMap_deleter: (ctx, nameLen, namePtr) => {
+      delete spasm.objects[ctx][spasm_decode_string(nameLen, namePtr)];
     },
-    DOMStringMap_byKey_getter: function(rawResult, ctx, nameLen, namePtr) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].byKey(spasm.decode_string(nameLen, namePtr)));
+    DOMStringMap_byKey_getter: (rawResult, ctx, nameLen, namePtr) => {
+      spasm_encode_string(rawResult, spasm.objects[ctx].byKey(spasm_decode_string(nameLen, namePtr)));
     },
-    DOMStringMap_byKey_setter: function(ctx, nameLen, namePtr, valueLen, valuePtr) {
-      spasm.objects[ctx].byKey(spasm.decode_string(nameLen, namePtr), spasm.decode_string(valueLen, valuePtr));
+    DOMStringMap_byKey_setter: (ctx, nameLen, namePtr, valueLen, valuePtr) => {
+      spasm.objects[ctx].byKey(spasm_decode_string(nameLen, namePtr), spasm_decode_string(valueLen, valuePtr));
     },
-}
-}");
+");
 }
 
 @("interface.extendedAttributeList")
@@ -1107,25 +1069,20 @@ unittest {
       struct AnimationFrameProvider {
         JsHandle handle;
         alias handle this;
-        uint requestAnimationFrame(FrameRequestCallback callback) {
-          return AnimationFrameProvider_requestAnimationFrame(handle, callback);
+        auto requestAnimationFrame(FrameRequestCallback callback) {
+          return AnimationFrameProvider_requestAnimationFrame(this.handle, callback);
         }
       }
       alias DOMHighResTimeStamp = double;
       alias FrameRequestCallback = void delegate(double);
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) uint AnimationFrameProvider_requestAnimationFrame(JsHandle, FrameRequestCallback);
+      extern (C) uint AnimationFrameProvider_requestAnimationFrame(Handle, FrameRequestCallback);
     });
   gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-    AnimationFrameProvider_requestAnimationFrame: function(ctx, callbackCtx, callbackPtr) {
+    AnimationFrameProvider_requestAnimationFrame: (ctx, callbackCtx, callbackPtr) => {
       return spasm.objects[ctx].requestAnimationFrame((time)=>{spasm.callback_void_double(callbackCtx, callbackPtr, time)});
-    },
-  }
-}");
+    },");
 }
 
 @("typedef.interface")
@@ -1142,30 +1099,26 @@ unittest {
       struct TextDecoder {
         JsHandle handle;
         alias handle this;
-        string decode(BufferSource input, TextDecodeOptions options) {
-          return TextDecoder_decode(handle, input, options.handle);
+        auto decode(BufferSource input, TextDecodeOptions options) {
+          return TextDecoder_decode(this.handle, input, options.handle);
         }
-        BufferSource encode(TextDecodeOptions options) {
-          return TextDecoder_encode(handle, options.handle);
+        auto encode(TextDecodeOptions options) {
+          return TextDecoder_encode(this.handle, options.handle);
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) string TextDecoder_decode(JsHandle, BufferSource, JsHandle);
-      extern (C) BufferSource TextDecoder_encode(JsHandle, JsHandle);
+      extern (C) string TextDecoder_decode(Handle, BufferSource, Handle);
+      extern (C) BufferSource TextDecoder_encode(Handle, Handle);
     });
   gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-    TextDecoder_decode: function(rawResult, ctx, input, options) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].decode(spasm.decode_BufferSource(input), spasm.objects[options]));
+    TextDecoder_decode: (rawResult, ctx, input, options) => {
+      spasm_encode_string(rawResult, spasm.objects[ctx].decode(spasm_decode_BufferSource(input), spasm.objects[options]));
     },
-    TextDecoder_encode: function(rawResult, ctx, options) {
-      spasm.encode_BufferSource(rawResult, spasm.objects[ctx].encode(spasm.objects[options]));
+    TextDecoder_encode: (rawResult, ctx, options) => {
+      spasm_encode_BufferSource(rawResult, spasm.objects[ctx].encode(spasm.objects[options]));
     },
-  }
-}");
+");
 }
 
 @("typedef.nullable")
@@ -1181,30 +1134,29 @@ unittest {
       struct RequestInit {
         JsHandle handle;
         alias handle this;
-        void body_(Optional!(BodyInit) body_) {
-          RequestInit_body_Set(handle, !body_.empty, body_.front);
+        static auto create() {
+          return RequestInit(JsHandle(spasm_add__object()));
         }
-        Optional!(BodyInit) body_() {
-          return RequestInit_body_Get(handle);
+        void body_(Optional!(BodyInit) body_) {
+          RequestInit_body_Set(this.handle, !body_.empty, body_.front);
+        }
+        auto body_() {
+          return RequestInit_body_Get(this.handle);
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) void RequestInit_body_Set(JsHandle, bool, BodyInit);
-      extern (C) Optional!(BodyInit) RequestInit_body_Get(JsHandle);    });
+      extern (C) void RequestInit_body_Set(Handle, bool, BodyInit);
+      extern (C) Optional!(BodyInit) RequestInit_body_Get(Handle);
+    });
   gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-    RequestInit_body_Set: function(ctx, bodyDefined, body) {
-      spasm.objects[ctx].body = bodyDefined ? spasm.decode_BodyInit(body) : undefined;
+    RequestInit_body_Set: (ctx, bodyDefined, body) => {
+      spasm.objects[ctx].body = bodyDefined ? spasm_decode_BodyInit(body) : undefined;
     },
-    RequestInit_body_Get: function(rawResult, ctx) {
-      spasm.encode_optional_BodyInit(rawResult, spasm.objects[ctx].body);
+    RequestInit_body_Get: (rawResult, ctx) => {
+      spasm_encode_optional_BodyInit(rawResult, spasm.objects[ctx].body);
     },
-  }
-}"
-);
+");
 }
 
 
@@ -1219,24 +1171,19 @@ unittest {
       struct Foo {
         JsHandle handle;
         alias handle this;
-        Optional!(Sequence!(int)) bar(Sequence!(string) names) {
-          return Foo_bar(handle, names.handle);
+        auto bar(Sequence!(string) names) {
+          return Foo_bar(this.handle, names.handle);
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) Optional!(Sequence!(int)) Foo_bar(JsHandle, JsHandle);
+      extern (C) Optional!(Sequence!(int)) Foo_bar(Handle, Handle);
     });
   gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-    Foo_bar: function(rawResult, ctx, names) {
-      spasm.encode_optional_sequence_int(rawResult, spasm.objects[ctx].bar(spasm.objects[names]));
+    Foo_bar: (rawResult, ctx, names) => {
+      spasm_encode_optional_sequence(rawResult, spasm.objects[ctx].bar(spasm.objects[names]));
     },
-  }
-}"
-);
+");
 }
 
 @("return.nullable")
@@ -1251,24 +1198,19 @@ unittest {
       struct Foo {
         JsHandle handle;
         alias handle this;
-        Optional!(File) item(uint index) {
-          return Foo_item_getter(handle, index);
+        auto item(uint index) {
+          return Foo_item_getter(this.handle, index);
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) Optional!(File) Foo_item_getter(JsHandle, uint);
+      extern (C) Optional!(File) Foo_item_getter(Handle, uint);
     });
   gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-    Foo_item_getter: function(rawResult, ctx, index) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].item(index));
+    Foo_item_getter: (rawResult, ctx, index) => {
+      spasm_encode_optional_Handle(rawResult, spasm.objects[ctx].item(index));
     },
-  }
-}"
-);
+");
 }
 
 @("partial.mixin")
@@ -1289,38 +1231,33 @@ unittest {
       struct Bar {
         JsHandle handle;
         alias handle this;
-        string name() {
-          return Foo_name(handle);
+        auto name() {
+          return Foo_name(this.handle);
         }
-        bool fatal() {
-          return Foo_fatal_Get(handle);
+        auto fatal() {
+          return Foo_fatal_Get(this.handle);
         }
-        long size() {
-          return Foo_size(handle);
+        auto size() {
+          return Foo_size(this.handle);
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) string Foo_name(JsHandle);
-      extern (C) bool Foo_fatal_Get(JsHandle);
-      extern (C) long Foo_size(JsHandle);
+      extern (C) string Foo_name(Handle);
+      extern (C) bool Foo_fatal_Get(Handle);
+      extern (C) long Foo_size(Handle);
     });
   gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-    Foo_name: function(rawResult, ctx) {
-      spasm.encode_string(rawResult, spasm.objects[ctx].name());
+    Foo_name: (rawResult, ctx) => {
+      spasm_encode_string(rawResult, spasm.objects[ctx].name());
     },
-    Foo_fatal_Get: function(ctx) {
+    Foo_fatal_Get: (ctx) => {
       return spasm.objects[ctx].fatal;
     },
-    Foo_size: function(ctx) {
+    Foo_size: (ctx) => {
       return spasm.objects[ctx].size();
     },
-  }
-}"
-);
+");
 }
 
 
@@ -1343,14 +1280,11 @@ unittest {
   gen.generateDImports.shouldBeLike(q{
       extern (C) void console_clear();
     });
-  gen.generateJsExports.shouldBeLike("import spasm from './spasm.js';
-export default {
-  jsExports: {
-    console_clear: function() {
+  gen.generateJsExports.shouldBeLike("
+    console_clear: () => {
       console.clear();
     },
-  }
-}");
+");
 }
 
 @("callback.sumtype")
@@ -1413,7 +1347,7 @@ unittest {
   auto ir = semantics.toIr();
   ir.getImports(moduleA).shouldEqual(["import spasm.bindings.b;","import spasm.bindings.c;"]);
   ir.getImports(moduleB).shouldEqual(["import spasm.bindings.c;"]);
-  ir.generateDImports(moduleB).shouldBeLike("extern (C) JsHandle Bar_get(JsHandle);");
+  ir.generateDImports(moduleB).shouldBeLike("extern (C) Handle Bar_get(Handle);");
 }
 
 @("module.imports.partial")
@@ -1462,7 +1396,7 @@ unittest {
   auto moduleB = semantics.analyse("b",documentB);
   auto moduleC = semantics.analyse("c",documentC);
   auto ir = semantics.toIr();
-  ir.generateDImports(moduleA).shouldBeLike("extern (C) JsHandle Foo_get(JsHandle);");
+  ir.generateDImports(moduleA).shouldBeLike("extern (C) Handle Foo_get(Handle);");
   ir.getImports(moduleA).shouldEqual(["import spasm.bindings.c;"]);
   // TODO: we don't need to import c
   ir.getImports(moduleB).shouldEqual(["import spasm.bindings.c;"]);
@@ -1481,29 +1415,28 @@ unittest {
   gen.generateDBindings.shouldBeLike(q{
       struct foo {
       static:
-        void log(Any data) {
-          foo_log(data.handle);
+        void log(T0)(T0 data) {
+          Handle _handle_data = getOrCreateHandle(data);
+          foo_log(_handle_data);
+          dropHandle!(T0)(_handle_data);
         }
-        Any get() {
-          return Any(foo_get());
+        auto get() {
+          return Any(JsHandle(foo_get()));
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) void foo_log(JsHandle);
-      extern (C) JsHandle foo_get();
+      extern (C) void foo_log(Handle);
+      extern (C) Handle foo_get();
     });
-  gen.generateJsExports.shouldBeLike("import spasm from './spasm.js';
-export default {
-  jsExports: {
-    foo_log: function(data) {
+  gen.generateJsExports.shouldBeLike("
+    foo_log: (data) => {
       foo.log(spasm.objects[data]);
     },
-    foo_get: function() {
+    foo_get: () => {
       return spasm.addObject(foo.get());
     },
-  }
-}");
+");
 }
 
 @("optional.typedef")
@@ -1527,26 +1460,23 @@ unittest {
         void onerror(OnErrorEventHandler onerror) {
           WorkerGlobalScope_onerror_Set(this._parent, !onerror.empty, onerror.front);
         }
-        OnErrorEventHandler onerror() {
+        auto onerror() {
           return WorkerGlobalScope_onerror_Get(this._parent);
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) void WorkerGlobalScope_onerror_Set(JsHandle, bool, OnErrorEventHandlerNonNull);
-      extern (C) OnErrorEventHandler WorkerGlobalScope_onerror_Get(JsHandle);
+      extern (C) void WorkerGlobalScope_onerror_Set(Handle, bool, OnErrorEventHandlerNonNull);
+      extern (C) OnErrorEventHandler WorkerGlobalScope_onerror_Get(Handle);
     });
-  gen.generateJsExports.shouldBeLike("import spasm from './spasm.js';
-export default {
-  jsExports: {
-    WorkerGlobalScope_onerror_Set: function(ctx, onerrorDefined, onerror) {
+  gen.generateJsExports.shouldBeLike("
+    WorkerGlobalScope_onerror_Set: (ctx, onerrorDefined, onerror) => {
       spasm.objects[ctx].onerror = onerrorDefined ? onerror : undefined;
     },
-    WorkerGlobalScope_onerror_Get: function(rawResult, ctx) {
-      spasm.encode_optional_JsHandle(rawResult, spasm.objects[ctx].onerror);
+    WorkerGlobalScope_onerror_Get: (rawResult, ctx) => {
+      spasm_encode_optional_Handle(rawResult, spasm.objects[ctx].onerror);
     },
-  }
-}");
+");
 }
 
 @("sumtype.nested")
@@ -1571,16 +1501,13 @@ unittest {
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) void XMLHttpRequest_send(JsHandle, bool, SumType!(Document, BodyInit));
+      extern (C) void XMLHttpRequest_send(Handle, bool, SumType!(Document, BodyInit));
     });
-  gen.generateJsExports.shouldBeLike("import spasm from './spasm.js';
-export default {
-  jsExports: {
-    XMLHttpRequest_send: function(ctx, bodyDefined, body) {
-      spasm.objects[ctx].send(bodyDefined ? spasm.decode_union2_Document_BodyInit(body) : undefined);
+  gen.generateJsExports.shouldBeLike("
+    XMLHttpRequest_send: (ctx, bodyDefined, body) => {
+      spasm.objects[ctx].send(bodyDefined ? spasm_decode_union2_Document_BodyInit(body) : undefined);
     },
-  }
-}");
+");
 }
 
 @("inheritance.mixin")
@@ -1601,8 +1528,7 @@ unittest {
           _parent = Foo(h);
         }
         auto writable() {
-          auto result = WritableStream(JsHandle(GenericTransformStream_writable_Get(this._parent)));
-          return result;
+          return WritableStream(JsHandle(GenericTransformStream_writable_Get(this._parent)));
         }
       }
     });
@@ -1610,16 +1536,8 @@ unittest {
       extern (C) Handle GenericTransformStream_writable_Get(Handle);
     });
   gen.generateJsExports.shouldBeLike("
-import spasm from './spasm.js';
-export default {
-  jsExports: {
-    GenericTransformStream_writable_Get: function(ctx) {
+    GenericTransformStream_writable_Get: (ctx) => {
       return spasm.addObject(spasm.objects[ctx].writable);
     },
-    GenericTransformStream_readable_Get: function(ctx) {
-      return spasm.addObject(spasm.objects[ctx].readable);
-    },
-  }
-}
 ");
 }

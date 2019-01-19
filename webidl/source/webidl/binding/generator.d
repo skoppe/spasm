@@ -6,7 +6,7 @@ import pegged.grammar : ParseTree;
 
 import std.array : appender, array, Appender;
 import std.algorithm : each, sort, schwartzSort, filter, uniq, sum, max, maxElement, copy;
-import std.algorithm : each, joiner, map, commonPrefix;
+import std.algorithm : each, joiner, map, commonPrefix, canFind, startsWith;
 import std.range : chain, enumerate;
 import std.conv : text, to;
 import std.range : zip, only;
@@ -325,7 +325,7 @@ class FunctionNode : Node {
   semantics.dump(tmp, a);
 }
 @method void _toJsExport(FunctionNode node, StructNode parent, Semantics semantics, string[] filter, IndentedStringAppender* a) {
-  if (node.type & (FunctionType.OpDispatch))
+  if (node.type & (FunctionType.OpDispatch) || node.type & (FunctionType.DictionaryConstructor))
     return;
   auto tmp = JsExportFunction(parent.name, node.customName != "" ? node.customName : node.name, node.args, node.result, node.type, node.manglePostfix);
   if (parent.isStatic == Yes.isStatic)
@@ -334,7 +334,7 @@ class FunctionNode : Node {
   context.dump(tmp, a);
 }
 @method void _toDImport(FunctionNode node, StructNode parent, Semantics semantics, IndentedStringAppender* a) {
-  if (node.type & (FunctionType.OpDispatch))
+  if (node.type & (FunctionType.OpDispatch) || node.type & (FunctionType.DictionaryConstructor))
     return;
   auto tmp = DImportFunction(parent.name, node.customName != "" ? node.customName : node.name, node.args, node.result, node.type, node.manglePostfix);
   if (parent.isStatic == Yes.isStatic)
@@ -403,34 +403,34 @@ class MaplikeNode : Node {
   string mangleValueType = node.valueType.generateDImports(Context(semantics));
   string manglePrefix = "Maplike_" ~ mangleKeyType ~ "_" ~ mangleValueType ~ "_";
   a.putLn("uint size() {");
-  a.putLn(["  return ", manglePrefix, "size(handle);"]);
+  a.putLn(["  return ", manglePrefix, "size(this.handle);"]);
   a.putLn("}");
   a.putLn("void clear() {");
-  a.putLn(["  ", manglePrefix, "clear(handle);"]);
+  a.putLn(["  ", manglePrefix, "clear(this.handle);"]);
   a.putLn("}");
   a.putLn(["void delete_(",keyType," key) {"]);
-  a.putLn(["  ", manglePrefix, "delete(handle, key);"]);
+  a.putLn(["  ", manglePrefix, "delete(this.handle, key);"]);
   a.putLn("}");
   a.putLn(["Iterator!(ArrayPair!(",keyType,", ",valueType,")) entries() {"]);
-  a.putLn(["  return Iterator!(ArrayPair!(",keyType,", ",valueType,"))(JsHandle(", manglePrefix, "entries(handle)));"]);
+  a.putLn(["  return Iterator!(ArrayPair!(",keyType,", ",valueType,"))(JsHandle(", manglePrefix, "entries(this.handle)));"]);
   a.putLn("}");
   a.putLn(["extern(C) void forEach(void delegate(",keyType,", Handle, Handle) callback) {"]);
-  a.putLn(["  ", manglePrefix, "forEach(handle, callback);"]);
+  a.putLn(["  ", manglePrefix, "forEach(this.handle, callback);"]);
   a.putLn("}");
   a.putLn(["",valueType," get(",keyType," key) {"]);
-  a.putLn(["  return ",valueType,"(JsHandle(", manglePrefix, "get(handle, key)));"]);
+  a.putLn(["  return ",valueType,"(JsHandle(", manglePrefix, "get(this.handle, key)));"]);
   a.putLn("}");
   a.putLn(["bool has(",keyType," key) {"]);
-  a.putLn(["  return ", manglePrefix, "has(handle, key);"]);
+  a.putLn(["  return ", manglePrefix, "has(this.handle, key);"]);
   a.putLn("}");
   a.putLn(["Iterator!(",keyType,") keys() {"]);
-  a.putLn(["  return Iterator!(",keyType,")(JsHandle(", manglePrefix, "keys(handle)));"]);
+  a.putLn(["  return Iterator!(",keyType,")(JsHandle(", manglePrefix, "keys(this.handle)));"]);
   a.putLn("}");
   a.putLn(["void set(",keyType," key, ",valueType," value) {"]);
-  a.putLn(["  ", manglePrefix, "set(handle, key, value.handle);"]);
+  a.putLn(["  ", manglePrefix, "set(this.handle, key, value.handle);"]);
   a.putLn("}");
   a.putLn(["Iterator!(",valueType,") values() {"]);
-  a.putLn(["  return Iterator!(",valueType,")(JsHandle(", manglePrefix, "values(handle)));"]);
+  a.putLn(["  return Iterator!(",valueType,")(JsHandle(", manglePrefix, "values(this.handle)));"]);
   a.putLn("}");
 }
 @method void _toDImport(MaplikeNode node, StructNode parent, Semantics semantics, IndentedStringAppender* a) {
@@ -682,6 +682,13 @@ string generateJsGlobalBindings(IR ir, string[] jsExportFilters, ref IndentedStr
       if (mangled == "Aya") {
         return "encode_string";
       } else if (mangled == "handle" || mangled[0] == 'S') {
+        return "encode_handle";
+      } else if (mangled == "v")
+        return "void";
+      else if (mangled[0] == 'E') {
+        auto info = getSymbolInfo(mangled);
+        return "spasm_encode_" ~ info.name;
+      } else {
         if (mangled.startsWith("S8optional")) {
           throw new Error("Promise!T.then is not yet implemented for Optional!T.");
         }
@@ -690,14 +697,8 @@ string generateJsGlobalBindings(IR ir, string[] jsExportFilters, ref IndentedStr
           throw new Error("Promise!T.then is not yet implemented for Typedefs.");
         }
         if (mangled.canFind("sumtype")) {
-          throw new Error("Promise!T.then is not yet implemented for SumType!Ts.")
+          throw new Error("Promise!T.then is not yet implemented for SumType!Ts.");
         }
-        return "encode_handle";
-      } else if (mangled == "v")
-        return "void";
-      else if (mangled[0] == 'E') {
-        auto info = getSymbolInfo(mangled);
-        return "spasm_encode_" ~ info.name;
       }
       return "";
     }
@@ -742,7 +743,11 @@ void dump(Appender)(ref Semantics semantics, DBindingFunction item, ref Appender
     a.putLn("}");
     return;
   }
-  a.put("auto ");
+  bool returns = item.result != ParseTree.init && item.result.matches[0] != "void";
+  if (returns)
+    a.put("auto ");
+  else
+    a.put("void ");
   switch (item.type & (FunctionType.OpIndex | FunctionType.OpDispatch | FunctionType.OpIndexAssign)) {
   case FunctionType.OpIndex:
     a.put("opIndex");
@@ -784,12 +789,15 @@ void dump(Appender)(ref Semantics semantics, DBindingFunction item, ref Appender
     semantics.dumpDParameters(runArgs, a);
   a.putLn(") {");
   a.indent();
-  bool returns = item.result != ParseTree.init && item.result.matches[0] != "void";
   foreach(any; anys) {
     a.putLn(["Handle _handle_", any.value.name, " = getOrCreateHandle(", any.value.name.friendlyName, ");"]);
   }
+  bool needDropHandle = anys.length != 0;
   if (returns) {
-    a.put("auto result = ");
+    if (needDropHandle)
+      a.put("auto result = ");
+    else
+      a.put("return ");
     if (!semantics.isPrimitive(item.result) && !semantics.isUnion(item.result) && !semantics.isNullable(item.result)) {
       item.result.generateDType(a, Context(semantics));
       a.put("(JsHandle(");
@@ -812,7 +820,7 @@ void dump(Appender)(ref Semantics semantics, DBindingFunction item, ref Appender
   foreach(any; anys) {
     a.putLn(["dropHandle!(T", any.index.to!string, ")(_handle_", any.value.name, ");"]);
   }
-  if (returns)
+  if (returns && needDropHandle)
     a.putLn("return result;");
   a.undent();
   a.putLn("}");
