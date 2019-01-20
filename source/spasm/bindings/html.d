@@ -6,6 +6,7 @@ import spasm.bindings.common;
 import spasm.bindings.cssom;
 import spasm.bindings.dom;
 import spasm.bindings.domhighrestimestamp;
+import spasm.bindings.encoding;
 import spasm.bindings.fetch;
 import spasm.bindings.fileapi;
 import spasm.bindings.geometry;
@@ -13,13 +14,16 @@ import spasm.bindings.indexeddb;
 import spasm.bindings.linkstyle;
 import spasm.bindings.mediasource;
 import spasm.bindings.mediastream;
+import spasm.bindings.notifications;
 import spasm.bindings.permissions;
 import spasm.bindings.serviceworker;
 import spasm.bindings.svg;
 import spasm.bindings.uievents;
+import spasm.bindings.url;
 import spasm.bindings.vibration;
 import spasm.bindings.webgl2;
 import spasm.bindings.webgl;
+import spasm.bindings.xhr;
 
 struct ApplicationCache {
   EventTarget _parent;

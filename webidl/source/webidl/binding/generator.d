@@ -2553,6 +2553,8 @@ auto getImports(IR ir, Module module_) {
       (cast (ModuleNode)node).children.each!(node => recurse(node));
     else if (cast(MixinNode)node) {
       (cast(MixinNode)node).children.each!(node => recurse(node));
+    } else if (auto cons = cast(ExposedConstructorNode)node) {
+      sink(cons.name, semantics, app);
     }
   }
   ir.nodes.filter!(n => n.module_ is module_).each!((node){
@@ -2584,6 +2586,9 @@ auto moveExposedConstructors(IR ir) {
       } else
         writeln("Error: cannot find type ", constructor.baseType," to exposed constructor ",constructor.name, " on.");
       });
+  }
+  foreach(mod; ir.nodes) {
+    mod.children = std.algorithm.remove!(n => cast(ExposedConstructorNode)n)(mod.children);
   }
 }
 auto mangleJsOverloads(IR ir, Semantics semantics) {
