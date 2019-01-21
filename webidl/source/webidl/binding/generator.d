@@ -1961,8 +1961,10 @@ void toIr(Appender)(ParseTree tree, ref Appender a, Context context) {
     tree.children[0].toIr(a, context);
     break;
   case "WebIDL.MixinMember":
-    if (tree.children[0].matches[0] == "readonly") {
-      context.readonly = true;
+    if (tree.children[0].name == "WebIDL.ReadOnly") {
+      if (tree.children[0].matches[0] == "readonly") {
+        context.readonly = true;
+      }
       tree.children[1].toIr(a, context);
     } else
       tree.children[0].toIr(a, context);

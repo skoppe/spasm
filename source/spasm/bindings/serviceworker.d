@@ -392,6 +392,12 @@ struct ServiceWorker {
   auto onstatechange() {
     return ServiceWorker_onstatechange_Get(this._parent);
   }
+  void onerror(EventHandler onerror) {
+    AbstractWorker_onerror_Set(this._parent, onerror);
+  }
+  auto onerror() {
+    return AbstractWorker_onerror_Get(this._parent);
+  }
 }
 struct ServiceWorkerContainer {
   spasm.bindings.dom.EventTarget _parent;

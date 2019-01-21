@@ -1617,3 +1617,76 @@ Window_ImageData__Handle_uint_uint: (data, sw, sh) => {
 },
 ");
 }
+
+@("mixin.partial")
+unittest {
+  auto gen = getGenerator(q{
+      callback EventHandlerNonNull = any (Event event);
+      typedef EventHandlerNonNull EventHandler;
+      interface mixin GlobalEventHandlers {
+        attribute EventHandler onabort;
+      };
+      partial interface GlobalEventHandlers {
+        attribute EventHandler ongotpointercapture;
+      };
+      partial interface GlobalEventHandlers {
+        attribute EventHandler ontouchstart;
+      };
+      interface Window {
+      };
+      Window includes GlobalEventHandlers;
+    });
+  gen.generateDBindings.shouldBeLike(q{
+      alias EventHandler = EventHandlerNonNull;
+      alias EventHandlerNonNull = Any delegate(Event);
+      struct Window {
+        JsHandle handle;
+        alias handle this;
+        void onabort(EventHandler onabort) {
+          GlobalEventHandlers_onabort_Set(this.handle, onabort);
+        }
+        auto onabort() {
+          return GlobalEventHandlers_onabort_Get(this.handle);
+        }
+        void ongotpointercapture(EventHandler ongotpointercapture) {
+          GlobalEventHandlers_ongotpointercapture_Set(this.handle, ongotpointercapture);
+        }
+        auto ongotpointercapture() {
+          return GlobalEventHandlers_ongotpointercapture_Get(this.handle);
+        }
+        void ontouchstart(EventHandler ontouchstart) {
+          GlobalEventHandlers_ontouchstart_Set(this.handle, ontouchstart);
+        }
+        auto ontouchstart() {
+          return GlobalEventHandlers_ontouchstart_Get(this.handle);
+        }
+      }
+    });
+  gen.generateDImports.shouldBeLike(q{
+      extern (C) void GlobalEventHandlers_onabort_Set(Handle, EventHandler);
+      extern (C) EventHandler GlobalEventHandlers_onabort_Get(Handle);
+      extern (C) void GlobalEventHandlers_ongotpointercapture_Set(Handle, EventHandler);
+      extern (C) EventHandler GlobalEventHandlers_ongotpointercapture_Get(Handle);
+      extern (C) void GlobalEventHandlers_ontouchstart_Set(Handle, EventHandler);
+      extern (C) EventHandler GlobalEventHandlers_ontouchstart_Get(Handle);    });
+  gen.generateJsExports.shouldBeLike("
+GlobalEventHandlers_onabort_Set: (ctx, onabort) => {
+  spasm.objects[ctx].onabort = onabort;
+},
+GlobalEventHandlers_onabort_Get: (ctx) => {
+  return spasm.objects[ctx].onabort;
+},
+GlobalEventHandlers_ongotpointercapture_Set: (ctx, ongotpointercapture) => {
+  spasm.objects[ctx].ongotpointercapture = ongotpointercapture;
+},
+GlobalEventHandlers_ongotpointercapture_Get: (ctx) => {
+  return spasm.objects[ctx].ongotpointercapture;
+},
+GlobalEventHandlers_ontouchstart_Set: (ctx, ontouchstart) => {
+  spasm.objects[ctx].ontouchstart = ontouchstart;
+},
+GlobalEventHandlers_ontouchstart_Get: (ctx) => {
+  return spasm.objects[ctx].ontouchstart;
+},
+");
+}

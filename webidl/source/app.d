@@ -95,7 +95,6 @@ void main(string[] args)
     inFile = args[0].dirName ~ "/definitions";
 
   auto ir = readDefinitions(inFile);
-
   string[] includeJsExports;
   if (wasmFile != "" && !exportAll) {
     writeln("Generating js bindings for ", wasmFile.baseName);

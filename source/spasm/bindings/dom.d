@@ -581,6 +581,396 @@ struct Document {
   auto querySelectorAll(string selectors) {
     return NodeList(JsHandle(ParentNode_querySelectorAll(this._parent, selectors)));
   }
+  void oncopy(EventHandler oncopy) {
+    DocumentAndElementEventHandlers_oncopy_Set(this._parent, oncopy);
+  }
+  auto oncopy() {
+    return DocumentAndElementEventHandlers_oncopy_Get(this._parent);
+  }
+  void oncut(EventHandler oncut) {
+    DocumentAndElementEventHandlers_oncut_Set(this._parent, oncut);
+  }
+  auto oncut() {
+    return DocumentAndElementEventHandlers_oncut_Get(this._parent);
+  }
+  void onpaste(EventHandler onpaste) {
+    DocumentAndElementEventHandlers_onpaste_Set(this._parent, onpaste);
+  }
+  auto onpaste() {
+    return DocumentAndElementEventHandlers_onpaste_Get(this._parent);
+  }
+  void onabort(EventHandler onabort) {
+    GlobalEventHandlers_onabort_Set(this._parent, onabort);
+  }
+  auto onabort() {
+    return GlobalEventHandlers_onabort_Get(this._parent);
+  }
+  void onauxclick(EventHandler onauxclick) {
+    GlobalEventHandlers_onauxclick_Set(this._parent, onauxclick);
+  }
+  auto onauxclick() {
+    return GlobalEventHandlers_onauxclick_Get(this._parent);
+  }
+  void onblur(EventHandler onblur) {
+    GlobalEventHandlers_onblur_Set(this._parent, onblur);
+  }
+  auto onblur() {
+    return GlobalEventHandlers_onblur_Get(this._parent);
+  }
+  void oncancel(EventHandler oncancel) {
+    GlobalEventHandlers_oncancel_Set(this._parent, oncancel);
+  }
+  auto oncancel() {
+    return GlobalEventHandlers_oncancel_Get(this._parent);
+  }
+  void oncanplay(EventHandler oncanplay) {
+    GlobalEventHandlers_oncanplay_Set(this._parent, oncanplay);
+  }
+  auto oncanplay() {
+    return GlobalEventHandlers_oncanplay_Get(this._parent);
+  }
+  void oncanplaythrough(EventHandler oncanplaythrough) {
+    GlobalEventHandlers_oncanplaythrough_Set(this._parent, oncanplaythrough);
+  }
+  auto oncanplaythrough() {
+    return GlobalEventHandlers_oncanplaythrough_Get(this._parent);
+  }
+  void onchange(EventHandler onchange) {
+    GlobalEventHandlers_onchange_Set(this._parent, onchange);
+  }
+  auto onchange() {
+    return GlobalEventHandlers_onchange_Get(this._parent);
+  }
+  void onclick(EventHandler onclick) {
+    GlobalEventHandlers_onclick_Set(this._parent, onclick);
+  }
+  auto onclick() {
+    return GlobalEventHandlers_onclick_Get(this._parent);
+  }
+  void onclose(EventHandler onclose) {
+    GlobalEventHandlers_onclose_Set(this._parent, onclose);
+  }
+  auto onclose() {
+    return GlobalEventHandlers_onclose_Get(this._parent);
+  }
+  void oncontextmenu(EventHandler oncontextmenu) {
+    GlobalEventHandlers_oncontextmenu_Set(this._parent, oncontextmenu);
+  }
+  auto oncontextmenu() {
+    return GlobalEventHandlers_oncontextmenu_Get(this._parent);
+  }
+  void oncuechange(EventHandler oncuechange) {
+    GlobalEventHandlers_oncuechange_Set(this._parent, oncuechange);
+  }
+  auto oncuechange() {
+    return GlobalEventHandlers_oncuechange_Get(this._parent);
+  }
+  void ondblclick(EventHandler ondblclick) {
+    GlobalEventHandlers_ondblclick_Set(this._parent, ondblclick);
+  }
+  auto ondblclick() {
+    return GlobalEventHandlers_ondblclick_Get(this._parent);
+  }
+  void ondrag(EventHandler ondrag) {
+    GlobalEventHandlers_ondrag_Set(this._parent, ondrag);
+  }
+  auto ondrag() {
+    return GlobalEventHandlers_ondrag_Get(this._parent);
+  }
+  void ondragend(EventHandler ondragend) {
+    GlobalEventHandlers_ondragend_Set(this._parent, ondragend);
+  }
+  auto ondragend() {
+    return GlobalEventHandlers_ondragend_Get(this._parent);
+  }
+  void ondragenter(EventHandler ondragenter) {
+    GlobalEventHandlers_ondragenter_Set(this._parent, ondragenter);
+  }
+  auto ondragenter() {
+    return GlobalEventHandlers_ondragenter_Get(this._parent);
+  }
+  void ondragexit(EventHandler ondragexit) {
+    GlobalEventHandlers_ondragexit_Set(this._parent, ondragexit);
+  }
+  auto ondragexit() {
+    return GlobalEventHandlers_ondragexit_Get(this._parent);
+  }
+  void ondragleave(EventHandler ondragleave) {
+    GlobalEventHandlers_ondragleave_Set(this._parent, ondragleave);
+  }
+  auto ondragleave() {
+    return GlobalEventHandlers_ondragleave_Get(this._parent);
+  }
+  void ondragover(EventHandler ondragover) {
+    GlobalEventHandlers_ondragover_Set(this._parent, ondragover);
+  }
+  auto ondragover() {
+    return GlobalEventHandlers_ondragover_Get(this._parent);
+  }
+  void ondragstart(EventHandler ondragstart) {
+    GlobalEventHandlers_ondragstart_Set(this._parent, ondragstart);
+  }
+  auto ondragstart() {
+    return GlobalEventHandlers_ondragstart_Get(this._parent);
+  }
+  void ondrop(EventHandler ondrop) {
+    GlobalEventHandlers_ondrop_Set(this._parent, ondrop);
+  }
+  auto ondrop() {
+    return GlobalEventHandlers_ondrop_Get(this._parent);
+  }
+  void ondurationchange(EventHandler ondurationchange) {
+    GlobalEventHandlers_ondurationchange_Set(this._parent, ondurationchange);
+  }
+  auto ondurationchange() {
+    return GlobalEventHandlers_ondurationchange_Get(this._parent);
+  }
+  void onemptied(EventHandler onemptied) {
+    GlobalEventHandlers_onemptied_Set(this._parent, onemptied);
+  }
+  auto onemptied() {
+    return GlobalEventHandlers_onemptied_Get(this._parent);
+  }
+  void onended(EventHandler onended) {
+    GlobalEventHandlers_onended_Set(this._parent, onended);
+  }
+  auto onended() {
+    return GlobalEventHandlers_onended_Get(this._parent);
+  }
+  void onerror(OnErrorEventHandler onerror) {
+    GlobalEventHandlers_onerror_Set(this._parent, !onerror.empty, onerror.front);
+  }
+  auto onerror() {
+    return GlobalEventHandlers_onerror_Get(this._parent);
+  }
+  void onfocus(EventHandler onfocus) {
+    GlobalEventHandlers_onfocus_Set(this._parent, onfocus);
+  }
+  auto onfocus() {
+    return GlobalEventHandlers_onfocus_Get(this._parent);
+  }
+  void oninput(EventHandler oninput) {
+    GlobalEventHandlers_oninput_Set(this._parent, oninput);
+  }
+  auto oninput() {
+    return GlobalEventHandlers_oninput_Get(this._parent);
+  }
+  void oninvalid(EventHandler oninvalid) {
+    GlobalEventHandlers_oninvalid_Set(this._parent, oninvalid);
+  }
+  auto oninvalid() {
+    return GlobalEventHandlers_oninvalid_Get(this._parent);
+  }
+  void onkeydown(EventHandler onkeydown) {
+    GlobalEventHandlers_onkeydown_Set(this._parent, onkeydown);
+  }
+  auto onkeydown() {
+    return GlobalEventHandlers_onkeydown_Get(this._parent);
+  }
+  void onkeypress(EventHandler onkeypress) {
+    GlobalEventHandlers_onkeypress_Set(this._parent, onkeypress);
+  }
+  auto onkeypress() {
+    return GlobalEventHandlers_onkeypress_Get(this._parent);
+  }
+  void onkeyup(EventHandler onkeyup) {
+    GlobalEventHandlers_onkeyup_Set(this._parent, onkeyup);
+  }
+  auto onkeyup() {
+    return GlobalEventHandlers_onkeyup_Get(this._parent);
+  }
+  void onload(EventHandler onload) {
+    GlobalEventHandlers_onload_Set(this._parent, onload);
+  }
+  auto onload() {
+    return GlobalEventHandlers_onload_Get(this._parent);
+  }
+  void onloadeddata(EventHandler onloadeddata) {
+    GlobalEventHandlers_onloadeddata_Set(this._parent, onloadeddata);
+  }
+  auto onloadeddata() {
+    return GlobalEventHandlers_onloadeddata_Get(this._parent);
+  }
+  void onloadedmetadata(EventHandler onloadedmetadata) {
+    GlobalEventHandlers_onloadedmetadata_Set(this._parent, onloadedmetadata);
+  }
+  auto onloadedmetadata() {
+    return GlobalEventHandlers_onloadedmetadata_Get(this._parent);
+  }
+  void onloadend(EventHandler onloadend) {
+    GlobalEventHandlers_onloadend_Set(this._parent, onloadend);
+  }
+  auto onloadend() {
+    return GlobalEventHandlers_onloadend_Get(this._parent);
+  }
+  void onloadstart(EventHandler onloadstart) {
+    GlobalEventHandlers_onloadstart_Set(this._parent, onloadstart);
+  }
+  auto onloadstart() {
+    return GlobalEventHandlers_onloadstart_Get(this._parent);
+  }
+  void onmousedown(EventHandler onmousedown) {
+    GlobalEventHandlers_onmousedown_Set(this._parent, onmousedown);
+  }
+  auto onmousedown() {
+    return GlobalEventHandlers_onmousedown_Get(this._parent);
+  }
+  void onmouseenter(EventHandler onmouseenter) {
+    GlobalEventHandlers_onmouseenter_Set(this._parent, onmouseenter);
+  }
+  auto onmouseenter() {
+    return GlobalEventHandlers_onmouseenter_Get(this._parent);
+  }
+  void onmouseleave(EventHandler onmouseleave) {
+    GlobalEventHandlers_onmouseleave_Set(this._parent, onmouseleave);
+  }
+  auto onmouseleave() {
+    return GlobalEventHandlers_onmouseleave_Get(this._parent);
+  }
+  void onmousemove(EventHandler onmousemove) {
+    GlobalEventHandlers_onmousemove_Set(this._parent, onmousemove);
+  }
+  auto onmousemove() {
+    return GlobalEventHandlers_onmousemove_Get(this._parent);
+  }
+  void onmouseout(EventHandler onmouseout) {
+    GlobalEventHandlers_onmouseout_Set(this._parent, onmouseout);
+  }
+  auto onmouseout() {
+    return GlobalEventHandlers_onmouseout_Get(this._parent);
+  }
+  void onmouseover(EventHandler onmouseover) {
+    GlobalEventHandlers_onmouseover_Set(this._parent, onmouseover);
+  }
+  auto onmouseover() {
+    return GlobalEventHandlers_onmouseover_Get(this._parent);
+  }
+  void onmouseup(EventHandler onmouseup) {
+    GlobalEventHandlers_onmouseup_Set(this._parent, onmouseup);
+  }
+  auto onmouseup() {
+    return GlobalEventHandlers_onmouseup_Get(this._parent);
+  }
+  void onwheel(EventHandler onwheel) {
+    GlobalEventHandlers_onwheel_Set(this._parent, onwheel);
+  }
+  auto onwheel() {
+    return GlobalEventHandlers_onwheel_Get(this._parent);
+  }
+  void onpause(EventHandler onpause) {
+    GlobalEventHandlers_onpause_Set(this._parent, onpause);
+  }
+  auto onpause() {
+    return GlobalEventHandlers_onpause_Get(this._parent);
+  }
+  void onplay(EventHandler onplay) {
+    GlobalEventHandlers_onplay_Set(this._parent, onplay);
+  }
+  auto onplay() {
+    return GlobalEventHandlers_onplay_Get(this._parent);
+  }
+  void onplaying(EventHandler onplaying) {
+    GlobalEventHandlers_onplaying_Set(this._parent, onplaying);
+  }
+  auto onplaying() {
+    return GlobalEventHandlers_onplaying_Get(this._parent);
+  }
+  void onprogress(EventHandler onprogress) {
+    GlobalEventHandlers_onprogress_Set(this._parent, onprogress);
+  }
+  auto onprogress() {
+    return GlobalEventHandlers_onprogress_Get(this._parent);
+  }
+  void onratechange(EventHandler onratechange) {
+    GlobalEventHandlers_onratechange_Set(this._parent, onratechange);
+  }
+  auto onratechange() {
+    return GlobalEventHandlers_onratechange_Get(this._parent);
+  }
+  void onreset(EventHandler onreset) {
+    GlobalEventHandlers_onreset_Set(this._parent, onreset);
+  }
+  auto onreset() {
+    return GlobalEventHandlers_onreset_Get(this._parent);
+  }
+  void onresize(EventHandler onresize) {
+    GlobalEventHandlers_onresize_Set(this._parent, onresize);
+  }
+  auto onresize() {
+    return GlobalEventHandlers_onresize_Get(this._parent);
+  }
+  void onscroll(EventHandler onscroll) {
+    GlobalEventHandlers_onscroll_Set(this._parent, onscroll);
+  }
+  auto onscroll() {
+    return GlobalEventHandlers_onscroll_Get(this._parent);
+  }
+  void onsecuritypolicyviolation(EventHandler onsecuritypolicyviolation) {
+    GlobalEventHandlers_onsecuritypolicyviolation_Set(this._parent, onsecuritypolicyviolation);
+  }
+  auto onsecuritypolicyviolation() {
+    return GlobalEventHandlers_onsecuritypolicyviolation_Get(this._parent);
+  }
+  void onseeked(EventHandler onseeked) {
+    GlobalEventHandlers_onseeked_Set(this._parent, onseeked);
+  }
+  auto onseeked() {
+    return GlobalEventHandlers_onseeked_Get(this._parent);
+  }
+  void onseeking(EventHandler onseeking) {
+    GlobalEventHandlers_onseeking_Set(this._parent, onseeking);
+  }
+  auto onseeking() {
+    return GlobalEventHandlers_onseeking_Get(this._parent);
+  }
+  void onselect(EventHandler onselect) {
+    GlobalEventHandlers_onselect_Set(this._parent, onselect);
+  }
+  auto onselect() {
+    return GlobalEventHandlers_onselect_Get(this._parent);
+  }
+  void onstalled(EventHandler onstalled) {
+    GlobalEventHandlers_onstalled_Set(this._parent, onstalled);
+  }
+  auto onstalled() {
+    return GlobalEventHandlers_onstalled_Get(this._parent);
+  }
+  void onsubmit(EventHandler onsubmit) {
+    GlobalEventHandlers_onsubmit_Set(this._parent, onsubmit);
+  }
+  auto onsubmit() {
+    return GlobalEventHandlers_onsubmit_Get(this._parent);
+  }
+  void onsuspend(EventHandler onsuspend) {
+    GlobalEventHandlers_onsuspend_Set(this._parent, onsuspend);
+  }
+  auto onsuspend() {
+    return GlobalEventHandlers_onsuspend_Get(this._parent);
+  }
+  void ontimeupdate(EventHandler ontimeupdate) {
+    GlobalEventHandlers_ontimeupdate_Set(this._parent, ontimeupdate);
+  }
+  auto ontimeupdate() {
+    return GlobalEventHandlers_ontimeupdate_Get(this._parent);
+  }
+  void ontoggle(EventHandler ontoggle) {
+    GlobalEventHandlers_ontoggle_Set(this._parent, ontoggle);
+  }
+  auto ontoggle() {
+    return GlobalEventHandlers_ontoggle_Get(this._parent);
+  }
+  void onvolumechange(EventHandler onvolumechange) {
+    GlobalEventHandlers_onvolumechange_Set(this._parent, onvolumechange);
+  }
+  auto onvolumechange() {
+    return GlobalEventHandlers_onvolumechange_Get(this._parent);
+  }
+  void onwaiting(EventHandler onwaiting) {
+    GlobalEventHandlers_onwaiting_Set(this._parent, onwaiting);
+  }
+  auto onwaiting() {
+    return GlobalEventHandlers_onwaiting_Get(this._parent);
+  }
   void ongotpointercapture(EventHandler ongotpointercapture) {
     GlobalEventHandlers_ongotpointercapture_Set(this._parent, ongotpointercapture);
   }
