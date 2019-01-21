@@ -54,10 +54,10 @@ struct Touch {
   }
 }
 struct TouchEvent {
-  UIEvent _parent;
+  spasm.bindings.uievents.UIEvent _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = UIEvent(h);
+    _parent = .UIEvent(h);
   }
   auto touches() {
     return TouchList(JsHandle(TouchEvent_touches_Get(this._parent)));
@@ -82,10 +82,10 @@ struct TouchEvent {
   }
 }
 struct TouchEventInit {
-  EventModifierInit _parent;
+  spasm.bindings.uievents.EventModifierInit _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventModifierInit(h);
+    _parent = .EventModifierInit(h);
   }
   static auto create() {
     return TouchEventInit(JsHandle(spasm_add__object()));

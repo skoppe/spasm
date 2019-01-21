@@ -5,10 +5,10 @@ import spasm.bindings.dom;
 import spasm.bindings.html;
 
 struct DevicePermissionDescriptor {
-  PermissionDescriptor _parent;
+  spasm.bindings.permissions.PermissionDescriptor _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = PermissionDescriptor(h);
+    _parent = .PermissionDescriptor(h);
   }
   static auto create() {
     return DevicePermissionDescriptor(JsHandle(spasm_add__object()));
@@ -21,10 +21,10 @@ struct DevicePermissionDescriptor {
   }
 }
 struct MidiPermissionDescriptor {
-  PermissionDescriptor _parent;
+  spasm.bindings.permissions.PermissionDescriptor _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = PermissionDescriptor(h);
+    _parent = .PermissionDescriptor(h);
   }
   static auto create() {
     return MidiPermissionDescriptor(JsHandle(spasm_add__object()));
@@ -100,10 +100,10 @@ enum PermissionState {
   prompt
 }
 struct PermissionStatus {
-  EventTarget _parent;
+  spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventTarget(h);
+    _parent = .EventTarget(h);
   }
   auto state() {
     return PermissionStatus_state_Get(this._parent);
@@ -123,10 +123,10 @@ struct Permissions {
   }
 }
 struct PushPermissionDescriptor {
-  PermissionDescriptor _parent;
+  spasm.bindings.permissions.PermissionDescriptor _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = PermissionDescriptor(h);
+    _parent = .PermissionDescriptor(h);
   }
   static auto create() {
     return PushPermissionDescriptor(JsHandle(spasm_add__object()));

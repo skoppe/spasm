@@ -5,20 +5,20 @@ import spasm.bindings.dom;
 import spasm.bindings.html;
 
 struct CompositionEvent {
-  UIEvent _parent;
+  spasm.bindings.uievents.UIEvent _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = UIEvent(h);
+    _parent = .UIEvent(h);
   }
   auto data() {
     return CompositionEvent_data_Get(this._parent);
   }
 }
 struct CompositionEventInit {
-  UIEventInit _parent;
+  spasm.bindings.uievents.UIEventInit _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = UIEventInit(h);
+    _parent = .UIEventInit(h);
   }
   static auto create() {
     return CompositionEventInit(JsHandle(spasm_add__object()));
@@ -31,10 +31,10 @@ struct CompositionEventInit {
   }
 }
 struct EventModifierInit {
-  UIEventInit _parent;
+  spasm.bindings.uievents.UIEventInit _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = UIEventInit(h);
+    _parent = .UIEventInit(h);
   }
   static auto create() {
     return EventModifierInit(JsHandle(spasm_add__object()));
@@ -125,20 +125,20 @@ struct EventModifierInit {
   }
 }
 struct FocusEvent {
-  UIEvent _parent;
+  spasm.bindings.uievents.UIEvent _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = UIEvent(h);
+    _parent = .UIEvent(h);
   }
   auto relatedTarget() {
     return FocusEvent_relatedTarget_Get(this._parent);
   }
 }
 struct FocusEventInit {
-  UIEventInit _parent;
+  spasm.bindings.uievents.UIEventInit _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = UIEventInit(h);
+    _parent = .UIEventInit(h);
   }
   static auto create() {
     return FocusEventInit(JsHandle(spasm_add__object()));
@@ -151,10 +151,10 @@ struct FocusEventInit {
   }
 }
 struct InputEvent {
-  UIEvent _parent;
+  spasm.bindings.uievents.UIEvent _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = UIEvent(h);
+    _parent = .UIEvent(h);
   }
   auto data() {
     return InputEvent_data_Get(this._parent);
@@ -167,10 +167,10 @@ struct InputEvent {
   }
 }
 struct InputEventInit {
-  UIEventInit _parent;
+  spasm.bindings.uievents.UIEventInit _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = UIEventInit(h);
+    _parent = .UIEventInit(h);
   }
   static auto create() {
     return InputEventInit(JsHandle(spasm_add__object()));
@@ -195,10 +195,10 @@ struct InputEventInit {
   }
 }
 struct KeyboardEvent {
-  UIEvent _parent;
+  spasm.bindings.uievents.UIEvent _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = UIEvent(h);
+    _parent = .UIEvent(h);
   }
   enum uint DOM_KEY_LOCATION_STANDARD = 0x00;
   enum uint DOM_KEY_LOCATION_LEFT = 0x01;
@@ -242,10 +242,10 @@ struct KeyboardEvent {
   }
 }
 struct KeyboardEventInit {
-  EventModifierInit _parent;
+  spasm.bindings.uievents.EventModifierInit _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventModifierInit(h);
+    _parent = .EventModifierInit(h);
   }
   static auto create() {
     return KeyboardEventInit(JsHandle(spasm_add__object()));
@@ -282,10 +282,10 @@ struct KeyboardEventInit {
   }
 }
 struct MouseEvent {
-  UIEvent _parent;
+  spasm.bindings.uievents.UIEvent _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = UIEvent(h);
+    _parent = .UIEvent(h);
   }
   auto screenX() {
     return MouseEvent_screenX_Get(this._parent);
@@ -325,10 +325,10 @@ struct MouseEvent {
   }
 }
 struct MouseEventInit {
-  EventModifierInit _parent;
+  spasm.bindings.uievents.EventModifierInit _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventModifierInit(h);
+    _parent = .EventModifierInit(h);
   }
   static auto create() {
     return MouseEventInit(JsHandle(spasm_add__object()));
@@ -377,10 +377,10 @@ struct MouseEventInit {
   }
 }
 struct UIEvent {
-  Event _parent;
+  spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = Event(h);
+    _parent = .Event(h);
   }
   auto view() {
     return UIEvent_view_Get(this._parent);
@@ -393,16 +393,16 @@ struct UIEvent {
   }
 }
 struct UIEventInit {
-  EventInit _parent;
+  spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventInit(h);
+    _parent = .EventInit(h);
   }
   static auto create() {
     return UIEventInit(JsHandle(spasm_add__object()));
   }
   void view(Optional!(Window) view) {
-    UIEventInit_view_Set(this._parent, !view.empty, view.front.handle);
+    UIEventInit_view_Set(this._parent, !view.empty, view.front._parent);
   }
   auto view() {
     return UIEventInit_view_Get(this._parent);
@@ -415,10 +415,10 @@ struct UIEventInit {
   }
 }
 struct WheelEvent {
-  MouseEvent _parent;
+  spasm.bindings.uievents.MouseEvent _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = MouseEvent(h);
+    _parent = .MouseEvent(h);
   }
   enum uint DOM_DELTA_PIXEL = 0x00;
   enum uint DOM_DELTA_LINE = 0x01;
@@ -437,10 +437,10 @@ struct WheelEvent {
   }
 }
 struct WheelEventInit {
-  MouseEventInit _parent;
+  spasm.bindings.uievents.MouseEventInit _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = MouseEventInit(h);
+    _parent = .MouseEventInit(h);
   }
   static auto create() {
     return WheelEventInit(JsHandle(spasm_add__object()));

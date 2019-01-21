@@ -209,7 +209,7 @@ struct RequestInit {
     return RequestInit_keepalive_Get(this.handle);
   }
   void signal(Optional!(AbortSignal) signal) {
-    RequestInit_signal_Set(this.handle, !signal.empty, signal.front.handle);
+    RequestInit_signal_Set(this.handle, !signal.empty, signal.front._parent);
   }
   auto signal() {
     return RequestInit_signal_Get(this.handle);

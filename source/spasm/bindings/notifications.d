@@ -21,10 +21,10 @@ struct GetNotificationOptions {
   }
 }
 struct Notification {
-  EventTarget _parent;
+  spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventTarget(h);
+    _parent = .EventTarget(h);
   }
   void permission(NotificationPermission permission) {
     Notification_permission_Set(this._parent, permission);
@@ -145,10 +145,10 @@ enum NotificationDirection {
   rtl
 }
 struct NotificationEvent {
-  ExtendableEvent _parent;
+  spasm.bindings.serviceworker.ExtendableEvent _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = ExtendableEvent(h);
+    _parent = .ExtendableEvent(h);
   }
   auto notification() {
     return Notification(JsHandle(NotificationEvent_notification_Get(this._parent)));
@@ -158,10 +158,10 @@ struct NotificationEvent {
   }
 }
 struct NotificationEventInit {
-  ExtendableEventInit _parent;
+  spasm.bindings.serviceworker.ExtendableEventInit _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = ExtendableEventInit(h);
+    _parent = .ExtendableEventInit(h);
   }
   static auto create() {
     return NotificationEventInit(JsHandle(spasm_add__object()));

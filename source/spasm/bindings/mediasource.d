@@ -14,10 +14,10 @@ enum EndOfStreamError {
   decode
 }
 struct MediaSource {
-  EventTarget _parent;
+  spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventTarget(h);
+    _parent = .EventTarget(h);
   }
   auto sourceBuffers() {
     return SourceBufferList(JsHandle(MediaSource_sourceBuffers_Get(this._parent)));
@@ -56,7 +56,7 @@ struct MediaSource {
     return SourceBuffer(JsHandle(MediaSource_addSourceBuffer(this._parent, type)));
   }
   void removeSourceBuffer(SourceBuffer sourceBuffer) {
-    MediaSource_removeSourceBuffer(this._parent, sourceBuffer.handle);
+    MediaSource_removeSourceBuffer(this._parent, sourceBuffer._parent);
   }
   void endOfStream(EndOfStreamError error) {
     MediaSource_endOfStream(this._parent, error);
@@ -77,10 +77,10 @@ enum ReadyState {
   ended
 }
 struct SourceBuffer {
-  EventTarget _parent;
+  spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventTarget(h);
+    _parent = .EventTarget(h);
   }
   void mode(AppendMode mode) {
     SourceBuffer_mode_Set(this._parent, mode);
@@ -162,10 +162,10 @@ struct SourceBuffer {
   }
 }
 struct SourceBufferList {
-  EventTarget _parent;
+  spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventTarget(h);
+    _parent = .EventTarget(h);
   }
   auto length() {
     return SourceBufferList_length_Get(this._parent);

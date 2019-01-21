@@ -309,7 +309,7 @@ struct WebGL2RenderingContextBase {
     WebGL2RenderingContextBase_blitFramebuffer(this.handle, srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);
   }
   void framebufferTextureLayer(uint target, uint attachment, Optional!(WebGLTexture) texture, int level, int layer) {
-    WebGL2RenderingContextBase_framebufferTextureLayer(this.handle, target, attachment, !texture.empty, texture.front.handle, level, layer);
+    WebGL2RenderingContextBase_framebufferTextureLayer(this.handle, target, attachment, !texture.empty, texture.front._parent, level, layer);
   }
   void invalidateFramebuffer(uint target, Sequence!(uint) attachments) {
     WebGL2RenderingContextBase_invalidateFramebuffer(this.handle, target, attachments.handle);
@@ -411,7 +411,7 @@ struct WebGL2RenderingContextBase {
     WebGL2RenderingContextBase_compressedTexSubImage3D__uint_int_int_int_int_int_int_int_uint_ArrayBufferView_uint_uint(this.handle, target, level, xoffset, yoffset, zoffset, width, height, depth, format, srcData, srcOffset, srcLengthOverride);
   }
   auto getFragDataLocation(WebGLProgram program, string name) {
-    return WebGL2RenderingContextBase_getFragDataLocation(this.handle, program.handle, name);
+    return WebGL2RenderingContextBase_getFragDataLocation(this.handle, program._parent, name);
   }
   void uniform1ui(Optional!(WebGLUniformLocation) location, uint v0) {
     WebGL2RenderingContextBase_uniform1ui(this.handle, !location.empty, location.front.handle, v0);
@@ -543,13 +543,13 @@ struct WebGL2RenderingContextBase {
     return WebGL2RenderingContextBase_createQuery(this.handle);
   }
   void deleteQuery(Optional!(WebGLQuery) query) {
-    WebGL2RenderingContextBase_deleteQuery(this.handle, !query.empty, query.front.handle);
+    WebGL2RenderingContextBase_deleteQuery(this.handle, !query.empty, query.front._parent);
   }
   auto isQuery(Optional!(WebGLQuery) query) {
-    return WebGL2RenderingContextBase_isQuery(this.handle, !query.empty, query.front.handle);
+    return WebGL2RenderingContextBase_isQuery(this.handle, !query.empty, query.front._parent);
   }
   void beginQuery(uint target, WebGLQuery query) {
-    WebGL2RenderingContextBase_beginQuery(this.handle, target, query.handle);
+    WebGL2RenderingContextBase_beginQuery(this.handle, target, query._parent);
   }
   void endQuery(uint target) {
     WebGL2RenderingContextBase_endQuery(this.handle, target);
@@ -558,58 +558,58 @@ struct WebGL2RenderingContextBase {
     return WebGL2RenderingContextBase_getQuery(this.handle, target, pname);
   }
   auto getQueryParameter(WebGLQuery query, uint pname) {
-    return Any(JsHandle(WebGL2RenderingContextBase_getQueryParameter(this.handle, query.handle, pname)));
+    return Any(JsHandle(WebGL2RenderingContextBase_getQueryParameter(this.handle, query._parent, pname)));
   }
   auto createSampler() {
     return WebGL2RenderingContextBase_createSampler(this.handle);
   }
   void deleteSampler(Optional!(WebGLSampler) sampler) {
-    WebGL2RenderingContextBase_deleteSampler(this.handle, !sampler.empty, sampler.front.handle);
+    WebGL2RenderingContextBase_deleteSampler(this.handle, !sampler.empty, sampler.front._parent);
   }
   auto isSampler(Optional!(WebGLSampler) sampler) {
-    return WebGL2RenderingContextBase_isSampler(this.handle, !sampler.empty, sampler.front.handle);
+    return WebGL2RenderingContextBase_isSampler(this.handle, !sampler.empty, sampler.front._parent);
   }
   void bindSampler(uint unit, Optional!(WebGLSampler) sampler) {
-    WebGL2RenderingContextBase_bindSampler(this.handle, unit, !sampler.empty, sampler.front.handle);
+    WebGL2RenderingContextBase_bindSampler(this.handle, unit, !sampler.empty, sampler.front._parent);
   }
   void samplerParameteri(WebGLSampler sampler, uint pname, int param) {
-    WebGL2RenderingContextBase_samplerParameteri(this.handle, sampler.handle, pname, param);
+    WebGL2RenderingContextBase_samplerParameteri(this.handle, sampler._parent, pname, param);
   }
   void samplerParameterf(WebGLSampler sampler, uint pname, float param) {
-    WebGL2RenderingContextBase_samplerParameterf(this.handle, sampler.handle, pname, param);
+    WebGL2RenderingContextBase_samplerParameterf(this.handle, sampler._parent, pname, param);
   }
   auto getSamplerParameter(WebGLSampler sampler, uint pname) {
-    return Any(JsHandle(WebGL2RenderingContextBase_getSamplerParameter(this.handle, sampler.handle, pname)));
+    return Any(JsHandle(WebGL2RenderingContextBase_getSamplerParameter(this.handle, sampler._parent, pname)));
   }
   auto fenceSync(uint condition, uint flags) {
     return WebGL2RenderingContextBase_fenceSync(this.handle, condition, flags);
   }
   auto isSync(Optional!(WebGLSync) sync) {
-    return WebGL2RenderingContextBase_isSync(this.handle, !sync.empty, sync.front.handle);
+    return WebGL2RenderingContextBase_isSync(this.handle, !sync.empty, sync.front._parent);
   }
   void deleteSync(Optional!(WebGLSync) sync) {
-    WebGL2RenderingContextBase_deleteSync(this.handle, !sync.empty, sync.front.handle);
+    WebGL2RenderingContextBase_deleteSync(this.handle, !sync.empty, sync.front._parent);
   }
   auto clientWaitSync(WebGLSync sync, uint flags, ulong timeout) {
-    return WebGL2RenderingContextBase_clientWaitSync(this.handle, sync.handle, flags, timeout);
+    return WebGL2RenderingContextBase_clientWaitSync(this.handle, sync._parent, flags, timeout);
   }
   void waitSync(WebGLSync sync, uint flags, long timeout) {
-    WebGL2RenderingContextBase_waitSync(this.handle, sync.handle, flags, timeout);
+    WebGL2RenderingContextBase_waitSync(this.handle, sync._parent, flags, timeout);
   }
   auto getSyncParameter(WebGLSync sync, uint pname) {
-    return Any(JsHandle(WebGL2RenderingContextBase_getSyncParameter(this.handle, sync.handle, pname)));
+    return Any(JsHandle(WebGL2RenderingContextBase_getSyncParameter(this.handle, sync._parent, pname)));
   }
   auto createTransformFeedback() {
     return WebGL2RenderingContextBase_createTransformFeedback(this.handle);
   }
   void deleteTransformFeedback(Optional!(WebGLTransformFeedback) tf) {
-    WebGL2RenderingContextBase_deleteTransformFeedback(this.handle, !tf.empty, tf.front.handle);
+    WebGL2RenderingContextBase_deleteTransformFeedback(this.handle, !tf.empty, tf.front._parent);
   }
   auto isTransformFeedback(Optional!(WebGLTransformFeedback) tf) {
-    return WebGL2RenderingContextBase_isTransformFeedback(this.handle, !tf.empty, tf.front.handle);
+    return WebGL2RenderingContextBase_isTransformFeedback(this.handle, !tf.empty, tf.front._parent);
   }
   void bindTransformFeedback(uint target, Optional!(WebGLTransformFeedback) tf) {
-    WebGL2RenderingContextBase_bindTransformFeedback(this.handle, target, !tf.empty, tf.front.handle);
+    WebGL2RenderingContextBase_bindTransformFeedback(this.handle, target, !tf.empty, tf.front._parent);
   }
   void beginTransformFeedback(uint primitiveMode) {
     WebGL2RenderingContextBase_beginTransformFeedback(this.handle, primitiveMode);
@@ -618,10 +618,10 @@ struct WebGL2RenderingContextBase {
     WebGL2RenderingContextBase_endTransformFeedback(this.handle);
   }
   void transformFeedbackVaryings(WebGLProgram program, Sequence!(string) varyings, uint bufferMode) {
-    WebGL2RenderingContextBase_transformFeedbackVaryings(this.handle, program.handle, varyings.handle, bufferMode);
+    WebGL2RenderingContextBase_transformFeedbackVaryings(this.handle, program._parent, varyings.handle, bufferMode);
   }
   auto getTransformFeedbackVarying(WebGLProgram program, uint index) {
-    return WebGL2RenderingContextBase_getTransformFeedbackVarying(this.handle, program.handle, index);
+    return WebGL2RenderingContextBase_getTransformFeedbackVarying(this.handle, program._parent, index);
   }
   void pauseTransformFeedback() {
     WebGL2RenderingContextBase_pauseTransformFeedback(this.handle);
@@ -630,78 +630,78 @@ struct WebGL2RenderingContextBase {
     WebGL2RenderingContextBase_resumeTransformFeedback(this.handle);
   }
   void bindBufferBase(uint target, uint index, Optional!(WebGLBuffer) buffer) {
-    WebGL2RenderingContextBase_bindBufferBase(this.handle, target, index, !buffer.empty, buffer.front.handle);
+    WebGL2RenderingContextBase_bindBufferBase(this.handle, target, index, !buffer.empty, buffer.front._parent);
   }
   void bindBufferRange(uint target, uint index, Optional!(WebGLBuffer) buffer, long offset, long size) {
-    WebGL2RenderingContextBase_bindBufferRange(this.handle, target, index, !buffer.empty, buffer.front.handle, offset, size);
+    WebGL2RenderingContextBase_bindBufferRange(this.handle, target, index, !buffer.empty, buffer.front._parent, offset, size);
   }
   auto getIndexedParameter(uint target, uint index) {
     return Any(JsHandle(WebGL2RenderingContextBase_getIndexedParameter(this.handle, target, index)));
   }
   auto getUniformIndices(WebGLProgram program, Sequence!(string) uniformNames) {
-    return WebGL2RenderingContextBase_getUniformIndices(this.handle, program.handle, uniformNames.handle);
+    return WebGL2RenderingContextBase_getUniformIndices(this.handle, program._parent, uniformNames.handle);
   }
   auto getActiveUniforms(WebGLProgram program, Sequence!(uint) uniformIndices, uint pname) {
-    return Any(JsHandle(WebGL2RenderingContextBase_getActiveUniforms(this.handle, program.handle, uniformIndices.handle, pname)));
+    return Any(JsHandle(WebGL2RenderingContextBase_getActiveUniforms(this.handle, program._parent, uniformIndices.handle, pname)));
   }
   auto getUniformBlockIndex(WebGLProgram program, string uniformBlockName) {
-    return WebGL2RenderingContextBase_getUniformBlockIndex(this.handle, program.handle, uniformBlockName);
+    return WebGL2RenderingContextBase_getUniformBlockIndex(this.handle, program._parent, uniformBlockName);
   }
   auto getActiveUniformBlockParameter(WebGLProgram program, uint uniformBlockIndex, uint pname) {
-    return Any(JsHandle(WebGL2RenderingContextBase_getActiveUniformBlockParameter(this.handle, program.handle, uniformBlockIndex, pname)));
+    return Any(JsHandle(WebGL2RenderingContextBase_getActiveUniformBlockParameter(this.handle, program._parent, uniformBlockIndex, pname)));
   }
   auto getActiveUniformBlockName(WebGLProgram program, uint uniformBlockIndex) {
-    return WebGL2RenderingContextBase_getActiveUniformBlockName(this.handle, program.handle, uniformBlockIndex);
+    return WebGL2RenderingContextBase_getActiveUniformBlockName(this.handle, program._parent, uniformBlockIndex);
   }
   void uniformBlockBinding(WebGLProgram program, uint uniformBlockIndex, uint uniformBlockBinding) {
-    WebGL2RenderingContextBase_uniformBlockBinding(this.handle, program.handle, uniformBlockIndex, uniformBlockBinding);
+    WebGL2RenderingContextBase_uniformBlockBinding(this.handle, program._parent, uniformBlockIndex, uniformBlockBinding);
   }
   auto createVertexArray() {
     return WebGL2RenderingContextBase_createVertexArray(this.handle);
   }
   void deleteVertexArray(Optional!(WebGLVertexArrayObject) vertexArray) {
-    WebGL2RenderingContextBase_deleteVertexArray(this.handle, !vertexArray.empty, vertexArray.front.handle);
+    WebGL2RenderingContextBase_deleteVertexArray(this.handle, !vertexArray.empty, vertexArray.front._parent);
   }
   auto isVertexArray(Optional!(WebGLVertexArrayObject) vertexArray) {
-    return WebGL2RenderingContextBase_isVertexArray(this.handle, !vertexArray.empty, vertexArray.front.handle);
+    return WebGL2RenderingContextBase_isVertexArray(this.handle, !vertexArray.empty, vertexArray.front._parent);
   }
   void bindVertexArray(Optional!(WebGLVertexArrayObject) array) {
-    WebGL2RenderingContextBase_bindVertexArray(this.handle, !array.empty, array.front.handle);
+    WebGL2RenderingContextBase_bindVertexArray(this.handle, !array.empty, array.front._parent);
   }
 }
 struct WebGLQuery {
-  WebGLObject _parent;
+  spasm.bindings.webgl.WebGLObject _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = WebGLObject(h);
+    _parent = .WebGLObject(h);
   }
 }
 struct WebGLSampler {
-  WebGLObject _parent;
+  spasm.bindings.webgl.WebGLObject _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = WebGLObject(h);
+    _parent = .WebGLObject(h);
   }
 }
 struct WebGLSync {
-  WebGLObject _parent;
+  spasm.bindings.webgl.WebGLObject _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = WebGLObject(h);
+    _parent = .WebGLObject(h);
   }
 }
 struct WebGLTransformFeedback {
-  WebGLObject _parent;
+  spasm.bindings.webgl.WebGLObject _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = WebGLObject(h);
+    _parent = .WebGLObject(h);
   }
 }
 struct WebGLVertexArrayObject {
-  WebGLObject _parent;
+  spasm.bindings.webgl.WebGLObject _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = WebGLObject(h);
+    _parent = .WebGLObject(h);
   }
 }
 

@@ -4,10 +4,10 @@ import spasm.types;
 import spasm.bindings.uievents;
 
 struct PointerEventInit {
-  MouseEventInit _parent;
+  spasm.bindings.uievents.MouseEventInit _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = MouseEventInit(h);
+    _parent = .MouseEventInit(h);
   }
   static auto create() {
     return PointerEventInit(JsHandle(spasm_add__object()));

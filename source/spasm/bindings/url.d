@@ -83,7 +83,7 @@ struct URL {
     URL_revokeObjectURL(this.handle, url);
   }
   auto createObjectURL(MediaSource mediaSource) {
-    return URL_createObjectURL__Handle(this.handle, mediaSource.handle);
+    return URL_createObjectURL__Handle(this.handle, mediaSource._parent);
   }
 }
 struct URLSearchParams {

@@ -2,7 +2,7 @@
 	"fileVersion": 1,
 	"versions": {
 		"bolts": "0.11.0",
-		"optional": "0.9.0",
+		"optional": "0.10.0",
 		"silly": "0.8.0",
 		"stdx-allocator": "2.77.3"
 	}

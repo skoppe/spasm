@@ -36,10 +36,10 @@ struct FormData {
 }
 alias FormDataEntryValue = SumType!(File, string);
 struct ProgressEvent {
-  Event _parent;
+  spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = Event(h);
+    _parent = .Event(h);
   }
   auto lengthComputable() {
     return ProgressEvent_lengthComputable_Get(this._parent);
@@ -52,10 +52,10 @@ struct ProgressEvent {
   }
 }
 struct ProgressEventInit {
-  EventInit _parent;
+  spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventInit(h);
+    _parent = .EventInit(h);
   }
   static auto create() {
     return ProgressEventInit(JsHandle(spasm_add__object()));
@@ -80,10 +80,10 @@ struct ProgressEventInit {
   }
 }
 struct XMLHttpRequest {
-  XMLHttpRequestEventTarget _parent;
+  spasm.bindings.xhr.XMLHttpRequestEventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = XMLHttpRequestEventTarget(h);
+    _parent = .XMLHttpRequestEventTarget(h);
   }
   void onreadystatechange(EventHandler onreadystatechange) {
     XMLHttpRequest_onreadystatechange_Set(this._parent, onreadystatechange);
@@ -164,10 +164,10 @@ struct XMLHttpRequest {
   }
 }
 struct XMLHttpRequestEventTarget {
-  EventTarget _parent;
+  spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventTarget(h);
+    _parent = .EventTarget(h);
   }
   void onloadstart(EventHandler onloadstart) {
     XMLHttpRequestEventTarget_onloadstart_Set(this._parent, onloadstart);
@@ -221,10 +221,10 @@ enum XMLHttpRequestResponseType {
   text
 }
 struct XMLHttpRequestUpload {
-  XMLHttpRequestEventTarget _parent;
+  spasm.bindings.xhr.XMLHttpRequestEventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = XMLHttpRequestEventTarget(h);
+    _parent = .XMLHttpRequestEventTarget(h);
   }
 }
 

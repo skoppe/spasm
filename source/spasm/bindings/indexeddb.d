@@ -52,20 +52,20 @@ enum IDBCursorDirection {
   prevunique
 }
 struct IDBCursorWithValue {
-  IDBCursor _parent;
+  spasm.bindings.indexeddb.IDBCursor _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = IDBCursor(h);
+    _parent = .IDBCursor(h);
   }
   auto value() {
     return Any(JsHandle(IDBCursorWithValue_value_Get(this._parent)));
   }
 }
 struct IDBDatabase {
-  EventTarget _parent;
+  spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventTarget(h);
+    _parent = .EventTarget(h);
   }
   auto name() {
     return IDBDatabase_name_Get(this._parent);
@@ -402,10 +402,10 @@ struct IDBObjectStoreParameters {
   }
 }
 struct IDBOpenDBRequest {
-  IDBRequest _parent;
+  spasm.bindings.indexeddb.IDBRequest _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = IDBRequest(h);
+    _parent = .IDBRequest(h);
   }
   void onblocked(EventHandler onblocked) {
     IDBOpenDBRequest_onblocked_Set(this._parent, onblocked);
@@ -421,10 +421,10 @@ struct IDBOpenDBRequest {
   }
 }
 struct IDBRequest {
-  EventTarget _parent;
+  spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventTarget(h);
+    _parent = .EventTarget(h);
   }
   auto result() {
     return Any(JsHandle(IDBRequest_result_Get(this._parent)));
@@ -459,10 +459,10 @@ enum IDBRequestReadyState {
   done
 }
 struct IDBTransaction {
-  EventTarget _parent;
+  spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventTarget(h);
+    _parent = .EventTarget(h);
   }
   auto objectStoreNames() {
     return DOMStringList(JsHandle(IDBTransaction_objectStoreNames_Get(this._parent)));
@@ -507,10 +507,10 @@ enum IDBTransactionMode {
   versionchange
 }
 struct IDBVersionChangeEvent {
-  Event _parent;
+  spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = Event(h);
+    _parent = .Event(h);
   }
   auto oldVersion() {
     return IDBVersionChangeEvent_oldVersion_Get(this._parent);
@@ -520,10 +520,10 @@ struct IDBVersionChangeEvent {
   }
 }
 struct IDBVersionChangeEventInit {
-  EventInit _parent;
+  spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventInit(h);
+    _parent = .EventInit(h);
   }
   static auto create() {
     return IDBVersionChangeEventInit(JsHandle(spasm_add__object()));

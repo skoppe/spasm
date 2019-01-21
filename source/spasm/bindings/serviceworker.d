@@ -61,7 +61,7 @@ struct CacheStorage {
   JsHandle handle;
   alias handle this;
   auto match(RequestInfo request, MultiCacheQueryOptions options) {
-    return Promise!(Any)(JsHandle(CacheStorage_match(this.handle, request, options.handle)));
+    return Promise!(Any)(JsHandle(CacheStorage_match(this.handle, request, options._parent)));
   }
   auto has(string cacheName) {
     return Promise!(bool)(JsHandle(CacheStorage_has(this.handle, cacheName)));
@@ -139,30 +139,30 @@ struct Clients {
   }
 }
 struct ExtendableEvent {
-  Event _parent;
+  spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = Event(h);
+    _parent = .Event(h);
   }
   void waitUntil(Promise!(Any) f) {
     ExtendableEvent_waitUntil(this._parent, f.handle);
   }
 }
 struct ExtendableEventInit {
-  EventInit _parent;
+  spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventInit(h);
+    _parent = .EventInit(h);
   }
   static auto create() {
     return ExtendableEventInit(JsHandle(spasm_add__object()));
   }
 }
 struct ExtendableMessageEvent {
-  ExtendableEvent _parent;
+  spasm.bindings.serviceworker.ExtendableEvent _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = ExtendableEvent(h);
+    _parent = .ExtendableEvent(h);
   }
   auto data() {
     return Any(JsHandle(ExtendableMessageEvent_data_Get(this._parent)));
@@ -181,10 +181,10 @@ struct ExtendableMessageEvent {
   }
 }
 struct ExtendableMessageEventInit {
-  ExtendableEventInit _parent;
+  spasm.bindings.serviceworker.ExtendableEventInit _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = ExtendableEventInit(h);
+    _parent = .ExtendableEventInit(h);
   }
   static auto create() {
     return ExtendableMessageEventInit(JsHandle(spasm_add__object()));
@@ -223,10 +223,10 @@ struct ExtendableMessageEventInit {
   }
 }
 struct FetchEvent {
-  ExtendableEvent _parent;
+  spasm.bindings.serviceworker.ExtendableEvent _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = ExtendableEvent(h);
+    _parent = .ExtendableEvent(h);
   }
   auto request() {
     return Request(JsHandle(FetchEvent_request_Get(this._parent)));
@@ -248,10 +248,10 @@ struct FetchEvent {
   }
 }
 struct FetchEventInit {
-  ExtendableEventInit _parent;
+  spasm.bindings.serviceworker.ExtendableEventInit _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = ExtendableEventInit(h);
+    _parent = .ExtendableEventInit(h);
   }
   static auto create() {
     return FetchEventInit(JsHandle(spasm_add__object()));
@@ -294,10 +294,10 @@ enum FrameType {
   none
 }
 struct MultiCacheQueryOptions {
-  CacheQueryOptions _parent;
+  spasm.bindings.serviceworker.CacheQueryOptions _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = CacheQueryOptions(h);
+    _parent = .CacheQueryOptions(h);
   }
   static auto create() {
     return MultiCacheQueryOptions(JsHandle(spasm_add__object()));
@@ -370,10 +370,10 @@ struct RegistrationOptions {
   }
 }
 struct ServiceWorker {
-  EventTarget _parent;
+  spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventTarget(h);
+    _parent = .EventTarget(h);
   }
   auto scriptURL() {
     return ServiceWorker_scriptURL_Get(this._parent);
@@ -394,10 +394,10 @@ struct ServiceWorker {
   }
 }
 struct ServiceWorkerContainer {
-  EventTarget _parent;
+  spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventTarget(h);
+    _parent = .EventTarget(h);
   }
   auto controller() {
     return ServiceWorkerContainer_controller_Get(this._parent);
@@ -437,10 +437,10 @@ struct ServiceWorkerContainer {
   }
 }
 struct ServiceWorkerGlobalScope {
-  WorkerGlobalScope _parent;
+  spasm.bindings.html.WorkerGlobalScope _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = WorkerGlobalScope(h);
+    _parent = .WorkerGlobalScope(h);
   }
   auto clients() {
     return Clients(JsHandle(ServiceWorkerGlobalScope_clients_Get(this._parent)));
@@ -495,10 +495,10 @@ struct ServiceWorkerGlobalScope {
   }
 }
 struct ServiceWorkerRegistration {
-  EventTarget _parent;
+  spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventTarget(h);
+    _parent = .EventTarget(h);
   }
   auto installing() {
     return ServiceWorkerRegistration_installing_Get(this._parent);
@@ -550,10 +550,10 @@ enum ServiceWorkerUpdateViaCache {
   none
 }
 struct WindowClient {
-  Client _parent;
+  spasm.bindings.serviceworker.Client _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = Client(h);
+    _parent = .Client(h);
   }
   auto visibilityState() {
     return WindowClient_visibilityState_Get(this._parent);

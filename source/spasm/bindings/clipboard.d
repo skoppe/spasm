@@ -6,10 +6,10 @@ import spasm.bindings.html;
 import spasm.bindings.permissions;
 
 struct Clipboard {
-  EventTarget _parent;
+  spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventTarget(h);
+    _parent = .EventTarget(h);
   }
   auto read() {
     return Promise!(DataTransfer)(JsHandle(Clipboard_read(this._parent)));
@@ -25,20 +25,20 @@ struct Clipboard {
   }
 }
 struct ClipboardEvent {
-  Event _parent;
+  spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = Event(h);
+    _parent = .Event(h);
   }
   auto clipboardData() {
     return ClipboardEvent_clipboardData_Get(this._parent);
   }
 }
 struct ClipboardEventInit {
-  EventInit _parent;
+  spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventInit(h);
+    _parent = .EventInit(h);
   }
   static auto create() {
     return ClipboardEventInit(JsHandle(spasm_add__object()));
@@ -51,10 +51,10 @@ struct ClipboardEventInit {
   }
 }
 struct ClipboardPermissionDescriptor {
-  PermissionDescriptor _parent;
+  spasm.bindings.permissions.PermissionDescriptor _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = PermissionDescriptor(h);
+    _parent = .PermissionDescriptor(h);
   }
   static auto create() {
     return ClipboardPermissionDescriptor(JsHandle(spasm_add__object()));

@@ -18,10 +18,10 @@ struct AbortController {
   }
 }
 struct AbortSignal {
-  EventTarget _parent;
+  spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventTarget(h);
+    _parent = .EventTarget(h);
   }
   auto aborted() {
     return AbortSignal_aborted_Get(this._parent);
@@ -53,10 +53,10 @@ struct AbstractRange {
   }
 }
 struct AddEventListenerOptions {
-  EventListenerOptions _parent;
+  spasm.bindings.dom.EventListenerOptions _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventListenerOptions(h);
+    _parent = .EventListenerOptions(h);
   }
   static auto create() {
     return AddEventListenerOptions(JsHandle(spasm_add__object()));
@@ -75,10 +75,10 @@ struct AddEventListenerOptions {
   }
 }
 struct Attr {
-  Node _parent;
+  spasm.bindings.dom.Node _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = Node(h);
+    _parent = .Node(h);
   }
   auto namespaceURI() {
     return Attr_namespaceURI_Get(this._parent);
@@ -106,17 +106,17 @@ struct Attr {
   }
 }
 struct CDATASection {
-  Text _parent;
+  spasm.bindings.dom.Text _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = Text(h);
+    _parent = .Text(h);
   }
 }
 struct CharacterData {
-  Node _parent;
+  spasm.bindings.dom.Node _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = Node(h);
+    _parent = .Node(h);
   }
   void data(string data) {
     CharacterData_data_Set(this._parent, data);
@@ -162,17 +162,17 @@ struct CharacterData {
   }
 }
 struct Comment {
-  CharacterData _parent;
+  spasm.bindings.dom.CharacterData _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = CharacterData(h);
+    _parent = .CharacterData(h);
   }
 }
 struct CustomEvent {
-  Event _parent;
+  spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = Event(h);
+    _parent = .Event(h);
   }
   auto detail() {
     return Any(JsHandle(CustomEvent_detail_Get(this._parent)));
@@ -184,10 +184,10 @@ struct CustomEvent {
   }
 }
 struct CustomEventInit {
-  EventInit _parent;
+  spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventInit(h);
+    _parent = .EventInit(h);
   }
   static auto create() {
     return CustomEventInit(JsHandle(spasm_add__object()));
@@ -208,7 +208,7 @@ struct DOMImplementation {
     return DocumentType(JsHandle(DOMImplementation_createDocumentType(this.handle, qualifiedName, publicId, systemId)));
   }
   auto createDocument(Optional!(string) namespace, string qualifiedName, Optional!(DocumentType) doctype /* = no!(DocumentType) */) {
-    return XMLDocument(JsHandle(DOMImplementation_createDocument(this.handle, !namespace.empty, namespace.front, qualifiedName, !doctype.empty, doctype.front.handle)));
+    return XMLDocument(JsHandle(DOMImplementation_createDocument(this.handle, !namespace.empty, namespace.front, qualifiedName, !doctype.empty, doctype.front._parent)));
   }
   auto createHTMLDocument(string title) {
     return Document(JsHandle(DOMImplementation_createHTMLDocument(this.handle, title)));
@@ -252,10 +252,10 @@ struct DOMTokenList {
   }
 }
 struct Document {
-  Node _parent;
+  spasm.bindings.dom.Node _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = Node(h);
+    _parent = .Node(h);
   }
   auto implementation() {
     return DOMImplementation(JsHandle(Document_implementation_Get(this._parent)));
@@ -321,10 +321,10 @@ struct Document {
     return ProcessingInstruction(JsHandle(Document_createProcessingInstruction(this._parent, target, data)));
   }
   auto importNode(Node node, bool deep /* = false */) {
-    return Node(JsHandle(Document_importNode(this._parent, node.handle, deep)));
+    return Node(JsHandle(Document_importNode(this._parent, node._parent, deep)));
   }
   auto adoptNode(Node node) {
-    return Node(JsHandle(Document_adoptNode(this._parent, node.handle)));
+    return Node(JsHandle(Document_adoptNode(this._parent, node._parent)));
   }
   auto createAttribute(string localName) {
     return Attr(JsHandle(Document_createAttribute(this._parent, localName)));
@@ -339,10 +339,10 @@ struct Document {
     return Range(JsHandle(Document_createRange(this._parent)));
   }
   auto createNodeIterator(Node root, uint whatToShow /* = 0xFFFFFFFF */, Optional!(NodeFilter) filter /* = no!(NodeFilter) */) {
-    return NodeIterator(JsHandle(Document_createNodeIterator(this._parent, root.handle, whatToShow, !filter.empty, filter.front.handle)));
+    return NodeIterator(JsHandle(Document_createNodeIterator(this._parent, root._parent, whatToShow, !filter.empty, filter.front.handle)));
   }
   auto createTreeWalker(Node root, uint whatToShow /* = 0xFFFFFFFF */, Optional!(NodeFilter) filter /* = no!(NodeFilter) */) {
-    return TreeWalker(JsHandle(Document_createTreeWalker(this._parent, root.handle, whatToShow, !filter.empty, filter.front.handle)));
+    return TreeWalker(JsHandle(Document_createTreeWalker(this._parent, root._parent, whatToShow, !filter.empty, filter.front.handle)));
   }
   auto location() {
     return Document_location_Get(this._parent);
@@ -667,10 +667,10 @@ struct Document {
   }
 }
 struct DocumentFragment {
-  Node _parent;
+  spasm.bindings.dom.Node _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = Node(h);
+    _parent = .Node(h);
   }
   auto getElementById(string elementId) {
     return NonElementParentNode_getElementById(this._parent, elementId);
@@ -701,10 +701,10 @@ struct DocumentFragment {
   }
 }
 struct DocumentType {
-  Node _parent;
+  spasm.bindings.dom.Node _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = Node(h);
+    _parent = .Node(h);
   }
   auto name() {
     return DocumentType_name_Get(this._parent);
@@ -729,10 +729,10 @@ struct DocumentType {
   }
 }
 struct Element {
-  Node _parent;
+  spasm.bindings.dom.Node _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = Node(h);
+    _parent = .Node(h);
   }
   auto namespaceURI() {
     return Element_namespaceURI_Get(this._parent);
@@ -810,13 +810,13 @@ struct Element {
     return Element_getAttributeNodeNS(this._parent, !namespace.empty, namespace.front, localName);
   }
   auto setAttributeNode(Attr attr) {
-    return Element_setAttributeNode(this._parent, attr.handle);
+    return Element_setAttributeNode(this._parent, attr._parent);
   }
   auto setAttributeNodeNS(Attr attr) {
-    return Element_setAttributeNodeNS(this._parent, attr.handle);
+    return Element_setAttributeNodeNS(this._parent, attr._parent);
   }
   auto removeAttributeNode(Attr attr) {
-    return Attr(JsHandle(Element_removeAttributeNode(this._parent, attr.handle)));
+    return Attr(JsHandle(Element_removeAttributeNode(this._parent, attr._parent)));
   }
   auto attachShadow(ShadowRootInit init) {
     return ShadowRoot(JsHandle(Element_attachShadow(this._parent, init.handle)));
@@ -843,7 +843,7 @@ struct Element {
     return HTMLCollection(JsHandle(Element_getElementsByClassName(this._parent, classNames)));
   }
   auto insertAdjacentElement(string where, Element element) {
-    return Element_insertAdjacentElement(this._parent, where, element.handle);
+    return Element_insertAdjacentElement(this._parent, where, element._parent);
   }
   void insertAdjacentText(string where, string data) {
     Element_insertAdjacentText(this._parent, where, data);
@@ -1088,7 +1088,7 @@ struct MutationObserver {
   JsHandle handle;
   alias handle this;
   void observe(Node target, MutationObserverInit options) {
-    MutationObserver_observe(this.handle, target.handle, options.handle);
+    MutationObserver_observe(this.handle, target._parent, options.handle);
   }
   void disconnect() {
     MutationObserver_disconnect(this.handle);
@@ -1193,10 +1193,10 @@ struct NamedNodeMap {
     return NamedNodeMap_getNamedItemNS(this.handle, !namespace.empty, namespace.front, localName);
   }
   auto setNamedItem(Attr attr) {
-    return NamedNodeMap_setNamedItem(this.handle, attr.handle);
+    return NamedNodeMap_setNamedItem(this.handle, attr._parent);
   }
   auto setNamedItemNS(Attr attr) {
-    return NamedNodeMap_setNamedItemNS(this.handle, attr.handle);
+    return NamedNodeMap_setNamedItemNS(this.handle, attr._parent);
   }
   auto removeNamedItem(string qualifiedName) {
     return Attr(JsHandle(NamedNodeMap_removeNamedItem(this.handle, qualifiedName)));
@@ -1206,10 +1206,10 @@ struct NamedNodeMap {
   }
 }
 struct Node {
-  EventTarget _parent;
+  spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventTarget(h);
+    _parent = .EventTarget(h);
   }
   enum ushort ELEMENT_NODE = 1;
   enum ushort ATTRIBUTE_NODE = 2;
@@ -1284,10 +1284,10 @@ struct Node {
     return Node(JsHandle(Node_cloneNode(this._parent, deep)));
   }
   auto isEqualNode(Optional!(Node) otherNode) {
-    return Node_isEqualNode(this._parent, !otherNode.empty, otherNode.front.handle);
+    return Node_isEqualNode(this._parent, !otherNode.empty, otherNode.front._parent);
   }
   auto isSameNode(Optional!(Node) otherNode) {
-    return Node_isSameNode(this._parent, !otherNode.empty, otherNode.front.handle);
+    return Node_isSameNode(this._parent, !otherNode.empty, otherNode.front._parent);
   }
   enum ushort DOCUMENT_POSITION_DISCONNECTED = 0x01;
   enum ushort DOCUMENT_POSITION_PRECEDING = 0x02;
@@ -1296,10 +1296,10 @@ struct Node {
   enum ushort DOCUMENT_POSITION_CONTAINED_BY = 0x10;
   enum ushort DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC = 0x20;
   auto compareDocumentPosition(Node other) {
-    return Node_compareDocumentPosition(this._parent, other.handle);
+    return Node_compareDocumentPosition(this._parent, other._parent);
   }
   auto contains(Optional!(Node) other) {
-    return Node_contains(this._parent, !other.empty, other.front.handle);
+    return Node_contains(this._parent, !other.empty, other.front._parent);
   }
   auto lookupPrefix(Optional!(string) namespace) {
     return Node_lookupPrefix(this._parent, !namespace.empty, namespace.front);
@@ -1311,16 +1311,16 @@ struct Node {
     return Node_isDefaultNamespace(this._parent, !namespace.empty, namespace.front);
   }
   auto insertBefore(Node node, Optional!(Node) child) {
-    return Node(JsHandle(Node_insertBefore(this._parent, node.handle, !child.empty, child.front.handle)));
+    return Node(JsHandle(Node_insertBefore(this._parent, node._parent, !child.empty, child.front._parent)));
   }
   auto appendChild(Node node) {
-    return Node(JsHandle(Node_appendChild(this._parent, node.handle)));
+    return Node(JsHandle(Node_appendChild(this._parent, node._parent)));
   }
   auto replaceChild(Node node, Node child) {
-    return Node(JsHandle(Node_replaceChild(this._parent, node.handle, child.handle)));
+    return Node(JsHandle(Node_replaceChild(this._parent, node._parent, child._parent)));
   }
   auto removeChild(Node child) {
-    return Node(JsHandle(Node_removeChild(this._parent, child.handle)));
+    return Node(JsHandle(Node_removeChild(this._parent, child._parent)));
   }
 }
 struct NodeFilter {
@@ -1343,7 +1343,7 @@ struct NodeFilter {
   enum uint SHOW_DOCUMENT_FRAGMENT = 0x400;
   enum uint SHOW_NOTATION = 0x800;
   auto acceptNode(Node node) {
-    return NodeFilter_acceptNode(this.handle, node.handle);
+    return NodeFilter_acceptNode(this.handle, node._parent);
   }
 }
 struct NodeIterator {
@@ -1385,57 +1385,57 @@ struct NodeList {
   }
 }
 struct ProcessingInstruction {
-  CharacterData _parent;
+  spasm.bindings.dom.CharacterData _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = CharacterData(h);
+    _parent = .CharacterData(h);
   }
   auto target() {
     return ProcessingInstruction_target_Get(this._parent);
   }
 }
 struct Range {
-  AbstractRange _parent;
+  spasm.bindings.dom.AbstractRange _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = AbstractRange(h);
+    _parent = .AbstractRange(h);
   }
   auto commonAncestorContainer() {
     return Node(JsHandle(Range_commonAncestorContainer_Get(this._parent)));
   }
   void setStart(Node node, uint offset) {
-    Range_setStart(this._parent, node.handle, offset);
+    Range_setStart(this._parent, node._parent, offset);
   }
   void setEnd(Node node, uint offset) {
-    Range_setEnd(this._parent, node.handle, offset);
+    Range_setEnd(this._parent, node._parent, offset);
   }
   void setStartBefore(Node node) {
-    Range_setStartBefore(this._parent, node.handle);
+    Range_setStartBefore(this._parent, node._parent);
   }
   void setStartAfter(Node node) {
-    Range_setStartAfter(this._parent, node.handle);
+    Range_setStartAfter(this._parent, node._parent);
   }
   void setEndBefore(Node node) {
-    Range_setEndBefore(this._parent, node.handle);
+    Range_setEndBefore(this._parent, node._parent);
   }
   void setEndAfter(Node node) {
-    Range_setEndAfter(this._parent, node.handle);
+    Range_setEndAfter(this._parent, node._parent);
   }
   void collapse(bool toStart /* = false */) {
     Range_collapse(this._parent, toStart);
   }
   void selectNode(Node node) {
-    Range_selectNode(this._parent, node.handle);
+    Range_selectNode(this._parent, node._parent);
   }
   void selectNodeContents(Node node) {
-    Range_selectNodeContents(this._parent, node.handle);
+    Range_selectNodeContents(this._parent, node._parent);
   }
   enum ushort START_TO_START = 0;
   enum ushort START_TO_END = 1;
   enum ushort END_TO_END = 2;
   enum ushort END_TO_START = 3;
   auto compareBoundaryPoints(ushort how, Range sourceRange) {
-    return Range_compareBoundaryPoints(this._parent, how, sourceRange.handle);
+    return Range_compareBoundaryPoints(this._parent, how, sourceRange._parent);
   }
   void deleteContents() {
     Range_deleteContents(this._parent);
@@ -1447,10 +1447,10 @@ struct Range {
     return DocumentFragment(JsHandle(Range_cloneContents(this._parent)));
   }
   void insertNode(Node node) {
-    Range_insertNode(this._parent, node.handle);
+    Range_insertNode(this._parent, node._parent);
   }
   void surroundContents(Node newParent) {
-    Range_surroundContents(this._parent, newParent.handle);
+    Range_surroundContents(this._parent, newParent._parent);
   }
   auto cloneRange() {
     return Range(JsHandle(Range_cloneRange(this._parent)));
@@ -1459,20 +1459,20 @@ struct Range {
     Range_detach(this._parent);
   }
   auto isPointInRange(Node node, uint offset) {
-    return Range_isPointInRange(this._parent, node.handle, offset);
+    return Range_isPointInRange(this._parent, node._parent, offset);
   }
   auto comparePoint(Node node, uint offset) {
-    return Range_comparePoint(this._parent, node.handle, offset);
+    return Range_comparePoint(this._parent, node._parent, offset);
   }
   auto intersectsNode(Node node) {
-    return Range_intersectsNode(this._parent, node.handle);
+    return Range_intersectsNode(this._parent, node._parent);
   }
 }
 struct ShadowRoot {
-  DocumentFragment _parent;
+  spasm.bindings.dom.DocumentFragment _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = DocumentFragment(h);
+    _parent = .DocumentFragment(h);
   }
   auto mode() {
     return ShadowRoot_mode_Get(this._parent);
@@ -1502,17 +1502,17 @@ enum ShadowRootMode {
   closed
 }
 struct StaticRange {
-  AbstractRange _parent;
+  spasm.bindings.dom.AbstractRange _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = AbstractRange(h);
+    _parent = .AbstractRange(h);
   }
 }
 struct Text {
-  CharacterData _parent;
+  spasm.bindings.dom.CharacterData _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = CharacterData(h);
+    _parent = .CharacterData(h);
   }
   auto splitText(uint offset) {
     return Text(JsHandle(Text_splitText(this._parent, offset)));
@@ -1565,10 +1565,10 @@ struct TreeWalker {
   }
 }
 struct XMLDocument {
-  Document _parent;
+  spasm.bindings.dom.Document _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = Document(h);
+    _parent = .Document(h);
   }
 }
 

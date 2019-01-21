@@ -8,7 +8,7 @@
 		"sdlang-d": "0.10.4",
 		"taggedalgebraic": "0.10.12",
 		"unit-threaded": "0.7.53",
-		"wasm-reader": "0.0.2",
+		"wasm-reader": "0.0.4",
 		"webidl-grammar": "0.0.6"
 	}
 }

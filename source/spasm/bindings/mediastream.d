@@ -53,10 +53,10 @@ struct ConstrainDOMStringParameters {
 }
 alias ConstrainDouble = SumType!(double, ConstrainDoubleRange);
 struct ConstrainDoubleRange {
-  DoubleRange _parent;
+  spasm.bindings.mediastream.DoubleRange _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = DoubleRange(h);
+    _parent = .DoubleRange(h);
   }
   static auto create() {
     return ConstrainDoubleRange(JsHandle(spasm_add__object()));
@@ -76,10 +76,10 @@ struct ConstrainDoubleRange {
 }
 alias ConstrainULong = SumType!(uint, ConstrainULongRange);
 struct ConstrainULongRange {
-  ULongRange _parent;
+  spasm.bindings.mediastream.ULongRange _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = ULongRange(h);
+    _parent = .ULongRange(h);
   }
   static auto create() {
     return ConstrainULongRange(JsHandle(spasm_add__object()));
@@ -110,7 +110,7 @@ struct ConstrainablePattern {
     return Settings(JsHandle(ConstrainablePattern_getSettings(this.handle)));
   }
   auto applyConstraints(Constraints constraints) {
-    return Promise!(void)(JsHandle(ConstrainablePattern_applyConstraints(this.handle, constraints.handle)));
+    return Promise!(void)(JsHandle(ConstrainablePattern_applyConstraints(this.handle, constraints._parent)));
   }
   void onoverconstrained(EventHandler onoverconstrained) {
     ConstrainablePattern_onoverconstrained_Set(this.handle, onoverconstrained);
@@ -127,10 +127,10 @@ struct ConstraintSet {
   }
 }
 struct Constraints {
-  ConstraintSet _parent;
+  spasm.bindings.mediastream.ConstraintSet _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = ConstraintSet(h);
+    _parent = .ConstraintSet(h);
   }
   static auto create() {
     return Constraints(JsHandle(spasm_add__object()));
@@ -162,10 +162,10 @@ struct DoubleRange {
   }
 }
 struct InputDeviceInfo {
-  MediaDeviceInfo _parent;
+  spasm.bindings.mediastream.MediaDeviceInfo _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = MediaDeviceInfo(h);
+    _parent = .MediaDeviceInfo(h);
   }
   auto getCapabilities() {
     return MediaTrackCapabilities(JsHandle(InputDeviceInfo_getCapabilities(this._parent)));
@@ -196,10 +196,10 @@ enum MediaDeviceKind {
   videoinput
 }
 struct MediaDevices {
-  EventTarget _parent;
+  spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventTarget(h);
+    _parent = .EventTarget(h);
   }
   void ondevicechange(EventHandler ondevicechange) {
     MediaDevices_ondevicechange_Set(this._parent, ondevicechange);
@@ -218,10 +218,10 @@ struct MediaDevices {
   }
 }
 struct MediaStream {
-  EventTarget _parent;
+  spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventTarget(h);
+    _parent = .EventTarget(h);
   }
   auto id() {
     return MediaStream_id_Get(this._parent);
@@ -239,10 +239,10 @@ struct MediaStream {
     return MediaStream_getTrackById(this._parent, trackId);
   }
   void addTrack(MediaStreamTrack track) {
-    MediaStream_addTrack(this._parent, track.handle);
+    MediaStream_addTrack(this._parent, track._parent);
   }
   void removeTrack(MediaStreamTrack track) {
-    MediaStream_removeTrack(this._parent, track.handle);
+    MediaStream_removeTrack(this._parent, track._parent);
   }
   auto clone() {
     return MediaStream(JsHandle(MediaStream_clone(this._parent)));
@@ -284,10 +284,10 @@ struct MediaStreamConstraints {
 }
 alias MediaStreamError = JsObject;
 struct MediaStreamTrack {
-  EventTarget _parent;
+  spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventTarget(h);
+    _parent = .EventTarget(h);
   }
   auto kind() {
     return MediaStreamTrack_kind_Get(this._parent);
@@ -344,7 +344,7 @@ struct MediaStreamTrack {
     return MediaTrackSettings(JsHandle(MediaStreamTrack_getSettings(this._parent)));
   }
   auto applyConstraints(MediaTrackConstraints constraints) {
-    return Promise!(void)(JsHandle(MediaStreamTrack_applyConstraints(this._parent, constraints.handle)));
+    return Promise!(void)(JsHandle(MediaStreamTrack_applyConstraints(this._parent, constraints._parent)));
   }
   void onoverconstrained(EventHandler onoverconstrained) {
     MediaStreamTrack_onoverconstrained_Set(this._parent, onoverconstrained);
@@ -354,20 +354,20 @@ struct MediaStreamTrack {
   }
 }
 struct MediaStreamTrackEvent {
-  Event _parent;
+  spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = Event(h);
+    _parent = .Event(h);
   }
   auto track() {
     return MediaStreamTrack(JsHandle(MediaStreamTrackEvent_track_Get(this._parent)));
   }
 }
 struct MediaStreamTrackEventInit {
-  EventInit _parent;
+  spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventInit(h);
+    _parent = .EventInit(h);
   }
   static auto create() {
     return MediaStreamTrackEventInit(JsHandle(spasm_add__object()));
@@ -590,10 +590,10 @@ struct MediaTrackConstraintSet {
   }
 }
 struct MediaTrackConstraints {
-  MediaTrackConstraintSet _parent;
+  spasm.bindings.mediastream.MediaTrackConstraintSet _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = MediaTrackConstraintSet(h);
+    _parent = .MediaTrackConstraintSet(h);
   }
   static auto create() {
     return MediaTrackConstraints(JsHandle(spasm_add__object()));
@@ -818,20 +818,20 @@ struct OverconstrainedError {
   alias handle this;
 }
 struct OverconstrainedErrorEvent {
-  Event _parent;
+  spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = Event(h);
+    _parent = .Event(h);
   }
   auto error() {
     return OverconstrainedErrorEvent_error_Get(this._parent);
   }
 }
 struct OverconstrainedErrorEventInit {
-  EventInit _parent;
+  spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventInit(h);
+    _parent = .EventInit(h);
   }
   static auto create() {
     return OverconstrainedErrorEventInit(JsHandle(spasm_add__object()));

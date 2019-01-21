@@ -129,8 +129,8 @@ unittest {
       struct AudioWorklet {
         JsHandle handle;
         alias handle this;
-        auto Event(string type, EventInit eventInitDict) {
-          return Event(JsHandle(AudioWorklet_Event(type, eventInitDict.handle)));
+        static auto Event(string type, EventInit eventInitDict) {
+          return .Event(JsHandle(AudioWorklet_Event(type, eventInitDict.handle)));
         }
       }
       struct Event {
@@ -159,8 +159,8 @@ unittest {
       struct Window {
         JsHandle handle;
         alias handle this;
-        auto Event(string type, EventInit eventInitDict) {
-          return Event(JsHandle(Window_Event(type, eventInitDict.handle)));
+        static auto Event(string type, EventInit eventInitDict) {
+          return .Event(JsHandle(Window_Event(type, eventInitDict.handle)));
         }
       }
     });
@@ -283,7 +283,7 @@ unittest {
         EventTarget _parent;
         alias _parent this;
         this(JsHandle h) {
-          _parent = EventTarget(h);
+          _parent = .EventTarget(h);
         }
         auto createPeriodicWave(Sequence!(float) real_, PeriodicWaveConstraints constraints) {
           return PeriodicWave(JsHandle(BaseAudioContext_createPeriodicWave(this._parent, real_.handle, constraints.handle)));
@@ -366,7 +366,7 @@ unittest {
         EventTarget _parent;
         alias _parent this;
         this(JsHandle h) {
-          _parent = EventTarget(h);
+          _parent = .EventTarget(h);
         }
         auto decodeAudioData(ArrayBuffer audioData, Optional!(DecodeSuccessCallback) successCallback, Optional!(DecodeErrorCallback) errorCallback) {
           return Promise!(AudioBuffer)(JsHandle(BaseAudioContext_decodeAudioData(this._parent, audioData.handle, !successCallback.empty, successCallback.front, !errorCallback.empty, errorCallback.front)));
@@ -594,7 +594,7 @@ unittest {
         AudioNodeOptions _parent;
         alias _parent this;
         this(JsHandle h) {
-          _parent = AudioNodeOptions(h);
+          _parent = .AudioNodeOptions(h);
         }
         static auto create() {
           return AudioWorkletNodeOptions(JsHandle(spasm_add__object()));
@@ -818,7 +818,7 @@ unittest {
         EventTarget _parent;
         alias _parent this;
         this(JsHandle h) {
-          _parent = EventTarget(h);
+          _parent = .EventTarget(h);
         }
         auto createPeriodicWave() {
           return BaseAudioContext_createPeriodicWave(this._parent);
@@ -868,7 +868,7 @@ unittest {
         Event _parent;
         alias _parent this;
         this(JsHandle h) {
-          _parent = Event(h);
+          _parent = .Event(h);
         }
         auto clipboardData() {
           return ClipboardEvent_clipboardData_Get(this._parent);
@@ -1481,7 +1481,7 @@ unittest {
         EventTarget _parent;
         alias _parent this;
         this(JsHandle h) {
-          _parent = EventTarget(h);
+          _parent = .EventTarget(h);
         }
         void onerror(OnErrorEventHandler onerror) {
           WorkerGlobalScope_onerror_Set(this._parent, !onerror.empty, onerror.front);
@@ -1519,7 +1519,7 @@ unittest {
         XMLHttpRequestEventTarget _parent;
         alias _parent this;
         this(JsHandle h) {
-          _parent = XMLHttpRequestEventTarget(h);
+          _parent = .XMLHttpRequestEventTarget(h);
         }
         void send(Optional!(SumType!(Document, BodyInit)) body_ /* = no!(SumType!(Document, BodyInit)) */) {
           XMLHttpRequest_send(this._parent, !body_.empty, body_.front);
@@ -1551,7 +1551,7 @@ unittest {
         Foo _parent;
         alias _parent this;
         this(JsHandle h) {
-          _parent = Foo(h);
+          _parent = .Foo(h);
         }
         auto writable() {
           return WritableStream(JsHandle(GenericTransformStream_writable_Get(this._parent)));
@@ -1565,5 +1565,55 @@ unittest {
     GenericTransformStream_writable_Get: (ctx) => {
       return spasm.addObject(spasm.objects[ctx].writable);
     },
+");
+}
+
+@("exposed.constructor.overloads")
+unittest {
+  auto gen = getGenerator(q{
+      [Constructor(unsigned long sw, unsigned long sh),
+       Constructor(Uint8ClampedArray data, unsigned long sw, optional unsigned long sh),
+       Exposed=(Window,Worker),
+       Serializable]
+      interface ImageData {
+      };
+      interface Window {
+        void stuff((ImageData or string) s);
+      };
+    });
+  gen.generateDBindings.shouldBeLike(q{
+      struct ImageData {
+        JsHandle handle;
+        alias handle this;
+      }
+      struct Window {
+        JsHandle handle;
+        alias handle this;
+        void stuff(SumType!(.ImageData, string) s) {
+          Window_stuff(this.handle, s);
+        }
+        static auto ImageData(uint sw, uint sh) {
+          return .ImageData(JsHandle(Window_ImageData__uint_uint(sw, sh)));
+        }
+        static auto ImageData(Uint8ClampedArray data, uint sw, uint sh) {
+          return .ImageData(JsHandle(Window_ImageData__Handle_uint_uint(data.handle, sw, sh)));
+        }
+      }
+    });
+  gen.generateDImports.shouldBeLike(q{
+      extern (C) void Window_stuff(Handle, SumType!(ImageData, string));
+      extern (C) Handle Window_ImageData__uint_uint(uint, uint);
+      extern (C) Handle Window_ImageData__Handle_uint_uint(Handle, uint, uint);
+    });
+  gen.generateJsExports.shouldBeLike("
+Window_stuff: (ctx, s) => {
+  spasm.objects[ctx].stuff(spasm_decode_union2_ImageData_string(s));
+},
+Window_ImageData__uint_uint: (sw, sh) => {
+  return spasm.addObject(new Window.ImageData(sw, sh));
+},
+Window_ImageData__Handle_uint_uint: (data, sw, sh) => {
+  return spasm.addObject(new Window.ImageData(spasm.objects[data], sw, sh));
+},
 ");
 }

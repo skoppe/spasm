@@ -17,10 +17,13 @@ import std.typecons;
 string[] getFunctionsToGenerateBindingsFor(string wasmFile) {
   import std.algorithm : map, filter, joiner;
   import std.array : array;
-  import std.range : drop;
+  import std.range : drop, take;
   auto input = File(wasmFile).byChunk(4096).joiner().drop(8);
-  return input.readSections.filter!(s => s.id == 2).map!(s => s.payload.read!import_section).map!(s => s.entries).joiner().filter!(e => e.kind == external_kind.Function).map!(e => e.field_str).array();
-
+  auto sections = input.readSections.filter!(s => s.id == 2);
+  auto importSections = sections.map!(s => s.payload.read!import_section);
+  auto entries = importSections.map!(s => s.entries).joiner();
+  auto functions = entries.filter!(e => e.kind == external_kind.Function);
+  return functions.map!(e => e.field_str).array();
 }
 auto ignoreExceptions(Block)(lazy Block block) {
   try {

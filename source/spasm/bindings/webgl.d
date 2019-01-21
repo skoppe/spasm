@@ -35,10 +35,10 @@ struct WebGLActiveInfo {
   }
 }
 struct WebGLBuffer {
-  WebGLObject _parent;
+  spasm.bindings.webgl.WebGLObject _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = WebGLObject(h);
+    _parent = .WebGLObject(h);
   }
 }
 struct WebGLContextAttributes {
@@ -97,20 +97,20 @@ struct WebGLContextAttributes {
   }
 }
 struct WebGLContextEvent {
-  Event _parent;
+  spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = Event(h);
+    _parent = .Event(h);
   }
   auto statusMessage() {
     return WebGLContextEvent_statusMessage_Get(this._parent);
   }
 }
 struct WebGLContextEventInit {
-  EventInit _parent;
+  spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventInit(h);
+    _parent = .EventInit(h);
   }
   static auto create() {
     return WebGLContextEventInit(JsHandle(spasm_add__object()));
@@ -123,10 +123,10 @@ struct WebGLContextEventInit {
   }
 }
 struct WebGLFramebuffer {
-  WebGLObject _parent;
+  spasm.bindings.webgl.WebGLObject _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = WebGLObject(h);
+    _parent = .WebGLObject(h);
   }
 }
 struct WebGLObject {
@@ -134,17 +134,17 @@ struct WebGLObject {
   alias handle this;
 }
 struct WebGLProgram {
-  WebGLObject _parent;
+  spasm.bindings.webgl.WebGLObject _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = WebGLObject(h);
+    _parent = .WebGLObject(h);
   }
 }
 struct WebGLRenderbuffer {
-  WebGLObject _parent;
+  spasm.bindings.webgl.WebGLObject _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = WebGLObject(h);
+    _parent = .WebGLObject(h);
   }
 }
 struct WebGLRenderingContext {
@@ -476,22 +476,22 @@ struct WebGLRenderingContextBase {
     WebGLRenderingContextBase_activeTexture(this.handle, texture);
   }
   void attachShader(Optional!(WebGLProgram) program, Optional!(WebGLShader) shader) {
-    WebGLRenderingContextBase_attachShader(this.handle, !program.empty, program.front.handle, !shader.empty, shader.front.handle);
+    WebGLRenderingContextBase_attachShader(this.handle, !program.empty, program.front._parent, !shader.empty, shader.front._parent);
   }
   void bindAttribLocation(Optional!(WebGLProgram) program, uint index, string name) {
-    WebGLRenderingContextBase_bindAttribLocation(this.handle, !program.empty, program.front.handle, index, name);
+    WebGLRenderingContextBase_bindAttribLocation(this.handle, !program.empty, program.front._parent, index, name);
   }
   void bindBuffer(uint target, Optional!(WebGLBuffer) buffer) {
-    WebGLRenderingContextBase_bindBuffer(this.handle, target, !buffer.empty, buffer.front.handle);
+    WebGLRenderingContextBase_bindBuffer(this.handle, target, !buffer.empty, buffer.front._parent);
   }
   void bindFramebuffer(uint target, Optional!(WebGLFramebuffer) framebuffer) {
-    WebGLRenderingContextBase_bindFramebuffer(this.handle, target, !framebuffer.empty, framebuffer.front.handle);
+    WebGLRenderingContextBase_bindFramebuffer(this.handle, target, !framebuffer.empty, framebuffer.front._parent);
   }
   void bindRenderbuffer(uint target, Optional!(WebGLRenderbuffer) renderbuffer) {
-    WebGLRenderingContextBase_bindRenderbuffer(this.handle, target, !renderbuffer.empty, renderbuffer.front.handle);
+    WebGLRenderingContextBase_bindRenderbuffer(this.handle, target, !renderbuffer.empty, renderbuffer.front._parent);
   }
   void bindTexture(uint target, Optional!(WebGLTexture) texture) {
-    WebGLRenderingContextBase_bindTexture(this.handle, target, !texture.empty, texture.front.handle);
+    WebGLRenderingContextBase_bindTexture(this.handle, target, !texture.empty, texture.front._parent);
   }
   void blendColor(float red, float green, float blue, float alpha) {
     WebGLRenderingContextBase_blendColor(this.handle, red, green, blue, alpha);
@@ -536,7 +536,7 @@ struct WebGLRenderingContextBase {
     WebGLRenderingContextBase_colorMask(this.handle, red, green, blue, alpha);
   }
   void compileShader(Optional!(WebGLShader) shader) {
-    WebGLRenderingContextBase_compileShader(this.handle, !shader.empty, shader.front.handle);
+    WebGLRenderingContextBase_compileShader(this.handle, !shader.empty, shader.front._parent);
   }
   void compressedTexImage2D(uint target, int level, uint internalformat, int width, int height, int border, ArrayBufferView data) {
     WebGLRenderingContextBase_compressedTexImage2D(this.handle, target, level, internalformat, width, height, border, data);
@@ -572,22 +572,22 @@ struct WebGLRenderingContextBase {
     WebGLRenderingContextBase_cullFace(this.handle, mode);
   }
   void deleteBuffer(Optional!(WebGLBuffer) buffer) {
-    WebGLRenderingContextBase_deleteBuffer(this.handle, !buffer.empty, buffer.front.handle);
+    WebGLRenderingContextBase_deleteBuffer(this.handle, !buffer.empty, buffer.front._parent);
   }
   void deleteFramebuffer(Optional!(WebGLFramebuffer) framebuffer) {
-    WebGLRenderingContextBase_deleteFramebuffer(this.handle, !framebuffer.empty, framebuffer.front.handle);
+    WebGLRenderingContextBase_deleteFramebuffer(this.handle, !framebuffer.empty, framebuffer.front._parent);
   }
   void deleteProgram(Optional!(WebGLProgram) program) {
-    WebGLRenderingContextBase_deleteProgram(this.handle, !program.empty, program.front.handle);
+    WebGLRenderingContextBase_deleteProgram(this.handle, !program.empty, program.front._parent);
   }
   void deleteRenderbuffer(Optional!(WebGLRenderbuffer) renderbuffer) {
-    WebGLRenderingContextBase_deleteRenderbuffer(this.handle, !renderbuffer.empty, renderbuffer.front.handle);
+    WebGLRenderingContextBase_deleteRenderbuffer(this.handle, !renderbuffer.empty, renderbuffer.front._parent);
   }
   void deleteShader(Optional!(WebGLShader) shader) {
-    WebGLRenderingContextBase_deleteShader(this.handle, !shader.empty, shader.front.handle);
+    WebGLRenderingContextBase_deleteShader(this.handle, !shader.empty, shader.front._parent);
   }
   void deleteTexture(Optional!(WebGLTexture) texture) {
-    WebGLRenderingContextBase_deleteTexture(this.handle, !texture.empty, texture.front.handle);
+    WebGLRenderingContextBase_deleteTexture(this.handle, !texture.empty, texture.front._parent);
   }
   void depthFunc(uint func) {
     WebGLRenderingContextBase_depthFunc(this.handle, func);
@@ -599,7 +599,7 @@ struct WebGLRenderingContextBase {
     WebGLRenderingContextBase_depthRange(this.handle, zNear, zFar);
   }
   void detachShader(Optional!(WebGLProgram) program, Optional!(WebGLShader) shader) {
-    WebGLRenderingContextBase_detachShader(this.handle, !program.empty, program.front.handle, !shader.empty, shader.front.handle);
+    WebGLRenderingContextBase_detachShader(this.handle, !program.empty, program.front._parent, !shader.empty, shader.front._parent);
   }
   void disable(uint cap) {
     WebGLRenderingContextBase_disable(this.handle, cap);
@@ -626,10 +626,10 @@ struct WebGLRenderingContextBase {
     WebGLRenderingContextBase_flush(this.handle);
   }
   void framebufferRenderbuffer(uint target, uint attachment, uint renderbuffertarget, Optional!(WebGLRenderbuffer) renderbuffer) {
-    WebGLRenderingContextBase_framebufferRenderbuffer(this.handle, target, attachment, renderbuffertarget, !renderbuffer.empty, renderbuffer.front.handle);
+    WebGLRenderingContextBase_framebufferRenderbuffer(this.handle, target, attachment, renderbuffertarget, !renderbuffer.empty, renderbuffer.front._parent);
   }
   void framebufferTexture2D(uint target, uint attachment, uint textarget, Optional!(WebGLTexture) texture, int level) {
-    WebGLRenderingContextBase_framebufferTexture2D(this.handle, target, attachment, textarget, !texture.empty, texture.front.handle, level);
+    WebGLRenderingContextBase_framebufferTexture2D(this.handle, target, attachment, textarget, !texture.empty, texture.front._parent, level);
   }
   void frontFace(uint mode) {
     WebGLRenderingContextBase_frontFace(this.handle, mode);
@@ -638,16 +638,16 @@ struct WebGLRenderingContextBase {
     WebGLRenderingContextBase_generateMipmap(this.handle, target);
   }
   auto getActiveAttrib(Optional!(WebGLProgram) program, uint index) {
-    return WebGLRenderingContextBase_getActiveAttrib(this.handle, !program.empty, program.front.handle, index);
+    return WebGLRenderingContextBase_getActiveAttrib(this.handle, !program.empty, program.front._parent, index);
   }
   auto getActiveUniform(Optional!(WebGLProgram) program, uint index) {
-    return WebGLRenderingContextBase_getActiveUniform(this.handle, !program.empty, program.front.handle, index);
+    return WebGLRenderingContextBase_getActiveUniform(this.handle, !program.empty, program.front._parent, index);
   }
   auto getAttachedShaders(Optional!(WebGLProgram) program) {
-    return WebGLRenderingContextBase_getAttachedShaders(this.handle, !program.empty, program.front.handle);
+    return WebGLRenderingContextBase_getAttachedShaders(this.handle, !program.empty, program.front._parent);
   }
   auto getAttribLocation(Optional!(WebGLProgram) program, string name) {
-    return WebGLRenderingContextBase_getAttribLocation(this.handle, !program.empty, program.front.handle, name);
+    return WebGLRenderingContextBase_getAttribLocation(this.handle, !program.empty, program.front._parent, name);
   }
   auto getBufferParameter(uint target, uint pname) {
     return Any(JsHandle(WebGLRenderingContextBase_getBufferParameter(this.handle, target, pname)));
@@ -662,34 +662,34 @@ struct WebGLRenderingContextBase {
     return Any(JsHandle(WebGLRenderingContextBase_getFramebufferAttachmentParameter(this.handle, target, attachment, pname)));
   }
   auto getProgramParameter(Optional!(WebGLProgram) program, uint pname) {
-    return Any(JsHandle(WebGLRenderingContextBase_getProgramParameter(this.handle, !program.empty, program.front.handle, pname)));
+    return Any(JsHandle(WebGLRenderingContextBase_getProgramParameter(this.handle, !program.empty, program.front._parent, pname)));
   }
   auto getProgramInfoLog(Optional!(WebGLProgram) program) {
-    return WebGLRenderingContextBase_getProgramInfoLog(this.handle, !program.empty, program.front.handle);
+    return WebGLRenderingContextBase_getProgramInfoLog(this.handle, !program.empty, program.front._parent);
   }
   auto getRenderbufferParameter(uint target, uint pname) {
     return Any(JsHandle(WebGLRenderingContextBase_getRenderbufferParameter(this.handle, target, pname)));
   }
   auto getShaderParameter(Optional!(WebGLShader) shader, uint pname) {
-    return Any(JsHandle(WebGLRenderingContextBase_getShaderParameter(this.handle, !shader.empty, shader.front.handle, pname)));
+    return Any(JsHandle(WebGLRenderingContextBase_getShaderParameter(this.handle, !shader.empty, shader.front._parent, pname)));
   }
   auto getShaderPrecisionFormat(uint shadertype, uint precisiontype) {
     return WebGLRenderingContextBase_getShaderPrecisionFormat(this.handle, shadertype, precisiontype);
   }
   auto getShaderInfoLog(Optional!(WebGLShader) shader) {
-    return WebGLRenderingContextBase_getShaderInfoLog(this.handle, !shader.empty, shader.front.handle);
+    return WebGLRenderingContextBase_getShaderInfoLog(this.handle, !shader.empty, shader.front._parent);
   }
   auto getShaderSource(Optional!(WebGLShader) shader) {
-    return WebGLRenderingContextBase_getShaderSource(this.handle, !shader.empty, shader.front.handle);
+    return WebGLRenderingContextBase_getShaderSource(this.handle, !shader.empty, shader.front._parent);
   }
   auto getTexParameter(uint target, uint pname) {
     return Any(JsHandle(WebGLRenderingContextBase_getTexParameter(this.handle, target, pname)));
   }
   auto getUniform(Optional!(WebGLProgram) program, Optional!(WebGLUniformLocation) location) {
-    return Any(JsHandle(WebGLRenderingContextBase_getUniform(this.handle, !program.empty, program.front.handle, !location.empty, location.front.handle)));
+    return Any(JsHandle(WebGLRenderingContextBase_getUniform(this.handle, !program.empty, program.front._parent, !location.empty, location.front.handle)));
   }
   auto getUniformLocation(Optional!(WebGLProgram) program, string name) {
-    return WebGLRenderingContextBase_getUniformLocation(this.handle, !program.empty, program.front.handle, name);
+    return WebGLRenderingContextBase_getUniformLocation(this.handle, !program.empty, program.front._parent, name);
   }
   auto getVertexAttrib(uint index, uint pname) {
     return Any(JsHandle(WebGLRenderingContextBase_getVertexAttrib(this.handle, index, pname)));
@@ -701,31 +701,31 @@ struct WebGLRenderingContextBase {
     WebGLRenderingContextBase_hint(this.handle, target, mode);
   }
   auto isBuffer(Optional!(WebGLBuffer) buffer) {
-    return WebGLRenderingContextBase_isBuffer(this.handle, !buffer.empty, buffer.front.handle);
+    return WebGLRenderingContextBase_isBuffer(this.handle, !buffer.empty, buffer.front._parent);
   }
   auto isEnabled(uint cap) {
     return WebGLRenderingContextBase_isEnabled(this.handle, cap);
   }
   auto isFramebuffer(Optional!(WebGLFramebuffer) framebuffer) {
-    return WebGLRenderingContextBase_isFramebuffer(this.handle, !framebuffer.empty, framebuffer.front.handle);
+    return WebGLRenderingContextBase_isFramebuffer(this.handle, !framebuffer.empty, framebuffer.front._parent);
   }
   auto isProgram(Optional!(WebGLProgram) program) {
-    return WebGLRenderingContextBase_isProgram(this.handle, !program.empty, program.front.handle);
+    return WebGLRenderingContextBase_isProgram(this.handle, !program.empty, program.front._parent);
   }
   auto isRenderbuffer(Optional!(WebGLRenderbuffer) renderbuffer) {
-    return WebGLRenderingContextBase_isRenderbuffer(this.handle, !renderbuffer.empty, renderbuffer.front.handle);
+    return WebGLRenderingContextBase_isRenderbuffer(this.handle, !renderbuffer.empty, renderbuffer.front._parent);
   }
   auto isShader(Optional!(WebGLShader) shader) {
-    return WebGLRenderingContextBase_isShader(this.handle, !shader.empty, shader.front.handle);
+    return WebGLRenderingContextBase_isShader(this.handle, !shader.empty, shader.front._parent);
   }
   auto isTexture(Optional!(WebGLTexture) texture) {
-    return WebGLRenderingContextBase_isTexture(this.handle, !texture.empty, texture.front.handle);
+    return WebGLRenderingContextBase_isTexture(this.handle, !texture.empty, texture.front._parent);
   }
   void lineWidth(float width) {
     WebGLRenderingContextBase_lineWidth(this.handle, width);
   }
   void linkProgram(Optional!(WebGLProgram) program) {
-    WebGLRenderingContextBase_linkProgram(this.handle, !program.empty, program.front.handle);
+    WebGLRenderingContextBase_linkProgram(this.handle, !program.empty, program.front._parent);
   }
   void pixelStorei(uint pname, int param) {
     WebGLRenderingContextBase_pixelStorei(this.handle, pname, param);
@@ -746,7 +746,7 @@ struct WebGLRenderingContextBase {
     WebGLRenderingContextBase_scissor(this.handle, x, y, width, height);
   }
   void shaderSource(Optional!(WebGLShader) shader, string source) {
-    WebGLRenderingContextBase_shaderSource(this.handle, !shader.empty, shader.front.handle, source);
+    WebGLRenderingContextBase_shaderSource(this.handle, !shader.empty, shader.front._parent, source);
   }
   void stencilFunc(uint func, int ref_, uint mask) {
     WebGLRenderingContextBase_stencilFunc(this.handle, func, ref_, mask);
@@ -875,10 +875,10 @@ struct WebGLRenderingContextBase {
     WebGLRenderingContextBase_uniformMatrix4fv__optional_Handle_bool_sequence(this.handle, !location.empty, location.front.handle, transpose, value.handle);
   }
   void useProgram(Optional!(WebGLProgram) program) {
-    WebGLRenderingContextBase_useProgram(this.handle, !program.empty, program.front.handle);
+    WebGLRenderingContextBase_useProgram(this.handle, !program.empty, program.front._parent);
   }
   void validateProgram(Optional!(WebGLProgram) program) {
-    WebGLRenderingContextBase_validateProgram(this.handle, !program.empty, program.front.handle);
+    WebGLRenderingContextBase_validateProgram(this.handle, !program.empty, program.front._parent);
   }
   void vertexAttrib1f(uint indx, float x) {
     WebGLRenderingContextBase_vertexAttrib1f(this.handle, indx, x);
@@ -924,10 +924,10 @@ struct WebGLRenderingContextBase {
   }
 }
 struct WebGLShader {
-  WebGLObject _parent;
+  spasm.bindings.webgl.WebGLObject _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = WebGLObject(h);
+    _parent = .WebGLObject(h);
   }
 }
 struct WebGLShaderPrecisionFormat {
@@ -944,10 +944,10 @@ struct WebGLShaderPrecisionFormat {
   }
 }
 struct WebGLTexture {
-  WebGLObject _parent;
+  spasm.bindings.webgl.WebGLObject _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = WebGLObject(h);
+    _parent = .WebGLObject(h);
   }
 }
 struct WebGLUniformLocation {

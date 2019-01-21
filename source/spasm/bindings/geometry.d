@@ -2,13 +2,13 @@ module spasm.bindings.geometry;
 
 import spasm.types;
 struct DOMMatrix {
-  DOMMatrixReadOnly _parent;
+  spasm.bindings.geometry.DOMMatrixReadOnly _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = DOMMatrixReadOnly(h);
+    _parent = .DOMMatrixReadOnly(h);
   }
   auto fromMatrix(DOMMatrixInit other) {
-    return DOMMatrix(JsHandle(DOMMatrix_fromMatrix(this._parent, other.handle)));
+    return DOMMatrix(JsHandle(DOMMatrix_fromMatrix(this._parent, other._parent)));
   }
   auto fromFloat32Array(Float32Array array32) {
     return DOMMatrix(JsHandle(DOMMatrix_fromFloat32Array(this._parent, array32.handle)));
@@ -149,10 +149,10 @@ struct DOMMatrix {
     return DOMMatrix_m44_Get(this._parent);
   }
   auto multiplySelf(DOMMatrixInit other) {
-    return DOMMatrix(JsHandle(DOMMatrix_multiplySelf(this._parent, other.handle)));
+    return DOMMatrix(JsHandle(DOMMatrix_multiplySelf(this._parent, other._parent)));
   }
   auto preMultiplySelf(DOMMatrixInit other) {
-    return DOMMatrix(JsHandle(DOMMatrix_preMultiplySelf(this._parent, other.handle)));
+    return DOMMatrix(JsHandle(DOMMatrix_preMultiplySelf(this._parent, other._parent)));
   }
   auto translateSelf(double tx /* = 0 */, double ty /* = 0 */, double tz /* = 0 */) {
     return DOMMatrix(JsHandle(DOMMatrix_translateSelf(this._parent, tx, ty, tz)));
@@ -265,10 +265,10 @@ struct DOMMatrix2DInit {
   }
 }
 struct DOMMatrixInit {
-  DOMMatrix2DInit _parent;
+  spasm.bindings.geometry.DOMMatrix2DInit _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = DOMMatrix2DInit(h);
+    _parent = .DOMMatrix2DInit(h);
   }
   static auto create() {
     return DOMMatrixInit(JsHandle(spasm_add__object()));
@@ -344,7 +344,7 @@ struct DOMMatrixReadOnly {
   JsHandle handle;
   alias handle this;
   auto fromMatrix(DOMMatrixInit other) {
-    return DOMMatrixReadOnly(JsHandle(DOMMatrixReadOnly_fromMatrix(this.handle, other.handle)));
+    return DOMMatrixReadOnly(JsHandle(DOMMatrixReadOnly_fromMatrix(this.handle, other._parent)));
   }
   auto fromFloat32Array(Float32Array array32) {
     return DOMMatrixReadOnly(JsHandle(DOMMatrixReadOnly_fromFloat32Array(this.handle, array32.handle)));
@@ -452,7 +452,7 @@ struct DOMMatrixReadOnly {
     return DOMMatrix(JsHandle(DOMMatrixReadOnly_skewY(this.handle, sy)));
   }
   auto multiply(DOMMatrixInit other) {
-    return DOMMatrix(JsHandle(DOMMatrixReadOnly_multiply(this.handle, other.handle)));
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_multiply(this.handle, other._parent)));
   }
   auto flipX() {
     return DOMMatrix(JsHandle(DOMMatrixReadOnly_flipX(this.handle)));
@@ -477,10 +477,10 @@ struct DOMMatrixReadOnly {
   }
 }
 struct DOMPoint {
-  DOMPointReadOnly _parent;
+  spasm.bindings.geometry.DOMPointReadOnly _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = DOMPointReadOnly(h);
+    _parent = .DOMPointReadOnly(h);
   }
   auto fromPoint(DOMPointInit other) {
     return DOMPoint(JsHandle(DOMPoint_fromPoint(this._parent, other.handle)));
@@ -560,7 +560,7 @@ struct DOMPointReadOnly {
     return DOMPointReadOnly_w_Get(this.handle);
   }
   auto matrixTransform(DOMMatrixInit matrix) {
-    return DOMPoint(JsHandle(DOMPointReadOnly_matrixTransform(this.handle, matrix.handle)));
+    return DOMPoint(JsHandle(DOMPointReadOnly_matrixTransform(this.handle, matrix._parent)));
   }
   auto toJSON() {
     return JsObject(JsHandle(DOMPointReadOnly_toJSON(this.handle)));
@@ -626,10 +626,10 @@ struct DOMQuadInit {
   }
 }
 struct DOMRect {
-  DOMRectReadOnly _parent;
+  spasm.bindings.geometry.DOMRectReadOnly _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = DOMRectReadOnly(h);
+    _parent = .DOMRectReadOnly(h);
   }
   auto fromRect(DOMRectInit other) {
     return DOMRect(JsHandle(DOMRect_fromRect(this._parent, other.handle)));

@@ -43,10 +43,10 @@ enum EndingType {
   native
 }
 struct File {
-  Blob _parent;
+  spasm.bindings.fileapi.Blob _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = Blob(h);
+    _parent = .Blob(h);
   }
   auto name() {
     return File_name_Get(this._parent);
@@ -66,10 +66,10 @@ struct FileList {
   }
 }
 struct FilePropertyBag {
-  BlobPropertyBag _parent;
+  spasm.bindings.fileapi.BlobPropertyBag _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = BlobPropertyBag(h);
+    _parent = .BlobPropertyBag(h);
   }
   static auto create() {
     return FilePropertyBag(JsHandle(spasm_add__object()));
@@ -82,10 +82,10 @@ struct FilePropertyBag {
   }
 }
 struct FileReader {
-  EventTarget _parent;
+  spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
-    _parent = EventTarget(h);
+    _parent = .EventTarget(h);
   }
   void readAsArrayBuffer(Blob blob) {
     FileReader_readAsArrayBuffer(this._parent, blob.handle);
