@@ -1497,7 +1497,7 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
 WorkerGlobalScope_onerror_Set: (ctx, onerrorDefined, onerrorCtx, onerrorPtr) => {
-  spasm.objects[ctx].onerror = onerrorDefined ? (event, source, lineno, colno, error)=>{spasm_encode_union2_Event_string(0, event);spasm_encode_string(12, source);encode_handle(20, error);return spasm_decode_handle(spasm_indirect_function_get(onerrorPtr)(onerrorCtx, 0, 12, lineno, colno, 20))} : undefined;
+  spasm.objects[ctx].onerror = onerrorDefined ? (event, source, lineno, colno, error)=>{spasm_encode_union2_Event_string(0, event);spasm_encode_string(12, source);encode_handle(20, error);return spasm_decode_Handle(spasm_indirect_function_get(onerrorPtr)(onerrorCtx, 0, 12, lineno, colno, 20))} : undefined;
 },
 WorkerGlobalScope_onerror_Get: (rawResult, ctx) => {
   spasm_encode_optional_Handle(rawResult, spasm.objects[ctx].onerror);
@@ -1671,19 +1671,19 @@ unittest {
       extern (C) EventHandler GlobalEventHandlers_ontouchstart_Get(Handle);    });
   gen.generateJsExports.shouldBeLike("
 GlobalEventHandlers_onabort_Set: (ctx, onabortCtx, onabortPtr) => {
-  spasm.objects[ctx].onabort = (event)=>{encode_handle(0, event);return spasm_decode_handle(spasm_indirect_function_get(onabortPtr)(onabortCtx, 0))};
+  spasm.objects[ctx].onabort = (event)=>{encode_handle(0, event);return spasm_decode_Handle(spasm_indirect_function_get(onabortPtr)(onabortCtx, 0))};
 },
 GlobalEventHandlers_onabort_Get: (ctx) => {
   return spasm.objects[ctx].onabort;
 },
 GlobalEventHandlers_ongotpointercapture_Set: (ctx, ongotpointercaptureCtx, ongotpointercapturePtr) => {
-  spasm.objects[ctx].ongotpointercapture = (event)=>{encode_handle(0, event);return spasm_decode_handle(spasm_indirect_function_get(ongotpointercapturePtr)(ongotpointercaptureCtx, 0))};
+  spasm.objects[ctx].ongotpointercapture = (event)=>{encode_handle(0, event);return spasm_decode_Handle(spasm_indirect_function_get(ongotpointercapturePtr)(ongotpointercaptureCtx, 0))};
 },
 GlobalEventHandlers_ongotpointercapture_Get: (ctx) => {
   return spasm.objects[ctx].ongotpointercapture;
 },
 GlobalEventHandlers_ontouchstart_Set: (ctx, ontouchstartCtx, ontouchstartPtr) => {
-  spasm.objects[ctx].ontouchstart = (event)=>{encode_handle(0, event);return spasm_decode_handle(spasm_indirect_function_get(ontouchstartPtr)(ontouchstartCtx, 0))};
+  spasm.objects[ctx].ontouchstart = (event)=>{encode_handle(0, event);return spasm_decode_Handle(spasm_indirect_function_get(ontouchstartPtr)(ontouchstartCtx, 0))};
 },
 GlobalEventHandlers_ontouchstart_Get: (ctx) => {
   return spasm.objects[ctx].ontouchstart;
