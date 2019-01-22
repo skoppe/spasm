@@ -543,7 +543,12 @@ void dumpJsArgument(Appender)(ref Semantics semantics, Argument arg, ref Appende
     a.put(arg.name.friendlyJsName);
     a.put("Defined ? ");
   }
-  if (semantics.isUnion(arg.type) || semantics.isEnum(arg.type)) {
+  if (semantics.isTypedef(arg.type) && semantics.isCallback(arg.type)) {
+    auto name = getTypeName(arg.type);
+    auto aliased = semantics.getAliasedType(name);
+    auto argument = Argument(arg.name, aliased.stripNullable);
+    semantics.dumpJsArgument(argument, a);
+  } else if (semantics.isUnion(arg.type) || semantics.isEnum(arg.type)) {
     a.put("spasm_decode_");
     arg.type.mangleTypeJsImpl(a, semantics, MangleTypeJsContext(true));
     a.put("(");
@@ -551,43 +556,62 @@ void dumpJsArgument(Appender)(ref Semantics semantics, Argument arg, ref Appende
     a.put(")");
   } else if (semantics.isStringType(arg.type)) {
     a.put(["spasm_decode_string(",arg.name.friendlyJsName,"Len, ",arg.name.friendlyJsName,"Ptr)"]);
-  } else if (semantics.isCallback(arg.type.matches[0])){
-    string callbackName = semantics.getType(arg.type).mangleTypeJs(semantics);
-
-    auto argList = semantics.getArgumentList(arg.type);
+  } else if (semantics.isCallback(arg.type)){
+    auto signature = getTypeName(arg.type) in semantics.types;
+    auto argList = semantics.getArgumentList(signature.tree);
     auto arguments = extractArguments(argList);
     auto types = extractTypes(argList);
     string base = arg.name.friendlyJsName;
-    a.put([ "(", arguments.joiner(", ").text, ")=>{spasm.", callbackName, "(", base, "Ctx, ", base ~ "Ptr"]);
-    if (arguments.length > 0)
-      a.put(", ");
-    zip(arguments, types).each!((t) {
-      auto arg = t[0];
-      auto type = t[1];
-      bool needsClose = false;
-      if (semantics.isStringType(type) || semantics.isUnion(type)
-        || semantics.isNullable(type) || semantics.isEnum(type))
-      {
-        a.put("spasm_encode_");
-        if (type.name == "WebIDL.TypeWithExtendedAttributes")
-          type.children[1].mangleTypeJs(a, semantics);
-        else
-          type.mangleTypeJs(a, semantics);
+    a.put([ "(", arguments.joiner(", ").text, ")=>{"]);
+    size_t offset = 0;
+    zip(arguments, types).enumerate.each!((t) {
+        auto index = t.index;
+        auto arg = t.value[0];
+        auto type = t.value[1];
+        if (semantics.isStringType(type) || semantics.isUnion(type)
+            || semantics.isNullable(type) || semantics.isEnum(type)) {
+          a.put(["spasm_encode_"]);
+          if (type.name == "WebIDL.TypeWithExtendedAttributes")
+            type.children[1].mangleTypeJs(a, semantics);
+          else
+            type.mangleTypeJs(a, semantics);
+          a.put(["(", offset.to!string, ", ", arg, ");"]);
+          offset += semantics.getSizeOf(type);
+        } else if (!semantics.isPrimitive(type)) {
+          a.put(["encode_handle(", offset.to!string, ", ", arg, ");"]);
+        }
+      });
+    bool needsClose = false;
+    auto result = signature.tree.children[1];
+    if (result.matches[0] != "void") {
+      a.put("return ");
+      if (semantics.isUnion(result) || semantics.isEnum(result) || semantics.isNullable(result)) {
+        a.put("spasm_decode_");
+        result.mangleTypeJsImpl(a, semantics, MangleTypeJsContext(true));
+        a.put("(");
         needsClose = true;
-        if (false)//rawResult) //TODO: don't know how to return rawResult
-          a.put("(rawResult, ");
-        else
-          a.put("(");
-      }
-      else if (!semantics.isPrimitive(type))
-      {
-        a.put(["spasm.addObject("]);
+      } else if (semantics.isAny(result)) {
+        a.put("spasm_decode_Handle(");
         needsClose = true;
       }
-      a.put(arg);
-      if (needsClose)
-        a.put(")");
-    });
+    }
+    a.put(["spasm_indirect_function_get(", base, "Ptr)(", base, "Ctx"]);
+    offset = 0;
+    zip(arguments, types).enumerate.each!((t) {
+        a.put(", ");
+        auto index = t.index;
+        auto arg = t.value[0];
+        auto type = t.value[1];
+        if (semantics.isStringType(type) || semantics.isUnion(type)
+            || semantics.isNullable(type) || semantics.isEnum(type)
+            || !semantics.isPrimitive(type)) {
+          a.put(offset.to!string);
+          offset += semantics.getSizeOf(type);
+        } else
+          a.put(arg);
+      });
+    if (needsClose)
+      a.put(")");
     a.put(")}");
   } else if (semantics.isPrimitive(arg.type)) {
     a.put(arg.name.friendlyJsName);
@@ -630,7 +654,7 @@ void dump(Appender)(ref Context context, JsExportFunction item, ref Appender a) 
       a.put(arg.name.friendlyJsName);
       if (semantics.isNullable(arg.type))
         a.put(["Defined, ", arg.name.friendlyJsName]);
-      if (semantics.isCallback(arg.type.matches[0]))
+      if (semantics.isCallback(arg.type))
         a.put(["Ctx, ", arg.name.friendlyJsName, "Ptr"]);
       else if (semantics.isStringType(arg.type))
         a.put(["Len, ", arg.name.friendlyJsName, "Ptr"]);
@@ -770,11 +794,11 @@ string generateJsGlobalBindings(IR ir, string[] jsExportFilters, ref IndentedStr
     app.indent();
     if (encoder != "") {
       app.putLn([encoder, "(0,r);"]);
-      app.putLn("spasm.instance.exports.__indirect_function_table.get(ptr)(ctx, 0);");
+      app.putLn("spasm_indirect_function_get(ptr)(ctx, 0);");
     } else if (encoder == "void") {
-      app.putLn("spasm.instance.exports.__indirect_function_table.get(ptr)(ctx);");
+      app.putLn("spasm_indirect_function_get(ptr)(ctx);");
     } else {
-      app.putLn("spasm.instance.exports.__indirect_function_table.get(ptr)(ctx, r);");
+      app.putLn("spasm_indirect_function_get(ptr)(ctx, r);");
     }
     app.undent();
     app.putLn("});");
@@ -1143,7 +1167,16 @@ bool isTypedef(ref Semantics semantics, string typeName) {
 bool isCallback(ref Context context, string typeName) {
   return context.semantics.isCallback(typeName);
 }
+bool isCallback(ref Semantics semantics, ParseTree tree) {
+  if (tree.name == "WebIDL.TypeWithExtendedAttributes")
+    return semantics.isCallback(tree.children[1].matches[0]);
+  return semantics.isCallback(tree.children[0].matches[0]);
+}
 bool isCallback(ref Semantics semantics, string typeName) {
+  if (semantics.isTypedef(typeName)) {
+    auto aliased = semantics.getAliasedType(typeName);
+    return semantics.isCallback(aliased);
+  }
   if (auto p = typeName in semantics.types) {
     return p.tree.name == "WebIDL.CallbackRest";
   }
@@ -2727,9 +2760,10 @@ string generateSingleJsBinding(IR ir, string[] filtered = []) {
   app.putLn("      getDouble = (ptr) => spasm.heapf64[ptr/8],");
   app.putLn("      isDefined = (val) => (val != undefined && val != null),");
   app.putLn("      encode_handle = (ptr, val) => { setUInt(ptr, spasm.addObject(val)); },");
-  app.putLn("      decode_handle = (ptr) => { return spasm.objects(getUInt(ptr)); },");
+  app.putLn("      decode_handle = (ptr) => { return spasm.objects[getUInt(ptr)]; },");
   app.putLn("      spasm_encode_string = encoder.string,");
-  app.putLn("      spasm_decode_string = decoder.string;");
+  app.putLn("      spasm_decode_string = decoder.string,");
+  app.putLn("      spasm_indirect_function_get = (ptr)=>spasm.instance.exports.__indirect_function_table.get(ptr);");
   app.put("const ");
   app.indent();
   bool first = true;
