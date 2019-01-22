@@ -1414,13 +1414,7 @@ struct EventInit {
     return EventInit_composed_Get(this.handle);
   }
 }
-struct EventListener {
-  JsHandle handle;
-  alias handle this;
-  void handleEvent(Event event) {
-    EventListener_handleEvent(this.handle, event.handle);
-  }
-}
+alias EventListener = void delegate(Event);
 struct EventListenerOptions {
   JsHandle handle;
   alias handle this;
@@ -1437,11 +1431,11 @@ struct EventListenerOptions {
 struct EventTarget {
   JsHandle handle;
   alias handle this;
-  void addEventListener(string type, Optional!(EventListener) callback, SumType!(AddEventListenerOptions, bool) options) {
-    EventTarget_addEventListener(this.handle, type, !callback.empty, callback.front.handle, options);
+  void addEventListener(string type, EventListener callback, SumType!(AddEventListenerOptions, bool) options) {
+    EventTarget_addEventListener(this.handle, type, callback, options);
   }
-  void removeEventListener(string type, Optional!(EventListener) callback, SumType!(EventListenerOptions, bool) options) {
-    EventTarget_removeEventListener(this.handle, type, !callback.empty, callback.front.handle, options);
+  void removeEventListener(string type, EventListener callback, SumType!(EventListenerOptions, bool) options) {
+    EventTarget_removeEventListener(this.handle, type, callback, options);
   }
   auto dispatchEvent(Event event) {
     return EventTarget_dispatchEvent(this.handle, event.handle);
@@ -2191,11 +2185,10 @@ extern (C) void EventInit_cancelable_Set(Handle, bool);
 extern (C) bool EventInit_cancelable_Get(Handle);
 extern (C) void EventInit_composed_Set(Handle, bool);
 extern (C) bool EventInit_composed_Get(Handle);
-extern (C) void EventListener_handleEvent(Handle, Handle);
 extern (C) void EventListenerOptions_capture_Set(Handle, bool);
 extern (C) bool EventListenerOptions_capture_Get(Handle);
-extern (C) void EventTarget_addEventListener(Handle, string, bool, Handle, SumType!(AddEventListenerOptions, bool));
-extern (C) void EventTarget_removeEventListener(Handle, string, bool, Handle, SumType!(EventListenerOptions, bool));
+extern (C) void EventTarget_addEventListener(Handle, string, EventListener, SumType!(AddEventListenerOptions, bool));
+extern (C) void EventTarget_removeEventListener(Handle, string, EventListener, SumType!(EventListenerOptions, bool));
 extern (C) bool EventTarget_dispatchEvent(Handle, Handle);
 extern (C) void GetRootNodeOptions_composed_Set(Handle, bool);
 extern (C) bool GetRootNodeOptions_composed_Get(Handle);

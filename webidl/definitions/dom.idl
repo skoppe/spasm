@@ -55,14 +55,13 @@ any detail = null;
 [Constructor,
 Exposed=(Window,Worker,AudioWorklet)]
 interface EventTarget {
-void addEventListener(DOMString type, EventListener? callback, optional (AddEventListenerOptions or boolean) options);
-void removeEventListener(DOMString type, EventListener? callback, optional (EventListenerOptions or boolean) options);
+void addEventListener(DOMString type, EventListener callback, optional (AddEventListenerOptions or boolean) options);
+void removeEventListener(DOMString type, EventListener callback, optional (EventListenerOptions or boolean) options);
 boolean dispatchEvent(Event event);
 };
 
-callback interface EventListener {
-void handleEvent(Event event);
-};
+// NOTE: Instead of the original definition I defined EventListener as a callback (which it also is).
+callback EventListener = void(Event event);
 
 dictionary EventListenerOptions {
 boolean capture = false;
