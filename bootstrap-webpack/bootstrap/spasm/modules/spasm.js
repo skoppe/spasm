@@ -91,6 +91,9 @@ let jsExports = {
     spasm_add__string: (len, offset) => {
         return addPrimitive(decoders.string(len, offset));
     },
+    spasm_get__field: (handle, len, offset) => {
+        return spasm.addObject(spasm.objects[handle][decoders.string(len,offset)]);
+    },
     spasm_removeObject: (ctx) => {
         delete objects[ctx]
     }

@@ -115,6 +115,8 @@ IR readDefinitions(string path) {
   if (isDir(path)) {
     auto entries = dirEntries(path, SpanMode.depth);
     foreach(entry; entries) {
+      if (entry.name.extension() != ".idl")
+        continue;
       auto input = readText(entry.name);
       auto document = WebIDL(input);
       if (!document.successful) {

@@ -17,6 +17,15 @@ struct Blob {
   auto slice(long start, long end, string contentType) {
     return Blob(JsHandle(Blob_slice(this.handle, start, end, contentType)));
   }
+  auto slice(long start, long end) {
+    return Blob(JsHandle(Blob_slice_0(this.handle, start, end)));
+  }
+  auto slice(long start) {
+    return Blob(JsHandle(Blob_slice_1(this.handle, start)));
+  }
+  auto slice() {
+    return Blob(JsHandle(Blob_slice_2(this.handle)));
+  }
 }
 alias BlobPart = SumType!(BufferSource, Blob, string);
 struct BlobPropertyBag {
@@ -96,6 +105,9 @@ struct FileReader {
   void readAsText(Blob blob, string encoding) {
     FileReader_readAsText(this._parent, blob.handle, encoding);
   }
+  void readAsText(Blob blob) {
+    FileReader_readAsText_0(this._parent, blob.handle);
+  }
   void readAsDataURL(Blob blob) {
     FileReader_readAsDataURL(this._parent, blob.handle);
   }
@@ -163,6 +175,9 @@ struct FileReaderSync {
   auto readAsText(Blob blob, string encoding) {
     return FileReaderSync_readAsText(this.handle, blob.handle, encoding);
   }
+  auto readAsText(Blob blob) {
+    return FileReaderSync_readAsText_0(this.handle, blob.handle);
+  }
   auto readAsDataURL(Blob blob) {
     return FileReaderSync_readAsDataURL(this.handle, blob.handle);
   }
@@ -172,6 +187,9 @@ struct FileReaderSync {
 extern (C) ulong Blob_size_Get(Handle);
 extern (C) string Blob_type_Get(Handle);
 extern (C) Handle Blob_slice(Handle, long, long, string);
+extern (C) Handle Blob_slice_0(Handle, long, long);
+extern (C) Handle Blob_slice_1(Handle, long);
+extern (C) Handle Blob_slice_2(Handle);
 extern (C) void BlobPropertyBag_type_Set(Handle, string);
 extern (C) string BlobPropertyBag_type_Get(Handle);
 extern (C) void BlobPropertyBag_endings_Set(Handle, EndingType);
@@ -185,6 +203,7 @@ extern (C) long FilePropertyBag_lastModified_Get(Handle);
 extern (C) void FileReader_readAsArrayBuffer(Handle, Handle);
 extern (C) void FileReader_readAsBinaryString(Handle, Handle);
 extern (C) void FileReader_readAsText(Handle, Handle, string);
+extern (C) void FileReader_readAsText_0(Handle, Handle);
 extern (C) void FileReader_readAsDataURL(Handle, Handle);
 extern (C) void FileReader_abort(Handle);
 extern (C) ushort FileReader_readyState_Get(Handle);
@@ -205,4 +224,5 @@ extern (C) EventHandler FileReader_onloadend_Get(Handle);
 extern (C) Handle FileReaderSync_readAsArrayBuffer(Handle, Handle);
 extern (C) string FileReaderSync_readAsBinaryString(Handle, Handle);
 extern (C) string FileReaderSync_readAsText(Handle, Handle, string);
+extern (C) string FileReaderSync_readAsText_0(Handle, Handle);
 extern (C) string FileReaderSync_readAsDataURL(Handle, Handle);

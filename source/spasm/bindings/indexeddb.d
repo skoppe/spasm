@@ -28,6 +28,9 @@ struct IDBCursor {
     IDBCursor_continue(this.handle, _handle_key);
     dropHandle!(T0)(_handle_key);
   }
+  void continue_() {
+    IDBCursor_continue_0(this.handle);
+  }
   void continuePrimaryKey(T0, T1)(T0 key, T1 primaryKey) {
     Handle _handle_key = getOrCreateHandle(key);
     Handle _handle_primaryKey = getOrCreateHandle(primaryKey);
@@ -79,11 +82,17 @@ struct IDBDatabase {
   auto transaction(SumType!(string, Sequence!(string)) storeNames, IDBTransactionMode mode /* = "readonly" */) {
     return IDBTransaction(JsHandle(IDBDatabase_transaction(this._parent, storeNames, mode)));
   }
+  auto transaction(SumType!(string, Sequence!(string)) storeNames) {
+    return IDBTransaction(JsHandle(IDBDatabase_transaction_0(this._parent, storeNames)));
+  }
   void close() {
     IDBDatabase_close(this._parent);
   }
   auto createObjectStore(string name, IDBObjectStoreParameters options) {
     return IDBObjectStore(JsHandle(IDBDatabase_createObjectStore(this._parent, name, options.handle)));
+  }
+  auto createObjectStore(string name) {
+    return IDBObjectStore(JsHandle(IDBDatabase_createObjectStore_0(this._parent, name)));
   }
   void deleteObjectStore(string name) {
     IDBDatabase_deleteObjectStore(this._parent, name);
@@ -137,6 +146,9 @@ struct IDBFactory {
   alias handle this;
   auto open(string name, ulong version_) {
     return IDBOpenDBRequest(JsHandle(IDBFactory_open(this.handle, name, version_)));
+  }
+  auto open(string name) {
+    return IDBOpenDBRequest(JsHandle(IDBFactory_open_0(this.handle, name)));
   }
   auto deleteDatabase(string name) {
     return IDBOpenDBRequest(JsHandle(IDBFactory_deleteDatabase(this.handle, name)));
@@ -192,11 +204,29 @@ struct IDBIndex {
     dropHandle!(T0)(_handle_query);
     return result;
   }
+  auto getAll(T0)(T0 query) {
+    Handle _handle_query = getOrCreateHandle(query);
+    auto result = IDBRequest(JsHandle(IDBIndex_getAll_0(this.handle, _handle_query)));
+    dropHandle!(T0)(_handle_query);
+    return result;
+  }
+  auto getAll() {
+    return IDBRequest(JsHandle(IDBIndex_getAll_1(this.handle)));
+  }
   auto getAllKeys(T0)(T0 query, uint count) {
     Handle _handle_query = getOrCreateHandle(query);
     auto result = IDBRequest(JsHandle(IDBIndex_getAllKeys(this.handle, _handle_query, count)));
     dropHandle!(T0)(_handle_query);
     return result;
+  }
+  auto getAllKeys(T0)(T0 query) {
+    Handle _handle_query = getOrCreateHandle(query);
+    auto result = IDBRequest(JsHandle(IDBIndex_getAllKeys_0(this.handle, _handle_query)));
+    dropHandle!(T0)(_handle_query);
+    return result;
+  }
+  auto getAllKeys() {
+    return IDBRequest(JsHandle(IDBIndex_getAllKeys_1(this.handle)));
   }
   auto count(T0)(T0 query) {
     Handle _handle_query = getOrCreateHandle(query);
@@ -204,17 +234,38 @@ struct IDBIndex {
     dropHandle!(T0)(_handle_query);
     return result;
   }
+  auto count() {
+    return IDBRequest(JsHandle(IDBIndex_count_0(this.handle)));
+  }
   auto openCursor(T0)(T0 query, IDBCursorDirection direction /* = "next" */) {
     Handle _handle_query = getOrCreateHandle(query);
     auto result = IDBRequest(JsHandle(IDBIndex_openCursor(this.handle, _handle_query, direction)));
     dropHandle!(T0)(_handle_query);
     return result;
   }
+  auto openCursor(T0)(T0 query) {
+    Handle _handle_query = getOrCreateHandle(query);
+    auto result = IDBRequest(JsHandle(IDBIndex_openCursor_0(this.handle, _handle_query)));
+    dropHandle!(T0)(_handle_query);
+    return result;
+  }
+  auto openCursor() {
+    return IDBRequest(JsHandle(IDBIndex_openCursor_1(this.handle)));
+  }
   auto openKeyCursor(T0)(T0 query, IDBCursorDirection direction /* = "next" */) {
     Handle _handle_query = getOrCreateHandle(query);
     auto result = IDBRequest(JsHandle(IDBIndex_openKeyCursor(this.handle, _handle_query, direction)));
     dropHandle!(T0)(_handle_query);
     return result;
+  }
+  auto openKeyCursor(T0)(T0 query) {
+    Handle _handle_query = getOrCreateHandle(query);
+    auto result = IDBRequest(JsHandle(IDBIndex_openKeyCursor_0(this.handle, _handle_query)));
+    dropHandle!(T0)(_handle_query);
+    return result;
+  }
+  auto openKeyCursor() {
+    return IDBRequest(JsHandle(IDBIndex_openKeyCursor_1(this.handle)));
   }
 }
 struct IDBIndexParameters {
@@ -263,9 +314,21 @@ struct IDBKeyRange {
     dropHandle!(T0)(_handle_lower);
     return result;
   }
+  auto lowerBound(T0)(T0 lower) {
+    Handle _handle_lower = getOrCreateHandle(lower);
+    auto result = IDBKeyRange(JsHandle(IDBKeyRange_lowerBound_0(this.handle, _handle_lower)));
+    dropHandle!(T0)(_handle_lower);
+    return result;
+  }
   auto upperBound(T0)(T0 upper, bool open /* = false */) {
     Handle _handle_upper = getOrCreateHandle(upper);
     auto result = IDBKeyRange(JsHandle(IDBKeyRange_upperBound(this.handle, _handle_upper, open)));
+    dropHandle!(T0)(_handle_upper);
+    return result;
+  }
+  auto upperBound(T0)(T0 upper) {
+    Handle _handle_upper = getOrCreateHandle(upper);
+    auto result = IDBKeyRange(JsHandle(IDBKeyRange_upperBound_0(this.handle, _handle_upper)));
     dropHandle!(T0)(_handle_upper);
     return result;
   }
@@ -273,6 +336,22 @@ struct IDBKeyRange {
     Handle _handle_lower = getOrCreateHandle(lower);
     Handle _handle_upper = getOrCreateHandle(upper);
     auto result = IDBKeyRange(JsHandle(IDBKeyRange_bound(this.handle, _handle_lower, _handle_upper, lowerOpen, upperOpen)));
+    dropHandle!(T0)(_handle_lower);
+    dropHandle!(T1)(_handle_upper);
+    return result;
+  }
+  auto bound(T0, T1)(T0 lower, T1 upper, bool lowerOpen /* = false */) {
+    Handle _handle_lower = getOrCreateHandle(lower);
+    Handle _handle_upper = getOrCreateHandle(upper);
+    auto result = IDBKeyRange(JsHandle(IDBKeyRange_bound_0(this.handle, _handle_lower, _handle_upper, lowerOpen)));
+    dropHandle!(T0)(_handle_lower);
+    dropHandle!(T1)(_handle_upper);
+    return result;
+  }
+  auto bound(T0, T1)(T0 lower, T1 upper) {
+    Handle _handle_lower = getOrCreateHandle(lower);
+    Handle _handle_upper = getOrCreateHandle(upper);
+    auto result = IDBKeyRange(JsHandle(IDBKeyRange_bound_1(this.handle, _handle_lower, _handle_upper)));
     dropHandle!(T0)(_handle_lower);
     dropHandle!(T1)(_handle_upper);
     return result;
@@ -313,12 +392,24 @@ struct IDBObjectStore {
     dropHandle!(T1)(_handle_key);
     return result;
   }
+  auto put(T0)(T0 value) {
+    Handle _handle_value = getOrCreateHandle(value);
+    auto result = IDBRequest(JsHandle(IDBObjectStore_put_0(this.handle, _handle_value)));
+    dropHandle!(T0)(_handle_value);
+    return result;
+  }
   auto add(T0, T1)(T0 value, T1 key) {
     Handle _handle_value = getOrCreateHandle(value);
     Handle _handle_key = getOrCreateHandle(key);
     auto result = IDBRequest(JsHandle(IDBObjectStore_add(this.handle, _handle_value, _handle_key)));
     dropHandle!(T0)(_handle_value);
     dropHandle!(T1)(_handle_key);
+    return result;
+  }
+  auto add(T0)(T0 value) {
+    Handle _handle_value = getOrCreateHandle(value);
+    auto result = IDBRequest(JsHandle(IDBObjectStore_add_0(this.handle, _handle_value)));
+    dropHandle!(T0)(_handle_value);
     return result;
   }
   auto delete_(T0)(T0 query) {
@@ -348,11 +439,29 @@ struct IDBObjectStore {
     dropHandle!(T0)(_handle_query);
     return result;
   }
+  auto getAll(T0)(T0 query) {
+    Handle _handle_query = getOrCreateHandle(query);
+    auto result = IDBRequest(JsHandle(IDBObjectStore_getAll_0(this.handle, _handle_query)));
+    dropHandle!(T0)(_handle_query);
+    return result;
+  }
+  auto getAll() {
+    return IDBRequest(JsHandle(IDBObjectStore_getAll_1(this.handle)));
+  }
   auto getAllKeys(T0)(T0 query, uint count) {
     Handle _handle_query = getOrCreateHandle(query);
     auto result = IDBRequest(JsHandle(IDBObjectStore_getAllKeys(this.handle, _handle_query, count)));
     dropHandle!(T0)(_handle_query);
     return result;
+  }
+  auto getAllKeys(T0)(T0 query) {
+    Handle _handle_query = getOrCreateHandle(query);
+    auto result = IDBRequest(JsHandle(IDBObjectStore_getAllKeys_0(this.handle, _handle_query)));
+    dropHandle!(T0)(_handle_query);
+    return result;
+  }
+  auto getAllKeys() {
+    return IDBRequest(JsHandle(IDBObjectStore_getAllKeys_1(this.handle)));
   }
   auto count(T0)(T0 query) {
     Handle _handle_query = getOrCreateHandle(query);
@@ -360,11 +469,23 @@ struct IDBObjectStore {
     dropHandle!(T0)(_handle_query);
     return result;
   }
+  auto count() {
+    return IDBRequest(JsHandle(IDBObjectStore_count_0(this.handle)));
+  }
   auto openCursor(T0)(T0 query, IDBCursorDirection direction /* = "next" */) {
     Handle _handle_query = getOrCreateHandle(query);
     auto result = IDBRequest(JsHandle(IDBObjectStore_openCursor(this.handle, _handle_query, direction)));
     dropHandle!(T0)(_handle_query);
     return result;
+  }
+  auto openCursor(T0)(T0 query) {
+    Handle _handle_query = getOrCreateHandle(query);
+    auto result = IDBRequest(JsHandle(IDBObjectStore_openCursor_0(this.handle, _handle_query)));
+    dropHandle!(T0)(_handle_query);
+    return result;
+  }
+  auto openCursor() {
+    return IDBRequest(JsHandle(IDBObjectStore_openCursor_1(this.handle)));
   }
   auto openKeyCursor(T0)(T0 query, IDBCursorDirection direction /* = "next" */) {
     Handle _handle_query = getOrCreateHandle(query);
@@ -372,11 +493,23 @@ struct IDBObjectStore {
     dropHandle!(T0)(_handle_query);
     return result;
   }
+  auto openKeyCursor(T0)(T0 query) {
+    Handle _handle_query = getOrCreateHandle(query);
+    auto result = IDBRequest(JsHandle(IDBObjectStore_openKeyCursor_0(this.handle, _handle_query)));
+    dropHandle!(T0)(_handle_query);
+    return result;
+  }
+  auto openKeyCursor() {
+    return IDBRequest(JsHandle(IDBObjectStore_openKeyCursor_1(this.handle)));
+  }
   auto index(string name) {
     return IDBIndex(JsHandle(IDBObjectStore_index(this.handle, name)));
   }
   auto createIndex(string name, SumType!(string, Sequence!(string)) keyPath, IDBIndexParameters options) {
     return IDBIndex(JsHandle(IDBObjectStore_createIndex(this.handle, name, keyPath, options.handle)));
+  }
+  auto createIndex(string name, SumType!(string, Sequence!(string)) keyPath) {
+    return IDBIndex(JsHandle(IDBObjectStore_createIndex_0(this.handle, name, keyPath)));
   }
   void deleteIndex(string name) {
     IDBObjectStore_deleteIndex(this.handle, name);
@@ -549,6 +682,7 @@ extern (C) Handle IDBCursor_key_Get(Handle);
 extern (C) Handle IDBCursor_primaryKey_Get(Handle);
 extern (C) void IDBCursor_advance(Handle, uint);
 extern (C) void IDBCursor_continue(Handle, Handle);
+extern (C) void IDBCursor_continue_0(Handle);
 extern (C) void IDBCursor_continuePrimaryKey(Handle, Handle, Handle);
 extern (C) Handle IDBCursor_update(Handle, Handle);
 extern (C) Handle IDBCursor_delete(Handle);
@@ -557,8 +691,10 @@ extern (C) string IDBDatabase_name_Get(Handle);
 extern (C) ulong IDBDatabase_version_Get(Handle);
 extern (C) Handle IDBDatabase_objectStoreNames_Get(Handle);
 extern (C) Handle IDBDatabase_transaction(Handle, SumType!(string, Sequence!(string)), IDBTransactionMode);
+extern (C) Handle IDBDatabase_transaction_0(Handle, SumType!(string, Sequence!(string)));
 extern (C) void IDBDatabase_close(Handle);
 extern (C) Handle IDBDatabase_createObjectStore(Handle, string, Handle);
+extern (C) Handle IDBDatabase_createObjectStore_0(Handle, string);
 extern (C) void IDBDatabase_deleteObjectStore(Handle, string);
 extern (C) void IDBDatabase_onabort_Set(Handle, EventHandler);
 extern (C) EventHandler IDBDatabase_onabort_Get(Handle);
@@ -573,6 +709,7 @@ extern (C) string IDBDatabaseInfo_name_Get(Handle);
 extern (C) void IDBDatabaseInfo_version_Set(Handle, ulong);
 extern (C) ulong IDBDatabaseInfo_version_Get(Handle);
 extern (C) Handle IDBFactory_open(Handle, string, ulong);
+extern (C) Handle IDBFactory_open_0(Handle, string);
 extern (C) Handle IDBFactory_deleteDatabase(Handle, string);
 extern (C) Handle IDBFactory_databases(Handle);
 extern (C) short IDBFactory_cmp(Handle, Handle, Handle);
@@ -585,10 +722,19 @@ extern (C) bool IDBIndex_unique_Get(Handle);
 extern (C) Handle IDBIndex_get(Handle, Handle);
 extern (C) Handle IDBIndex_getKey(Handle, Handle);
 extern (C) Handle IDBIndex_getAll(Handle, Handle, uint);
+extern (C) Handle IDBIndex_getAll_0(Handle, Handle);
+extern (C) Handle IDBIndex_getAll_1(Handle);
 extern (C) Handle IDBIndex_getAllKeys(Handle, Handle, uint);
+extern (C) Handle IDBIndex_getAllKeys_0(Handle, Handle);
+extern (C) Handle IDBIndex_getAllKeys_1(Handle);
 extern (C) Handle IDBIndex_count(Handle, Handle);
+extern (C) Handle IDBIndex_count_0(Handle);
 extern (C) Handle IDBIndex_openCursor(Handle, Handle, IDBCursorDirection);
+extern (C) Handle IDBIndex_openCursor_0(Handle, Handle);
+extern (C) Handle IDBIndex_openCursor_1(Handle);
 extern (C) Handle IDBIndex_openKeyCursor(Handle, Handle, IDBCursorDirection);
+extern (C) Handle IDBIndex_openKeyCursor_0(Handle, Handle);
+extern (C) Handle IDBIndex_openKeyCursor_1(Handle);
 extern (C) void IDBIndexParameters_unique_Set(Handle, bool);
 extern (C) bool IDBIndexParameters_unique_Get(Handle);
 extern (C) void IDBIndexParameters_multiEntry_Set(Handle, bool);
@@ -599,8 +745,12 @@ extern (C) bool IDBKeyRange_lowerOpen_Get(Handle);
 extern (C) bool IDBKeyRange_upperOpen_Get(Handle);
 extern (C) Handle IDBKeyRange_only(Handle, Handle);
 extern (C) Handle IDBKeyRange_lowerBound(Handle, Handle, bool);
+extern (C) Handle IDBKeyRange_lowerBound_0(Handle, Handle);
 extern (C) Handle IDBKeyRange_upperBound(Handle, Handle, bool);
+extern (C) Handle IDBKeyRange_upperBound_0(Handle, Handle);
 extern (C) Handle IDBKeyRange_bound(Handle, Handle, Handle, bool, bool);
+extern (C) Handle IDBKeyRange_bound_0(Handle, Handle, Handle, bool);
+extern (C) Handle IDBKeyRange_bound_1(Handle, Handle, Handle);
 extern (C) bool IDBKeyRange__includes(Handle, Handle);
 extern (C) void IDBObjectStore_name_Set(Handle, string);
 extern (C) string IDBObjectStore_name_Get(Handle);
@@ -609,18 +759,30 @@ extern (C) Handle IDBObjectStore_indexNames_Get(Handle);
 extern (C) Handle IDBObjectStore_transaction_Get(Handle);
 extern (C) bool IDBObjectStore_autoIncrement_Get(Handle);
 extern (C) Handle IDBObjectStore_put(Handle, Handle, Handle);
+extern (C) Handle IDBObjectStore_put_0(Handle, Handle);
 extern (C) Handle IDBObjectStore_add(Handle, Handle, Handle);
+extern (C) Handle IDBObjectStore_add_0(Handle, Handle);
 extern (C) Handle IDBObjectStore_delete(Handle, Handle);
 extern (C) Handle IDBObjectStore_clear(Handle);
 extern (C) Handle IDBObjectStore_get(Handle, Handle);
 extern (C) Handle IDBObjectStore_getKey(Handle, Handle);
 extern (C) Handle IDBObjectStore_getAll(Handle, Handle, uint);
+extern (C) Handle IDBObjectStore_getAll_0(Handle, Handle);
+extern (C) Handle IDBObjectStore_getAll_1(Handle);
 extern (C) Handle IDBObjectStore_getAllKeys(Handle, Handle, uint);
+extern (C) Handle IDBObjectStore_getAllKeys_0(Handle, Handle);
+extern (C) Handle IDBObjectStore_getAllKeys_1(Handle);
 extern (C) Handle IDBObjectStore_count(Handle, Handle);
+extern (C) Handle IDBObjectStore_count_0(Handle);
 extern (C) Handle IDBObjectStore_openCursor(Handle, Handle, IDBCursorDirection);
+extern (C) Handle IDBObjectStore_openCursor_0(Handle, Handle);
+extern (C) Handle IDBObjectStore_openCursor_1(Handle);
 extern (C) Handle IDBObjectStore_openKeyCursor(Handle, Handle, IDBCursorDirection);
+extern (C) Handle IDBObjectStore_openKeyCursor_0(Handle, Handle);
+extern (C) Handle IDBObjectStore_openKeyCursor_1(Handle);
 extern (C) Handle IDBObjectStore_index(Handle, string);
 extern (C) Handle IDBObjectStore_createIndex(Handle, string, SumType!(string, Sequence!(string)), Handle);
+extern (C) Handle IDBObjectStore_createIndex_0(Handle, string, SumType!(string, Sequence!(string)));
 extern (C) void IDBObjectStore_deleteIndex(Handle, string);
 extern (C) void IDBObjectStoreParameters_keyPath_Set(Handle, bool, SumType!(string, Sequence!(string)));
 extern (C) Optional!(SumType!(string, Sequence!(string))) IDBObjectStoreParameters_keyPath_Get(Handle);

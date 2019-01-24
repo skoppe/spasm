@@ -5,7 +5,6 @@ import spasm.bindings.cssom;
 import spasm.bindings.dom;
 import spasm.bindings.geometry;
 import spasm.bindings.html;
-import spasm.bindings.linkstyle;
 
 struct SVGAElement {
   spasm.bindings.svg.SVGGraphicsElement _parent;
@@ -873,8 +872,14 @@ struct SVGElement {
   void focus(FocusOptions options) {
     HTMLOrSVGElement_focus(this._parent, options.handle);
   }
+  void focus() {
+    HTMLOrSVGElement_focus_0(this._parent);
+  }
   void blur() {
     HTMLOrSVGElement_blur(this._parent);
+  }
+  auto style() {
+    return CSSStyleDeclaration(JsHandle(ElementCSSInlineStyle_style_Get(this._parent)));
   }
 }
 struct SVGEllipseElement {
@@ -934,8 +939,14 @@ struct SVGGeometryElement {
   auto isPointInFill(DOMPointInit point) {
     return SVGGeometryElement_isPointInFill(this._parent, point.handle);
   }
+  auto isPointInFill() {
+    return SVGGeometryElement_isPointInFill_0(this._parent);
+  }
   auto isPointInStroke(DOMPointInit point) {
     return SVGGeometryElement_isPointInStroke(this._parent, point.handle);
+  }
+  auto isPointInStroke() {
+    return SVGGeometryElement_isPointInStroke_0(this._parent);
   }
   auto getTotalLength() {
     return SVGGeometryElement_getTotalLength(this._parent);
@@ -978,6 +989,9 @@ struct SVGGraphicsElement {
   }
   auto getBBox(SVGBoundingBoxOptions options) {
     return DOMRect(JsHandle(SVGGraphicsElement_getBBox(this._parent, options.handle)));
+  }
+  auto getBBox() {
+    return DOMRect(JsHandle(SVGGraphicsElement_getBBox_0(this._parent)));
   }
   auto getCTM() {
     return SVGGraphicsElement_getCTM(this._parent);
@@ -1719,9 +1733,6 @@ struct SVGStyleElement {
   auto title() {
     return SVGStyleElement_title_Get(this._parent);
   }
-  auto sheet() {
-    return LinkStyle_sheet_Get(this._parent);
-  }
 }
 struct SVGSwitchElement {
   spasm.bindings.svg.SVGGraphicsElement _parent;
@@ -1788,6 +1799,9 @@ struct SVGTextContentElement {
   }
   auto getCharNumAtPosition(DOMPointInit point) {
     return SVGTextContentElement_getCharNumAtPosition(this._parent, point.handle);
+  }
+  auto getCharNumAtPosition() {
+    return SVGTextContentElement_getCharNumAtPosition_0(this._parent);
   }
   void selectSubString(uint charnum, uint nchars) {
     SVGTextContentElement_selectSubString(this._parent, charnum, nchars);
@@ -2103,7 +2117,9 @@ extern (C) Handle SVGForeignObjectElement_width_Get(Handle);
 extern (C) Handle SVGForeignObjectElement_height_Get(Handle);
 extern (C) Handle SVGGeometryElement_pathLength_Get(Handle);
 extern (C) bool SVGGeometryElement_isPointInFill(Handle, Handle);
+extern (C) bool SVGGeometryElement_isPointInFill_0(Handle);
 extern (C) bool SVGGeometryElement_isPointInStroke(Handle, Handle);
+extern (C) bool SVGGeometryElement_isPointInStroke_0(Handle);
 extern (C) float SVGGeometryElement_getTotalLength(Handle);
 extern (C) Handle SVGGeometryElement_getPointAtLength(Handle, float);
 extern (C) Handle SVGGradientElement_gradientUnits_Get(Handle);
@@ -2111,6 +2127,7 @@ extern (C) Handle SVGGradientElement_gradientTransform_Get(Handle);
 extern (C) Handle SVGGradientElement_spreadMethod_Get(Handle);
 extern (C) Handle SVGGraphicsElement_transform_Get(Handle);
 extern (C) Handle SVGGraphicsElement_getBBox(Handle, Handle);
+extern (C) Handle SVGGraphicsElement_getBBox_0(Handle);
 extern (C) Optional!(DOMMatrix) SVGGraphicsElement_getCTM(Handle);
 extern (C) Optional!(DOMMatrix) SVGGraphicsElement_getScreenCTM(Handle);
 extern (C) Handle SVGImageElement_x_Get(Handle);
@@ -2261,6 +2278,7 @@ extern (C) Handle SVGTextContentElement_getEndPositionOfChar(Handle, uint);
 extern (C) Handle SVGTextContentElement_getExtentOfChar(Handle, uint);
 extern (C) float SVGTextContentElement_getRotationOfChar(Handle, uint);
 extern (C) int SVGTextContentElement_getCharNumAtPosition(Handle, Handle);
+extern (C) int SVGTextContentElement_getCharNumAtPosition_0(Handle);
 extern (C) void SVGTextContentElement_selectSubString(Handle, uint, uint);
 extern (C) Handle SVGTextPathElement_startOffset_Get(Handle);
 extern (C) Handle SVGTextPathElement_method_Get(Handle);

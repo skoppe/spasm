@@ -112,6 +112,9 @@ struct ConstrainablePattern {
   auto applyConstraints(Constraints constraints) {
     return Promise!(void)(JsHandle(ConstrainablePattern_applyConstraints(this.handle, constraints._parent)));
   }
+  auto applyConstraints() {
+    return Promise!(void)(JsHandle(ConstrainablePattern_applyConstraints_0(this.handle)));
+  }
   void onoverconstrained(EventHandler onoverconstrained) {
     ConstrainablePattern_onoverconstrained_Set(this.handle, onoverconstrained);
   }
@@ -215,6 +218,9 @@ struct MediaDevices {
   }
   auto getUserMedia(MediaStreamConstraints constraints) {
     return Promise!(MediaStream)(JsHandle(MediaDevices_getUserMedia(this._parent, constraints.handle)));
+  }
+  auto getUserMedia() {
+    return Promise!(MediaStream)(JsHandle(MediaDevices_getUserMedia_0(this._parent)));
   }
 }
 struct MediaStream {
@@ -345,6 +351,9 @@ struct MediaStreamTrack {
   }
   auto applyConstraints(MediaTrackConstraints constraints) {
     return Promise!(void)(JsHandle(MediaStreamTrack_applyConstraints(this._parent, constraints._parent)));
+  }
+  auto applyConstraints() {
+    return Promise!(void)(JsHandle(MediaStreamTrack_applyConstraints_0(this._parent)));
   }
   void onoverconstrained(EventHandler onoverconstrained) {
     MediaStreamTrack_onoverconstrained_Set(this._parent, onoverconstrained);
@@ -901,6 +910,7 @@ extern (C) Handle ConstrainablePattern_getCapabilities(Handle);
 extern (C) Handle ConstrainablePattern_getConstraints(Handle);
 extern (C) Handle ConstrainablePattern_getSettings(Handle);
 extern (C) Handle ConstrainablePattern_applyConstraints(Handle, Handle);
+extern (C) Handle ConstrainablePattern_applyConstraints_0(Handle);
 extern (C) void ConstrainablePattern_onoverconstrained_Set(Handle, EventHandler);
 extern (C) EventHandler ConstrainablePattern_onoverconstrained_Get(Handle);
 extern (C) void Constraints_advanced_Set(Handle, Handle);
@@ -920,6 +930,7 @@ extern (C) EventHandler MediaDevices_ondevicechange_Get(Handle);
 extern (C) Handle MediaDevices_enumerateDevices(Handle);
 extern (C) Handle MediaDevices_getSupportedConstraints(Handle);
 extern (C) Handle MediaDevices_getUserMedia(Handle, Handle);
+extern (C) Handle MediaDevices_getUserMedia_0(Handle);
 extern (C) string MediaStream_id_Get(Handle);
 extern (C) Handle MediaStream_getAudioTracks(Handle);
 extern (C) Handle MediaStream_getVideoTracks(Handle);
@@ -956,6 +967,7 @@ extern (C) Handle MediaStreamTrack_getCapabilities(Handle);
 extern (C) Handle MediaStreamTrack_getConstraints(Handle);
 extern (C) Handle MediaStreamTrack_getSettings(Handle);
 extern (C) Handle MediaStreamTrack_applyConstraints(Handle, Handle);
+extern (C) Handle MediaStreamTrack_applyConstraints_0(Handle);
 extern (C) void MediaStreamTrack_onoverconstrained_Set(Handle, EventHandler);
 extern (C) EventHandler MediaStreamTrack_onoverconstrained_Get(Handle);
 extern (C) Handle MediaStreamTrackEvent_track_Get(Handle);

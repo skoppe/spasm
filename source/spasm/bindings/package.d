@@ -2,6 +2,7 @@ module spasm.bindings;
 
 public import spasm.bindings.worklet;
 public import spasm.bindings.fileapi;
+public import spasm.bindings.domparsing;
 public import spasm.bindings.audio;
 public import spasm.bindings.uievents;
 public import spasm.bindings.touchevents;
@@ -26,7 +27,6 @@ public import spasm.bindings.indexeddb;
 public import spasm.bindings.fullscreen;
 public import spasm.bindings.svg;
 public import spasm.bindings.cssom;
-public import spasm.bindings.linkstyle;
 public import spasm.bindings.webgl2;
 public import spasm.bindings.serviceworker;
 public import spasm.bindings.console;

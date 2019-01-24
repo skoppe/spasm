@@ -10,6 +10,9 @@ struct DOMMatrix {
   auto fromMatrix(DOMMatrixInit other) {
     return DOMMatrix(JsHandle(DOMMatrix_fromMatrix(this._parent, other._parent)));
   }
+  auto fromMatrix() {
+    return DOMMatrix(JsHandle(DOMMatrix_fromMatrix_0(this._parent)));
+  }
   auto fromFloat32Array(Float32Array array32) {
     return DOMMatrix(JsHandle(DOMMatrix_fromFloat32Array(this._parent, array32.handle)));
   }
@@ -151,32 +154,110 @@ struct DOMMatrix {
   auto multiplySelf(DOMMatrixInit other) {
     return DOMMatrix(JsHandle(DOMMatrix_multiplySelf(this._parent, other._parent)));
   }
+  auto multiplySelf() {
+    return DOMMatrix(JsHandle(DOMMatrix_multiplySelf_0(this._parent)));
+  }
   auto preMultiplySelf(DOMMatrixInit other) {
     return DOMMatrix(JsHandle(DOMMatrix_preMultiplySelf(this._parent, other._parent)));
+  }
+  auto preMultiplySelf() {
+    return DOMMatrix(JsHandle(DOMMatrix_preMultiplySelf_0(this._parent)));
   }
   auto translateSelf(double tx /* = 0 */, double ty /* = 0 */, double tz /* = 0 */) {
     return DOMMatrix(JsHandle(DOMMatrix_translateSelf(this._parent, tx, ty, tz)));
   }
+  auto translateSelf(double tx /* = 0 */, double ty /* = 0 */) {
+    return DOMMatrix(JsHandle(DOMMatrix_translateSelf_0(this._parent, tx, ty)));
+  }
+  auto translateSelf(double tx /* = 0 */) {
+    return DOMMatrix(JsHandle(DOMMatrix_translateSelf_1(this._parent, tx)));
+  }
+  auto translateSelf() {
+    return DOMMatrix(JsHandle(DOMMatrix_translateSelf_2(this._parent)));
+  }
   auto scaleSelf(double scaleX /* = 1 */, double scaleY, double scaleZ /* = 1 */, double originX /* = 0 */, double originY /* = 0 */, double originZ /* = 0 */) {
     return DOMMatrix(JsHandle(DOMMatrix_scaleSelf(this._parent, scaleX, scaleY, scaleZ, originX, originY, originZ)));
+  }
+  auto scaleSelf(double scaleX /* = 1 */, double scaleY, double scaleZ /* = 1 */, double originX /* = 0 */, double originY /* = 0 */) {
+    return DOMMatrix(JsHandle(DOMMatrix_scaleSelf_0(this._parent, scaleX, scaleY, scaleZ, originX, originY)));
+  }
+  auto scaleSelf(double scaleX /* = 1 */, double scaleY, double scaleZ /* = 1 */, double originX /* = 0 */) {
+    return DOMMatrix(JsHandle(DOMMatrix_scaleSelf_1(this._parent, scaleX, scaleY, scaleZ, originX)));
+  }
+  auto scaleSelf(double scaleX /* = 1 */, double scaleY, double scaleZ /* = 1 */) {
+    return DOMMatrix(JsHandle(DOMMatrix_scaleSelf_2(this._parent, scaleX, scaleY, scaleZ)));
+  }
+  auto scaleSelf(double scaleX /* = 1 */, double scaleY) {
+    return DOMMatrix(JsHandle(DOMMatrix_scaleSelf_3(this._parent, scaleX, scaleY)));
+  }
+  auto scaleSelf(double scaleX /* = 1 */) {
+    return DOMMatrix(JsHandle(DOMMatrix_scaleSelf_4(this._parent, scaleX)));
+  }
+  auto scaleSelf() {
+    return DOMMatrix(JsHandle(DOMMatrix_scaleSelf_5(this._parent)));
   }
   auto scale3dSelf(double scale /* = 1 */, double originX /* = 0 */, double originY /* = 0 */, double originZ /* = 0 */) {
     return DOMMatrix(JsHandle(DOMMatrix_scale3dSelf(this._parent, scale, originX, originY, originZ)));
   }
+  auto scale3dSelf(double scale /* = 1 */, double originX /* = 0 */, double originY /* = 0 */) {
+    return DOMMatrix(JsHandle(DOMMatrix_scale3dSelf_0(this._parent, scale, originX, originY)));
+  }
+  auto scale3dSelf(double scale /* = 1 */, double originX /* = 0 */) {
+    return DOMMatrix(JsHandle(DOMMatrix_scale3dSelf_1(this._parent, scale, originX)));
+  }
+  auto scale3dSelf(double scale /* = 1 */) {
+    return DOMMatrix(JsHandle(DOMMatrix_scale3dSelf_2(this._parent, scale)));
+  }
+  auto scale3dSelf() {
+    return DOMMatrix(JsHandle(DOMMatrix_scale3dSelf_3(this._parent)));
+  }
   auto rotateSelf(double rotX /* = 0 */, double rotY, double rotZ) {
     return DOMMatrix(JsHandle(DOMMatrix_rotateSelf(this._parent, rotX, rotY, rotZ)));
+  }
+  auto rotateSelf(double rotX /* = 0 */, double rotY) {
+    return DOMMatrix(JsHandle(DOMMatrix_rotateSelf_0(this._parent, rotX, rotY)));
+  }
+  auto rotateSelf(double rotX /* = 0 */) {
+    return DOMMatrix(JsHandle(DOMMatrix_rotateSelf_1(this._parent, rotX)));
+  }
+  auto rotateSelf() {
+    return DOMMatrix(JsHandle(DOMMatrix_rotateSelf_2(this._parent)));
   }
   auto rotateFromVectorSelf(double x /* = 0 */, double y /* = 0 */) {
     return DOMMatrix(JsHandle(DOMMatrix_rotateFromVectorSelf(this._parent, x, y)));
   }
+  auto rotateFromVectorSelf(double x /* = 0 */) {
+    return DOMMatrix(JsHandle(DOMMatrix_rotateFromVectorSelf_0(this._parent, x)));
+  }
+  auto rotateFromVectorSelf() {
+    return DOMMatrix(JsHandle(DOMMatrix_rotateFromVectorSelf_1(this._parent)));
+  }
   auto rotateAxisAngleSelf(double x /* = 0 */, double y /* = 0 */, double z /* = 0 */, double angle /* = 0 */) {
     return DOMMatrix(JsHandle(DOMMatrix_rotateAxisAngleSelf(this._parent, x, y, z, angle)));
+  }
+  auto rotateAxisAngleSelf(double x /* = 0 */, double y /* = 0 */, double z /* = 0 */) {
+    return DOMMatrix(JsHandle(DOMMatrix_rotateAxisAngleSelf_0(this._parent, x, y, z)));
+  }
+  auto rotateAxisAngleSelf(double x /* = 0 */, double y /* = 0 */) {
+    return DOMMatrix(JsHandle(DOMMatrix_rotateAxisAngleSelf_1(this._parent, x, y)));
+  }
+  auto rotateAxisAngleSelf(double x /* = 0 */) {
+    return DOMMatrix(JsHandle(DOMMatrix_rotateAxisAngleSelf_2(this._parent, x)));
+  }
+  auto rotateAxisAngleSelf() {
+    return DOMMatrix(JsHandle(DOMMatrix_rotateAxisAngleSelf_3(this._parent)));
   }
   auto skewXSelf(double sx /* = 0 */) {
     return DOMMatrix(JsHandle(DOMMatrix_skewXSelf(this._parent, sx)));
   }
+  auto skewXSelf() {
+    return DOMMatrix(JsHandle(DOMMatrix_skewXSelf_0(this._parent)));
+  }
   auto skewYSelf(double sy /* = 0 */) {
     return DOMMatrix(JsHandle(DOMMatrix_skewYSelf(this._parent, sy)));
+  }
+  auto skewYSelf() {
+    return DOMMatrix(JsHandle(DOMMatrix_skewYSelf_0(this._parent)));
   }
   auto invertSelf() {
     return DOMMatrix(JsHandle(DOMMatrix_invertSelf(this._parent)));
@@ -346,6 +427,9 @@ struct DOMMatrixReadOnly {
   auto fromMatrix(DOMMatrixInit other) {
     return DOMMatrixReadOnly(JsHandle(DOMMatrixReadOnly_fromMatrix(this.handle, other._parent)));
   }
+  auto fromMatrix() {
+    return DOMMatrixReadOnly(JsHandle(DOMMatrixReadOnly_fromMatrix_0(this.handle)));
+  }
   auto fromFloat32Array(Float32Array array32) {
     return DOMMatrixReadOnly(JsHandle(DOMMatrixReadOnly_fromFloat32Array(this.handle, array32.handle)));
   }
@@ -427,32 +511,113 @@ struct DOMMatrixReadOnly {
   auto translate(double tx /* = 0 */, double ty /* = 0 */, double tz /* = 0 */) {
     return DOMMatrix(JsHandle(DOMMatrixReadOnly_translate(this.handle, tx, ty, tz)));
   }
+  auto translate(double tx /* = 0 */, double ty /* = 0 */) {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_translate_0(this.handle, tx, ty)));
+  }
+  auto translate(double tx /* = 0 */) {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_translate_1(this.handle, tx)));
+  }
+  auto translate() {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_translate_2(this.handle)));
+  }
   auto scale(double scaleX /* = 1 */, double scaleY, double scaleZ /* = 1 */, double originX /* = 0 */, double originY /* = 0 */, double originZ /* = 0 */) {
     return DOMMatrix(JsHandle(DOMMatrixReadOnly_scale(this.handle, scaleX, scaleY, scaleZ, originX, originY, originZ)));
+  }
+  auto scale(double scaleX /* = 1 */, double scaleY, double scaleZ /* = 1 */, double originX /* = 0 */, double originY /* = 0 */) {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_scale_0(this.handle, scaleX, scaleY, scaleZ, originX, originY)));
+  }
+  auto scale(double scaleX /* = 1 */, double scaleY, double scaleZ /* = 1 */, double originX /* = 0 */) {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_scale_1(this.handle, scaleX, scaleY, scaleZ, originX)));
+  }
+  auto scale(double scaleX /* = 1 */, double scaleY, double scaleZ /* = 1 */) {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_scale_2(this.handle, scaleX, scaleY, scaleZ)));
+  }
+  auto scale(double scaleX /* = 1 */, double scaleY) {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_scale_3(this.handle, scaleX, scaleY)));
+  }
+  auto scale(double scaleX /* = 1 */) {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_scale_4(this.handle, scaleX)));
+  }
+  auto scale() {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_scale_5(this.handle)));
   }
   auto scaleNonUniform(double scaleX /* = 1 */, double scaleY /* = 1 */) {
     return DOMMatrix(JsHandle(DOMMatrixReadOnly_scaleNonUniform(this.handle, scaleX, scaleY)));
   }
+  auto scaleNonUniform(double scaleX /* = 1 */) {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_scaleNonUniform_0(this.handle, scaleX)));
+  }
+  auto scaleNonUniform() {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_scaleNonUniform_1(this.handle)));
+  }
   auto scale3d(double scale /* = 1 */, double originX /* = 0 */, double originY /* = 0 */, double originZ /* = 0 */) {
     return DOMMatrix(JsHandle(DOMMatrixReadOnly_scale3d(this.handle, scale, originX, originY, originZ)));
+  }
+  auto scale3d(double scale /* = 1 */, double originX /* = 0 */, double originY /* = 0 */) {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_scale3d_0(this.handle, scale, originX, originY)));
+  }
+  auto scale3d(double scale /* = 1 */, double originX /* = 0 */) {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_scale3d_1(this.handle, scale, originX)));
+  }
+  auto scale3d(double scale /* = 1 */) {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_scale3d_2(this.handle, scale)));
+  }
+  auto scale3d() {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_scale3d_3(this.handle)));
   }
   auto rotate(double rotX /* = 0 */, double rotY, double rotZ) {
     return DOMMatrix(JsHandle(DOMMatrixReadOnly_rotate(this.handle, rotX, rotY, rotZ)));
   }
+  auto rotate(double rotX /* = 0 */, double rotY) {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_rotate_0(this.handle, rotX, rotY)));
+  }
+  auto rotate(double rotX /* = 0 */) {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_rotate_1(this.handle, rotX)));
+  }
+  auto rotate() {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_rotate_2(this.handle)));
+  }
   auto rotateFromVector(double x /* = 0 */, double y /* = 0 */) {
     return DOMMatrix(JsHandle(DOMMatrixReadOnly_rotateFromVector(this.handle, x, y)));
+  }
+  auto rotateFromVector(double x /* = 0 */) {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_rotateFromVector_0(this.handle, x)));
+  }
+  auto rotateFromVector() {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_rotateFromVector_1(this.handle)));
   }
   auto rotateAxisAngle(double x /* = 0 */, double y /* = 0 */, double z /* = 0 */, double angle /* = 0 */) {
     return DOMMatrix(JsHandle(DOMMatrixReadOnly_rotateAxisAngle(this.handle, x, y, z, angle)));
   }
+  auto rotateAxisAngle(double x /* = 0 */, double y /* = 0 */, double z /* = 0 */) {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_rotateAxisAngle_0(this.handle, x, y, z)));
+  }
+  auto rotateAxisAngle(double x /* = 0 */, double y /* = 0 */) {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_rotateAxisAngle_1(this.handle, x, y)));
+  }
+  auto rotateAxisAngle(double x /* = 0 */) {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_rotateAxisAngle_2(this.handle, x)));
+  }
+  auto rotateAxisAngle() {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_rotateAxisAngle_3(this.handle)));
+  }
   auto skewX(double sx /* = 0 */) {
     return DOMMatrix(JsHandle(DOMMatrixReadOnly_skewX(this.handle, sx)));
+  }
+  auto skewX() {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_skewX_0(this.handle)));
   }
   auto skewY(double sy /* = 0 */) {
     return DOMMatrix(JsHandle(DOMMatrixReadOnly_skewY(this.handle, sy)));
   }
+  auto skewY() {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_skewY_0(this.handle)));
+  }
   auto multiply(DOMMatrixInit other) {
     return DOMMatrix(JsHandle(DOMMatrixReadOnly_multiply(this.handle, other._parent)));
+  }
+  auto multiply() {
+    return DOMMatrix(JsHandle(DOMMatrixReadOnly_multiply_0(this.handle)));
   }
   auto flipX() {
     return DOMMatrix(JsHandle(DOMMatrixReadOnly_flipX(this.handle)));
@@ -465,6 +630,9 @@ struct DOMMatrixReadOnly {
   }
   auto transformPoint(DOMPointInit point) {
     return DOMPoint(JsHandle(DOMMatrixReadOnly_transformPoint(this.handle, point.handle)));
+  }
+  auto transformPoint() {
+    return DOMPoint(JsHandle(DOMMatrixReadOnly_transformPoint_0(this.handle)));
   }
   auto toFloat32Array() {
     return Float32Array(JsHandle(DOMMatrixReadOnly_toFloat32Array(this.handle)));
@@ -484,6 +652,9 @@ struct DOMPoint {
   }
   auto fromPoint(DOMPointInit other) {
     return DOMPoint(JsHandle(DOMPoint_fromPoint(this._parent, other.handle)));
+  }
+  auto fromPoint() {
+    return DOMPoint(JsHandle(DOMPoint_fromPoint_0(this._parent)));
   }
   void x(double x) {
     DOMPoint_x_Set(this._parent, x);
@@ -547,6 +718,9 @@ struct DOMPointReadOnly {
   auto fromPoint(DOMPointInit other) {
     return DOMPointReadOnly(JsHandle(DOMPointReadOnly_fromPoint(this.handle, other.handle)));
   }
+  auto fromPoint() {
+    return DOMPointReadOnly(JsHandle(DOMPointReadOnly_fromPoint_0(this.handle)));
+  }
   auto x() {
     return DOMPointReadOnly_x_Get(this.handle);
   }
@@ -562,6 +736,9 @@ struct DOMPointReadOnly {
   auto matrixTransform(DOMMatrixInit matrix) {
     return DOMPoint(JsHandle(DOMPointReadOnly_matrixTransform(this.handle, matrix._parent)));
   }
+  auto matrixTransform() {
+    return DOMPoint(JsHandle(DOMPointReadOnly_matrixTransform_0(this.handle)));
+  }
   auto toJSON() {
     return JsObject(JsHandle(DOMPointReadOnly_toJSON(this.handle)));
   }
@@ -572,8 +749,14 @@ struct DOMQuad {
   auto fromRect(DOMRectInit other) {
     return DOMQuad(JsHandle(DOMQuad_fromRect(this.handle, other.handle)));
   }
+  auto fromRect() {
+    return DOMQuad(JsHandle(DOMQuad_fromRect_0(this.handle)));
+  }
   auto fromQuad(DOMQuadInit other) {
     return DOMQuad(JsHandle(DOMQuad_fromQuad(this.handle, other.handle)));
+  }
+  auto fromQuad() {
+    return DOMQuad(JsHandle(DOMQuad_fromQuad_0(this.handle)));
   }
   auto p1() {
     return DOMPoint(JsHandle(DOMQuad_p1_Get(this.handle)));
@@ -633,6 +816,9 @@ struct DOMRect {
   }
   auto fromRect(DOMRectInit other) {
     return DOMRect(JsHandle(DOMRect_fromRect(this._parent, other.handle)));
+  }
+  auto fromRect() {
+    return DOMRect(JsHandle(DOMRect_fromRect_0(this._parent)));
   }
   void x(double x) {
     DOMRect_x_Set(this._parent, x);
@@ -706,6 +892,9 @@ struct DOMRectReadOnly {
   auto fromRect(DOMRectInit other) {
     return DOMRectReadOnly(JsHandle(DOMRectReadOnly_fromRect(this.handle, other.handle)));
   }
+  auto fromRect() {
+    return DOMRectReadOnly(JsHandle(DOMRectReadOnly_fromRect_0(this.handle)));
+  }
   auto x() {
     return DOMRectReadOnly_x_Get(this.handle);
   }
@@ -737,6 +926,7 @@ struct DOMRectReadOnly {
 
 
 extern (C) Handle DOMMatrix_fromMatrix(Handle, Handle);
+extern (C) Handle DOMMatrix_fromMatrix_0(Handle);
 extern (C) Handle DOMMatrix_fromFloat32Array(Handle, Handle);
 extern (C) Handle DOMMatrix_fromFloat64Array(Handle, Handle);
 extern (C) void DOMMatrix_a_Set(Handle, double);
@@ -784,15 +974,41 @@ extern (C) double DOMMatrix_m43_Get(Handle);
 extern (C) void DOMMatrix_m44_Set(Handle, double);
 extern (C) double DOMMatrix_m44_Get(Handle);
 extern (C) Handle DOMMatrix_multiplySelf(Handle, Handle);
+extern (C) Handle DOMMatrix_multiplySelf_0(Handle);
 extern (C) Handle DOMMatrix_preMultiplySelf(Handle, Handle);
+extern (C) Handle DOMMatrix_preMultiplySelf_0(Handle);
 extern (C) Handle DOMMatrix_translateSelf(Handle, double, double, double);
+extern (C) Handle DOMMatrix_translateSelf_0(Handle, double, double);
+extern (C) Handle DOMMatrix_translateSelf_1(Handle, double);
+extern (C) Handle DOMMatrix_translateSelf_2(Handle);
 extern (C) Handle DOMMatrix_scaleSelf(Handle, double, double, double, double, double, double);
+extern (C) Handle DOMMatrix_scaleSelf_0(Handle, double, double, double, double, double);
+extern (C) Handle DOMMatrix_scaleSelf_1(Handle, double, double, double, double);
+extern (C) Handle DOMMatrix_scaleSelf_2(Handle, double, double, double);
+extern (C) Handle DOMMatrix_scaleSelf_3(Handle, double, double);
+extern (C) Handle DOMMatrix_scaleSelf_4(Handle, double);
+extern (C) Handle DOMMatrix_scaleSelf_5(Handle);
 extern (C) Handle DOMMatrix_scale3dSelf(Handle, double, double, double, double);
+extern (C) Handle DOMMatrix_scale3dSelf_0(Handle, double, double, double);
+extern (C) Handle DOMMatrix_scale3dSelf_1(Handle, double, double);
+extern (C) Handle DOMMatrix_scale3dSelf_2(Handle, double);
+extern (C) Handle DOMMatrix_scale3dSelf_3(Handle);
 extern (C) Handle DOMMatrix_rotateSelf(Handle, double, double, double);
+extern (C) Handle DOMMatrix_rotateSelf_0(Handle, double, double);
+extern (C) Handle DOMMatrix_rotateSelf_1(Handle, double);
+extern (C) Handle DOMMatrix_rotateSelf_2(Handle);
 extern (C) Handle DOMMatrix_rotateFromVectorSelf(Handle, double, double);
+extern (C) Handle DOMMatrix_rotateFromVectorSelf_0(Handle, double);
+extern (C) Handle DOMMatrix_rotateFromVectorSelf_1(Handle);
 extern (C) Handle DOMMatrix_rotateAxisAngleSelf(Handle, double, double, double, double);
+extern (C) Handle DOMMatrix_rotateAxisAngleSelf_0(Handle, double, double, double);
+extern (C) Handle DOMMatrix_rotateAxisAngleSelf_1(Handle, double, double);
+extern (C) Handle DOMMatrix_rotateAxisAngleSelf_2(Handle, double);
+extern (C) Handle DOMMatrix_rotateAxisAngleSelf_3(Handle);
 extern (C) Handle DOMMatrix_skewXSelf(Handle, double);
+extern (C) Handle DOMMatrix_skewXSelf_0(Handle);
 extern (C) Handle DOMMatrix_skewYSelf(Handle, double);
+extern (C) Handle DOMMatrix_skewYSelf_0(Handle);
 extern (C) Handle DOMMatrix_invertSelf(Handle);
 extern (C) Handle DOMMatrix_setMatrixValue(Handle, string);
 extern (C) void DOMMatrix2DInit_a_Set(Handle, double);
@@ -842,6 +1058,7 @@ extern (C) double DOMMatrixInit_m44_Get(Handle);
 extern (C) void DOMMatrixInit_is2D_Set(Handle, bool);
 extern (C) bool DOMMatrixInit_is2D_Get(Handle);
 extern (C) Handle DOMMatrixReadOnly_fromMatrix(Handle, Handle);
+extern (C) Handle DOMMatrixReadOnly_fromMatrix_0(Handle);
 extern (C) Handle DOMMatrixReadOnly_fromFloat32Array(Handle, Handle);
 extern (C) Handle DOMMatrixReadOnly_fromFloat64Array(Handle, Handle);
 extern (C) double DOMMatrixReadOnly_a_Get(Handle);
@@ -869,23 +1086,52 @@ extern (C) double DOMMatrixReadOnly_m44_Get(Handle);
 extern (C) bool DOMMatrixReadOnly_is2D_Get(Handle);
 extern (C) bool DOMMatrixReadOnly_isIdentity_Get(Handle);
 extern (C) Handle DOMMatrixReadOnly_translate(Handle, double, double, double);
+extern (C) Handle DOMMatrixReadOnly_translate_0(Handle, double, double);
+extern (C) Handle DOMMatrixReadOnly_translate_1(Handle, double);
+extern (C) Handle DOMMatrixReadOnly_translate_2(Handle);
 extern (C) Handle DOMMatrixReadOnly_scale(Handle, double, double, double, double, double, double);
+extern (C) Handle DOMMatrixReadOnly_scale_0(Handle, double, double, double, double, double);
+extern (C) Handle DOMMatrixReadOnly_scale_1(Handle, double, double, double, double);
+extern (C) Handle DOMMatrixReadOnly_scale_2(Handle, double, double, double);
+extern (C) Handle DOMMatrixReadOnly_scale_3(Handle, double, double);
+extern (C) Handle DOMMatrixReadOnly_scale_4(Handle, double);
+extern (C) Handle DOMMatrixReadOnly_scale_5(Handle);
 extern (C) Handle DOMMatrixReadOnly_scaleNonUniform(Handle, double, double);
+extern (C) Handle DOMMatrixReadOnly_scaleNonUniform_0(Handle, double);
+extern (C) Handle DOMMatrixReadOnly_scaleNonUniform_1(Handle);
 extern (C) Handle DOMMatrixReadOnly_scale3d(Handle, double, double, double, double);
+extern (C) Handle DOMMatrixReadOnly_scale3d_0(Handle, double, double, double);
+extern (C) Handle DOMMatrixReadOnly_scale3d_1(Handle, double, double);
+extern (C) Handle DOMMatrixReadOnly_scale3d_2(Handle, double);
+extern (C) Handle DOMMatrixReadOnly_scale3d_3(Handle);
 extern (C) Handle DOMMatrixReadOnly_rotate(Handle, double, double, double);
+extern (C) Handle DOMMatrixReadOnly_rotate_0(Handle, double, double);
+extern (C) Handle DOMMatrixReadOnly_rotate_1(Handle, double);
+extern (C) Handle DOMMatrixReadOnly_rotate_2(Handle);
 extern (C) Handle DOMMatrixReadOnly_rotateFromVector(Handle, double, double);
+extern (C) Handle DOMMatrixReadOnly_rotateFromVector_0(Handle, double);
+extern (C) Handle DOMMatrixReadOnly_rotateFromVector_1(Handle);
 extern (C) Handle DOMMatrixReadOnly_rotateAxisAngle(Handle, double, double, double, double);
+extern (C) Handle DOMMatrixReadOnly_rotateAxisAngle_0(Handle, double, double, double);
+extern (C) Handle DOMMatrixReadOnly_rotateAxisAngle_1(Handle, double, double);
+extern (C) Handle DOMMatrixReadOnly_rotateAxisAngle_2(Handle, double);
+extern (C) Handle DOMMatrixReadOnly_rotateAxisAngle_3(Handle);
 extern (C) Handle DOMMatrixReadOnly_skewX(Handle, double);
+extern (C) Handle DOMMatrixReadOnly_skewX_0(Handle);
 extern (C) Handle DOMMatrixReadOnly_skewY(Handle, double);
+extern (C) Handle DOMMatrixReadOnly_skewY_0(Handle);
 extern (C) Handle DOMMatrixReadOnly_multiply(Handle, Handle);
+extern (C) Handle DOMMatrixReadOnly_multiply_0(Handle);
 extern (C) Handle DOMMatrixReadOnly_flipX(Handle);
 extern (C) Handle DOMMatrixReadOnly_flipY(Handle);
 extern (C) Handle DOMMatrixReadOnly_inverse(Handle);
 extern (C) Handle DOMMatrixReadOnly_transformPoint(Handle, Handle);
+extern (C) Handle DOMMatrixReadOnly_transformPoint_0(Handle);
 extern (C) Handle DOMMatrixReadOnly_toFloat32Array(Handle);
 extern (C) Handle DOMMatrixReadOnly_toFloat64Array(Handle);
 extern (C) Handle DOMMatrixReadOnly_toJSON(Handle);
 extern (C) Handle DOMPoint_fromPoint(Handle, Handle);
+extern (C) Handle DOMPoint_fromPoint_0(Handle);
 extern (C) void DOMPoint_x_Set(Handle, double);
 extern (C) double DOMPoint_x_Get(Handle);
 extern (C) void DOMPoint_y_Set(Handle, double);
@@ -903,14 +1149,18 @@ extern (C) double DOMPointInit_z_Get(Handle);
 extern (C) void DOMPointInit_w_Set(Handle, double);
 extern (C) double DOMPointInit_w_Get(Handle);
 extern (C) Handle DOMPointReadOnly_fromPoint(Handle, Handle);
+extern (C) Handle DOMPointReadOnly_fromPoint_0(Handle);
 extern (C) double DOMPointReadOnly_x_Get(Handle);
 extern (C) double DOMPointReadOnly_y_Get(Handle);
 extern (C) double DOMPointReadOnly_z_Get(Handle);
 extern (C) double DOMPointReadOnly_w_Get(Handle);
 extern (C) Handle DOMPointReadOnly_matrixTransform(Handle, Handle);
+extern (C) Handle DOMPointReadOnly_matrixTransform_0(Handle);
 extern (C) Handle DOMPointReadOnly_toJSON(Handle);
 extern (C) Handle DOMQuad_fromRect(Handle, Handle);
+extern (C) Handle DOMQuad_fromRect_0(Handle);
 extern (C) Handle DOMQuad_fromQuad(Handle, Handle);
+extern (C) Handle DOMQuad_fromQuad_0(Handle);
 extern (C) Handle DOMQuad_p1_Get(Handle);
 extern (C) Handle DOMQuad_p2_Get(Handle);
 extern (C) Handle DOMQuad_p3_Get(Handle);
@@ -926,6 +1176,7 @@ extern (C) Handle DOMQuadInit_p3_Get(Handle);
 extern (C) void DOMQuadInit_p4_Set(Handle, Handle);
 extern (C) Handle DOMQuadInit_p4_Get(Handle);
 extern (C) Handle DOMRect_fromRect(Handle, Handle);
+extern (C) Handle DOMRect_fromRect_0(Handle);
 extern (C) void DOMRect_x_Set(Handle, double);
 extern (C) double DOMRect_x_Get(Handle);
 extern (C) void DOMRect_y_Set(Handle, double);
@@ -945,6 +1196,7 @@ extern (C) double DOMRectInit_height_Get(Handle);
 extern (C) uint DOMRectList_length_Get(Handle);
 extern (C) Optional!(DOMRect) DOMRectList_item_getter(Handle, uint);
 extern (C) Handle DOMRectReadOnly_fromRect(Handle, Handle);
+extern (C) Handle DOMRectReadOnly_fromRect_0(Handle);
 extern (C) double DOMRectReadOnly_x_Get(Handle);
 extern (C) double DOMRectReadOnly_y_Get(Handle);
 extern (C) double DOMRectReadOnly_width_Get(Handle);

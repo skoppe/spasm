@@ -1,6 +1,7 @@
 module spasm.bindings.dom;
 
 import spasm.types;
+import spasm.bindings.cssom;
 import spasm.bindings.domhighrestimestamp;
 import spasm.bindings.fullscreen;
 import spasm.bindings.html;
@@ -182,6 +183,15 @@ struct CustomEvent {
     CustomEvent_initCustomEvent(this._parent, type, bubbles, cancelable, _handle_detail);
     dropHandle!(T3)(_handle_detail);
   }
+  void initCustomEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */) {
+    CustomEvent_initCustomEvent_0(this._parent, type, bubbles, cancelable);
+  }
+  void initCustomEvent(string type, bool bubbles /* = false */) {
+    CustomEvent_initCustomEvent_1(this._parent, type, bubbles);
+  }
+  void initCustomEvent(string type) {
+    CustomEvent_initCustomEvent_2(this._parent, type);
+  }
 }
 struct CustomEventInit {
   spasm.bindings.dom.EventInit _parent;
@@ -210,8 +220,14 @@ struct DOMImplementation {
   auto createDocument(Optional!(string) namespace, string qualifiedName, Optional!(DocumentType) doctype /* = no!(DocumentType) */) {
     return XMLDocument(JsHandle(DOMImplementation_createDocument(this.handle, !namespace.empty, namespace.front, qualifiedName, !doctype.empty, doctype.front._parent)));
   }
+  auto createDocument(Optional!(string) namespace, string qualifiedName) {
+    return XMLDocument(JsHandle(DOMImplementation_createDocument_0(this.handle, !namespace.empty, namespace.front, qualifiedName)));
+  }
   auto createHTMLDocument(string title) {
     return Document(JsHandle(DOMImplementation_createHTMLDocument(this.handle, title)));
+  }
+  auto createHTMLDocument() {
+    return Document(JsHandle(DOMImplementation_createHTMLDocument_0(this.handle)));
   }
   auto hasFeature() {
     return DOMImplementation_hasFeature(this.handle);
@@ -237,6 +253,9 @@ struct DOMTokenList {
   }
   auto toggle(string token, bool force) {
     return DOMTokenList_toggle(this.handle, token, force);
+  }
+  auto toggle(string token) {
+    return DOMTokenList_toggle_0(this.handle, token);
   }
   auto replace(string token, string newToken) {
     return DOMTokenList_replace(this.handle, token, newToken);
@@ -302,8 +321,14 @@ struct Document {
   auto createElement(string localName, SumType!(string, ElementCreationOptions) options) {
     return Element(JsHandle(Document_createElement(this._parent, localName, options)));
   }
+  auto createElement(string localName) {
+    return Element(JsHandle(Document_createElement_0(this._parent, localName)));
+  }
   auto createElementNS(Optional!(string) namespace, string qualifiedName, SumType!(string, ElementCreationOptions) options) {
     return Element(JsHandle(Document_createElementNS(this._parent, !namespace.empty, namespace.front, qualifiedName, options)));
+  }
+  auto createElementNS(Optional!(string) namespace, string qualifiedName) {
+    return Element(JsHandle(Document_createElementNS_0(this._parent, !namespace.empty, namespace.front, qualifiedName)));
   }
   auto createDocumentFragment() {
     return DocumentFragment(JsHandle(Document_createDocumentFragment(this._parent)));
@@ -323,6 +348,9 @@ struct Document {
   auto importNode(Node node, bool deep /* = false */) {
     return Node(JsHandle(Document_importNode(this._parent, node._parent, deep)));
   }
+  auto importNode(Node node) {
+    return Node(JsHandle(Document_importNode_0(this._parent, node._parent)));
+  }
   auto adoptNode(Node node) {
     return Node(JsHandle(Document_adoptNode(this._parent, node._parent)));
   }
@@ -341,8 +369,20 @@ struct Document {
   auto createNodeIterator(Node root, uint whatToShow /* = 0xFFFFFFFF */, Optional!(NodeFilter) filter /* = no!(NodeFilter) */) {
     return NodeIterator(JsHandle(Document_createNodeIterator(this._parent, root._parent, whatToShow, !filter.empty, filter.front.handle)));
   }
+  auto createNodeIterator(Node root, uint whatToShow /* = 0xFFFFFFFF */) {
+    return NodeIterator(JsHandle(Document_createNodeIterator_0(this._parent, root._parent, whatToShow)));
+  }
+  auto createNodeIterator(Node root) {
+    return NodeIterator(JsHandle(Document_createNodeIterator_1(this._parent, root._parent)));
+  }
   auto createTreeWalker(Node root, uint whatToShow /* = 0xFFFFFFFF */, Optional!(NodeFilter) filter /* = no!(NodeFilter) */) {
     return TreeWalker(JsHandle(Document_createTreeWalker(this._parent, root._parent, whatToShow, !filter.empty, filter.front.handle)));
+  }
+  auto createTreeWalker(Node root, uint whatToShow /* = 0xFFFFFFFF */) {
+    return TreeWalker(JsHandle(Document_createTreeWalker_0(this._parent, root._parent, whatToShow)));
+  }
+  auto createTreeWalker(Node root) {
+    return TreeWalker(JsHandle(Document_createTreeWalker_1(this._parent, root._parent)));
   }
   auto location() {
     return Document_location_Get(this._parent);
@@ -416,6 +456,12 @@ struct Document {
   auto open(string unused1, string unused2) {
     return Document(JsHandle(Document_open__string_string(this._parent, unused1, unused2)));
   }
+  auto open(string unused1) {
+    return Document(JsHandle(Document_open_0(this._parent, unused1)));
+  }
+  auto open() {
+    return Document(JsHandle(Document_open_1(this._parent)));
+  }
   auto open(string url, string name, string features) {
     return Document_open__string_string_string(this._parent, url, name, features);
   }
@@ -445,6 +491,12 @@ struct Document {
   }
   auto execCommand(string commandId, bool showUI /* = false */, string value /* = "" */) {
     return Document_execCommand(this._parent, commandId, showUI, value);
+  }
+  auto execCommand(string commandId, bool showUI /* = false */) {
+    return Document_execCommand_0(this._parent, commandId, showUI);
+  }
+  auto execCommand(string commandId) {
+    return Document_execCommand_1(this._parent, commandId);
   }
   auto queryCommandEnabled(string commandId) {
     return Document_queryCommandEnabled(this._parent, commandId);
@@ -550,6 +602,9 @@ struct Document {
   }
   auto rootElement() {
     return Document_rootElement_Get(this._parent);
+  }
+  auto styleSheets() {
+    return StyleSheetList(JsHandle(Document_styleSheets_Get(this._parent)));
   }
   auto getElementById(string elementId) {
     return NonElementParentNode_getElementById(this._parent, elementId);
@@ -1187,6 +1242,9 @@ struct Element {
   auto toggleAttribute(string qualifiedName, bool force) {
     return Element_toggleAttribute(this._parent, qualifiedName, force);
   }
+  auto toggleAttribute(string qualifiedName) {
+    return Element_toggleAttribute_0(this._parent, qualifiedName);
+  }
   auto hasAttribute(string qualifiedName) {
     return Element_hasAttribute(this._parent, qualifiedName);
   }
@@ -1238,6 +1296,21 @@ struct Element {
   void insertAdjacentText(string where, string data) {
     Element_insertAdjacentText(this._parent, where, data);
   }
+  void innerHTML(string innerHTML) {
+    Element_innerHTML_Set(this._parent, innerHTML);
+  }
+  auto innerHTML() {
+    return Element_innerHTML_Get(this._parent);
+  }
+  void outerHTML(string outerHTML) {
+    Element_outerHTML_Set(this._parent, outerHTML);
+  }
+  auto outerHTML() {
+    return Element_outerHTML_Get(this._parent);
+  }
+  void insertAdjacentHTML(string position, string text) {
+    Element_insertAdjacentHTML(this._parent, position, text);
+  }
   void setPointerCapture(int pointerId) {
     Element_setPointerCapture(this._parent, pointerId);
   }
@@ -1249,6 +1322,9 @@ struct Element {
   }
   auto requestFullscreen(FullscreenOptions options) {
     return Promise!(void)(JsHandle(Element_requestFullscreen(this._parent, options.handle)));
+  }
+  auto requestFullscreen() {
+    return Promise!(void)(JsHandle(Element_requestFullscreen_0(this._parent)));
   }
   void onfullscreenchange(EventHandler onfullscreenchange) {
     Element_onfullscreenchange_Set(this._parent, onfullscreenchange);
@@ -1388,6 +1464,12 @@ struct Event {
   void initEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */) {
     Event_initEvent(this.handle, type, bubbles, cancelable);
   }
+  void initEvent(string type, bool bubbles /* = false */) {
+    Event_initEvent_0(this.handle, type, bubbles);
+  }
+  void initEvent(string type) {
+    Event_initEvent_1(this.handle, type);
+  }
 }
 struct EventInit {
   JsHandle handle;
@@ -1434,8 +1516,14 @@ struct EventTarget {
   void addEventListener(string type, EventListener callback, SumType!(AddEventListenerOptions, bool) options) {
     EventTarget_addEventListener(this.handle, type, callback, options);
   }
+  void addEventListener(string type, EventListener callback) {
+    EventTarget_addEventListener_0(this.handle, type, callback);
+  }
   void removeEventListener(string type, EventListener callback, SumType!(EventListenerOptions, bool) options) {
     EventTarget_removeEventListener(this.handle, type, callback, options);
+  }
+  void removeEventListener(string type, EventListener callback) {
+    EventTarget_removeEventListener_0(this.handle, type, callback);
   }
   auto dispatchEvent(Event event) {
     return EventTarget_dispatchEvent(this.handle, event.handle);
@@ -1473,6 +1561,9 @@ struct MutationObserver {
   alias handle this;
   void observe(Node target, MutationObserverInit options) {
     MutationObserver_observe(this.handle, target._parent, options.handle);
+  }
+  void observe(Node target) {
+    MutationObserver_observe_0(this.handle, target._parent);
   }
   void disconnect() {
     MutationObserver_disconnect(this.handle);
@@ -1625,6 +1716,9 @@ struct Node {
   auto getRootNode(GetRootNodeOptions options) {
     return Node(JsHandle(Node_getRootNode(this._parent, options.handle)));
   }
+  auto getRootNode() {
+    return Node(JsHandle(Node_getRootNode_0(this._parent)));
+  }
   auto parentNode() {
     return Node_parentNode_Get(this._parent);
   }
@@ -1666,6 +1760,9 @@ struct Node {
   }
   auto cloneNode(bool deep /* = false */) {
     return Node(JsHandle(Node_cloneNode(this._parent, deep)));
+  }
+  auto cloneNode() {
+    return Node(JsHandle(Node_cloneNode_0(this._parent)));
   }
   auto isEqualNode(Optional!(Node) otherNode) {
     return Node_isEqualNode(this._parent, !otherNode.empty, otherNode.front._parent);
@@ -1808,6 +1905,9 @@ struct Range {
   void collapse(bool toStart /* = false */) {
     Range_collapse(this._parent, toStart);
   }
+  void collapse() {
+    Range_collapse_0(this._parent);
+  }
   void selectNode(Node node) {
     Range_selectNode(this._parent, node._parent);
   }
@@ -1850,6 +1950,9 @@ struct Range {
   }
   auto intersectsNode(Node node) {
     return Range_intersectsNode(this._parent, node._parent);
+  }
+  auto createContextualFragment(string fragment) {
+    return DocumentFragment(JsHandle(Range_createContextualFragment(this._parent, fragment)));
   }
 }
 struct ShadowRoot {
@@ -1993,11 +2096,16 @@ extern (C) void ChildNode_replaceWith(Handle, SumType!(Node, string));
 extern (C) void ChildNode_remove(Handle);
 extern (C) Handle CustomEvent_detail_Get(Handle);
 extern (C) void CustomEvent_initCustomEvent(Handle, string, bool, bool, Handle);
+extern (C) void CustomEvent_initCustomEvent_0(Handle, string, bool, bool);
+extern (C) void CustomEvent_initCustomEvent_1(Handle, string, bool);
+extern (C) void CustomEvent_initCustomEvent_2(Handle, string);
 extern (C) void CustomEventInit_detail_Set(Handle, Handle);
 extern (C) Handle CustomEventInit_detail_Get(Handle);
 extern (C) Handle DOMImplementation_createDocumentType(Handle, string, string, string);
 extern (C) Handle DOMImplementation_createDocument(Handle, bool, string, string, bool, Handle);
+extern (C) Handle DOMImplementation_createDocument_0(Handle, bool, string, string);
 extern (C) Handle DOMImplementation_createHTMLDocument(Handle, string);
+extern (C) Handle DOMImplementation_createHTMLDocument_0(Handle);
 extern (C) bool DOMImplementation_hasFeature(Handle);
 extern (C) uint DOMTokenList_length_Get(Handle);
 extern (C) Optional!(string) DOMTokenList_item_getter(Handle, uint);
@@ -2005,6 +2113,7 @@ extern (C) bool DOMTokenList_contains(Handle, string);
 extern (C) void DOMTokenList_add(Handle, string);
 extern (C) void DOMTokenList_remove(Handle, string);
 extern (C) bool DOMTokenList_toggle(Handle, string, bool);
+extern (C) bool DOMTokenList_toggle_0(Handle, string);
 extern (C) bool DOMTokenList_replace(Handle, string, string);
 extern (C) bool DOMTokenList_supports(Handle, string);
 extern (C) void DOMTokenList_value_Set(Handle, string);
@@ -2024,20 +2133,27 @@ extern (C) Handle Document_getElementsByTagName(Handle, string);
 extern (C) Handle Document_getElementsByTagNameNS(Handle, bool, string, string);
 extern (C) Handle Document_getElementsByClassName(Handle, string);
 extern (C) Handle Document_createElement(Handle, string, SumType!(string, ElementCreationOptions));
+extern (C) Handle Document_createElement_0(Handle, string);
 extern (C) Handle Document_createElementNS(Handle, bool, string, string, SumType!(string, ElementCreationOptions));
+extern (C) Handle Document_createElementNS_0(Handle, bool, string, string);
 extern (C) Handle Document_createDocumentFragment(Handle);
 extern (C) Handle Document_createTextNode(Handle, string);
 extern (C) Handle Document_createCDATASection(Handle, string);
 extern (C) Handle Document_createComment(Handle, string);
 extern (C) Handle Document_createProcessingInstruction(Handle, string, string);
 extern (C) Handle Document_importNode(Handle, Handle, bool);
+extern (C) Handle Document_importNode_0(Handle, Handle);
 extern (C) Handle Document_adoptNode(Handle, Handle);
 extern (C) Handle Document_createAttribute(Handle, string);
 extern (C) Handle Document_createAttributeNS(Handle, bool, string, string);
 extern (C) Handle Document_createEvent(Handle, string);
 extern (C) Handle Document_createRange(Handle);
 extern (C) Handle Document_createNodeIterator(Handle, Handle, uint, bool, Handle);
+extern (C) Handle Document_createNodeIterator_0(Handle, Handle, uint);
+extern (C) Handle Document_createNodeIterator_1(Handle, Handle);
 extern (C) Handle Document_createTreeWalker(Handle, Handle, uint, bool, Handle);
+extern (C) Handle Document_createTreeWalker_0(Handle, Handle, uint);
+extern (C) Handle Document_createTreeWalker_1(Handle, Handle);
 extern (C) Optional!(Location) Document_location_Get(Handle);
 extern (C) void Document_domain_Set(Handle, string);
 extern (C) string Document_domain_Get(Handle);
@@ -2062,6 +2178,8 @@ extern (C) Handle Document_scripts_Get(Handle);
 extern (C) Handle Document_getElementsByName(Handle, string);
 extern (C) Optional!(HTMLOrSVGScriptElement) Document_currentScript_Get(Handle);
 extern (C) Handle Document_open__string_string(Handle, string, string);
+extern (C) Handle Document_open_0(Handle, string);
+extern (C) Handle Document_open_1(Handle);
 extern (C) Optional!(Window) Document_open__string_string_string(Handle, string, string, string);
 extern (C) void Document_close(Handle);
 extern (C) void Document_write(Handle, string);
@@ -2072,6 +2190,8 @@ extern (C) bool Document_hasFocus(Handle);
 extern (C) void Document_designMode_Set(Handle, string);
 extern (C) string Document_designMode_Get(Handle);
 extern (C) bool Document_execCommand(Handle, string, bool, string);
+extern (C) bool Document_execCommand_0(Handle, string, bool);
+extern (C) bool Document_execCommand_1(Handle, string);
 extern (C) bool Document_queryCommandEnabled(Handle, string);
 extern (C) bool Document_queryCommandIndeterm(Handle, string);
 extern (C) bool Document_queryCommandState(Handle, string);
@@ -2107,6 +2227,7 @@ extern (C) EventHandler Document_onfullscreenchange_Get(Handle);
 extern (C) void Document_onfullscreenerror_Set(Handle, EventHandler);
 extern (C) EventHandler Document_onfullscreenerror_Get(Handle);
 extern (C) Optional!(SVGSVGElement) Document_rootElement_Get(Handle);
+extern (C) Handle Document_styleSheets_Get(Handle);
 extern (C) Optional!(Element) DocumentOrShadowRoot_fullscreenElement_Get(Handle);
 extern (C) string DocumentType_name_Get(Handle);
 extern (C) string DocumentType_publicId_Get(Handle);
@@ -2132,6 +2253,7 @@ extern (C) void Element_setAttributeNS(Handle, bool, string, string, string);
 extern (C) void Element_removeAttribute(Handle, string);
 extern (C) void Element_removeAttributeNS(Handle, bool, string, string);
 extern (C) bool Element_toggleAttribute(Handle, string, bool);
+extern (C) bool Element_toggleAttribute_0(Handle, string);
 extern (C) bool Element_hasAttribute(Handle, string);
 extern (C) bool Element_hasAttributeNS(Handle, bool, string, string);
 extern (C) Optional!(Attr) Element_getAttributeNode(Handle, string);
@@ -2149,10 +2271,16 @@ extern (C) Handle Element_getElementsByTagNameNS(Handle, bool, string, string);
 extern (C) Handle Element_getElementsByClassName(Handle, string);
 extern (C) Optional!(Element) Element_insertAdjacentElement(Handle, string, Handle);
 extern (C) void Element_insertAdjacentText(Handle, string, string);
+extern (C) void Element_innerHTML_Set(Handle, string);
+extern (C) string Element_innerHTML_Get(Handle);
+extern (C) void Element_outerHTML_Set(Handle, string);
+extern (C) string Element_outerHTML_Get(Handle);
+extern (C) void Element_insertAdjacentHTML(Handle, string, string);
 extern (C) void Element_setPointerCapture(Handle, int);
 extern (C) void Element_releasePointerCapture(Handle, int);
 extern (C) bool Element_hasPointerCapture(Handle, int);
 extern (C) Handle Element_requestFullscreen(Handle, Handle);
+extern (C) Handle Element_requestFullscreen_0(Handle);
 extern (C) void Element_onfullscreenchange_Set(Handle, EventHandler);
 extern (C) EventHandler Element_onfullscreenchange_Get(Handle);
 extern (C) void Element_onfullscreenerror_Set(Handle, EventHandler);
@@ -2179,6 +2307,8 @@ extern (C) bool Event_composed_Get(Handle);
 extern (C) bool Event_isTrusted_Get(Handle);
 extern (C) double Event_timeStamp_Get(Handle);
 extern (C) void Event_initEvent(Handle, string, bool, bool);
+extern (C) void Event_initEvent_0(Handle, string, bool);
+extern (C) void Event_initEvent_1(Handle, string);
 extern (C) void EventInit_bubbles_Set(Handle, bool);
 extern (C) bool EventInit_bubbles_Get(Handle);
 extern (C) void EventInit_cancelable_Set(Handle, bool);
@@ -2188,7 +2318,9 @@ extern (C) bool EventInit_composed_Get(Handle);
 extern (C) void EventListenerOptions_capture_Set(Handle, bool);
 extern (C) bool EventListenerOptions_capture_Get(Handle);
 extern (C) void EventTarget_addEventListener(Handle, string, EventListener, SumType!(AddEventListenerOptions, bool));
+extern (C) void EventTarget_addEventListener_0(Handle, string, EventListener);
 extern (C) void EventTarget_removeEventListener(Handle, string, EventListener, SumType!(EventListenerOptions, bool));
+extern (C) void EventTarget_removeEventListener_0(Handle, string, EventListener);
 extern (C) bool EventTarget_dispatchEvent(Handle, Handle);
 extern (C) void GetRootNodeOptions_composed_Set(Handle, bool);
 extern (C) bool GetRootNodeOptions_composed_Get(Handle);
@@ -2196,6 +2328,7 @@ extern (C) uint HTMLCollection_length_Get(Handle);
 extern (C) Optional!(Element) HTMLCollection_item_getter(Handle, uint);
 extern (C) Optional!(Element) HTMLCollection_namedItem_getter(Handle, string);
 extern (C) void MutationObserver_observe(Handle, Handle, Handle);
+extern (C) void MutationObserver_observe_0(Handle, Handle);
 extern (C) void MutationObserver_disconnect(Handle);
 extern (C) Handle MutationObserver_takeRecords(Handle);
 extern (C) void MutationObserverInit_childList_Set(Handle, bool);
@@ -2235,6 +2368,7 @@ extern (C) string Node_baseURI_Get(Handle);
 extern (C) bool Node_isConnected_Get(Handle);
 extern (C) Optional!(Document) Node_ownerDocument_Get(Handle);
 extern (C) Handle Node_getRootNode(Handle, Handle);
+extern (C) Handle Node_getRootNode_0(Handle);
 extern (C) Optional!(Node) Node_parentNode_Get(Handle);
 extern (C) Optional!(Element) Node_parentElement_Get(Handle);
 extern (C) bool Node_hasChildNodes(Handle);
@@ -2249,6 +2383,7 @@ extern (C) void Node_textContent_Set(Handle, bool, string);
 extern (C) Optional!(string) Node_textContent_Get(Handle);
 extern (C) void Node_normalize(Handle);
 extern (C) Handle Node_cloneNode(Handle, bool);
+extern (C) Handle Node_cloneNode_0(Handle);
 extern (C) bool Node_isEqualNode(Handle, bool, Handle);
 extern (C) bool Node_isSameNode(Handle, bool, Handle);
 extern (C) ushort Node_compareDocumentPosition(Handle, Handle);
@@ -2291,6 +2426,7 @@ extern (C) void Range_setStartAfter(Handle, Handle);
 extern (C) void Range_setEndBefore(Handle, Handle);
 extern (C) void Range_setEndAfter(Handle, Handle);
 extern (C) void Range_collapse(Handle, bool);
+extern (C) void Range_collapse_0(Handle);
 extern (C) void Range_selectNode(Handle, Handle);
 extern (C) void Range_selectNodeContents(Handle, Handle);
 extern (C) short Range_compareBoundaryPoints(Handle, ushort, Handle);
@@ -2304,6 +2440,7 @@ extern (C) void Range_detach(Handle);
 extern (C) bool Range_isPointInRange(Handle, Handle, uint);
 extern (C) short Range_comparePoint(Handle, Handle, uint);
 extern (C) bool Range_intersectsNode(Handle, Handle);
+extern (C) Handle Range_createContextualFragment(Handle, string);
 extern (C) ShadowRootMode ShadowRoot_mode_Get(Handle);
 extern (C) Handle ShadowRoot_host_Get(Handle);
 extern (C) void ShadowRootInit_mode_Set(Handle, ShadowRootMode);

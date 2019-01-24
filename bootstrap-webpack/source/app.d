@@ -13,7 +13,7 @@ void main(string[] args)
   import std.array : replace;
   immutable string indexjs = import("./spasm/modules/index.js");
   immutable string spasmjs = import("./spasm/modules/spasm.js");
-  immutable string domjs = import("./spasm/modules/dom.js");
+  immutable string spajs = import("./spasm/modules/spa.js");
   immutable string entryjs = import("./spasm/entry.js");
   immutable string indexhtml = import("./spasm/index.template.html");
   immutable string devserver = import("./dev-server.js");
@@ -42,7 +42,7 @@ void main(string[] args)
   write("spasm/entry.js", entryjs);
   write("spasm/modules/spasm.js", spasmjs.replace("@@targetProjectName@@", name));
   write("spasm/modules/index.js", indexjs);
-  write("spasm/modules/dom.js", domjs);
+  write("spasm/modules/spa.js", spajs);
   if (exists("index.template.html"))
     rename("index.template.html","spasm/index.template.html");
   else if (!exists("spasm/index.template.html"))

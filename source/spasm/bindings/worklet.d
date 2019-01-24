@@ -9,6 +9,9 @@ struct Worklet {
   auto addModule(string moduleURL, WorkletOptions options) {
     return Promise!(void)(JsHandle(Worklet_addModule(this.handle, moduleURL, options.handle)));
   }
+  auto addModule(string moduleURL) {
+    return Promise!(void)(JsHandle(Worklet_addModule_0(this.handle, moduleURL)));
+  }
 }
 struct WorkletGlobalScope {
   JsHandle handle;
@@ -30,5 +33,6 @@ struct WorkletOptions {
 
 
 extern (C) Handle Worklet_addModule(Handle, string, Handle);
+extern (C) Handle Worklet_addModule_0(Handle, string);
 extern (C) void WorkletOptions_credentials_Set(Handle, RequestCredentials);
 extern (C) RequestCredentials WorkletOptions_credentials_Get(Handle);

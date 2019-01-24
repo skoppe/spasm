@@ -13,8 +13,17 @@ struct Cache {
   auto match(RequestInfo request, CacheQueryOptions options) {
     return Promise!(Any)(JsHandle(Cache_match(this.handle, request, options.handle)));
   }
+  auto match(RequestInfo request) {
+    return Promise!(Any)(JsHandle(Cache_match_0(this.handle, request)));
+  }
   auto matchAll(RequestInfo request, CacheQueryOptions options) {
     return Promise!(FrozenArray!(Response))(JsHandle(Cache_matchAll(this.handle, request, options.handle)));
+  }
+  auto matchAll(RequestInfo request) {
+    return Promise!(FrozenArray!(Response))(JsHandle(Cache_matchAll_0(this.handle, request)));
+  }
+  auto matchAll() {
+    return Promise!(FrozenArray!(Response))(JsHandle(Cache_matchAll_1(this.handle)));
   }
   auto add(RequestInfo request) {
     return Promise!(void)(JsHandle(Cache_add(this.handle, request)));
@@ -28,8 +37,17 @@ struct Cache {
   auto delete_(RequestInfo request, CacheQueryOptions options) {
     return Promise!(bool)(JsHandle(Cache_delete(this.handle, request, options.handle)));
   }
+  auto delete_(RequestInfo request) {
+    return Promise!(bool)(JsHandle(Cache_delete_0(this.handle, request)));
+  }
   auto keys(RequestInfo request, CacheQueryOptions options) {
     return Promise!(FrozenArray!(Request))(JsHandle(Cache_keys(this.handle, request, options.handle)));
+  }
+  auto keys(RequestInfo request) {
+    return Promise!(FrozenArray!(Request))(JsHandle(Cache_keys_0(this.handle, request)));
+  }
+  auto keys() {
+    return Promise!(FrozenArray!(Request))(JsHandle(Cache_keys_1(this.handle)));
   }
 }
 struct CacheQueryOptions {
@@ -63,6 +81,9 @@ struct CacheStorage {
   auto match(RequestInfo request, MultiCacheQueryOptions options) {
     return Promise!(Any)(JsHandle(CacheStorage_match(this.handle, request, options._parent)));
   }
+  auto match(RequestInfo request) {
+    return Promise!(Any)(JsHandle(CacheStorage_match_0(this.handle, request)));
+  }
   auto has(string cacheName) {
     return Promise!(bool)(JsHandle(CacheStorage_has(this.handle, cacheName)));
   }
@@ -94,6 +115,11 @@ struct Client {
   void postMessage(T0)(T0 message, Sequence!(JsObject) transfer /* = [] */) {
     Handle _handle_message = getOrCreateHandle(message);
     Client_postMessage(this.handle, _handle_message, transfer.handle);
+    dropHandle!(T0)(_handle_message);
+  }
+  void postMessage(T0)(T0 message) {
+    Handle _handle_message = getOrCreateHandle(message);
+    Client_postMessage_0(this.handle, _handle_message);
     dropHandle!(T0)(_handle_message);
   }
 }
@@ -130,6 +156,9 @@ struct Clients {
   }
   auto matchAll(ClientQueryOptions options) {
     return Promise!(FrozenArray!(Client))(JsHandle(Clients_matchAll(this.handle, options.handle)));
+  }
+  auto matchAll() {
+    return Promise!(FrozenArray!(Client))(JsHandle(Clients_matchAll_0(this.handle)));
   }
   auto openWindow(string url) {
     return Promise!(Optional!(WindowClient))(JsHandle(Clients_openWindow(this.handle, url)));
@@ -386,6 +415,11 @@ struct ServiceWorker {
     ServiceWorker_postMessage(this._parent, _handle_message, transfer.handle);
     dropHandle!(T0)(_handle_message);
   }
+  void postMessage(T0)(T0 message) {
+    Handle _handle_message = getOrCreateHandle(message);
+    ServiceWorker_postMessage_0(this._parent, _handle_message);
+    dropHandle!(T0)(_handle_message);
+  }
   void onstatechange(EventHandler onstatechange) {
     ServiceWorker_onstatechange_Set(this._parent, onstatechange);
   }
@@ -414,8 +448,14 @@ struct ServiceWorkerContainer {
   auto register(string scriptURL, RegistrationOptions options) {
     return Promise!(ServiceWorkerRegistration)(JsHandle(ServiceWorkerContainer_register(this._parent, scriptURL, options.handle)));
   }
+  auto register(string scriptURL) {
+    return Promise!(ServiceWorkerRegistration)(JsHandle(ServiceWorkerContainer_register_0(this._parent, scriptURL)));
+  }
   auto getRegistration(string clientURL /* = "" */) {
     return Promise!(Any)(JsHandle(ServiceWorkerContainer_getRegistration(this._parent, clientURL)));
+  }
+  auto getRegistration() {
+    return Promise!(Any)(JsHandle(ServiceWorkerContainer_getRegistration_0(this._parent)));
   }
   auto getRegistrations() {
     return Promise!(FrozenArray!(ServiceWorkerRegistration))(JsHandle(ServiceWorkerContainer_getRegistrations(this._parent)));
@@ -539,8 +579,14 @@ struct ServiceWorkerRegistration {
   auto showNotification(string title, NotificationOptions options) {
     return Promise!(void)(JsHandle(ServiceWorkerRegistration_showNotification(this._parent, title, options.handle)));
   }
+  auto showNotification(string title) {
+    return Promise!(void)(JsHandle(ServiceWorkerRegistration_showNotification_0(this._parent, title)));
+  }
   auto getNotifications(GetNotificationOptions filter) {
     return Promise!(Sequence!(Notification))(JsHandle(ServiceWorkerRegistration_getNotifications(this._parent, filter.handle)));
+  }
+  auto getNotifications() {
+    return Promise!(Sequence!(Notification))(JsHandle(ServiceWorkerRegistration_getNotifications_0(this._parent)));
   }
 }
 enum ServiceWorkerState {
@@ -580,12 +626,18 @@ struct WindowClient {
 
 
 extern (C) Handle Cache_match(Handle, RequestInfo, Handle);
+extern (C) Handle Cache_match_0(Handle, RequestInfo);
 extern (C) Handle Cache_matchAll(Handle, RequestInfo, Handle);
+extern (C) Handle Cache_matchAll_0(Handle, RequestInfo);
+extern (C) Handle Cache_matchAll_1(Handle);
 extern (C) Handle Cache_add(Handle, RequestInfo);
 extern (C) Handle Cache_addAll(Handle, Handle);
 extern (C) Handle Cache_put(Handle, RequestInfo, Handle);
 extern (C) Handle Cache_delete(Handle, RequestInfo, Handle);
+extern (C) Handle Cache_delete_0(Handle, RequestInfo);
 extern (C) Handle Cache_keys(Handle, RequestInfo, Handle);
+extern (C) Handle Cache_keys_0(Handle, RequestInfo);
+extern (C) Handle Cache_keys_1(Handle);
 extern (C) void CacheQueryOptions_ignoreSearch_Set(Handle, bool);
 extern (C) bool CacheQueryOptions_ignoreSearch_Get(Handle);
 extern (C) void CacheQueryOptions_ignoreMethod_Set(Handle, bool);
@@ -593,6 +645,7 @@ extern (C) bool CacheQueryOptions_ignoreMethod_Get(Handle);
 extern (C) void CacheQueryOptions_ignoreVary_Set(Handle, bool);
 extern (C) bool CacheQueryOptions_ignoreVary_Get(Handle);
 extern (C) Handle CacheStorage_match(Handle, RequestInfo, Handle);
+extern (C) Handle CacheStorage_match_0(Handle, RequestInfo);
 extern (C) Handle CacheStorage_has(Handle, string);
 extern (C) Handle CacheStorage_open(Handle, string);
 extern (C) Handle CacheStorage_delete(Handle, string);
@@ -602,12 +655,14 @@ extern (C) FrameType Client_frameType_Get(Handle);
 extern (C) string Client_id_Get(Handle);
 extern (C) ClientType Client_type_Get(Handle);
 extern (C) void Client_postMessage(Handle, Handle, Handle);
+extern (C) void Client_postMessage_0(Handle, Handle);
 extern (C) void ClientQueryOptions_includeUncontrolled_Set(Handle, bool);
 extern (C) bool ClientQueryOptions_includeUncontrolled_Get(Handle);
 extern (C) void ClientQueryOptions_type_Set(Handle, ClientType);
 extern (C) ClientType ClientQueryOptions_type_Get(Handle);
 extern (C) Handle Clients_get(Handle, string);
 extern (C) Handle Clients_matchAll(Handle, Handle);
+extern (C) Handle Clients_matchAll_0(Handle);
 extern (C) Handle Clients_openWindow(Handle, string);
 extern (C) Handle Clients_claim(Handle);
 extern (C) void ExtendableEvent_waitUntil(Handle, Handle);
@@ -661,12 +716,15 @@ extern (C) ServiceWorkerUpdateViaCache RegistrationOptions_updateViaCache_Get(Ha
 extern (C) string ServiceWorker_scriptURL_Get(Handle);
 extern (C) ServiceWorkerState ServiceWorker_state_Get(Handle);
 extern (C) void ServiceWorker_postMessage(Handle, Handle, Handle);
+extern (C) void ServiceWorker_postMessage_0(Handle, Handle);
 extern (C) void ServiceWorker_onstatechange_Set(Handle, EventHandler);
 extern (C) EventHandler ServiceWorker_onstatechange_Get(Handle);
 extern (C) Optional!(ServiceWorker) ServiceWorkerContainer_controller_Get(Handle);
 extern (C) Handle ServiceWorkerContainer_ready_Get(Handle);
 extern (C) Handle ServiceWorkerContainer_register(Handle, string, Handle);
+extern (C) Handle ServiceWorkerContainer_register_0(Handle, string);
 extern (C) Handle ServiceWorkerContainer_getRegistration(Handle, string);
+extern (C) Handle ServiceWorkerContainer_getRegistration_0(Handle);
 extern (C) Handle ServiceWorkerContainer_getRegistrations(Handle);
 extern (C) void ServiceWorkerContainer_startMessages(Handle);
 extern (C) void ServiceWorkerContainer_oncontrollerchange_Set(Handle, EventHandler);
@@ -703,7 +761,9 @@ extern (C) Handle ServiceWorkerRegistration_unregister(Handle);
 extern (C) void ServiceWorkerRegistration_onupdatefound_Set(Handle, EventHandler);
 extern (C) EventHandler ServiceWorkerRegistration_onupdatefound_Get(Handle);
 extern (C) Handle ServiceWorkerRegistration_showNotification(Handle, string, Handle);
+extern (C) Handle ServiceWorkerRegistration_showNotification_0(Handle, string);
 extern (C) Handle ServiceWorkerRegistration_getNotifications(Handle, Handle);
+extern (C) Handle ServiceWorkerRegistration_getNotifications_0(Handle);
 extern (C) VisibilityState WindowClient_visibilityState_Get(Handle);
 extern (C) bool WindowClient_focused_Get(Handle);
 extern (C) Handle WindowClient_ancestorOrigins_Get(Handle);

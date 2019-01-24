@@ -61,6 +61,9 @@ struct MediaSource {
   void endOfStream(EndOfStreamError error) {
     MediaSource_endOfStream(this._parent, error);
   }
+  void endOfStream() {
+    MediaSource_endOfStream_0(this._parent);
+  }
   void setLiveSeekableRange(double start, double end) {
     MediaSource_setLiveSeekableRange(this._parent, start, end);
   }
@@ -205,6 +208,7 @@ extern (C) EventHandler MediaSource_onsourceclose_Get(Handle);
 extern (C) Handle MediaSource_addSourceBuffer(Handle, string);
 extern (C) void MediaSource_removeSourceBuffer(Handle, Handle);
 extern (C) void MediaSource_endOfStream(Handle, EndOfStreamError);
+extern (C) void MediaSource_endOfStream_0(Handle);
 extern (C) void MediaSource_setLiveSeekableRange(Handle, double, double);
 extern (C) void MediaSource_clearLiveSeekableRange(Handle);
 extern (C) bool MediaSource_isTypeSupported(Handle, string);

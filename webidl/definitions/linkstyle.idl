@@ -1,3 +1,0 @@
-interface mixin LinkStyle {
-  readonly attribute StyleSheet? sheet;
-};

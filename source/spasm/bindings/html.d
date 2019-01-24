@@ -11,7 +11,6 @@ import spasm.bindings.fetch;
 import spasm.bindings.fileapi;
 import spasm.bindings.geometry;
 import spasm.bindings.indexeddb;
-import spasm.bindings.linkstyle;
 import spasm.bindings.mediasource;
 import spasm.bindings.mediastream;
 import spasm.bindings.notifications;
@@ -266,6 +265,9 @@ struct CanvasPattern {
   void setTransform(DOMMatrix2DInit transform) {
     CanvasPattern_setTransform(this.handle, transform.handle);
   }
+  void setTransform() {
+    CanvasPattern_setTransform_0(this.handle);
+  }
 }
 struct CanvasRenderingContext2D {
   JsHandle handle;
@@ -297,8 +299,14 @@ struct CanvasRenderingContext2D {
   void arc(double x, double y, double radius, double startAngle, double endAngle, bool anticlockwise /* = false */) {
     CanvasPath_arc(this.handle, x, y, radius, startAngle, endAngle, anticlockwise);
   }
+  void arc(double x, double y, double radius, double startAngle, double endAngle) {
+    CanvasPath_arc_0(this.handle, x, y, radius, startAngle, endAngle);
+  }
   void ellipse(double x, double y, double radiusX, double radiusY, double rotation, double startAngle, double endAngle, bool anticlockwise /* = false */) {
     CanvasPath_ellipse(this.handle, x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise);
+  }
+  void ellipse(double x, double y, double radiusX, double radiusY, double rotation, double startAngle, double endAngle) {
+    CanvasPath_ellipse_0(this.handle, x, y, radiusX, radiusY, rotation, startAngle, endAngle);
   }
   void font(string font) {
     CanvasTextDrawingStyles_font_Set(this.handle, font);
@@ -387,8 +395,14 @@ struct CanvasRenderingContext2D {
   void fillText(string text, double x, double y, double maxWidth) {
     CanvasText_fillText(this.handle, text, x, y, maxWidth);
   }
+  void fillText(string text, double x, double y) {
+    CanvasText_fillText_0(this.handle, text, x, y);
+  }
   void strokeText(string text, double x, double y, double maxWidth) {
     CanvasText_strokeText(this.handle, text, x, y, maxWidth);
+  }
+  void strokeText(string text, double x, double y) {
+    CanvasText_strokeText_0(this.handle, text, x, y);
   }
   auto measureText(string text) {
     return TextMetrics(JsHandle(CanvasText_measureText(this.handle, text)));
@@ -411,8 +425,14 @@ struct CanvasRenderingContext2D {
   void fill(CanvasFillRule fillRule /* = "nonzero" */) {
     CanvasDrawPath_fill__CanvasFillRule(this.handle, fillRule);
   }
+  void fill() {
+    CanvasDrawPath_fill_0_(this.handle);
+  }
   void fill(Path2D path, CanvasFillRule fillRule /* = "nonzero" */) {
     CanvasDrawPath_fill__Handle_CanvasFillRule(this.handle, path.handle, fillRule);
+  }
+  void fill(Path2D path) {
+    CanvasDrawPath_fill_0_Handle(this.handle, path.handle);
   }
   void stroke() {
     CanvasDrawPath_stroke__(this.handle);
@@ -423,14 +443,26 @@ struct CanvasRenderingContext2D {
   void clip(CanvasFillRule fillRule /* = "nonzero" */) {
     CanvasDrawPath_clip__CanvasFillRule(this.handle, fillRule);
   }
+  void clip() {
+    CanvasDrawPath_clip_0_(this.handle);
+  }
   void clip(Path2D path, CanvasFillRule fillRule /* = "nonzero" */) {
     CanvasDrawPath_clip__Handle_CanvasFillRule(this.handle, path.handle, fillRule);
+  }
+  void clip(Path2D path) {
+    CanvasDrawPath_clip_0_Handle(this.handle, path.handle);
   }
   auto isPointInPath(double x, double y, CanvasFillRule fillRule /* = "nonzero" */) {
     return CanvasDrawPath_isPointInPath__double_double_CanvasFillRule(this.handle, x, y, fillRule);
   }
+  auto isPointInPath(double x, double y) {
+    return CanvasDrawPath_isPointInPath_0_double_double(this.handle, x, y);
+  }
   auto isPointInPath(Path2D path, double x, double y, CanvasFillRule fillRule /* = "nonzero" */) {
     return CanvasDrawPath_isPointInPath__Handle_double_double_CanvasFillRule(this.handle, path.handle, x, y, fillRule);
+  }
+  auto isPointInPath(Path2D path, double x, double y) {
+    return CanvasDrawPath_isPointInPath_0_Handle_double_double(this.handle, path.handle, x, y);
   }
   auto isPointInStroke(double x, double y) {
     return CanvasDrawPath_isPointInStroke__double_double(this.handle, x, y);
@@ -543,6 +575,9 @@ struct CanvasRenderingContext2D {
   void setTransform(DOMMatrix2DInit transform) {
     CanvasTransform_setTransform__Handle(this.handle, transform.handle);
   }
+  void setTransform() {
+    CanvasTransform_setTransform_0(this.handle);
+  }
   void resetTransform() {
     CanvasTransform_resetTransform(this.handle);
   }
@@ -636,6 +671,9 @@ struct CustomElementRegistry {
   void define(string name, CustomElementConstructor constructor, ElementDefinitionOptions options) {
     CustomElementRegistry_define(this.handle, name, constructor, options.handle);
   }
+  void define(string name, CustomElementConstructor constructor) {
+    CustomElementRegistry_define_0(this.handle, name, constructor);
+  }
   auto get(string name) {
     return Any(JsHandle(CustomElementRegistry_get(this.handle, name)));
   }
@@ -711,6 +749,9 @@ struct DataTransfer {
   void clearData(string format) {
     DataTransfer_clearData(this.handle, format);
   }
+  void clearData() {
+    DataTransfer_clearData_0(this.handle);
+  }
   auto files() {
     return FileList(JsHandle(DataTransfer_files_Get(this.handle)));
   }
@@ -773,6 +814,11 @@ struct DedicatedWorkerGlobalScope {
   void postMessage(T0)(T0 message, PostMessageOptions options) {
     Handle _handle_message = getOrCreateHandle(message);
     DedicatedWorkerGlobalScope_postMessage__Any_Handle(this._parent, _handle_message, options.handle);
+    dropHandle!(T0)(_handle_message);
+  }
+  void postMessage(T0)(T0 message) {
+    Handle _handle_message = getOrCreateHandle(message);
+    DedicatedWorkerGlobalScope_postMessage_0(this._parent, _handle_message);
     dropHandle!(T0)(_handle_message);
   }
   void close() {
@@ -1002,6 +1048,9 @@ struct HTMLAllCollection {
   }
   auto item(string nameOrIndex) {
     return HTMLAllCollection_item(this.handle, nameOrIndex);
+  }
+  auto item() {
+    return HTMLAllCollection_item_0(this.handle);
   }
 }
 struct HTMLAnchorElement {
@@ -1581,16 +1630,31 @@ struct HTMLCanvasElement {
     dropHandle!(T1)(_handle_options);
     return result;
   }
+  auto getContext(string contextId) {
+    return HTMLCanvasElement_getContext_0(this._parent, contextId);
+  }
   auto toDataURL(T1)(string type, T1 quality) {
     Handle _handle_quality = getOrCreateHandle(quality);
     auto result = HTMLCanvasElement_toDataURL(this._parent, type, _handle_quality);
     dropHandle!(T1)(_handle_quality);
     return result;
   }
+  auto toDataURL(string type) {
+    return HTMLCanvasElement_toDataURL_0(this._parent, type);
+  }
+  auto toDataURL() {
+    return HTMLCanvasElement_toDataURL_1(this._parent);
+  }
   void toBlob(T2)(BlobCallback _callback, string type, T2 quality) {
     Handle _handle_quality = getOrCreateHandle(quality);
     HTMLCanvasElement_toBlob(this._parent, _callback, type, _handle_quality);
     dropHandle!(T2)(_handle_quality);
+  }
+  void toBlob(BlobCallback _callback, string type) {
+    HTMLCanvasElement_toBlob_0(this._parent, _callback, type);
+  }
+  void toBlob(BlobCallback _callback) {
+    HTMLCanvasElement_toBlob_1(this._parent, _callback);
   }
   auto transferControlToOffscreen() {
     return OffscreenCanvas(JsHandle(HTMLCanvasElement_transferControlToOffscreen(this._parent)));
@@ -1671,6 +1735,9 @@ struct HTMLDialogElement {
   }
   void close(string returnValue) {
     HTMLDialogElement_close(this._parent, returnValue);
+  }
+  void close() {
+    HTMLDialogElement_close_0(this._parent);
   }
 }
 struct HTMLDirectoryElement {
@@ -1788,6 +1855,9 @@ struct HTMLElement {
   }
   void focus(FocusOptions options) {
     HTMLOrSVGElement_focus(this._parent, options.handle);
+  }
+  void focus() {
+    HTMLOrSVGElement_focus_0(this._parent);
   }
   void blur() {
     HTMLOrSVGElement_blur(this._parent);
@@ -2286,6 +2356,9 @@ struct HTMLElement {
   }
   auto ontouchcancel() {
     return GlobalEventHandlers_ontouchcancel_Get(this._parent);
+  }
+  auto style() {
+    return CSSStyleDeclaration(JsHandle(ElementCSSInlineStyle_style_Get(this._parent)));
   }
 }
 struct HTMLEmbedElement {
@@ -3216,8 +3289,14 @@ struct HTMLInputElement {
   void stepUp(int n /* = 1 */) {
     HTMLInputElement_stepUp(this._parent, n);
   }
+  void stepUp() {
+    HTMLInputElement_stepUp_0(this._parent);
+  }
   void stepDown(int n /* = 1 */) {
     HTMLInputElement_stepDown(this._parent, n);
+  }
+  void stepDown() {
+    HTMLInputElement_stepDown_0(this._parent);
   }
   auto willValidate() {
     return HTMLInputElement_willValidate_Get(this._parent);
@@ -3267,8 +3346,14 @@ struct HTMLInputElement {
   void setRangeText(string replacement, uint start, uint end, SelectionMode selectionMode /* = "preserve" */) {
     HTMLInputElement_setRangeText__string_uint_uint_SelectionMode(this._parent, replacement, start, end, selectionMode);
   }
+  void setRangeText(string replacement, uint start, uint end) {
+    HTMLInputElement_setRangeText_0(this._parent, replacement, start, end);
+  }
   void setSelectionRange(uint start, uint end, string direction) {
     HTMLInputElement_setSelectionRange(this._parent, start, end, direction);
+  }
+  void setSelectionRange(uint start, uint end) {
+    HTMLInputElement_setSelectionRange_0(this._parent, start, end);
   }
   void align_(string align_) {
     HTMLInputElement_align_Set(this._parent, align_);
@@ -3420,9 +3505,6 @@ struct HTMLLinkElement {
   }
   auto target() {
     return HTMLLinkElement_target_Get(this._parent);
-  }
-  auto sheet() {
-    return LinkStyle_sheet_Get(this._parent);
   }
 }
 struct HTMLMapElement {
@@ -3693,6 +3775,12 @@ struct HTMLMediaElement {
   }
   auto addTextTrack(TextTrackKind kind, string label /* = "" */, string language /* = "" */) {
     return TextTrack(JsHandle(HTMLMediaElement_addTextTrack(this._parent, kind, label, language)));
+  }
+  auto addTextTrack(TextTrackKind kind, string label /* = "" */) {
+    return TextTrack(JsHandle(HTMLMediaElement_addTextTrack_0(this._parent, kind, label)));
+  }
+  auto addTextTrack(TextTrackKind kind) {
+    return TextTrack(JsHandle(HTMLMediaElement_addTextTrack_1(this._parent, kind)));
   }
 }
 struct HTMLMenuElement {
@@ -4063,6 +4151,9 @@ struct HTMLOptionsCollection {
   void add(SumType!(HTMLOptionElement, HTMLOptGroupElement) element, Optional!(SumType!(HTMLElement, int)) before /* = no!(SumType!(HTMLElement, int)) */) {
     HTMLOptionsCollection_add(this._parent, element, !before.empty, before.front);
   }
+  void add(SumType!(HTMLOptionElement, HTMLOptGroupElement) element) {
+    HTMLOptionsCollection_add_0(this._parent, element);
+  }
   void remove(int index) {
     HTMLOptionsCollection_remove(this._parent, index);
   }
@@ -4383,6 +4474,9 @@ struct HTMLSelectElement {
   void add(SumType!(HTMLOptionElement, HTMLOptGroupElement) element, Optional!(SumType!(HTMLElement, int)) before /* = no!(SumType!(HTMLElement, int)) */) {
     HTMLSelectElement_add(this._parent, element, !before.empty, before.front);
   }
+  void add(SumType!(HTMLOptionElement, HTMLOptGroupElement) element) {
+    HTMLSelectElement_add_0(this._parent, element);
+  }
   void remove() {
     HTMLSelectElement_remove__(this._parent);
   }
@@ -4447,8 +4541,14 @@ struct HTMLSlotElement {
   auto assignedNodes(AssignedNodesOptions options) {
     return Sequence!(Node)(JsHandle(HTMLSlotElement_assignedNodes(this._parent, options.handle)));
   }
+  auto assignedNodes() {
+    return Sequence!(Node)(JsHandle(HTMLSlotElement_assignedNodes_0(this._parent)));
+  }
   auto assignedElements(AssignedNodesOptions options) {
     return Sequence!(Element)(JsHandle(HTMLSlotElement_assignedElements(this._parent, options.handle)));
+  }
+  auto assignedElements() {
+    return Sequence!(Element)(JsHandle(HTMLSlotElement_assignedElements_0(this._parent)));
   }
 }
 struct HTMLSourceElement {
@@ -4512,9 +4612,6 @@ struct HTMLStyleElement {
   }
   auto type() {
     return HTMLStyleElement_type_Get(this._parent);
-  }
-  auto sheet() {
-    return LinkStyle_sheet_Get(this._parent);
   }
 }
 struct HTMLTableCaptionElement {
@@ -4721,6 +4818,9 @@ struct HTMLTableElement {
   auto insertRow(int index /* = -1 */) {
     return HTMLTableRowElement(JsHandle(HTMLTableElement_insertRow(this._parent, index)));
   }
+  auto insertRow() {
+    return HTMLTableRowElement(JsHandle(HTMLTableElement_insertRow_0(this._parent)));
+  }
   void deleteRow(int index) {
     HTMLTableElement_deleteRow(this._parent, index);
   }
@@ -4797,6 +4897,9 @@ struct HTMLTableRowElement {
   auto insertCell(int index /* = -1 */) {
     return HTMLTableCellElement(JsHandle(HTMLTableRowElement_insertCell(this._parent, index)));
   }
+  auto insertCell() {
+    return HTMLTableCellElement(JsHandle(HTMLTableRowElement_insertCell_0(this._parent)));
+  }
   void deleteCell(int index) {
     HTMLTableRowElement_deleteCell(this._parent, index);
   }
@@ -4842,6 +4945,9 @@ struct HTMLTableSectionElement {
   }
   auto insertRow(int index /* = -1 */) {
     return HTMLTableRowElement(JsHandle(HTMLTableSectionElement_insertRow(this._parent, index)));
+  }
+  auto insertRow() {
+    return HTMLTableRowElement(JsHandle(HTMLTableSectionElement_insertRow_0(this._parent)));
   }
   void deleteRow(int index) {
     HTMLTableSectionElement_deleteRow(this._parent, index);
@@ -5034,8 +5140,14 @@ struct HTMLTextAreaElement {
   void setRangeText(string replacement, uint start, uint end, SelectionMode selectionMode /* = "preserve" */) {
     HTMLTextAreaElement_setRangeText__string_uint_uint_SelectionMode(this._parent, replacement, start, end, selectionMode);
   }
+  void setRangeText(string replacement, uint start, uint end) {
+    HTMLTextAreaElement_setRangeText_0(this._parent, replacement, start, end);
+  }
   void setSelectionRange(uint start, uint end, string direction) {
     HTMLTextAreaElement_setSelectionRange(this._parent, start, end, direction);
+  }
+  void setSelectionRange(uint start, uint end) {
+    HTMLTextAreaElement_setSelectionRange_0(this._parent, start, end);
   }
 }
 struct HTMLTimeElement {
@@ -5227,6 +5339,9 @@ struct History {
   void go(int delta /* = 0 */) {
     History_go(this.handle, delta);
   }
+  void go() {
+    History_go_0(this.handle);
+  }
   void back() {
     History_back(this.handle);
   }
@@ -5238,9 +5353,19 @@ struct History {
     History_pushState(this.handle, _handle_data, title, !url.empty, url.front);
     dropHandle!(T0)(_handle_data);
   }
+  void pushState(T0)(T0 data, string title) {
+    Handle _handle_data = getOrCreateHandle(data);
+    History_pushState_0(this.handle, _handle_data, title);
+    dropHandle!(T0)(_handle_data);
+  }
   void replaceState(T0)(T0 data, string title, Optional!(string) url /* = no!(string) */) {
     Handle _handle_data = getOrCreateHandle(data);
     History_replaceState(this.handle, _handle_data, title, !url.empty, url.front);
+    dropHandle!(T0)(_handle_data);
+  }
+  void replaceState(T0)(T0 data, string title) {
+    Handle _handle_data = getOrCreateHandle(data);
+    History_replaceState_0(this.handle, _handle_data, title);
     dropHandle!(T0)(_handle_data);
   }
 }
@@ -5483,6 +5608,35 @@ struct MessageEvent {
     MessageEvent_initMessageEvent(this._parent, type, bubbles, cancelable, _handle_data, origin, lastEventId, !source.empty, source.front, ports.handle);
     dropHandle!(T3)(_handle_data);
   }
+  void initMessageEvent(T3)(string type, bool bubbles /* = false */, bool cancelable /* = false */, T3 data /* = null */, string origin /* = "" */, string lastEventId /* = "" */, Optional!(MessageEventSource) source /* = no!(MessageEventSource) */) {
+    Handle _handle_data = getOrCreateHandle(data);
+    MessageEvent_initMessageEvent_0(this._parent, type, bubbles, cancelable, _handle_data, origin, lastEventId, !source.empty, source.front);
+    dropHandle!(T3)(_handle_data);
+  }
+  void initMessageEvent(T3)(string type, bool bubbles /* = false */, bool cancelable /* = false */, T3 data /* = null */, string origin /* = "" */, string lastEventId /* = "" */) {
+    Handle _handle_data = getOrCreateHandle(data);
+    MessageEvent_initMessageEvent_1(this._parent, type, bubbles, cancelable, _handle_data, origin, lastEventId);
+    dropHandle!(T3)(_handle_data);
+  }
+  void initMessageEvent(T3)(string type, bool bubbles /* = false */, bool cancelable /* = false */, T3 data /* = null */, string origin /* = "" */) {
+    Handle _handle_data = getOrCreateHandle(data);
+    MessageEvent_initMessageEvent_2(this._parent, type, bubbles, cancelable, _handle_data, origin);
+    dropHandle!(T3)(_handle_data);
+  }
+  void initMessageEvent(T3)(string type, bool bubbles /* = false */, bool cancelable /* = false */, T3 data /* = null */) {
+    Handle _handle_data = getOrCreateHandle(data);
+    MessageEvent_initMessageEvent_3(this._parent, type, bubbles, cancelable, _handle_data);
+    dropHandle!(T3)(_handle_data);
+  }
+  void initMessageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */) {
+    MessageEvent_initMessageEvent_4(this._parent, type, bubbles, cancelable);
+  }
+  void initMessageEvent(string type, bool bubbles /* = false */) {
+    MessageEvent_initMessageEvent_5(this._parent, type, bubbles);
+  }
+  void initMessageEvent(string type) {
+    MessageEvent_initMessageEvent_6(this._parent, type);
+  }
 }
 struct MessageEventInit {
   spasm.bindings.dom.EventInit _parent;
@@ -5541,6 +5695,11 @@ struct MessagePort {
   void postMessage(T0)(T0 message, PostMessageOptions options) {
     Handle _handle_message = getOrCreateHandle(message);
     MessagePort_postMessage__Any_Handle(this._parent, _handle_message, options.handle);
+    dropHandle!(T0)(_handle_message);
+  }
+  void postMessage(T0)(T0 message) {
+    Handle _handle_message = getOrCreateHandle(message);
+    MessagePort_postMessage_0(this._parent, _handle_message);
     dropHandle!(T0)(_handle_message);
   }
   void start() {
@@ -5703,11 +5862,17 @@ struct OffscreenCanvas {
     dropHandle!(T1)(_handle_options);
     return result;
   }
+  auto getContext(OffscreenRenderingContextId contextId) {
+    return OffscreenCanvas_getContext_0(this._parent, contextId);
+  }
   auto transferToImageBitmap() {
     return ImageBitmap(JsHandle(OffscreenCanvas_transferToImageBitmap(this._parent)));
   }
   auto convertToBlob(ImageEncodeOptions options) {
     return Promise!(Blob)(JsHandle(OffscreenCanvas_convertToBlob(this._parent, options.handle)));
+  }
+  auto convertToBlob() {
+    return Promise!(Blob)(JsHandle(OffscreenCanvas_convertToBlob_0(this._parent)));
   }
 }
 struct OffscreenCanvasRenderingContext2D {
@@ -5743,8 +5908,14 @@ struct OffscreenCanvasRenderingContext2D {
   void arc(double x, double y, double radius, double startAngle, double endAngle, bool anticlockwise /* = false */) {
     CanvasPath_arc(this.handle, x, y, radius, startAngle, endAngle, anticlockwise);
   }
+  void arc(double x, double y, double radius, double startAngle, double endAngle) {
+    CanvasPath_arc_0(this.handle, x, y, radius, startAngle, endAngle);
+  }
   void ellipse(double x, double y, double radiusX, double radiusY, double rotation, double startAngle, double endAngle, bool anticlockwise /* = false */) {
     CanvasPath_ellipse(this.handle, x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise);
+  }
+  void ellipse(double x, double y, double radiusX, double radiusY, double rotation, double startAngle, double endAngle) {
+    CanvasPath_ellipse_0(this.handle, x, y, radiusX, radiusY, rotation, startAngle, endAngle);
   }
   void font(string font) {
     CanvasTextDrawingStyles_font_Set(this.handle, font);
@@ -5833,8 +6004,14 @@ struct OffscreenCanvasRenderingContext2D {
   void fillText(string text, double x, double y, double maxWidth) {
     CanvasText_fillText(this.handle, text, x, y, maxWidth);
   }
+  void fillText(string text, double x, double y) {
+    CanvasText_fillText_0(this.handle, text, x, y);
+  }
   void strokeText(string text, double x, double y, double maxWidth) {
     CanvasText_strokeText(this.handle, text, x, y, maxWidth);
+  }
+  void strokeText(string text, double x, double y) {
+    CanvasText_strokeText_0(this.handle, text, x, y);
   }
   auto measureText(string text) {
     return TextMetrics(JsHandle(CanvasText_measureText(this.handle, text)));
@@ -5845,8 +6022,14 @@ struct OffscreenCanvasRenderingContext2D {
   void fill(CanvasFillRule fillRule /* = "nonzero" */) {
     CanvasDrawPath_fill__CanvasFillRule(this.handle, fillRule);
   }
+  void fill() {
+    CanvasDrawPath_fill_0_(this.handle);
+  }
   void fill(Path2D path, CanvasFillRule fillRule /* = "nonzero" */) {
     CanvasDrawPath_fill__Handle_CanvasFillRule(this.handle, path.handle, fillRule);
+  }
+  void fill(Path2D path) {
+    CanvasDrawPath_fill_0_Handle(this.handle, path.handle);
   }
   void stroke() {
     CanvasDrawPath_stroke__(this.handle);
@@ -5857,14 +6040,26 @@ struct OffscreenCanvasRenderingContext2D {
   void clip(CanvasFillRule fillRule /* = "nonzero" */) {
     CanvasDrawPath_clip__CanvasFillRule(this.handle, fillRule);
   }
+  void clip() {
+    CanvasDrawPath_clip_0_(this.handle);
+  }
   void clip(Path2D path, CanvasFillRule fillRule /* = "nonzero" */) {
     CanvasDrawPath_clip__Handle_CanvasFillRule(this.handle, path.handle, fillRule);
+  }
+  void clip(Path2D path) {
+    CanvasDrawPath_clip_0_Handle(this.handle, path.handle);
   }
   auto isPointInPath(double x, double y, CanvasFillRule fillRule /* = "nonzero" */) {
     return CanvasDrawPath_isPointInPath__double_double_CanvasFillRule(this.handle, x, y, fillRule);
   }
+  auto isPointInPath(double x, double y) {
+    return CanvasDrawPath_isPointInPath_0_double_double(this.handle, x, y);
+  }
   auto isPointInPath(Path2D path, double x, double y, CanvasFillRule fillRule /* = "nonzero" */) {
     return CanvasDrawPath_isPointInPath__Handle_double_double_CanvasFillRule(this.handle, path.handle, x, y, fillRule);
+  }
+  auto isPointInPath(Path2D path, double x, double y) {
+    return CanvasDrawPath_isPointInPath_0_Handle_double_double(this.handle, path.handle, x, y);
   }
   auto isPointInStroke(double x, double y) {
     return CanvasDrawPath_isPointInStroke__double_double(this.handle, x, y);
@@ -5965,6 +6160,9 @@ struct OffscreenCanvasRenderingContext2D {
   void setTransform(DOMMatrix2DInit transform) {
     CanvasTransform_setTransform__Handle(this.handle, transform.handle);
   }
+  void setTransform() {
+    CanvasTransform_setTransform_0(this.handle);
+  }
   void resetTransform() {
     CanvasTransform_resetTransform(this.handle);
   }
@@ -6029,6 +6227,9 @@ struct Path2D {
   void addPath(Path2D path, DOMMatrix2DInit transform) {
     Path2D_addPath(this.handle, path.handle, transform.handle);
   }
+  void addPath(Path2D path) {
+    Path2D_addPath_0(this.handle, path.handle);
+  }
   void closePath() {
     CanvasPath_closePath(this.handle);
   }
@@ -6053,8 +6254,14 @@ struct Path2D {
   void arc(double x, double y, double radius, double startAngle, double endAngle, bool anticlockwise /* = false */) {
     CanvasPath_arc(this.handle, x, y, radius, startAngle, endAngle, anticlockwise);
   }
+  void arc(double x, double y, double radius, double startAngle, double endAngle) {
+    CanvasPath_arc_0(this.handle, x, y, radius, startAngle, endAngle);
+  }
   void ellipse(double x, double y, double radiusX, double radiusY, double rotation, double startAngle, double endAngle, bool anticlockwise /* = false */) {
     CanvasPath_ellipse(this.handle, x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise);
+  }
+  void ellipse(double x, double y, double radiusX, double radiusY, double rotation, double startAngle, double endAngle) {
+    CanvasPath_ellipse_0(this.handle, x, y, radiusX, radiusY, rotation, startAngle, endAngle);
   }
 }
 struct Plugin {
@@ -6084,6 +6291,9 @@ struct PluginArray {
   alias handle this;
   void refresh(bool reload /* = false */) {
     PluginArray_refresh(this.handle, reload);
+  }
+  void refresh() {
+    PluginArray_refresh_0(this.handle);
   }
   auto length() {
     return PluginArray_length_Get(this.handle);
@@ -6297,6 +6507,27 @@ struct StorageEvent {
   }
   void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, Optional!(string) key /* = no!(string) */, Optional!(string) oldValue /* = no!(string) */, Optional!(string) newValue /* = no!(string) */, string url /* = "" */, Optional!(Storage) storageArea /* = no!(Storage) */) {
     StorageEvent_initStorageEvent(this._parent, type, bubbles, cancelable, !key.empty, key.front, !oldValue.empty, oldValue.front, !newValue.empty, newValue.front, url, !storageArea.empty, storageArea.front.handle);
+  }
+  void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, Optional!(string) key /* = no!(string) */, Optional!(string) oldValue /* = no!(string) */, Optional!(string) newValue /* = no!(string) */, string url /* = "" */) {
+    StorageEvent_initStorageEvent_0(this._parent, type, bubbles, cancelable, !key.empty, key.front, !oldValue.empty, oldValue.front, !newValue.empty, newValue.front, url);
+  }
+  void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, Optional!(string) key /* = no!(string) */, Optional!(string) oldValue /* = no!(string) */, Optional!(string) newValue /* = no!(string) */) {
+    StorageEvent_initStorageEvent_1(this._parent, type, bubbles, cancelable, !key.empty, key.front, !oldValue.empty, oldValue.front, !newValue.empty, newValue.front);
+  }
+  void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, Optional!(string) key /* = no!(string) */, Optional!(string) oldValue /* = no!(string) */) {
+    StorageEvent_initStorageEvent_2(this._parent, type, bubbles, cancelable, !key.empty, key.front, !oldValue.empty, oldValue.front);
+  }
+  void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, Optional!(string) key /* = no!(string) */) {
+    StorageEvent_initStorageEvent_3(this._parent, type, bubbles, cancelable, !key.empty, key.front);
+  }
+  void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */) {
+    StorageEvent_initStorageEvent_4(this._parent, type, bubbles, cancelable);
+  }
+  void initStorageEvent(string type, bool bubbles /* = false */) {
+    StorageEvent_initStorageEvent_5(this._parent, type, bubbles);
+  }
+  void initStorageEvent(string type) {
+    StorageEvent_initStorageEvent_6(this._parent, type);
   }
 }
 struct StorageEventInit {
@@ -6727,6 +6958,12 @@ struct WebSocket {
   void close(ushort code, string reason) {
     WebSocket_close(this._parent, code, reason);
   }
+  void close(ushort code) {
+    WebSocket_close_0(this._parent, code);
+  }
+  void close() {
+    WebSocket_close_1(this._parent);
+  }
   void onmessage(EventHandler onmessage) {
     WebSocket_onmessage_Set(this._parent, onmessage);
   }
@@ -6845,6 +7082,15 @@ struct Window {
   auto open(string url /* = "about:blank" */, string target /* = "_blank" */, string features /* = "" */) {
     return Window_open(this._parent, url, target, features);
   }
+  auto open(string url /* = "about:blank" */, string target /* = "_blank" */) {
+    return Window_open_0(this._parent, url, target);
+  }
+  auto open(string url /* = "about:blank" */) {
+    return Window_open_1(this._parent, url);
+  }
+  auto open() {
+    return Window_open_2(this._parent);
+  }
   auto opIndex(string name) {
     return JsObject(JsHandle(Window_getter__string(this._parent, name)));
   }
@@ -6866,8 +7112,17 @@ struct Window {
   auto confirm(string message /* = "" */) {
     return Window_confirm(this._parent, message);
   }
+  auto confirm() {
+    return Window_confirm_0(this._parent);
+  }
   auto prompt(string message /* = "" */, string default_ /* = "" */) {
     return Window_prompt(this._parent, message, default_);
+  }
+  auto prompt(string message /* = "" */) {
+    return Window_prompt_0(this._parent, message);
+  }
+  auto prompt() {
+    return Window_prompt_1(this._parent);
   }
   void print() {
     Window_print(this._parent);
@@ -6877,9 +7132,19 @@ struct Window {
     Window_postMessage__Any_string_sequence(this._parent, _handle_message, targetOrigin, transfer.handle);
     dropHandle!(T0)(_handle_message);
   }
+  void postMessage(T0)(T0 message, string targetOrigin) {
+    Handle _handle_message = getOrCreateHandle(message);
+    Window_postMessage_0_Any_string(this._parent, _handle_message, targetOrigin);
+    dropHandle!(T0)(_handle_message);
+  }
   void postMessage(T0)(T0 message, WindowPostMessageOptions options) {
     Handle _handle_message = getOrCreateHandle(message);
     Window_postMessage__Any_Handle(this._parent, _handle_message, options._parent);
+    dropHandle!(T0)(_handle_message);
+  }
+  void postMessage(T0)(T0 message) {
+    Handle _handle_message = getOrCreateHandle(message);
+    Window_postMessage_0_Any(this._parent, _handle_message);
     dropHandle!(T0)(_handle_message);
   }
   auto event() {
@@ -6893,6 +7158,12 @@ struct Window {
   }
   auto external() {
     return External(JsHandle(Window_external_Get(this._parent)));
+  }
+  auto getComputedStyle(Element elt, Optional!(string) pseudoElt) {
+    return CSSStyleDeclaration(JsHandle(Window_getComputedStyle(this._parent, elt._parent, !pseudoElt.empty, pseudoElt.front)));
+  }
+  auto getComputedStyle(Element elt) {
+    return CSSStyleDeclaration(JsHandle(Window_getComputedStyle_0(this._parent, elt._parent)));
   }
   auto orientation() {
     return Window_orientation_Get(this._parent);
@@ -6933,6 +7204,9 @@ struct Window {
   void clearTimeout(int handle /* = 0 */) {
     WindowOrWorkerGlobalScope_clearTimeout(this._parent, handle);
   }
+  void clearTimeout() {
+    WindowOrWorkerGlobalScope_clearTimeout_0(this._parent);
+  }
   auto setInterval(T2)(TimerHandler handler, int timeout /* = 0 */, T2 arguments) {
     Handle _handle_arguments = getOrCreateHandle(arguments);
     auto result = WindowOrWorkerGlobalScope_setInterval(this._parent, handler, timeout, _handle_arguments);
@@ -6942,17 +7216,29 @@ struct Window {
   void clearInterval(int handle /* = 0 */) {
     WindowOrWorkerGlobalScope_clearInterval(this._parent, handle);
   }
+  void clearInterval() {
+    WindowOrWorkerGlobalScope_clearInterval_0(this._parent);
+  }
   void queueMicrotask(VoidFunction callback) {
     WindowOrWorkerGlobalScope_queueMicrotask(this._parent, callback);
   }
   auto createImageBitmap(ImageBitmapSource image, ImageBitmapOptions options) {
     return Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_Handle(this._parent, image, options.handle)));
   }
+  auto createImageBitmap(ImageBitmapSource image) {
+    return Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap_0_ImageBitmapSource(this._parent, image)));
+  }
   auto createImageBitmap(ImageBitmapSource image, int sx, int sy, int sw, int sh, ImageBitmapOptions options) {
     return Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_int_int_int_int_Handle(this._parent, image, sx, sy, sw, sh, options.handle)));
   }
+  auto createImageBitmap(ImageBitmapSource image, int sx, int sy, int sw, int sh) {
+    return Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap_0_ImageBitmapSource_int_int_int_int(this._parent, image, sx, sy, sw, sh)));
+  }
   auto fetch(RequestInfo input, RequestInit init) {
     return Promise!(.Response)(JsHandle(WindowOrWorkerGlobalScope_fetch(this._parent, input, init.handle)));
+  }
+  auto fetch(RequestInfo input) {
+    return Promise!(.Response)(JsHandle(WindowOrWorkerGlobalScope_fetch_0(this._parent, input)));
   }
   auto indexedDB() {
     return IDBFactory(JsHandle(WindowOrWorkerGlobalScope_indexedDB_Get(this._parent)));
@@ -7582,6 +7868,11 @@ struct Worker {
     Worker_postMessage__Any_Handle(this._parent, _handle_message, options.handle);
     dropHandle!(T0)(_handle_message);
   }
+  void postMessage(T0)(T0 message) {
+    Handle _handle_message = getOrCreateHandle(message);
+    Worker_postMessage_0(this._parent, _handle_message);
+    dropHandle!(T0)(_handle_message);
+  }
   void onmessage(EventHandler onmessage) {
     Worker_onmessage_Set(this._parent, onmessage);
   }
@@ -7796,6 +8087,9 @@ struct WorkerGlobalScope {
   void clearTimeout(int handle /* = 0 */) {
     WindowOrWorkerGlobalScope_clearTimeout(this._parent, handle);
   }
+  void clearTimeout() {
+    WindowOrWorkerGlobalScope_clearTimeout_0(this._parent);
+  }
   auto setInterval(T2)(TimerHandler handler, int timeout /* = 0 */, T2 arguments) {
     Handle _handle_arguments = getOrCreateHandle(arguments);
     auto result = WindowOrWorkerGlobalScope_setInterval(this._parent, handler, timeout, _handle_arguments);
@@ -7805,17 +8099,29 @@ struct WorkerGlobalScope {
   void clearInterval(int handle /* = 0 */) {
     WindowOrWorkerGlobalScope_clearInterval(this._parent, handle);
   }
+  void clearInterval() {
+    WindowOrWorkerGlobalScope_clearInterval_0(this._parent);
+  }
   void queueMicrotask(VoidFunction callback) {
     WindowOrWorkerGlobalScope_queueMicrotask(this._parent, callback);
   }
   auto createImageBitmap(ImageBitmapSource image, ImageBitmapOptions options) {
     return Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_Handle(this._parent, image, options.handle)));
   }
+  auto createImageBitmap(ImageBitmapSource image) {
+    return Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap_0_ImageBitmapSource(this._parent, image)));
+  }
   auto createImageBitmap(ImageBitmapSource image, int sx, int sy, int sw, int sh, ImageBitmapOptions options) {
     return Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_int_int_int_int_Handle(this._parent, image, sx, sy, sw, sh, options.handle)));
   }
+  auto createImageBitmap(ImageBitmapSource image, int sx, int sy, int sw, int sh) {
+    return Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap_0_ImageBitmapSource_int_int_int_int(this._parent, image, sx, sy, sw, sh)));
+  }
   auto fetch(RequestInfo input, RequestInit init) {
     return Promise!(Response)(JsHandle(WindowOrWorkerGlobalScope_fetch(this._parent, input, init.handle)));
+  }
+  auto fetch(RequestInfo input) {
+    return Promise!(Response)(JsHandle(WindowOrWorkerGlobalScope_fetch_0(this._parent, input)));
   }
   auto indexedDB() {
     return IDBFactory(JsHandle(WindowOrWorkerGlobalScope_indexedDB_Get(this._parent)));
@@ -8005,13 +8311,19 @@ extern (C) void CanvasDrawImage_drawImage__CanvasImageSource_double_double_doubl
 extern (C) void CanvasDrawImage_drawImage__CanvasImageSource_double_double_double_double_double_double_double_double(Handle, CanvasImageSource, double, double, double, double, double, double, double, double);
 extern (C) void CanvasDrawPath_beginPath(Handle);
 extern (C) void CanvasDrawPath_fill__CanvasFillRule(Handle, CanvasFillRule);
+extern (C) void CanvasDrawPath_fill_0_(Handle);
 extern (C) void CanvasDrawPath_fill__Handle_CanvasFillRule(Handle, Handle, CanvasFillRule);
+extern (C) void CanvasDrawPath_fill_0_Handle(Handle, Handle);
 extern (C) void CanvasDrawPath_stroke__(Handle);
 extern (C) void CanvasDrawPath_stroke__Handle(Handle, Handle);
 extern (C) void CanvasDrawPath_clip__CanvasFillRule(Handle, CanvasFillRule);
+extern (C) void CanvasDrawPath_clip_0_(Handle);
 extern (C) void CanvasDrawPath_clip__Handle_CanvasFillRule(Handle, Handle, CanvasFillRule);
+extern (C) void CanvasDrawPath_clip_0_Handle(Handle, Handle);
 extern (C) bool CanvasDrawPath_isPointInPath__double_double_CanvasFillRule(Handle, double, double, CanvasFillRule);
+extern (C) bool CanvasDrawPath_isPointInPath_0_double_double(Handle, double, double);
 extern (C) bool CanvasDrawPath_isPointInPath__Handle_double_double_CanvasFillRule(Handle, Handle, double, double, CanvasFillRule);
+extern (C) bool CanvasDrawPath_isPointInPath_0_Handle_double_double(Handle, Handle, double, double);
 extern (C) bool CanvasDrawPath_isPointInStroke__double_double(Handle, double, double);
 extern (C) bool CanvasDrawPath_isPointInStroke__Handle_double_double(Handle, Handle, double, double);
 extern (C) void CanvasFillStrokeStyles_strokeStyle_Set(Handle, SumType!(string, CanvasGradient, CanvasPattern));
@@ -8041,7 +8353,9 @@ extern (C) void CanvasPath_bezierCurveTo(Handle, double, double, double, double,
 extern (C) void CanvasPath_arcTo(Handle, double, double, double, double, double);
 extern (C) void CanvasPath_rect(Handle, double, double, double, double);
 extern (C) void CanvasPath_arc(Handle, double, double, double, double, double, bool);
+extern (C) void CanvasPath_arc_0(Handle, double, double, double, double, double);
 extern (C) void CanvasPath_ellipse(Handle, double, double, double, double, double, double, double, bool);
+extern (C) void CanvasPath_ellipse_0(Handle, double, double, double, double, double, double, double);
 extern (C) void CanvasPathDrawingStyles_lineWidth_Set(Handle, double);
 extern (C) double CanvasPathDrawingStyles_lineWidth_Get(Handle);
 extern (C) void CanvasPathDrawingStyles_lineCap_Set(Handle, CanvasLineCap);
@@ -8055,6 +8369,7 @@ extern (C) Handle CanvasPathDrawingStyles_getLineDash(Handle);
 extern (C) void CanvasPathDrawingStyles_lineDashOffset_Set(Handle, double);
 extern (C) double CanvasPathDrawingStyles_lineDashOffset_Get(Handle);
 extern (C) void CanvasPattern_setTransform(Handle, Handle);
+extern (C) void CanvasPattern_setTransform_0(Handle);
 extern (C) void CanvasRect_clearRect(Handle, double, double, double, double);
 extern (C) void CanvasRect_fillRect(Handle, double, double, double, double);
 extern (C) void CanvasRect_strokeRect(Handle, double, double, double, double);
@@ -8072,7 +8387,9 @@ extern (C) string CanvasShadowStyles_shadowColor_Get(Handle);
 extern (C) void CanvasState_save(Handle);
 extern (C) void CanvasState_restore(Handle);
 extern (C) void CanvasText_fillText(Handle, string, double, double, double);
+extern (C) void CanvasText_fillText_0(Handle, string, double, double);
 extern (C) void CanvasText_strokeText(Handle, string, double, double, double);
+extern (C) void CanvasText_strokeText_0(Handle, string, double, double);
 extern (C) Handle CanvasText_measureText(Handle, string);
 extern (C) void CanvasTextDrawingStyles_font_Set(Handle, string);
 extern (C) string CanvasTextDrawingStyles_font_Get(Handle);
@@ -8089,6 +8406,7 @@ extern (C) void CanvasTransform_transform(Handle, double, double, double, double
 extern (C) Handle CanvasTransform_getTransform(Handle);
 extern (C) void CanvasTransform_setTransform__double_double_double_double_double_double(Handle, double, double, double, double, double, double);
 extern (C) void CanvasTransform_setTransform__Handle(Handle, Handle);
+extern (C) void CanvasTransform_setTransform_0(Handle);
 extern (C) void CanvasTransform_resetTransform(Handle);
 extern (C) void CanvasUserInterface_drawFocusIfNeeded__Handle(Handle, Handle);
 extern (C) void CanvasUserInterface_drawFocusIfNeeded__Handle_Handle(Handle, Handle, Handle);
@@ -8104,6 +8422,7 @@ extern (C) ushort CloseEventInit_code_Get(Handle);
 extern (C) void CloseEventInit_reason_Set(Handle, string);
 extern (C) string CloseEventInit_reason_Get(Handle);
 extern (C) void CustomElementRegistry_define(Handle, string, CustomElementConstructor, Handle);
+extern (C) void CustomElementRegistry_define_0(Handle, string, CustomElementConstructor);
 extern (C) Handle CustomElementRegistry_get(Handle, string);
 extern (C) Handle CustomElementRegistry_whenDefined(Handle, string);
 extern (C) void CustomElementRegistry_upgrade(Handle, Handle);
@@ -8123,6 +8442,7 @@ extern (C) Handle DataTransfer_types_Get(Handle);
 extern (C) string DataTransfer_getData(Handle, string);
 extern (C) void DataTransfer_setData(Handle, string, string);
 extern (C) void DataTransfer_clearData(Handle, string);
+extern (C) void DataTransfer_clearData_0(Handle);
 extern (C) Handle DataTransfer_files_Get(Handle);
 extern (C) string DataTransferItem_kind_Get(Handle);
 extern (C) string DataTransferItem_type_Get(Handle);
@@ -8137,6 +8457,7 @@ extern (C) void DataTransferItemList_clear(Handle);
 extern (C) string DedicatedWorkerGlobalScope_name_Get(Handle);
 extern (C) void DedicatedWorkerGlobalScope_postMessage__Any_sequence(Handle, Handle, Handle);
 extern (C) void DedicatedWorkerGlobalScope_postMessage__Any_Handle(Handle, Handle, Handle);
+extern (C) void DedicatedWorkerGlobalScope_postMessage_0(Handle, Handle);
 extern (C) void DedicatedWorkerGlobalScope_close(Handle);
 extern (C) void DedicatedWorkerGlobalScope_onmessage_Set(Handle, EventHandler);
 extern (C) EventHandler DedicatedWorkerGlobalScope_onmessage_Get(Handle);
@@ -8347,6 +8668,7 @@ extern (C) uint HTMLAllCollection_length_Get(Handle);
 extern (C) Handle HTMLAllCollection_getter__uint(Handle, uint);
 extern (C) Optional!(SumType!(HTMLCollection, Element)) HTMLAllCollection_namedItem_getter(Handle, string);
 extern (C) Optional!(SumType!(HTMLCollection, Element)) HTMLAllCollection_item(Handle, string);
+extern (C) Optional!(SumType!(HTMLCollection, Element)) HTMLAllCollection_item_0(Handle);
 extern (C) void HTMLAnchorElement_target_Set(Handle, string);
 extern (C) string HTMLAnchorElement_target_Get(Handle);
 extern (C) void HTMLAnchorElement_download_Set(Handle, string);
@@ -8446,8 +8768,13 @@ extern (C) uint HTMLCanvasElement_width_Get(Handle);
 extern (C) void HTMLCanvasElement_height_Set(Handle, uint);
 extern (C) uint HTMLCanvasElement_height_Get(Handle);
 extern (C) Optional!(RenderingContext) HTMLCanvasElement_getContext(Handle, string, Handle);
+extern (C) Optional!(RenderingContext) HTMLCanvasElement_getContext_0(Handle, string);
 extern (C) string HTMLCanvasElement_toDataURL(Handle, string, Handle);
+extern (C) string HTMLCanvasElement_toDataURL_0(Handle, string);
+extern (C) string HTMLCanvasElement_toDataURL_1(Handle);
 extern (C) void HTMLCanvasElement_toBlob(Handle, BlobCallback, string, Handle);
+extern (C) void HTMLCanvasElement_toBlob_0(Handle, BlobCallback, string);
+extern (C) void HTMLCanvasElement_toBlob_1(Handle, BlobCallback);
 extern (C) Handle HTMLCanvasElement_transferControlToOffscreen(Handle);
 extern (C) void HTMLDListElement_compact_Set(Handle, bool);
 extern (C) bool HTMLDListElement_compact_Get(Handle);
@@ -8463,6 +8790,7 @@ extern (C) string HTMLDialogElement_returnValue_Get(Handle);
 extern (C) void HTMLDialogElement_show(Handle);
 extern (C) void HTMLDialogElement_showModal(Handle);
 extern (C) void HTMLDialogElement_close(Handle, string);
+extern (C) void HTMLDialogElement_close_0(Handle);
 extern (C) void HTMLDirectoryElement_compact_Set(Handle, bool);
 extern (C) bool HTMLDirectoryElement_compact_Get(Handle);
 extern (C) void HTMLDivElement_align_Set(Handle, string);
@@ -8753,7 +9081,9 @@ extern (C) double HTMLInputElement_valueAsNumber_Get(Handle);
 extern (C) void HTMLInputElement_width_Set(Handle, uint);
 extern (C) uint HTMLInputElement_width_Get(Handle);
 extern (C) void HTMLInputElement_stepUp(Handle, int);
+extern (C) void HTMLInputElement_stepUp_0(Handle);
 extern (C) void HTMLInputElement_stepDown(Handle, int);
+extern (C) void HTMLInputElement_stepDown_0(Handle);
 extern (C) bool HTMLInputElement_willValidate_Get(Handle);
 extern (C) Handle HTMLInputElement_validity_Get(Handle);
 extern (C) string HTMLInputElement_validationMessage_Get(Handle);
@@ -8770,7 +9100,9 @@ extern (C) void HTMLInputElement_selectionDirection_Set(Handle, bool, string);
 extern (C) Optional!(string) HTMLInputElement_selectionDirection_Get(Handle);
 extern (C) void HTMLInputElement_setRangeText__string(Handle, string);
 extern (C) void HTMLInputElement_setRangeText__string_uint_uint_SelectionMode(Handle, string, uint, uint, SelectionMode);
+extern (C) void HTMLInputElement_setRangeText_0(Handle, string, uint, uint);
 extern (C) void HTMLInputElement_setSelectionRange(Handle, uint, uint, string);
+extern (C) void HTMLInputElement_setSelectionRange_0(Handle, uint, uint);
 extern (C) void HTMLInputElement_align_Set(Handle, string);
 extern (C) string HTMLInputElement_align_Get(Handle);
 extern (C) void HTMLInputElement_useMap_Set(Handle, string);
@@ -8892,6 +9224,8 @@ extern (C) Handle HTMLMediaElement_audioTracks_Get(Handle);
 extern (C) Handle HTMLMediaElement_videoTracks_Get(Handle);
 extern (C) Handle HTMLMediaElement_textTracks_Get(Handle);
 extern (C) Handle HTMLMediaElement_addTextTrack(Handle, TextTrackKind, string, string);
+extern (C) Handle HTMLMediaElement_addTextTrack_0(Handle, TextTrackKind, string);
+extern (C) Handle HTMLMediaElement_addTextTrack_1(Handle, TextTrackKind);
 extern (C) void HTMLMenuElement_compact_Set(Handle, bool);
 extern (C) bool HTMLMenuElement_compact_Get(Handle);
 extern (C) void HTMLMetaElement_name_Set(Handle, string);
@@ -8993,6 +9327,7 @@ extern (C) void HTMLOptionsCollection_length_Set(Handle, uint);
 extern (C) uint HTMLOptionsCollection_length_Get(Handle);
 extern (C) void HTMLOptionsCollection_setter__uint_optional_Handle(Handle, uint, bool, Handle);
 extern (C) void HTMLOptionsCollection_add(Handle, SumType!(HTMLOptionElement, HTMLOptGroupElement), bool, SumType!(HTMLElement, int));
+extern (C) void HTMLOptionsCollection_add_0(Handle, SumType!(HTMLOptionElement, HTMLOptGroupElement));
 extern (C) void HTMLOptionsCollection_remove(Handle, int);
 extern (C) void HTMLOptionsCollection_selectedIndex_Set(Handle, int);
 extern (C) int HTMLOptionsCollection_selectedIndex_Get(Handle);
@@ -9002,6 +9337,7 @@ extern (C) string HTMLOrSVGElement_nonce_Get(Handle);
 extern (C) void HTMLOrSVGElement_tabIndex_Set(Handle, int);
 extern (C) int HTMLOrSVGElement_tabIndex_Get(Handle);
 extern (C) void HTMLOrSVGElement_focus(Handle, Handle);
+extern (C) void HTMLOrSVGElement_focus_0(Handle);
 extern (C) void HTMLOrSVGElement_blur(Handle);
 extern (C) Handle HTMLOutputElement_htmlFor_Get(Handle);
 extern (C) Optional!(HTMLFormElement) HTMLOutputElement_form_Get(Handle);
@@ -9085,6 +9421,7 @@ extern (C) uint HTMLSelectElement_length_Get(Handle);
 extern (C) Optional!(Element) HTMLSelectElement_item_getter(Handle, uint);
 extern (C) Optional!(HTMLOptionElement) HTMLSelectElement_namedItem(Handle, string);
 extern (C) void HTMLSelectElement_add(Handle, SumType!(HTMLOptionElement, HTMLOptGroupElement), bool, SumType!(HTMLElement, int));
+extern (C) void HTMLSelectElement_add_0(Handle, SumType!(HTMLOptionElement, HTMLOptGroupElement));
 extern (C) void HTMLSelectElement_remove__(Handle);
 extern (C) void HTMLSelectElement_remove__int(Handle, int);
 extern (C) void HTMLSelectElement_setter__uint_optional_Handle(Handle, uint, bool, Handle);
@@ -9103,7 +9440,9 @@ extern (C) Handle HTMLSelectElement_labels_Get(Handle);
 extern (C) void HTMLSlotElement_name_Set(Handle, string);
 extern (C) string HTMLSlotElement_name_Get(Handle);
 extern (C) Handle HTMLSlotElement_assignedNodes(Handle, Handle);
+extern (C) Handle HTMLSlotElement_assignedNodes_0(Handle);
 extern (C) Handle HTMLSlotElement_assignedElements(Handle, Handle);
+extern (C) Handle HTMLSlotElement_assignedElements_0(Handle);
 extern (C) void HTMLSourceElement_src_Set(Handle, string);
 extern (C) string HTMLSourceElement_src_Get(Handle);
 extern (C) void HTMLSourceElement_type_Set(Handle, string);
@@ -9177,6 +9516,7 @@ extern (C) Handle HTMLTableElement_tBodies_Get(Handle);
 extern (C) Handle HTMLTableElement_createTBody(Handle);
 extern (C) Handle HTMLTableElement_rows_Get(Handle);
 extern (C) Handle HTMLTableElement_insertRow(Handle, int);
+extern (C) Handle HTMLTableElement_insertRow_0(Handle);
 extern (C) void HTMLTableElement_deleteRow(Handle, int);
 extern (C) void HTMLTableElement_align_Set(Handle, string);
 extern (C) string HTMLTableElement_align_Get(Handle);
@@ -9200,6 +9540,7 @@ extern (C) int HTMLTableRowElement_rowIndex_Get(Handle);
 extern (C) int HTMLTableRowElement_sectionRowIndex_Get(Handle);
 extern (C) Handle HTMLTableRowElement_cells_Get(Handle);
 extern (C) Handle HTMLTableRowElement_insertCell(Handle, int);
+extern (C) Handle HTMLTableRowElement_insertCell_0(Handle);
 extern (C) void HTMLTableRowElement_deleteCell(Handle, int);
 extern (C) void HTMLTableRowElement_align_Set(Handle, string);
 extern (C) string HTMLTableRowElement_align_Get(Handle);
@@ -9213,6 +9554,7 @@ extern (C) void HTMLTableRowElement_bgColor_Set(Handle, string);
 extern (C) string HTMLTableRowElement_bgColor_Get(Handle);
 extern (C) Handle HTMLTableSectionElement_rows_Get(Handle);
 extern (C) Handle HTMLTableSectionElement_insertRow(Handle, int);
+extern (C) Handle HTMLTableSectionElement_insertRow_0(Handle);
 extern (C) void HTMLTableSectionElement_deleteRow(Handle, int);
 extern (C) void HTMLTableSectionElement_align_Set(Handle, string);
 extern (C) string HTMLTableSectionElement_align_Get(Handle);
@@ -9272,7 +9614,9 @@ extern (C) void HTMLTextAreaElement_selectionDirection_Set(Handle, string);
 extern (C) string HTMLTextAreaElement_selectionDirection_Get(Handle);
 extern (C) void HTMLTextAreaElement_setRangeText__string(Handle, string);
 extern (C) void HTMLTextAreaElement_setRangeText__string_uint_uint_SelectionMode(Handle, string, uint, uint, SelectionMode);
+extern (C) void HTMLTextAreaElement_setRangeText_0(Handle, string, uint, uint);
 extern (C) void HTMLTextAreaElement_setSelectionRange(Handle, uint, uint, string);
+extern (C) void HTMLTextAreaElement_setSelectionRange_0(Handle, uint, uint);
 extern (C) void HTMLTimeElement_dateTime_Set(Handle, string);
 extern (C) string HTMLTimeElement_dateTime_Get(Handle);
 extern (C) void HTMLTitleElement_text_Set(Handle, string);
@@ -9314,10 +9658,13 @@ extern (C) void History_scrollRestoration_Set(Handle, ScrollRestoration);
 extern (C) ScrollRestoration History_scrollRestoration_Get(Handle);
 extern (C) Handle History_state_Get(Handle);
 extern (C) void History_go(Handle, int);
+extern (C) void History_go_0(Handle);
 extern (C) void History_back(Handle);
 extern (C) void History_forward(Handle);
 extern (C) void History_pushState(Handle, Handle, string, bool, string);
+extern (C) void History_pushState_0(Handle, Handle, string);
 extern (C) void History_replaceState(Handle, Handle, string, bool, string);
+extern (C) void History_replaceState_0(Handle, Handle, string);
 extern (C) uint ImageBitmap_width_Get(Handle);
 extern (C) uint ImageBitmap_height_Get(Handle);
 extern (C) void ImageBitmap_close(Handle);
@@ -9375,6 +9722,13 @@ extern (C) string MessageEvent_lastEventId_Get(Handle);
 extern (C) Optional!(MessageEventSource) MessageEvent_source_Get(Handle);
 extern (C) Handle MessageEvent_ports_Get(Handle);
 extern (C) void MessageEvent_initMessageEvent(Handle, string, bool, bool, Handle, string, string, bool, MessageEventSource, Handle);
+extern (C) void MessageEvent_initMessageEvent_0(Handle, string, bool, bool, Handle, string, string, bool, MessageEventSource);
+extern (C) void MessageEvent_initMessageEvent_1(Handle, string, bool, bool, Handle, string, string);
+extern (C) void MessageEvent_initMessageEvent_2(Handle, string, bool, bool, Handle, string);
+extern (C) void MessageEvent_initMessageEvent_3(Handle, string, bool, bool, Handle);
+extern (C) void MessageEvent_initMessageEvent_4(Handle, string, bool, bool);
+extern (C) void MessageEvent_initMessageEvent_5(Handle, string, bool);
+extern (C) void MessageEvent_initMessageEvent_6(Handle, string);
 extern (C) void MessageEventInit_data_Set(Handle, Handle);
 extern (C) Handle MessageEventInit_data_Get(Handle);
 extern (C) void MessageEventInit_origin_Set(Handle, string);
@@ -9387,6 +9741,7 @@ extern (C) void MessageEventInit_ports_Set(Handle, Handle);
 extern (C) Handle MessageEventInit_ports_Get(Handle);
 extern (C) void MessagePort_postMessage__Any_sequence(Handle, Handle, Handle);
 extern (C) void MessagePort_postMessage__Any_Handle(Handle, Handle, Handle);
+extern (C) void MessagePort_postMessage_0(Handle, Handle);
 extern (C) void MessagePort_start(Handle);
 extern (C) void MessagePort_close(Handle);
 extern (C) void MessagePort_onmessage_Set(Handle, EventHandler);
@@ -9433,14 +9788,17 @@ extern (C) ulong OffscreenCanvas_width_Get(Handle);
 extern (C) void OffscreenCanvas_height_Set(Handle, ulong);
 extern (C) ulong OffscreenCanvas_height_Get(Handle);
 extern (C) Optional!(OffscreenRenderingContext) OffscreenCanvas_getContext(Handle, OffscreenRenderingContextId, Handle);
+extern (C) Optional!(OffscreenRenderingContext) OffscreenCanvas_getContext_0(Handle, OffscreenRenderingContextId);
 extern (C) Handle OffscreenCanvas_transferToImageBitmap(Handle);
 extern (C) Handle OffscreenCanvas_convertToBlob(Handle, Handle);
+extern (C) Handle OffscreenCanvas_convertToBlob_0(Handle);
 extern (C) void OffscreenCanvasRenderingContext2D_commit(Handle);
 extern (C) Handle OffscreenCanvasRenderingContext2D_canvas_Get(Handle);
 extern (C) bool PageTransitionEvent_persisted_Get(Handle);
 extern (C) void PageTransitionEventInit_persisted_Set(Handle, bool);
 extern (C) bool PageTransitionEventInit_persisted_Get(Handle);
 extern (C) void Path2D_addPath(Handle, Handle, Handle);
+extern (C) void Path2D_addPath_0(Handle, Handle);
 extern (C) string Plugin_name_Get(Handle);
 extern (C) string Plugin_description_Get(Handle);
 extern (C) string Plugin_filename_Get(Handle);
@@ -9448,6 +9806,7 @@ extern (C) uint Plugin_length_Get(Handle);
 extern (C) Optional!(MimeType) Plugin_item_getter(Handle, uint);
 extern (C) Optional!(MimeType) Plugin_namedItem_getter(Handle, string);
 extern (C) void PluginArray_refresh(Handle, bool);
+extern (C) void PluginArray_refresh_0(Handle);
 extern (C) uint PluginArray_length_Get(Handle);
 extern (C) Optional!(Plugin) PluginArray_item_getter(Handle, uint);
 extern (C) Optional!(Plugin) PluginArray_namedItem_getter(Handle, string);
@@ -9484,6 +9843,13 @@ extern (C) Optional!(string) StorageEvent_newValue_Get(Handle);
 extern (C) string StorageEvent_url_Get(Handle);
 extern (C) Optional!(Storage) StorageEvent_storageArea_Get(Handle);
 extern (C) void StorageEvent_initStorageEvent(Handle, string, bool, bool, bool, string, bool, string, bool, string, string, bool, Handle);
+extern (C) void StorageEvent_initStorageEvent_0(Handle, string, bool, bool, bool, string, bool, string, bool, string, string);
+extern (C) void StorageEvent_initStorageEvent_1(Handle, string, bool, bool, bool, string, bool, string, bool, string);
+extern (C) void StorageEvent_initStorageEvent_2(Handle, string, bool, bool, bool, string, bool, string);
+extern (C) void StorageEvent_initStorageEvent_3(Handle, string, bool, bool, bool, string);
+extern (C) void StorageEvent_initStorageEvent_4(Handle, string, bool, bool);
+extern (C) void StorageEvent_initStorageEvent_5(Handle, string, bool);
+extern (C) void StorageEvent_initStorageEvent_6(Handle, string);
 extern (C) void StorageEventInit_key_Set(Handle, bool, string);
 extern (C) Optional!(string) StorageEventInit_key_Get(Handle);
 extern (C) void StorageEventInit_oldValue_Set(Handle, bool, string);
@@ -9591,6 +9957,8 @@ extern (C) EventHandler WebSocket_onclose_Get(Handle);
 extern (C) string WebSocket_extensions_Get(Handle);
 extern (C) string WebSocket_protocol_Get(Handle);
 extern (C) void WebSocket_close(Handle, ushort, string);
+extern (C) void WebSocket_close_0(Handle, ushort);
+extern (C) void WebSocket_close_1(Handle);
 extern (C) void WebSocket_onmessage_Set(Handle, EventHandler);
 extern (C) EventHandler WebSocket_onmessage_Get(Handle);
 extern (C) void WebSocket_binaryType_Set(Handle, BinaryType);
@@ -9627,20 +9995,30 @@ extern (C) Handle Window_opener_Get(Handle);
 extern (C) Optional!(Window) Window_parent_Get(Handle);
 extern (C) Optional!(Element) Window_frameElement_Get(Handle);
 extern (C) Optional!(Window) Window_open(Handle, string, string, string);
+extern (C) Optional!(Window) Window_open_0(Handle, string, string);
+extern (C) Optional!(Window) Window_open_1(Handle, string);
+extern (C) Optional!(Window) Window_open_2(Handle);
 extern (C) Handle Window_getter__string(Handle, string);
 extern (C) Handle Window_navigator_Get(Handle);
 extern (C) Handle Window_applicationCache_Get(Handle);
 extern (C) void Window_alert__(Handle);
 extern (C) void Window_alert__string(Handle, string);
 extern (C) bool Window_confirm(Handle, string);
+extern (C) bool Window_confirm_0(Handle);
 extern (C) Optional!(string) Window_prompt(Handle, string, string);
+extern (C) Optional!(string) Window_prompt_0(Handle, string);
+extern (C) Optional!(string) Window_prompt_1(Handle);
 extern (C) void Window_print(Handle);
 extern (C) void Window_postMessage__Any_string_sequence(Handle, Handle, string, Handle);
+extern (C) void Window_postMessage_0_Any_string(Handle, Handle, string);
 extern (C) void Window_postMessage__Any_Handle(Handle, Handle, Handle);
+extern (C) void Window_postMessage_0_Any(Handle, Handle);
 extern (C) Handle Window_event_Get(Handle);
 extern (C) void Window_captureEvents(Handle);
 extern (C) void Window_releaseEvents(Handle);
 extern (C) Handle Window_external_Get(Handle);
+extern (C) Handle Window_getComputedStyle(Handle, Handle, bool, string);
+extern (C) Handle Window_getComputedStyle_0(Handle, Handle);
 extern (C) short Window_orientation_Get(Handle);
 extern (C) void Window_onorientationchange_Set(Handle, EventHandler);
 extern (C) EventHandler Window_onorientationchange_Get(Handle);
@@ -9725,12 +10103,17 @@ extern (C) string WindowOrWorkerGlobalScope_btoa(Handle, string);
 extern (C) string WindowOrWorkerGlobalScope_atob(Handle, string);
 extern (C) int WindowOrWorkerGlobalScope_setTimeout(Handle, TimerHandler, int, Handle);
 extern (C) void WindowOrWorkerGlobalScope_clearTimeout(Handle, int);
+extern (C) void WindowOrWorkerGlobalScope_clearTimeout_0(Handle);
 extern (C) int WindowOrWorkerGlobalScope_setInterval(Handle, TimerHandler, int, Handle);
 extern (C) void WindowOrWorkerGlobalScope_clearInterval(Handle, int);
+extern (C) void WindowOrWorkerGlobalScope_clearInterval_0(Handle);
 extern (C) void WindowOrWorkerGlobalScope_queueMicrotask(Handle, VoidFunction);
 extern (C) Handle WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_Handle(Handle, ImageBitmapSource, Handle);
+extern (C) Handle WindowOrWorkerGlobalScope_createImageBitmap_0_ImageBitmapSource(Handle, ImageBitmapSource);
 extern (C) Handle WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_int_int_int_int_Handle(Handle, ImageBitmapSource, int, int, int, int, Handle);
+extern (C) Handle WindowOrWorkerGlobalScope_createImageBitmap_0_ImageBitmapSource_int_int_int_int(Handle, ImageBitmapSource, int, int, int, int);
 extern (C) Handle WindowOrWorkerGlobalScope_fetch(Handle, RequestInfo, Handle);
+extern (C) Handle WindowOrWorkerGlobalScope_fetch_0(Handle, RequestInfo);
 extern (C) Handle WindowOrWorkerGlobalScope_indexedDB_Get(Handle);
 extern (C) Handle WindowOrWorkerGlobalScope_caches_Get(Handle);
 extern (C) void WindowPostMessageOptions_targetOrigin_Set(Handle, string);
@@ -9739,6 +10122,7 @@ extern (C) Handle WindowSessionStorage_sessionStorage_Get(Handle);
 extern (C) void Worker_terminate(Handle);
 extern (C) void Worker_postMessage__Any_sequence(Handle, Handle, Handle);
 extern (C) void Worker_postMessage__Any_Handle(Handle, Handle, Handle);
+extern (C) void Worker_postMessage_0(Handle, Handle);
 extern (C) void Worker_onmessage_Set(Handle, EventHandler);
 extern (C) EventHandler Worker_onmessage_Get(Handle);
 extern (C) void Worker_onmessageerror_Set(Handle, EventHandler);

@@ -22,6 +22,12 @@ struct TextDecoder {
   auto decode(BufferSource input, TextDecodeOptions options) {
     return TextDecoder_decode(this.handle, input, options.handle);
   }
+  auto decode(BufferSource input) {
+    return TextDecoder_decode_0(this.handle, input);
+  }
+  auto decode() {
+    return TextDecoder_decode_1(this.handle);
+  }
   auto encoding() {
     return TextDecoderCommon_encoding_Get(this.handle);
   }
@@ -76,6 +82,9 @@ struct TextEncoder {
   auto encode(string input /* = "" */) {
     return Uint8Array(JsHandle(TextEncoder_encode(this.handle, input)));
   }
+  auto encode() {
+    return Uint8Array(JsHandle(TextEncoder_encode_0(this.handle)));
+  }
   auto encoding() {
     return TextEncoderCommon_encoding_Get(this.handle);
   }
@@ -100,6 +109,8 @@ extern (C) Handle GenericTransformStream_writable_Get(Handle);
 extern (C) void TextDecodeOptions_stream_Set(Handle, bool);
 extern (C) bool TextDecodeOptions_stream_Get(Handle);
 extern (C) string TextDecoder_decode(Handle, BufferSource, Handle);
+extern (C) string TextDecoder_decode_0(Handle, BufferSource);
+extern (C) string TextDecoder_decode_1(Handle);
 extern (C) string TextDecoderCommon_encoding_Get(Handle);
 extern (C) bool TextDecoderCommon_fatal_Get(Handle);
 extern (C) bool TextDecoderCommon_ignoreBOM_Get(Handle);
@@ -108,4 +119,5 @@ extern (C) bool TextDecoderOptions_fatal_Get(Handle);
 extern (C) void TextDecoderOptions_ignoreBOM_Set(Handle, bool);
 extern (C) bool TextDecoderOptions_ignoreBOM_Get(Handle);
 extern (C) Handle TextEncoder_encode(Handle, string);
+extern (C) Handle TextEncoder_encode_0(Handle);
 extern (C) string TextEncoderCommon_encoding_Get(Handle);

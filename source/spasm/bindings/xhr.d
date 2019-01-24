@@ -15,6 +15,9 @@ struct FormData {
   void append(string name, Blob blobValue, string filename) {
     FormData_append__string_Handle_string(this.handle, name, blobValue.handle, filename);
   }
+  void append(string name, Blob blobValue) {
+    FormData_append_0(this.handle, name, blobValue.handle);
+  }
   void delete_(string name) {
     FormData_delete(this.handle, name);
   }
@@ -32,6 +35,9 @@ struct FormData {
   }
   void set(string name, Blob blobValue, string filename) {
     FormData_set__string_Handle_string(this.handle, name, blobValue.handle, filename);
+  }
+  void set(string name, Blob blobValue) {
+    FormData_set_0(this.handle, name, blobValue.handle);
   }
 }
 alias FormDataEntryValue = SumType!(File, string);
@@ -105,6 +111,12 @@ struct XMLHttpRequest {
   void open(string method, string url, bool async, Optional!(string) username /* = no!(string) */, Optional!(string) password /* = no!(string) */) {
     XMLHttpRequest_open__string_string_bool_optional_string_optional_string(this._parent, method, url, async, !username.empty, username.front, !password.empty, password.front);
   }
+  void open(string method, string url, bool async, Optional!(string) username /* = no!(string) */) {
+    XMLHttpRequest_open_0(this._parent, method, url, async, !username.empty, username.front);
+  }
+  void open(string method, string url, bool async) {
+    XMLHttpRequest_open_1(this._parent, method, url, async);
+  }
   void setRequestHeader(string name, string value) {
     XMLHttpRequest_setRequestHeader(this._parent, name, value);
   }
@@ -125,6 +137,9 @@ struct XMLHttpRequest {
   }
   void send(Optional!(SumType!(Document, BodyInit)) body_ /* = no!(SumType!(Document, BodyInit)) */) {
     XMLHttpRequest_send(this._parent, !body_.empty, body_.front);
+  }
+  void send() {
+    XMLHttpRequest_send_0(this._parent);
   }
   void abort() {
     XMLHttpRequest_abort(this._parent);
@@ -231,12 +246,14 @@ struct XMLHttpRequestUpload {
 
 extern (C) void FormData_append__string_string(Handle, string, string);
 extern (C) void FormData_append__string_Handle_string(Handle, string, Handle, string);
+extern (C) void FormData_append_0(Handle, string, Handle);
 extern (C) void FormData_delete(Handle, string);
 extern (C) Optional!(FormDataEntryValue) FormData_get(Handle, string);
 extern (C) Handle FormData_getAll(Handle, string);
 extern (C) bool FormData_has(Handle, string);
 extern (C) void FormData_set__string_string(Handle, string, string);
 extern (C) void FormData_set__string_Handle_string(Handle, string, Handle, string);
+extern (C) void FormData_set_0(Handle, string, Handle);
 extern (C) bool ProgressEvent_lengthComputable_Get(Handle);
 extern (C) ulong ProgressEvent_loaded_Get(Handle);
 extern (C) ulong ProgressEvent_total_Get(Handle);
@@ -251,6 +268,8 @@ extern (C) EventHandler XMLHttpRequest_onreadystatechange_Get(Handle);
 extern (C) ushort XMLHttpRequest_readyState_Get(Handle);
 extern (C) void XMLHttpRequest_open__string_string(Handle, string, string);
 extern (C) void XMLHttpRequest_open__string_string_bool_optional_string_optional_string(Handle, string, string, bool, bool, string, bool, string);
+extern (C) void XMLHttpRequest_open_0(Handle, string, string, bool, bool, string);
+extern (C) void XMLHttpRequest_open_1(Handle, string, string, bool);
 extern (C) void XMLHttpRequest_setRequestHeader(Handle, string, string);
 extern (C) void XMLHttpRequest_timeout_Set(Handle, uint);
 extern (C) uint XMLHttpRequest_timeout_Get(Handle);
@@ -258,6 +277,7 @@ extern (C) void XMLHttpRequest_withCredentials_Set(Handle, bool);
 extern (C) bool XMLHttpRequest_withCredentials_Get(Handle);
 extern (C) Handle XMLHttpRequest_upload_Get(Handle);
 extern (C) void XMLHttpRequest_send(Handle, bool, SumType!(Document, BodyInit));
+extern (C) void XMLHttpRequest_send_0(Handle);
 extern (C) void XMLHttpRequest_abort(Handle);
 extern (C) string XMLHttpRequest_responseURL_Get(Handle);
 extern (C) ushort XMLHttpRequest_status_Get(Handle);

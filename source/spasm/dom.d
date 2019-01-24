@@ -38,6 +38,7 @@ extern(C) {
 
 import spasm.bindings.dom : Document;
 import spasm.bindings.html : Window;
+__gshared undefined = Any(JsHandle(0));
 __gshared document = Document(JsHandle(1));
 __gshared window = Window(JsHandle(2));
 

@@ -243,6 +243,9 @@ struct Response {
   auto redirect(string url, ushort status /* = 302 */) {
     return Response(JsHandle(Response_redirect(this.handle, url, status)));
   }
+  auto redirect(string url) {
+    return Response(JsHandle(Response_redirect_0(this.handle, url)));
+  }
   auto type() {
     return Response_type_Get(this.handle);
   }
@@ -383,6 +386,7 @@ extern (C) void RequestInit_window_Set(Handle, Handle);
 extern (C) Handle RequestInit_window_Get(Handle);
 extern (C) Handle Response_error(Handle);
 extern (C) Handle Response_redirect(Handle, string, ushort);
+extern (C) Handle Response_redirect_0(Handle, string);
 extern (C) ResponseType Response_type_Get(Handle);
 extern (C) string Response_url_Get(Handle);
 extern (C) bool Response_redirected_Get(Handle);

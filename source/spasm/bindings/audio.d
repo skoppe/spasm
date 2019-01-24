@@ -109,8 +109,14 @@ struct AudioBuffer {
   void copyFromChannel(Float32Array destination, uint channelNumber, uint startInChannel /* = 0 */) {
     AudioBuffer_copyFromChannel(this.handle, destination.handle, channelNumber, startInChannel);
   }
+  void copyFromChannel(Float32Array destination, uint channelNumber) {
+    AudioBuffer_copyFromChannel_0(this.handle, destination.handle, channelNumber);
+  }
   void copyToChannel(Float32Array source, uint channelNumber, uint startInChannel /* = 0 */) {
     AudioBuffer_copyToChannel(this.handle, source.handle, channelNumber, startInChannel);
+  }
+  void copyToChannel(Float32Array source, uint channelNumber) {
+    AudioBuffer_copyToChannel_0(this.handle, source.handle, channelNumber);
   }
 }
 struct AudioBufferOptions {
@@ -176,6 +182,15 @@ struct AudioBufferSourceNode {
   }
   void start(double when /* = 0 */, double offset, double duration) {
     AudioBufferSourceNode_start(this._parent, when, offset, duration);
+  }
+  void start(double when /* = 0 */, double offset) {
+    AudioBufferSourceNode_start_0(this._parent, when, offset);
+  }
+  void start(double when /* = 0 */) {
+    AudioBufferSourceNode_start_1(this._parent, when);
+  }
+  void start() {
+    AudioBufferSourceNode_start_2(this._parent);
   }
 }
 struct AudioBufferSourceOptions {
@@ -343,8 +358,17 @@ struct AudioNode {
   auto connect(AudioNode destinationNode, uint output /* = 0 */, uint input /* = 0 */) {
     return AudioNode(JsHandle(AudioNode_connect__Handle_uint_uint(this._parent, destinationNode._parent, output, input)));
   }
+  auto connect(AudioNode destinationNode, uint output /* = 0 */) {
+    return AudioNode(JsHandle(AudioNode_connect_0_Handle_uint(this._parent, destinationNode._parent, output)));
+  }
+  auto connect(AudioNode destinationNode) {
+    return AudioNode(JsHandle(AudioNode_connect_1(this._parent, destinationNode._parent)));
+  }
   void connect(AudioParam destinationParam, uint output /* = 0 */) {
     AudioNode_connect__Handle_uint(this._parent, destinationParam.handle, output);
+  }
+  void connect(AudioParam destinationParam) {
+    AudioNode_connect_0_Handle(this._parent, destinationParam.handle);
   }
   void disconnect() {
     AudioNode_disconnect__(this._parent);
@@ -596,8 +620,14 @@ struct AudioScheduledSourceNode {
   void start(double when /* = 0 */) {
     AudioScheduledSourceNode_start(this._parent, when);
   }
+  void start() {
+    AudioScheduledSourceNode_start_0(this._parent);
+  }
   void stop(double when /* = 0 */) {
     AudioScheduledSourceNode_stop(this._parent, when);
+  }
+  void stop() {
+    AudioScheduledSourceNode_stop_0(this._parent);
   }
 }
 struct AudioTimestamp {
@@ -769,8 +799,14 @@ struct BaseAudioContext {
   auto createChannelMerger(uint numberOfInputs /* = 6 */) {
     return ChannelMergerNode(JsHandle(BaseAudioContext_createChannelMerger(this._parent, numberOfInputs)));
   }
+  auto createChannelMerger() {
+    return ChannelMergerNode(JsHandle(BaseAudioContext_createChannelMerger_0(this._parent)));
+  }
   auto createChannelSplitter(uint numberOfOutputs /* = 6 */) {
     return ChannelSplitterNode(JsHandle(BaseAudioContext_createChannelSplitter(this._parent, numberOfOutputs)));
+  }
+  auto createChannelSplitter() {
+    return ChannelSplitterNode(JsHandle(BaseAudioContext_createChannelSplitter_0(this._parent)));
   }
   auto createConstantSource() {
     return ConstantSourceNode(JsHandle(BaseAudioContext_createConstantSource(this._parent)));
@@ -780,6 +816,9 @@ struct BaseAudioContext {
   }
   auto createDelay(double maxDelayTime /* = 1.0 */) {
     return DelayNode(JsHandle(BaseAudioContext_createDelay(this._parent, maxDelayTime)));
+  }
+  auto createDelay() {
+    return DelayNode(JsHandle(BaseAudioContext_createDelay_0(this._parent)));
   }
   auto createDynamicsCompressor() {
     return DynamicsCompressorNode(JsHandle(BaseAudioContext_createDynamicsCompressor(this._parent)));
@@ -799,8 +838,20 @@ struct BaseAudioContext {
   auto createPeriodicWave(Sequence!(float) real_, Sequence!(float) imag, PeriodicWaveConstraints constraints) {
     return PeriodicWave(JsHandle(BaseAudioContext_createPeriodicWave(this._parent, real_.handle, imag.handle, constraints.handle)));
   }
+  auto createPeriodicWave(Sequence!(float) real_, Sequence!(float) imag) {
+    return PeriodicWave(JsHandle(BaseAudioContext_createPeriodicWave_0(this._parent, real_.handle, imag.handle)));
+  }
   auto createScriptProcessor(uint bufferSize /* = 0 */, uint numberOfInputChannels /* = 2 */, uint numberOfOutputChannels /* = 2 */) {
     return ScriptProcessorNode(JsHandle(BaseAudioContext_createScriptProcessor(this._parent, bufferSize, numberOfInputChannels, numberOfOutputChannels)));
+  }
+  auto createScriptProcessor(uint bufferSize /* = 0 */, uint numberOfInputChannels /* = 2 */) {
+    return ScriptProcessorNode(JsHandle(BaseAudioContext_createScriptProcessor_0(this._parent, bufferSize, numberOfInputChannels)));
+  }
+  auto createScriptProcessor(uint bufferSize /* = 0 */) {
+    return ScriptProcessorNode(JsHandle(BaseAudioContext_createScriptProcessor_1(this._parent, bufferSize)));
+  }
+  auto createScriptProcessor() {
+    return ScriptProcessorNode(JsHandle(BaseAudioContext_createScriptProcessor_2(this._parent)));
   }
   auto createStereoPanner() {
     return StereoPannerNode(JsHandle(BaseAudioContext_createStereoPanner(this._parent)));
@@ -810,6 +861,12 @@ struct BaseAudioContext {
   }
   auto decodeAudioData(ArrayBuffer audioData, Optional!(DecodeSuccessCallback) successCallback, Optional!(DecodeErrorCallback) errorCallback) {
     return Promise!(AudioBuffer)(JsHandle(BaseAudioContext_decodeAudioData(this._parent, audioData.handle, !successCallback.empty, successCallback.front, !errorCallback.empty, errorCallback.front)));
+  }
+  auto decodeAudioData(ArrayBuffer audioData, Optional!(DecodeSuccessCallback) successCallback) {
+    return Promise!(AudioBuffer)(JsHandle(BaseAudioContext_decodeAudioData_0(this._parent, audioData.handle, !successCallback.empty, successCallback.front)));
+  }
+  auto decodeAudioData(ArrayBuffer audioData) {
+    return Promise!(AudioBuffer)(JsHandle(BaseAudioContext_decodeAudioData_1(this._parent, audioData.handle)));
   }
 }
 struct BiquadFilterNode {
@@ -1719,7 +1776,9 @@ extern (C) double AudioBuffer_duration_Get(Handle);
 extern (C) uint AudioBuffer_numberOfChannels_Get(Handle);
 extern (C) Handle AudioBuffer_getChannelData(Handle, uint);
 extern (C) void AudioBuffer_copyFromChannel(Handle, Handle, uint, uint);
+extern (C) void AudioBuffer_copyFromChannel_0(Handle, Handle, uint);
 extern (C) void AudioBuffer_copyToChannel(Handle, Handle, uint, uint);
+extern (C) void AudioBuffer_copyToChannel_0(Handle, Handle, uint);
 extern (C) void AudioBufferOptions_numberOfChannels_Set(Handle, uint);
 extern (C) uint AudioBufferOptions_numberOfChannels_Get(Handle);
 extern (C) void AudioBufferOptions_length_Set(Handle, uint);
@@ -1737,6 +1796,9 @@ extern (C) double AudioBufferSourceNode_loopStart_Get(Handle);
 extern (C) void AudioBufferSourceNode_loopEnd_Set(Handle, double);
 extern (C) double AudioBufferSourceNode_loopEnd_Get(Handle);
 extern (C) void AudioBufferSourceNode_start(Handle, double, double, double);
+extern (C) void AudioBufferSourceNode_start_0(Handle, double, double);
+extern (C) void AudioBufferSourceNode_start_1(Handle, double);
+extern (C) void AudioBufferSourceNode_start_2(Handle);
 extern (C) void AudioBufferSourceOptions_buffer_Set(Handle, bool, Handle);
 extern (C) Optional!(AudioBuffer) AudioBufferSourceOptions_buffer_Get(Handle);
 extern (C) void AudioBufferSourceOptions_detune_Set(Handle, float);
@@ -1776,7 +1838,10 @@ extern (C) Handle AudioListener_upZ_Get(Handle);
 extern (C) void AudioListener_setPosition(Handle, float, float, float);
 extern (C) void AudioListener_setOrientation(Handle, float, float, float, float, float, float);
 extern (C) Handle AudioNode_connect__Handle_uint_uint(Handle, Handle, uint, uint);
+extern (C) Handle AudioNode_connect_0_Handle_uint(Handle, Handle, uint);
+extern (C) Handle AudioNode_connect_1(Handle, Handle);
 extern (C) void AudioNode_connect__Handle_uint(Handle, Handle, uint);
+extern (C) void AudioNode_connect_0_Handle(Handle, Handle);
 extern (C) void AudioNode_disconnect__(Handle);
 extern (C) void AudioNode_disconnect__uint(Handle, uint);
 extern (C) void AudioNode_disconnect__Handle(Handle, Handle);
@@ -1843,7 +1908,9 @@ extern (C) Handle AudioProcessingEventInit_outputBuffer_Get(Handle);
 extern (C) void AudioScheduledSourceNode_onended_Set(Handle, EventHandler);
 extern (C) EventHandler AudioScheduledSourceNode_onended_Get(Handle);
 extern (C) void AudioScheduledSourceNode_start(Handle, double);
+extern (C) void AudioScheduledSourceNode_start_0(Handle);
 extern (C) void AudioScheduledSourceNode_stop(Handle, double);
+extern (C) void AudioScheduledSourceNode_stop_0(Handle);
 extern (C) void AudioTimestamp_contextTime_Set(Handle, double);
 extern (C) double AudioTimestamp_contextTime_Get(Handle);
 extern (C) void AudioTimestamp_performanceTime_Set(Handle, double);
@@ -1883,20 +1950,29 @@ extern (C) Handle BaseAudioContext_createBiquadFilter(Handle);
 extern (C) Handle BaseAudioContext_createBuffer(Handle, uint, uint, float);
 extern (C) Handle BaseAudioContext_createBufferSource(Handle);
 extern (C) Handle BaseAudioContext_createChannelMerger(Handle, uint);
+extern (C) Handle BaseAudioContext_createChannelMerger_0(Handle);
 extern (C) Handle BaseAudioContext_createChannelSplitter(Handle, uint);
+extern (C) Handle BaseAudioContext_createChannelSplitter_0(Handle);
 extern (C) Handle BaseAudioContext_createConstantSource(Handle);
 extern (C) Handle BaseAudioContext_createConvolver(Handle);
 extern (C) Handle BaseAudioContext_createDelay(Handle, double);
+extern (C) Handle BaseAudioContext_createDelay_0(Handle);
 extern (C) Handle BaseAudioContext_createDynamicsCompressor(Handle);
 extern (C) Handle BaseAudioContext_createGain(Handle);
 extern (C) Handle BaseAudioContext_createIIRFilter(Handle, Handle, Handle);
 extern (C) Handle BaseAudioContext_createOscillator(Handle);
 extern (C) Handle BaseAudioContext_createPanner(Handle);
 extern (C) Handle BaseAudioContext_createPeriodicWave(Handle, Handle, Handle, Handle);
+extern (C) Handle BaseAudioContext_createPeriodicWave_0(Handle, Handle, Handle);
 extern (C) Handle BaseAudioContext_createScriptProcessor(Handle, uint, uint, uint);
+extern (C) Handle BaseAudioContext_createScriptProcessor_0(Handle, uint, uint);
+extern (C) Handle BaseAudioContext_createScriptProcessor_1(Handle, uint);
+extern (C) Handle BaseAudioContext_createScriptProcessor_2(Handle);
 extern (C) Handle BaseAudioContext_createStereoPanner(Handle);
 extern (C) Handle BaseAudioContext_createWaveShaper(Handle);
 extern (C) Handle BaseAudioContext_decodeAudioData(Handle, Handle, bool, DecodeSuccessCallback, bool, DecodeErrorCallback);
+extern (C) Handle BaseAudioContext_decodeAudioData_0(Handle, Handle, bool, DecodeSuccessCallback);
+extern (C) Handle BaseAudioContext_decodeAudioData_1(Handle, Handle);
 extern (C) void BiquadFilterNode_type_Set(Handle, BiquadFilterType);
 extern (C) BiquadFilterType BiquadFilterNode_type_Get(Handle);
 extern (C) Handle BiquadFilterNode_frequency_Get(Handle);

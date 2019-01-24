@@ -35,6 +35,9 @@ struct Notification {
   auto requestPermission(NotificationPermissionCallback deprecatedCallback) {
     return Promise!(NotificationPermission)(JsHandle(Notification_requestPermission(this._parent, deprecatedCallback)));
   }
+  auto requestPermission() {
+    return Promise!(NotificationPermission)(JsHandle(Notification_requestPermission_0(this._parent)));
+  }
   void maxActions(uint maxActions) {
     Notification_maxActions_Set(this._parent, maxActions);
   }
@@ -285,6 +288,7 @@ extern (C) string GetNotificationOptions_tag_Get(Handle);
 extern (C) void Notification_permission_Set(Handle, NotificationPermission);
 extern (C) NotificationPermission Notification_permission_Get(Handle);
 extern (C) Handle Notification_requestPermission(Handle, NotificationPermissionCallback);
+extern (C) Handle Notification_requestPermission_0(Handle);
 extern (C) void Notification_maxActions_Set(Handle, uint);
 extern (C) uint Notification_maxActions_Get(Handle);
 extern (C) void Notification_onclick_Set(Handle, EventHandler);

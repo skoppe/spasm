@@ -296,14 +296,26 @@ struct WebGL2RenderingContextBase {
   void bufferData(uint target, ArrayBufferView srcData, uint usage, uint srcOffset, uint length /* = 0 */) {
     WebGL2RenderingContextBase_bufferData__uint_ArrayBufferView_uint_uint_uint(this.handle, target, srcData, usage, srcOffset, length);
   }
+  void bufferData(uint target, ArrayBufferView srcData, uint usage, uint srcOffset) {
+    WebGL2RenderingContextBase_bufferData_0(this.handle, target, srcData, usage, srcOffset);
+  }
   void bufferSubData(uint target, long dstByteOffset, ArrayBufferView srcData, uint srcOffset, uint length /* = 0 */) {
     WebGL2RenderingContextBase_bufferSubData__uint_long_ArrayBufferView_uint_uint(this.handle, target, dstByteOffset, srcData, srcOffset, length);
+  }
+  void bufferSubData(uint target, long dstByteOffset, ArrayBufferView srcData, uint srcOffset) {
+    WebGL2RenderingContextBase_bufferSubData_0(this.handle, target, dstByteOffset, srcData, srcOffset);
   }
   void copyBufferSubData(uint readTarget, uint writeTarget, long readOffset, long writeOffset, long size) {
     WebGL2RenderingContextBase_copyBufferSubData(this.handle, readTarget, writeTarget, readOffset, writeOffset, size);
   }
   void getBufferSubData(uint target, long srcByteOffset, ArrayBufferView dstData, uint dstOffset /* = 0 */, uint length /* = 0 */) {
     WebGL2RenderingContextBase_getBufferSubData(this.handle, target, srcByteOffset, dstData, dstOffset, length);
+  }
+  void getBufferSubData(uint target, long srcByteOffset, ArrayBufferView dstData, uint dstOffset /* = 0 */) {
+    WebGL2RenderingContextBase_getBufferSubData_0(this.handle, target, srcByteOffset, dstData, dstOffset);
+  }
+  void getBufferSubData(uint target, long srcByteOffset, ArrayBufferView dstData) {
+    WebGL2RenderingContextBase_getBufferSubData_1(this.handle, target, srcByteOffset, dstData);
   }
   void blitFramebuffer(int srcX0, int srcY0, int srcX1, int srcY1, int dstX0, int dstY0, int dstX1, int dstY1, uint mask, uint filter) {
     WebGL2RenderingContextBase_blitFramebuffer(this.handle, srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);
@@ -383,6 +395,9 @@ struct WebGL2RenderingContextBase {
   void texSubImage3D(uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, uint type, Optional!(ArrayBufferView) srcData, uint srcOffset /* = 0 */) {
     WebGL2RenderingContextBase_texSubImage3D__uint_int_int_int_int_int_int_int_uint_uint_optional_ArrayBufferView_uint(this.handle, target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, !srcData.empty, srcData.front, srcOffset);
   }
+  void texSubImage3D(uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, uint type, Optional!(ArrayBufferView) srcData) {
+    WebGL2RenderingContextBase_texSubImage3D_0(this.handle, target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, !srcData.empty, srcData.front);
+  }
   void copyTexSubImage3D(uint target, int level, int xoffset, int yoffset, int zoffset, int x, int y, int width, int height) {
     WebGL2RenderingContextBase_copyTexSubImage3D(this.handle, target, level, xoffset, yoffset, zoffset, x, y, width, height);
   }
@@ -392,11 +407,23 @@ struct WebGL2RenderingContextBase {
   void compressedTexImage2D(uint target, int level, uint internalformat, int width, int height, int border, ArrayBufferView srcData, uint srcOffset /* = 0 */, uint srcLengthOverride /* = 0 */) {
     WebGL2RenderingContextBase_compressedTexImage2D__uint_int_uint_int_int_int_ArrayBufferView_uint_uint(this.handle, target, level, internalformat, width, height, border, srcData, srcOffset, srcLengthOverride);
   }
+  void compressedTexImage2D(uint target, int level, uint internalformat, int width, int height, int border, ArrayBufferView srcData, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_compressedTexImage2D_0(this.handle, target, level, internalformat, width, height, border, srcData, srcOffset);
+  }
+  void compressedTexImage2D(uint target, int level, uint internalformat, int width, int height, int border, ArrayBufferView srcData) {
+    WebGL2RenderingContextBase_compressedTexImage2D_1(this.handle, target, level, internalformat, width, height, border, srcData);
+  }
   void compressedTexImage3D(uint target, int level, uint internalformat, int width, int height, int depth, int border, long offset) {
     WebGL2RenderingContextBase_compressedTexImage3D__uint_int_uint_int_int_int_int_long(this.handle, target, level, internalformat, width, height, depth, border, offset);
   }
   void compressedTexImage3D(uint target, int level, uint internalformat, int width, int height, int depth, int border, ArrayBufferView srcData, uint srcOffset /* = 0 */, uint srcLengthOverride /* = 0 */) {
     WebGL2RenderingContextBase_compressedTexImage3D__uint_int_uint_int_int_int_int_ArrayBufferView_uint_uint(this.handle, target, level, internalformat, width, height, depth, border, srcData, srcOffset, srcLengthOverride);
+  }
+  void compressedTexImage3D(uint target, int level, uint internalformat, int width, int height, int depth, int border, ArrayBufferView srcData, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_compressedTexImage3D_0(this.handle, target, level, internalformat, width, height, depth, border, srcData, srcOffset);
+  }
+  void compressedTexImage3D(uint target, int level, uint internalformat, int width, int height, int depth, int border, ArrayBufferView srcData) {
+    WebGL2RenderingContextBase_compressedTexImage3D_1(this.handle, target, level, internalformat, width, height, depth, border, srcData);
   }
   void compressedTexSubImage2D(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, long offset) {
     WebGL2RenderingContextBase_compressedTexSubImage2D__uint_int_int_int_int_int_uint_long(this.handle, target, level, xoffset, yoffset, width, height, format, offset);
@@ -404,11 +431,23 @@ struct WebGL2RenderingContextBase {
   void compressedTexSubImage2D(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, ArrayBufferView srcData, uint srcOffset /* = 0 */, uint srcLengthOverride /* = 0 */) {
     WebGL2RenderingContextBase_compressedTexSubImage2D__uint_int_int_int_int_int_uint_ArrayBufferView_uint_uint(this.handle, target, level, xoffset, yoffset, width, height, format, srcData, srcOffset, srcLengthOverride);
   }
+  void compressedTexSubImage2D(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, ArrayBufferView srcData, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_compressedTexSubImage2D_0(this.handle, target, level, xoffset, yoffset, width, height, format, srcData, srcOffset);
+  }
+  void compressedTexSubImage2D(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, ArrayBufferView srcData) {
+    WebGL2RenderingContextBase_compressedTexSubImage2D_1(this.handle, target, level, xoffset, yoffset, width, height, format, srcData);
+  }
   void compressedTexSubImage3D(uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, long offset) {
     WebGL2RenderingContextBase_compressedTexSubImage3D__uint_int_int_int_int_int_int_int_uint_long(this.handle, target, level, xoffset, yoffset, zoffset, width, height, depth, format, offset);
   }
   void compressedTexSubImage3D(uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, ArrayBufferView srcData, uint srcOffset /* = 0 */, uint srcLengthOverride /* = 0 */) {
     WebGL2RenderingContextBase_compressedTexSubImage3D__uint_int_int_int_int_int_int_int_uint_ArrayBufferView_uint_uint(this.handle, target, level, xoffset, yoffset, zoffset, width, height, depth, format, srcData, srcOffset, srcLengthOverride);
+  }
+  void compressedTexSubImage3D(uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, ArrayBufferView srcData, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_compressedTexSubImage3D_0(this.handle, target, level, xoffset, yoffset, zoffset, width, height, depth, format, srcData, srcOffset);
+  }
+  void compressedTexSubImage3D(uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, ArrayBufferView srcData) {
+    WebGL2RenderingContextBase_compressedTexSubImage3D_1(this.handle, target, level, xoffset, yoffset, zoffset, width, height, depth, format, srcData);
   }
   auto getFragDataLocation(WebGLProgram program, string name) {
     return WebGL2RenderingContextBase_getFragDataLocation(this.handle, program._parent, name);
@@ -428,65 +467,191 @@ struct WebGL2RenderingContextBase {
   void uniform1fv(Optional!(WebGLUniformLocation) location, Float32List data, uint srcOffset /* = 0 */, uint srcLength /* = 0 */) {
     WebGL2RenderingContextBase_uniform1fv(this.handle, !location.empty, location.front.handle, data, srcOffset, srcLength);
   }
+  void uniform1fv(Optional!(WebGLUniformLocation) location, Float32List data, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_uniform1fv_0(this.handle, !location.empty, location.front.handle, data, srcOffset);
+  }
+  void uniform1fv(Optional!(WebGLUniformLocation) location, Float32List data) {
+    WebGL2RenderingContextBase_uniform1fv_1(this.handle, !location.empty, location.front.handle, data);
+  }
   void uniform2fv(Optional!(WebGLUniformLocation) location, Float32List data, uint srcOffset /* = 0 */, uint srcLength /* = 0 */) {
     WebGL2RenderingContextBase_uniform2fv(this.handle, !location.empty, location.front.handle, data, srcOffset, srcLength);
+  }
+  void uniform2fv(Optional!(WebGLUniformLocation) location, Float32List data, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_uniform2fv_0(this.handle, !location.empty, location.front.handle, data, srcOffset);
+  }
+  void uniform2fv(Optional!(WebGLUniformLocation) location, Float32List data) {
+    WebGL2RenderingContextBase_uniform2fv_1(this.handle, !location.empty, location.front.handle, data);
   }
   void uniform3fv(Optional!(WebGLUniformLocation) location, Float32List data, uint srcOffset /* = 0 */, uint srcLength /* = 0 */) {
     WebGL2RenderingContextBase_uniform3fv(this.handle, !location.empty, location.front.handle, data, srcOffset, srcLength);
   }
+  void uniform3fv(Optional!(WebGLUniformLocation) location, Float32List data, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_uniform3fv_0(this.handle, !location.empty, location.front.handle, data, srcOffset);
+  }
+  void uniform3fv(Optional!(WebGLUniformLocation) location, Float32List data) {
+    WebGL2RenderingContextBase_uniform3fv_1(this.handle, !location.empty, location.front.handle, data);
+  }
   void uniform4fv(Optional!(WebGLUniformLocation) location, Float32List data, uint srcOffset /* = 0 */, uint srcLength /* = 0 */) {
     WebGL2RenderingContextBase_uniform4fv(this.handle, !location.empty, location.front.handle, data, srcOffset, srcLength);
+  }
+  void uniform4fv(Optional!(WebGLUniformLocation) location, Float32List data, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_uniform4fv_0(this.handle, !location.empty, location.front.handle, data, srcOffset);
+  }
+  void uniform4fv(Optional!(WebGLUniformLocation) location, Float32List data) {
+    WebGL2RenderingContextBase_uniform4fv_1(this.handle, !location.empty, location.front.handle, data);
   }
   void uniform1iv(Optional!(WebGLUniformLocation) location, Int32List data, uint srcOffset /* = 0 */, uint srcLength /* = 0 */) {
     WebGL2RenderingContextBase_uniform1iv(this.handle, !location.empty, location.front.handle, data, srcOffset, srcLength);
   }
+  void uniform1iv(Optional!(WebGLUniformLocation) location, Int32List data, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_uniform1iv_0(this.handle, !location.empty, location.front.handle, data, srcOffset);
+  }
+  void uniform1iv(Optional!(WebGLUniformLocation) location, Int32List data) {
+    WebGL2RenderingContextBase_uniform1iv_1(this.handle, !location.empty, location.front.handle, data);
+  }
   void uniform2iv(Optional!(WebGLUniformLocation) location, Int32List data, uint srcOffset /* = 0 */, uint srcLength /* = 0 */) {
     WebGL2RenderingContextBase_uniform2iv(this.handle, !location.empty, location.front.handle, data, srcOffset, srcLength);
+  }
+  void uniform2iv(Optional!(WebGLUniformLocation) location, Int32List data, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_uniform2iv_0(this.handle, !location.empty, location.front.handle, data, srcOffset);
+  }
+  void uniform2iv(Optional!(WebGLUniformLocation) location, Int32List data) {
+    WebGL2RenderingContextBase_uniform2iv_1(this.handle, !location.empty, location.front.handle, data);
   }
   void uniform3iv(Optional!(WebGLUniformLocation) location, Int32List data, uint srcOffset /* = 0 */, uint srcLength /* = 0 */) {
     WebGL2RenderingContextBase_uniform3iv(this.handle, !location.empty, location.front.handle, data, srcOffset, srcLength);
   }
+  void uniform3iv(Optional!(WebGLUniformLocation) location, Int32List data, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_uniform3iv_0(this.handle, !location.empty, location.front.handle, data, srcOffset);
+  }
+  void uniform3iv(Optional!(WebGLUniformLocation) location, Int32List data) {
+    WebGL2RenderingContextBase_uniform3iv_1(this.handle, !location.empty, location.front.handle, data);
+  }
   void uniform4iv(Optional!(WebGLUniformLocation) location, Int32List data, uint srcOffset /* = 0 */, uint srcLength /* = 0 */) {
     WebGL2RenderingContextBase_uniform4iv(this.handle, !location.empty, location.front.handle, data, srcOffset, srcLength);
+  }
+  void uniform4iv(Optional!(WebGLUniformLocation) location, Int32List data, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_uniform4iv_0(this.handle, !location.empty, location.front.handle, data, srcOffset);
+  }
+  void uniform4iv(Optional!(WebGLUniformLocation) location, Int32List data) {
+    WebGL2RenderingContextBase_uniform4iv_1(this.handle, !location.empty, location.front.handle, data);
   }
   void uniform1uiv(Optional!(WebGLUniformLocation) location, Uint32List data, uint srcOffset /* = 0 */, uint srcLength /* = 0 */) {
     WebGL2RenderingContextBase_uniform1uiv(this.handle, !location.empty, location.front.handle, data, srcOffset, srcLength);
   }
+  void uniform1uiv(Optional!(WebGLUniformLocation) location, Uint32List data, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_uniform1uiv_0(this.handle, !location.empty, location.front.handle, data, srcOffset);
+  }
+  void uniform1uiv(Optional!(WebGLUniformLocation) location, Uint32List data) {
+    WebGL2RenderingContextBase_uniform1uiv_1(this.handle, !location.empty, location.front.handle, data);
+  }
   void uniform2uiv(Optional!(WebGLUniformLocation) location, Uint32List data, uint srcOffset /* = 0 */, uint srcLength /* = 0 */) {
     WebGL2RenderingContextBase_uniform2uiv(this.handle, !location.empty, location.front.handle, data, srcOffset, srcLength);
+  }
+  void uniform2uiv(Optional!(WebGLUniformLocation) location, Uint32List data, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_uniform2uiv_0(this.handle, !location.empty, location.front.handle, data, srcOffset);
+  }
+  void uniform2uiv(Optional!(WebGLUniformLocation) location, Uint32List data) {
+    WebGL2RenderingContextBase_uniform2uiv_1(this.handle, !location.empty, location.front.handle, data);
   }
   void uniform3uiv(Optional!(WebGLUniformLocation) location, Uint32List data, uint srcOffset /* = 0 */, uint srcLength /* = 0 */) {
     WebGL2RenderingContextBase_uniform3uiv(this.handle, !location.empty, location.front.handle, data, srcOffset, srcLength);
   }
+  void uniform3uiv(Optional!(WebGLUniformLocation) location, Uint32List data, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_uniform3uiv_0(this.handle, !location.empty, location.front.handle, data, srcOffset);
+  }
+  void uniform3uiv(Optional!(WebGLUniformLocation) location, Uint32List data) {
+    WebGL2RenderingContextBase_uniform3uiv_1(this.handle, !location.empty, location.front.handle, data);
+  }
   void uniform4uiv(Optional!(WebGLUniformLocation) location, Uint32List data, uint srcOffset /* = 0 */, uint srcLength /* = 0 */) {
     WebGL2RenderingContextBase_uniform4uiv(this.handle, !location.empty, location.front.handle, data, srcOffset, srcLength);
+  }
+  void uniform4uiv(Optional!(WebGLUniformLocation) location, Uint32List data, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_uniform4uiv_0(this.handle, !location.empty, location.front.handle, data, srcOffset);
+  }
+  void uniform4uiv(Optional!(WebGLUniformLocation) location, Uint32List data) {
+    WebGL2RenderingContextBase_uniform4uiv_1(this.handle, !location.empty, location.front.handle, data);
   }
   void uniformMatrix2fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data, uint srcOffset /* = 0 */, uint srcLength /* = 0 */) {
     WebGL2RenderingContextBase_uniformMatrix2fv(this.handle, !location.empty, location.front.handle, transpose, data, srcOffset, srcLength);
   }
+  void uniformMatrix2fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_uniformMatrix2fv_0(this.handle, !location.empty, location.front.handle, transpose, data, srcOffset);
+  }
+  void uniformMatrix2fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data) {
+    WebGL2RenderingContextBase_uniformMatrix2fv_1(this.handle, !location.empty, location.front.handle, transpose, data);
+  }
   void uniformMatrix3x2fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data, uint srcOffset /* = 0 */, uint srcLength /* = 0 */) {
     WebGL2RenderingContextBase_uniformMatrix3x2fv(this.handle, !location.empty, location.front.handle, transpose, data, srcOffset, srcLength);
+  }
+  void uniformMatrix3x2fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_uniformMatrix3x2fv_0(this.handle, !location.empty, location.front.handle, transpose, data, srcOffset);
+  }
+  void uniformMatrix3x2fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data) {
+    WebGL2RenderingContextBase_uniformMatrix3x2fv_1(this.handle, !location.empty, location.front.handle, transpose, data);
   }
   void uniformMatrix4x2fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data, uint srcOffset /* = 0 */, uint srcLength /* = 0 */) {
     WebGL2RenderingContextBase_uniformMatrix4x2fv(this.handle, !location.empty, location.front.handle, transpose, data, srcOffset, srcLength);
   }
+  void uniformMatrix4x2fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_uniformMatrix4x2fv_0(this.handle, !location.empty, location.front.handle, transpose, data, srcOffset);
+  }
+  void uniformMatrix4x2fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data) {
+    WebGL2RenderingContextBase_uniformMatrix4x2fv_1(this.handle, !location.empty, location.front.handle, transpose, data);
+  }
   void uniformMatrix2x3fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data, uint srcOffset /* = 0 */, uint srcLength /* = 0 */) {
     WebGL2RenderingContextBase_uniformMatrix2x3fv(this.handle, !location.empty, location.front.handle, transpose, data, srcOffset, srcLength);
+  }
+  void uniformMatrix2x3fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_uniformMatrix2x3fv_0(this.handle, !location.empty, location.front.handle, transpose, data, srcOffset);
+  }
+  void uniformMatrix2x3fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data) {
+    WebGL2RenderingContextBase_uniformMatrix2x3fv_1(this.handle, !location.empty, location.front.handle, transpose, data);
   }
   void uniformMatrix3fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data, uint srcOffset /* = 0 */, uint srcLength /* = 0 */) {
     WebGL2RenderingContextBase_uniformMatrix3fv(this.handle, !location.empty, location.front.handle, transpose, data, srcOffset, srcLength);
   }
+  void uniformMatrix3fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_uniformMatrix3fv_0(this.handle, !location.empty, location.front.handle, transpose, data, srcOffset);
+  }
+  void uniformMatrix3fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data) {
+    WebGL2RenderingContextBase_uniformMatrix3fv_1(this.handle, !location.empty, location.front.handle, transpose, data);
+  }
   void uniformMatrix4x3fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data, uint srcOffset /* = 0 */, uint srcLength /* = 0 */) {
     WebGL2RenderingContextBase_uniformMatrix4x3fv(this.handle, !location.empty, location.front.handle, transpose, data, srcOffset, srcLength);
+  }
+  void uniformMatrix4x3fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_uniformMatrix4x3fv_0(this.handle, !location.empty, location.front.handle, transpose, data, srcOffset);
+  }
+  void uniformMatrix4x3fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data) {
+    WebGL2RenderingContextBase_uniformMatrix4x3fv_1(this.handle, !location.empty, location.front.handle, transpose, data);
   }
   void uniformMatrix2x4fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data, uint srcOffset /* = 0 */, uint srcLength /* = 0 */) {
     WebGL2RenderingContextBase_uniformMatrix2x4fv(this.handle, !location.empty, location.front.handle, transpose, data, srcOffset, srcLength);
   }
+  void uniformMatrix2x4fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_uniformMatrix2x4fv_0(this.handle, !location.empty, location.front.handle, transpose, data, srcOffset);
+  }
+  void uniformMatrix2x4fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data) {
+    WebGL2RenderingContextBase_uniformMatrix2x4fv_1(this.handle, !location.empty, location.front.handle, transpose, data);
+  }
   void uniformMatrix3x4fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data, uint srcOffset /* = 0 */, uint srcLength /* = 0 */) {
     WebGL2RenderingContextBase_uniformMatrix3x4fv(this.handle, !location.empty, location.front.handle, transpose, data, srcOffset, srcLength);
   }
+  void uniformMatrix3x4fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_uniformMatrix3x4fv_0(this.handle, !location.empty, location.front.handle, transpose, data, srcOffset);
+  }
+  void uniformMatrix3x4fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data) {
+    WebGL2RenderingContextBase_uniformMatrix3x4fv_1(this.handle, !location.empty, location.front.handle, transpose, data);
+  }
   void uniformMatrix4fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data, uint srcOffset /* = 0 */, uint srcLength /* = 0 */) {
     WebGL2RenderingContextBase_uniformMatrix4fv(this.handle, !location.empty, location.front.handle, transpose, data, srcOffset, srcLength);
+  }
+  void uniformMatrix4fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data, uint srcOffset /* = 0 */) {
+    WebGL2RenderingContextBase_uniformMatrix4fv_0(this.handle, !location.empty, location.front.handle, transpose, data, srcOffset);
+  }
+  void uniformMatrix4fv(Optional!(WebGLUniformLocation) location, bool transpose, Float32List data) {
+    WebGL2RenderingContextBase_uniformMatrix4fv_1(this.handle, !location.empty, location.front.handle, transpose, data);
   }
   void vertexAttribI4i(uint index, int x, int y, int z, int w) {
     WebGL2RenderingContextBase_vertexAttribI4i(this.handle, index, x, y, z, w);
@@ -530,11 +695,20 @@ struct WebGL2RenderingContextBase {
   void clearBufferfv(uint buffer, int drawbuffer, Float32List values, uint srcOffset /* = 0 */) {
     WebGL2RenderingContextBase_clearBufferfv(this.handle, buffer, drawbuffer, values, srcOffset);
   }
+  void clearBufferfv(uint buffer, int drawbuffer, Float32List values) {
+    WebGL2RenderingContextBase_clearBufferfv_0(this.handle, buffer, drawbuffer, values);
+  }
   void clearBufferiv(uint buffer, int drawbuffer, Int32List values, uint srcOffset /* = 0 */) {
     WebGL2RenderingContextBase_clearBufferiv(this.handle, buffer, drawbuffer, values, srcOffset);
   }
+  void clearBufferiv(uint buffer, int drawbuffer, Int32List values) {
+    WebGL2RenderingContextBase_clearBufferiv_0(this.handle, buffer, drawbuffer, values);
+  }
   void clearBufferuiv(uint buffer, int drawbuffer, Uint32List values, uint srcOffset /* = 0 */) {
     WebGL2RenderingContextBase_clearBufferuiv(this.handle, buffer, drawbuffer, values, srcOffset);
+  }
+  void clearBufferuiv(uint buffer, int drawbuffer, Uint32List values) {
+    WebGL2RenderingContextBase_clearBufferuiv_0(this.handle, buffer, drawbuffer, values);
   }
   void clearBufferfi(uint buffer, int drawbuffer, float depth, int stencil) {
     WebGL2RenderingContextBase_clearBufferfi(this.handle, buffer, drawbuffer, depth, stencil);
@@ -711,9 +885,13 @@ extern (C) void WebGL2RenderingContextBase_bufferData__uint_optional_Handle_uint
 extern (C) void WebGL2RenderingContextBase_bufferData__uint_ArrayBufferView_uint(Handle, uint, ArrayBufferView, uint);
 extern (C) void WebGL2RenderingContextBase_bufferSubData__uint_long_BufferDataSource(Handle, uint, long, BufferDataSource);
 extern (C) void WebGL2RenderingContextBase_bufferData__uint_ArrayBufferView_uint_uint_uint(Handle, uint, ArrayBufferView, uint, uint, uint);
+extern (C) void WebGL2RenderingContextBase_bufferData_0(Handle, uint, ArrayBufferView, uint, uint);
 extern (C) void WebGL2RenderingContextBase_bufferSubData__uint_long_ArrayBufferView_uint_uint(Handle, uint, long, ArrayBufferView, uint, uint);
+extern (C) void WebGL2RenderingContextBase_bufferSubData_0(Handle, uint, long, ArrayBufferView, uint);
 extern (C) void WebGL2RenderingContextBase_copyBufferSubData(Handle, uint, uint, long, long, long);
 extern (C) void WebGL2RenderingContextBase_getBufferSubData(Handle, uint, long, ArrayBufferView, uint, uint);
+extern (C) void WebGL2RenderingContextBase_getBufferSubData_0(Handle, uint, long, ArrayBufferView, uint);
+extern (C) void WebGL2RenderingContextBase_getBufferSubData_1(Handle, uint, long, ArrayBufferView);
 extern (C) void WebGL2RenderingContextBase_blitFramebuffer(Handle, int, int, int, int, int, int, int, int, uint, uint);
 extern (C) void WebGL2RenderingContextBase_framebufferTextureLayer(Handle, uint, uint, bool, Handle, int, int);
 extern (C) void WebGL2RenderingContextBase_invalidateFramebuffer(Handle, uint, Handle);
@@ -740,41 +918,92 @@ extern (C) void WebGL2RenderingContextBase_texSubImage2D__uint_int_int_int_int_i
 extern (C) void WebGL2RenderingContextBase_texSubImage3D__uint_int_int_int_int_int_int_int_uint_uint_long(Handle, uint, int, int, int, int, int, int, int, uint, uint, long);
 extern (C) void WebGL2RenderingContextBase_texSubImage3D__uint_int_int_int_int_int_int_int_uint_uint_TexImageSource(Handle, uint, int, int, int, int, int, int, int, uint, uint, TexImageSource);
 extern (C) void WebGL2RenderingContextBase_texSubImage3D__uint_int_int_int_int_int_int_int_uint_uint_optional_ArrayBufferView_uint(Handle, uint, int, int, int, int, int, int, int, uint, uint, bool, ArrayBufferView, uint);
+extern (C) void WebGL2RenderingContextBase_texSubImage3D_0(Handle, uint, int, int, int, int, int, int, int, uint, uint, bool, ArrayBufferView);
 extern (C) void WebGL2RenderingContextBase_copyTexSubImage3D(Handle, uint, int, int, int, int, int, int, int, int);
 extern (C) void WebGL2RenderingContextBase_compressedTexImage2D__uint_int_uint_int_int_int_long(Handle, uint, int, uint, int, int, int, long);
 extern (C) void WebGL2RenderingContextBase_compressedTexImage2D__uint_int_uint_int_int_int_ArrayBufferView_uint_uint(Handle, uint, int, uint, int, int, int, ArrayBufferView, uint, uint);
+extern (C) void WebGL2RenderingContextBase_compressedTexImage2D_0(Handle, uint, int, uint, int, int, int, ArrayBufferView, uint);
+extern (C) void WebGL2RenderingContextBase_compressedTexImage2D_1(Handle, uint, int, uint, int, int, int, ArrayBufferView);
 extern (C) void WebGL2RenderingContextBase_compressedTexImage3D__uint_int_uint_int_int_int_int_long(Handle, uint, int, uint, int, int, int, int, long);
 extern (C) void WebGL2RenderingContextBase_compressedTexImage3D__uint_int_uint_int_int_int_int_ArrayBufferView_uint_uint(Handle, uint, int, uint, int, int, int, int, ArrayBufferView, uint, uint);
+extern (C) void WebGL2RenderingContextBase_compressedTexImage3D_0(Handle, uint, int, uint, int, int, int, int, ArrayBufferView, uint);
+extern (C) void WebGL2RenderingContextBase_compressedTexImage3D_1(Handle, uint, int, uint, int, int, int, int, ArrayBufferView);
 extern (C) void WebGL2RenderingContextBase_compressedTexSubImage2D__uint_int_int_int_int_int_uint_long(Handle, uint, int, int, int, int, int, uint, long);
 extern (C) void WebGL2RenderingContextBase_compressedTexSubImage2D__uint_int_int_int_int_int_uint_ArrayBufferView_uint_uint(Handle, uint, int, int, int, int, int, uint, ArrayBufferView, uint, uint);
+extern (C) void WebGL2RenderingContextBase_compressedTexSubImage2D_0(Handle, uint, int, int, int, int, int, uint, ArrayBufferView, uint);
+extern (C) void WebGL2RenderingContextBase_compressedTexSubImage2D_1(Handle, uint, int, int, int, int, int, uint, ArrayBufferView);
 extern (C) void WebGL2RenderingContextBase_compressedTexSubImage3D__uint_int_int_int_int_int_int_int_uint_long(Handle, uint, int, int, int, int, int, int, int, uint, long);
 extern (C) void WebGL2RenderingContextBase_compressedTexSubImage3D__uint_int_int_int_int_int_int_int_uint_ArrayBufferView_uint_uint(Handle, uint, int, int, int, int, int, int, int, uint, ArrayBufferView, uint, uint);
+extern (C) void WebGL2RenderingContextBase_compressedTexSubImage3D_0(Handle, uint, int, int, int, int, int, int, int, uint, ArrayBufferView, uint);
+extern (C) void WebGL2RenderingContextBase_compressedTexSubImage3D_1(Handle, uint, int, int, int, int, int, int, int, uint, ArrayBufferView);
 extern (C) int WebGL2RenderingContextBase_getFragDataLocation(Handle, Handle, string);
 extern (C) void WebGL2RenderingContextBase_uniform1ui(Handle, bool, Handle, uint);
 extern (C) void WebGL2RenderingContextBase_uniform2ui(Handle, bool, Handle, uint, uint);
 extern (C) void WebGL2RenderingContextBase_uniform3ui(Handle, bool, Handle, uint, uint, uint);
 extern (C) void WebGL2RenderingContextBase_uniform4ui(Handle, bool, Handle, uint, uint, uint, uint);
 extern (C) void WebGL2RenderingContextBase_uniform1fv(Handle, bool, Handle, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform1fv_0(Handle, bool, Handle, Float32List, uint);
+extern (C) void WebGL2RenderingContextBase_uniform1fv_1(Handle, bool, Handle, Float32List);
 extern (C) void WebGL2RenderingContextBase_uniform2fv(Handle, bool, Handle, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform2fv_0(Handle, bool, Handle, Float32List, uint);
+extern (C) void WebGL2RenderingContextBase_uniform2fv_1(Handle, bool, Handle, Float32List);
 extern (C) void WebGL2RenderingContextBase_uniform3fv(Handle, bool, Handle, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform3fv_0(Handle, bool, Handle, Float32List, uint);
+extern (C) void WebGL2RenderingContextBase_uniform3fv_1(Handle, bool, Handle, Float32List);
 extern (C) void WebGL2RenderingContextBase_uniform4fv(Handle, bool, Handle, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform4fv_0(Handle, bool, Handle, Float32List, uint);
+extern (C) void WebGL2RenderingContextBase_uniform4fv_1(Handle, bool, Handle, Float32List);
 extern (C) void WebGL2RenderingContextBase_uniform1iv(Handle, bool, Handle, Int32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform1iv_0(Handle, bool, Handle, Int32List, uint);
+extern (C) void WebGL2RenderingContextBase_uniform1iv_1(Handle, bool, Handle, Int32List);
 extern (C) void WebGL2RenderingContextBase_uniform2iv(Handle, bool, Handle, Int32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform2iv_0(Handle, bool, Handle, Int32List, uint);
+extern (C) void WebGL2RenderingContextBase_uniform2iv_1(Handle, bool, Handle, Int32List);
 extern (C) void WebGL2RenderingContextBase_uniform3iv(Handle, bool, Handle, Int32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform3iv_0(Handle, bool, Handle, Int32List, uint);
+extern (C) void WebGL2RenderingContextBase_uniform3iv_1(Handle, bool, Handle, Int32List);
 extern (C) void WebGL2RenderingContextBase_uniform4iv(Handle, bool, Handle, Int32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform4iv_0(Handle, bool, Handle, Int32List, uint);
+extern (C) void WebGL2RenderingContextBase_uniform4iv_1(Handle, bool, Handle, Int32List);
 extern (C) void WebGL2RenderingContextBase_uniform1uiv(Handle, bool, Handle, Uint32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform1uiv_0(Handle, bool, Handle, Uint32List, uint);
+extern (C) void WebGL2RenderingContextBase_uniform1uiv_1(Handle, bool, Handle, Uint32List);
 extern (C) void WebGL2RenderingContextBase_uniform2uiv(Handle, bool, Handle, Uint32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform2uiv_0(Handle, bool, Handle, Uint32List, uint);
+extern (C) void WebGL2RenderingContextBase_uniform2uiv_1(Handle, bool, Handle, Uint32List);
 extern (C) void WebGL2RenderingContextBase_uniform3uiv(Handle, bool, Handle, Uint32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform3uiv_0(Handle, bool, Handle, Uint32List, uint);
+extern (C) void WebGL2RenderingContextBase_uniform3uiv_1(Handle, bool, Handle, Uint32List);
 extern (C) void WebGL2RenderingContextBase_uniform4uiv(Handle, bool, Handle, Uint32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniform4uiv_0(Handle, bool, Handle, Uint32List, uint);
+extern (C) void WebGL2RenderingContextBase_uniform4uiv_1(Handle, bool, Handle, Uint32List);
 extern (C) void WebGL2RenderingContextBase_uniformMatrix2fv(Handle, bool, Handle, bool, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix2fv_0(Handle, bool, Handle, bool, Float32List, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix2fv_1(Handle, bool, Handle, bool, Float32List);
 extern (C) void WebGL2RenderingContextBase_uniformMatrix3x2fv(Handle, bool, Handle, bool, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix3x2fv_0(Handle, bool, Handle, bool, Float32List, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix3x2fv_1(Handle, bool, Handle, bool, Float32List);
 extern (C) void WebGL2RenderingContextBase_uniformMatrix4x2fv(Handle, bool, Handle, bool, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix4x2fv_0(Handle, bool, Handle, bool, Float32List, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix4x2fv_1(Handle, bool, Handle, bool, Float32List);
 extern (C) void WebGL2RenderingContextBase_uniformMatrix2x3fv(Handle, bool, Handle, bool, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix2x3fv_0(Handle, bool, Handle, bool, Float32List, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix2x3fv_1(Handle, bool, Handle, bool, Float32List);
 extern (C) void WebGL2RenderingContextBase_uniformMatrix3fv(Handle, bool, Handle, bool, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix3fv_0(Handle, bool, Handle, bool, Float32List, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix3fv_1(Handle, bool, Handle, bool, Float32List);
 extern (C) void WebGL2RenderingContextBase_uniformMatrix4x3fv(Handle, bool, Handle, bool, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix4x3fv_0(Handle, bool, Handle, bool, Float32List, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix4x3fv_1(Handle, bool, Handle, bool, Float32List);
 extern (C) void WebGL2RenderingContextBase_uniformMatrix2x4fv(Handle, bool, Handle, bool, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix2x4fv_0(Handle, bool, Handle, bool, Float32List, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix2x4fv_1(Handle, bool, Handle, bool, Float32List);
 extern (C) void WebGL2RenderingContextBase_uniformMatrix3x4fv(Handle, bool, Handle, bool, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix3x4fv_0(Handle, bool, Handle, bool, Float32List, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix3x4fv_1(Handle, bool, Handle, bool, Float32List);
 extern (C) void WebGL2RenderingContextBase_uniformMatrix4fv(Handle, bool, Handle, bool, Float32List, uint, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix4fv_0(Handle, bool, Handle, bool, Float32List, uint);
+extern (C) void WebGL2RenderingContextBase_uniformMatrix4fv_1(Handle, bool, Handle, bool, Float32List);
 extern (C) void WebGL2RenderingContextBase_vertexAttribI4i(Handle, uint, int, int, int, int);
 extern (C) void WebGL2RenderingContextBase_vertexAttribI4iv(Handle, uint, Int32List);
 extern (C) void WebGL2RenderingContextBase_vertexAttribI4ui(Handle, uint, uint, uint, uint, uint);
@@ -789,8 +1018,11 @@ extern (C) void WebGL2RenderingContextBase_readPixels__int_int_int_int_uint_uint
 extern (C) void WebGL2RenderingContextBase_readPixels__int_int_int_int_uint_uint_ArrayBufferView_uint(Handle, int, int, int, int, uint, uint, ArrayBufferView, uint);
 extern (C) void WebGL2RenderingContextBase_drawBuffers(Handle, Handle);
 extern (C) void WebGL2RenderingContextBase_clearBufferfv(Handle, uint, int, Float32List, uint);
+extern (C) void WebGL2RenderingContextBase_clearBufferfv_0(Handle, uint, int, Float32List);
 extern (C) void WebGL2RenderingContextBase_clearBufferiv(Handle, uint, int, Int32List, uint);
+extern (C) void WebGL2RenderingContextBase_clearBufferiv_0(Handle, uint, int, Int32List);
 extern (C) void WebGL2RenderingContextBase_clearBufferuiv(Handle, uint, int, Uint32List, uint);
+extern (C) void WebGL2RenderingContextBase_clearBufferuiv_0(Handle, uint, int, Uint32List);
 extern (C) void WebGL2RenderingContextBase_clearBufferfi(Handle, uint, int, float, int);
 extern (C) Optional!(WebGLQuery) WebGL2RenderingContextBase_createQuery(Handle);
 extern (C) void WebGL2RenderingContextBase_deleteQuery(Handle, bool, Handle);

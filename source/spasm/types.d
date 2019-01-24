@@ -2,7 +2,7 @@ module spasm.types;
 
 public import optional;
 public import spasm.sumtype;
-import std.traits : hasMember;
+import std.traits : hasMember, isCallable;
 
 pragma(LDC_no_moduleinfo);
 pragma(LDC_no_typeinfo);
@@ -23,6 +23,7 @@ extern (C) {
   Handle spasm_add__string(string);
   Handle spasm_add__object();
   void spasm_removeObject(Handle);
+  Handle spasm_get__field(Handle, string);
 }
 
 alias Handle = uint;
@@ -215,6 +216,12 @@ enum EventType {
   event = 44
 }
 
+template as(Target) if (hasMember!(Target, "handle")) {
+  auto as(Source)(auto ref Source s) if (hasMember!(Source, "handle")){
+    return Target(s.handle);
+  }
+}
+
 Handle getOrCreateHandle(T)(auto ref T data) {
   import std.traits : isBasicType;
   static if (isBasicType!T || is(T : string)) {
@@ -239,29 +246,37 @@ struct Any {
   alias handle this;
 }
 
+template SpasmMangle(T) {
+  static if (hasMember!(T, "handle") || hasMember!(T, "_parent")) {
+    enum SpasmMangle = "handle";
+  } else {
+    enum SpasmMangle = T.mangleof;
+  }
+}
+template BridgeType(T) {
+  static if (hasMember!(T, "handle") || hasMember!(T, "_parent")) {
+    alias BridgeType = JsHandle;
+  } else {
+    alias BridgeType = T;
+  }
+}
+
 mixin template ExternPromiseCallback(string funName, T, U) {
   static if (is(T == void)) {
     pragma(mangle, funName)
-      mixin("extern(C) Handle "~funName~"(Handle, void delegate());");
+      mixin("extern(C) Handle "~funName~"(Handle, U delegate());");
   } else {
     import spasm.bindings;
     pragma(mangle, funName)
-      mixin("extern(C) Handle "~funName~"(Handle, void delegate("~T.stringof~"));");
+      mixin("extern(C) Handle "~funName~"(Handle, U delegate("~T.stringof~"));");
   }
 }
 
 struct Promise(T, U = Any) {
   JsHandle handle;
   alias handle this;
-  static if (hasMember!(T, "handle") || hasMember!(T, "_parent")) {
-    // NOTE: we map all P delegate(T) to P delegate(JsHandle) when T is a struct from spasm.bindings
-    // this saves a lot of space and all those functions would be doing the same work regardless
-    enum ResultMangled = "handle";
-    alias JoinedType = JsHandle;
-  } else {
-    enum ResultMangled = T.mangleof;
-    alias JoinedType = T;
-  }
+  alias JoinedType = BridgeType!T;
+  enum ResultMangled = SpasmMangle!T;
   static if (is(T == void)) {
     alias FulfillCallback(P = void) = P delegate();
     alias JoinedCallback(P = void) = extern(C) P delegate();
@@ -270,20 +285,15 @@ struct Promise(T, U = Any) {
     alias JoinedCallback(P) = extern(C) P delegate(JoinedType);
   }
   alias RejectCallback = void delegate(U);
-  // NOTE: right now we only support callbacks which return void. Also no error callback
-  auto then(FulfillCallback!(void) cb) {
-    static if (is(T == void))
-      enum funName = "promise_then_void";
-    else
-      enum funName = "promise_then_"~ResultMangled;
-    mixin ExternPromiseCallback!(funName, JoinedType, void);
-    static if (is(T == void))
-      mixin("return Promise!(void, U)(JsHandle("~funName~"(handle, cast(JoinedCallback!void)cb)));");
-    else
-      mixin("return Promise!(void, U)(JsHandle("~funName~"(handle, cast(JoinedCallback!void)cb)));");
+  // NOTE: right now we support no error callback
+  auto then(ResultType)(ResultType delegate(T) cb) {
+    enum TMangled = SpasmMangle!T;
+    enum ResultTypeMangled = SpasmMangle!ResultType;
+    enum funName = "promise_then_"~TMangled.length.stringof~TMangled~ResultTypeMangled;
+    mixin ExternPromiseCallback!(funName, JoinedType, BridgeType!ResultType);
+    mixin("return Promise!(ResultType, U)(JsHandle("~funName~"(handle, cast(JoinedCallback!(BridgeType!ResultType))cb)));");
   }
 }
-
 struct Sequence(T) {
   JsHandle handle;
   alias handle this;
@@ -392,4 +402,14 @@ struct ArrayPair(T,U) {
 struct JsObject {
   JsHandle handle;
   alias handle this;
+  auto opDispatch(string name)() {
+    return Any(JsHandle(spasm_get__field(this.handle, name)));
+  }
+}
+struct Json {
+  JsHandle handle;
+  alias handle this;
+  auto opDispatch(string name)() {
+    return Json(JsHandle(spasm_get__field(this.handle, name)));
+  }
 }

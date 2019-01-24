@@ -8,7 +8,7 @@ import std.array : appender, array, Appender;
 import std.algorithm;
 import std.range : chain, enumerate;
 import std.conv : text, to;
-import std.range : zip, only;
+import std.range : zip, only, retro;
 import std.typecons : Flag, No, Yes;
 import openmethods;
 
@@ -23,6 +23,7 @@ struct Argument {
   string name;
   ParseTree type;
   ParseTree default_;
+  ParseTree argRest;
   bool templated = false;
 }
 
@@ -536,8 +537,6 @@ class CallbackNode : Node {
   a.putLn([" delegate(", types, ");"]);
 }
 
-
-
 void dumpJsArgument(Appender)(ref Semantics semantics, Argument arg, ref Appender a) {
   if (semantics.isNullable(arg.type)) {
     a.put(arg.name.friendlyJsName);
@@ -763,7 +762,31 @@ auto getSymbolInfo(string symbol) {
 }
 string generateJsGlobalBindings(IR ir, string[] jsExportFilters, ref IndentedStringAppender app) {
   auto generatePromiseThenBindings(IR ir, string symbol, string mangled, ref IndentedStringAppender app) {
-    auto getEncoder() {
+    auto getDecoder(string mangled) {
+      if (mangled == "Aya") {
+        return "decode_string";
+      } else if (mangled == "handle" || mangled[0] == 'S') {
+        return "decode_handle";
+      } else if (mangled == "v")
+        return "void";
+      else if (mangled[0] == 'E') {
+        auto info = getSymbolInfo(mangled);
+        return "spasm_decode_" ~ info.name;
+      } else {
+        if (mangled.startsWith("S8optional")) {
+          throw new Error("Promise!T.then is not yet implemented for Optional!T.");
+        }
+        auto info = getSymbolInfo(mangled);
+        if (ir.semantics.isTypedef(info.name)) {
+          throw new Error("Promise!T.then is not yet implemented for Typedefs.");
+        }
+        if (mangled.canFind("sumtype")) {
+          throw new Error("Promise!T.then is not yet implemented for SumType!Ts.");
+        }
+      }
+      return "";
+    }
+    auto getEncoder(string mangled) {
       if (mangled == "Aya") {
         return "encode_string";
       } else if (mangled == "handle" || mangled[0] == 'S') {
@@ -787,23 +810,37 @@ string generateJsGlobalBindings(IR ir, string[] jsExportFilters, ref IndentedStr
       }
       return "";
     }
-    auto encoder = getEncoder();
+    import std.ascii : isDigit;
+    auto len = mangled.until!(a => !a.isDigit).to!int;
+    auto prefixLen = mangled.countUntil!(a => !a.isDigit);
+    len += prefixLen+1;
+    auto argEncoder = getEncoder(mangled[prefixLen+1..len]);
+    auto resultDecoder = getDecoder(mangled[len..$]);
+    bool returns = resultDecoder != "void" && resultDecoder != "";
     app.putLn(["promise_then_", mangled,": (handle, ctx, ptr) => {"]);
     app.indent();
-    app.putLn("spasm.objects[handle].then((r)=>{");
+    app.putLn("return spasm.addObject(spasm.objects[handle].then((r)=>{");
     app.indent();
-    if (encoder != "") {
-      app.putLn([encoder, "(0,r);"]);
-      app.putLn("spasm_indirect_function_get(ptr)(ctx, 0);");
-    } else if (encoder == "void") {
-      app.putLn("spasm_indirect_function_get(ptr)(ctx);");
+    if (argEncoder != "" && argEncoder != "void")
+      app.putLn([argEncoder, "(0,r);"]);
+    app.put("spasm_indirect_function_get(ptr)(");
+    if (returns) {
+      app.put("512, ");
+    }
+    if (argEncoder == "void") {
+      app.putLn("ctx);");
+    } else if (argEncoder != "") {
+      app.putLn("ctx, 0);");
     } else {
-      app.putLn("spasm_indirect_function_get(ptr)(ctx, r);");
+      app.putLn("ctx, r);");
+    }
+    if (returns) {
+      app.putLn(["return ", resultDecoder, "(512);"]);
     }
     app.undent();
-    app.putLn("});");
+    app.putLn("}));");
     app.undent();
-    app.putLn("}");
+    app.putLn("},");
   }
   auto mappings = ["promise_then_": &generatePromiseThenBindings];
   foreach(filter; jsExportFilters) {
@@ -1454,6 +1491,10 @@ auto extractArguments(ParseTree tree) {
   assert(tree.name == "WebIDL.ArgumentList");
   return tree.children.map!(c => c.extractArgument);
 }
+auto extractArgumentRests(ParseTree tree) {
+  assert(tree.name == "WebIDL.ArgumentList");
+  return tree.children.map!(c => c.children[1]);
+}
 auto extractDefaults(ParseTree tree) {
   import std.algorithm : map;
   assert(tree.name == "WebIDL.ArgumentList");
@@ -1900,6 +1941,16 @@ string orNone(string s) {
     return "none";
   return s;
 }
+
+auto createOptionalOverloads(FunctionNode func) {
+  static bool notOptional(ref Argument arg) {
+    return arg.argRest.matches[0] != "optional";
+  }
+  return chain([func],func.args.retro.until!(notOptional).enumerate.map!((t){
+        return new FunctionNode(func.name, func.args[0..$-(t.index+1)], func.result, func.type, func.manglePostfix~t.index.to!string, func.baseType, func.customName);
+      }));
+}
+
 IR toIr(ref Module module_) {
   auto app = appender!(Node[]);
   module_.iterate!(toIr)(app, Context(module_.semantics));
@@ -1939,7 +1990,7 @@ void toIr(Appender)(ParseTree tree, ref Appender a, Context context) {
         string manglePostfix;
         if (constructor.children[0].children.length > 1) {
           auto argList = constructor.children[0].children[1];
-          args = zip(argList.extractArguments,argList.extractTypes,argList.extractDefaults).map!(a=>Argument(a[0],a[1],a[2])).array();
+          args = zip(argList.extractArguments,argList.extractTypes,argList.extractDefaults,argList.extractArgumentRests).map!(a=>Argument(a[0],a[1],a[2],a[3])).array();
         }
         if (overloads) {
           manglePostfix = "_" ~ args.map!(arg => arg.type.mangleTypeJs(context.semantics)).joiner("_").text;
@@ -2052,7 +2103,7 @@ void toIr(Appender)(ParseTree tree, ref Appender a, Context context) {
       break;
     }
     auto rest = tree.children[1].children[1];
-    auto args = zip(rest.children[1].extractArguments,rest.children[1].extractTypes).map!(a=>Argument(a[0],a[1])).array();
+    auto args = zip(rest.children[1].extractArguments,rest.children[1].extractTypes, rest.children[1].extractArgumentRests).map!(a=>Argument(a[0],a[1],ParseTree.init,a[2])).array();
     auto result = tree.children[1].children[0];
     switch(tree.matches[0]) {
     case "getter":
@@ -2077,22 +2128,22 @@ void toIr(Appender)(ParseTree tree, ref Appender a, Context context) {
     break;
   case "WebIDL.RegularOperation":
     auto rest = tree.children[1];
-    auto args = zip(rest.children[1].extractArguments,rest.children[1].extractTypes,rest.children[1].extractDefaults).map!(a=>Argument(a[0],a[1],a[2])).array();
+    auto args = zip(rest.children[1].extractArguments,rest.children[1].extractTypes,rest.children[1].extractDefaults,rest.children[1].extractArgumentRests).map!(a=>Argument(a[0],a[1],a[2],a[3])).array();
     auto result = tree.children[0];
     if (context.isIncludes) {
       auto name = tree.children[1].matches[0];
       auto baseName = context.includes.children[0].matches[0];
-      a.put(new FunctionNode( name, args, result, FunctionType.Function | FunctionType.Includes, "", baseName, context.customName));
+      createOptionalOverloads(new FunctionNode( name, args, result, FunctionType.Function | FunctionType.Includes, "", baseName, context.customName)).copy(a);
       break;
     }
     if (context.isPartial) {
       auto name = rest.children[0].matches[0];
       auto baseName = context.partial.children[0].children[0].matches[0];
-      a.put(new FunctionNode( name, args, result, FunctionType.Function | FunctionType.Partial, "", baseName, context.customName));
+      createOptionalOverloads(new FunctionNode( name, args, result, FunctionType.Function | FunctionType.Partial, "", baseName, context.customName)).copy(a);
       break;
     }
     auto name = rest.children[0].matches[0];
-    a.put(new FunctionNode( name, args, result, FunctionType.Function, "", "", context.customName));
+    createOptionalOverloads(new FunctionNode( name, args, result, FunctionType.Function, "", "", context.customName)).copy(a);
     break;
   case "WebIDL.Enum":
     a.put(new EnumNode(tree.children[0].matches[0], tree.children[1].children.map!(c => c.matches[0][1..$-1].orNone.friendlyName).joiner(",\n  ").text));
