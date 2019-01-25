@@ -24,3 +24,8 @@ build:
         code: |
           cd examples/underrun
           dub build --compiler=ldc2 --build=release
+    - script:
+        name: build fetch example
+        code: |
+          cd examples/fetch
+          dub build --compiler=ldc2 --build=release
