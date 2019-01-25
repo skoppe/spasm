@@ -100,10 +100,14 @@ unittest {
         auto createDelay(double maxDelayTime /* = 1.0 */) {
           return DelayNode(JsHandle(Event_createDelay(this.handle, maxDelayTime)));
         }
+        auto createDelay() {
+          return DelayNode(JsHandle(Event_createDelay_0(this.handle)));
+        }
       }
     });
   gen.generateDImports.shouldBeLike(q{
       extern (C) Handle Event_createDelay(Handle, double);
+      extern (C) Handle Event_createDelay_0(Handle);
     });
 }
 
@@ -288,15 +292,22 @@ unittest {
         auto createPeriodicWave(Sequence!(float) real_, PeriodicWaveConstraints constraints) {
           return PeriodicWave(JsHandle(BaseAudioContext_createPeriodicWave(this._parent, real_.handle, constraints.handle)));
         }
+        auto createPeriodicWave(Sequence!(float) real_) {
+          return PeriodicWave(JsHandle(BaseAudioContext_createPeriodicWave_0(this._parent, real_.handle)));
+        }
       }
     });
   gen.generateDImports.shouldBeLike(q{
       extern (C) Handle BaseAudioContext_createPeriodicWave(Handle, Handle, Handle);
+      extern (C) Handle BaseAudioContext_createPeriodicWave_0(Handle, Handle);
     });
   gen.generateJsExports.shouldBeLike("
-    BaseAudioContext_createPeriodicWave: (ctx, real, constraints) => {
-      return spasm.addObject(spasm.objects[ctx].createPeriodicWave(spasm.objects[real], spasm.objects[constraints]));
-    },
+BaseAudioContext_createPeriodicWave: (ctx, real, constraints) => {
+  return spasm.addObject(spasm.objects[ctx].createPeriodicWave(spasm.objects[real], spasm.objects[constraints]));
+},
+BaseAudioContext_createPeriodicWave_0: (ctx, real) => {
+  return spasm.addObject(spasm.objects[ctx].createPeriodicWave(spasm.objects[real]));
+},
 ");
 }
 
@@ -314,15 +325,22 @@ unittest {
         void bar(uint number) {
           Foo_bar(this.handle, number);
         }
+        void bar() {
+          Foo_bar_0(this.handle);
+        }
       }
     });
   gen.generateDImports.shouldBeLike(q{
       extern (C) void Foo_bar(Handle, uint);
+      extern (C) void Foo_bar_0(Handle);
     });
   gen.generateJsExports.shouldBeLike("
-    Foo_bar: (ctx, number) => {
-      spasm.objects[ctx].bar(number);
-    },
+Foo_bar: (ctx, number) => {
+  spasm.objects[ctx].bar(number);
+},
+Foo_bar_0: (ctx) => {
+  spasm.objects[ctx].bar();
+},
 ");
 }
 
@@ -371,19 +389,32 @@ unittest {
         auto decodeAudioData(ArrayBuffer audioData, Optional!(DecodeSuccessCallback) successCallback, Optional!(DecodeErrorCallback) errorCallback) {
           return Promise!(AudioBuffer)(JsHandle(BaseAudioContext_decodeAudioData(this._parent, audioData.handle, !successCallback.empty, successCallback.front, !errorCallback.empty, errorCallback.front)));
         }
+        auto decodeAudioData(ArrayBuffer audioData, Optional!(DecodeSuccessCallback) successCallback) {
+          return Promise!(AudioBuffer)(JsHandle(BaseAudioContext_decodeAudioData_0(this._parent, audioData.handle, !successCallback.empty, successCallback.front)));
+        }
+        auto decodeAudioData(ArrayBuffer audioData) {
+          return Promise!(AudioBuffer)(JsHandle(BaseAudioContext_decodeAudioData_1(this._parent, audioData.handle)));
+        }
       }
       alias DecodeErrorCallback = void delegate(DOMException);
       alias DecodeSuccessCallback = void delegate(AudioBuffer);
     });
   gen.generateDImports.shouldBeLike(q{
       extern (C) Handle BaseAudioContext_decodeAudioData(Handle, Handle, bool, DecodeSuccessCallback, bool, DecodeErrorCallback);
+      extern (C) Handle BaseAudioContext_decodeAudioData_0(Handle, Handle, bool, DecodeSuccessCallback);
+      extern (C) Handle BaseAudioContext_decodeAudioData_1(Handle, Handle);
     });
   gen.generateJsExports.shouldBeLike("
 BaseAudioContext_decodeAudioData: (ctx, audioData, successCallbackDefined, successCallbackCtx, successCallbackPtr, errorCallbackDefined, errorCallbackCtx, errorCallbackPtr) => {
   return spasm.addObject(spasm.objects[ctx].decodeAudioData(spasm.objects[audioData], successCallbackDefined ? (decodedData)=>{encode_handle(0, decodedData);spasm_indirect_function_get(successCallbackPtr)(successCallbackCtx, 0)} : undefined, errorCallbackDefined ? (error)=>{encode_handle(0, error);spasm_indirect_function_get(errorCallbackPtr)(errorCallbackCtx, 0)} : undefined));
 },
-"
-);
+BaseAudioContext_decodeAudioData_0: (ctx, audioData, successCallbackDefined, successCallbackCtx, successCallbackPtr) => {
+  return spasm.addObject(spasm.objects[ctx].decodeAudioData(spasm.objects[audioData], successCallbackDefined ? (decodedData)=>{encode_handle(0, decodedData);spasm_indirect_function_get(successCallbackPtr)(successCallbackCtx, 0)} : undefined));
+},
+BaseAudioContext_decodeAudioData_1: (ctx, audioData) => {
+  return spasm.addObject(spasm.objects[ctx].decodeAudioData(spasm.objects[audioData]));
+},
+");
 }
 
 @("sumType.interface")
@@ -1128,22 +1159,43 @@ unittest {
         auto decode(BufferSource input, TextDecodeOptions options) {
           return TextDecoder_decode(this.handle, input, options.handle);
         }
+        auto decode(BufferSource input) {
+          return TextDecoder_decode_0(this.handle, input);
+        }
+        auto decode() {
+          return TextDecoder_decode_1(this.handle);
+        }
         auto encode(TextDecodeOptions options) {
           return TextDecoder_encode(this.handle, options.handle);
+        }
+        auto encode() {
+          return TextDecoder_encode_0(this.handle);
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
       extern (C) string TextDecoder_decode(Handle, BufferSource, Handle);
+      extern (C) string TextDecoder_decode_0(Handle, BufferSource);
+      extern (C) string TextDecoder_decode_1(Handle);
       extern (C) BufferSource TextDecoder_encode(Handle, Handle);
+      extern (C) BufferSource TextDecoder_encode_0(Handle);
     });
   gen.generateJsExports.shouldBeLike("
-    TextDecoder_decode: (rawResult, ctx, input, options) => {
-      spasm_encode_string(rawResult, spasm.objects[ctx].decode(spasm_decode_BufferSource(input), spasm.objects[options]));
-    },
-    TextDecoder_encode: (rawResult, ctx, options) => {
-      spasm_encode_BufferSource(rawResult, spasm.objects[ctx].encode(spasm.objects[options]));
-    },
+TextDecoder_decode: (rawResult, ctx, input, options) => {
+  spasm_encode_string(rawResult, spasm.objects[ctx].decode(spasm_decode_BufferSource(input), spasm.objects[options]));
+},
+TextDecoder_decode_0: (rawResult, ctx, input) => {
+  spasm_encode_string(rawResult, spasm.objects[ctx].decode(spasm_decode_BufferSource(input)));
+},
+TextDecoder_decode_1: (rawResult, ctx) => {
+  spasm_encode_string(rawResult, spasm.objects[ctx].decode());
+},
+TextDecoder_encode: (rawResult, ctx, options) => {
+  spasm_encode_BufferSource(rawResult, spasm.objects[ctx].encode(spasm.objects[options]));
+},
+TextDecoder_encode_0: (rawResult, ctx) => {
+  spasm_encode_BufferSource(rawResult, spasm.objects[ctx].encode());
+},
 ");
 }
 
@@ -1524,15 +1576,21 @@ unittest {
         void send(Optional!(SumType!(Document, BodyInit)) body_ /* = no!(SumType!(Document, BodyInit)) */) {
           XMLHttpRequest_send(this._parent, !body_.empty, body_.front);
         }
-      }
-    });
+        void send() {
+          XMLHttpRequest_send_0(this._parent);
+        }
+}    });
   gen.generateDImports.shouldBeLike(q{
       extern (C) void XMLHttpRequest_send(Handle, bool, SumType!(Document, BodyInit));
+      extern (C) void XMLHttpRequest_send_0(Handle);
     });
   gen.generateJsExports.shouldBeLike("
-    XMLHttpRequest_send: (ctx, bodyDefined, body) => {
-      spasm.objects[ctx].send(bodyDefined ? spasm_decode_union2_Document_BodyInit(body) : undefined);
-    },
+XMLHttpRequest_send: (ctx, bodyDefined, body) => {
+  spasm.objects[ctx].send(bodyDefined ? spasm_decode_union2_Document_BodyInit(body) : undefined);
+},
+XMLHttpRequest_send_0: (ctx) => {
+  spasm.objects[ctx].send();
+},
 ");
 }
 
