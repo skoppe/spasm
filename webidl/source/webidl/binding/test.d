@@ -14,8 +14,12 @@ import std.range : zip, only;
 
 version (unittest) {
   import unit_threaded;
+  __gshared bool updatedMethods = false;
   static this() {
-    updateMethods();
+    if (!updatedMethods) {
+      updateMethods();
+      updatedMethods = true;
+    }
   }
   auto getGenerator(string input) {
     auto semantics = new Semantics();

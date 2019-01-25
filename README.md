@@ -8,11 +8,13 @@ It contains bindings to the most commonly used web apis, including the dom, fetc
 
 As well as a small but powerful SPA framework, which includes CSS. Yes. CSS-in-wasm.
 
-* [Web Bindings](#web-bindings)
+* [Web bindings](#web-bindings)
 * [SPA framework](#spa-framework)
 * [Examples](#examples)
 * [How to start](#how-to-start)
+* [Using the web bindings](#using-the-web-bindings)
 * [How to compile your application](#how-to-compile-your-application)
+* [Writing your own js bindings](#writing-your-own-js-bindings)
 * [Optimizing for size](#optimizing-for-size)
 * [Limitations](#limitations)
 * [WIP](#wip)
@@ -32,9 +34,9 @@ Not only are your applications fast, they are also small. The [todo-mvc example]
 
 ## Examples
 
-- fetch. Shows how to use the fetch api and access returned json.
-- todo-mvc. It implements the famous [todo mvc application](http://todomvc.com).
-- underun. A js13k competition game written by Dominic Szablewski. You can play the D version [here](https://skoppe.github.io/spasm/examples/underrun/).
+- [fetch](https://github.com/skoppe/spasm/examples/fetch/README.md). Shows how to use the fetch api and access returned json.
+- todo-mvc. Uses the SPA framework to implement the famous [todo mvc application](http://todomvc.com).
+- underun. A D port of a js13k competition game written by Dominic Szablewski. You can play the D version [here](https://skoppe.github.io/spasm/examples/underrun/).
 
 ## How to start
 
@@ -47,15 +49,45 @@ Make sure to have at least ldc 1.13.0 installed.
 
 You can add any extra css/js you'll need to the `index.template.html`, or you can use any of the myriad features of webpack to include what you need.
 
+## Using the web bindings
+
+The `spasm.bindings` module defines most web apis. You probably need to import `spasm.dom` and `spasm.types` too as well.
+
+Make sure to run `dub run spasm:webidl -- --bindgen` after compiling to ensure all required js glue code is generated.
+
 ## How to compile your application
 
-Make sure to have at least ldc 1.13.0 installed. Also, make sure that ``ldc2 --version`` returns the `wasm32` among its target types. If not, you may need to install ldc from official sources or run one in docker.
+Make sure to have at least ldc 1.13.0 installed. Also, make sure that ``ldc2 --version`` returns the `wasm32` among its target types. If not, you may need to install ldc from official sources or run one in docker (e.g. `dlang2/ldc-ubuntu:1.13.0`).
 
 Run `dub build --compiler=ldc2 --build=release` to compile your application, then run `npx webpack` to generate the `index.html`.
 
 You can also `npm run start` to start a webpack development server that serves your application on localhost:3000 (it builds anytime the `app.js` or `index.template.html` changes).
 
 * Note: I could not get it to build on my aged mac (el capitan). Instead I use the `dlang2/ldc-ubuntu:1.13.0` docker image to run ldc.
+
+## Writing your own js bindings
+
+In some cases you want to write your custom js functions that fit to your need. The first step is writing a function definition in D.
+
+```d
+extern(C) export int myFunc(uint index);
+```
+
+After that you write a spasm module in javascript. Simply put a file in the `./spasm/modules/` folder and export a jsExports object.
+
+```js
+export let jsExports = {
+  myFunc: (index) => {
+    return 42;
+  }
+}
+```
+
+Manually put the file in the `./spasm/modules/index.js` or just run `dub spasm:webidl -- --bindgen` to automatically include it.
+
+The `./spasm/entry.js` and the `./spasm/modules/spasm.js` file will combine all exports and use them during the WebAssembly initialization.
+
+Working with strings (arrays) and aggregates requires a bit more work. You can study the generated `bindings.js` file to see how it works.
 
 ## Optimizing for size
 
