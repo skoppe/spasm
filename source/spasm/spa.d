@@ -15,14 +15,6 @@ extern(C) {
   JsHandle getRoot();
 }
 
-extern(C)
-export
-ubyte* allocString(uint bytes) {
-  import spasm.rt.memory;
-  void[] raw = allocator.allocate(bytes);
-  return cast(ubyte*)raw.ptr;
-}
-
 void initialize() {
   import spasm.rt.memory;
   alloc_init();

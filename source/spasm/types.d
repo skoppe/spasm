@@ -2,7 +2,7 @@ module spasm.types;
 
 public import optional;
 public import spasm.sumtype;
-import std.traits : hasMember, isCallable;
+import std.traits : hasMember, isCallable, isBasicType;
 
 pragma(LDC_no_moduleinfo);
 pragma(LDC_no_typeinfo);
@@ -24,6 +24,23 @@ extern (C) {
   Handle spasm_add__object();
   void spasm_removeObject(Handle);
   Handle spasm_get__field(Handle, string);
+  bool spasm_get__bool(Handle);
+  int spasm_get__int(Handle);
+  uint spasm_get__uint(Handle);
+  long spasm_get__long(Handle);
+  ulong spasm_get__ulong(Handle);
+  short spasm_get__short(Handle);
+  ushort spasm_get__ushort(Handle);
+  float spasm_get__float(Handle);
+  double spasm_get__double(Handle);
+  byte spasm_get__byte(Handle);
+  ubyte spasm_get__ubyte(Handle);
+  string spasm_get__string(Handle);
+  export ubyte* allocString(uint bytes) {
+    import spasm.rt.memory;
+    void[] raw = allocator.allocate(bytes);
+    return cast(ubyte*)raw.ptr;
+  }
 }
 
 alias Handle = uint;
@@ -216,14 +233,19 @@ enum EventType {
   event = 44
 }
 
-template as(Target) if (hasMember!(Target, "handle")) {
-  auto as(Source)(auto ref Source s) if (hasMember!(Source, "handle")){
-    return Target(s.handle);
+template as(Target) {
+  static if (hasMember!(Target, "handle")) {
+    auto as(Source)(auto ref Source s) if (hasMember!(Source, "handle")){
+      return Target(s.handle);
+    }
+  } else static if (isBasicType!Target || is(Target : string)) {
+    auto as(Source)(auto ref Source s) if (hasMember!(Source, "handle")){
+      mixin("return spasm_get__" ~ Target.stringof ~ "(s.handle);");
+    }
   }
 }
 
 Handle getOrCreateHandle(T)(auto ref T data) {
-  import std.traits : isBasicType;
   static if (isBasicType!T || is(T : string)) {
     mixin("return spasm_add__" ~ T.stringof~ "(data);");
   } else static if (is(T : Optional!U, U)) {
@@ -411,5 +433,8 @@ struct Json {
   alias handle this;
   auto opDispatch(string name)() {
     return Json(JsHandle(spasm_get__field(this.handle, name)));
+  }
+  auto as(Target)() {
+    return .as!(Target)(this);
   }
 }
