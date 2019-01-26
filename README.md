@@ -35,6 +35,7 @@ Not only are your applications fast, they are also small. The [todo-mvc example]
 ## Examples
 
 - [fetch](https://github.com/skoppe/spasm/tree/master/examples/fetch/README.md). Shows how to use the fetch api and access returned json.
+- [dom](https://github.com/skoppe/spasm/tree/master/examples/dom/README.md). Shows how to manipulate the DOM.
 - todo-mvc. Uses the SPA framework to implement the famous [todo mvc application](http://todomvc.com).
 - underun. A D port of a js13k competition game written by Dominic Szablewski. You can play the D version [here](https://skoppe.github.io/spasm/examples/underrun/).
 
