@@ -26,7 +26,6 @@ const eventHandler = (event) => {
 export { nodes, addPtr };
 export let jsExports = {
     appendChild: (parent, child) => {
-        console.log("appendChild", nodes[parent], nodes[child]);
         nodes[parent].appendChild(nodes[child]);
     },
     insertBefore: (parent, child, sibling) => {
@@ -60,9 +59,7 @@ export let jsExports = {
         // TODO: we can reuse the child node (it is cheaper than recreating a new one...)
     },
     getRoot: () => {
-        var p = addPtr(document.querySelector("#root"));
-        console.log(p);
-        return p
+        return addPtr(document.querySelector("#root"));
     },
     createElement: (type) => {
         return addPtr(document.createElement(getTagFromType(type)));
