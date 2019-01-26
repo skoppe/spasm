@@ -4,7 +4,7 @@
 
 Spasm is a library to develop single page applications in D that compile to webassembly.
 
-It contains bindings to the most commonly used web apis, including the dom, fetch, audio, and webgl api.
+It contains bindings to the most commonly used web apis, including the dom, fetch, audio, and webgl.
 
 As well as a small but powerful SPA framework, which includes CSS. Yes. CSS-in-wasm.
 
@@ -61,13 +61,13 @@ Make sure to have at least ldc 1.13.0 installed. Also, make sure that ``ldc2 --v
 
 Run `dub build --compiler=ldc2 --build=release` to compile your application, then run `npx webpack` to generate the `index.html`.
 
-You can also `npm run start` to start a webpack development server that serves your application on localhost:3000 (it builds anytime the `app.js` or `index.template.html` changes).
+You can also `npm run start` to start a webpack development server that serves your application on localhost:3000.
 
 * Note: I could not get it to build on my aged mac (el capitan). Instead I use the `dlang2/ldc-ubuntu:1.13.0` docker image to run ldc.
 
 ## Writing your own js bindings
 
-In some cases you want to write your custom js functions that fit to your need. The first step is writing a function definition in D.
+In case you want to write a custom js function, the first step is writing a function definition in D.
 
 ```d
 extern(C) export int myFunc(uint index);
@@ -87,11 +87,11 @@ Manually put the file in the `./spasm/modules/index.js` or just run `dub spasm:w
 
 The `./spasm/entry.js` and the `./spasm/modules/spasm.js` file will combine all exports and use them during the WebAssembly initialization.
 
-Working with strings (arrays) and aggregates requires a bit more work. You can study the generated `bindings.js` file to see how it works.
+Working with strings (arrays) and aggregates requires a bit more work. You can study the generated `bindings.js` file in the examples to see how it works.
 
 ## Optimizing for size
 
-Since ldc 1.13.0-beta2 there is the `-fvisibility=hidden` flag that hides all functions that aren't explicitly prefixed with the `export` keyword. This flag reduces binary size considerably and has reduced the need for manual stripping almost completely. 
+Since ldc 1.13.0 there is the `-fvisibility=hidden` flag that hides all functions that aren't explicitly prefixed with the `export` keyword. This flag reduces binary size considerably and has reduced the need for manual stripping almost completely. 
 
 By default symbol names aren't stripped, which means the full mangled name is in the binary, this is convenient for debugging but adds to the binary's size. Add `-strip-all` to the lflags in your `dub.(sdl|json)` to strip all internal function names.
 
