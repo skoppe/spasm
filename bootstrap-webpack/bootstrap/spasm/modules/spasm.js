@@ -7,7 +7,7 @@ const utf8Decoder = new TextDecoder('utf-8');
 const utf8Encoder = new TextEncoder();
 const memory = new WebAssembly.Memory({initial:16*16, maximum:16*16});
 
-let lastPtr = 3;
+let lastPtr = 2;
 let objects = {1: document, 2: window};
 let buffer = memory.buffer,
     addObject = (value) => {

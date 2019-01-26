@@ -12,28 +12,28 @@ import spasm.array;
 import spasm.rt.array;
 
 private extern(C) {
-  JsHandle createElement(NodeType type);
-  void addClass(JsHandle node, string className);
-  void setProperty(JsHandle node, string prop, string value);
-  void removeChild(JsHandle childPtr);
-  void unmount(JsHandle childPtr);
-  void appendChild(JsHandle parentPtr, JsHandle childPtr);
-  void insertBefore(JsHandle parentPtr, JsHandle childPtr, JsHandle sibling);
-  void setAttribute(JsHandle nodePtr, string attr, string value);
-  void setPropertyBool(JsHandle nodePtr, string attr, bool value);
-  void setPropertyInt(JsHandle nodePtr, string attr, int value);
-  void innerText(JsHandle nodePtr, string text);
+  Handle createElement(NodeType type);
+  void addClass(Handle node, string className);
+  void setProperty(Handle node, string prop, string value);
+  void removeChild(Handle childPtr);
+  void unmount(Handle childPtr);
+  void appendChild(Handle parentPtr, Handle childPtr);
+  void insertBefore(Handle parentPtr, Handle childPtr, Handle sibling);
+  void setAttribute(Handle nodePtr, string attr, string value);
+  void setPropertyBool(Handle nodePtr, string attr, bool value);
+  void setPropertyInt(Handle nodePtr, string attr, int value);
+  void innerText(Handle nodePtr, string text);
   void addCss(string css);
-  void removeClass(JsHandle node, string className);
-  void changeClass(JsHandle node, string className, bool on);
+  void removeClass(Handle node, string className);
+  void changeClass(Handle node, string className, bool on);
 }
 
 extern(C) {
-  string getProperty(JsHandle node, string prop);
-  int getPropertyInt(JsHandle node, string prop);
-  bool getPropertyBool(JsHandle node, string prop);
-  void focus(JsHandle node);
-  void setSelectionRange(JsHandle node, uint start, uint end);
+  string getProperty(Handle node, string prop);
+  int getPropertyInt(Handle node, string prop);
+  bool getPropertyBool(Handle node, string prop);
+  void focus(Handle node);
+  void setSelectionRange(Handle node, uint start, uint end);
 }
 
 import spasm.bindings.dom : Document;
@@ -449,7 +449,7 @@ JsHandle createNode(T)(JsHandle parent, ref T t) {
   enum hasNode = hasMember!(T, "node");
   static if (hasNode && is(typeof(t.node) : NamedJsHandle!tag, alias tag)) {
     mixin("NodeType n = NodeType." ~ tag ~ ";");
-    return createElement(n);
+    return JsHandle(createElement(n));
   } else
     return parent;
 }

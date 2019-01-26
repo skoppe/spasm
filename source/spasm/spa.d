@@ -12,7 +12,7 @@ public import spasm.array;
 public import spasm.css;
 
 extern(C) {
-  JsHandle getRoot();
+  Handle getRoot();
 }
 
 void initialize() {
@@ -28,7 +28,7 @@ mixin template Spa(Application) {
   export
   void _start() {
     initialize();
-    JsHandle root = getRoot();
+    JsHandle root = JsHandle(getRoot());
     // TODO: Add css again
     // enum string css = GetCss!App;
     // static if (css.length > 0)
