@@ -20,6 +20,12 @@ void initialize() {
   alloc_init();
 }
 
+void addApplicationCss(Application)() {
+  enum css = GetCss!Application;
+  static if (css.length > 0)
+    addCss(css);
+}
+
 mixin template Spa(Application) {
   import ldc.attributes;
   __gshared Application application;
@@ -29,10 +35,7 @@ mixin template Spa(Application) {
   void _start() {
     initialize();
     JsHandle root = JsHandle(getRoot());
-    // TODO: Add css again
-    // enum string css = GetCss!App;
-    // static if (css.length > 0)
-    //   addCss(css);
+    addApplicationCss!(Application)();
     application.setPointers();
     spasm.dom.render(root, application);
   }

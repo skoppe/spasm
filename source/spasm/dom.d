@@ -23,7 +23,6 @@ private extern(C) {
   void setPropertyBool(Handle nodePtr, string attr, bool value);
   void setPropertyInt(Handle nodePtr, string attr, int value);
   void innerText(Handle nodePtr, string text);
-  void addCss(string css);
   void removeClass(Handle node, string className);
   void changeClass(Handle node, string className, bool on);
 }
@@ -34,6 +33,7 @@ extern(C) {
   bool getPropertyBool(Handle node, string prop);
   void focus(Handle node);
   void setSelectionRange(Handle node, uint start, uint end);
+  void addCss(string css);
 }
 
 import spasm.bindings.dom : Document;
@@ -208,6 +208,9 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) {
               }
             } else {
               // TODO: we only need to pass t to a child render function when there is a child that has an alias to one of its member
+              static if (isCallable!(typeof(sym))) {
+                pragma(msg, "isCallable");
+              }
               node.render(__traits(getMember, t, i), AliasSeq!(t, ts));
             }
           }

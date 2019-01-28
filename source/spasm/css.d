@@ -3,12 +3,6 @@ module spasm.css;
 pragma(LDC_no_moduleinfo);
 import std.meta : staticMap, ApplyRight, AliasSeq, NoDuplicates, ApplyLeft, Filter;
 import std.traits : getSymbolsByUDA, hasUDA, hasMember, getUDAs, Fields, FieldNameTuple;
-// import std.typecons : tuple;
-import std.range : front, empty, popFront, only, chain;
-import std.ascii : isUpper;
-import std.uni : asLowerCase;
-import std.algorithm : chunkBy, joiner, map;
-import std.conv : text;
 import spasm.ct;
 import spasm.types;
 
@@ -72,66 +66,127 @@ template GetCssClassName(Node, string style) {
 
 
 template getCssKeyValue(T, string name) {
-  // TODO: fix again
-  // enum getCssKeyValue = tuple(toCssProperty!name, __traits(getMember, T.init, name));
-  enum getCssKeyValue = AliasSeq!(toCssProperty!name, "asf");
+  enum getCssKeyValue = tuple(toCssProperty!name, __traits(getMember, T.init, name));
 }
 
-template insertBefore(dchar del, alias pred) {
-  struct InsertBefore(Range)
-  {
-    private { bool outputDel = false; bool advanceDel = false; Range range;}
-    this(Range r) {
-      range = r;
+template toCssProperty(string str)
+{
+  static if (str.length == 0)
+    enum toCssProperty = "";
+  else static if (str[0] < 0xAA)
+    {
+      static if (str[0] < 'A')
+        enum toCssProperty = str[0] ~ toCssProperty!(str[1 .. $]);
+      else static if (str[0] <= 'Z')
+        enum toCssProperty = "-" ~ (str[0] + 32) ~ toCssProperty!(str[1 .. $]);
+      else
+        enum toCssProperty = str[0] ~ toCssProperty!(str[1 .. $]);
     }
-    bool empty() {
-      return !outputDel && range.empty;
-    }
-    auto front() {
-      if (outputDel || pred(range.front) && !advanceDel) {
-        outputDel = true;
-        return del;
-      }
-      advanceDel = false;
-      return range.front;
-    }
-    void popFront() {
-      if (outputDel) {
-        outputDel = false;
-        advanceDel = true;
-      } else {
-        range.popFront();
-      }
-    }
-  }
-  auto insertBefore(Range)(Range r) {
-    return InsertBefore!Range(r);
-  }
+  else
+    enum toCssProperty = str[0] ~ toCssProperty!(str[1 .. $]);
 }
 
-
-template toCssProperty(string name) {
-  enum toCssProperty = insertBefore!('-',isUpper)(name).asLowerCase;
+template toCss(keyValues...) {
+  static if (keyValues.length == 0) {
+    enum toCss = "";
+  } else {
+    enum toCss = keyValues[0][0] ~ ":" ~ keyValues[0][1] ~ ";" ~ toCss!(keyValues[1..$]);
+  }
 }
 
 template GenerateCss(T) {
   alias names = FieldNameTuple!T;
   alias values = staticMap!(ApplyLeft!(getCssKeyValue, T), names);
   static if (values.length > 0)
-    enum GenerateCss = chain("{",only(values).map!(t => chain(t[0],":",t[1],";")).joiner,"}").text;
+    enum GenerateCss = "{" ~ toCss!values ~ "}";
   else
     enum GenerateCss = "";
 }
 
+template chunk(string str, size_t size) {
+    import std.meta : AliasSeq;
+    static if (str.length <= size) {
+        enum chunk = AliasSeq!(str);
+    } else {
+        enum chunk = AliasSeq!(str[0..size], chunk!(str[size..$], size));
+    }
+}
+
+template xor(char a, char b) {
+    enum char xor = a ^ b;
+}
+
+template hashChunk(string a, B...) {
+  static if (is(typeof(B[0]) == string)) {
+    enum b = B[0];
+    import std.meta : AliasSeq;
+    static if (a.length == 0 && b.length == 0)
+      enum hashChunk = AliasSeq!();
+    else static if (a.length == 0)
+      enum hashChunk = AliasSeq!(int(b[0]), hashChunk!(a, b[1..$]));
+    else static if (b.length == 0)
+      enum hashChunk = AliasSeq!(int(a[0]), hashChunk!(a[1..$], b));
+    else {
+      enum hashChunk = AliasSeq!(xor!(a[0],b[0]), hashChunk!(a[1..$], b[1..$]));
+    }
+  } else {
+    import std.meta : AliasSeq;
+    static if (a.length == 0 && B.length == 0)
+      enum hashChunk = AliasSeq!();
+    else static if (a.length == 0)
+      enum hashChunk = AliasSeq!(int(B[0]), hashChunk!(a, B[1..$]));
+    else static if (B.length == 0)
+      enum hashChunk = AliasSeq!(int(a[0]), hashChunk!(a[1..$], B));
+    else {
+      enum hashChunk = AliasSeq!(xor!(a[0],B[0]), hashChunk!(a[1..$], B[1..$]));
+    }
+  }
+}
+
+template cssIdentifierChar(size_t idx) {
+    static enum string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+    enum cssIdentifierChar = chars[idx..idx+1];
+}
+
+template toCssIdentifier(Bytes...) if (Bytes.length == 6) {
+    enum toCssIdentifier = cssIdentifierChar!((Bytes[0] >> 4) & 0xF) ~ cssIdentifierChar!((Bytes[0] & 0xF) | ((Bytes[1] >> 2) & 0x30)) ~ cssIdentifierChar!(Bytes[1] & 0x3F) ~ cssIdentifierChar!(Bytes[2] >> 2) ~ cssIdentifierChar!((Bytes[2] & 0x3) | ((Bytes[3] >> 2) & 0x3C)) ~ cssIdentifierChar!((Bytes[3] & 0xF) | ((Bytes[4] >> 2) & 0x30)) ~ cssIdentifierChar!(Bytes[4] & 0x3F) ~ cssIdentifierChar!(Bytes[5] >> 2) ~ cssIdentifierChar!(Bytes[5] & 0x3);
+}
+
+template reduceChunks(Chunks...) if (Chunks.length > 0) {
+    import std.meta : AliasSeq;
+    static if (Chunks.length == 1)
+        enum reduceChunks = Chunks[0];
+    else static if (Chunks.length == 2)
+        enum reduceChunks = hashChunk!(Chunks[0],Chunks[1]);
+    else static if (Chunks.length > 2) {
+        enum reduceChunks = hashChunk!(Chunks[0],reduceChunks!(Chunks[1..$]));
+    }
+}
+
+template toCssName(string s) {
+  alias chunks = chunk!(s,6);
+  enum hash = reduceChunks!(chunks);
+  enum toCssName = toCssIdentifier!hash;
+}
+
+unittest {
+  enum i = "{backgroundColor:gray2}".toCssName();
+  enum g = "{display:inline}".toCssName();
+  enum h = "{backgroundColor:gray}".toCssName();
+  assert(i == "SRg1YFppZw");
+  assert(g == "ZyMAHRwFDw");
+  assert(h == "BmU1YFppZw");
+}
+
 template GenerateCssClassName(string content) {
-  enum GenerateCssClassName = content.toCssName();
+  enum GenerateCssClassName = toCssName!content;
 }
 
 template GenerateCssClass(alias T) {
   alias content = GenerateCss!T;
   alias name = GenerateCssClassName!content;
   alias nestedClasses = GenerateNestedCssClasses!(name, T);
-  enum GenerateCssClass = chain(".",name,content,nestedClasses).text;
+  enum GenerateCssClass = "." ~ name ~ content ~ nestedClasses;
 }
 
 template GetPseudoCssClass(alias symbol) {
@@ -146,9 +201,15 @@ template GetPseudoCssClass(alias symbol) {
 
 template GenerateNestedCssClass(alias name, alias symbol) {
   alias content = GenerateCss!symbol;
-  enum GenerateNestedCssClass = chain(".",name,":",GetPseudoCssClass!symbol,content).text;
+  enum GenerateNestedCssClass = "." ~ name ~ ":" ~ GetPseudoCssClass!symbol ~ content;
 }
 
+template Joiner(Ts...) {
+  static if (Ts.length > 0) {
+    enum Joiner = Ts[0] ~ Joiner!(Ts[1..$]);
+  } else
+    enum Joiner = "";
+}
 template GenerateNestedCssClasses(alias name, T) {
   import std.traits:isType;
   alias members = AliasSeq!(__traits(allMembers, T));
@@ -157,7 +218,7 @@ template GenerateNestedCssClasses(alias name, T) {
   static if (nestedClasses.length == 0)
     enum GenerateNestedCssClasses = "";
   else
-    enum GenerateNestedCssClasses = only(staticMap!(ApplyLeft!(GenerateNestedCssClass, name), nestedClasses)).joiner;
+    enum GenerateNestedCssClasses = Joiner!(staticMap!(ApplyLeft!(GenerateNestedCssClass, name), nestedClasses));
 }
 
 template GenerateCssSet(T) {
@@ -166,7 +227,7 @@ template GenerateCssSet(T) {
   }
   alias members = AliasSeq!(__traits(allMembers, T));
   alias symbols = staticMap!(ApplyLeft!(Symbol,T), members);
-  enum GenerateCssSet = only(staticMap!(GenerateCssClass, symbols)).joiner;
+  enum GenerateCssSet = Joiner!(staticMap!(GenerateCssClass, symbols));
 }
 
 template GetCss(T) {
@@ -174,5 +235,5 @@ template GetCss(T) {
   static if (sets.length == 0)
     enum GetCss = "";
   else
-    enum GetCss = only(staticMap!(GenerateCssSet, sets)).joiner.text;
+    enum GetCss = Joiner!(staticMap!(GenerateCssSet, sets));
 }
