@@ -3,6 +3,8 @@ module spasm.ct;
 pragma(LDC_no_moduleinfo);
 pragma(LDC_no_typeinfo);
 
+import std.traits : isPointer;
+
 template getName(alias sym)
 {
   enum getName = __traits(identifier, sym);
@@ -812,6 +814,12 @@ enum bool distinctFieldNames(names...) = __traits(compiles, {
 
 // TODO: can we import this directly
 alias Identity(alias A) = A;
+
+enum isTuple(T) = __traits(compiles,
+                           {
+                             void f(Specs...)(Tuple!Specs tup) {}
+                             f(T.init);
+                           } );
 
 template tuple(Names...)
 {

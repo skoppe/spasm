@@ -2,12 +2,12 @@ module spasm.css;
 
 pragma(LDC_no_moduleinfo);
 import std.meta : staticMap, ApplyRight, AliasSeq, NoDuplicates, ApplyLeft, Filter;
-import std.traits : getSymbolsByUDA, hasUDA, hasMember, getUDAs, Fields, FieldNameTuple;
+import std.traits : getSymbolsByUDA, hasUDA, hasMember, getUDAs, Fields, FieldNameTuple, PointerTarget, isPointer;
 import spasm.ct;
 import spasm.types;
 
 struct styleset(alias set) {};
-enum hover;
+struct Extend(alias target) {};
 struct style(alias s) {};
 
 template TypeOf(alias symbol) {
@@ -35,18 +35,63 @@ template getStyles(alias field) {
 }
 
 template getStyleSet(T) {
-  alias sets = getUDAs!(T, styleset);
-  alias getStyleSet = staticMap!(extractStyleSetStruct, sets);
+  static if (isPointer!T) {
+    alias getStyleSet = .getStyleSet!(PointerTarget!T);
+  } else static if (isCallable!T) {
+    alias getStyleSet = AliasSeq!();
+  } else {
+    alias sets = getUDAs!(T, styleset);
+    alias getStyleSet = staticMap!(extractStyleSetStruct, sets);
+  }
+}
+
+template getStyleSets(alias field) {
+  alias sets = getUDAs!(field, styleset);
+  alias getStyleSets = staticMap!(extractStyleSetStruct, sets);
 }
 
 template getStyleSets(T) {
-  alias isChild = ApplyRight!(hasUDA, child);
-  alias symbols = getSymbolsByUDA!(T, child);
-  alias children = staticMap!(TypeOf,symbols);
-  static if (children.length == 0)
-    alias getStyleSets = AliasSeq!(getStyleSet!T);
-  else
-    alias getStyleSets = NoDuplicates!(AliasSeq!(getStyleSet!T, staticMap!(.getStyleSets, children)));
+  static if (isPointer!T) {
+    alias getStyleSets = .getStyleSets!(PointerTarget!T);
+  } else static if (isCallable!T) {
+    import std.traits : ReturnType;
+    alias getStyleSets = .getStyleSets!(ReturnType!T);
+  } else {
+    alias symbols = getSymbolsByUDA!(T, child);
+    alias children = staticMap!(TypeOf,symbols);
+    static if (symbols.length == 0)
+      alias getStyleSets = AliasSeq!(getStyleSet!T);
+    else
+      alias getStyleSets = NoDuplicates!(AliasSeq!(getStyleSet!T, staticMap!(.getStyleSets, children)));
+  }
+}
+
+template isNonType(alias T) {
+  enum isNonType = __traits(compiles, { alias B = typeof(T); });
+}
+
+template getStyleSetsExtends(T) {
+  static if (isPointer!T) {
+    alias getStyleSetsExtends = .getStyleSetsExtends!(PointerTarget!T);
+  } else static if (isCallable!T) {
+    import std.traits : ReturnType;
+    alias getStyleSetsExtends = .getStyleSetsExtends!(ReturnType!T);
+  } else {
+    alias symbols = Filter!(isNonType, getSymbolsByUDA!(T, styleset));
+    static if (symbols.length == 0)
+      alias getStyleSetsExtends = AliasSeq!();
+    else
+      alias getStyleSetsExtends = NoDuplicates!(staticMap!(.getChildStyleSetsExtends, symbols));
+  }
+}
+
+struct ExtendedStyleSet(Set, alias sym) {}
+
+template getChildStyleSetsExtends(alias sym) {
+  alias T = typeof(sym);
+  alias ExtendedStyleSetCurried = ApplyRight!(ExtendedStyleSet, sym);
+  alias extendedStyleSets = staticMap!(ExtendedStyleSetCurried, staticMap!(extractStyleSetStruct, getUDAs!(sym, styleset)));
+  alias getChildStyleSetsExtends = AliasSeq!(getStyleSetsExtends!(T), extendedStyleSets);
 }
 
 template GetCssClassName(Node, string style) {
@@ -143,6 +188,11 @@ template hashChunk(string a, B...) {
   }
 }
 
+template cssIdentifierChar32(size_t idx) {
+  static enum string chars = "abcdefghijklmnopqrstuvwxyz123456";
+  enum cssIdentifierChar32 = chars[idx..idx+1];
+}
+
 template cssIdentifierChar(size_t idx) {
     static enum string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
     enum cssIdentifierChar = chars[idx..idx+1];
@@ -150,6 +200,10 @@ template cssIdentifierChar(size_t idx) {
 
 template toCssIdentifier(Bytes...) if (Bytes.length == 6) {
     enum toCssIdentifier = cssIdentifierChar!((Bytes[0] >> 4) & 0xF) ~ cssIdentifierChar!((Bytes[0] & 0xF) | ((Bytes[1] >> 2) & 0x30)) ~ cssIdentifierChar!(Bytes[1] & 0x3F) ~ cssIdentifierChar!(Bytes[2] >> 2) ~ cssIdentifierChar!((Bytes[2] & 0x3) | ((Bytes[3] >> 2) & 0x3C)) ~ cssIdentifierChar!((Bytes[3] & 0xF) | ((Bytes[4] >> 2) & 0x30)) ~ cssIdentifierChar!(Bytes[4] & 0x3F) ~ cssIdentifierChar!(Bytes[5] >> 2) ~ cssIdentifierChar!(Bytes[5] & 0x3);
+}
+
+template toCssIdentifier32(Bytes...) if (Bytes.length == 6) {
+  enum toCssIdentifier32 = cssIdentifierChar32!((Bytes[0] >> 4) & 0xF) ~ cssIdentifierChar32!((Bytes[0] & 0xF) | ((Bytes[1] >> 3) & 0x10)) ~ cssIdentifierChar32!((Bytes[1] >> 2) & 0x1F) ~ cssIdentifierChar32!((Bytes[1] & 0x3) | ((Bytes[2] >> 3) & 0x1C)) ~ cssIdentifierChar32!(Bytes[2] & 0x1F) ~ cssIdentifierChar32!((Bytes[3] >> 3) & 0x1F) ~ cssIdentifierChar32!((Bytes[3] & 0x3) | ((Bytes[4] >> 3) & 0x10)) ~ cssIdentifierChar32!((Bytes[4] >> 2) & 0x1F) ~ cssIdentifierChar32!((Bytes[4] & 0x3) | ((Bytes[5] >> 3) & 0x1C)) ~ cssIdentifierChar32!(Bytes[5] & 0x1F);
 }
 
 template reduceChunks(Chunks...) if (Chunks.length > 0) {
@@ -164,9 +218,11 @@ template reduceChunks(Chunks...) if (Chunks.length > 0) {
 }
 
 template toCssName(string s) {
-  alias chunks = chunk!(s,6);
-  enum hash = reduceChunks!(chunks);
-  enum toCssName = toCssIdentifier!hash;
+  enum toCssName = toCssIdentifier!(reduceChunks!(chunk!(s,6)));
+}
+
+template toCssNameInsensitive(string s) {
+  enum toCssNameInsensitive = toCssIdentifier32!(reduceChunks!(chunk!(s,6)));
 }
 
 unittest {
@@ -185,10 +241,15 @@ template GenerateCssClassName(string content) {
 template GenerateCssClass(alias T) {
   alias content = GenerateCss!T;
   alias name = GenerateCssClassName!content;
-  alias nestedClasses = GenerateNestedCssClasses!(name, T);
+  alias nestedClasses = GenerateNestedCssClasses!("."~name, T);
   enum GenerateCssClass = "." ~ name ~ content ~ nestedClasses;
 }
 
+template GenerateNamedCssClass(string name, alias T) {
+  alias content = GenerateCss!T;
+  alias nestedClasses = GenerateNestedCssClasses!("."~name, T);
+  enum GenerateNamedCssClass = "." ~ name ~ content ~ nestedClasses;
+}
 template GetPseudoCssClass(alias symbol) {
   alias attrs = AliasSeq!(__traits(getAttributes, symbol));
   static if (attrs.length == 0)
@@ -201,7 +262,7 @@ template GetPseudoCssClass(alias symbol) {
 
 template GenerateNestedCssClass(alias name, alias symbol) {
   alias content = GenerateCss!symbol;
-  enum GenerateNestedCssClass = "." ~ name ~ ":" ~ GetPseudoCssClass!symbol ~ content;
+  enum GenerateNestedCssClass = name ~ ":" ~ GetPseudoCssClass!symbol ~ content;
 }
 
 template Joiner(Ts...) {
@@ -222,18 +283,56 @@ template GenerateNestedCssClasses(alias name, T) {
 }
 
 template GenerateCssSet(T) {
-  template GetNested(string member) {
-    mixin("alias GetNested = T."~member~";");
-  }
   alias members = AliasSeq!(__traits(allMembers, T));
   alias symbols = staticMap!(ApplyLeft!(Symbol,T), members);
   enum GenerateCssSet = Joiner!(staticMap!(GenerateCssClass, symbols));
 }
 
+template GenerateExtendedCssClass(alias T, string name, Child) {
+  enum isDirectExtendedStyle = getSymbolsByUDA!(Child, style!(T.stringof)).length > 0;
+  enum attributeSelector = "["~name~"]";
+  static if (isDirectExtendedStyle) {
+    alias content = GenerateCss!T;
+    alias nestedClasses = GenerateNestedCssClasses!(attributeSelector, T);
+    enum GenerateExtendedCssClass = attributeSelector~content~nestedClasses;
+  } else static if (!hasUDA!(T, Extend)) {
+    static assert(false, T.stringof ~ " needs an Extend attribute");
+  } else {
+    alias extendsAttrs = getUDAs!(T, Extend);
+    static assert(extendsAttrs.length == 1, T.stringof ~ " can only have one Extend attribute");
+    static if (is(extendsAttrs[0] : Extend!(Base), Base)) {
+      alias baseContent = GenerateCss!Base;
+      alias baseName = GenerateCssClassName!baseContent;
+      enum GenerateExtendedCssClass = attributeSelector~" "~GenerateNamedCssClass!(baseName, T);
+    }
+  }
+}
+
+template GenerateExtendedStyleSetName(Set) {
+  alias members = AliasSeq!(__traits(allMembers, Set));
+  alias symbols = staticMap!(ApplyLeft!(Symbol,Set), members);
+  alias content = Joiner!(staticMap!(GenerateCss, symbols));
+  alias GenerateExtendedStyleSetName = toCssNameInsensitive!content;
+}
+
+template GenerateCssSetExtends(T) {
+  static if (is(T : ExtendedStyleSet!(Set, sym), Set, alias sym)) {
+    alias members = AliasSeq!(__traits(allMembers, Set));
+    alias symbols = staticMap!(ApplyLeft!(Symbol,Set), members);
+    alias name = GenerateExtendedStyleSetName!Set;
+    enum GenerateCssSetExtends = Joiner!(staticMap!(ApplyRight!(GenerateExtendedCssClass, name, typeof(sym)), symbols));
+  } else
+    enum GenerateCssSetExtends = "";
+}
+
+
 template GetCss(T) {
+  alias extendedSets = getStyleSetsExtends!T;
   alias sets = getStyleSets!T;
-  static if (sets.length == 0)
+  enum ExtendedCss = staticMap!(GenerateCssSetExtends, extendedSets);
+  enum css = Joiner!(staticMap!(GenerateCssSet, sets), staticMap!(GenerateCssSetExtends, extendedSets));
+  static if (css.length == 0)
     enum GetCss = "";
   else
-    enum GetCss = Joiner!(staticMap!(GenerateCssSet, sets));
+    enum GetCss = css;
 }

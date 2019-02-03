@@ -40,3 +40,18 @@ mixin template Spa(Application) {
     spasm.dom.render(root, application);
   }
 }
+
+struct Parameters(Ps...) {
+  static template opDispatch(string name) {
+    alias opDispatch(alias P) = Parameters!(Ps, Param!(name, P));
+  }
+}
+
+auto param() {
+  return Parameters!()();
+}
+
+struct Param(string name, alias field) {
+  alias Name = name;
+  alias Field = field;
+}
