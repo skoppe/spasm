@@ -2814,22 +2814,14 @@ string generateSingleJsBinding(IR ir, string[] filtered = []) {
   app.putLn("      decode_handle = (ptr) => { return spasm.objects[getUInt(ptr)]; },");
   app.putLn("      spasm_encode_string = encoder.string,");
   app.putLn("      spasm_decode_string = decoder.string,");
-  app.putLn("      spasm_indirect_function_get = (ptr)=>spasm.instance.exports.__indirect_function_table.get(ptr);");
-  app.put("const ");
+  app.put("      spasm_indirect_function_get = (ptr)=>spasm.instance.exports.__indirect_function_table.get(ptr)");
   app.indent();
-  bool first = true;
   foreach(encoder; encodedTypes.filter!(e => e.mangled != "string")) {
-    if (!first)
-      app.putLn(",");
-    else
-      first = false;
+    app.putLn(",");
     encoder.generateJsEncoder(app, semantics, true);
   }
   foreach(decoder; decodedTypes.filter!(e => e.mangled != "string")) {
-    if (!first)
-      app.putLn(",");
-    else
-      first = false;
+    app.putLn(",");
     decoder.generateJsDecoder(app, semantics, true);
   }
   app.putLn(";");
