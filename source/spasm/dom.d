@@ -300,7 +300,6 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if 
         alias extendedStyles = getStyleSets!(sym);
         static foreach(style; extendedStyles) {
           static assert(hasMember!(typeof(sym), "node"), "styleset on field is currently only possible when said field has a Node mixin");
-          pragma(msg, T, " has child ", i, " with extended styleset ", style);
           __traits(getMember, t, i).node.setAttribute(GenerateExtendedStyleSetName!style,"");
         }
         static if (i == "node") {
@@ -315,7 +314,6 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if 
             if (__traits(getMember, t, i) == true)
               node.applyStyles!(T, styles);
           } else static if (hasUDA!(sym, child)) {
-            pragma(msg, "applying styles ", styles, " to child");
             __traits(getMember, t, i).node.applyStyles!(T, styles);
           }
         }

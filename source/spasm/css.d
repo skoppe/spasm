@@ -20,8 +20,11 @@ template Symbol(T, string field) {
 }
 
 template extractStyleSetStruct(T) {
-  static if (is(T : styleset!Set, Set))
+  static if (is(T : styleset!Set, Set)) {
     alias extractStyleSetStruct = Set;
+  } else static if (is(T : styleset!Set, alias Set)) {
+    alias extractStyleSetStruct = Set;
+  }
 }
 
 template extractStyleStruct(T) {
@@ -85,7 +88,7 @@ template getStyleSetsExtends(T) {
   }
 }
 
-struct ExtendedStyleSet(Set, alias sym) {}
+struct ExtendedStyleSet(alias Set, alias sym) {}
 
 template getChildStyleSetsExtends(alias sym) {
   alias T = typeof(sym);
@@ -94,21 +97,23 @@ template getChildStyleSetsExtends(alias sym) {
   alias getChildStyleSetsExtends = AliasSeq!(getStyleSetsExtends!(T), extendedStyleSets);
 }
 
-template GetCssClassName(Node, string style) {
-  alias StyleSets = getStyleSet!Node;
-  alias hasStyle = ApplyRight!(hasMember, style);
-  alias MatchingStyles = Filter!(hasStyle, StyleSets);
-  static if (MatchingStyles.length == 0) {
-    enum GetCssClassName = style;
-  } else static if (MatchingStyles.length > 1) {
-    pragma(msg, "Node has no StyleSet with style");
-    enum GetCssClassName = "undefined";
-  } else {
-    alias content = GenerateCss!(__traits(getMember, MatchingStyles[0], style));
-    enum GetCssClassName = GenerateCssClassName!content;
-  }
+template getFullName(alias sym) {
+  static if (__traits(compiles, __traits(parent, sym))) {
+    enum getFullName = __traits(identifier, sym) ~ "." ~ getFullName!(__traits(parent, sym));
+  } else
+    enum getFullName = __traits(identifier, sym);
 }
 
+template GetCssClassName(Node, string style) {
+  alias StyleSets = getStyleSet!Node;
+  static if (StyleSets.length == 0)
+    enum GetCssClassName = style;
+  else static if (StyleSets.length > 1)
+    static assert("Cannot have more than one styleset");
+  else {
+    enum GetCssClassName = GenerateCssClassName!(getFullName!(StyleSets[0]) ~ "." ~ style);
+  }
+}
 
 template getCssKeyValue(T, string name) {
   enum getCssKeyValue = tuple(toCssProperty!name, __traits(getMember, T.init, name));
@@ -238,9 +243,11 @@ template GenerateCssClassName(string content) {
   enum GenerateCssClassName = toCssName!content;
 }
 
-template GenerateCssClass(alias T) {
-  alias content = GenerateCss!T;
-  alias name = GenerateCssClassName!content;
+template GenerateCssClass(string base, alias T) {
+  enum nestedName = __traits(identifier, T);
+  enum uniqueName = base ~ "." ~ nestedName;
+  alias name = GenerateCssClassName!uniqueName;
+  enum content = GenerateCss!T;
   alias nestedClasses = GenerateNestedCssClasses!("."~name, T);
   enum GenerateCssClass = "." ~ name ~ content ~ nestedClasses;
 }
@@ -282,10 +289,15 @@ template GenerateNestedCssClasses(alias name, T) {
     enum GenerateNestedCssClasses = Joiner!(staticMap!(ApplyLeft!(GenerateNestedCssClass, name), nestedClasses));
 }
 
-template GenerateCssSet(T) {
-  alias members = AliasSeq!(__traits(allMembers, T));
-  alias symbols = staticMap!(ApplyLeft!(Symbol,T), members);
-  enum GenerateCssSet = Joiner!(staticMap!(GenerateCssClass, symbols));
+template GenerateCssSet(alias T, Theme) {
+  static if (__traits(isTemplate, T))
+    alias StyleSet = T!Theme;
+  else
+    alias StyleSet = T;
+  enum baseName = getFullName!(T);
+  alias members = AliasSeq!(__traits(allMembers, StyleSet));
+  alias symbols = staticMap!(ApplyLeft!(Symbol,StyleSet), members);
+  enum GenerateCssSet = Joiner!(staticMap!(ApplyLeft!(GenerateCssClass, baseName), symbols));
 }
 
 template GenerateExtendedCssClass(alias T, string name, Child) {
@@ -308,17 +320,19 @@ template GenerateExtendedCssClass(alias T, string name, Child) {
   }
 }
 
-template GenerateExtendedStyleSetName(Set) {
-  alias members = AliasSeq!(__traits(allMembers, Set));
-  alias symbols = staticMap!(ApplyLeft!(Symbol,Set), members);
-  alias content = Joiner!(staticMap!(GenerateCss, symbols));
-  alias GenerateExtendedStyleSetName = toCssNameInsensitive!content;
+template GenerateExtendedStyleSetName(alias Set) {
+  alias name = getFullName!(Set);
+  alias GenerateExtendedStyleSetName = toCssNameInsensitive!name;
 }
 
-template GenerateCssSetExtends(T) {
-  static if (is(T : ExtendedStyleSet!(Set, sym), Set, alias sym)) {
-    alias members = AliasSeq!(__traits(allMembers, Set));
-    alias symbols = staticMap!(ApplyLeft!(Symbol,Set), members);
+template GenerateCssSetExtends(alias T, Theme) {
+  static if (is(T : ExtendedStyleSet!(Set, sym), alias Set, alias sym)) {
+    static if (__traits(isTemplate, Set))
+      alias StyleSet = Set!Theme;
+    else
+      alias StyleSet = Set;
+    alias members = AliasSeq!(__traits(allMembers, StyleSet));
+    alias symbols = staticMap!(ApplyLeft!(Symbol,StyleSet), members);
     alias name = GenerateExtendedStyleSetName!Set;
     enum GenerateCssSetExtends = Joiner!(staticMap!(ApplyRight!(GenerateExtendedCssClass, name, typeof(sym)), symbols));
   } else
@@ -326,11 +340,10 @@ template GenerateCssSetExtends(T) {
 }
 
 
-template GetCss(T) {
+template GetCss(T, Theme) {
   alias extendedSets = getStyleSetsExtends!T;
   alias sets = getStyleSets!T;
-  enum ExtendedCss = staticMap!(GenerateCssSetExtends, extendedSets);
-  enum css = Joiner!(staticMap!(GenerateCssSet, sets), staticMap!(GenerateCssSetExtends, extendedSets));
+  enum css = Joiner!(staticMap!(ApplyRight!(GenerateCssSet, Theme), sets), staticMap!(ApplyRight!(GenerateCssSetExtends, Theme), AliasSeq!(extendedSets)));
   static if (css.length == 0)
     enum GetCss = "";
   else
