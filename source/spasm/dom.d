@@ -3,7 +3,7 @@ module spasm.dom;
 import spasm.types;
 import spasm.dom;
 import spasm.ct;
-import std.traits : hasMember;
+import std.traits : hasMember, isAggregateType;
 import std.traits : TemplateArgsOf, staticMap, isPointer, PointerTarget, getUDAs;
 import spasm.css;
 import spasm.node;
@@ -136,8 +136,8 @@ template createParameterTuple(Params...) {
       enum name = sym.stringof;
       enum literal = isLiteral!(sym);
       static if (isLiteral!(sym)) {
-        static assert(false, "literals don't work yet. almost.");
-        return sym;
+        __gshared static auto val = sym;
+        return &val;
       } else
         return &__traits(getMember, p, name);
     }
@@ -163,18 +163,22 @@ auto setPointers(T, Ts...)(auto ref T t, auto ref Ts ts) {
       static if (is(typeof(sym) == Prop*, Prop)) {
         setPointerFromParent!(i)(t, ts);
       }
-      static if (hasUDA!(sym, child)) {
+      static if (!is(sym) && isAggregateType!T) {
         static if (is(typeof(sym) : DynamicArray!(Item), Item)) {
           // items in appenders need to be set via render functions
         } else {
           static if (!isCallable!(typeof(sym)) && !isPointer!(typeof(sym))) {
             import spasm.spa;
             alias Params = getUDAs!(sym, Parameters);
-            static if (Params.length > 0)
+            static if (Params.length > 0) {
               auto params = createParameterTuple!(Params)(t);
+            }
             else
               alias params = AliasSeq!();
-            setPointers(__traits(getMember, t, i), AliasSeq!(params, t, ts));
+            static if (hasUDA!(sym, child))
+              setPointers(__traits(getMember, t, i), AliasSeq!(params, t, ts));
+            else static if (params.length > 0)
+              setPointers(__traits(getMember, t, i), AliasSeq!(params));
           }
         }
       }
@@ -219,9 +223,11 @@ auto callMember(string fun, T)(auto ref T t) {
     static assert(false, "Not implemented");
   }
 }
+
 auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if (isPointer!T) {
   return renderIntoNode(parent, *t, ts);
 }
+
 auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if (!isPointer!T) {
   import std.traits : hasUDA, getUDAs;
   import std.meta : AliasSeq;
@@ -239,82 +245,85 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if 
     static foreach(i; __traits(allMembers, T)) {{
         alias name = domName!i;
         alias sym = AliasSeq!(__traits(getMember, t, i))[0];
-        alias styles = getStyles!(sym);
-        static if (is(typeof(sym) == Prop*, Prop)) {
-          if (__traits(getMember, t, i) is null) {
-            setPointerFromParent!(i)(t, ts);
+        static if (!is(sym)) {
+          alias styles = getStyles!(sym);
+          static if (is(typeof(sym) == Prop*, Prop)) {
+            if (__traits(getMember, t, i) is null) {
+              // TODO: do we need to call createParameterTuple here as well as in setPointers?? 
+              setPointerFromParent!(i)(t, ts);
+            }
           }
-        }
-        static if (hasUDA!(sym, child)) {
-          import spasm.spa;
-          alias Params = getUDAs!(sym, Parameters);
-          static if (Params.length > 0)
-            auto params = createParameterTuple!(Params)(t);
-          else
-            alias params = AliasSeq!();
-          if (isChildVisible!(i)(t)) {
-            static if (is(typeof(sym) : DynamicArray!(Item*), Item)) {
-              foreach(ref item; __traits(getMember, t, i)) {
-                // TODO: we only need to pass t to a child render function when there is a child that has an alias to one of its member
-                node.render(*item, AliasSeq!(params, t, ts));
-                static if (is(typeof(t) == Array!Item))
-                  t.assignEventListeners(*item);
-              }
-            } else {
-              // TODO: we only need to pass t to a child render function when there is a child that has an alias to one of its member
-              static if (isCallable!(typeof(sym))) {
-                static assert(false, "we don't support @child functions");
-                // node.render(callMember!(i)(t), AliasSeq!(t, ts));
+          static if (hasUDA!(sym, child)) {
+            import spasm.spa;
+            alias Params = getUDAs!(sym, Parameters);
+            static if (Params.length > 0)
+              auto params = createParameterTuple!(Params)(t);
+            else
+              alias params = AliasSeq!();
+            if (isChildVisible!(i)(t)) {
+              static if (is(typeof(sym) : DynamicArray!(Item*), Item)) {
+                foreach(ref item; __traits(getMember, t, i)) {
+                  // TODO: we only need to pass t to a child render function when there is a child that has an alias to one of its member
+                  node.render(*item, AliasSeq!(params, t, ts));
+                  static if (is(typeof(t) == Array!Item))
+                    t.assignEventListeners(*item);
+                }
               } else {
-                node.render(__traits(getMember, t, i), AliasSeq!(params, t, ts));
+                // TODO: we only need to pass t to a child render function when there is a child that has an alias to one of its member
+                static if (isCallable!(typeof(sym))) {
+                  static assert(false, "we don't support @child functions");
+                  // node.render(callMember!(i)(t), AliasSeq!(t, ts));
+                } else {
+                  node.render(__traits(getMember, t, i), AliasSeq!(params, t, ts));
+                }
+              }
+            }
+          } else static if (hasUDA!(sym, prop)) {
+            static if (isCallable!(sym)) {
+              auto result = callMember!(i)(t);
+              node.setPropertyTyped!name(result);
+            } else {
+              node.setPropertyTyped!name(__traits(getMember, t, i));
+            }
+          } else static if (hasUDA!(sym, callback)) {
+            node.addEventListenerTyped!i(t);
+          } else static if (hasUDA!(sym, attr)) {
+            static if (isCallable!(sym)) {
+              auto result = callMember!(sym)(t);
+              node.setAttributeTyped!name(result);
+            } else {
+              node.setAttributeTyped!name(__traits(getMember, t, i));
+            }
+          } else static if (hasUDA!(sym, connect)) {
+            alias connects = getUDAs!(sym, connect);
+            static foreach(c; connects) {
+              auto del = &__traits(getMember, t, i);
+              static if (is(c: connect!(a,b), alias a, alias b)) {
+                mixin("t."~a~"."~replace!(b,'.','_')~".add(del);");
+              } else static if (is(c : connect!field, alias field)) {
+                mixin("t."~field~".add(del);");
               }
             }
           }
-        } else static if (hasUDA!(sym, prop)) {
-          static if (isCallable!(sym)) {
-            auto result = callMember!(i)(t);
-            node.setPropertyTyped!name(result);
-          } else {
-            node.setPropertyTyped!name(__traits(getMember, t, i));
+          alias extendedStyles = getStyleSets!(sym);
+          static foreach(style; extendedStyles) {
+            static assert(hasMember!(typeof(sym), "node"), "styleset on field is currently only possible when said field has a Node mixin");
+            __traits(getMember, t, i).node.setAttribute(GenerateExtendedStyleSetName!style,"");
           }
-        } else static if (hasUDA!(sym, callback)) {
-          node.addEventListenerTyped!i(t);
-        } else static if (hasUDA!(sym, attr)) {
-          static if (isCallable!(sym)) {
-            auto result = callMember!(sym)(t);
-            node.setAttributeTyped!name(result);
-          } else {
-            node.setAttributeTyped!name(__traits(getMember, t, i));
-          }
-        } else static if (hasUDA!(sym, connect)) {
-          alias connects = getUDAs!(sym, connect);
-          static foreach(c; connects) {
-            auto del = &__traits(getMember, t, i);
-            static if (is(c: connect!(a,b), alias a, alias b)) {
-              mixin("t."~a~"."~replace!(b,'.','_')~".add(del);");
-            } else static if (is(c : connect!field, alias field)) {
-              mixin("t."~field~".add(del);");
+          static if (i == "node") {
+            node.applyStyles!(T, styles);
+          } else static if (styles.length > 0) {
+            static if (isCallable!(sym)) {
+              auto result = callMember!(i)(t);
+              if (result == true) {
+                node.applyStyles!(T, styles);
+              }
+            } else static if (is(typeof(sym) == bool)) {
+              if (__traits(getMember, t, i) == true)
+                node.applyStyles!(T, styles);
+            } else static if (hasUDA!(sym, child)) {
+              __traits(getMember, t, i).node.applyStyles!(T, styles);
             }
-          }
-        }
-        alias extendedStyles = getStyleSets!(sym);
-        static foreach(style; extendedStyles) {
-          static assert(hasMember!(typeof(sym), "node"), "styleset on field is currently only possible when said field has a Node mixin");
-          __traits(getMember, t, i).node.setAttribute(GenerateExtendedStyleSetName!style,"");
-        }
-        static if (i == "node") {
-          node.applyStyles!(T, styles);
-        } else static if (styles.length > 0) {
-          static if (isCallable!(sym)) {
-            auto result = callMember!(i)(t);
-            if (result == true) {
-              node.applyStyles!(T, styles);
-            }
-          } else static if (is(typeof(sym) == bool)) {
-            if (__traits(getMember, t, i) == true)
-              node.applyStyles!(T, styles);
-          } else static if (hasUDA!(sym, child)) {
-            __traits(getMember, t, i).node.applyStyles!(T, styles);
           }
         }
       }}
@@ -322,7 +331,7 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if 
       t.node.node = node;
     }
   }
-}
+ }
 
 
 template among(alias field, T...) {
