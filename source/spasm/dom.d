@@ -4,7 +4,8 @@ import spasm.types;
 import spasm.dom;
 import spasm.ct;
 import std.traits : hasMember, isAggregateType;
-import std.traits : TemplateArgsOf, staticMap, isPointer, PointerTarget, getUDAs;
+import std.traits : TemplateArgsOf, staticMap, isPointer, PointerTarget, getUDAs, EnumMembers, isInstanceOf;
+import std.meta : Filter, AliasSeq;
 import spasm.css;
 import spasm.node;
 import spasm.event;
@@ -235,6 +236,7 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if 
   import std.traits : isCallable, getSymbolsByUDA, isPointer;
   import std.conv : text;
   enum hasNode = hasMember!(T, "node");
+  // pragma(msg, "Create render for ", T, " under ", Ts);
   static if (hasNode)
     bool shouldRender = t.node.node == invalidHandle;
   else
@@ -330,9 +332,61 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if 
     static if (hasMember!(T, "node")) {
       t.node.node = node;
     }
-  }
- }
 
+    alias enumsWithApplyStyles = getSymbolsByUDA!(T, ApplyStyle);
+    static foreach(member; enumsWithApplyStyles) {{
+        alias ApplyStyles = getUDAs!(member, ApplyStyle);
+        static foreach(s; ApplyStyles) {
+          static if (is(s == ApplyStyle!Target, alias Target)) {
+            alias EnumType = typeof(member);
+            final switch (__traits(getMember, t, __traits(identifier, member))) {
+              foreach(item; __traits(allMembers, EnumType)) {
+              case __traits(getMember, EnumType, item):
+                alias styleUdas = getEnumUDAs!(EnumType, item, style);
+                alias styles = staticMap!(extractStyleStruct, styleUdas);
+                static if (__traits(identifier, Target) == "node") {
+                  t.node.applyStyles!(T, styles);
+                } else static if (hasUDA!(Target, child)) {
+                  __traits(getMember, t, __traits(identifier, Target)).node.applyStyles!(T,styles);
+                } else
+                  static assert(false, "Can only have ApplyStyle point to node or to a child component");
+                break;
+              }
+            }
+          }
+        }
+      }}
+  }
+}
+
+template getEnumUDAs(EnumType, string field, alias UDA) {
+  alias udas = AliasSeq!(__traits(getAttributes, __traits(getMember, EnumType, field)));
+  alias getEnumUDAs = Filter!(isDesiredUDA!UDA, udas);
+}
+
+private template isDesiredUDA(alias attribute) {
+  template isDesiredUDA(alias toCheck)
+  {
+    static if (is(typeof(attribute)) && !__traits(isTemplate, attribute))
+      {
+        static if (__traits(compiles, toCheck == attribute))
+          enum isDesiredUDA = toCheck == attribute;
+        else
+          enum isDesiredUDA = false;
+      }
+    else static if (is(typeof(toCheck)))
+      {
+        static if (__traits(isTemplate, attribute))
+          enum isDesiredUDA =  isInstanceOf!(attribute, typeof(toCheck));
+        else
+          enum isDesiredUDA = is(typeof(toCheck) == attribute);
+      }
+    else static if (__traits(isTemplate, attribute))
+      enum isDesiredUDA = isInstanceOf!(attribute, toCheck);
+    else
+      enum isDesiredUDA = is(toCheck == attribute);
+  }
+}
 
 template among(alias field, T...) {
   static if (T.length == 0)
