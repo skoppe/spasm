@@ -2,13 +2,14 @@ module spasm.css;
 
 pragma(LDC_no_moduleinfo);
 import std.meta : staticMap, ApplyRight, AliasSeq, NoDuplicates, ApplyLeft, Filter;
-import std.traits : getSymbolsByUDA, hasUDA, hasMember, getUDAs, Fields, FieldNameTuple, PointerTarget, isPointer;
+import std.traits : getSymbolsByUDA, hasUDA, hasMember, getUDAs, Fields, FieldNameTuple, PointerTarget, isPointer, isType, isAggregateType;
 import spasm.ct;
 import spasm.types;
 
 struct styleset(alias set) {};
 struct Extend(alias target) {};
 struct style(alias s) {};
+struct ApplyStyle(alias target) {}
 
 template TypeOf(alias symbol) {
   alias TypeOf = typeof(symbol);
@@ -65,7 +66,7 @@ template getStyleSets(T) {
     static if (symbols.length == 0)
       alias getStyleSets = AliasSeq!(getStyleSet!T);
     else
-      alias getStyleSets = NoDuplicates!(AliasSeq!(getStyleSet!T, staticMap!(.getStyleSets, children)));
+      alias getStyleSets = NoDuplicates!(AliasSeq!(staticMap!(.getStyleSets, children), getStyleSet!T));
   }
 }
 
@@ -279,7 +280,6 @@ template Joiner(Ts...) {
     enum Joiner = "";
 }
 template GenerateNestedCssClasses(alias name, T) {
-  import std.traits:isType;
   alias members = AliasSeq!(__traits(allMembers, T));
   alias symbols = staticMap!(ApplyLeft!(Symbol,T), members);
   alias nestedClasses = Filter!(isType,symbols);
@@ -290,6 +290,9 @@ template GenerateNestedCssClasses(alias name, T) {
 }
 
 template GenerateCssSet(alias T, Theme) {
+  template isTypeInvert(alias T) {
+    enum isTypeInvert = !isType!T;
+  }
   static if (__traits(isTemplate, T))
     alias StyleSet = T!Theme;
   else
@@ -297,7 +300,8 @@ template GenerateCssSet(alias T, Theme) {
   enum baseName = getFullName!(T);
   alias members = AliasSeq!(__traits(allMembers, StyleSet));
   alias symbols = staticMap!(ApplyLeft!(Symbol,StyleSet), members);
-  enum GenerateCssSet = Joiner!(staticMap!(ApplyLeft!(GenerateCssClass, baseName), symbols));
+  alias typeSymbols = Filter!(isType, symbols);
+  enum GenerateCssSet = Joiner!(staticMap!(ApplyLeft!(GenerateCssClass, baseName), typeSymbols));
 }
 
 template GenerateExtendedCssClass(alias T, string name, Child) {
