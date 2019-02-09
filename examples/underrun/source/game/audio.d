@@ -95,7 +95,7 @@ struct BaseAudioContext {
   JsHandle handle;
   alias handle this;
   @property AudioDestinationNode destination() {
-    return AudioDestinationNode(baseAudioContextDestination(handle));
+    return AudioDestinationNode(JsHandle(baseAudioContextDestination(handle)));
   }
 }
 
@@ -137,13 +137,13 @@ struct AudioDestinationNode {
   alias handle this;
 }
 
-extern(C) JsHandle baseAudioContextDestination(JsHandle ctx);
-extern(C) void audioBufferSourceNodeLoopSet(JsHandle ctx, bool loop);
-extern(C) JsHandle windowNewAudioContext();
-extern(C) void audioBufferSourceNodeConnect(JsHandle node, JsHandle destination);
-extern(C) void audioBufferSourceNodeStart(JsHandle node);
-extern(C) void audioBufferSourceNodeBuffer(JsHandle node, JsHandle buffer);
-extern(C) void audioFree(JsHandle node);
+extern(C) Handle baseAudioContextDestination(Handle ctx);
+extern(C) void audioBufferSourceNodeLoopSet(Handle ctx, bool loop);
+extern(C) Handle windowNewAudioContext();
+extern(C) void audioBufferSourceNodeConnect(Handle node, Handle destination);
+extern(C) void audioBufferSourceNodeStart(Handle node);
+extern(C) void audioBufferSourceNodeBuffer(Handle node, Handle buffer);
+extern(C) void audioFree(Handle node);
 
 void connect(ref AudioBufferSourceNode node, AudioDestinationNode destination) {
   audioBufferSourceNodeConnect(node.handle, destination.handle);
@@ -154,35 +154,35 @@ void start(ref AudioBufferSourceNode node) {
 }
 
 AudioContext newAudioContext() {
-  return AudioContext(windowNewAudioContext());
+  return AudioContext(JsHandle(windowNewAudioContext()));
 }
 // TODO: can we combine both functions into one with pragma mangle and implicit conversions?
-extern(C) JsHandle baseAudioContextCreateBuffer(JsHandle ctx, uint numberOfChannels, uint length, float sampleRate);
+extern(C) Handle baseAudioContextCreateBuffer(Handle ctx, uint numberOfChannels, uint length, float sampleRate);
 
 AudioBuffer createBuffer(ref BaseAudioContext ctx, uint numberOfChannels, uint length, float sampleRate) {
-  return AudioBuffer(baseAudioContextCreateBuffer(ctx.handle, numberOfChannels, length, sampleRate));
+  return AudioBuffer(JsHandle(baseAudioContextCreateBuffer(ctx.handle, numberOfChannels, length, sampleRate)));
 }
 
-extern(C) JsHandle baseAudioContextCreateBufferSource(JsHandle ctx);
+extern(C) Handle baseAudioContextCreateBufferSource(Handle ctx);
 
 AudioBufferSourceNode createBufferSource(ref BaseAudioContext ctx) {
-  return AudioBufferSourceNode(baseAudioContextCreateBufferSource(ctx.handle));
+  return AudioBufferSourceNode(JsHandle(baseAudioContextCreateBufferSource(ctx.handle)));
 }
 
-extern(C) JsHandle audioBufferGetChannelData(JsHandle ctx, uint channel);
+extern(C) Handle audioBufferGetChannelData(Handle ctx, uint channel);
 
 Float32Array getChannelData(ref AudioBuffer buffer, uint channel) {
-  return Float32Array(audioBufferGetChannelData(buffer.handle, channel));
+  return Float32Array(JsHandle(audioBufferGetChannelData(buffer.handle, channel)));
 }
 
-extern(C) void float32ArraySet(JsHandle ctx, float[] array);
+extern(C) void float32ArraySet(Handle ctx, float[] array);
 
 void set(Float32Array arr, float[] array) {
   float32ArraySet(arr.handle, array);
 }
 
 auto getAudioBuffer(ref AudioContext ctx, ref Buffer mixBuf) {
-	auto buffer = ctx.createBuffer(2, mixBuf.left.length, WAVE_SPS); // Create Mono Source Buffer from Raw Binary
+	auto buffer = ctx.createBuffer(ctx.handle, mixBuf.left.length, WAVE_SPS); // Create Mono Source Buffer from Raw Binary
 	buffer.getChannelData(0).set(mixBuf.left);
 	buffer.getChannelData(1).set(mixBuf.right);
 	return buffer;

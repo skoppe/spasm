@@ -7,8 +7,8 @@ private extern(C) {
   bool getEventBool(string prop);
   uint getEventInt(string prop);
   string getEventString(string prop);
-  void removeEventListener(JsHandle node, ListenerType type, uint ctx, uint fun, EventType type);
-  void addEventListener(JsHandle node, ListenerType type, uint ctx, uint fun, EventType type);
+  void removeEventListener(Handle node, ListenerType type, uint ctx, uint fun, EventType type);
+  void addEventListener(Handle node, ListenerType type, uint ctx, uint fun, EventType type);
 }
 enum eventemitter;
 

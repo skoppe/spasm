@@ -11,8 +11,8 @@ immutable GLuint max_verts = 1024 * 64;
 immutable GLint max_lights = 16;
 __gshared float camera_shake = 0f;
 
-extern(C) JsHandle getContext(JsHandle);
-extern(C) void glSetContext(JsHandle);
+extern(C) Handle getContext(Handle);
+extern(C) void glSetContext(Handle);
 
 auto compile_shader(int shader_type, string shader_source) {
     auto shader = glCreateShader(shader_type);
@@ -145,7 +145,7 @@ struct Renderer {
     shader_program.enable_vertex_attrib("n", 3, 8, 5);
   }
 
-  void renderer_bind_image(JsHandle image) {
+  void renderer_bind_image(Handle image) {
     auto texture_2d = GL_TEXTURE_2D;
     glBindTexture(texture_2d, glCreateTexture());
     glTexImage2D(texture_2d, 0, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, image);

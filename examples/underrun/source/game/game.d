@@ -9,9 +9,16 @@ import spasm.dom;
 import spasm.rt.memory;
 import game.audio;
 
-extern(C) void load_image(string name, void delegate (JsHandle) cb);
+extern(C) void load_image(string name, void delegate (Handle) cb);
 extern(C) void load_level(uint id, ubyte[] level, uint ctx, uint fun);
 extern(C) void scheduleFrame(uint ctx, uint fun);
+extern(C) 
+export ubyte* allocString(uint bytes) {
+  import spasm.rt.memory;
+  void[] raw = allocator.allocate(bytes);
+  return cast(ubyte*)raw.ptr;
+}
+
 
 struct Game {
   Renderer renderer;
@@ -77,7 +84,7 @@ struct Game {
     mouseX = cast(int)(width * (cast(double)event.offsetX)/clientWidth);
     mouseY = cast(int)(height * (cast(double)event.offsetY)/clientHeight);
   }
-  extern(C) void textureLoaded(JsHandle image) {
+  extern(C) void textureLoaded(Handle image) {
     gTerminal.hide();
     renderer.renderer_bind_image(image);
     loadLevel();
