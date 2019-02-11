@@ -2,7 +2,7 @@ module spasm.css;
 
 pragma(LDC_no_moduleinfo);
 import std.meta : staticMap, ApplyRight, AliasSeq, NoDuplicates, ApplyLeft, Filter;
-import std.traits : getSymbolsByUDA, hasUDA, hasMember, getUDAs, Fields, FieldNameTuple, PointerTarget, isPointer, isType, isAggregateType;
+import std.traits : getSymbolsByUDA, hasUDA, hasMember, getUDAs, Fields, FieldNameTuple, PointerTarget, isPointer, isType, isAggregateType, isSomeString;
 import spasm.ct;
 import spasm.types;
 
@@ -116,7 +116,16 @@ template GetCssClassName(Node, string style) {
   }
 }
 
-template getCssKeyValue(T, string name) {
+template getCssKeyValue(T, string defaultName) {
+  template isStringUDA(alias t) {
+    enum isStringUDA = isSomeString!(typeof(t));
+  }
+  alias symbol = Symbol!(T, defaultName);
+  alias names = Filter!(isStringUDA, getStringUDAs!(symbol));
+  static if (names.length > 0)
+    enum name = names[0];
+  else
+    enum name = defaultName;
   enum getCssKeyValue = tuple(toCssProperty!name, __traits(getMember, T.init, name));
 }
 
@@ -145,11 +154,14 @@ template toCss(keyValues...) {
   }
 }
 
+template getStringUDAs(alias symbol) {
+  alias getStringUDAs = AliasSeq!(__traits(getAttributes, symbol));
+}
 template GenerateCss(T) {
   alias names = FieldNameTuple!T;
   alias values = staticMap!(ApplyLeft!(getCssKeyValue, T), names);
   static if (values.length > 0)
-    enum GenerateCss = "{" ~ toCss!values ~ "}";
+    enum GenerateCss = "{" ~ toCss!(values)[0..$-1] ~ "}";
   else
     enum GenerateCss = "";
 }
@@ -250,6 +262,9 @@ template GenerateCssClass(string base, alias T) {
   alias name = GenerateCssClassName!uniqueName;
   enum content = GenerateCss!T;
   alias nestedClasses = GenerateNestedCssClasses!("."~name, T);
+  static if (content.length == 0) {
+    enum GenerateCssClass = nestedClasses;
+  } else
   enum GenerateCssClass = "." ~ name ~ content ~ nestedClasses;
 }
 
