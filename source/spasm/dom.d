@@ -4,7 +4,7 @@ import spasm.types;
 import spasm.dom;
 import spasm.ct;
 import std.traits : hasMember, isAggregateType;
-import std.traits : TemplateArgsOf, staticMap, isPointer, PointerTarget, getUDAs, EnumMembers, isInstanceOf;
+import std.traits : TemplateArgsOf, staticMap, isPointer, PointerTarget, getUDAs, EnumMembers, isInstanceOf, isBasicType;
 import std.meta : Filter, AliasSeq;
 import spasm.css;
 import spasm.node;
@@ -22,6 +22,7 @@ private extern(C) {
   void appendChild(Handle parentPtr, Handle childPtr);
   void insertBefore(Handle parentPtr, Handle childPtr, Handle sibling);
   void setAttribute(Handle nodePtr, string attr, string value);
+  void setAttributeInt(Handle nodePtr, string attr, int value);
   void setPropertyBool(Handle nodePtr, string attr, bool value);
   void setPropertyInt(Handle nodePtr, string attr, int value);
   void innerText(Handle nodePtr, string text);
@@ -122,8 +123,8 @@ auto remount(string field, Parent)(auto ref Parent parent) {
   return render(parent.node.node, __traits(getMember, parent, field), parent);
 }
 
-template isLiteral(alias t) {
-  enum isLiteral = __traits(compiles, { enum p = t; });
+template isValue(alias t) {
+  enum isValue = __traits(compiles, { enum p = t; });
 }
 
 template createParameterTuple(Params...) {
@@ -135,10 +136,15 @@ template createParameterTuple(Params...) {
     }
     static auto extractField(alias sym)(auto ref Parent p) {
       enum name = sym.stringof;
-      enum literal = isLiteral!(sym);
-      static if (isLiteral!(sym)) {
-        __gshared static auto val = sym;
-        return &val;
+      enum literal = isValue!(sym);
+      static if (isValue!(sym)) {
+        static if (isBasicType!(typeof(sym))) {
+          typeof(sym) val = sym;
+          return val;
+        } else {
+          __gshared static auto val = sym;
+          return &val;
+        }
       } else
         return &__traits(getMember, p, name);
     }
@@ -178,8 +184,9 @@ auto setPointers(T, Ts...)(auto ref T t, auto ref Ts ts) {
               alias params = AliasSeq!();
             static if (hasUDA!(sym, child))
               setPointers(__traits(getMember, t, i), AliasSeq!(params, t, ts));
-            else static if (params.length > 0)
+            else static if (params.length > 0) {
               setPointers(__traits(getMember, t, i), AliasSeq!(params));
+            }
           }
         }
       }
@@ -291,7 +298,7 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if 
             node.addEventListenerTyped!i(t);
           } else static if (hasUDA!(sym, attr)) {
             static if (isCallable!(sym)) {
-              auto result = callMember!(sym)(t);
+              auto result = callMember!(i)(t);
               node.setAttributeTyped!name(result);
             } else {
               node.setAttributeTyped!name(__traits(getMember, t, i));
@@ -591,7 +598,9 @@ auto setAttributeTyped(string name, T)(JsHandle node, auto ref T t) {
     node.setAttributeTyped!name(*t);
   else static if (is(T == bool))
     node.setAttributeBool(name, t);
-  else {
+  else static if (is(T : int)) {
+    node.setAttributeInt(name, t);
+  } else {
     node.setAttribute(name, t);
   }
 }

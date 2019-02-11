@@ -73,6 +73,10 @@ export let jsExports = {
     innerText: (nodePtr,textLen, textOffset) => {
         nodes[nodePtr].innerText = decoder.string(textLen,textOffset);
     },
+    setAttributeInt: (node, attrLen, attrOffset, value) => {
+        const attr = decoder.string(attrLen,attrOffset);
+        nodes[node].setAttribute(attr, value);
+    },
     setAttribute: (node, attrLen, attrOffset, valueLen, valueOffset) => {
         const attr = decoder.string(attrLen,attrOffset);
         const value = decoder.string(valueLen,valueOffset);
