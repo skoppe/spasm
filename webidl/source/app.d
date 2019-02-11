@@ -13,6 +13,7 @@ import std.path;
 import std.getopt;
 import std.format;
 import std.typecons;
+import openmethods;
 
 string[] getFunctionsToGenerateBindingsFor(string wasmFile) {
   import std.algorithm : map, filter, joiner;
