@@ -27,6 +27,7 @@ public import spasm.bindings.indexeddb;
 public import spasm.bindings.fullscreen;
 public import spasm.bindings.svg;
 public import spasm.bindings.cssom;
+public import spasm.bindings.streams;
 public import spasm.bindings.webgl2;
 public import spasm.bindings.serviceworker;
 public import spasm.bindings.console;

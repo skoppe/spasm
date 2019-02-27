@@ -4,6 +4,7 @@ import spasm.types;
 import spasm.bindings.common;
 import spasm.bindings.dom;
 import spasm.bindings.fileapi;
+import spasm.bindings.streams;
 import spasm.bindings.url;
 import spasm.bindings.webappsec;
 import spasm.bindings.xhr;

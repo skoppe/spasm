@@ -16,6 +16,7 @@ import spasm.bindings.mediastream;
 import spasm.bindings.notifications;
 import spasm.bindings.permissions;
 import spasm.bindings.serviceworker;
+import spasm.bindings.streams;
 import spasm.bindings.svg;
 import spasm.bindings.uievents;
 import spasm.bindings.url;
@@ -7810,6 +7811,39 @@ struct Window {
   static auto IDBVersionChangeEvent(string type, IDBVersionChangeEventInit eventInitDict) {
     return .IDBVersionChangeEvent(JsHandle(Window_IDBVersionChangeEvent(type, eventInitDict._parent)));
   }
+  static auto ByteLengthQueuingStrategy(T0)(T0 options) {
+    Handle _handle_options = getOrCreateHandle(options);
+    auto result = .ByteLengthQueuingStrategy(JsHandle(Window_ByteLengthQueuingStrategy(_handle_options)));
+    dropHandle!(T0)(_handle_options);
+    return result;
+  }
+  static auto CountQueuingStrategy(T0)(T0 options) {
+    Handle _handle_options = getOrCreateHandle(options);
+    auto result = .CountQueuingStrategy(JsHandle(Window_CountQueuingStrategy(_handle_options)));
+    dropHandle!(T0)(_handle_options);
+    return result;
+  }
+  static auto ReadableStream(UnderlyingSource underlyingSource, QueuingStrategy strategy) {
+    return .ReadableStream(JsHandle(Window_ReadableStream__Handle_Handle(underlyingSource.handle, strategy.handle)));
+  }
+  static auto ReadableStream(UnderlyingByteSource underlyingSource, QueuingStrategy strategy) {
+    return .ReadableStream(JsHandle(Window_ReadableStream__Handle_Handle(underlyingSource.handle, strategy.handle)));
+  }
+  static auto ReadableStreamBYOBReader(.ReadableStream stream) {
+    return .ReadableStreamBYOBReader(JsHandle(Window_ReadableStreamBYOBReader(stream.handle)));
+  }
+  static auto ReadableStreamDefaultReader(.ReadableStream stream) {
+    return .ReadableStreamDefaultReader(JsHandle(Window_ReadableStreamDefaultReader(stream.handle)));
+  }
+  static auto TransformStream(Transformer transformer, QueuingStrategy writableStrategy, QueuingStrategy readableStrategy) {
+    return .TransformStream(JsHandle(Window_TransformStream(transformer.handle, writableStrategy.handle, readableStrategy.handle)));
+  }
+  static auto WritableStream(UnderlyingSink underlyingSink, QueuingStrategy strategy) {
+    return .WritableStream(JsHandle(Window_WritableStream(underlyingSink.handle, strategy.handle)));
+  }
+  static auto WritableStreamDefaultWriter(.ReadableStream stream) {
+    return .WritableStreamDefaultWriter(JsHandle(Window_WritableStreamDefaultWriter(stream.handle)));
+  }
   static auto FormData(HTMLFormElement form) {
     return .FormData(JsHandle(Window_FormData(form._parent)));
   }
@@ -7998,6 +8032,39 @@ struct Worker {
   }
   static auto IDBVersionChangeEvent(string type, IDBVersionChangeEventInit eventInitDict) {
     return .IDBVersionChangeEvent(JsHandle(Worker_IDBVersionChangeEvent(type, eventInitDict._parent)));
+  }
+  static auto ByteLengthQueuingStrategy(T0)(T0 options) {
+    Handle _handle_options = getOrCreateHandle(options);
+    auto result = .ByteLengthQueuingStrategy(JsHandle(Worker_ByteLengthQueuingStrategy(_handle_options)));
+    dropHandle!(T0)(_handle_options);
+    return result;
+  }
+  static auto CountQueuingStrategy(T0)(T0 options) {
+    Handle _handle_options = getOrCreateHandle(options);
+    auto result = .CountQueuingStrategy(JsHandle(Worker_CountQueuingStrategy(_handle_options)));
+    dropHandle!(T0)(_handle_options);
+    return result;
+  }
+  static auto ReadableStream(UnderlyingSource underlyingSource, QueuingStrategy strategy) {
+    return .ReadableStream(JsHandle(Worker_ReadableStream__Handle_Handle(underlyingSource.handle, strategy.handle)));
+  }
+  static auto ReadableStream(UnderlyingByteSource underlyingSource, QueuingStrategy strategy) {
+    return .ReadableStream(JsHandle(Worker_ReadableStream__Handle_Handle(underlyingSource.handle, strategy.handle)));
+  }
+  static auto ReadableStreamBYOBReader(.ReadableStream stream) {
+    return .ReadableStreamBYOBReader(JsHandle(Worker_ReadableStreamBYOBReader(stream.handle)));
+  }
+  static auto ReadableStreamDefaultReader(.ReadableStream stream) {
+    return .ReadableStreamDefaultReader(JsHandle(Worker_ReadableStreamDefaultReader(stream.handle)));
+  }
+  static auto TransformStream(Transformer transformer, QueuingStrategy writableStrategy, QueuingStrategy readableStrategy) {
+    return .TransformStream(JsHandle(Worker_TransformStream(transformer.handle, writableStrategy.handle, readableStrategy.handle)));
+  }
+  static auto WritableStream(UnderlyingSink underlyingSink, QueuingStrategy strategy) {
+    return .WritableStream(JsHandle(Worker_WritableStream(underlyingSink.handle, strategy.handle)));
+  }
+  static auto WritableStreamDefaultWriter(.ReadableStream stream) {
+    return .WritableStreamDefaultWriter(JsHandle(Worker_WritableStreamDefaultWriter(stream.handle)));
   }
   static auto FormData(HTMLFormElement form) {
     return .FormData(JsHandle(Worker_FormData(form._parent)));
@@ -10058,6 +10125,15 @@ extern (C) Handle Window_DOMQuad(Handle, Handle, Handle, Handle);
 extern (C) Handle Window_DOMRect(double, double, double, double);
 extern (C) Handle Window_DOMRectReadOnly(double, double, double, double);
 extern (C) Handle Window_IDBVersionChangeEvent(string, Handle);
+extern (C) Handle Window_ByteLengthQueuingStrategy(Handle);
+extern (C) Handle Window_CountQueuingStrategy(Handle);
+extern (C) Handle Window_ReadableStream__Handle_Handle(Handle, Handle);
+extern (C) Handle Window_ReadableStream__Handle_Handle(Handle, Handle);
+extern (C) Handle Window_ReadableStreamBYOBReader(Handle);
+extern (C) Handle Window_ReadableStreamDefaultReader(Handle);
+extern (C) Handle Window_TransformStream(Handle, Handle, Handle);
+extern (C) Handle Window_WritableStream(Handle, Handle);
+extern (C) Handle Window_WritableStreamDefaultWriter(Handle);
 extern (C) Handle Window_FormData(Handle);
 extern (C) Handle Window_ProgressEvent(string, Handle);
 extern (C) Handle Window_XMLHttpRequest();
@@ -10163,6 +10239,15 @@ extern (C) Handle Worker_DOMQuad(Handle, Handle, Handle, Handle);
 extern (C) Handle Worker_DOMRect(double, double, double, double);
 extern (C) Handle Worker_DOMRectReadOnly(double, double, double, double);
 extern (C) Handle Worker_IDBVersionChangeEvent(string, Handle);
+extern (C) Handle Worker_ByteLengthQueuingStrategy(Handle);
+extern (C) Handle Worker_CountQueuingStrategy(Handle);
+extern (C) Handle Worker_ReadableStream__Handle_Handle(Handle, Handle);
+extern (C) Handle Worker_ReadableStream__Handle_Handle(Handle, Handle);
+extern (C) Handle Worker_ReadableStreamBYOBReader(Handle);
+extern (C) Handle Worker_ReadableStreamDefaultReader(Handle);
+extern (C) Handle Worker_TransformStream(Handle, Handle, Handle);
+extern (C) Handle Worker_WritableStream(Handle, Handle);
+extern (C) Handle Worker_WritableStreamDefaultWriter(Handle);
 extern (C) Handle Worker_FormData(Handle);
 extern (C) Handle Worker_TextDecoder(string, Handle);
 extern (C) Handle Worker_TextDecoderStream(string, Handle);
