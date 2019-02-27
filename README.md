@@ -106,10 +106,9 @@ This project uses betterC, which means there is no D runtime. This also means th
 
 ## WIP
 
-- Generated CSS stylesets from D are currently disabled.
-- Currently no memory is freed.
-- The generated webassembly binaries needs manual stripping to reduce code bloat.
-- Most js host api's are missing (xhr, localstorage, etc.).
+- Currently no memory is freed
+- Do hot module reloading
+- Render to string
 
 ## How the SPA framework works
 
@@ -383,7 +382,7 @@ struct AppStyle {
   }
   struct button {
     auto backgroundColor = "white";
-    @("hover") struct Hover {
+    @("hover") struct hover {
       auto backgroundColor = "gray";
     }
   }
