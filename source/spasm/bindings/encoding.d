@@ -2,6 +2,7 @@ module spasm.bindings.encoding;
 
 import spasm.types;
 import spasm.bindings.common;
+import spasm.bindings.streams;
 
 struct TextDecodeOptions {
   JsHandle handle;
