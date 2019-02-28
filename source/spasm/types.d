@@ -401,14 +401,6 @@ struct Animation {
   JsHandle handle;
   alias handle this;
 }
-struct ReadableStream {
-  JsHandle handle;
-  alias handle this;
-}
-struct WritableStream {
-  JsHandle handle;
-  alias handle this;
-}
 struct Iterator(T) {
   JsHandle handle;
   alias handle this;
