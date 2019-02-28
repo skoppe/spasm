@@ -45,6 +45,7 @@ Make sure to have at least ldc 1.13.0 installed.
 
 - run `dub init` in a fresh folder
 - run `dub add spasm` to add spasm to your dub dependencies
+- add `dflags "-betterC"` to your dub.sdl or add `"dflags": ["-betterC"]` to your dub.json
 - run `dub upgrade && dub run spasm:bootstrap-webpack` to generate the webpack/dev-server boilerplate
 - start writing!
 
