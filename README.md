@@ -45,7 +45,7 @@ Make sure to have at least ldc 1.13.0 installed.
 
 - run `dub init` in a fresh folder
 - run `dub add spasm` to add spasm to your dub dependencies
-- run `dub run spasm:bootstrap-webpack` to generate the webpack/dev-server boilerplate
+- run `dub upgrade && dub run spasm:bootstrap-webpack` to generate the webpack/dev-server boilerplate
 - start writing!
 
 You can add any extra css/js you'll need to the `index.template.html`, or you can use any of the myriad features of webpack to include what you need.
