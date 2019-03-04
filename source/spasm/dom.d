@@ -252,8 +252,8 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if 
     auto node = createNode(parent, t);
     alias StyleSet = getStyleSet!T;
     static foreach(i; __traits(allMembers, T)) {{
-        alias name = domName!i;
         alias sym = AliasSeq!(__traits(getMember, t, i))[0];
+        alias name = getSymbolCustomName!(sym, domName!i);
         static if (!is(sym)) {
           alias styles = getStyles!(sym);
           static if (is(typeof(sym) == Prop*, Prop)) {
@@ -366,6 +366,13 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if 
   }
 }
 
+template getSymbolCustomName(alias symbol, string defaultName) {
+  alias names = getStringUDAs!(symbol);
+  static if (names.length > 0)
+    enum getSymbolCustomName = names[0];
+  else
+    enum getSymbolCustomName = defaultName;
+}
 template getEnumUDAs(EnumType, string field, alias UDA) {
   alias udas = AliasSeq!(__traits(getAttributes, __traits(getMember, EnumType, field)));
   alias getEnumUDAs = Filter!(isDesiredUDA!UDA, udas);

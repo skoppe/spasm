@@ -656,9 +656,9 @@ char[] unsignedToTempString()(ulong value, return scope char[] buf, uint radix =
 private struct TempStringNoAlloc
 {
   // need to handle 65 bytes for radix of 2 with negative sign.
-  private char[65] _buf;
+  private char[65] _buf = 0;
   private ubyte _len;
-  auto get() return 
+  auto get() return
   {
     return _buf[$ - _len .. $];
   }
