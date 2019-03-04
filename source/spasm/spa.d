@@ -26,6 +26,10 @@ void addApplicationCss(Application, Theme)() {
     addCss(css);
 }
 
+mixin template Spa(Application) {
+  struct Empty{};
+  mixin Spa!(Application,Empty);
+}
 mixin template Spa(Application, Theme) {
   import ldc.attributes;
   __gshared Application application;

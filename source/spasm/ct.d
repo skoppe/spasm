@@ -3,11 +3,22 @@ module spasm.ct;
 pragma(LDC_no_moduleinfo);
 pragma(LDC_no_typeinfo);
 
-import std.traits : isPointer;
+import std.traits : isPointer, isSomeString, isType;
+import std.meta : Filter, AliasSeq;
 
 template getName(alias sym)
 {
   enum getName = __traits(identifier, sym);
+}
+
+template getStringUDAs(alias symbol) {
+  template isStringUDA(alias t) {
+    static if (isType!t) {
+      enum isStringUDA = isSomeString!(t);
+    } else
+      enum isStringUDA = isSomeString!(typeof(t));
+  }
+  alias getStringUDAs = Filter!(isStringUDA,AliasSeq!(__traits(getAttributes, symbol)));
 }
 
 template getMember(alias T, string name) {
