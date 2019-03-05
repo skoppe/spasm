@@ -170,7 +170,7 @@ void _d_array_init_mem(void* a, size_t na, void* v, size_t nv)
     }
 }
 
-// for array cast
+deprecated("since ldc 1.14.0")
 size_t _d_array_cast_len(size_t len, size_t elemsz, size_t newelemsz)
 {
     if (newelemsz == 1) {
@@ -180,6 +180,15 @@ size_t _d_array_cast_len(size_t len, size_t elemsz, size_t newelemsz)
       assert(0);
     }
     return (len*elemsz)/newelemsz;
+}
+
+@trusted nothrow
+size_t _d_arraycast_len(size_t len, size_t elemsz, size_t newelemsz) {
+    const size = len * elemsz;
+    const newlen = size / newelemsz;
+    if (newlen * newelemsz != size)
+        assert(0);
+    return newlen;
 }
 
 // slice copy when assertions are enabled
