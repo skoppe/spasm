@@ -5,8 +5,6 @@ import ldc.attributes;
 
 import spasm.types;
 import spasm.spa;
-import spasm.rt.array;
-import spasm.rt.memory;
 import spasm.dom;
 import game.math;
 import game.terminal;
