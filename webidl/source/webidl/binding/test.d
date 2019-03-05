@@ -16,6 +16,7 @@ version (unittest) {
   import unit_threaded;
   __gshared bool updatedMethods = false;
   static this() {
+    import openmethods : updateMethods;
     if (!updatedMethods) {
       updateMethods();
       updatedMethods = true;
