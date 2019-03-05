@@ -69,13 +69,15 @@ struct Terminal {
 }
 
 enum terminal_text_ident = "&gt; ";
-import spasm.ct:tuple,Tuple;
 
-auto l(int t, string line) {
-  return tuple!("idx","text")(t,line);
+struct TextItem {
+  int idx;
+  string text;
 }
 
-alias TextItem = Tuple!(int, "idx",string, "text");
+auto l(int t, string line) {
+  return TextItem(t,line);
+}
 
 enum terminal_text_garbage = "´A1e{∏éI9·NQ≥ÀΩ¸94CîyîR›kÈ¡˙ßT-;ûÅf^˛,¬›A∫Sã€«ÕÕ1f@çX8ÎRjßf•ò√ã0êÃcÄ]Î≤moDÇ’ñ‰\\ˇ≠n=(s7É;";
 
