@@ -1,31 +1,20 @@
 box: dlang2/ldc-ubuntu:1.13.0
 
-build:
+build-1.13.0:
+  box: dlang2/ldc-ubuntu:1.13.0
   steps:
     - script:
-        name: build main
+        name: build ldc 1.13.0
         code: |
           mkdir -p $WERCKER_CACHE_DIR/dub
           ln -s $WERCKER_CACHE_DIR/dub ~/.dub
-          dub build --compiler=ldc2 --build=release
+          make build
+build:
+  box: dlang2/ldc-ubuntu:latest
+  steps:
     - script:
-        name: build generator
+        name: build ldc latest
         code: |
-          cd webidl
-          dub test --compiler=ldc2
-          dub build --compiler=ldc2
-    - script:
-        name: build todo-mvc example
-        code: |
-          cd examples/todo-mvc
-          dub build --compiler=ldc2 --build=release
-    - script:
-        name: build underrun example
-        code: |
-          cd examples/underrun
-          dub build --compiler=ldc2 --build=release
-    - script:
-        name: build fetch example
-        code: |
-          cd examples/fetch
-          dub build --compiler=ldc2 --build=release
+          mkdir -p $WERCKER_CACHE_DIR/dub
+          ln -s $WERCKER_CACHE_DIR/dub ~/.dub
+          make build
