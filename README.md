@@ -140,7 +140,7 @@ Properties can also be a result of a function.
 struct App {
   mixin Node!"div";
   @prop string innerText() {
-    return "Hello World!"
+    return "Hello World!";
   };
 }
 mixin Spa!App;
@@ -168,7 +168,7 @@ struct Button {
   mixin Slot!"click";
   @prop innerText = "Click me!";
   @callback void onClick(MouseEvent event) {
-    this.emit(click);
+    this.emit!(click);
   }
 }
 struct App {
@@ -190,7 +190,7 @@ struct Button {
   mixin Slot!"click";
   @prop innerText = "Click me!";
   @callback void onClick(MouseEvent event) {
-    this.emit(click);
+    this.emit!(click);
   }
 }
 struct App {
@@ -220,7 +220,7 @@ struct App {
   @child Button button;
   string innerText = "Click Me!";
   @connect!"button.click" void click() {
-    this.update!(innerText)("Clicked!");
+    this.update.innerText = "Clicked!";
   }
 }
 mixin Spa!App;
@@ -312,7 +312,7 @@ struct Item {
     this.emit!(click);
   }
   void toggle() {
-    this.update!(active)(!active);
+    this.update.active = !active;
   }
 }
 struct Button {
@@ -331,7 +331,7 @@ struct App {
   bool onlyActive;
   DynamicArray!(Item*) items;
   @connect!"toggleButton.click" void toggleClick() {
-    this.update!(onlyActive)(!onlyActive);
+    this.update.onlyActive = !onlyActive;
   }
   @connect!"addButton.click" void addClick() {
     Item* item = allocator.make!Item;
