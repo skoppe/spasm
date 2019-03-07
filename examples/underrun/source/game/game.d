@@ -12,7 +12,7 @@ import game.audio;
 extern(C) void load_image(string name, void delegate (Handle) cb);
 extern(C) void load_level(uint id, ubyte[] level, uint ctx, uint fun);
 extern(C) void scheduleFrame(uint ctx, uint fun);
-extern(C) 
+extern(C)
 export ubyte* allocString(uint bytes) {
   import spasm.rt.memory;
   void[] raw = allocator.allocate(bytes);

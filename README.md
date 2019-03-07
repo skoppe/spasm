@@ -168,7 +168,7 @@ struct Button {
   mixin Slot!"click";
   @prop innerText = "Click me!";
   @callback void onClick(MouseEvent event) {
-    this.emit!(click);
+    this.emit(click);
   }
 }
 struct App {
@@ -190,7 +190,7 @@ struct Button {
   mixin Slot!"click";
   @prop innerText = "Click me!";
   @callback void onClick(MouseEvent event) {
-    this.emit!(click);
+    this.emit(click);
   }
 }
 struct App {
@@ -202,7 +202,7 @@ struct App {
 mixin Spa!App;
 ```
 
-The `@connect` annotation ensures the `click` function is called whenever there is an `this.emit!(click)` call in Button.
+The `@connect` annotation ensures the `click` function is called whenever there is an `this.emit(click)` call in Button.
 
 In the next example we show how to propagate properties from one component down into another.
 
@@ -212,7 +212,7 @@ struct Button {
   mixin Slot!"click"
   @prop string* innerText;
   @callback void onClick(MouseEvent event) {
-    this.emit!(click);
+    this.emit(click);
   }
 }
 struct App {
@@ -244,7 +244,7 @@ struct Button {
   mixin Slot!"click";
   @prop string innerText = "Add";
   @callback void onClick(MouseEvent event) {
-    this.emit!(click);
+    this.emit(click);
   }
 }
 struct App {
@@ -270,7 +270,7 @@ struct Item {
   mixin Slot!"click";
   @prop string innerText;
   @callback void onClick(MouseEvent event) {
-    this.emit!(click);
+    this.emit(click);
   }
 }
 struct Button {
@@ -278,7 +278,7 @@ struct Button {
   mixin Slot!"click";
   @prop string innerText = "Add";
   @callback void onClick(MouseEvent event) {
-    this.emit!(click);
+    this.emit(click);
   }
 }
 struct App {
@@ -309,7 +309,7 @@ struct Item {
   @prop string innerText;
   @style!"active" bool active = false;
   @callback void onClick(MouseEvent event) {
-    this.emit!(click);
+    this.emit(click);
   }
   void toggle() {
     this.update.active = !active;
@@ -320,7 +320,7 @@ struct Button {
   mixin Slot!"click";
   @prop string innerText = "Add";
   @callback void onClick(MouseEvent event) {
-    this.emit!(click);
+    this.emit(click);
   }
 }
 struct App {
@@ -395,7 +395,7 @@ struct App {
   @style!"root" mixin Node!"div";
   @child Button button;
   @connect("button.click") void toggle() {
-    button.update!(button.toggle)(!button.toggle);
+    button.update.toggle = !button.toggle;
   }
 }
 @styleset!(AppStyle)

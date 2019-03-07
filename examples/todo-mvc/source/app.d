@@ -15,6 +15,12 @@ enum FilterStyle {
   Completed
 }
 
+extern(C) export ubyte* allocString(uint bytes) {
+  import spasm.rt.memory;
+  void[] raw = allocator.allocate(bytes);
+  return cast(ubyte*)raw.ptr;
+}
+
 struct App {
   @style!"todoapp" mixin Node!"section";
   @child Header header;
@@ -46,7 +52,7 @@ struct App {
     import spasm.rt.memory;
     Item* item = allocator.make!Item;
     item.innerText = header.field.value;
-    header.field.update!(header.field.value)("");
+    header.field.update.value = "";
     main.items.put(item);
     updateItems();
   }
@@ -60,13 +66,13 @@ struct App {
     updateItems();
   }
   @connect!"footer.filters.all.link.click" void allClick() {
-    this.update!(filter)(FilterStyle.All);
+    this.update.filter = FilterStyle.All;
   }
   @connect!"footer.filters.active.link.click" void activeClick() {
-    this.update!(filter)(FilterStyle.Active);
+    this.update.filter = FilterStyle.Active;
   }
   @connect!"footer.filters.completed.link.click" void completedClick() {
-    this.update!(filter)(FilterStyle.Completed);
+    this.update.filter = FilterStyle.Completed;
   }
   @connect!"footer.clear.click" void clearCompleted() {
     import std.algorithm : remove;
@@ -210,16 +216,16 @@ struct Item {
   @child InlineInput editField;
   string innerText;
   @connect!"view.label.click" void onEdit() {
-    this.update!(editing)(true);
-    editField.update!(editField.value)(innerText);
+    this.update.editing = true;
+    editField.update.value = innerText;
     editField.focus();
   }
   @connect!"editField.enter" void onSubmit() {
-    this.update!(editing)(false);
-    this.update!(innerText)(editField.value);
+    this.update.editing = false;
+    this.update.innerText = editField.value;
   }
   @connect!"editField.esc" void onEsc() {
-    this.update!(editing)(false);
+    this.update.editing = false;
   }
 }
 
