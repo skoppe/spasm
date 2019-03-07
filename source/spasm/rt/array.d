@@ -453,7 +453,8 @@ private:
 template removePred(alias pred) {
   auto removePred(T)(ref DynamicArray!T arr) {
     size_t target = 0;
-    foreach (i; 0 .. arr.l)
+    auto len = arr.l < arr.arr.length ? arr.l : arr.arr.length;
+    foreach (i; 0 .. len)
     {
       if (pred(arr.arr[i]))
       {

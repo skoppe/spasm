@@ -151,16 +151,16 @@ struct Footer {
   }
   struct Filters {
     @style!"filters" mixin Node!"ul";
-    @child Option!"All" all = {option: FilterStyle.All};
-    @child Option!"Active" active = {option: FilterStyle.Active};
-    @child Option!"Completed" completed = {option: FilterStyle.Completed};
+    @(param.innerText!"All") @child Option all = {option: FilterStyle.All};
+    @(param.innerText!"Active") @child Option active = {option: FilterStyle.Active};
+    @(param.innerText!"Completed") @child Option completed = {option: FilterStyle.Completed};
   }
-  struct Option(string text) {
+  struct Option {
     struct Link {
       mixin Node!"a";
       mixin Slot!"click";
       @attr string href = "#";
-      @prop string innerText = text;
+      @prop string* innerText;
       FilterStyle* filter;
       FilterStyle* option;
       @style!"selected" bool selected(FilterStyle* filter, FilterStyle* option) {

@@ -457,7 +457,7 @@ auto update(T)(ref T node) if (hasMember!(T, "node")){
   return Inner();
 }
 
-void update(Range, Sink)(Range source, ref Sink sink) {
+void update(Range, Sink)(auto ref Range source, ref Sink sink) {
   import std.range : ElementType;
   import std.algorithm : copy;
   alias E = ElementType!Range;
