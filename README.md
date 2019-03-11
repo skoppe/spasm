@@ -43,7 +43,7 @@ Not only are your applications fast, they are also small. The [todo-mvc example]
 
 Make sure to have at least ldc 1.13.0 installed.
 
-- run `dub init <name> spasm` in a fresh folder
+- run `dub init <my-project> spasm`, this will create a folder named `<my-project>` with a dub file and the latest spasm added as dependency 
 - add `dflags "-betterC"` to your dub.sdl or add `"dflags": ["-betterC"]` to your dub.json
 - run `dub upgrade && dub run spasm:bootstrap-webpack` to generate the webpack/dev-server boilerplate
 - start writing!
