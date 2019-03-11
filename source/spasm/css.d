@@ -74,6 +74,10 @@ template isNonType(alias T) {
   enum isNonType = __traits(compiles, { alias B = typeof(T); });
 }
 
+template hasStyleSetUDA(alias T){
+  enum hasStyleSetUDA = hasUDA!(T, styleset);
+}
+
 template getStyleSetsExtends(T) {
   static if (isPointer!T) {
     alias getStyleSetsExtends = .getStyleSetsExtends!(PointerTarget!T);
@@ -81,21 +85,22 @@ template getStyleSetsExtends(T) {
     import std.traits : ReturnType;
     alias getStyleSetsExtends = .getStyleSetsExtends!(ReturnType!T);
   } else {
-    alias symbols = Filter!(isNonType, getSymbolsByUDA!(T, styleset));
-    static if (symbols.length == 0)
-      alias getStyleSetsExtends = AliasSeq!();
+    alias styleSetSymbols = Filter!(hasStyleSetUDA, T.tupleof);
+    alias children = staticMap!(TypeOf, getSymbolsByUDA!(T, child));
+    alias extendedStyleSets = staticMap!(extractExtendedStyleSet, styleSetSymbols);
+    static if (children.length > 0)
+      alias childrenExtendedStyleSets = staticMap!(.getStyleSetsExtends, children);
     else
-      alias getStyleSetsExtends = NoDuplicates!(staticMap!(.getChildStyleSetsExtends, symbols));
+      alias childrenExtendedStyleSets = AliasSeq!();
+    alias getStyleSetsExtends = AliasSeq!(childrenExtendedStyleSets, extendedStyleSets);
   }
 }
 
 struct ExtendedStyleSet(alias Set, alias sym) {}
 
-template getChildStyleSetsExtends(alias sym) {
-  alias T = typeof(sym);
+template extractExtendedStyleSet(alias sym) {
   alias ExtendedStyleSetCurried = ApplyRight!(ExtendedStyleSet, sym);
-  alias extendedStyleSets = staticMap!(ExtendedStyleSetCurried, staticMap!(extractStyleSetStruct, getUDAs!(sym, styleset)));
-  alias getChildStyleSetsExtends = AliasSeq!(getStyleSetsExtends!(T), extendedStyleSets);
+  alias extractExtendedStyleSet = staticMap!(ExtendedStyleSetCurried, staticMap!(extractStyleSetStruct, getUDAs!(sym, styleset)));
 }
 
 template getFullName(alias sym) {
@@ -282,12 +287,6 @@ template GenerateNestedCssClass(alias name, alias symbol) {
   enum GenerateNestedCssClass = name ~ ":" ~ GetPseudoCssClass!symbol ~ content;
 }
 
-template Joiner(Ts...) {
-  static if (Ts.length > 0) {
-    enum Joiner = Ts[0] ~ Joiner!(Ts[1..$]);
-  } else
-    enum Joiner = "";
-}
 template GenerateNestedCssClasses(alias name, T) {
   alias members = AliasSeq!(__traits(allMembers, T));
   alias symbols = staticMap!(ApplyLeft!(Symbol,T), members);

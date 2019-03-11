@@ -20,14 +20,18 @@ template getChildren(Parent) {
   alias getChildren = Filter!(isChild, members);
 }
 
-
-struct NamedJsHandle(string tag) {
+struct BaseNode {
   JsHandle node = invalidHandle;
   bool mounted;
   bool marked;
   alias node this;
 }
 
+struct NamedNode(string tag) {
+  BaseNode node;
+  alias node this;
+}
+
 mixin template Node(string str) {
-  mixin("NamedJsHandle!\""~str~"\" node;");
+  mixin("NamedNode!\""~str~"\" node;");
 }

@@ -890,3 +890,10 @@ template replace(string str, dchar from, dchar to) {
   } else
     enum replace = str[0] ~ replace!(str[1..$],from,to);
 }
+
+template Joiner(Ts...) {
+  static if (Ts.length > 0) {
+    enum Joiner = Ts[0] ~ Joiner!(Ts[1..$]);
+  } else
+    enum Joiner = "";
+}
