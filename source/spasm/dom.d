@@ -5,7 +5,7 @@ import spasm.dom;
 import spasm.ct;
 import std.traits : hasMember, isAggregateType;
 import std.traits : TemplateArgsOf, staticMap, isPointer, PointerTarget, getUDAs, EnumMembers, isInstanceOf, isBasicType;
-import std.meta : Filter, AliasSeq;
+import std.meta : Filter, AliasSeq, ApplyLeft, ApplyRight;
 import spasm.css;
 import spasm.node;
 import spasm.event;
@@ -128,13 +128,13 @@ template isValue(alias t) {
 }
 
 template createParameterTuple(Params...) {
-  auto createParameterTuple(Parent)(auto ref Parent p) {
+  auto createParameterTuple(Ts...)(auto ref Ts ts) {
     import std.traits : TemplateArgsOf, staticMap;
     import spasm.spa : Param;
     template extractName(Arg) {
       enum extractName = Arg.Name;
     }
-    static auto extractField(alias sym)(auto ref Parent p) {
+    static auto extractField(alias sym)(auto ref Ts ts) {
       enum name = sym.stringof;
       enum literal = isValue!(sym);
       static if (isValue!(sym)) {
@@ -145,19 +145,24 @@ template createParameterTuple(Params...) {
           __gshared static auto val = sym;
           return &val;
         }
-      } else
-        return &__traits(getMember, p, name);
+      } else {
+        alias ContainingType = AliasSeq!(__traits(parent, sym))[0];
+        template isContainingType(ContainingType, T) {
+          enum isContainingType = is(ContainingType == T);
+        }
+        enum index = indexOfPred!(ApplyLeft!(isContainingType, ContainingType), AliasSeq!Ts);
+        return &__traits(getMember, ts[index], name);
+      }
     }
-    static auto extractFields(Args...)(auto ref Parent p) if (Args.length > 0) {
-      alias sym = TemplateArgsOf!(Args[0])[1];
+    static auto extractFields(Args...)(auto ref Ts ts) if (Args.length > 0) {
       static if (Args.length > 1)
-        return tuple(extractField!(sym)(p), extractFields!(Args[1..$])(p).expand);
+        return tuple(extractField!(TemplateArgsOf!(Args[0])[1])(ts), extractFields!(Args[1..$])(ts).expand);
       else
-        return tuple(extractField!(sym)(p));
+        return tuple(extractField!(TemplateArgsOf!(Args[0])[1])(ts));
     }
     alias ParamsTuple = staticMap!(TemplateArgsOf, Params);
     alias Names = staticMap!(extractName, ParamsTuple);
-    auto Fields = extractFields!(ParamsTuple)(p);
+    auto Fields = extractFields!(ParamsTuple)(ts);
     return tuple!(Names)(Fields.expand);
   }
 }
@@ -165,27 +170,27 @@ template createParameterTuple(Params...) {
 auto setPointers(T, Ts...)(auto ref T t, auto ref Ts ts) {
   import std.meta : AliasSeq;
   import std.traits : hasUDA;
-  static foreach(i; __traits(allMembers, T)) {{
-      alias sym = AliasSeq!(__traits(getMember, t, i))[0];
-      static if (is(typeof(sym) == Prop*, Prop)) {
-        setPointerFromParent!(i)(t, ts);
-      }
-      static if (!is(sym) && isAggregateType!T) {
-        static if (is(typeof(sym) : DynamicArray!(Item), Item)) {
-          // items in appenders need to be set via render functions
-        } else {
-          static if (!isCallable!(typeof(sym)) && !isPointer!(typeof(sym))) {
-            import spasm.spa;
-            alias Params = getUDAs!(sym, Parameters);
-            static if (Params.length > 0) {
-              auto params = createParameterTuple!(Params)(t);
-            }
-            else
-              alias params = AliasSeq!();
-            static if (hasUDA!(sym, child))
-              setPointers(__traits(getMember, t, i), AliasSeq!(params, t, ts));
-            else static if (params.length > 0) {
-              setPointers(__traits(getMember, t, i), AliasSeq!(params));
+  static foreach(sym; T.tupleof) {{
+      enum i = sym.stringof;
+      enum isImmutable = is(typeof(sym) : immutable(T), T);
+      enum isPublic = __traits(getProtection, sym) == "public";
+      static if (!isImmutable && !is(typeof(sym) : NamedNode!name, string name)) {
+        static if (isPublic)
+          setParamFromParent!(i)(t, ts);
+        static if (!is(sym) && isAggregateType!T) {
+          static if (is(typeof(sym) : DynamicArray!(Item), Item)) {
+            // items in appenders need to be set via render functions
+          } else {
+            static if (!isCallable!(typeof(sym)) && !isPointer!(typeof(sym))) {
+              import spasm.spa;
+              alias Params = getUDAs!(sym, Parameters);
+              static if (Params.length > 0) {
+                auto params = createParameterTuple!(Params)(AliasSeq!(t, ts));
+              }
+              else
+                alias params = AliasSeq!();
+              static if (isAggregateType!(typeof(sym)))
+                setPointers(__traits(getMember, t, i), AliasSeq!(params, t, ts));
             }
           }
         }
@@ -243,7 +248,6 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if 
   import std.traits : isCallable, getSymbolsByUDA, isPointer;
   import std.conv : text;
   enum hasNode = hasMember!(T, "node");
-  // pragma(msg, "Create render for ", T, " under ", Ts);
   static if (hasNode)
     bool shouldRender = t.node.node == invalidHandle;
   else
@@ -251,22 +255,22 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if 
   if (shouldRender) {
     auto node = createNode(parent, t);
     alias StyleSet = getStyleSet!T;
-    static foreach(i; __traits(allMembers, T)) {{
-        alias sym = AliasSeq!(__traits(getMember, t, i))[0];
+    static foreach(sym; T.tupleof) {{
+        enum i = sym.stringof;
         alias name = getSymbolCustomName!(sym, domName!i);
         static if (!is(sym)) {
           alias styles = getStyles!(sym);
           static if (is(typeof(sym) == Prop*, Prop)) {
             if (__traits(getMember, t, i) is null) {
               // TODO: do we need to call createParameterTuple here as well as in setPointers?? 
-              setPointerFromParent!(i)(t, ts);
+              setParamFromParent!(i)(t, ts);
             }
           }
           static if (hasUDA!(sym, child)) {
             import spasm.spa;
             alias Params = getUDAs!(sym, Parameters);
             static if (Params.length > 0)
-              auto params = createParameterTuple!(Params)(t);
+              auto params = createParameterTuple!(Params)(AliasSeq!(t,ts));
             else
               alias params = AliasSeq!();
             if (isChildVisible!(i)(t)) {
@@ -279,41 +283,15 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if 
                 }
               } else {
                 // TODO: we only need to pass t to a child render function when there is a child that has an alias to one of its member
-                static if (isCallable!(typeof(sym))) {
-                  static assert(false, "we don't support @child functions");
-                  // node.render(callMember!(i)(t), AliasSeq!(t, ts));
-                } else {
-                  node.render(__traits(getMember, t, i), AliasSeq!(params, t, ts));
-                }
+                node.render(__traits(getMember, t, i), AliasSeq!(params, t, ts));
               }
             }
           } else static if (hasUDA!(sym, prop)) {
-            static if (isCallable!(sym)) {
-              auto result = callMember!(i)(t);
-              node.setPropertyTyped!name(result);
-            } else {
-              node.setPropertyTyped!name(__traits(getMember, t, i));
-            }
-          } else static if (hasUDA!(sym, callback)) {
-            node.addEventListenerTyped!i(t);
+            node.setPropertyTyped!name(__traits(getMember, t, i));
           } else static if (hasUDA!(sym, attr)) {
-            static if (isCallable!(sym)) {
-              auto result = callMember!(i)(t);
-              node.setAttributeTyped!name(result);
-            } else {
-              node.setAttributeTyped!name(__traits(getMember, t, i));
-            }
-          } else static if (hasUDA!(sym, connect)) {
-            alias connects = getUDAs!(sym, connect);
-            static foreach(c; connects) {
-              auto del = &__traits(getMember, t, i);
-              static if (is(c: connect!(a,b), alias a, alias b)) {
-                mixin("t."~a~"."~replace!(b,'.','_')~".add(del);");
-              } else static if (is(c : connect!field, alias field)) {
-                mixin("t."~field~".add(del);");
-              }
-            }
+            node.setAttributeTyped!name(__traits(getMember, t, i));
           }
+
           alias extendedStyles = getStyleSets!(sym);
           static foreach(style; extendedStyles) {
             static assert(hasMember!(typeof(sym), "node"), "styleset on field is currently only possible when said field has a Node mixin");
@@ -336,6 +314,34 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if 
           }
         }
       }}
+    static foreach(i; __traits(allMembers, T)) {{
+        alias sym = __traits(getMember, T, i);
+        static if (!is(sym) && isCallable!(sym)) {
+          alias name = getSymbolCustomName!(sym, domName!i);
+          // alias sym = getMember!(T, i);
+          static if (hasUDA!(sym, child))
+            static assert(false, "we don't support @child functions");
+          else static if (hasUDA!(sym, prop)) {
+            auto result = callMember!(i)(t);
+            node.setPropertyTyped!name(result);
+          } else static if (hasUDA!(sym, callback)) {
+            node.addEventListenerTyped!i(t);
+          } else static if (hasUDA!(sym, attr)) {
+            auto result = callMember!(i)(t);
+            node.setAttributeTyped!name(result);
+          } else static if (hasUDA!(sym, connect)) {
+            alias connects = getUDAs!(sym, connect);
+            static foreach(c; connects) {
+              auto del = &__traits(getMember, t, i);
+              static if (is(c: connect!(a,b), alias a, alias b)) {
+                mixin("t."~a~"."~replace!(b,'.','_')~".add(del);");
+              } else static if (is(c : connect!field, alias field)) {
+                mixin("t."~field~".add(del);");
+              }
+            }
+          }
+        }
+      }}
     static if (hasMember!(T, "node")) {
       t.node.node = node;
     }
@@ -346,25 +352,23 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if 
         static foreach(s; ApplyStyles) {
           static if (is(s == ApplyStyle!Target, alias Target)) {
             alias EnumType = typeof(member);
-            final switch (__traits(getMember, t, __traits(identifier, member))) {
-              foreach(item; __traits(allMembers, EnumType)) {
-              case __traits(getMember, EnumType, item):
-                alias styleUdas = getEnumUDAs!(EnumType, item, style);
-                alias styles = staticMap!(extractStyleStruct, styleUdas);
-                static if (__traits(identifier, Target) == "node") {
-                  t.node.applyStyles!(T, styles);
-                } else static if (hasUDA!(Target, child)) {
-                  __traits(getMember, t, __traits(identifier, Target)).node.applyStyles!(T,styles);
-                } else
-                  static assert(false, "Can only have ApplyStyle point to node or to a child component");
-                break;
-              }
-            }
+            alias GetUDAs = ApplyRight!(ApplyLeft!(getEnumUDAs, EnumType), style);
+            alias table = staticMap!(GetUDAs, __traits(allMembers, EnumType));
+            alias GetCssClass = ApplyLeft!(GetCssClassName, T);
+            alias classes = staticMap!(GetCssClass, staticMap!(extractStyleStruct, table));
+            enum string[classes.length] styleTable = [classes];
+            size_t idx = __traits(getMember, t, __traits(identifier, member));
+            static if (__traits(identifier, Target) == "node") {
+              node.addClass(styleTable[idx]);
+            } else static if (hasUDA!(Target, child)) {
+              __traits(getMember, t, __traits(identifier, Target)).node.addClass(styleTable[idx]);
+            } else
+              static assert(false, "Can only have ApplyStyle point to node or to a child component");
           }
         }
       }}
   }
-}
+ }
 
 template getSymbolCustomName(alias symbol, string defaultName) {
   alias names = getStringUDAs!(symbol);
@@ -571,10 +575,14 @@ template symbolFromAliasThis(Parent, string name) {
   }
 }
 
-void setPointerFromParent(string name, T, Ts...)(ref T t, auto ref Ts ts) {
-  import std.traits : PointerTarget;
+void setParamFromParent(string name, T, Ts...)(ref T t, auto ref Ts ts) {
+  import std.traits : PointerTarget, isPointer;
   import std.meta : AliasSeq;
-  alias FieldType = PointerTarget!(typeof(getMember!(T, name)));
+  alias TargetType = typeof(getMember!(T, name));
+  static if (isPointer!(TargetType))
+    alias FieldType = PointerTarget!(TargetType);
+  else
+    alias FieldType = TargetType;
   template matchesField(Parent) {
     static if (!hasMember!(Parent,name))
       enum matchesField = false;
@@ -591,11 +599,18 @@ void setPointerFromParent(string name, T, Ts...)(ref T t, auto ref Ts ts) {
   enum index = indexOfPred!(matchesField, AliasSeq!Ts);
   static if (index >= ts.length) {
     return;
-  }
-  else static if (is(typeof(__traits(getMember, ts[index], name)) == FieldType*)) {
-    __traits(getMember, t, name) = __traits(getMember, ts[index], name);
   } else {
-    __traits(getMember, t, name) = &__traits(getMember, ts[index], name);
+    alias SourceType = typeof(__traits(getMember, Ts[index], name));
+    static if(isPointer!TargetType) {
+      static if (isPointer!SourceType)
+        __traits(getMember, t, name) = __traits(getMember, ts[index], name);
+      else
+        __traits(getMember, t, name) = &__traits(getMember, ts[index], name);
+    } else static if (index > 0) {
+    } else static if (isPointer!SourceType)
+      __traits(getMember, t, name) = *__traits(getMember, ts[index], name);
+    else
+      __traits(getMember, t, name) = __traits(getMember, ts[index], name);
   }
 }
 
@@ -638,7 +653,7 @@ auto applyStyles(T, styles...)(JsHandle node) {
 
 JsHandle createNode(T)(JsHandle parent, ref T t) {
   enum hasNode = hasMember!(T, "node");
-  static if (hasNode && is(typeof(t.node) : NamedJsHandle!tag, alias tag)) {
+  static if (hasNode && is(typeof(t.node) : NamedNode!tag, alias tag)) {
     mixin("NodeType n = NodeType." ~ tag ~ ";");
     return JsHandle(createElement(n));
   } else

@@ -2,7 +2,7 @@
 	"fileVersion": 1,
 	"versions": {
 		"bolts": "0.11.1",
-		"optional": "0.10.0",
+		"optional": "0.10.1",
 		"silly": "0.8.0",
 		"spasm": {"path":"../.."},
 		"stdx-allocator": "2.77.3"
