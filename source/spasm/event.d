@@ -176,6 +176,7 @@ auto emit(EventEmitter emitter, size_t addr) {
 
 extern(C)
 export
+@assumeUsed
 void domEvent(JsHandle node, uint ctx, uint fun, EventType type) {
   // NOTE: since all the Event structs (MouseEvent, KeyboardEvent)
   // are all just empty structs with only static functions,

@@ -3,6 +3,7 @@ module spasm.types;
 public import optional;
 public import spasm.sumtype;
 import std.traits : hasMember, isCallable, isBasicType;
+import ldc.attributes;
 
 pragma(LDC_no_moduleinfo);
 pragma(LDC_no_typeinfo);
@@ -36,11 +37,12 @@ extern (C) {
   byte spasm_get__byte(Handle);
   ubyte spasm_get__ubyte(Handle);
   string spasm_get__string(Handle);
-  export ubyte* allocString(uint bytes) {
-    import spasm.rt.memory;
-    void[] raw = allocator.allocate(bytes);
-    return cast(ubyte*)raw.ptr;
-  }
+}
+
+extern(C) export @assumeUsed ubyte* allocString(uint bytes) {
+  import spasm.rt.memory;
+  void[] raw = allocator.allocate(bytes);
+  return cast(ubyte*)raw.ptr;
 }
 
 alias Handle = uint;

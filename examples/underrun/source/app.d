@@ -51,6 +51,7 @@ struct Canvas {
 
 extern(C)
 export
+@assumeUsed
 void jsCallback0(uint ctx, uint fun) {
   static struct Handler {
     union {
@@ -69,6 +70,7 @@ void jsCallback0(uint ctx, uint fun) {
 
 extern(C)
 export
+@assumeUsed
 void jsCallback(uint ctx, uint fun, uint arg) {
   static struct Handler {
     union {

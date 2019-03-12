@@ -1,6 +1,3 @@
-pragma(LDC_no_moduleinfo);
-pragma(LDC_no_typeinfo);
-
 import ldc.attributes;
 
 import spasm.types;
@@ -13,12 +10,6 @@ enum FilterStyle {
   All,
   Active,
   Completed
-}
-
-extern(C) export ubyte* allocString(uint bytes) {
-  import spasm.rt.memory;
-  void[] raw = allocator.allocate(bytes);
-  return cast(ubyte*)raw.ptr;
 }
 
 struct App {
