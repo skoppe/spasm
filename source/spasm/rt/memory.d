@@ -192,14 +192,14 @@ size_t _d_arraycast_len(size_t len, size_t elemsz, size_t newelemsz) {
 }
 
 // slice copy when assertions are enabled
-void _d_array_slice_copy(void* dst, size_t dstlen, void* src, size_t srclen)
+void _d_array_slice_copy(void* dst, size_t dstlen, void* src, size_t srclen, size_t elemsz)
 {
     if (dstlen != 0) assert(dst);
     if (dstlen != 0) assert(src);
     if (dstlen != srclen)
       assert(0);
-    else if (dst+dstlen <= src || src+srclen <= dst)
-        llvm_memcpy!size_t(dst, src, dstlen, 0);
+    else if (dst+dstlen*elemsz <= src || src+srclen*elemsz <= dst)
+        llvm_memcpy!size_t(dst, src, dstlen * elemsz, 0);
     else
       assert(0);
 }
