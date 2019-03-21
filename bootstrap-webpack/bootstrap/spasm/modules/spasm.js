@@ -29,11 +29,22 @@ const spasm = {
     instance: null,
     init: (modules) => {
         let exports = {env: Object.assign.apply(null,modules.map(m=>m.jsExports).filter(a=>!!a))};
-        WebAssembly.instantiateStreaming(fetch('@@targetProjectName@@'), exports)
-            .then(obj => {
-                spasm.instance = obj.instance;
-                obj.instance.exports._start();
-            });
+        if ('undefined' === typeof WebAssembly.instantiateStreaming) {
+            fetch('@@targetProjectName@@')
+                .then(request => request.arrayBuffer())
+                .then(bytes => WebAssembly.compile(bytes))
+                .then(module => {
+                    let instance = new WebAssembly.Instance(module, exports);
+                    spasm.instance = instance
+                    instance.exports._start();
+                });
+        } else {
+            WebAssembly.instantiateStreaming(fetch('@@targetProjectName@@'), exports)
+                .then(obj => {
+                    spasm.instance = obj.instance;
+                    obj.instance.exports._start();
+                });
+        }
     },
     objects,
     addObject: addObject,
