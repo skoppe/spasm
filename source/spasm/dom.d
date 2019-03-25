@@ -440,7 +440,7 @@ template updateChildren(string field) {
         static foreach(p; matchingParam) {
           __traits(getMember, parent, c.stringof).update!(__traits(getMember, __traits(getMember, parent, c.stringof), p.Name));
         }
-      } else static if (hasMember!(ChildType, field) && isPointer!ChildType) {
+      } else static if (hasMember!(ChildType, field)) {
         __traits(getMember, parent, c.stringof).update!(__traits(getMember, __traits(getMember, parent, c.stringof), field));
       } else
         .updateChildren!(field)(__traits(getMember, parent, c.stringof));
