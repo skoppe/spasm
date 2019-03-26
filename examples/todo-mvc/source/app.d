@@ -43,6 +43,7 @@ struct App {
     import spasm.rt.memory;
     Item* item = allocator.make!Item;
     item.innerText = header.field.value;
+    (*item).setPointers();
     header.field.update.value = "";
     main.items.put(item);
     updateItems();

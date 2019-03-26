@@ -47,7 +47,7 @@ mixin template ArrayItemEvents(T) {
   }
 }
 
-auto assignEventListeners(T)(ref Array!T arr, ref T item) {
+void assignEventListeners(T)(ref Array!T arr, ref T item) {
   alias eventPaths = extractEventPaths!(T);
   static foreach(path; eventPaths) {
     mixin("item." ~ join!(".", path.expand) ~ ".add(&arr.__" ~ join!("_", path.expand) ~ ");");

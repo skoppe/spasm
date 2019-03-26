@@ -260,30 +260,30 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if 
         alias name = getSymbolCustomName!(sym, domName!i);
         static if (!is(sym)) {
           alias styles = getStyles!(sym);
-          static if (is(typeof(sym) == Prop*, Prop)) {
-            if (__traits(getMember, t, i) is null) {
-              // TODO: do we need to call createParameterTuple here as well as in setPointers?? 
-              setParamFromParent!(i)(t, ts);
-            }
-          }
+          // static if (is(typeof(sym) == Prop*, Prop)) {
+          //   if (__traits(getMember, t, i) is null) {
+          //     // TODO: do we need to call createParameterTuple here as well as in setPointers?? 
+          //     setParamFromParent!(i)(t, ts);
+          //   }
+          // }
           static if (hasUDA!(sym, child)) {
             import spasm.spa;
             alias Params = getUDAs!(sym, Parameters);
-            static if (Params.length > 0)
-              auto params = createParameterTuple!(Params)(AliasSeq!(t,ts));
-            else
+            // static if (Params.length > 0)
+            //   auto params = createParameterTuple!(Params)(AliasSeq!(t,ts));
+            // else
               alias params = AliasSeq!();
             if (isChildVisible!(i)(t)) {
               static if (is(typeof(sym) : DynamicArray!(Item*), Item)) {
                 foreach(ref item; __traits(getMember, t, i)) {
                   // TODO: we only need to pass t to a child render function when there is a child that has an alias to one of its member
-                  node.render(*item, AliasSeq!(params, t, ts));
+                  node.render(*item, AliasSeq!(params));//, t, ts));
                   static if (is(typeof(t) == Array!Item))
                     t.assignEventListeners(*item);
                 }
               } else {
                 // TODO: we only need to pass t to a child render function when there is a child that has an alias to one of its member
-                node.render(__traits(getMember, t, i), AliasSeq!(params, t, ts));
+                node.render(__traits(getMember, t, i), AliasSeq!(params));//, t, ts));
               }
             }
           } else static if (hasUDA!(sym, prop)) {
@@ -425,7 +425,7 @@ template updateChildren(string field) {
   template isParamField(Param) {
     enum isParamField = TemplateArgsOf!(Param)[1].stringof == field;
   }
-  static auto updateChildren(Parent)(auto ref Parent parent) {
+  static void updateChildren(Parent)(auto ref Parent parent) {
     // we are updating field in parent
     // all children that have a pointer with the exact same name
     // should get an update
@@ -454,7 +454,7 @@ template updateChildren(string field) {
 
 auto update(T)(ref T node) if (hasMember!(T, "node")){
   struct Inner {
-    auto opDispatch(string name, T)(auto ref T t) const {
+    void opDispatch(string name, T)(auto ref T t) const {
       mixin("node.update!(node." ~ name ~ ")(t);");
     }
   }
@@ -470,7 +470,7 @@ void update(Range, Sink)(auto ref Range source, ref Sink sink) {
     output.put(i);
 }
 
-auto setVisible(string field, Parent)(auto ref Parent parent, bool visible) {
+void setVisible(string field, Parent)(auto ref Parent parent, bool visible) {
   bool current = __traits(getMember, parent, field).node.mounted;
   if (current != visible) {
     if (visible) {
@@ -483,7 +483,7 @@ auto setVisible(string field, Parent)(auto ref Parent parent, bool visible) {
 
 template update(alias field) {
   import std.traits : isPointer;
-  static auto updateDom(Parent, T)(auto ref Parent parent, auto ref T t) {
+  static void updateDom(Parent, T)(auto ref Parent parent, auto ref T t) {
     import spasm.ct : ParameterIdentifierTuple;
     import std.traits : hasUDA, isCallable, getUDAs;
     import std.meta : AliasSeq;
@@ -549,13 +549,13 @@ template update(alias field) {
       }}
     updateChildren!(field.stringof)(parent);
   }
-  static auto update(Parent)(auto ref Parent parent) {
+  static void update(Parent)(auto ref Parent parent) {
     static if (isPointer!Parent)
       updateDom(*parent, __traits(getMember, parent, field.stringof));
     else
       updateDom(parent, __traits(getMember, parent, field.stringof));
   }
-  static auto update(Parent, T)(auto ref Parent parent, T t) {
+  static void update(Parent, T)(auto ref Parent parent, T t) {
     mixin("parent."~field.stringof~" = t;");
     static if (isPointer!Parent)
       updateDom(*parent, t);
