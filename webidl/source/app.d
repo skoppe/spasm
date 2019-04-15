@@ -121,7 +121,7 @@ IR readDefinitions(string path) {
       auto input = readText(entry.name);
       auto document = WebIDL(input);
       if (!document.successful) {
-        writeln("Failed to parse input. Are you sure it is valid WebIDL?");
+        writeln("Failed to parse input. Are you sure it is valid WebIDL? Details:\n", document.failMsg);
         continue;
       }
       semantics.analyse(entry.name.baseName.stripExtension,document);
@@ -130,7 +130,7 @@ IR readDefinitions(string path) {
     auto input = readText(path);
     auto document = WebIDL(input);
     if (!document.successful) {
-      throw new Error("Failed to parse input. Are you sure it is valid WebIDL?");
+      throw new Error("Failed to parse input. Are you sure it is valid WebIDL? Details:\n" ~ document.failMsg);
     }
     semantics.analyse(path.baseName.stripExtension,document);
   }
