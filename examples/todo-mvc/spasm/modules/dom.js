@@ -64,7 +64,6 @@ const exp = {
         removeChild: function(childPtr) {
             var child = nodes[childPtr];
             child.parentNode.removeChild(child);
-            // TODO: we can reuse the child node (it is cheaper than recreating a new one...)
         },
         getRoot: function() {
             return addPtr(document.querySelector("#root"));
