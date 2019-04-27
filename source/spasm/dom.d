@@ -337,6 +337,8 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if 
                 mixin("t."~a~"."~replace!(b,'.','_')~".add(del);");
               } else static if (is(c : connect!field, alias field)) {
                 mixin("t."~field~".add(del);");
+              } else static if (is(c : connect!field, string field)) {
+                mixin("t."~field~".add(del);");
               }
             }
           }
@@ -421,7 +423,9 @@ template getAnnotatedParameters(alias symbol) {
   alias getAnnotatedParameters = staticMap!(TemplateArgsOf, Params);
 }
 
-template updateChildren(string field) {
+template updateChildren(alias member) {
+  enum field = __traits(identifier, member);
+  alias Source = __traits(parent, member);
   template isParamField(Param) {
     enum isParamField = TemplateArgsOf!(Param)[1].stringof == field;
   }
@@ -436,18 +440,26 @@ template updateChildren(string field) {
     alias getSymbol = ApplyLeft!(getMember, parent);
     alias childrenNames = getChildren!Parent;
     alias children = staticMap!(getSymbol,childrenNames);
+    static if (isPointer!(Parent))
+      alias ParentType = PointerTarget!(Parent);
+    else
+      alias ParentType = Parent;
+    static foreach(t; ParentType.tupleof) {
+      static foreach(param; getAnnotatedParameters!(t)) {{
+          static if (!isValue!(TemplateArgsOf!(param)[1])) {
+            alias target = TemplateArgsOf!(param)[1];
+            static if (__traits(isSame, target, member)) {
+              __traits(getMember, parent, __traits(identifier, t)).update!(__traits(getMember, __traits(getMember, parent, __traits(identifier, t)), param.Name));
+            }
+          }
+        }}
+    }
     static foreach(c; children) {{
-      alias ChildType = typeof(c);
-      alias Params = getAnnotatedParameters!c;
-      alias matchingParam = Filter!(isParamField, Params);
-      static if (matchingParam.length > 0) {
-        static foreach(p; matchingParam) {
-          __traits(getMember, parent, c.stringof).update!(__traits(getMember, __traits(getMember, parent, c.stringof), p.Name));
-        }
-      } else static if (hasMember!(ChildType, field)) {
-        __traits(getMember, parent, c.stringof).update!(__traits(getMember, __traits(getMember, parent, c.stringof), field));
-      } else
-        .updateChildren!(field)(__traits(getMember, parent, c.stringof));
+        alias ChildType = typeof(c);
+        static if (hasMember!(ChildType, field)) {
+          __traits(getMember, parent, c.stringof).update!(__traits(getMember, __traits(getMember, parent, c.stringof), field));
+        } else
+          .updateChildren!(member)(__traits(getMember, parent, c.stringof));
       }}
   }
 }
@@ -547,7 +559,7 @@ template update(alias field) {
           }
         }
       }}
-    updateChildren!(field.stringof)(parent);
+    updateChildren!(field)(parent);
   }
   static void update(Parent)(auto ref Parent parent) {
     static if (isPointer!Parent)

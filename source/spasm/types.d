@@ -165,6 +165,7 @@ enum NodeType {
   wbr = 107
 }
 
+// deprecated("Use spasm.types.Child instead") enum child;
 enum child;
 enum prop;
 enum callback;
