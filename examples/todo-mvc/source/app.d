@@ -42,7 +42,7 @@ struct App {
   @connect!"header.field.enter" void enter() {
     import spasm.rt.memory;
     Item* item = allocator.make!Item;
-    item.innerText = header.field.value;
+    item.textContent = header.field.value;
     (*item).setPointers();
     header.field.update.value = "";
     main.items.put(item);
@@ -81,7 +81,7 @@ struct Header {
 
 struct Title {
   mixin Node!"h1";
-  @prop auto innerText = "todos";
+  @prop auto textContent = "todos";
 }
 
 struct ToggleAll {
@@ -137,22 +137,23 @@ struct Footer {
   struct Span {
     @style!"todo-count" mixin Node!"span";
     int* count;
+    // TODO: need to refactor to use textContent
     @prop string innerHTML(int* count) {
       return text("<strong>", *count, "</strong> ", *count > 1 ? "items" : "item", " left");
     }
   }
   struct Filters {
     @style!"filters" mixin Node!"ul";
-    @(param.innerText!"All") @child Option all = {option: FilterStyle.All};
-    @(param.innerText!"Active") @child Option active = {option: FilterStyle.Active};
-    @(param.innerText!"Completed") @child Option completed = {option: FilterStyle.Completed};
+    @(param.textContent!"All") @child Option all = {option: FilterStyle.All};
+    @(param.textContent!"Active") @child Option active = {option: FilterStyle.Active};
+    @(param.textContent!"Completed") @child Option completed = {option: FilterStyle.Completed};
   }
   struct Option {
     struct Link {
       mixin Node!"a";
       mixin Slot!"click";
       @attr string href = "#";
-      @prop string* innerText;
+      @prop string* textContent;
       FilterStyle* filter;
       FilterStyle* option;
       @style!"selected" bool selected(FilterStyle* filter, FilterStyle* option) {
@@ -169,7 +170,7 @@ struct Footer {
   struct Button {
     @style!"clear-completed" mixin Node!"button";
     mixin Slot!"click";
-    @prop innerText = "Clear Completed";
+    @prop textContent = "Clear Completed";
     @callback void onClick(MouseEvent event) {
       this.emit(click);
     }
@@ -206,15 +207,15 @@ struct Item {
   @style!"editing" bool editing;
   @child View view;
   @child InlineInput editField;
-  string innerText;
+  string textContent;
   @connect!"view.label.click" void onEdit() {
     this.update.editing = true;
-    editField.update.value = innerText;
+    editField.update.value = textContent;
     editField.focus();
   }
   @connect!"editField.enter" void onSubmit() {
     this.update.editing = false;
-    this.update.innerText = editField.value;
+    this.update.textContent = editField.value;
   }
   @connect!"editField.esc" void onEsc() {
     this.update.editing = false;
@@ -259,7 +260,7 @@ struct Button {
 struct ClickableLabel {
   mixin Slot!"click";
   mixin Node!"label";
-  @prop string* innerText;
+  @prop string* textContent;
   @callback void onDblClick(MouseEvent event) {
     this.emit(click);
   }
@@ -267,7 +268,7 @@ struct ClickableLabel {
 
 struct Label {
   mixin Node!"label";
-  @prop string* innerText;
+  @prop string* textContent;
 }
 
 struct Checkbox {
