@@ -13,30 +13,132 @@ import std.meta : staticIndexOf;
 import spasm.array;
 import spasm.rt.array;
 
-private extern(C) {
-  Handle createElement(NodeType type);
-  void addClass(Handle node, string className);
-  void setProperty(Handle node, string prop, string value);
-  void removeChild(Handle childPtr);
-  void unmount(Handle childPtr);
-  void appendChild(Handle parentPtr, Handle childPtr);
-  void insertBefore(Handle parentPtr, Handle childPtr, Handle sibling);
-  void setAttribute(Handle nodePtr, string attr, string value);
-  void setAttributeInt(Handle nodePtr, string attr, int value);
-  void setPropertyBool(Handle nodePtr, string attr, bool value);
-  void setPropertyInt(Handle nodePtr, string attr, int value);
-  void innerText(Handle nodePtr, string text);
-  void removeClass(Handle node, string className);
-  void changeClass(Handle node, string className, bool on);
-}
+version (unittest) {
+  import spasm.sumtype;
+  import std.array : Appender;
+  class UnittestDomNode {
+    alias Property = SumType!(string,int,bool);
+    alias Attribute = SumType!(string,int);
+    NodeType type;
+    Property[string] properties;
+    Attribute[string] attributes;
+    string[] classes;
+    Appender!(UnittestDomNode[]) children;
+    this(NodeType type, Handle handle) { this.type = type; }
+    void setAttribute(T)(string name, T value) {
+      attributes[name] = Attribute(value);
+    }
+    Attribute getAttribute(string name) {
+      return attributes[name];
+    }
+    void setProperty(T)(string name, T value) {
+      properties[name] = Property(value);
+    }
+    Property getProperty(string name) {
+      return properties[name];
+    }
+    void toString(scope void delegate(const(char)[]) sink) {
+      import std.algorithm : each;
+      import std.format : formattedWrite;
+      import std.array : join;
+      if (type != NodeType.root) {
+        sink.formattedWrite("<%s", type);
+        // write attributes and properties
+        if (classes.length > 0) {
+          sink.formattedWrite(" class=\"%s\"", classes.join(" "));
+        }
+        sink(">");
+      }
+      children.data.each!(c => c.toString(sink));
+      // write children
+      if (type != NodeType.root)
+        sink.formattedWrite("</%s>", type);
+    }
+  }
+  Appender!(UnittestDomNode[]) unittest_dom_nodes;
+  private auto getNode(Handle node) {
+    assert(node > 0);
+    return unittest_dom_nodes.data[node - 1];
+  }
+  extern(C) {
+    Handle createElement(NodeType type) {
+      uint idx = cast(uint)unittest_dom_nodes.data.length;
+      unittest_dom_nodes.put(new UnittestDomNode(type, idx + 1));
+      return idx + 1;
+    }
+    void addClass(Handle node, string className) {
+      node.getNode().classes ~= className;
+    }
+    void setProperty(Handle node, string prop, string value) {
+    }
+    void removeChild(Handle childPtr) {
+    }
+    void unmount(Handle childPtr) {
+    }
+    void appendChild(Handle parentPtr, Handle childPtr) {
+      parentPtr.getNode().children.put(childPtr.getNode());
+    }
+    void insertBefore(Handle parentPtr, Handle childPtr, Handle sibling) {
+    }
+    void setAttribute(Handle nodePtr, string attr, string value) {
+    }
+    void setAttributeInt(Handle nodePtr, string attr, int value) {
+    }
+    void setPropertyBool(Handle nodePtr, string attr, bool value) {
+    }
+    void setPropertyInt(Handle nodePtr, string attr, int value) {
+    }
+    void innerText(Handle nodePtr, string text) {
+    }
+    void removeClass(Handle node, string className) {
+      import std.algorithm : remove;
+      auto n = node.getNode();
+      n.classes = n.classes.remove!(i => i==className);
+    }
+    void changeClass(Handle node, string className, bool on) {
+    }
+    string getProperty(Handle node, string prop) {
+      return node.getNode().getProperty(prop).trustedGet!string;
+    }
+    int getPropertyInt(Handle node, string prop) {
+      return node.getNode().getProperty(prop).trustedGet!int;
+    }
+    bool getPropertyBool(Handle node, string prop) {
+      return node.getNode().getProperty(prop).trustedGet!bool;
+    }
+    void focus(Handle node) {
+    }
+    void setSelectionRange(Handle node, uint start, uint end) {
+    }
+    void addCss(string css) {
+    }
+  }
+} else {
+  private extern(C) {
+    Handle createElement(NodeType type);
+    void addClass(Handle node, string className);
+    void setProperty(Handle node, string prop, string value);
+    void removeChild(Handle childPtr);
+    void unmount(Handle childPtr);
+    void appendChild(Handle parentPtr, Handle childPtr);
+    void insertBefore(Handle parentPtr, Handle childPtr, Handle sibling);
+    void setAttribute(Handle nodePtr, string attr, string value);
+    void setAttributeInt(Handle nodePtr, string attr, int value);
+    void setPropertyBool(Handle nodePtr, string attr, bool value);
+    void setPropertyInt(Handle nodePtr, string attr, int value);
+    void innerText(Handle nodePtr, string text);
+    void removeClass(Handle node, string className);
+    void changeClass(Handle node, string className, bool on);
+  }
 
-extern(C) {
-  string getProperty(Handle node, string prop);
-  int getPropertyInt(Handle node, string prop);
-  bool getPropertyBool(Handle node, string prop);
-  void focus(Handle node);
-  void setSelectionRange(Handle node, uint start, uint end);
-  void addCss(string css);
+  extern(C) {
+    string getProperty(Handle node, string prop);
+    int getPropertyInt(Handle node, string prop);
+    bool getPropertyBool(Handle node, string prop);
+    void focus(Handle node);
+    void setSelectionRange(Handle node, uint start, uint end);
+    void addCss(string css);
+  }
 }
 
 import spasm.bindings.dom : Document;

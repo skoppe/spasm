@@ -3,10 +3,19 @@ description "A framework for writing single page applications"
 authors "Sebastiaan Koppe"
 copyright "Copyright © 2018, Sebastiaan Koppe"
 license "MIT"
-dflags "-mtriple=wasm32-unknown-unknown-wasm" "-betterC"
-lflags "-allow-undefined" "-import-memory" "--export-table" "--export=domEvent" "--export=allocString"
 dependency "stdx-allocator" version="2.77.3"
 dependency "optional" version="~>0.10.0"
 #target "library"
 subPackage "bootstrap-webpack"
 subPackage "webidl"
+configuration "library" {
+              dflags "-mtriple=wasm32-unknown-unknown-wasm" "-betterC"
+              lflags "-allow-undefined" "-import-memory" "--export-table" "--export=domEvent" "--export=allocString"
+}
+configuration "unittest" {
+              dependency "unit-threaded" version="*"
+              mainSourceFile "bin/ut.d"
+              sourcePaths "bin" "source" "tests"
+              importPaths "source" "tests"
+              preBuildCommands "dub run unit-threaded -c gen_ut_main -- -f bin/ut.d"
+}

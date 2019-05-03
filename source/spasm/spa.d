@@ -1,8 +1,5 @@
 module spasm.spa;
 
-pragma(LDC_no_moduleinfo);
-pragma(LDC_no_typeinfo);
-
 import ldc.attributes;
 public import spasm.types;
 public import spasm.dom;
@@ -27,7 +24,7 @@ void addApplicationCss(Application, Theme)() {
 }
 
 mixin template Spa(Application) {
-  struct Empty{};
+  struct Empty{}
   mixin Spa!(Application,Empty);
 }
 mixin template Spa(Application, Theme) {

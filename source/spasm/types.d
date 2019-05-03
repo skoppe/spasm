@@ -5,9 +5,6 @@ public import spasm.sumtype;
 import std.traits : hasMember, isCallable, isBasicType;
 import ldc.attributes;
 
-pragma(LDC_no_moduleinfo);
-pragma(LDC_no_typeinfo);
-
 extern (C) {
   void doLog(uint val);
   Handle spasm_add__bool(bool);
@@ -162,7 +159,8 @@ enum NodeType {
   ul = 104,
   var = 105,
   video = 106,
-  wbr = 107
+  wbr = 107,
+  root = 1024 // Special element used in unittests
 }
 
 // deprecated("Use spasm.types.Child instead") enum child;

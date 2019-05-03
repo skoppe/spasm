@@ -1,6 +1,5 @@
 module spasm.css;
 
-pragma(LDC_no_moduleinfo);
 import std.meta : staticMap, ApplyRight, AliasSeq, NoDuplicates, ApplyLeft, Filter;
 import std.traits : getSymbolsByUDA, hasUDA, hasMember, getUDAs, Fields, FieldNameTuple, PointerTarget, isPointer, isType, isAggregateType;
 import spasm.ct;
@@ -243,12 +242,13 @@ template toCssNameInsensitive(string s) {
 }
 
 unittest {
-  enum i = "{backgroundColor:gray2}".toCssName();
-  enum g = "{display:inline}".toCssName();
-  enum h = "{backgroundColor:gray}".toCssName();
-  assert(i == "SRg1YFppZw");
-  assert(g == "ZyMAHRwFDw");
-  assert(h == "BmU1YFppZw");
+  import unit_threaded;
+  enum i = toCssName!"{backgroundColor:gray2}";
+  enum g = toCssName!"{display:inline}";
+  enum h = toCssName!"{backgroundColor:gray}";
+  i.should == "BEAASdIQD";
+  g.should == "HTzNaHeAA";
+  h.should == "BEAACC1QD";
 }
 
 template GenerateCssClassName(string content) {

@@ -1,8 +1,5 @@
 module spasm.ct;
 
-pragma(LDC_no_moduleinfo);
-pragma(LDC_no_typeinfo);
-
 import std.traits : isPointer, isSomeString, isType;
 import std.meta : Filter, AliasSeq;
 

@@ -1,8 +1,5 @@
 module spasm.node;
 
-pragma(LDC_no_moduleinfo);
-pragma(LDC_no_typeinfo);
-
 import spasm.types;
 
 template getChildren(Parent) {

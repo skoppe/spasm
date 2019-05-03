@@ -1,8 +1,5 @@
 module spasm.array;
 
-pragma(LDC_no_moduleinfo);
-pragma(LDC_no_typeinfo);
-
 import spasm.event;
 import spasm.node;
 import spasm.ct;

@@ -1,7 +1,6 @@
 ///
 module spasm.rt.allocator;
-pragma(LDC_no_moduleinfo);
-pragma(LDC_no_typeinfo);
+
 import stdx.allocator.building_blocks.null_allocator : NullAllocator;
 
 

@@ -8,7 +8,12 @@ License: MIT
 Authors: Paul Backus, Atila Neves
 +/
 module spasm.sumtype;
-
+// struct SumType(Ts...) {
+//   auto trustedGet(T)() {
+//     return T.init;
+//   }
+// }
+///+
 /// $(H3 Basic usage)
 @safe unittest {
     import std.math: approxEqual;
@@ -80,110 +85,6 @@ module spasm.sumtype;
     assert(length(v).approxEqual(1));
     assert(horiz(u).approxEqual(1));
     assert(horiz(v).approxEqual(sqrt(0.5)));
-}
-
-/** $(H3 Arithmetic expression evaluator)
- *
- * This example makes use of the special placeholder type `This` to define a
- * [https://en.wikipedia.org/wiki/Recursive_data_type|recursive data type]: an
- * [https://en.wikipedia.org/wiki/Abstract_syntax_tree|abstract syntax tree] for
- * representing simple arithmetic expressions.
- */
-@safe unittest {
-    import std.functional: partial;
-    import std.traits: EnumMembers;
-    import std.typecons: Tuple;
-
-    enum Op : string
-    {
-        Plus  = "+",
-        Minus = "-",
-        Times = "*",
-        Div   = "/"
-    }
-
-    // An expression is either
-    //  - a number,
-    //  - a variable, or
-    //  - a binary operation combining two sub-expressions.
-    alias Expr = SumType!(
-        double,
-        string,
-        Tuple!(Op, "op", This*, "lhs", This*, "rhs")
-    );
-
-    // Shorthand for the Tuple type above
-    alias BinOp = Expr.Types[2];
-
-    // Factory function for number expressions
-    pure @safe
-    Expr* num(double value)
-    {
-        return new Expr(value);
-    }
-
-    // Factory function for variable expressions
-    pure @safe
-    Expr* var(string name)
-    {
-        return new Expr(name);
-    }
-
-    // Factory function for binary operation expressions
-    pure @safe
-    Expr* binOp(Op op, Expr* lhs, Expr* rhs)
-    {
-        return new Expr(BinOp(op, lhs, rhs));
-    }
-
-    // Convenience wrappers for creating BinOp expressions
-    alias sum  = partial!(binOp, Op.Plus);
-    alias diff = partial!(binOp, Op.Minus);
-    alias prod = partial!(binOp, Op.Times);
-    alias quot = partial!(binOp, Op.Div);
-
-    // Evaluate expr, looking up variables in env
-    pure @safe nothrow
-    double eval(Expr expr, double[string] env)
-    {
-        return expr.match!(
-            (double num) => num,
-            (string var) => env[var],
-            (BinOp bop) {
-                double lhs = eval(*bop.lhs, env);
-                double rhs = eval(*bop.rhs, env);
-                final switch(bop.op) {
-                    static foreach(op; EnumMembers!Op) {
-                        case op:
-                            return mixin("lhs" ~ op ~ "rhs");
-                    }
-                }
-            }
-        );
-    }
-
-    // Return a "pretty-printed" representation of expr
-    @safe
-    string pprint(Expr expr)
-    {
-        import std.format;
-
-        return expr.match!(
-            (double num) => "%g".format(num),
-            (string var) => var,
-            (BinOp bop) => "(%s %s %s)".format(
-                pprint(*bop.lhs),
-                bop.op,
-                pprint(*bop.rhs)
-            )
-        );
-    }
-
-    Expr* myExpr = sum(var("a"), prod(num(2), var("b")));
-    double[string] myEnv = ["a":3, "b":4, "c":7];
-
-    assert(eval(*myExpr, myEnv) == 11);
-    assert(pprint(*myExpr) == "(a + (2 * b))");
 }
 
 import std.meta: NoDuplicates;
@@ -557,18 +458,6 @@ public:
 	auto b = MySum(Struct([Field()]));
 
 	assert(a == b);
-}
-
-// toString
-@safe unittest {
-	import std.conv: text;
-
-	static struct Int { int i; }
-	static struct Double { double d; }
-	alias Sum = SumType!(Int, Double);
-
-	assert(Sum(Int(42)).text == `const(Int)(42)`, Sum(Int(42)).text);
-	assert(Sum(Double(33.3)).text == `const(Double)(33.3)`, Sum(Double(33.3)).text);
 }
 
 version(none) {
@@ -976,31 +865,6 @@ private template matchImpl(Flag!"exhaustive" exhaustive, handlers...)
 	assert(x.match!((int v) => true, v => false));
 }
 
-// Non-exhaustive matching
-@system unittest {
-	import std.exception: assertThrown, assertNotThrown;
-
-	alias MySum = SumType!(int, float);
-
-	MySum x = MySum(42);
-	MySum y = MySum(3.14);
-
-	assertNotThrown!MatchException(x.tryMatch!((int n) => true));
-	assertThrown!MatchException(y.tryMatch!((int n) => true));
-}
-
-// Non-exhaustive matching in @safe code
-@safe unittest {
-	SumType!(int, float) x;
-
-	assert(__traits(compiles,
-		x.tryMatch!(
-			(int n) => n + 1,
-		)
-	));
-
-}
-
 // Handlers with ref parameters
 @safe unittest {
 	import std.math: approxEqual;
@@ -1099,3 +963,4 @@ unittest {
 	assert(OverloadSet.fun(b) == "double");
 	assert(OverloadSet.fun(c) == "string");
 }
+//+/
