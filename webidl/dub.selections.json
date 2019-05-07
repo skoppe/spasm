@@ -3,12 +3,12 @@
 	"versions": {
 		"asdf": "0.3.2",
 		"libinputvisitor": "1.2.2",
-		"openmethods": "1.1.1",
+		"openmethods": "1.1.2",
 		"pegged": "0.4.4",
-		"sdlang-d": "0.10.4",
-		"taggedalgebraic": "0.10.12",
-		"unit-threaded": "0.7.53",
+		"sdlang-d": "0.10.5",
+		"taggedalgebraic": "0.11.4",
+		"unit-threaded": "0.7.55",
 		"wasm-reader": "0.0.4",
-		"webidl-grammar": "0.0.6"
+		"webidl-grammar": "0.0.7"
 	}
 }
