@@ -12,6 +12,33 @@ extern(C) {
   Handle getRoot();
 }
 
+version (unittest) {
+  auto renderToNode(T)(auto ref T t) {
+    import unit_threaded;
+    Handle rootIdx = cast(Handle)unittest_dom_nodes.data.length;
+    auto rootNode = new UnittestDomNode(NodeType.root, rootIdx + 1);
+    unittest_dom_nodes.put(rootNode);
+    t.setPointers();
+    spasm.dom.render(JsHandle(rootIdx + 1), t);
+    assert(t.node.node != invalidHandle);
+    assert(t.node.mounted == true);
+    // assert(rootNode.children.data.length > 0);
+    return rootNode;
+  }
+  string renderToString(T)(auto ref T t) {
+    import std.format : format;
+    static if (is(T : UnittestDomNode)) {
+      auto node = t;
+    } else
+      auto node = t.renderToNode;
+    return format("%s", node);
+  }
+  string renderToString(T)() {
+    T t;
+    return t.renderToString();
+  }
+}
+
 void initialize() {
   import spasm.rt.memory;
   alloc_init();

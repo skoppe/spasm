@@ -20,11 +20,12 @@ version (unittest) {
     alias Property = SumType!(string,int,bool);
     alias Attribute = SumType!(string,int);
     NodeType type;
+    Handle handle;
     Property[string] properties;
     Attribute[string] attributes;
     string[] classes;
     Appender!(UnittestDomNode[]) children;
-    this(NodeType type, Handle handle) { this.type = type; }
+    this(NodeType type, Handle handle) { this.type = type; this.handle = handle; }
     void setAttribute(T)(string name, T value) {
       attributes[name] = Attribute(value);
     }
@@ -39,13 +40,20 @@ version (unittest) {
     }
     void toString(scope void delegate(const(char)[]) sink) {
       import std.algorithm : each;
-      import std.format : formattedWrite;
+      import std.format : formattedWrite, format;
       import std.array : join;
+      import std.conv : to;
       if (type != NodeType.root) {
         sink.formattedWrite("<%s", type);
         // write attributes and properties
         if (classes.length > 0) {
           sink.formattedWrite(" class=\"%s\"", classes.join(" "));
+        }
+        foreach (kv; properties.byKeyValue()) {
+          sink.formattedWrite(" %s=%s", kv.key, kv.value.match!((string s)=>format(`"%s"`,s),(int i)=>i.to!string,(bool b)=>b ? "true" : "false"));
+        }
+        foreach (kv; attributes.byKeyValue()) {
+          sink.formattedWrite(" %s=%s", kv.key, spasm.sumtype.match!((string s)=>format(`"%s"`,s),(int i)=>i.to!string)(kv.value));
         }
         sink(">");
       }
@@ -70,6 +78,7 @@ version (unittest) {
       node.getNode().classes ~= className;
     }
     void setProperty(Handle node, string prop, string value) {
+      node.getNode().setProperty(prop, value);
     }
     void removeChild(Handle childPtr) {
     }
@@ -80,13 +89,17 @@ version (unittest) {
     }
     void insertBefore(Handle parentPtr, Handle childPtr, Handle sibling) {
     }
-    void setAttribute(Handle nodePtr, string attr, string value) {
+    void setAttribute(Handle node, string attr, string value) {
+      node.getNode().setAttribute(attr, value);
     }
-    void setAttributeInt(Handle nodePtr, string attr, int value) {
+    void setAttributeInt(Handle node, string attr, int value) {
+      node.getNode().setAttribute(attr, value);
     }
-    void setPropertyBool(Handle nodePtr, string attr, bool value) {
+    void setPropertyBool(Handle node, string prop, bool value) {
+      node.getNode().setProperty(prop, value);
     }
-    void setPropertyInt(Handle nodePtr, string attr, int value) {
+    void setPropertyInt(Handle node, string prop, int value) {
+      node.getNode().setProperty(prop, value);
     }
     void innerText(Handle nodePtr, string text) {
     }
@@ -96,15 +109,21 @@ version (unittest) {
       n.classes = n.classes.remove!(i => i==className);
     }
     void changeClass(Handle node, string className, bool on) {
+      import std.algorithm : any;
+      auto n = node.getNode();
+      if (on && !n.classes.any!(c => c == className))
+        n.classes ~= className;
+      else if (!on)
+        removeClass(node, className);
     }
-    string getProperty(Handle node, string prop) {
-      return node.getNode().getProperty(prop).trustedGet!string;
+    Optional!string getProperty(Handle node, string prop) {
+      return node.getNode().getProperty(prop).as!string;
     }
-    int getPropertyInt(Handle node, string prop) {
-      return node.getNode().getProperty(prop).trustedGet!int;
+    Optional!int getPropertyInt(Handle node, string prop) {
+      return node.getNode().getProperty(prop).as!int;
     }
-    bool getPropertyBool(Handle node, string prop) {
-      return node.getNode().getProperty(prop).trustedGet!bool;
+    Optional!bool getPropertyBool(Handle node, string prop) {
+      return node.getNode().getProperty(prop).as!bool;
     }
     void focus(Handle node) {
     }
@@ -431,6 +450,12 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if 
           } else static if (hasUDA!(sym, attr)) {
             auto result = callMember!(i)(t);
             node.setAttributeTyped!name(result);
+          } else static if (hasUDA!(sym, style)) {
+              auto result = callMember!(i)(t);
+              static foreach (style; getStyles!(sym)) {
+                __gshared static string className = GetCssClassName!(T, style);
+                node.changeClass(className,result);
+              }
           } else static if (hasUDA!(sym, connect)) {
             alias connects = getUDAs!(sym, connect);
             static foreach(c; connects) {
@@ -568,8 +593,8 @@ template updateChildren(alias member) {
 
 auto update(T)(ref T node) if (hasMember!(T, "node")){
   struct Inner {
-    void opDispatch(string name, T)(auto ref T t) const {
-      mixin("node.update!(node." ~ name ~ ")(t);");
+    void opDispatch(string name, V)(auto ref V v) const {
+      mixin("node.update!(node." ~ name ~ ")(v);");
     }
   }
   return Inner();
@@ -633,10 +658,14 @@ template update(alias field) {
               auto result = callMember!(i)(parent);
               parent.node.node.setPropertyTyped!cleanName(result);
             }
-            else static if (hasUDA!(sym, style)) {
-              alias styles = getStyles!(sym);
+            else static if (hasUDA!(sym, attr)) {
+              alias cleanName = domName!i;
               auto result = callMember!(i)(parent);
-              static foreach (style; styles)
+              parent.node.node.setAttributeTyped!cleanName(result);
+            }
+            else static if (hasUDA!(sym, style)) {
+              auto result = callMember!(i)(parent);
+              static foreach (style; getStyles!(sym))
               {
                 __gshared static string className = GetCssClassName!(Parent, style);
                 parent.node.node.changeClass(className,result);

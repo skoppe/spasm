@@ -8,12 +8,7 @@ License: MIT
 Authors: Paul Backus, Atila Neves
 +/
 module spasm.sumtype;
-// struct SumType(Ts...) {
-//   auto trustedGet(T)() {
-//     return T.init;
-//   }
-// }
-///+
+
 /// $(H3 Basic usage)
 @safe unittest {
     import std.math: approxEqual;
@@ -174,7 +169,17 @@ public:
 		@disable this();
 	}
 
-	import std.traits: isAssignable;
+  auto as(T)() {
+    import std.meta: staticIndexOf;
+    import optional;
+    enum tid = staticIndexOf!(T, Types);
+    if (tid == tag) {
+      return some(storage.values[tid]);
+    }
+    return no!T;
+  }
+
+  import std.traits: isAssignable;
 
 	static foreach (i, T; Types) {
 		static if (isAssignable!T) {
@@ -963,4 +968,3 @@ unittest {
 	assert(OverloadSet.fun(b) == "double");
 	assert(OverloadSet.fun(c) == "string");
 }
-//+/

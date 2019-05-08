@@ -1,10 +1,10 @@
 {
 	"fileVersion": 1,
 	"versions": {
-		"bolts": "0.11.0",
-		"optional": "0.10.0",
-		"silly": "0.8.0",
+		"bolts": "0.11.1",
+		"optional": "0.10.1",
+		"silly": "0.8.2",
 		"stdx-allocator": "2.77.3",
-		"unit-threaded": "0.9.3"
+		"unit-threaded": "0.7.55"
 	}
 }
