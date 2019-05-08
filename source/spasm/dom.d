@@ -436,7 +436,7 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if 
         }
       }}
     static foreach(i; __traits(allMembers, T)) {{
-        alias sym = __traits(getMember, T, i);
+        alias sym = AliasSeq!(__traits(getMember, T, i))[0];
         static if (!is(sym) && isCallable!(sym)) {
           alias name = getSymbolCustomName!(sym, domName!i);
           // alias sym = getMember!(T, i);
@@ -552,7 +552,7 @@ template getAnnotatedParameters(alias symbol) {
 
 template updateChildren(alias member) {
   enum field = __traits(identifier, member);
-  alias Source = __traits(parent, member);
+  alias Source = AliasSeq!(__traits(parent, member))[0];
   template isParamField(Param) {
     enum isParamField = TemplateArgsOf!(Param)[1].stringof == field;
   }

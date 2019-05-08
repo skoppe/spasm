@@ -22,7 +22,6 @@ version (unittest) {
     spasm.dom.render(JsHandle(rootIdx + 1), t);
     assert(t.node.node != invalidHandle);
     assert(t.node.mounted == true);
-    // assert(rootNode.children.data.length > 0);
     return rootNode;
   }
   string renderToString(T)(auto ref T t) {
