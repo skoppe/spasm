@@ -1636,7 +1636,7 @@ unittest {
   auto gen = getGenerator(q{
       [Constructor(unsigned long sw, unsigned long sh),
        Constructor(Uint8ClampedArray data, unsigned long sw, optional unsigned long sh),
-       Exposed=(Window,Worker),
+       Exposed=(Window),
        Serializable]
       interface ImageData {
       };
@@ -1679,6 +1679,15 @@ Window_ImageData__Handle_uint_uint: (data, sw, sh) => {
   return spasm.addObject(new Window.ImageData(spasm.objects[data], sw, sh));
 },
 ");
+  gen.generateJsDecoders.shouldBeLike("
+spasm_decode_Handle = decode_handle,
+spasm_decode_union2_ImageData_string = (ptr)=>{
+  if (getUInt(ptr) == 0) {
+    return spasm_decode_Handle(ptr+4);
+  } else if (getUInt(ptr) == 1) {
+    return spasm_decode_Handle(ptr+4);
+  }
+}");
 }
 
 @("mixin.partial")
@@ -1752,4 +1761,28 @@ GlobalEventHandlers_ontouchstart_Get: (ctx) => {
   return spasm.objects[ctx].ontouchstart;
 },
 ");
+ gen.generateJsDecoders.shouldBeLike("spasm_decode_Handle = decode_handle");
+}
+
+@("decode.sequence")
+unittest {
+  auto gen = getGenerator(q{
+      [Constructor(USVString url, optional (DOMString or sequence<DOMString>) protocols = []), Exposed=(Window)]
+      interface WebSocket : EventTarget {
+      };
+      interface Window {
+      };
+    });
+  gen.generateJsExports.shouldBeLike("
+Window_WebSocket: (urlLen, urlPtr, protocols) => {
+  return spasm.addObject(new Window.WebSocket(spasm_decode_string(urlLen, urlPtr), spasm_decode_union2_string_sequence(protocols)));
+},");
+  gen.generateJsDecoders.should == "spasm_decode_sequence = decode_handle,
+spasm_decode_union2_string_sequence = (ptr)=>{
+  if (getUInt(ptr) == 0) {
+    return spasm_decode_string(ptr+4);
+  } else if (getUInt(ptr) == 1) {
+    return spasm_decode_sequence(ptr+4);
+  }
+}";
 }

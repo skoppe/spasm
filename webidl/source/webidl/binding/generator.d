@@ -354,20 +354,11 @@ class FunctionNode : Node {
   semantics.dump(tmp, a);
 }
 
-class ExposedConstructorNode : Node {
-  string name;
-  Argument[] args;
-  ParseTree result;
-  string baseType;
-  string manglePostfix;
+class ExposedConstructorNode : FunctionNode {
   this(string name, Argument[] args, ParseTree result, string baseType, string manglePostfix) {
-    this.name = name;
-    this.args = args;
-    this.result = result;
-    this.baseType = baseType;
-    this.manglePostfix = manglePostfix;
+    super(name, args, result, FunctionType.ExposedConstructor, manglePostfix, baseType, "");
   }
-  void toString(scope void delegate(const(char)[]) sink) {
+  override void toString(scope void delegate(const(char)[]) sink) {
     sink("ExposedConstructor ");
     sink(name);
     if (manglePostfix) {
@@ -515,8 +506,8 @@ class MaplikeNode : Node {
 class CallbackNode : Node {
   string name;
   ParseTree result;
-  ParseTree args;
-  this(string name, ParseTree result, ParseTree args) {
+  Argument[] args;
+  this(string name, ParseTree result, Argument[] args) {
     this.name = name;
     this.result = result;
     this.args = args;
@@ -533,7 +524,7 @@ class CallbackNode : Node {
     a.put("void");
   } else
     node.result.generateDType(a, Context(semantics));
-  auto types = node.args.extractTypes.map!(arg => arg.generateDType(Context(semantics))).joiner(", ").text;
+  auto types = node.args.map!(arg => arg.type).map!(type => type.generateDType(Context(semantics))).joiner(", ").text;
   a.putLn([" delegate(", types, ");"]);
 }
 
@@ -1023,8 +1014,11 @@ bool isSequence(Semantics semantics, ParseTree tree) {
       return false;
     return semantics.isSequence(tree.children[0]);
   }
-  if (tree.name == "WebIDL.Type")
+  if (tree.name == "WebIDL.Type") {
+    if (tree.children[0].name == "WebIDL.SingleType")
+      return false;
     return tree.children[0].children[0].children[0].name == "WebIDL.SequenceType";
+  }
   if (tree.name == "WebIDL.UnionMemberType")
     return tree.children[1].children[0].name == "WebIDL.SequenceType";
   if (tree.name == "WebIDL.NonAnyType")
@@ -1652,7 +1646,7 @@ void mangleTypeJsImpl(Appender)(ParseTree tree, ref Appender a, ref Semantics se
     break;
   case "WebIDL.SingleType":
     if (tree.matches[0] == "any") {
-      a.put("Any");
+      a.put("Handle");
     } else if (tree.matches[0] == "void") {
       a.put("void");
     } else {
@@ -2189,7 +2183,10 @@ void toIr(Appender)(ParseTree tree, ref Appender a, Context context) {
     tree.children[1].toIr(a, context);
     break;
   case "WebIDL.CallbackRest":
-    a.put(new CallbackNode(tree.children[0].matches[0], tree.children[1], tree.children[2]));
+    auto argList = tree.children[2];
+    auto args = zip(argList.extractArguments,argList.extractTypes,argList.extractDefaults,argList.extractArgumentRests).map!(a=>Argument(a[0],a[1],a[2],a[3])).array();
+
+    a.put(new CallbackNode(tree.children[0].matches[0], tree.children[1], args));
     break;
   default:
     tree.children.each!(c => toIr(c, a, context));
@@ -2206,8 +2203,7 @@ auto collectFunctions(IR ir, string[] filter) {
       if (filter.length == 0 || filter.canFind(name)) {
         app.put(fun);
       }
-    }
-    else if (auto structNode = cast(StructNode)node) {
+    } else if (auto structNode = cast(StructNode)node) {
       foreach(child; structNode.children)
         recurse(child, structNode.name);
     } else if (auto includesNode = cast(StructIncludesNode)node) {
@@ -2221,15 +2217,44 @@ auto collectFunctions(IR ir, string[] filter) {
   ir.nodes.each!(node => recurse(node, ""));
   return app.data;
 }
+auto collectCallbacks(alias pred)(IR ir) {
+  import std.algorithm : canFind;
+  auto app = appender!(CallbackNode[]);
+  void recurse(Node node) {
+    if (auto cb = cast(CallbackNode)node) {
+      if (pred(cb)) {
+        app.put(cb);
+      }
+    } else if (auto moduleNode = cast(ModuleNode)node) {
+      foreach(child; moduleNode.children)
+        recurse(child);
+    }
+  }
+  ir.nodes.each!(node => recurse(node));
+  return app.data;
+}
+auto collectUsedCallbackNames(IR ir, FunctionNode[] funcs) {
+  return funcs.map!(f => f.args).joiner.map!(a => a.type).filter!(t => ir.semantics.isCallback(t)).map!((c){
+      if (ir.semantics.isTypedef(c))
+        return ir.semantics.getAliasedType(c.getTypeName());
+      return c;
+    }).map!(t => t.getTypeName()).array().sort.uniq;
+}
 void generateDecodedTypes(IR ir, ref Appender!(ParseTree[]) a, string[] filter) {
   auto semantics = ir.semantics;
   auto funcs = collectFunctions(ir, filter);
+  auto callbackNames = collectUsedCallbackNames(ir, funcs);
+  auto cbs = collectCallbacks!(c => callbackNames.canFind(c.name))(ir);
   foreach(fun; funcs) {
     foreach(arg; fun.args) {
       if (semantics.isUnion(arg.type) || semantics.isEnum(arg.type)) {
         a.put(arg.type);
       }
     }
+  }
+  foreach(cb; cbs) {
+    if (semantics.isUnion(cb.result) || semantics.isEnum(cb.result) || semantics.isAny(cb.result))
+      a.put(cb.result);
   }
 }
 void generateEncodedTypes(IR ir, ref Appender!(ParseTree[]) a, string[] filter) {
@@ -2617,7 +2642,6 @@ auto getImports(IR ir, Module module_) {
       sink(tree.matches[0], semantics, app);
     } else if (tree.name == "WebIDL.Inheritance") {
       if (tree.children.length > 0) {
-        writeln("found inheritance ",tree.children[0].matches[0]);
         sink(tree.children[0].matches[0], semantics, app);
       }
     }
@@ -2651,7 +2675,7 @@ auto getImports(IR ir, Module module_) {
       extractTypes!sink(semantics, (cast(TypedefNode)node).rhs, app);
     } else if (cast(CallbackNode)node) {
       extractTypes!sink(semantics, (cast(CallbackNode)node).result, app);
-      extractTypes!sink(semantics, (cast(CallbackNode)node).args, app);
+      (cast(CallbackNode)node).args.each!(arg => extractTypes!sink(semantics, arg.type, app));
     } else if (cast(StructNode)node) {
       auto baseType = (cast(StructNode)node).baseType;
       if (baseType != ParseTree.init && baseType.matches[0].length > 0)
@@ -2710,14 +2734,24 @@ auto collectMethods(IR ir) {
       }
     });
 }
+template skipType(T) {
+  auto skipType(Range)(auto ref Range range) {
+    return range.filter!(i => (cast(T)i) is null);
+  }
+}
+template mapType(T) {
+  auto mapType(Range)(auto ref Range range) {
+    return range.map!(n => cast(T)n).filter!(n => n !is null);
+  }
+}
 auto resolvePartialsAndIncludes(IR ir) {
-  ir.nodes.each!(mod => mod.children.map!(n => cast(FunctionNode)n).filter!(n => n !is null && n.baseType.length > 0).each!((n){
+  ir.nodes.each!(mod => mod.children.skipType!(ExposedConstructorNode).mapType!(FunctionNode).filter!(n => n.baseType.length > 0).each!((n){
         if (auto p = n.baseType in ir.structs)
           p.children ~= n;
         else
           writeln("Error: Type ", n.baseType, " is unknown: ");
       }));
-  ir.nodes.each!(mod => mod.children.map!(n => cast(StructIncludesNode)n).filter!(n => n !is null).each!((n){
+  ir.nodes.each!(mod => mod.children.mapType!(StructIncludesNode).each!((n){
         if (auto p = n.baseType in ir.structs) {
           p.children ~= n;
         }
@@ -2727,7 +2761,7 @@ auto resolvePartialsAndIncludes(IR ir) {
 }
 auto moveExposedConstructors(IR ir) {
   foreach(mod; ir.nodes) {
-    mod.children.map!(n => cast(ExposedConstructorNode)n).filter!(n=>n!is null).each!((constructor){
+    mod.children.mapType!(ExposedConstructorNode).each!((constructor){
       if (auto p = constructor.baseType in ir.structs) {
         p.children ~= constructor;
       } else
@@ -2740,8 +2774,8 @@ auto moveExposedConstructors(IR ir) {
 }
 auto mangleJsOverloads(IR ir, Semantics semantics) {
   void handleSet(Node[] nodes) {
-    auto funcs = nodes.map!(n => cast(FunctionNode)n).filter!(n => n !is null).array;
-    nodes.map!(n => cast(StructIncludesNode)n).filter!(n => n !is null).each!(i => handleSet(i.children));
+    auto funcs = nodes.mapType!(FunctionNode).array;
+    nodes.mapType!(StructIncludesNode).each!(i => handleSet(i.children));
     auto overloadGroups = funcs.schwartzSort!((a){
         if (a.customName.length > 0)
           return a.customName ~ a.manglePostfix;
