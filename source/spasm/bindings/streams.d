@@ -125,7 +125,7 @@ struct ReadableStream {
   }
   auto getReader(T0)(T0 options) {
     Handle _handle_options = getOrCreateHandle(options);
-    auto result = ReadableStreamBYOBReader(JsHandle(ReadableStream_getReader__Any(this.handle, _handle_options)));
+    auto result = ReadableStreamBYOBReader(JsHandle(ReadableStream_getReader__Handle(this.handle, _handle_options)));
     dropHandle!(T0)(_handle_options);
     return result;
   }
@@ -533,7 +533,7 @@ extern (C) void ReadableByteStreamController_error_0(Handle);
 extern (C) bool ReadableStream_locked_Get(Handle);
 extern (C) Handle ReadableStream_cancel(Handle, Handle);
 extern (C) Handle ReadableStream_cancel_0(Handle);
-extern (C) Handle ReadableStream_getReader__Any(Handle, Handle);
+extern (C) Handle ReadableStream_getReader__Handle(Handle, Handle);
 extern (C) Handle ReadableStream_getReader__(Handle);
 extern (C) Handle ReadableStream_pipeThrough(Handle, Handle, Handle);
 extern (C) Handle ReadableStream_pipeThrough_0(Handle, Handle);

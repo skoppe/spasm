@@ -138,8 +138,8 @@ unittest {
       struct AudioWorklet {
         JsHandle handle;
         alias handle this;
-        static auto Event(string type, EventInit eventInitDict) {
-          return .Event(JsHandle(AudioWorklet_Event(type, eventInitDict.handle)));
+        auto Event(string type, EventInit eventInitDict) {
+          return .Event(JsHandle(AudioWorklet_Event(this.handle, type, eventInitDict.handle)));
         }
       }
       struct Event {
@@ -168,24 +168,24 @@ unittest {
       struct Window {
         JsHandle handle;
         alias handle this;
-        static auto Event(string type, EventInit eventInitDict) {
-          return .Event(JsHandle(Window_Event(type, eventInitDict.handle)));
+        auto Event(string type, EventInit eventInitDict) {
+          return .Event(JsHandle(Window_Event(this.handle, type, eventInitDict.handle)));
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) Handle AudioWorklet_Event(string, Handle);
+      extern (C) Handle AudioWorklet_Event(Handle, string, Handle);
       extern (C) string Event_type_Get(Handle);
       extern (C) void Event_target_Set(Handle, bool, Handle);
       extern (C) Optional!(EventTarget) Event_target_Get(Handle);
       extern (C) Handle Event_composedPath(Handle);
       extern (C) void Event_eventPhase_Set(Handle, ushort);
       extern (C) ushort Event_eventPhase_Get(Handle);
-      extern (C) Handle Window_Event(string, Handle);
+      extern (C) Handle Window_Event(Handle, string, Handle);
     });
   gen.generateJsExports.shouldBeLike("
-          AudioWorklet_Event: (typeLen, typePtr, eventInitDict) => {
-            return spasm.addObject(new AudioWorklet.Event(spasm_decode_string(typeLen, typePtr), spasm.objects[eventInitDict]));
+          AudioWorklet_Event: (ctx, typeLen, typePtr, eventInitDict) => {
+            return spasm.addObject(new spasm.objects[ctx].Event(spasm_decode_string(typeLen, typePtr), spasm.objects[eventInitDict]));
           },
           Event_type_Get: (rawResult, ctx) => {
             spasm_encode_string(rawResult, spasm.objects[ctx].type);
@@ -205,8 +205,8 @@ unittest {
           Event_eventPhase_Get: (ctx) => {
             return spasm.objects[ctx].eventPhase;
           },
-          Window_Event: (typeLen, typePtr, eventInitDict) => {
-            return spasm.addObject(new Window.Event(spasm_decode_string(typeLen, typePtr), spasm.objects[eventInitDict]));
+          Window_Event: (ctx, typeLen, typePtr, eventInitDict) => {
+            return spasm.addObject(new spasm.objects[ctx].Event(spasm_decode_string(typeLen, typePtr), spasm.objects[eventInitDict]));
           },
       ");
 }
@@ -1655,28 +1655,28 @@ unittest {
         void stuff(SumType!(.ImageData, string) s) {
           Window_stuff(this.handle, s);
         }
-        static auto ImageData(uint sw, uint sh) {
-          return .ImageData(JsHandle(Window_ImageData__uint_uint(sw, sh)));
+        auto ImageData(uint sw, uint sh) {
+          return .ImageData(JsHandle(Window_ImageData__uint_uint(this.handle, sw, sh)));
         }
-        static auto ImageData(Uint8ClampedArray data, uint sw, uint sh) {
-          return .ImageData(JsHandle(Window_ImageData__Handle_uint_uint(data.handle, sw, sh)));
+        auto ImageData(Uint8ClampedArray data, uint sw, uint sh) {
+          return .ImageData(JsHandle(Window_ImageData__Handle_uint_uint(this.handle, data.handle, sw, sh)));
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
       extern (C) void Window_stuff(Handle, SumType!(ImageData, string));
-      extern (C) Handle Window_ImageData__uint_uint(uint, uint);
-      extern (C) Handle Window_ImageData__Handle_uint_uint(Handle, uint, uint);
+      extern (C) Handle Window_ImageData__uint_uint(Handle, uint, uint);
+      extern (C) Handle Window_ImageData__Handle_uint_uint(Handle, Handle, uint, uint);
     });
   gen.generateJsExports.shouldBeLike("
 Window_stuff: (ctx, s) => {
   spasm.objects[ctx].stuff(spasm_decode_union2_ImageData_string(s));
 },
-Window_ImageData__uint_uint: (sw, sh) => {
-  return spasm.addObject(new Window.ImageData(sw, sh));
+Window_ImageData__uint_uint: (ctx, sw, sh) => {
+  return spasm.addObject(new spasm.objects[ctx].ImageData(sw, sh));
 },
-Window_ImageData__Handle_uint_uint: (data, sw, sh) => {
-  return spasm.addObject(new Window.ImageData(spasm.objects[data], sw, sh));
+Window_ImageData__Handle_uint_uint: (ctx, data, sw, sh) => {
+  return spasm.addObject(new spasm.objects[ctx].ImageData(spasm.objects[data], sw, sh));
 },
 ");
   gen.generateJsDecoders.shouldBeLike("
@@ -1773,10 +1773,30 @@ unittest {
       interface Window {
       };
     });
+  gen.generateDBindings.shouldBeLike(q{
+      struct WebSocket {
+        EventTarget _parent;
+        alias _parent this;
+        this(JsHandle h) {
+          _parent = .EventTarget(h);
+        }
+      }
+      struct Window {
+        JsHandle handle;
+        alias handle this;
+        auto WebSocket(string url, SumType!(string, Sequence!(string)) protocols /* = [] */) {
+          return .WebSocket(JsHandle(Window_WebSocket(this.handle, url, protocols)));
+        }
+      }
+    });
+  gen.generateDImports.shouldBeLike(q{
+      extern (C) Handle Window_WebSocket(Handle, string, SumType!(string, Sequence!(string)));
+    });
   gen.generateJsExports.shouldBeLike("
-Window_WebSocket: (urlLen, urlPtr, protocols) => {
-  return spasm.addObject(new Window.WebSocket(spasm_decode_string(urlLen, urlPtr), spasm_decode_union2_string_sequence(protocols)));
-},");
+Window_WebSocket: (ctx, urlLen, urlPtr, protocols) => {
+  return spasm.addObject(new spasm.objects[ctx].WebSocket(spasm_decode_string(urlLen, urlPtr), spasm_decode_union2_string_sequence(protocols)));
+},
+");
   gen.generateJsDecoders.should == "spasm_decode_sequence = decode_handle,
 spasm_decode_union2_string_sequence = (ptr)=>{
   if (getUInt(ptr) == 0) {

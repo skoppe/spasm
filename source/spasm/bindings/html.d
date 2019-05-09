@@ -21,6 +21,7 @@ import spasm.bindings.svg;
 import spasm.bindings.uievents;
 import spasm.bindings.url;
 import spasm.bindings.vibration;
+import spasm.bindings.webappsec;
 import spasm.bindings.webgl2;
 import spasm.bindings.webgl;
 import spasm.bindings.xhr;
@@ -809,12 +810,12 @@ struct DedicatedWorkerGlobalScope {
   }
   void postMessage(T0)(T0 message, Sequence!(JsObject) transfer) {
     Handle _handle_message = getOrCreateHandle(message);
-    DedicatedWorkerGlobalScope_postMessage__Any_sequence(this._parent, _handle_message, transfer.handle);
+    DedicatedWorkerGlobalScope_postMessage__Handle_sequence(this._parent, _handle_message, transfer.handle);
     dropHandle!(T0)(_handle_message);
   }
   void postMessage(T0)(T0 message, PostMessageOptions options) {
     Handle _handle_message = getOrCreateHandle(message);
-    DedicatedWorkerGlobalScope_postMessage__Any_Handle(this._parent, _handle_message, options.handle);
+    DedicatedWorkerGlobalScope_postMessage__Handle_Handle(this._parent, _handle_message, options.handle);
     dropHandle!(T0)(_handle_message);
   }
   void postMessage(T0)(T0 message) {
@@ -5690,12 +5691,12 @@ struct MessagePort {
   }
   void postMessage(T0)(T0 message, Sequence!(JsObject) transfer) {
     Handle _handle_message = getOrCreateHandle(message);
-    MessagePort_postMessage__Any_sequence(this._parent, _handle_message, transfer.handle);
+    MessagePort_postMessage__Handle_sequence(this._parent, _handle_message, transfer.handle);
     dropHandle!(T0)(_handle_message);
   }
   void postMessage(T0)(T0 message, PostMessageOptions options) {
     Handle _handle_message = getOrCreateHandle(message);
-    MessagePort_postMessage__Any_Handle(this._parent, _handle_message, options.handle);
+    MessagePort_postMessage__Handle_Handle(this._parent, _handle_message, options.handle);
     dropHandle!(T0)(_handle_message);
   }
   void postMessage(T0)(T0 message) {
@@ -6434,14 +6435,14 @@ struct SharedWorker {
   auto onerror() {
     return AbstractWorker_onerror_Get(this._parent);
   }
-  static auto FileReaderSync() {
-    return .FileReaderSync(JsHandle(SharedWorker_FileReaderSync()));
+  auto FileReaderSync() {
+    return .FileReaderSync(JsHandle(SharedWorker_FileReaderSync(this._parent)));
   }
-  static auto ProgressEvent(string type, ProgressEventInit eventInitDict) {
-    return .ProgressEvent(JsHandle(SharedWorker_ProgressEvent(type, eventInitDict._parent)));
+  auto ProgressEvent(string type, ProgressEventInit eventInitDict) {
+    return .ProgressEvent(JsHandle(SharedWorker_ProgressEvent(this._parent, type, eventInitDict._parent)));
   }
-  static auto XMLHttpRequest() {
-    return .XMLHttpRequest(JsHandle(SharedWorker_XMLHttpRequest()));
+  auto XMLHttpRequest() {
+    return .XMLHttpRequest(JsHandle(SharedWorker_XMLHttpRequest(this._parent)));
   }
 }
 struct SharedWorkerGlobalScope {
@@ -7130,22 +7131,22 @@ struct Window {
   }
   void postMessage(T0)(T0 message, string targetOrigin, Sequence!(JsObject) transfer /* = [] */) {
     Handle _handle_message = getOrCreateHandle(message);
-    Window_postMessage__Any_string_sequence(this._parent, _handle_message, targetOrigin, transfer.handle);
+    Window_postMessage__Handle_string_sequence(this._parent, _handle_message, targetOrigin, transfer.handle);
     dropHandle!(T0)(_handle_message);
   }
   void postMessage(T0)(T0 message, string targetOrigin) {
     Handle _handle_message = getOrCreateHandle(message);
-    Window_postMessage_0_Any_string(this._parent, _handle_message, targetOrigin);
+    Window_postMessage_0_Handle_string(this._parent, _handle_message, targetOrigin);
     dropHandle!(T0)(_handle_message);
   }
   void postMessage(T0)(T0 message, WindowPostMessageOptions options) {
     Handle _handle_message = getOrCreateHandle(message);
-    Window_postMessage__Any_Handle(this._parent, _handle_message, options._parent);
+    Window_postMessage__Handle_Handle(this._parent, _handle_message, options._parent);
     dropHandle!(T0)(_handle_message);
   }
   void postMessage(T0)(T0 message) {
     Handle _handle_message = getOrCreateHandle(message);
-    Window_postMessage_0_Any(this._parent, _handle_message);
+    Window_postMessage_0_Handle(this._parent, _handle_message);
     dropHandle!(T0)(_handle_message);
   }
   auto event() {
@@ -7703,167 +7704,167 @@ struct Window {
   auto ontouchcancel() {
     return GlobalEventHandlers_ontouchcancel_Get(this._parent);
   }
-  static auto Blob(Sequence!(BlobPart) blobParts, BlobPropertyBag options) {
-    return .Blob(JsHandle(Window_Blob(blobParts.handle, options.handle)));
+  auto Blob(Sequence!(BlobPart) blobParts, BlobPropertyBag options) {
+    return .Blob(JsHandle(Window_Blob(this._parent, blobParts.handle, options.handle)));
   }
-  static auto File(Sequence!(BlobPart) fileBits, string fileName, FilePropertyBag options) {
-    return .File(JsHandle(Window_File(fileBits.handle, fileName, options._parent)));
+  auto File(Sequence!(BlobPart) fileBits, string fileName, FilePropertyBag options) {
+    return .File(JsHandle(Window_File(this._parent, fileBits.handle, fileName, options._parent)));
   }
-  static auto FileReader() {
-    return .FileReader(JsHandle(Window_FileReader()));
+  auto FileReader() {
+    return .FileReader(JsHandle(Window_FileReader(this._parent)));
   }
-  static auto Headers(HeadersInit init) {
-    return .Headers(JsHandle(Window_Headers(init)));
+  auto Headers(HeadersInit init) {
+    return .Headers(JsHandle(Window_Headers(this._parent, init)));
   }
-  static auto Request(RequestInfo input, RequestInit init) {
-    return .Request(JsHandle(Window_Request(input, init.handle)));
+  auto Request(RequestInfo input, RequestInit init) {
+    return .Request(JsHandle(Window_Request(this._parent, input, init.handle)));
   }
-  static auto Response(Optional!(BodyInit) body_ /* = no!(BodyInit) */, ResponseInit init) {
-    return .Response(JsHandle(Window_Response(!body_.empty, body_.front, init.handle)));
+  auto Response(Optional!(BodyInit) body_ /* = no!(BodyInit) */, ResponseInit init) {
+    return .Response(JsHandle(Window_Response(this._parent, !body_.empty, body_.front, init.handle)));
   }
-  static auto Notification(string title, NotificationOptions options) {
-    return .Notification(JsHandle(Window_Notification(title, options.handle)));
+  auto Notification(string title, NotificationOptions options) {
+    return .Notification(JsHandle(Window_Notification(this._parent, title, options.handle)));
   }
-  static auto AbortController() {
-    return .AbortController(JsHandle(Window_AbortController()));
+  auto AbortController() {
+    return .AbortController(JsHandle(Window_AbortController(this._parent)));
   }
-  static auto CustomEvent(string type, CustomEventInit eventInitDict) {
-    return .CustomEvent(JsHandle(Window_CustomEvent(type, eventInitDict._parent)));
+  auto CustomEvent(string type, CustomEventInit eventInitDict) {
+    return .CustomEvent(JsHandle(Window_CustomEvent(this._parent, type, eventInitDict._parent)));
   }
-  static auto Event(string type, EventInit eventInitDict) {
-    return .Event(JsHandle(Window_Event(type, eventInitDict.handle)));
+  auto Event(string type, EventInit eventInitDict) {
+    return .Event(JsHandle(Window_Event(this._parent, type, eventInitDict.handle)));
   }
-  static auto EventTarget() {
-    return .EventTarget(JsHandle(Window_EventTarget()));
+  auto EventTarget() {
+    return .EventTarget(JsHandle(Window_EventTarget(this._parent)));
   }
-  static auto BroadcastChannel(string name) {
-    return .BroadcastChannel(JsHandle(Window_BroadcastChannel(name)));
+  auto BroadcastChannel(string name) {
+    return .BroadcastChannel(JsHandle(Window_BroadcastChannel(this._parent, name)));
   }
-  static auto CloseEvent(string type, CloseEventInit eventInitDict) {
-    return .CloseEvent(JsHandle(Window_CloseEvent(type, eventInitDict._parent)));
+  auto CloseEvent(string type, CloseEventInit eventInitDict) {
+    return .CloseEvent(JsHandle(Window_CloseEvent(this._parent, type, eventInitDict._parent)));
   }
-  static auto ErrorEvent(string type, ErrorEventInit eventInitDict) {
-    return .ErrorEvent(JsHandle(Window_ErrorEvent(type, eventInitDict._parent)));
+  auto ErrorEvent(string type, ErrorEventInit eventInitDict) {
+    return .ErrorEvent(JsHandle(Window_ErrorEvent(this._parent, type, eventInitDict._parent)));
   }
-  static auto EventSource(string url, EventSourceInit eventSourceInitDict) {
-    return .EventSource(JsHandle(Window_EventSource(url, eventSourceInitDict.handle)));
+  auto EventSource(string url, EventSourceInit eventSourceInitDict) {
+    return .EventSource(JsHandle(Window_EventSource(this._parent, url, eventSourceInitDict.handle)));
   }
-  static auto ImageData(uint sw, uint sh) {
-    return .ImageData(JsHandle(Window_ImageData__uint_uint(sw, sh)));
+  auto ImageData(uint sw, uint sh) {
+    return .ImageData(JsHandle(Window_ImageData__uint_uint(this._parent, sw, sh)));
   }
-  static auto ImageData(Uint8ClampedArray data, uint sw, uint sh) {
-    return .ImageData(JsHandle(Window_ImageData__Handle_uint_uint(data.handle, sw, sh)));
+  auto ImageData(Uint8ClampedArray data, uint sw, uint sh) {
+    return .ImageData(JsHandle(Window_ImageData__Handle_uint_uint(this._parent, data.handle, sw, sh)));
   }
-  static auto MessageChannel() {
-    return .MessageChannel(JsHandle(Window_MessageChannel()));
+  auto MessageChannel() {
+    return .MessageChannel(JsHandle(Window_MessageChannel(this._parent)));
   }
-  static auto MessageEvent(string type, MessageEventInit eventInitDict) {
-    return .MessageEvent(JsHandle(Window_MessageEvent(type, eventInitDict._parent)));
+  auto MessageEvent(string type, MessageEventInit eventInitDict) {
+    return .MessageEvent(JsHandle(Window_MessageEvent(this._parent, type, eventInitDict._parent)));
   }
-  static auto OffscreenCanvas(ulong width, ulong height) {
-    return .OffscreenCanvas(JsHandle(Window_OffscreenCanvas(width, height)));
+  auto OffscreenCanvas(ulong width, ulong height) {
+    return .OffscreenCanvas(JsHandle(Window_OffscreenCanvas(this._parent, width, height)));
   }
-  static auto Path2D(SumType!(.Path2D, string) path) {
-    return .Path2D(JsHandle(Window_Path2D(path)));
+  auto Path2D(SumType!(.Path2D, string) path) {
+    return .Path2D(JsHandle(Window_Path2D(this._parent, path)));
   }
-  static auto PromiseRejectionEvent(string type, PromiseRejectionEventInit eventInitDict) {
-    return .PromiseRejectionEvent(JsHandle(Window_PromiseRejectionEvent(type, eventInitDict._parent)));
+  auto PromiseRejectionEvent(string type, PromiseRejectionEventInit eventInitDict) {
+    return .PromiseRejectionEvent(JsHandle(Window_PromiseRejectionEvent(this._parent, type, eventInitDict._parent)));
   }
-  static auto SharedWorker(string scriptURL, SumType!(string, WorkerOptions) options) {
-    return .SharedWorker(JsHandle(Window_SharedWorker(scriptURL, options)));
+  auto SharedWorker(string scriptURL, SumType!(string, WorkerOptions) options) {
+    return .SharedWorker(JsHandle(Window_SharedWorker(this._parent, scriptURL, options)));
   }
-  static auto WebSocket(string url, SumType!(string, Sequence!(string)) protocols /* = [] */) {
-    return .WebSocket(JsHandle(Window_WebSocket(url, protocols)));
+  auto WebSocket(string url, SumType!(string, Sequence!(string)) protocols /* = [] */) {
+    return .WebSocket(JsHandle(Window_WebSocket(this._parent, url, protocols)));
   }
-  static auto Worker(string scriptURL, WorkerOptions options) {
-    return .Worker(JsHandle(Window_Worker(scriptURL, options.handle)));
+  auto Worker(string scriptURL, WorkerOptions options) {
+    return .Worker(JsHandle(Window_Worker(this._parent, scriptURL, options.handle)));
   }
-  static auto DOMException(string message /* = "" */, string name /* = "Error" */) {
-    return .DOMException(JsHandle(Window_DOMException(message, name)));
+  auto DOMException(string message /* = "" */, string name /* = "Error" */) {
+    return .DOMException(JsHandle(Window_DOMException(this._parent, message, name)));
   }
-  static auto URL(string url, string base) {
-    return .URL(JsHandle(Window_URL(url, base)));
+  auto URL(string url, string base) {
+    return .URL(JsHandle(Window_URL(this._parent, url, base)));
   }
-  static auto URLSearchParams(SumType!(Sequence!(Sequence!(string)), Record!(string, string), string) init /* = "" */) {
-    return .URLSearchParams(JsHandle(Window_URLSearchParams(init)));
+  auto URLSearchParams(SumType!(Sequence!(Sequence!(string)), Record!(string, string), string) init /* = "" */) {
+    return .URLSearchParams(JsHandle(Window_URLSearchParams(this._parent, init)));
   }
-  static auto DOMMatrix(SumType!(string, Sequence!(double)) init) {
-    return .DOMMatrix(JsHandle(Window_DOMMatrix(init)));
+  auto DOMMatrix(SumType!(string, Sequence!(double)) init) {
+    return .DOMMatrix(JsHandle(Window_DOMMatrix(this._parent, init)));
   }
-  static auto DOMMatrixReadOnly(SumType!(string, Sequence!(double)) init) {
-    return .DOMMatrixReadOnly(JsHandle(Window_DOMMatrixReadOnly(init)));
+  auto DOMMatrixReadOnly(SumType!(string, Sequence!(double)) init) {
+    return .DOMMatrixReadOnly(JsHandle(Window_DOMMatrixReadOnly(this._parent, init)));
   }
-  static auto DOMPoint(double x /* = 0 */, double y /* = 0 */, double z /* = 0 */, double w /* = 1 */) {
-    return .DOMPoint(JsHandle(Window_DOMPoint(x, y, z, w)));
+  auto DOMPoint(double x /* = 0 */, double y /* = 0 */, double z /* = 0 */, double w /* = 1 */) {
+    return .DOMPoint(JsHandle(Window_DOMPoint(this._parent, x, y, z, w)));
   }
-  static auto DOMPointReadOnly(double x /* = 0 */, double y /* = 0 */, double z /* = 0 */, double w /* = 1 */) {
-    return .DOMPointReadOnly(JsHandle(Window_DOMPointReadOnly(x, y, z, w)));
+  auto DOMPointReadOnly(double x /* = 0 */, double y /* = 0 */, double z /* = 0 */, double w /* = 1 */) {
+    return .DOMPointReadOnly(JsHandle(Window_DOMPointReadOnly(this._parent, x, y, z, w)));
   }
-  static auto DOMQuad(DOMPointInit p1, DOMPointInit p2, DOMPointInit p3, DOMPointInit p4) {
-    return .DOMQuad(JsHandle(Window_DOMQuad(p1.handle, p2.handle, p3.handle, p4.handle)));
+  auto DOMQuad(DOMPointInit p1, DOMPointInit p2, DOMPointInit p3, DOMPointInit p4) {
+    return .DOMQuad(JsHandle(Window_DOMQuad(this._parent, p1.handle, p2.handle, p3.handle, p4.handle)));
   }
-  static auto DOMRect(double x /* = 0 */, double y /* = 0 */, double width /* = 0 */, double height /* = 0 */) {
-    return .DOMRect(JsHandle(Window_DOMRect(x, y, width, height)));
+  auto DOMRect(double x /* = 0 */, double y /* = 0 */, double width /* = 0 */, double height /* = 0 */) {
+    return .DOMRect(JsHandle(Window_DOMRect(this._parent, x, y, width, height)));
   }
-  static auto DOMRectReadOnly(double x /* = 0 */, double y /* = 0 */, double width /* = 0 */, double height /* = 0 */) {
-    return .DOMRectReadOnly(JsHandle(Window_DOMRectReadOnly(x, y, width, height)));
+  auto DOMRectReadOnly(double x /* = 0 */, double y /* = 0 */, double width /* = 0 */, double height /* = 0 */) {
+    return .DOMRectReadOnly(JsHandle(Window_DOMRectReadOnly(this._parent, x, y, width, height)));
   }
-  static auto IDBVersionChangeEvent(string type, IDBVersionChangeEventInit eventInitDict) {
-    return .IDBVersionChangeEvent(JsHandle(Window_IDBVersionChangeEvent(type, eventInitDict._parent)));
+  auto IDBVersionChangeEvent(string type, IDBVersionChangeEventInit eventInitDict) {
+    return .IDBVersionChangeEvent(JsHandle(Window_IDBVersionChangeEvent(this._parent, type, eventInitDict._parent)));
   }
-  static auto ByteLengthQueuingStrategy(T0)(T0 options) {
+  auto ByteLengthQueuingStrategy(T0)(T0 options) {
     Handle _handle_options = getOrCreateHandle(options);
-    auto result = .ByteLengthQueuingStrategy(JsHandle(Window_ByteLengthQueuingStrategy(_handle_options)));
+    auto result = .ByteLengthQueuingStrategy(JsHandle(Window_ByteLengthQueuingStrategy(this._parent, _handle_options)));
     dropHandle!(T0)(_handle_options);
     return result;
   }
-  static auto CountQueuingStrategy(T0)(T0 options) {
+  auto CountQueuingStrategy(T0)(T0 options) {
     Handle _handle_options = getOrCreateHandle(options);
-    auto result = .CountQueuingStrategy(JsHandle(Window_CountQueuingStrategy(_handle_options)));
+    auto result = .CountQueuingStrategy(JsHandle(Window_CountQueuingStrategy(this._parent, _handle_options)));
     dropHandle!(T0)(_handle_options);
     return result;
   }
-  static auto ReadableStream(UnderlyingSource underlyingSource, QueuingStrategy strategy) {
-    return .ReadableStream(JsHandle(Window_ReadableStream__Handle_Handle(underlyingSource.handle, strategy.handle)));
+  auto ReadableStream(UnderlyingSource underlyingSource, QueuingStrategy strategy) {
+    return .ReadableStream(JsHandle(Window_ReadableStream__Handle_Handle(this._parent, underlyingSource.handle, strategy.handle)));
   }
-  static auto ReadableStream(UnderlyingByteSource underlyingSource, QueuingStrategy strategy) {
-    return .ReadableStream(JsHandle(Window_ReadableStream__Handle_Handle(underlyingSource.handle, strategy.handle)));
+  auto ReadableStream(UnderlyingByteSource underlyingSource, QueuingStrategy strategy) {
+    return .ReadableStream(JsHandle(Window_ReadableStream__Handle_Handle(this._parent, underlyingSource.handle, strategy.handle)));
   }
-  static auto ReadableStreamBYOBReader(.ReadableStream stream) {
-    return .ReadableStreamBYOBReader(JsHandle(Window_ReadableStreamBYOBReader(stream.handle)));
+  auto ReadableStreamBYOBReader(.ReadableStream stream) {
+    return .ReadableStreamBYOBReader(JsHandle(Window_ReadableStreamBYOBReader(this._parent, stream.handle)));
   }
-  static auto ReadableStreamDefaultReader(.ReadableStream stream) {
-    return .ReadableStreamDefaultReader(JsHandle(Window_ReadableStreamDefaultReader(stream.handle)));
+  auto ReadableStreamDefaultReader(.ReadableStream stream) {
+    return .ReadableStreamDefaultReader(JsHandle(Window_ReadableStreamDefaultReader(this._parent, stream.handle)));
   }
-  static auto TransformStream(Transformer transformer, QueuingStrategy writableStrategy, QueuingStrategy readableStrategy) {
-    return .TransformStream(JsHandle(Window_TransformStream(transformer.handle, writableStrategy.handle, readableStrategy.handle)));
+  auto TransformStream(Transformer transformer, QueuingStrategy writableStrategy, QueuingStrategy readableStrategy) {
+    return .TransformStream(JsHandle(Window_TransformStream(this._parent, transformer.handle, writableStrategy.handle, readableStrategy.handle)));
   }
-  static auto WritableStream(UnderlyingSink underlyingSink, QueuingStrategy strategy) {
-    return .WritableStream(JsHandle(Window_WritableStream(underlyingSink.handle, strategy.handle)));
+  auto WritableStream(UnderlyingSink underlyingSink, QueuingStrategy strategy) {
+    return .WritableStream(JsHandle(Window_WritableStream(this._parent, underlyingSink.handle, strategy.handle)));
   }
-  static auto WritableStreamDefaultWriter(.ReadableStream stream) {
-    return .WritableStreamDefaultWriter(JsHandle(Window_WritableStreamDefaultWriter(stream.handle)));
+  auto WritableStreamDefaultWriter(.ReadableStream stream) {
+    return .WritableStreamDefaultWriter(JsHandle(Window_WritableStreamDefaultWriter(this._parent, stream.handle)));
   }
-  static auto FormData(HTMLFormElement form) {
-    return .FormData(JsHandle(Window_FormData(form._parent)));
+  auto FormData(HTMLFormElement form) {
+    return .FormData(JsHandle(Window_FormData(this._parent, form._parent)));
   }
-  static auto ProgressEvent(string type, ProgressEventInit eventInitDict) {
-    return .ProgressEvent(JsHandle(Window_ProgressEvent(type, eventInitDict._parent)));
+  auto ProgressEvent(string type, ProgressEventInit eventInitDict) {
+    return .ProgressEvent(JsHandle(Window_ProgressEvent(this._parent, type, eventInitDict._parent)));
   }
-  static auto XMLHttpRequest() {
-    return .XMLHttpRequest(JsHandle(Window_XMLHttpRequest()));
+  auto XMLHttpRequest() {
+    return .XMLHttpRequest(JsHandle(Window_XMLHttpRequest(this._parent)));
   }
-  static auto TextDecoder(string label /* = "utf-8" */, TextDecoderOptions options) {
-    return .TextDecoder(JsHandle(Window_TextDecoder(label, options.handle)));
+  auto TextDecoder(string label /* = "utf-8" */, TextDecoderOptions options) {
+    return .TextDecoder(JsHandle(Window_TextDecoder(this._parent, label, options.handle)));
   }
-  static auto TextDecoderStream(string label /* = "utf-8" */, TextDecoderOptions options) {
-    return .TextDecoderStream(JsHandle(Window_TextDecoderStream(label, options.handle)));
+  auto TextDecoderStream(string label /* = "utf-8" */, TextDecoderOptions options) {
+    return .TextDecoderStream(JsHandle(Window_TextDecoderStream(this._parent, label, options.handle)));
   }
-  static auto TextEncoder() {
-    return .TextEncoder(JsHandle(Window_TextEncoder()));
+  auto TextEncoder() {
+    return .TextEncoder(JsHandle(Window_TextEncoder(this._parent)));
   }
-  static auto TextEncoderStream() {
-    return .TextEncoderStream(JsHandle(Window_TextEncoderStream()));
+  auto TextEncoderStream() {
+    return .TextEncoderStream(JsHandle(Window_TextEncoderStream(this._parent)));
   }
 }
 struct WindowPostMessageOptions {
@@ -7894,12 +7895,12 @@ struct Worker {
   }
   void postMessage(T0)(T0 message, Sequence!(JsObject) transfer) {
     Handle _handle_message = getOrCreateHandle(message);
-    Worker_postMessage__Any_sequence(this._parent, _handle_message, transfer.handle);
+    Worker_postMessage__Handle_sequence(this._parent, _handle_message, transfer.handle);
     dropHandle!(T0)(_handle_message);
   }
   void postMessage(T0)(T0 message, PostMessageOptions options) {
     Handle _handle_message = getOrCreateHandle(message);
-    Worker_postMessage__Any_Handle(this._parent, _handle_message, options.handle);
+    Worker_postMessage__Handle_Handle(this._parent, _handle_message, options.handle);
     dropHandle!(T0)(_handle_message);
   }
   void postMessage(T0)(T0 message) {
@@ -7925,161 +7926,161 @@ struct Worker {
   auto onerror() {
     return AbstractWorker_onerror_Get(this._parent);
   }
-  static auto Blob(Sequence!(BlobPart) blobParts, BlobPropertyBag options) {
-    return .Blob(JsHandle(Worker_Blob(blobParts.handle, options.handle)));
+  auto Blob(Sequence!(BlobPart) blobParts, BlobPropertyBag options) {
+    return .Blob(JsHandle(Worker_Blob(this._parent, blobParts.handle, options.handle)));
   }
-  static auto File(Sequence!(BlobPart) fileBits, string fileName, FilePropertyBag options) {
-    return .File(JsHandle(Worker_File(fileBits.handle, fileName, options._parent)));
+  auto File(Sequence!(BlobPart) fileBits, string fileName, FilePropertyBag options) {
+    return .File(JsHandle(Worker_File(this._parent, fileBits.handle, fileName, options._parent)));
   }
-  static auto FileReader() {
-    return .FileReader(JsHandle(Worker_FileReader()));
+  auto FileReader() {
+    return .FileReader(JsHandle(Worker_FileReader(this._parent)));
   }
-  static auto Headers(HeadersInit init) {
-    return .Headers(JsHandle(Worker_Headers(init)));
+  auto Headers(HeadersInit init) {
+    return .Headers(JsHandle(Worker_Headers(this._parent, init)));
   }
-  static auto Request(RequestInfo input, RequestInit init) {
-    return .Request(JsHandle(Worker_Request(input, init.handle)));
+  auto Request(RequestInfo input, RequestInit init) {
+    return .Request(JsHandle(Worker_Request(this._parent, input, init.handle)));
   }
-  static auto Response(Optional!(BodyInit) body_ /* = no!(BodyInit) */, ResponseInit init) {
-    return .Response(JsHandle(Worker_Response(!body_.empty, body_.front, init.handle)));
+  auto Response(Optional!(BodyInit) body_ /* = no!(BodyInit) */, ResponseInit init) {
+    return .Response(JsHandle(Worker_Response(this._parent, !body_.empty, body_.front, init.handle)));
   }
-  static auto Notification(string title, NotificationOptions options) {
-    return .Notification(JsHandle(Worker_Notification(title, options.handle)));
+  auto Notification(string title, NotificationOptions options) {
+    return .Notification(JsHandle(Worker_Notification(this._parent, title, options.handle)));
   }
-  static auto AbortController() {
-    return .AbortController(JsHandle(Worker_AbortController()));
+  auto AbortController() {
+    return .AbortController(JsHandle(Worker_AbortController(this._parent)));
   }
-  static auto CustomEvent(string type, CustomEventInit eventInitDict) {
-    return .CustomEvent(JsHandle(Worker_CustomEvent(type, eventInitDict._parent)));
+  auto CustomEvent(string type, CustomEventInit eventInitDict) {
+    return .CustomEvent(JsHandle(Worker_CustomEvent(this._parent, type, eventInitDict._parent)));
   }
-  static auto Event(string type, EventInit eventInitDict) {
-    return .Event(JsHandle(Worker_Event(type, eventInitDict.handle)));
+  auto Event(string type, EventInit eventInitDict) {
+    return .Event(JsHandle(Worker_Event(this._parent, type, eventInitDict.handle)));
   }
-  static auto EventTarget() {
-    return .EventTarget(JsHandle(Worker_EventTarget()));
+  auto EventTarget() {
+    return .EventTarget(JsHandle(Worker_EventTarget(this._parent)));
   }
-  static auto BroadcastChannel(string name) {
-    return .BroadcastChannel(JsHandle(Worker_BroadcastChannel(name)));
+  auto BroadcastChannel(string name) {
+    return .BroadcastChannel(JsHandle(Worker_BroadcastChannel(this._parent, name)));
   }
-  static auto CloseEvent(string type, CloseEventInit eventInitDict) {
-    return .CloseEvent(JsHandle(Worker_CloseEvent(type, eventInitDict._parent)));
+  auto CloseEvent(string type, CloseEventInit eventInitDict) {
+    return .CloseEvent(JsHandle(Worker_CloseEvent(this._parent, type, eventInitDict._parent)));
   }
-  static auto ErrorEvent(string type, ErrorEventInit eventInitDict) {
-    return .ErrorEvent(JsHandle(Worker_ErrorEvent(type, eventInitDict._parent)));
+  auto ErrorEvent(string type, ErrorEventInit eventInitDict) {
+    return .ErrorEvent(JsHandle(Worker_ErrorEvent(this._parent, type, eventInitDict._parent)));
   }
-  static auto EventSource(string url, EventSourceInit eventSourceInitDict) {
-    return .EventSource(JsHandle(Worker_EventSource(url, eventSourceInitDict.handle)));
+  auto EventSource(string url, EventSourceInit eventSourceInitDict) {
+    return .EventSource(JsHandle(Worker_EventSource(this._parent, url, eventSourceInitDict.handle)));
   }
-  static auto ImageData(uint sw, uint sh) {
-    return .ImageData(JsHandle(Worker_ImageData__uint_uint(sw, sh)));
+  auto ImageData(uint sw, uint sh) {
+    return .ImageData(JsHandle(Worker_ImageData__uint_uint(this._parent, sw, sh)));
   }
-  static auto ImageData(Uint8ClampedArray data, uint sw, uint sh) {
-    return .ImageData(JsHandle(Worker_ImageData__Handle_uint_uint(data.handle, sw, sh)));
+  auto ImageData(Uint8ClampedArray data, uint sw, uint sh) {
+    return .ImageData(JsHandle(Worker_ImageData__Handle_uint_uint(this._parent, data.handle, sw, sh)));
   }
-  static auto MessageChannel() {
-    return .MessageChannel(JsHandle(Worker_MessageChannel()));
+  auto MessageChannel() {
+    return .MessageChannel(JsHandle(Worker_MessageChannel(this._parent)));
   }
-  static auto MessageEvent(string type, MessageEventInit eventInitDict) {
-    return .MessageEvent(JsHandle(Worker_MessageEvent(type, eventInitDict._parent)));
+  auto MessageEvent(string type, MessageEventInit eventInitDict) {
+    return .MessageEvent(JsHandle(Worker_MessageEvent(this._parent, type, eventInitDict._parent)));
   }
-  static auto OffscreenCanvas(ulong width, ulong height) {
-    return .OffscreenCanvas(JsHandle(Worker_OffscreenCanvas(width, height)));
+  auto OffscreenCanvas(ulong width, ulong height) {
+    return .OffscreenCanvas(JsHandle(Worker_OffscreenCanvas(this._parent, width, height)));
   }
-  static auto Path2D(SumType!(.Path2D, string) path) {
-    return .Path2D(JsHandle(Worker_Path2D(path)));
+  auto Path2D(SumType!(.Path2D, string) path) {
+    return .Path2D(JsHandle(Worker_Path2D(this._parent, path)));
   }
-  static auto PromiseRejectionEvent(string type, PromiseRejectionEventInit eventInitDict) {
-    return .PromiseRejectionEvent(JsHandle(Worker_PromiseRejectionEvent(type, eventInitDict._parent)));
+  auto PromiseRejectionEvent(string type, PromiseRejectionEventInit eventInitDict) {
+    return .PromiseRejectionEvent(JsHandle(Worker_PromiseRejectionEvent(this._parent, type, eventInitDict._parent)));
   }
-  static auto SharedWorker(string scriptURL, SumType!(string, WorkerOptions) options) {
-    return .SharedWorker(JsHandle(Worker_SharedWorker(scriptURL, options)));
+  auto SharedWorker(string scriptURL, SumType!(string, WorkerOptions) options) {
+    return .SharedWorker(JsHandle(Worker_SharedWorker(this._parent, scriptURL, options)));
   }
-  static auto WebSocket(string url, SumType!(string, Sequence!(string)) protocols /* = [] */) {
-    return .WebSocket(JsHandle(Worker_WebSocket(url, protocols)));
+  auto WebSocket(string url, SumType!(string, Sequence!(string)) protocols /* = [] */) {
+    return .WebSocket(JsHandle(Worker_WebSocket(this._parent, url, protocols)));
   }
-  static auto Worker(string scriptURL, WorkerOptions options) {
-    return .Worker(JsHandle(Worker_Worker(scriptURL, options.handle)));
+  auto Worker(string scriptURL, WorkerOptions options) {
+    return .Worker(JsHandle(Worker_Worker(this._parent, scriptURL, options.handle)));
   }
-  static auto DOMException(string message /* = "" */, string name /* = "Error" */) {
-    return .DOMException(JsHandle(Worker_DOMException(message, name)));
+  auto DOMException(string message /* = "" */, string name /* = "Error" */) {
+    return .DOMException(JsHandle(Worker_DOMException(this._parent, message, name)));
   }
-  static auto URL(string url, string base) {
-    return .URL(JsHandle(Worker_URL(url, base)));
+  auto URL(string url, string base) {
+    return .URL(JsHandle(Worker_URL(this._parent, url, base)));
   }
-  static auto URLSearchParams(SumType!(Sequence!(Sequence!(string)), Record!(string, string), string) init /* = "" */) {
-    return .URLSearchParams(JsHandle(Worker_URLSearchParams(init)));
+  auto URLSearchParams(SumType!(Sequence!(Sequence!(string)), Record!(string, string), string) init /* = "" */) {
+    return .URLSearchParams(JsHandle(Worker_URLSearchParams(this._parent, init)));
   }
-  static auto DOMMatrix(SumType!(string, Sequence!(double)) init) {
-    return .DOMMatrix(JsHandle(Worker_DOMMatrix(init)));
+  auto DOMMatrix(SumType!(string, Sequence!(double)) init) {
+    return .DOMMatrix(JsHandle(Worker_DOMMatrix(this._parent, init)));
   }
-  static auto DOMMatrixReadOnly(SumType!(string, Sequence!(double)) init) {
-    return .DOMMatrixReadOnly(JsHandle(Worker_DOMMatrixReadOnly(init)));
+  auto DOMMatrixReadOnly(SumType!(string, Sequence!(double)) init) {
+    return .DOMMatrixReadOnly(JsHandle(Worker_DOMMatrixReadOnly(this._parent, init)));
   }
-  static auto DOMPoint(double x /* = 0 */, double y /* = 0 */, double z /* = 0 */, double w /* = 1 */) {
-    return .DOMPoint(JsHandle(Worker_DOMPoint(x, y, z, w)));
+  auto DOMPoint(double x /* = 0 */, double y /* = 0 */, double z /* = 0 */, double w /* = 1 */) {
+    return .DOMPoint(JsHandle(Worker_DOMPoint(this._parent, x, y, z, w)));
   }
-  static auto DOMPointReadOnly(double x /* = 0 */, double y /* = 0 */, double z /* = 0 */, double w /* = 1 */) {
-    return .DOMPointReadOnly(JsHandle(Worker_DOMPointReadOnly(x, y, z, w)));
+  auto DOMPointReadOnly(double x /* = 0 */, double y /* = 0 */, double z /* = 0 */, double w /* = 1 */) {
+    return .DOMPointReadOnly(JsHandle(Worker_DOMPointReadOnly(this._parent, x, y, z, w)));
   }
-  static auto DOMQuad(DOMPointInit p1, DOMPointInit p2, DOMPointInit p3, DOMPointInit p4) {
-    return .DOMQuad(JsHandle(Worker_DOMQuad(p1.handle, p2.handle, p3.handle, p4.handle)));
+  auto DOMQuad(DOMPointInit p1, DOMPointInit p2, DOMPointInit p3, DOMPointInit p4) {
+    return .DOMQuad(JsHandle(Worker_DOMQuad(this._parent, p1.handle, p2.handle, p3.handle, p4.handle)));
   }
-  static auto DOMRect(double x /* = 0 */, double y /* = 0 */, double width /* = 0 */, double height /* = 0 */) {
-    return .DOMRect(JsHandle(Worker_DOMRect(x, y, width, height)));
+  auto DOMRect(double x /* = 0 */, double y /* = 0 */, double width /* = 0 */, double height /* = 0 */) {
+    return .DOMRect(JsHandle(Worker_DOMRect(this._parent, x, y, width, height)));
   }
-  static auto DOMRectReadOnly(double x /* = 0 */, double y /* = 0 */, double width /* = 0 */, double height /* = 0 */) {
-    return .DOMRectReadOnly(JsHandle(Worker_DOMRectReadOnly(x, y, width, height)));
+  auto DOMRectReadOnly(double x /* = 0 */, double y /* = 0 */, double width /* = 0 */, double height /* = 0 */) {
+    return .DOMRectReadOnly(JsHandle(Worker_DOMRectReadOnly(this._parent, x, y, width, height)));
   }
-  static auto IDBVersionChangeEvent(string type, IDBVersionChangeEventInit eventInitDict) {
-    return .IDBVersionChangeEvent(JsHandle(Worker_IDBVersionChangeEvent(type, eventInitDict._parent)));
+  auto IDBVersionChangeEvent(string type, IDBVersionChangeEventInit eventInitDict) {
+    return .IDBVersionChangeEvent(JsHandle(Worker_IDBVersionChangeEvent(this._parent, type, eventInitDict._parent)));
   }
-  static auto ByteLengthQueuingStrategy(T0)(T0 options) {
+  auto ByteLengthQueuingStrategy(T0)(T0 options) {
     Handle _handle_options = getOrCreateHandle(options);
-    auto result = .ByteLengthQueuingStrategy(JsHandle(Worker_ByteLengthQueuingStrategy(_handle_options)));
+    auto result = .ByteLengthQueuingStrategy(JsHandle(Worker_ByteLengthQueuingStrategy(this._parent, _handle_options)));
     dropHandle!(T0)(_handle_options);
     return result;
   }
-  static auto CountQueuingStrategy(T0)(T0 options) {
+  auto CountQueuingStrategy(T0)(T0 options) {
     Handle _handle_options = getOrCreateHandle(options);
-    auto result = .CountQueuingStrategy(JsHandle(Worker_CountQueuingStrategy(_handle_options)));
+    auto result = .CountQueuingStrategy(JsHandle(Worker_CountQueuingStrategy(this._parent, _handle_options)));
     dropHandle!(T0)(_handle_options);
     return result;
   }
-  static auto ReadableStream(UnderlyingSource underlyingSource, QueuingStrategy strategy) {
-    return .ReadableStream(JsHandle(Worker_ReadableStream__Handle_Handle(underlyingSource.handle, strategy.handle)));
+  auto ReadableStream(UnderlyingSource underlyingSource, QueuingStrategy strategy) {
+    return .ReadableStream(JsHandle(Worker_ReadableStream__Handle_Handle(this._parent, underlyingSource.handle, strategy.handle)));
   }
-  static auto ReadableStream(UnderlyingByteSource underlyingSource, QueuingStrategy strategy) {
-    return .ReadableStream(JsHandle(Worker_ReadableStream__Handle_Handle(underlyingSource.handle, strategy.handle)));
+  auto ReadableStream(UnderlyingByteSource underlyingSource, QueuingStrategy strategy) {
+    return .ReadableStream(JsHandle(Worker_ReadableStream__Handle_Handle(this._parent, underlyingSource.handle, strategy.handle)));
   }
-  static auto ReadableStreamBYOBReader(.ReadableStream stream) {
-    return .ReadableStreamBYOBReader(JsHandle(Worker_ReadableStreamBYOBReader(stream.handle)));
+  auto ReadableStreamBYOBReader(.ReadableStream stream) {
+    return .ReadableStreamBYOBReader(JsHandle(Worker_ReadableStreamBYOBReader(this._parent, stream.handle)));
   }
-  static auto ReadableStreamDefaultReader(.ReadableStream stream) {
-    return .ReadableStreamDefaultReader(JsHandle(Worker_ReadableStreamDefaultReader(stream.handle)));
+  auto ReadableStreamDefaultReader(.ReadableStream stream) {
+    return .ReadableStreamDefaultReader(JsHandle(Worker_ReadableStreamDefaultReader(this._parent, stream.handle)));
   }
-  static auto TransformStream(Transformer transformer, QueuingStrategy writableStrategy, QueuingStrategy readableStrategy) {
-    return .TransformStream(JsHandle(Worker_TransformStream(transformer.handle, writableStrategy.handle, readableStrategy.handle)));
+  auto TransformStream(Transformer transformer, QueuingStrategy writableStrategy, QueuingStrategy readableStrategy) {
+    return .TransformStream(JsHandle(Worker_TransformStream(this._parent, transformer.handle, writableStrategy.handle, readableStrategy.handle)));
   }
-  static auto WritableStream(UnderlyingSink underlyingSink, QueuingStrategy strategy) {
-    return .WritableStream(JsHandle(Worker_WritableStream(underlyingSink.handle, strategy.handle)));
+  auto WritableStream(UnderlyingSink underlyingSink, QueuingStrategy strategy) {
+    return .WritableStream(JsHandle(Worker_WritableStream(this._parent, underlyingSink.handle, strategy.handle)));
   }
-  static auto WritableStreamDefaultWriter(.ReadableStream stream) {
-    return .WritableStreamDefaultWriter(JsHandle(Worker_WritableStreamDefaultWriter(stream.handle)));
+  auto WritableStreamDefaultWriter(.ReadableStream stream) {
+    return .WritableStreamDefaultWriter(JsHandle(Worker_WritableStreamDefaultWriter(this._parent, stream.handle)));
   }
-  static auto FormData(HTMLFormElement form) {
-    return .FormData(JsHandle(Worker_FormData(form._parent)));
+  auto FormData(HTMLFormElement form) {
+    return .FormData(JsHandle(Worker_FormData(this._parent, form._parent)));
   }
-  static auto TextDecoder(string label /* = "utf-8" */, TextDecoderOptions options) {
-    return .TextDecoder(JsHandle(Worker_TextDecoder(label, options.handle)));
+  auto TextDecoder(string label /* = "utf-8" */, TextDecoderOptions options) {
+    return .TextDecoder(JsHandle(Worker_TextDecoder(this._parent, label, options.handle)));
   }
-  static auto TextDecoderStream(string label /* = "utf-8" */, TextDecoderOptions options) {
-    return .TextDecoderStream(JsHandle(Worker_TextDecoderStream(label, options.handle)));
+  auto TextDecoderStream(string label /* = "utf-8" */, TextDecoderOptions options) {
+    return .TextDecoderStream(JsHandle(Worker_TextDecoderStream(this._parent, label, options.handle)));
   }
-  static auto TextEncoder() {
-    return .TextEncoder(JsHandle(Worker_TextEncoder()));
+  auto TextEncoder() {
+    return .TextEncoder(JsHandle(Worker_TextEncoder(this._parent)));
   }
-  static auto TextEncoderStream() {
-    return .TextEncoderStream(JsHandle(Worker_TextEncoderStream()));
+  auto TextEncoderStream() {
+    return .TextEncoderStream(JsHandle(Worker_TextEncoderStream(this._parent)));
   }
 }
 struct WorkerGlobalScope {
@@ -8522,8 +8523,8 @@ extern (C) Optional!(DataTransferItem) DataTransferItemList_add__Handle(Handle, 
 extern (C) void DataTransferItemList_remove(Handle, uint);
 extern (C) void DataTransferItemList_clear(Handle);
 extern (C) string DedicatedWorkerGlobalScope_name_Get(Handle);
-extern (C) void DedicatedWorkerGlobalScope_postMessage__Any_sequence(Handle, Handle, Handle);
-extern (C) void DedicatedWorkerGlobalScope_postMessage__Any_Handle(Handle, Handle, Handle);
+extern (C) void DedicatedWorkerGlobalScope_postMessage__Handle_sequence(Handle, Handle, Handle);
+extern (C) void DedicatedWorkerGlobalScope_postMessage__Handle_Handle(Handle, Handle, Handle);
 extern (C) void DedicatedWorkerGlobalScope_postMessage_0(Handle, Handle);
 extern (C) void DedicatedWorkerGlobalScope_close(Handle);
 extern (C) void DedicatedWorkerGlobalScope_onmessage_Set(Handle, EventHandler);
@@ -9806,8 +9807,8 @@ extern (C) void MessageEventInit_source_Set(Handle, bool, MessageEventSource);
 extern (C) Optional!(MessageEventSource) MessageEventInit_source_Get(Handle);
 extern (C) void MessageEventInit_ports_Set(Handle, Handle);
 extern (C) Handle MessageEventInit_ports_Get(Handle);
-extern (C) void MessagePort_postMessage__Any_sequence(Handle, Handle, Handle);
-extern (C) void MessagePort_postMessage__Any_Handle(Handle, Handle, Handle);
+extern (C) void MessagePort_postMessage__Handle_sequence(Handle, Handle, Handle);
+extern (C) void MessagePort_postMessage__Handle_Handle(Handle, Handle, Handle);
 extern (C) void MessagePort_postMessage_0(Handle, Handle);
 extern (C) void MessagePort_start(Handle);
 extern (C) void MessagePort_close(Handle);
@@ -9891,9 +9892,9 @@ extern (C) Handle PromiseRejectionEventInit_reason_Get(Handle);
 extern (C) void RadioNodeList_value_Set(Handle, string);
 extern (C) string RadioNodeList_value_Get(Handle);
 extern (C) Handle SharedWorker_port_Get(Handle);
-extern (C) Handle SharedWorker_FileReaderSync();
-extern (C) Handle SharedWorker_ProgressEvent(string, Handle);
-extern (C) Handle SharedWorker_XMLHttpRequest();
+extern (C) Handle SharedWorker_FileReaderSync(Handle);
+extern (C) Handle SharedWorker_ProgressEvent(Handle, string, Handle);
+extern (C) Handle SharedWorker_XMLHttpRequest(Handle);
 extern (C) string SharedWorkerGlobalScope_name_Get(Handle);
 extern (C) void SharedWorkerGlobalScope_close(Handle);
 extern (C) void SharedWorkerGlobalScope_onconnect_Set(Handle, EventHandler);
@@ -10076,10 +10077,10 @@ extern (C) Optional!(string) Window_prompt(Handle, string, string);
 extern (C) Optional!(string) Window_prompt_0(Handle, string);
 extern (C) Optional!(string) Window_prompt_1(Handle);
 extern (C) void Window_print(Handle);
-extern (C) void Window_postMessage__Any_string_sequence(Handle, Handle, string, Handle);
-extern (C) void Window_postMessage_0_Any_string(Handle, Handle, string);
-extern (C) void Window_postMessage__Any_Handle(Handle, Handle, Handle);
-extern (C) void Window_postMessage_0_Any(Handle, Handle);
+extern (C) void Window_postMessage__Handle_string_sequence(Handle, Handle, string, Handle);
+extern (C) void Window_postMessage_0_Handle_string(Handle, Handle, string);
+extern (C) void Window_postMessage__Handle_Handle(Handle, Handle, Handle);
+extern (C) void Window_postMessage_0_Handle(Handle, Handle);
 extern (C) Handle Window_event_Get(Handle);
 extern (C) void Window_captureEvents(Handle);
 extern (C) void Window_releaseEvents(Handle);
@@ -10089,57 +10090,57 @@ extern (C) Handle Window_getComputedStyle_0(Handle, Handle);
 extern (C) short Window_orientation_Get(Handle);
 extern (C) void Window_onorientationchange_Set(Handle, EventHandler);
 extern (C) EventHandler Window_onorientationchange_Get(Handle);
-extern (C) Handle Window_Blob(Handle, Handle);
-extern (C) Handle Window_File(Handle, string, Handle);
-extern (C) Handle Window_FileReader();
-extern (C) Handle Window_Headers(HeadersInit);
-extern (C) Handle Window_Request(RequestInfo, Handle);
-extern (C) Handle Window_Response(bool, BodyInit, Handle);
-extern (C) Handle Window_Notification(string, Handle);
-extern (C) Handle Window_AbortController();
-extern (C) Handle Window_CustomEvent(string, Handle);
-extern (C) Handle Window_Event(string, Handle);
-extern (C) Handle Window_EventTarget();
-extern (C) Handle Window_BroadcastChannel(string);
-extern (C) Handle Window_CloseEvent(string, Handle);
-extern (C) Handle Window_ErrorEvent(string, Handle);
-extern (C) Handle Window_EventSource(string, Handle);
-extern (C) Handle Window_ImageData__uint_uint(uint, uint);
-extern (C) Handle Window_ImageData__Handle_uint_uint(Handle, uint, uint);
-extern (C) Handle Window_MessageChannel();
-extern (C) Handle Window_MessageEvent(string, Handle);
-extern (C) Handle Window_OffscreenCanvas(ulong, ulong);
-extern (C) Handle Window_Path2D(SumType!(Path2D, string));
-extern (C) Handle Window_PromiseRejectionEvent(string, Handle);
-extern (C) Handle Window_SharedWorker(string, SumType!(string, WorkerOptions));
-extern (C) Handle Window_WebSocket(string, SumType!(string, Sequence!(string)));
-extern (C) Handle Window_Worker(string, Handle);
-extern (C) Handle Window_DOMException(string, string);
-extern (C) Handle Window_URL(string, string);
-extern (C) Handle Window_URLSearchParams(SumType!(Sequence!(Sequence!(string)), Record!(string, string), string));
-extern (C) Handle Window_DOMMatrix(SumType!(string, Sequence!(double)));
-extern (C) Handle Window_DOMMatrixReadOnly(SumType!(string, Sequence!(double)));
-extern (C) Handle Window_DOMPoint(double, double, double, double);
-extern (C) Handle Window_DOMPointReadOnly(double, double, double, double);
-extern (C) Handle Window_DOMQuad(Handle, Handle, Handle, Handle);
-extern (C) Handle Window_DOMRect(double, double, double, double);
-extern (C) Handle Window_DOMRectReadOnly(double, double, double, double);
-extern (C) Handle Window_IDBVersionChangeEvent(string, Handle);
-extern (C) Handle Window_ByteLengthQueuingStrategy(Handle);
-extern (C) Handle Window_CountQueuingStrategy(Handle);
-extern (C) Handle Window_ReadableStream__Handle_Handle(Handle, Handle);
-extern (C) Handle Window_ReadableStreamBYOBReader(Handle);
-extern (C) Handle Window_ReadableStreamDefaultReader(Handle);
-extern (C) Handle Window_TransformStream(Handle, Handle, Handle);
-extern (C) Handle Window_WritableStream(Handle, Handle);
-extern (C) Handle Window_WritableStreamDefaultWriter(Handle);
-extern (C) Handle Window_FormData(Handle);
-extern (C) Handle Window_ProgressEvent(string, Handle);
-extern (C) Handle Window_XMLHttpRequest();
-extern (C) Handle Window_TextDecoder(string, Handle);
-extern (C) Handle Window_TextDecoderStream(string, Handle);
-extern (C) Handle Window_TextEncoder();
-extern (C) Handle Window_TextEncoderStream();
+extern (C) Handle Window_Blob(Handle, Handle, Handle);
+extern (C) Handle Window_File(Handle, Handle, string, Handle);
+extern (C) Handle Window_FileReader(Handle);
+extern (C) Handle Window_Headers(Handle, HeadersInit);
+extern (C) Handle Window_Request(Handle, RequestInfo, Handle);
+extern (C) Handle Window_Response(Handle, bool, BodyInit, Handle);
+extern (C) Handle Window_Notification(Handle, string, Handle);
+extern (C) Handle Window_AbortController(Handle);
+extern (C) Handle Window_CustomEvent(Handle, string, Handle);
+extern (C) Handle Window_Event(Handle, string, Handle);
+extern (C) Handle Window_EventTarget(Handle);
+extern (C) Handle Window_BroadcastChannel(Handle, string);
+extern (C) Handle Window_CloseEvent(Handle, string, Handle);
+extern (C) Handle Window_ErrorEvent(Handle, string, Handle);
+extern (C) Handle Window_EventSource(Handle, string, Handle);
+extern (C) Handle Window_ImageData__uint_uint(Handle, uint, uint);
+extern (C) Handle Window_ImageData__Handle_uint_uint(Handle, Handle, uint, uint);
+extern (C) Handle Window_MessageChannel(Handle);
+extern (C) Handle Window_MessageEvent(Handle, string, Handle);
+extern (C) Handle Window_OffscreenCanvas(Handle, ulong, ulong);
+extern (C) Handle Window_Path2D(Handle, SumType!(Path2D, string));
+extern (C) Handle Window_PromiseRejectionEvent(Handle, string, Handle);
+extern (C) Handle Window_SharedWorker(Handle, string, SumType!(string, WorkerOptions));
+extern (C) Handle Window_WebSocket(Handle, string, SumType!(string, Sequence!(string)));
+extern (C) Handle Window_Worker(Handle, string, Handle);
+extern (C) Handle Window_DOMException(Handle, string, string);
+extern (C) Handle Window_URL(Handle, string, string);
+extern (C) Handle Window_URLSearchParams(Handle, SumType!(Sequence!(Sequence!(string)), Record!(string, string), string));
+extern (C) Handle Window_DOMMatrix(Handle, SumType!(string, Sequence!(double)));
+extern (C) Handle Window_DOMMatrixReadOnly(Handle, SumType!(string, Sequence!(double)));
+extern (C) Handle Window_DOMPoint(Handle, double, double, double, double);
+extern (C) Handle Window_DOMPointReadOnly(Handle, double, double, double, double);
+extern (C) Handle Window_DOMQuad(Handle, Handle, Handle, Handle, Handle);
+extern (C) Handle Window_DOMRect(Handle, double, double, double, double);
+extern (C) Handle Window_DOMRectReadOnly(Handle, double, double, double, double);
+extern (C) Handle Window_IDBVersionChangeEvent(Handle, string, Handle);
+extern (C) Handle Window_ByteLengthQueuingStrategy(Handle, Handle);
+extern (C) Handle Window_CountQueuingStrategy(Handle, Handle);
+extern (C) Handle Window_ReadableStream__Handle_Handle(Handle, Handle, Handle);
+extern (C) Handle Window_ReadableStreamBYOBReader(Handle, Handle);
+extern (C) Handle Window_ReadableStreamDefaultReader(Handle, Handle);
+extern (C) Handle Window_TransformStream(Handle, Handle, Handle, Handle);
+extern (C) Handle Window_WritableStream(Handle, Handle, Handle);
+extern (C) Handle Window_WritableStreamDefaultWriter(Handle, Handle);
+extern (C) Handle Window_FormData(Handle, Handle);
+extern (C) Handle Window_ProgressEvent(Handle, string, Handle);
+extern (C) Handle Window_XMLHttpRequest(Handle);
+extern (C) Handle Window_TextDecoder(Handle, string, Handle);
+extern (C) Handle Window_TextDecoderStream(Handle, string, Handle);
+extern (C) Handle Window_TextEncoder(Handle);
+extern (C) Handle Window_TextEncoderStream(Handle);
 extern (C) void WindowEventHandlers_onafterprint_Set(Handle, EventHandler);
 extern (C) EventHandler WindowEventHandlers_onafterprint_Get(Handle);
 extern (C) void WindowEventHandlers_onbeforeprint_Set(Handle, EventHandler);
@@ -10195,62 +10196,62 @@ extern (C) void WindowPostMessageOptions_targetOrigin_Set(Handle, string);
 extern (C) string WindowPostMessageOptions_targetOrigin_Get(Handle);
 extern (C) Handle WindowSessionStorage_sessionStorage_Get(Handle);
 extern (C) void Worker_terminate(Handle);
-extern (C) void Worker_postMessage__Any_sequence(Handle, Handle, Handle);
-extern (C) void Worker_postMessage__Any_Handle(Handle, Handle, Handle);
+extern (C) void Worker_postMessage__Handle_sequence(Handle, Handle, Handle);
+extern (C) void Worker_postMessage__Handle_Handle(Handle, Handle, Handle);
 extern (C) void Worker_postMessage_0(Handle, Handle);
 extern (C) void Worker_onmessage_Set(Handle, EventHandler);
 extern (C) EventHandler Worker_onmessage_Get(Handle);
 extern (C) void Worker_onmessageerror_Set(Handle, EventHandler);
 extern (C) EventHandler Worker_onmessageerror_Get(Handle);
-extern (C) Handle Worker_Blob(Handle, Handle);
-extern (C) Handle Worker_File(Handle, string, Handle);
-extern (C) Handle Worker_FileReader();
-extern (C) Handle Worker_Headers(HeadersInit);
-extern (C) Handle Worker_Request(RequestInfo, Handle);
-extern (C) Handle Worker_Response(bool, BodyInit, Handle);
-extern (C) Handle Worker_Notification(string, Handle);
-extern (C) Handle Worker_AbortController();
-extern (C) Handle Worker_CustomEvent(string, Handle);
-extern (C) Handle Worker_Event(string, Handle);
-extern (C) Handle Worker_EventTarget();
-extern (C) Handle Worker_BroadcastChannel(string);
-extern (C) Handle Worker_CloseEvent(string, Handle);
-extern (C) Handle Worker_ErrorEvent(string, Handle);
-extern (C) Handle Worker_EventSource(string, Handle);
-extern (C) Handle Worker_ImageData__uint_uint(uint, uint);
-extern (C) Handle Worker_ImageData__Handle_uint_uint(Handle, uint, uint);
-extern (C) Handle Worker_MessageChannel();
-extern (C) Handle Worker_MessageEvent(string, Handle);
-extern (C) Handle Worker_OffscreenCanvas(ulong, ulong);
-extern (C) Handle Worker_Path2D(SumType!(Path2D, string));
-extern (C) Handle Worker_PromiseRejectionEvent(string, Handle);
-extern (C) Handle Worker_SharedWorker(string, SumType!(string, WorkerOptions));
-extern (C) Handle Worker_WebSocket(string, SumType!(string, Sequence!(string)));
-extern (C) Handle Worker_Worker(string, Handle);
-extern (C) Handle Worker_DOMException(string, string);
-extern (C) Handle Worker_URL(string, string);
-extern (C) Handle Worker_URLSearchParams(SumType!(Sequence!(Sequence!(string)), Record!(string, string), string));
-extern (C) Handle Worker_DOMMatrix(SumType!(string, Sequence!(double)));
-extern (C) Handle Worker_DOMMatrixReadOnly(SumType!(string, Sequence!(double)));
-extern (C) Handle Worker_DOMPoint(double, double, double, double);
-extern (C) Handle Worker_DOMPointReadOnly(double, double, double, double);
-extern (C) Handle Worker_DOMQuad(Handle, Handle, Handle, Handle);
-extern (C) Handle Worker_DOMRect(double, double, double, double);
-extern (C) Handle Worker_DOMRectReadOnly(double, double, double, double);
-extern (C) Handle Worker_IDBVersionChangeEvent(string, Handle);
-extern (C) Handle Worker_ByteLengthQueuingStrategy(Handle);
-extern (C) Handle Worker_CountQueuingStrategy(Handle);
-extern (C) Handle Worker_ReadableStream__Handle_Handle(Handle, Handle);
-extern (C) Handle Worker_ReadableStreamBYOBReader(Handle);
-extern (C) Handle Worker_ReadableStreamDefaultReader(Handle);
-extern (C) Handle Worker_TransformStream(Handle, Handle, Handle);
-extern (C) Handle Worker_WritableStream(Handle, Handle);
-extern (C) Handle Worker_WritableStreamDefaultWriter(Handle);
-extern (C) Handle Worker_FormData(Handle);
-extern (C) Handle Worker_TextDecoder(string, Handle);
-extern (C) Handle Worker_TextDecoderStream(string, Handle);
-extern (C) Handle Worker_TextEncoder();
-extern (C) Handle Worker_TextEncoderStream();
+extern (C) Handle Worker_Blob(Handle, Handle, Handle);
+extern (C) Handle Worker_File(Handle, Handle, string, Handle);
+extern (C) Handle Worker_FileReader(Handle);
+extern (C) Handle Worker_Headers(Handle, HeadersInit);
+extern (C) Handle Worker_Request(Handle, RequestInfo, Handle);
+extern (C) Handle Worker_Response(Handle, bool, BodyInit, Handle);
+extern (C) Handle Worker_Notification(Handle, string, Handle);
+extern (C) Handle Worker_AbortController(Handle);
+extern (C) Handle Worker_CustomEvent(Handle, string, Handle);
+extern (C) Handle Worker_Event(Handle, string, Handle);
+extern (C) Handle Worker_EventTarget(Handle);
+extern (C) Handle Worker_BroadcastChannel(Handle, string);
+extern (C) Handle Worker_CloseEvent(Handle, string, Handle);
+extern (C) Handle Worker_ErrorEvent(Handle, string, Handle);
+extern (C) Handle Worker_EventSource(Handle, string, Handle);
+extern (C) Handle Worker_ImageData__uint_uint(Handle, uint, uint);
+extern (C) Handle Worker_ImageData__Handle_uint_uint(Handle, Handle, uint, uint);
+extern (C) Handle Worker_MessageChannel(Handle);
+extern (C) Handle Worker_MessageEvent(Handle, string, Handle);
+extern (C) Handle Worker_OffscreenCanvas(Handle, ulong, ulong);
+extern (C) Handle Worker_Path2D(Handle, SumType!(Path2D, string));
+extern (C) Handle Worker_PromiseRejectionEvent(Handle, string, Handle);
+extern (C) Handle Worker_SharedWorker(Handle, string, SumType!(string, WorkerOptions));
+extern (C) Handle Worker_WebSocket(Handle, string, SumType!(string, Sequence!(string)));
+extern (C) Handle Worker_Worker(Handle, string, Handle);
+extern (C) Handle Worker_DOMException(Handle, string, string);
+extern (C) Handle Worker_URL(Handle, string, string);
+extern (C) Handle Worker_URLSearchParams(Handle, SumType!(Sequence!(Sequence!(string)), Record!(string, string), string));
+extern (C) Handle Worker_DOMMatrix(Handle, SumType!(string, Sequence!(double)));
+extern (C) Handle Worker_DOMMatrixReadOnly(Handle, SumType!(string, Sequence!(double)));
+extern (C) Handle Worker_DOMPoint(Handle, double, double, double, double);
+extern (C) Handle Worker_DOMPointReadOnly(Handle, double, double, double, double);
+extern (C) Handle Worker_DOMQuad(Handle, Handle, Handle, Handle, Handle);
+extern (C) Handle Worker_DOMRect(Handle, double, double, double, double);
+extern (C) Handle Worker_DOMRectReadOnly(Handle, double, double, double, double);
+extern (C) Handle Worker_IDBVersionChangeEvent(Handle, string, Handle);
+extern (C) Handle Worker_ByteLengthQueuingStrategy(Handle, Handle);
+extern (C) Handle Worker_CountQueuingStrategy(Handle, Handle);
+extern (C) Handle Worker_ReadableStream__Handle_Handle(Handle, Handle, Handle);
+extern (C) Handle Worker_ReadableStreamBYOBReader(Handle, Handle);
+extern (C) Handle Worker_ReadableStreamDefaultReader(Handle, Handle);
+extern (C) Handle Worker_TransformStream(Handle, Handle, Handle, Handle);
+extern (C) Handle Worker_WritableStream(Handle, Handle, Handle);
+extern (C) Handle Worker_WritableStreamDefaultWriter(Handle, Handle);
+extern (C) Handle Worker_FormData(Handle, Handle);
+extern (C) Handle Worker_TextDecoder(Handle, string, Handle);
+extern (C) Handle Worker_TextDecoderStream(Handle, string, Handle);
+extern (C) Handle Worker_TextEncoder(Handle);
+extern (C) Handle Worker_TextEncoderStream(Handle);
 extern (C) Handle WorkerGlobalScope_self_Get(Handle);
 extern (C) Handle WorkerGlobalScope_location_Get(Handle);
 extern (C) Handle WorkerGlobalScope_navigator_Get(Handle);

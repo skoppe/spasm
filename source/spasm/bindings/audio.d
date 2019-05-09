@@ -655,14 +655,14 @@ struct AudioWorklet {
   this(JsHandle h) {
     _parent = .Worklet(h);
   }
-  static auto Event(string type, EventInit eventInitDict) {
-    return .Event(JsHandle(AudioWorklet_Event(type, eventInitDict.handle)));
+  auto Event(string type, EventInit eventInitDict) {
+    return .Event(JsHandle(AudioWorklet_Event(this._parent, type, eventInitDict.handle)));
   }
-  static auto EventTarget() {
-    return .EventTarget(JsHandle(AudioWorklet_EventTarget()));
+  auto EventTarget() {
+    return .EventTarget(JsHandle(AudioWorklet_EventTarget(this._parent)));
   }
-  static auto MessageEvent(string type, MessageEventInit eventInitDict) {
-    return .MessageEvent(JsHandle(AudioWorklet_MessageEvent(type, eventInitDict._parent)));
+  auto MessageEvent(string type, MessageEventInit eventInitDict) {
+    return .MessageEvent(JsHandle(AudioWorklet_MessageEvent(this._parent, type, eventInitDict._parent)));
   }
 }
 struct AudioWorkletGlobalScope {
@@ -1915,9 +1915,9 @@ extern (C) void AudioTimestamp_contextTime_Set(Handle, double);
 extern (C) double AudioTimestamp_contextTime_Get(Handle);
 extern (C) void AudioTimestamp_performanceTime_Set(Handle, double);
 extern (C) double AudioTimestamp_performanceTime_Get(Handle);
-extern (C) Handle AudioWorklet_Event(string, Handle);
-extern (C) Handle AudioWorklet_EventTarget();
-extern (C) Handle AudioWorklet_MessageEvent(string, Handle);
+extern (C) Handle AudioWorklet_Event(Handle, string, Handle);
+extern (C) Handle AudioWorklet_EventTarget(Handle);
+extern (C) Handle AudioWorklet_MessageEvent(Handle, string, Handle);
 extern (C) void AudioWorkletGlobalScope_registerProcessor(Handle, string, VoidFunction);
 extern (C) ulong AudioWorkletGlobalScope_currentFrame_Get(Handle);
 extern (C) double AudioWorkletGlobalScope_currentTime_Get(Handle);

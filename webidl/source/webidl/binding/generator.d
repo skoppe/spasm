@@ -630,12 +630,12 @@ void dump(Appender)(ref Context context, JsExportFunction item, ref Appender a) 
   bool rawResult = item.result != ParseTree.init && semantics.isRawResultType(item.result);
   if (rawResult)
     a.put("rawResult");
-  if (!(item.type & FunctionType.Static) && !(item.type & FunctionType.ExposedConstructor)) {
+  if (!(item.type & FunctionType.Static)) {
     if (rawResult)
       a.put(", ");
     a.put("ctx");
   }
-  if ((rawResult || (!(item.type & FunctionType.Static) && !(item.type & FunctionType.ExposedConstructor))) && item.args.length > 0)
+  if ((rawResult || (!(item.type & FunctionType.Static))) && item.args.length > 0)
     a.put(", ");
   item.args.enumerate.each!((e){
       auto arg = e.value;
@@ -676,10 +676,11 @@ void dump(Appender)(ref Context context, JsExportFunction item, ref Appender a) 
     a.put("delete ");
   if (item.type & FunctionType.Static)
     a.put(item.parentTypeName);
-  else if (item.type & FunctionType.ExposedConstructor)
-    a.put(["new ", item.parentTypeName]);
-  else
+  else {
+    if (item.type & FunctionType.ExposedConstructor)
+      a.put("new ");
     a.put("spasm.objects[ctx]");
+  }
   if (item.type & (FunctionType.Getter | FunctionType.Setter | FunctionType.Deleter)) {
     a.put("[");
     semantics.dumpJsArgument(item.args[0], a);
@@ -724,7 +725,7 @@ void dump(Appender)(ref Semantics semantics, DImportFunction item, ref Appender 
   a.put(" ");
   a.put(mangleName(item.parentTypeName,item.name,item.manglePostfix));
   a.put("(");
-  if (!(item.type & FunctionType.Static) && !(item.type & FunctionType.ExposedConstructor)) {
+  if (!(item.type & FunctionType.Static)) {
     a.put("Handle");
     if (item.args.length > 0)
       a.put(", ");
@@ -856,9 +857,6 @@ void dump(Appender)(ref Semantics semantics, DBindingFunction item, ref Appender
     a.putLn("}");
     return;
   }
-  if (item.type & FunctionType.ExposedConstructor) {
-    a.put("static ");
-  }
   bool returns = item.result != ParseTree.init && item.result.matches[0] != "void";
   if (returns)
     a.put("auto ");
@@ -924,7 +922,7 @@ void dump(Appender)(ref Semantics semantics, DBindingFunction item, ref Appender
   }
   a.put(mangleName(item.parentTypeName, item.customName.length > 0 ? item.customName : item.name,item.manglePostfix));
   a.put("(");
-  if (!(item.type & FunctionType.Static) && !(item.type & FunctionType.ExposedConstructor)) {
+  if (!(item.type & FunctionType.Static)) {
     a.put(["this.", item.handle]);
     if (item.args.length > 0)
       a.put(", ");
