@@ -5,6 +5,7 @@
 		"optional": "0.10.1",
 		"silly": "0.8.0",
 		"spasm": {"path":"../.."},
-		"stdx-allocator": "2.77.3"
+		"stdx-allocator": "2.77.3",
+		"unit-threaded": "0.9.3"
 	}
 }
