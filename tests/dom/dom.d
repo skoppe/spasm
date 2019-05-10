@@ -36,7 +36,6 @@ unittest {
     @style!"active" bool active;
   }
   Toggle toggle;
-  import std.stdio;
   auto node = toggle.renderToNode;
   node.renderToString().should == "<li></li>";
   toggle.update.active = true;
@@ -97,5 +96,21 @@ unittest {
 }
 
 unittest {
-  // params
+  static struct Inner {
+    mixin Node!"div";
+    @attr int* count;
+  }
+  static struct App {
+    mixin Node!"section";
+    int number = 6;
+    @(param.count!(number))
+    @child Inner inner;
+  }
+  App app;
+  auto node = app.renderToNode;
+  node.renderToString().should == `<section><div count=6></div></section>`;
+  app.update.number = 5;
+  node.renderToString().should == `<section><div count=5></div></section>`;
 }
+
+

@@ -747,8 +747,12 @@ void setParamFromParent(string name, T, Ts...)(ref T t, auto ref Ts ts) {
     static if(isPointer!TargetType) {
       static if (isPointer!SourceType)
         __traits(getMember, t, name) = __traits(getMember, ts[index], name);
-      else
+      else {
+        static if (is(Ts[index] : Tuple!Fields, Fields...)) {
+          static assert(!isBasicType!SourceType, "Cannot assign literal in param uda to a pointer, use member field or avoid use of pointer.");
+        }
         __traits(getMember, t, name) = &__traits(getMember, ts[index], name);
+      }
     } else static if (index > 0) {
     } else static if (isPointer!SourceType)
       __traits(getMember, t, name) = *__traits(getMember, ts[index], name);
