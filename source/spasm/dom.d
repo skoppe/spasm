@@ -595,6 +595,9 @@ auto update(T)(ref T node) if (hasMember!(T, "node")){
   struct Inner {
     void opDispatch(string name, V)(auto ref V v) const {
       mixin("node.update!(node." ~ name ~ ")(v);");
+      // NOTE: static assert won't work in opDispatch, as the compiler will not output the string but just ignore the opDispatch call and error out saying missing field on Inner
+      static if(!hasMember!(T, name))
+        pragma(msg, "********* Error: " ~ T.stringof ~ " has no property named "~name);
     }
   }
   return Inner();
