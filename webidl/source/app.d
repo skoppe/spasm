@@ -77,7 +77,7 @@ void main(string[] args)
   if (generateBindings) {
     if (jsFolder == "")
       jsFolder = getcwd() ~ "/spasm/modules";
-    mkdir(jsFolder).ignoreExceptions;
+    mkdirRecurse(jsFolder).ignoreExceptions;
     dFolder = "";
     if (wasmFile == "")
       wasmFile = guessWasmFile();
