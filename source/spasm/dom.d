@@ -436,8 +436,9 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if 
         }
       }}
     static foreach(i; __traits(allMembers, T)) {{
-        alias sym = AliasSeq!(__traits(getMember, T, i))[0];
-        static if (!is(sym) && isCallable!(sym)) {
+        static if (!is(__traits(getMember, T, i)) && isCallable!(__traits(getMember, T, i))) {
+          alias sym = AliasSeq!(__traits(getMember, T, i))[0];
+
           alias name = getSymbolCustomName!(sym, domName!i);
           // alias sym = getMember!(T, i);
           static if (hasUDA!(sym, child))
