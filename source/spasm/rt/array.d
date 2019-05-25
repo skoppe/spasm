@@ -607,7 +607,7 @@ mixin template AllocatorState(Allocator)
 }
 
 struct StringAppender {
-  private DynamicArray!char arr;
+  DynamicArray!char arr;
   alias arr this;
   void put(string s) {
     foreach(c; s)
@@ -731,7 +731,7 @@ void toTextRange(T, W)(T value, auto ref W writer)
 }
 
 void write(Sink, S...)(auto ref Sink sink, S args) {
-  import std.traits : isBoolean, isIntegral, isAggregateType, isSomeString;
+  import std.traits : isBoolean, isIntegral, isAggregateType, isSomeString, isSomeChar;
 
   foreach (arg; args)
   {

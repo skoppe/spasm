@@ -53,6 +53,7 @@ mixin template Spa(Application) {
   struct Empty{}
   mixin Spa!(Application,Empty);
 }
+
 mixin template Spa(Application, Theme) {
   import ldc.attributes;
   __gshared Application application;
@@ -65,6 +66,18 @@ mixin template Spa(Application, Theme) {
     addApplicationCss!(Application, Theme)();
     application.setPointers();
     spasm.dom.render(root, application);
+  }
+  version(hmr) {
+    pragma(msg, "spasm with HMR");
+    import spasm.hmr;
+    pragma(mangle, "dumpApp")
+    extern(C) export string dumpApp() {
+      return application.dumpState();
+    }
+    pragma(mangle, "loadApp")
+    extern(C) export void loadApp(string state) {
+      application.loadState(state);
+    }
   }
 }
 

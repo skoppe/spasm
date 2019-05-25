@@ -202,3 +202,4 @@ void domEvent(JsHandle node, uint ctx, uint fun, EventType type) {
   c.funcPtr = cast(void*) fun;
   c.handle(Event());
 }
+

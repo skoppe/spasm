@@ -21,7 +21,21 @@ void alloc_init() {
                                    );
 }
 
-__gshared Region!(NullAllocator)* allocator = &regionAllocator;
+version (unittest) {
+  struct Allocator {
+    void[] allocate(size_t n) {
+      auto mem = new byte[n];
+      return mem;
+    }
+    bool deallocate(void[] b) {
+      return true;
+    }
+  }
+  __gshared Allocator gcAllocator;
+  __gshared Allocator* allocator = &gcAllocator;
+} else {
+  __gshared Region!(NullAllocator)* allocator = &regionAllocator;
+}
 
 template make(T) {
   import spasm.types;
@@ -38,9 +52,7 @@ template make(T) {
       auto t = cast(Item*) raw.ptr;
       return t[0..size];
     }
-  }
-  else
-  {
+  } else {
     T* make(A, Args...)(A allocator, Args args)
     {
       void[] raw = allocator.allocate(T.sizeof);

@@ -18,6 +18,7 @@ As well as a small but powerful SPA framework, which includes CSS. Yes. CSS-in-w
 * [Optimizing for size](#optimizing-for-size)
 * [Limitations](#limitations)
 * [WIP](#wip)
+* [Hot module reloading](#hmr)
 * [How the SPA framework works](#how-the-spa-framework-works)
     
 ## Web Bindings
@@ -109,6 +110,48 @@ This project uses betterC, which means there is no D runtime. This also means th
 - Currently no memory is freed
 - Do hot module reloading
 - Render to string
+
+## Hot module reloading
+
+The spa framework in Spasm has basic support for hot module reloading. Style changes are reloaded correctly as well as basic attributes (`@prop`, `@attr`, `@visible`, etc.) Anything more complex (like lists/arrays) will just revert to their init state.
+
+### Enabling hmr for new projects
+
+Make sure you use spasm `v0.1.14` and add the following to your `dub.sdl`:
+```
+configuration "hmr" {
+  targetType "executable"
+  versions "hmr"
+  lflags "--export=dumpApp" "--export=loadApp"
+}
+```
+
+Or to your `dub.json`:
+
+```
+"configurations": [{
+  "name": "hmr",
+  "targetType": "executable",
+  "versions": ["hmr"]
+}]
+```
+
+And compile with `dub build --build=release --config=hmr`
+
+### Enabling hmr for existing projects
+
+Update to `v0.1.14` and add the same configuration mentioned above but also rerun `dub run spasm:webpack-bootstrap` in your projects root folder. This will update your dev-server.js and your spa.js and spasm.js modules.
+
+### How it works
+
+The server running with `npm run start` starts up a websocket on port 3001 and notifies connected clients whenever the webassembly binary changes.
+
+The js glue code connects to the websocket (dev-only) and does the following for each notification:
+
+- calls `dumpApp` which will serializes the aggregate in the `mixin Spa!(App, Theme)` to string
+- removes all created dom elements and styles
+- reload the wasm binary (which renders a fresh application)
+- calls `loadApp` which will deserializes the string and triggers dom updates
 
 ## How the SPA framework works
 

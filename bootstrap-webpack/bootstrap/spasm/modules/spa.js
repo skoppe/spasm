@@ -36,6 +36,7 @@ export let jsExports = {
         style.type = 'text/css';
         style.innerHTML = decoder.string(cssLen, cssOffset);
         document.getElementsByTagName('head')[0].appendChild(style);
+        addPtr(style);
     },
     addClass: (node, classLen, classOffset) => {
         nodes[node].classList.add(decoder.string(classLen, classOffset));
@@ -152,4 +153,34 @@ export let jsExports = {
             return encoder.string(resultRaw,"");
         return encoder.string(resultRaw,node[prop]);
     },
+}
+
+if (process.env.NODE_ENV === 'development') {
+    function reload() {
+        const root = document.querySelector("#root");
+        // TODO: how do we handle outstanding setTimeout or other schedule functions?
+        // For now we assume the same callbacks will be available in the reloaded module
+        // but that may not be the case.
+        for(var i = spasm.lastPtr; i > 3; i--) {
+            if (spasm.objects[i].remove)
+                spasm.objects[i].remove();
+            delete spasm.objects[i];
+        }
+        spasm.lastPtr = 2;
+        spasm.init();
+    }
+    const ws = new WebSocket('ws://localhost:3001');
+    ws.onmessage = function(event) {
+        if (event.data === 'reload') {
+            if (!spasm.instance.exports.dumpApp || !spasm.instance.exports.loadApp)
+                return;
+            spasm.instance.exports.dumpApp(0);
+            var state = decoder.string(0);
+            reload();
+            setTimeout(()=>{
+                encoder.string(0, state);
+                spasm.instance.exports.loadApp(spasm.heapi32u[0], spasm.heapi32u[1]);
+            }, 1);
+        }
+    }
 }

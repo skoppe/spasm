@@ -7,16 +7,16 @@ const utf8Decoder = new TextDecoder('utf-8');
 const utf8Encoder = new TextEncoder();
 const memory = new WebAssembly.Memory({initial:16*16, maximum:16*16});
 
-let lastPtr = 2;
 let objects = {1: document, 2: window};
 let buffer = memory.buffer,
     addObject = (value) => {
         if (value === null || value == undefined) return 0;
-        objects[++lastPtr] = value;
-        return lastPtr;
+        objects[++spasm.lastPtr] = value;
+        return spasm.lastPtr;
     },
     getObject = (ptr) => objects[ptr];
 const spasm = {
+    lastPtr: 2,
     memory: memory,
     heapi32s: new Int32Array(buffer),
     heapi32u: new Uint32Array(buffer),
@@ -28,18 +28,18 @@ const spasm = {
     heapf64: new Float64Array(buffer),
     instance: null,
     init: (modules) => {
-        let exports = {env: Object.assign.apply(null,modules.map(m=>m.jsExports).filter(a=>!!a))};
+        spasm.exports = spasm.exports || {env: Object.assign.apply(null,modules.map(m=>m.jsExports).filter(a=>!!a))}
         if ('undefined' === typeof WebAssembly.instantiateStreaming) {
             fetch('@@targetProjectName@@')
                 .then(request => request.arrayBuffer())
                 .then(bytes => WebAssembly.compile(bytes))
                 .then(module => {
-                    let instance = new WebAssembly.Instance(module, exports);
+                    let instance = new WebAssembly.Instance(module, spasm.exports);
                     spasm.instance = instance
                     instance.exports._start();
                 });
         } else {
-            WebAssembly.instantiateStreaming(fetch('@@targetProjectName@@'), exports)
+            WebAssembly.instantiateStreaming(fetch('@@targetProjectName@@'), spasm.exports)
                 .then(obj => {
                     spasm.instance = obj.instance;
                     obj.instance.exports._start();

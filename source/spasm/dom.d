@@ -767,9 +767,10 @@ void setParamFromParent(string name, T, Ts...)(ref T t, auto ref Ts ts) {
 
 auto setAttributeTyped(string name, T)(JsHandle node, auto ref T t) {
   import std.traits : isPointer;
-  static if (isPointer!T)
-    node.setAttributeTyped!name(*t);
-  else static if (is(T == bool))
+  static if (isPointer!T) {
+    if (t !is null)
+      node.setAttributeTyped!name(*t);
+  } else static if (is(T == bool))
     node.setAttributeBool(name, t);
   else static if (is(T : int)) {
     node.setAttributeInt(name, t);
@@ -781,7 +782,8 @@ auto setAttributeTyped(string name, T)(JsHandle node, auto ref T t) {
 auto setPropertyTyped(string name, T)(JsHandle node, auto ref T t) {
   import std.traits : isPointer, isNumeric;
   static if (isPointer!T) {
-    node.setPropertyTyped!name(*t);
+    if (t !is null)
+      node.setPropertyTyped!name(*t);
   }
   else static if (is(T == bool))
     node.setPropertyBool(name, t);
