@@ -212,8 +212,6 @@ import std.traits : isFunction;
 auto propagateOnMount(T)(auto ref T t) {
   static foreach (c; getChildren!T)
     __traits(getMember, t, c).propagateOnMount();
-  // static if (hasMember!(T, "node"))
-    // t.node.mounted = true;
   static if (hasMember!(T, "onMount") && isFunction!(T.onMount))
     t.onMount();
 }
@@ -222,8 +220,6 @@ auto propagateOnUnmount(T)(auto ref T t)
 {
   static foreach (c; getChildren!T)
     __traits(getMember, t, c).propagateOnMount();
-  // static if (hasMember!(T, "node"))
-    // t.node.mounted = false;
   static if (hasMember!(T, "onUnmount") && isFunction!(T.onUnmount))
     t.onUnmount();
 }
@@ -231,7 +227,7 @@ auto propagateOnUnmount(T)(auto ref T t)
 auto remount(string field, Parent)(auto ref Parent parent) {
   import std.traits : hasUDA;
   import std.meta : AliasSeq;
-  alias fields = AliasSeq!(__traits(allMembers, Parent));//FieldNameTuple!Parent;
+  alias fields = AliasSeq!(__traits(allMembers, Parent));
   alias idx = staticIndexOf!(field,fields);
   static if (fields.length > idx+1) {
     static foreach(child; fields[idx+1..$]) {
@@ -381,30 +377,19 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if 
         alias name = getSymbolCustomName!(sym, domName!i);
         static if (!is(sym)) {
           alias styles = getStyles!(sym);
-          // static if (is(typeof(sym) == Prop*, Prop)) {
-          //   if (__traits(getMember, t, i) is null) {
-          //     // TODO: do we need to call createParameterTuple here as well as in setPointers?? 
-          //     setParamFromParent!(i)(t, ts);
-          //   }
-          // }
           static if (hasUDA!(sym, child)) {
             import spasm.spa;
             alias Params = getUDAs!(sym, Parameters);
-            // static if (Params.length > 0)
-            //   auto params = createParameterTuple!(Params)(AliasSeq!(t,ts));
-            // else
               alias params = AliasSeq!();
             if (isChildVisible!(i)(t)) {
               static if (is(typeof(sym) : DynamicArray!(Item*), Item)) {
                 foreach(ref item; __traits(getMember, t, i)) {
-                  // TODO: we only need to pass t to a child render function when there is a child that has an alias to one of its member
-                  node.render(*item, AliasSeq!(params));//, t, ts));
+                  node.render(*item, AliasSeq!(params));
                   static if (is(typeof(t) == Array!Item))
                     t.assignEventListeners(*item);
                 }
               } else {
-                // TODO: we only need to pass t to a child render function when there is a child that has an alias to one of its member
-                node.render(__traits(getMember, t, i), AliasSeq!(params));//, t, ts));
+                node.render(__traits(getMember, t, i), AliasSeq!(params));
               }
             }
           } else static if (hasUDA!(sym, prop)) {
@@ -440,7 +425,6 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if 
           alias sym = AliasSeq!(__traits(getMember, T, i))[0];
 
           alias name = getSymbolCustomName!(sym, domName!i);
-          // alias sym = getMember!(T, i);
           static if (hasUDA!(sym, child))
             static assert(false, "we don't support @child functions");
           else static if (hasUDA!(sym, prop)) {
@@ -513,23 +497,18 @@ template getEnumUDAs(EnumType, string field, alias UDA) {
 }
 
 private template isDesiredUDA(alias attribute) {
-  template isDesiredUDA(alias toCheck)
-  {
-    static if (is(typeof(attribute)) && !__traits(isTemplate, attribute))
-      {
-        static if (__traits(compiles, toCheck == attribute))
-          enum isDesiredUDA = toCheck == attribute;
-        else
-          enum isDesiredUDA = false;
-      }
-    else static if (is(typeof(toCheck)))
-      {
-        static if (__traits(isTemplate, attribute))
-          enum isDesiredUDA =  isInstanceOf!(attribute, typeof(toCheck));
-        else
-          enum isDesiredUDA = is(typeof(toCheck) == attribute);
-      }
-    else static if (__traits(isTemplate, attribute))
+  template isDesiredUDA(alias toCheck) {
+    static if (is(typeof(attribute)) && !__traits(isTemplate, attribute)) {
+      static if (__traits(compiles, toCheck == attribute))
+        enum isDesiredUDA = toCheck == attribute;
+      else
+        enum isDesiredUDA = false;
+    } else static if (is(typeof(toCheck))) {
+      static if (__traits(isTemplate, attribute))
+        enum isDesiredUDA =  isInstanceOf!(attribute, typeof(toCheck));
+      else
+        enum isDesiredUDA = is(typeof(toCheck) == attribute);
+    } else static if (__traits(isTemplate, attribute))
       enum isDesiredUDA = isInstanceOf!(attribute, toCheck);
     else
       enum isDesiredUDA = is(toCheck == attribute);
@@ -565,9 +544,6 @@ template updateChildren(alias member) {
     // should get an update
     import std.traits : getSymbolsByUDA;
     import std.meta : ApplyLeft, staticMap;
-    alias getSymbol = ApplyLeft!(getMember, parent);
-    alias childrenNames = getChildren!Parent;
-    alias children = staticMap!(getSymbol,childrenNames);
     static if (isPointer!(Parent))
       alias ParentType = PointerTarget!(Parent);
     else
@@ -582,6 +558,9 @@ template updateChildren(alias member) {
           }
         }}
     }
+    alias getSymbol = ApplyLeft!(getMember, parent);
+    alias childrenNames = getChildren!Parent;
+    alias children = staticMap!(getSymbol,childrenNames);
     static foreach(c; children) {{
         alias ChildType = typeof(c);
         static if (hasMember!(ChildType, field)) {
