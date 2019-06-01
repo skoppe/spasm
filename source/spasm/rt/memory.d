@@ -2,23 +2,18 @@ module spasm.rt.memory;
 pragma(LDC_no_moduleinfo);
 pragma(LDC_no_typeinfo);
 
-import spasm.rt.allocator: Region;
+import spasm.rt.allocator : WasmAllocator, Region;
 import stdx.allocator.building_blocks.null_allocator;
-private __gshared Region!(NullAllocator) regionAllocator;
+private __gshared Region!(WasmAllocator) regionAllocator;
 
 import ldc.attributes;
+import spasm.intrinsics;
 
-void alloc_init() {
-  regionAllocator = Region!(NullAllocator)(
-                                 (
-                                  cast(ubyte[])(cast(void*)
-                                   (
-                                    cast(uint)
-                                    5*1024*1024
-                                    )
-                                  )
-                                  [0..11*1024*1024])
-                                   );
+enum wasmPageSize = 64 * 1024;
+
+void alloc_init(uint heap_base) {
+  WasmAllocator.init(heap_base);
+  regionAllocator = Region!(WasmAllocator)(11*1024*1024);
 }
 
 version (unittest) {
@@ -34,7 +29,7 @@ version (unittest) {
   __gshared Allocator gcAllocator;
   __gshared Allocator* allocator = &gcAllocator;
 } else {
-  __gshared Region!(NullAllocator)* allocator = &regionAllocator;
+  __gshared auto allocator = &regionAllocator;
 }
 
 template make(T) {

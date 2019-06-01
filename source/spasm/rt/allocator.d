@@ -2,7 +2,37 @@
 module spasm.rt.allocator;
 
 import stdx.allocator.building_blocks.null_allocator : NullAllocator;
+import stdx.allocator.internal : Ternary;
 
+private __gshared void* begin, current, end;
+
+struct WasmAllocator {
+  import spasm.intrinsics;
+  import spasm.rt.memory : wasmPageSize;
+  enum owns = Ternary.yes;
+  enum uint alignment = platformAlignment;
+
+  static __gshared typeof(this) instance = WasmAllocator();
+
+  static void init(uint heap_base) {
+    begin = cast(void*)heap_base;
+    current = begin;
+    end = cast(void*)(wasmMemorySize * wasmPageSize);
+  }
+
+  void[] allocate(size_t n) {
+    if (current + n > end)
+      grow(1 + n / wasmPageSize);
+    void* mem = current;
+    current += n;
+    return mem[0..n];
+  }
+
+  private void grow(size_t pages) {
+    wasmMemoryGrow(pages);
+    end += pages * wasmPageSize;
+  }
+}
 
 /**
 Returns `true` if `ptr` is aligned at `alignment`.

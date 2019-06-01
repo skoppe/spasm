@@ -38,11 +38,6 @@ version (unittest) {
   }
 }
 
-void initialize() {
-  import spasm.rt.memory;
-  alloc_init();
-}
-
 void addApplicationCss(Application, Theme)() {
   enum css = GetCss!(Application, Theme);
   static if (css.length > 0)
@@ -56,12 +51,15 @@ mixin template Spa(Application) {
 
 mixin template Spa(Application, Theme) {
   import ldc.attributes;
+  import spasm.rt.gc;
   __gshared Application application;
   pragma(mangle, "_start")
   extern(C)
   export
-  void _start() {
-    initialize();
+  void _start(uint heap_base) {
+    import spasm.rt.memory;
+    alloc_init(heap_base);
+    addRoot(&application);
     JsHandle root = JsHandle(getRoot());
     addApplicationCss!(Application, Theme)();
     application.setPointers();

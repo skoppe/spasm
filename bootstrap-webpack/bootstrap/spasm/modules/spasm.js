@@ -36,13 +36,14 @@ const spasm = {
                 .then(module => {
                     let instance = new WebAssembly.Instance(module, spasm.exports);
                     spasm.instance = instance
-                    instance.exports._start();
+                    instance.exports._start(instance.exports.__heap_base);
                 });
         } else {
             WebAssembly.instantiateStreaming(fetch('@@targetProjectName@@'), spasm.exports)
                 .then(obj => {
-                    spasm.instance = obj.instance;
-                    obj.instance.exports._start();
+                    let instance = obj.instance;
+                    spasm.instance = instance;
+                    instance.exports._start(instance.exports.__heap_base);
                 });
         }
     },
