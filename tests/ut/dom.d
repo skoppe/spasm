@@ -1,4 +1,4 @@
-module dom.dom;
+module ut.dom;
 
 version (unittest):
 

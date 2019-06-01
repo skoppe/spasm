@@ -15,10 +15,10 @@ configuration "library" {
 }
 
 configuration "unittest" {
+              targetName "ut"
               dependency "unit-threaded" version="*"
-              mainSourceFile "bin/ut.d"
-              excludedSourceFiles "src/main.d"
-              sourcePaths "bin" "source" "tests"
+              sourcePaths "source" "tests"
               importPaths "source" "tests"
-              preBuildCommands "dub run unit-threaded -c gen_ut_main -- -f bin/ut.d"
+              mainSourceFile "tests/test_main.d"
+              excludedSourceFiles "spasm/bindings/*.d"
 }
