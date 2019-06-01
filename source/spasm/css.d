@@ -8,7 +8,39 @@ import spasm.types;
 struct styleset(alias set) {};
 struct Extend(alias target) {};
 struct style(alias s) {};
+struct not(alias s) {};
+struct media(string content) {}
 struct ApplyStyle(alias target) {}
+
+version(unittest) {
+  import unit_threaded;
+  private struct Style {
+    struct disabled {}
+    struct focused {}
+    struct root {
+      string backgroundColor = "blue";
+      @("after") struct after {
+        auto content = `""`;
+      }
+      @(disabled, "after") struct afterDisabled {
+        auto content = `""`;
+      }
+      @(not!focused, "after") struct afterNotFocused {
+        auto content = `""`;
+      }
+      @("hover", not!disabled, "before") struct hoverBefore {
+        auto content = `""`;
+      }
+      @(media!"hover: none") struct resetTouch {
+        auto content = `""`;
+      }
+    }
+  }
+  private struct StyleTmpl(Theme) {
+    struct disabled {}
+    struct focused {}
+  }
+}
 
 template TypeOf(alias symbol) {
   alias TypeOf = typeof(symbol);
@@ -103,10 +135,25 @@ template extractExtendedStyleSet(alias sym) {
 }
 
 template getFullName(alias sym) {
-  static if (__traits(compiles, __traits(parent, sym))) {
-    enum getFullName = __traits(identifier, sym) ~ "." ~ getFullName!(__traits(parent, sym));
+  import std.traits;
+  static if (is(sym) && !is(TemplateOf!sym : void)) {
+    alias Base = TemplateOf!sym;
+    enum namePart = __traits(identifier, sym);//Base.stringof;
+  } else {
+    alias Base = sym;
+    enum namePart = __traits(identifier, sym);
+  }
+  static if (__traits(compiles, __traits(parent, Base))) {
+    enum getFullName = namePart ~ "." ~ getFullName!(__traits(parent, Base));
   } else
-    enum getFullName = __traits(identifier, sym);
+    enum getFullName = namePart;
+}
+
+unittest {
+  struct Theme {
+  }
+  getFullName!(Style.disabled).should == "disabled.Style.css.spasm";
+  getFullName!(StyleTmpl!(Theme).disabled).should == "disabled.StyleTmpl.css.spasm";
 }
 
 template GetCssClassName(Node, string style) {
@@ -116,7 +163,7 @@ template GetCssClassName(Node, string style) {
   else static if (StyleSets.length > 1)
     static assert("Cannot have more than one styleset");
   else {
-    enum GetCssClassName = GenerateCssClassName!(getFullName!(StyleSets[0]) ~ "." ~ style);
+    enum GetCssClassName = GenerateCssClassName!(style ~ "." ~ getFullName!(StyleSets[0]));
   }
 }
 
@@ -255,12 +302,16 @@ template GenerateCssClassName(string content) {
   enum GenerateCssClassName = toCssName!content;
 }
 
-template GenerateCssClass(string base, alias T) {
+template GenerateCssClassName(string base, alias T) {
   enum nestedName = __traits(identifier, T);
-  enum uniqueName = base ~ "." ~ nestedName;
-  alias name = GenerateCssClassName!uniqueName;
+  enum uniqueName = nestedName ~ "." ~ base;
+  alias GenerateCssClassName = GenerateCssClassName!uniqueName;
+}
+
+template GenerateCssClass(string base, alias T) {
+  alias name = GenerateCssClassName!(base, T);
   enum content = GenerateCss!T;
-  alias nestedClasses = GenerateNestedCssClasses!("."~name, T);
+  alias nestedClasses = GenerateNestedCssClasses!(T);
   static if (content.length == 0) {
     enum GenerateCssClass = nestedClasses;
   } else
@@ -272,29 +323,65 @@ template GenerateNamedCssClass(string name, alias T) {
   alias nestedClasses = GenerateNestedCssClasses!("."~name, T);
   enum GenerateNamedCssClass = "." ~ name ~ content ~ nestedClasses;
 }
-template GetPseudoCssClass(alias symbol) {
+
+template GetPseudoCssSelector(alias symbol) {
+  template GetName(alias attr) {
+    static if (is(attr : media!content, string content)) {
+      enum GetName = "@media("~ content ~")";
+    } else static if (is(attr : not!cls, cls)) {
+      enum GetName = ":not(." ~ toCssName!(getFullName!cls) ~ ")";
+    } else static if (is(attr)) {
+      enum GetName = "." ~ toCssName!(getFullName!attr);
+    } else
+      enum GetName = ":" ~ attr;
+  }
   alias attrs = AliasSeq!(__traits(getAttributes, symbol));
-  static if (attrs.length == 0)
-    static assert(false, "Nested css class must have pseudo class attribute");
-  static if (attrs.length == 1)
-    enum GetPseudoCssClass = attrs[0];
-  else
-    static assert(false, "Only one pseudo class attribute supported right now");
+  static assert(attrs.length > 0, "Nested css class must have pseudo class attribute");
+  alias parent = __traits(parent, symbol);
+  enum parentHash = toCssName!(getFullName!(parent));
+  enum GetPseudoCssSelector = "." ~ parentHash ~ Joiner!(staticMap!(GetName, attrs));
 }
 
-template GenerateNestedCssClass(alias name, alias symbol) {
+unittest {
+  GetPseudoCssSelector!(Style.root.after).should == ".AGILZSwUB:after";
+}
+unittest {
+  GetPseudoCssSelector!(Style.root.afterDisabled).should == ".AGILZSwUB.EDbAPAWCD:after";
+}
+unittest {
+  GetPseudoCssSelector!(Style.root.afterNotFocused).should == ".AGILZSwUB:not(.BEfMCBUJD):after";
+}
+unittest {
+  GetPseudoCssSelector!(Style.root.hoverBefore).should == ".AGILZSwUB:hover:not(.EDbAPAWCD):before";
+}
+unittest {
+  GetPseudoCssSelector!(Style.root.resetTouch).should == ".AGILZSwUB@media(hover: none)";
+}
+unittest {
+  struct Empty{}
+  GenerateCssSet!(Style, Empty).should == `.AGILZSwUB{background-color:blue}.AGILZSwUB:after{content:""}.AGILZSwUB.EDbAPAWCD:after{content:""}.AGILZSwUB:not(.BEfMCBUJD):after{content:""}.AGILZSwUB:hover:not(.EDbAPAWCD):before{content:""}.AGILZSwUB@media(hover: none){content:""}`;
+}
+
+template GenerateNestedCssClass(alias symbol) {
   alias content = GenerateCss!symbol;
-  enum GenerateNestedCssClass = name ~ ":" ~ GetPseudoCssClass!symbol ~ content;
+  enum GenerateNestedCssClass = GetPseudoCssSelector!(symbol) ~ content;
 }
 
-template GenerateNestedCssClasses(alias name, T) {
+template GenerateNestedCssClasses(alias base, T) {
+  template WithPrefix(alias symbol) {
+    enum WithPrefix = base ~ GenerateNestedCssClass!symbol;
+  }
   alias members = AliasSeq!(__traits(allMembers, T));
   alias symbols = staticMap!(ApplyLeft!(Symbol,T), members);
   alias nestedClasses = Filter!(isType,symbols);
   static if (nestedClasses.length == 0)
     enum GenerateNestedCssClasses = "";
   else
-    enum GenerateNestedCssClasses = Joiner!(staticMap!(ApplyLeft!(GenerateNestedCssClass, name), nestedClasses));
+    enum GenerateNestedCssClasses = Joiner!(staticMap!(WithPrefix, nestedClasses));
+}
+
+template GenerateNestedCssClasses(T) {
+  enum GenerateNestedCssClasses = GenerateNestedCssClasses!("",T);
 }
 
 template GenerateCssSet(alias T, Theme) {
@@ -351,6 +438,28 @@ template GenerateCssSetExtends(alias T, Theme) {
     enum GenerateCssSetExtends = "";
 }
 
+unittest {
+  import unit_threaded;
+  import spasm.node;
+  struct Empty{}
+  struct Overwrite(Theme) {
+    @Extend!(Style.root)
+    struct stuff {
+      string backgroundColor = "green";
+    }
+  }
+  @styleset!Style
+  struct Bar {
+    @style!"root" mixin Node!"div";
+  }
+  struct Foo {
+    mixin Node!"span";
+    @styleset!Overwrite @child Bar bar;
+  }
+  // TODO: currently extending only works when the StyleSet is a Template
+  // TODO: fix the generated class name that is extended
+  // GetCss!(Foo, Empty).should == "asdfasdf";
+}
 
 template GetCss(T, Theme) {
   alias extendedSets = getStyleSetsExtends!T;
@@ -361,3 +470,7 @@ template GetCss(T, Theme) {
   else
     enum GetCss = css;
 }
+
+// TODO: extending styles should be done in a more wrapping kind of way. That is, we should just wrap the component in a WithStyles!(Comp, StyleSet) where the Styles overwrites the @StyleSet defined in library. It begs the question whether we shouldn't always use WithStyles!(Comp, StyleSet).
+// NOTE: a nice idea but currently impossible. Within the struct we have no access to the overwritten styles and no way to figure out what classname we should apply. A possible solution would be to templatize the struct on the StyleSet.
+// NOTE: this can lead to a nice situation where a component has several templated arguments (style, props) and we can indeed have WithStyleSet!(), WithProps!(), etc. which overwrite (or unwrap), previous Withx's
