@@ -2865,8 +2865,6 @@ string generateSingleJsBinding(IR ir, string[] filtered = []) {
   ir.nodes.each!(n => n.toJsExport(semantics, filtered, &app));
   ir.generateJsGlobalBindings(filtered, app);
 
-  if (pos == app.data.length)
-    return "";
   app.undent();
   app.put("}");
   return app.data;
