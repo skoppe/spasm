@@ -140,7 +140,7 @@ And compile with `dub build --build=release --config=hmr`
 
 ### Enabling hmr for existing projects
 
-Update to `v0.1.14` and add the same configuration mentioned above but also rerun `dub run spasm:webpack-bootstrap` in your projects root folder. This will update your dev-server.js and your spa.js and spasm.js modules.
+Update to `v0.1.14` and add the same configuration mentioned above but also rerun `dub run spasm:bootstrap-webpack` in your projects root folder. This will update your dev-server.js and your spa.js and spasm.js modules.
 
 ### How it works
 
