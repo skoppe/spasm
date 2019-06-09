@@ -171,7 +171,8 @@ struct PoolAllocatorIndex {
   }
 
   bool owns(void* ptr) {
-    assert(addresses.length > 0);
+    if (addresses.length == 0)
+      return false;
     return addresses[0] <= ptr;
   }
 
