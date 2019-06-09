@@ -194,7 +194,7 @@ struct Input {
   @prop string value;
   @attr string placeholder = "What needs to be done?";
   @callback void onKeyPress(KeyboardEvent event) {
-    value = node.getProperty("value");
+    value = node.value;
     if (event.key == "Enter")
       this.emit(enter);
     this.emit(input);

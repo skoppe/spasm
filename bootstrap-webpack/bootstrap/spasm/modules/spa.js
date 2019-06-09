@@ -65,9 +65,6 @@ export let jsExports = {
     createElement: (type) => {
         return addPtr(document.createElement(getTagFromType(type)));
     },
-    focus: (nodePtr) => {
-        nodes[nodePtr].focus();
-    },
     setSelectionRange: (nodePtr, start, end) => {
         nodes[nodePtr].setSelectionRange(start, end);
     },
