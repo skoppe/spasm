@@ -50,6 +50,12 @@ export let jsExports = {
   Node_appendChild: (ctx, node) => {
     return spasm.addObject(spasm.objects[ctx].appendChild(spasm.objects[node]));
   },
+  HTMLInputElement_checked_Get: (ctx) => {
+    return spasm.objects[ctx].checked;
+  },
+  HTMLInputElement_value_Get: (rawResult, ctx) => {
+    spasm_encode_string(rawResult, spasm.objects[ctx].value);
+  },
   HTMLOrSVGElement_focus_0: (ctx) => {
     spasm.objects[ctx].focus();
   },

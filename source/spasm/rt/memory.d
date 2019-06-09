@@ -2,18 +2,18 @@ module spasm.rt.memory;
 pragma(LDC_no_moduleinfo);
 pragma(LDC_no_typeinfo);
 
-import spasm.rt.allocator : WasmAllocator, Region;
+import spasm.rt.allocator : WasmAllocator;
 import stdx.allocator.building_blocks.null_allocator;
-private __gshared Region!(WasmAllocator) regionAllocator;
+private __gshared SpasmGCAllocator gcAllocator;
 
 import ldc.attributes;
 import spasm.intrinsics;
+import spasm.rt.gc;
 
 enum wasmPageSize = 64 * 1024;
 
 void alloc_init(uint heap_base) {
-  WasmAllocator.init(heap_base);
-  regionAllocator = Region!(WasmAllocator)(11*1024*1024);
+  version (unittest) {} else WasmAllocator.init(heap_base);
 }
 
 version (unittest) {
@@ -26,10 +26,10 @@ version (unittest) {
       return true;
     }
   }
-  __gshared Allocator gcAllocator;
-  __gshared Allocator* allocator = &gcAllocator;
+  __gshared Allocator unittestAllocator;
+  __gshared Allocator* allocator = &unittestAllocator;
 } else {
-  __gshared auto allocator = &regionAllocator;
+  __gshared auto allocator = &gcAllocator;
 }
 
 template make(T) {
@@ -69,7 +69,10 @@ extern (C) void * memcpy(void * destination, const void * source, size_t num) {
 }
 
 extern (C) void * memset(void* ptr, int value, size_t num) {
-  // TODO
+  ubyte val = cast(ubyte)value;
+  ubyte* p = cast(ubyte*)ptr;
+  foreach(i;0..num)
+    p[i] = val;
   return ptr;
 }
 

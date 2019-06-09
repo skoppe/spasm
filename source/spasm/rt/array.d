@@ -7,15 +7,25 @@
 
 module spasm.rt.array;
 import spasm.rt.memory;
+import spasm.rt.gc : SpasmGCAllocator;
 
 /* an optimized version of DynamicArray when T is an pointer
  *
  * to reduce template bloat all PointerArray!T* are backed by a
  * DynamicArray!(void*)
  */
-struct PointerArray(T) if (is(T : U*, U)) {
-  private DynamicArray!(void*) array;
+struct PointerArray(T, Allocator = SpasmGCAllocator) if (is(T : U*, U)) {
+  static if (!is(Allocator == SpasmGCAllocator)) {
+    private DynamicArray!(void*, Allocator) array = void;
+    this(ref Allocator allocator) {
+      array = DynamicArray!(void*, Allocator)(allocator);
+    }
+  } else {
+    private DynamicArray!(void*, Allocator) array;
+  }
+
   alias array this;
+
   /// Slice operator overload
   pragma(inline, true) auto opSlice(this This)() @nogc
   {
@@ -101,8 +111,15 @@ struct PointerArray(T) if (is(T : U*, U)) {
  *         GC-allocated memory.
  */
 
-struct DynamicArray(T)
+struct DynamicArray(T, Allocator = SpasmGCAllocator)
 {
+  static if (!is(Allocator == SpasmGCAllocator)) {
+    Allocator* allocator;
+    this(ref Allocator allocator) {
+      this.allocator = &allocator;
+    }
+  }
+
 	this(this) @disable;
 
 	private import spasm.rt.allocator: stateSize;
@@ -606,8 +623,15 @@ mixin template AllocatorState(Allocator)
     Allocator allocator;
 }
 
-struct StringAppender {
-  DynamicArray!char arr;
+struct StringAppender(Allocator = SpasmGCAllocator) {
+  static if (!is(Allocator == SpasmGCAllocator)) {
+    DynamicArray!(char, Allocator) arr = void;
+    this(ref Allocator allocator) {
+      arr = DynamicArray!(char, Allocator)(allocator);
+    }
+  } else {
+    DynamicArray!(char, Allocator) arr;
+  }
   alias arr this;
   void put(string s) {
     foreach(c; s)
@@ -622,8 +646,15 @@ struct StringAppender {
   }
 }
 
+string text(Allocator, T...)(ref Allocator allocator, T t) {
+  auto app = StringAppender!(Allocator)(allocator);
+  write(app, t);
+  auto end = app.length;
+  return cast(string)app[0..end];
+}
+
 string text(T...)(T t) {
-  StringAppender app;
+  StringAppender!() app;
   write(app, t);
   auto end = app.length;
   return cast(string)app[0..end];

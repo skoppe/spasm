@@ -3,19 +3,22 @@ description "A framework for writing single page applications"
 authors "Sebastiaan Koppe"
 copyright "Copyright © 2018, Sebastiaan Koppe"
 license "MIT"
-dependency "stdx-allocator" version="2.77.3"
+dependency "stdx-allocator" version="3.0.2"
 dependency "optional" version="~>0.10.0"
 #target "library"
 subPackage "bootstrap-webpack"
 subPackage "webidl"
 
+versions "SPASM_GC_DEBUG"
 configuration "library" {
               dflags "-mtriple=wasm32-unknown-unknown-wasm" "-betterC"
               lflags "-allow-undefined" "-import-memory" "--export-table" "--export=domEvent" "--export=allocString"
+              subConfiguration "stdx-allocator" "wasm"
 }
 
 configuration "unittest" {
               targetName "ut"
+              #targetType "executable"
               dependency "unit-threaded" version="*"
               sourcePaths "source" "tests"
               importPaths "source" "tests"

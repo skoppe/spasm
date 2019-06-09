@@ -125,8 +125,6 @@ version (unittest) {
     Optional!bool getPropertyBool(Handle node, string prop) {
       return node.getNode().getProperty(prop).as!bool;
     }
-    void focus(Handle node) {
-    }
     void setSelectionRange(Handle node, uint start, uint end) {
     }
     void addCss(string css) {
@@ -154,7 +152,6 @@ version (unittest) {
     string getProperty(Handle node, string prop);
     int getPropertyInt(Handle node, string prop);
     bool getPropertyBool(Handle node, string prop);
-    void focus(Handle node);
     void setSelectionRange(Handle node, uint start, uint end);
     void addCss(string css);
   }

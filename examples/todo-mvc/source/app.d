@@ -138,7 +138,7 @@ struct Footer {
     @style!"todo-count" mixin Node!"span";
     int* count;
     // TODO: need to refactor to use textContent
-    @prop string innerHTML(int* count) {
+    @prop string textContent(int* count) {
       return text("<strong>", *count, "</strong> ", *count > 1 ? "items" : "item", " left");
     }
   }
