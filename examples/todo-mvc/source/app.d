@@ -35,7 +35,7 @@ struct App {
     this.update.completed = main.items.length - this.count;
   }
   @connect!"main.toggleAll.input.toggle" void toggle() {
-    bool checked = main.toggleAll.input.node.getPropertyBool("checked");
+    bool checked = main.toggleAll.input.node.checked;
     main.toggleEach(checked);
     updateItems();
   }
@@ -236,7 +236,7 @@ struct InlineInput {
   mixin Slot!"input";
   @prop string value;
   @callback void onKeyDown(KeyboardEvent event) {
-    value = node.getProperty("value");
+    value = node.value;
     if (event.key == "Enter")
       this.emit(enter);
     else if (event.key == "Escape")

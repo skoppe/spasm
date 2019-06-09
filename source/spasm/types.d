@@ -44,7 +44,7 @@ extern(C) export @assumeUsed ubyte* allocString(uint bytes) {
 
 alias Handle = uint;
 struct JsHandle {
-  Handle handle;
+  package Handle handle;
   alias handle this;
 }
 
