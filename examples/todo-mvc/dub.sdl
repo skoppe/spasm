@@ -4,5 +4,6 @@ authors "Sebastiaan Koppe"
 copyright "Copyright © 2018, Sebastiaan Koppe"
 license "MIT"
 dependency "spasm" path="../.."
-dflags "-mtriple=wasm32-unknown-unknown-wasm" "-Oz" "-betterC" "-fvisibility=hidden"
-lflags "-export=renderGCStats" "-export=markMemory" "-export=freeUnmarked"
+dflags "-mtriple=wasm32-unknown-unknown-wasm" "-Oz" "-betterC" "-fvisibility=hidden" "-boundscheck=off"
+
+#versions "SPASM_GC_DEBUG"
