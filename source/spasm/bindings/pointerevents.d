@@ -3,7 +3,9 @@ module spasm.bindings.pointerevents;
 import spasm.types;
 import spasm.bindings.uievents;
 
+nothrow:
 struct PointerEventInit {
+  nothrow:
   spasm.bindings.uievents.MouseEventInit _parent;
   alias _parent this;
   this(JsHandle h) {

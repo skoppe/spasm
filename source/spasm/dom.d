@@ -454,7 +454,7 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if 
         }
       }}
     static if (hasMember!(T, "node")) {
-      t.node.node = node;
+      t.node.node.handle = node;
     }
 
     alias enumsWithApplyStyles = getSymbolsByUDA!(T, ApplyStyle);

@@ -9,8 +9,10 @@ import spasm.bindings.url;
 import spasm.bindings.webappsec;
 import spasm.bindings.xhr;
 
+nothrow:
 alias BodyInit = SumType!(Blob, BufferSource, FormData, URLSearchParams, ReadableStream, string);
 struct Headers {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void append(string name, string value) {
@@ -31,6 +33,7 @@ struct Headers {
 }
 alias HeadersInit = SumType!(Sequence!(Sequence!(string)), Record!(string, string));
 struct Request {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto method() {
@@ -138,6 +141,7 @@ enum RequestDestination {
 }
 alias RequestInfo = SumType!(Request, string);
 struct RequestInit {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -236,6 +240,7 @@ enum RequestRedirect {
   manual
 }
 struct Response {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto error() {
@@ -297,6 +302,7 @@ struct Response {
   }
 }
 struct ResponseInit {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {

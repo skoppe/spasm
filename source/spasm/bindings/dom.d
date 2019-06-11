@@ -8,7 +8,9 @@ import spasm.bindings.html;
 import spasm.bindings.pagevisibility;
 import spasm.bindings.svg;
 
+nothrow:
 struct AbortController {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto signal() {
@@ -19,6 +21,7 @@ struct AbortController {
   }
 }
 struct AbortSignal {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -35,6 +38,7 @@ struct AbortSignal {
   }
 }
 struct AbstractRange {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto startContainer() {
@@ -54,6 +58,7 @@ struct AbstractRange {
   }
 }
 struct AddEventListenerOptions {
+  nothrow:
   spasm.bindings.dom.EventListenerOptions _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -76,6 +81,7 @@ struct AddEventListenerOptions {
   }
 }
 struct Attr {
+  nothrow:
   spasm.bindings.dom.Node _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -107,6 +113,7 @@ struct Attr {
   }
 }
 struct CDATASection {
+  nothrow:
   spasm.bindings.dom.Text _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -114,6 +121,7 @@ struct CDATASection {
   }
 }
 struct CharacterData {
+  nothrow:
   spasm.bindings.dom.Node _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -163,6 +171,7 @@ struct CharacterData {
   }
 }
 struct Comment {
+  nothrow:
   spasm.bindings.dom.CharacterData _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -170,6 +179,7 @@ struct Comment {
   }
 }
 struct CustomEvent {
+  nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -194,6 +204,7 @@ struct CustomEvent {
   }
 }
 struct CustomEventInit {
+  nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -212,6 +223,7 @@ struct CustomEventInit {
   }
 }
 struct DOMImplementation {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto createDocumentType(string qualifiedName, string publicId, string systemId) {
@@ -234,6 +246,7 @@ struct DOMImplementation {
   }
 }
 struct DOMTokenList {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto length() {
@@ -271,6 +284,7 @@ struct DOMTokenList {
   }
 }
 struct Document {
+  nothrow:
   spasm.bindings.dom.Node _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1112,6 +1126,7 @@ struct Document {
   }
 }
 struct DocumentFragment {
+  nothrow:
   spasm.bindings.dom.Node _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1146,6 +1161,7 @@ struct DocumentFragment {
   }
 }
 struct DocumentType {
+  nothrow:
   spasm.bindings.dom.Node _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1174,6 +1190,7 @@ struct DocumentType {
   }
 }
 struct Element {
+  nothrow:
   spasm.bindings.dom.Node _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1385,6 +1402,7 @@ struct Element {
   }
 }
 struct ElementCreationOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -1398,6 +1416,7 @@ struct ElementCreationOptions {
   }
 }
 struct Event {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto type() {
@@ -1472,6 +1491,7 @@ struct Event {
   }
 }
 struct EventInit {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -1498,6 +1518,7 @@ struct EventInit {
 }
 alias EventListener = void delegate(Event);
 struct EventListenerOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -1511,6 +1532,7 @@ struct EventListenerOptions {
   }
 }
 struct EventTarget {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void addEventListener(string type, EventListener callback, SumType!(AddEventListenerOptions, bool) options) {
@@ -1530,6 +1552,7 @@ struct EventTarget {
   }
 }
 struct GetRootNodeOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -1543,6 +1566,7 @@ struct GetRootNodeOptions {
   }
 }
 struct HTMLCollection {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto length() {
@@ -1557,6 +1581,7 @@ struct HTMLCollection {
 }
 alias MutationCallback = void delegate(Sequence!(MutationRecord), MutationObserver);
 struct MutationObserver {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void observe(Node target, MutationObserverInit options) {
@@ -1573,6 +1598,7 @@ struct MutationObserver {
   }
 }
 struct MutationObserverInit {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -1622,6 +1648,7 @@ struct MutationObserverInit {
   }
 }
 struct MutationRecord {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto type() {
@@ -1653,6 +1680,7 @@ struct MutationRecord {
   }
 }
 struct NamedNodeMap {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto length() {
@@ -1681,6 +1709,7 @@ struct NamedNodeMap {
   }
 }
 struct Node {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1805,6 +1834,7 @@ struct Node {
   }
 }
 struct NodeFilter {
+  nothrow:
   JsHandle handle;
   alias handle this;
   enum ushort FILTER_ACCEPT = 1;
@@ -1828,6 +1858,7 @@ struct NodeFilter {
   }
 }
 struct NodeIterator {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto root() {
@@ -1856,6 +1887,7 @@ struct NodeIterator {
   }
 }
 struct NodeList {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto item(uint index) {
@@ -1866,6 +1898,7 @@ struct NodeList {
   }
 }
 struct ProcessingInstruction {
+  nothrow:
   spasm.bindings.dom.CharacterData _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1876,6 +1909,7 @@ struct ProcessingInstruction {
   }
 }
 struct Range {
+  nothrow:
   spasm.bindings.dom.AbstractRange _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1956,6 +1990,7 @@ struct Range {
   }
 }
 struct ShadowRoot {
+  nothrow:
   spasm.bindings.dom.DocumentFragment _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1972,6 +2007,7 @@ struct ShadowRoot {
   }
 }
 struct ShadowRootInit {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -1989,6 +2025,7 @@ enum ShadowRootMode {
   closed
 }
 struct StaticRange {
+  nothrow:
   spasm.bindings.dom.AbstractRange _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1996,6 +2033,7 @@ struct StaticRange {
   }
 }
 struct Text {
+  nothrow:
   spasm.bindings.dom.CharacterData _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -2012,6 +2050,7 @@ struct Text {
   }
 }
 struct TreeWalker {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto root() {
@@ -2052,6 +2091,7 @@ struct TreeWalker {
   }
 }
 struct XMLDocument {
+  nothrow:
   spasm.bindings.dom.Document _parent;
   alias _parent this;
   this(JsHandle h) {

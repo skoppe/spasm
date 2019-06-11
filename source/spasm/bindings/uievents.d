@@ -4,7 +4,9 @@ import spasm.types;
 import spasm.bindings.dom;
 import spasm.bindings.html;
 
+nothrow:
 struct CompositionEvent {
+  nothrow:
   spasm.bindings.uievents.UIEvent _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -15,6 +17,7 @@ struct CompositionEvent {
   }
 }
 struct CompositionEventInit {
+  nothrow:
   spasm.bindings.uievents.UIEventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -31,6 +34,7 @@ struct CompositionEventInit {
   }
 }
 struct EventModifierInit {
+  nothrow:
   spasm.bindings.uievents.UIEventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -125,6 +129,7 @@ struct EventModifierInit {
   }
 }
 struct FocusEvent {
+  nothrow:
   spasm.bindings.uievents.UIEvent _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -135,6 +140,7 @@ struct FocusEvent {
   }
 }
 struct FocusEventInit {
+  nothrow:
   spasm.bindings.uievents.UIEventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -151,6 +157,7 @@ struct FocusEventInit {
   }
 }
 struct InputEvent {
+  nothrow:
   spasm.bindings.uievents.UIEvent _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -167,6 +174,7 @@ struct InputEvent {
   }
 }
 struct InputEventInit {
+  nothrow:
   spasm.bindings.uievents.UIEventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -195,6 +203,7 @@ struct InputEventInit {
   }
 }
 struct KeyboardEvent {
+  nothrow:
   spasm.bindings.uievents.UIEvent _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -242,6 +251,7 @@ struct KeyboardEvent {
   }
 }
 struct KeyboardEventInit {
+  nothrow:
   spasm.bindings.uievents.EventModifierInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -282,6 +292,7 @@ struct KeyboardEventInit {
   }
 }
 struct MouseEvent {
+  nothrow:
   spasm.bindings.uievents.UIEvent _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -325,6 +336,7 @@ struct MouseEvent {
   }
 }
 struct MouseEventInit {
+  nothrow:
   spasm.bindings.uievents.EventModifierInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -377,6 +389,7 @@ struct MouseEventInit {
   }
 }
 struct UIEvent {
+  nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -393,6 +406,7 @@ struct UIEvent {
   }
 }
 struct UIEventInit {
+  nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -415,6 +429,7 @@ struct UIEventInit {
   }
 }
 struct WheelEvent {
+  nothrow:
   spasm.bindings.uievents.MouseEvent _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -437,6 +452,7 @@ struct WheelEvent {
   }
 }
 struct WheelEventInit {
+  nothrow:
   spasm.bindings.uievents.MouseEventInit _parent;
   alias _parent this;
   this(JsHandle h) {

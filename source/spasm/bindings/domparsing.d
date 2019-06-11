@@ -3,7 +3,9 @@ module spasm.bindings.domparsing;
 import spasm.types;
 import spasm.bindings.dom;
 
+nothrow:
 struct DOMParser {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto parseFromString(string str, SupportedType type) {
@@ -18,6 +20,7 @@ enum SupportedType {
   image_svg_xml
 }
 struct XMLSerializer {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto serializeToString(Node root) {

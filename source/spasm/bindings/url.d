@@ -4,7 +4,9 @@ import spasm.types;
 import spasm.bindings.fileapi;
 import spasm.bindings.mediasource;
 
+nothrow:
 struct URL {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void href(string href) {
@@ -87,6 +89,7 @@ struct URL {
   }
 }
 struct URLSearchParams {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void append(string name, string value) {

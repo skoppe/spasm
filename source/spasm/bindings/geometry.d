@@ -1,7 +1,9 @@
 module spasm.bindings.geometry;
 
 import spasm.types;
+nothrow:
 struct DOMMatrix {
+  nothrow:
   spasm.bindings.geometry.DOMMatrixReadOnly _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -267,6 +269,7 @@ struct DOMMatrix {
   }
 }
 struct DOMMatrix2DInit {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -346,6 +349,7 @@ struct DOMMatrix2DInit {
   }
 }
 struct DOMMatrixInit {
+  nothrow:
   spasm.bindings.geometry.DOMMatrix2DInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -422,6 +426,7 @@ struct DOMMatrixInit {
   }
 }
 struct DOMMatrixReadOnly {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto fromMatrix(DOMMatrixInit other) {
@@ -645,6 +650,7 @@ struct DOMMatrixReadOnly {
   }
 }
 struct DOMPoint {
+  nothrow:
   spasm.bindings.geometry.DOMPointReadOnly _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -682,6 +688,7 @@ struct DOMPoint {
   }
 }
 struct DOMPointInit {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -713,6 +720,7 @@ struct DOMPointInit {
   }
 }
 struct DOMPointReadOnly {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto fromPoint(DOMPointInit other) {
@@ -744,6 +752,7 @@ struct DOMPointReadOnly {
   }
 }
 struct DOMQuad {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto fromRect(DOMRectInit other) {
@@ -778,6 +787,7 @@ struct DOMQuad {
   }
 }
 struct DOMQuadInit {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -809,6 +819,7 @@ struct DOMQuadInit {
   }
 }
 struct DOMRect {
+  nothrow:
   spasm.bindings.geometry.DOMRectReadOnly _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -846,6 +857,7 @@ struct DOMRect {
   }
 }
 struct DOMRectInit {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -877,6 +889,7 @@ struct DOMRectInit {
   }
 }
 struct DOMRectList {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto length() {
@@ -887,6 +900,7 @@ struct DOMRectList {
   }
 }
 struct DOMRectReadOnly {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto fromRect(DOMRectInit other) {

@@ -1,5 +1,9 @@
 module spasm.intrinsics;
-version (unittest) {} else:
+
+version (WebAssembly):
+
+nothrow:
+
 // returns amount of 64Kb pages
 pragma(LDC_intrinsic, "llvm.wasm.memory.size.i32")
 private int _wasmMemorySize(int memIndex);

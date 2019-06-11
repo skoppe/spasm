@@ -5,7 +5,9 @@ import spasm.bindings.dom;
 import spasm.bindings.html;
 import spasm.bindings.permissions;
 
+nothrow:
 struct Clipboard {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -25,6 +27,7 @@ struct Clipboard {
   }
 }
 struct ClipboardEvent {
+  nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -35,6 +38,7 @@ struct ClipboardEvent {
   }
 }
 struct ClipboardEventInit {
+  nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -51,6 +55,7 @@ struct ClipboardEventInit {
   }
 }
 struct ClipboardPermissionDescriptor {
+  nothrow:
   spasm.bindings.permissions.PermissionDescriptor _parent;
   alias _parent this;
   this(JsHandle h) {

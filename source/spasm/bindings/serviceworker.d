@@ -7,7 +7,9 @@ import spasm.bindings.html;
 import spasm.bindings.notifications;
 import spasm.bindings.pagevisibility;
 
+nothrow:
 struct Cache {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto match(RequestInfo request, CacheQueryOptions options) {
@@ -51,6 +53,7 @@ struct Cache {
   }
 }
 struct CacheQueryOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -76,6 +79,7 @@ struct CacheQueryOptions {
   }
 }
 struct CacheStorage {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto match(RequestInfo request, MultiCacheQueryOptions options) {
@@ -98,6 +102,7 @@ struct CacheStorage {
   }
 }
 struct Client {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto url() {
@@ -124,6 +129,7 @@ struct Client {
   }
 }
 struct ClientQueryOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -149,6 +155,7 @@ enum ClientType {
   all
 }
 struct Clients {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto get(string id) {
@@ -168,6 +175,7 @@ struct Clients {
   }
 }
 struct ExtendableEvent {
+  nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -178,6 +186,7 @@ struct ExtendableEvent {
   }
 }
 struct ExtendableEventInit {
+  nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -188,6 +197,7 @@ struct ExtendableEventInit {
   }
 }
 struct ExtendableMessageEvent {
+  nothrow:
   spasm.bindings.serviceworker.ExtendableEvent _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -210,6 +220,7 @@ struct ExtendableMessageEvent {
   }
 }
 struct ExtendableMessageEventInit {
+  nothrow:
   spasm.bindings.serviceworker.ExtendableEventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -252,6 +263,7 @@ struct ExtendableMessageEventInit {
   }
 }
 struct FetchEvent {
+  nothrow:
   spasm.bindings.serviceworker.ExtendableEvent _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -277,6 +289,7 @@ struct FetchEvent {
   }
 }
 struct FetchEventInit {
+  nothrow:
   spasm.bindings.serviceworker.ExtendableEventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -323,6 +336,7 @@ enum FrameType {
   none
 }
 struct MultiCacheQueryOptions {
+  nothrow:
   spasm.bindings.serviceworker.CacheQueryOptions _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -339,6 +353,7 @@ struct MultiCacheQueryOptions {
   }
 }
 struct NavigationPreloadManager {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto enable() {
@@ -355,6 +370,7 @@ struct NavigationPreloadManager {
   }
 }
 struct NavigationPreloadState {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -374,6 +390,7 @@ struct NavigationPreloadState {
   }
 }
 struct RegistrationOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -399,6 +416,7 @@ struct RegistrationOptions {
   }
 }
 struct ServiceWorker {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -434,6 +452,7 @@ struct ServiceWorker {
   }
 }
 struct ServiceWorkerContainer {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -483,6 +502,7 @@ struct ServiceWorkerContainer {
   }
 }
 struct ServiceWorkerGlobalScope {
+  nothrow:
   spasm.bindings.html.WorkerGlobalScope _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -541,6 +561,7 @@ struct ServiceWorkerGlobalScope {
   }
 }
 struct ServiceWorkerRegistration {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -602,6 +623,7 @@ enum ServiceWorkerUpdateViaCache {
   none
 }
 struct WindowClient {
+  nothrow:
   spasm.bindings.serviceworker.Client _parent;
   alias _parent this;
   this(JsHandle h) {

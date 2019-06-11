@@ -3,7 +3,9 @@ module spasm.bindings.cssom;
 import spasm.types;
 import spasm.bindings.dom;
 
+nothrow:
 struct CSSGroupingRule {
+  nothrow:
   spasm.bindings.cssom.CSSRule _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -20,6 +22,7 @@ struct CSSGroupingRule {
   }
 }
 struct CSSImportRule {
+  nothrow:
   spasm.bindings.cssom.CSSRule _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -36,6 +39,7 @@ struct CSSImportRule {
   }
 }
 struct CSSMarginRule {
+  nothrow:
   spasm.bindings.cssom.CSSRule _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -49,6 +53,7 @@ struct CSSMarginRule {
   }
 }
 struct CSSMediaRule {
+  nothrow:
   spasm.bindings.cssom.CSSGroupingRule _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -59,6 +64,7 @@ struct CSSMediaRule {
   }
 }
 struct CSSNamespaceRule {
+  nothrow:
   spasm.bindings.cssom.CSSRule _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -72,6 +78,7 @@ struct CSSNamespaceRule {
   }
 }
 struct CSSPageRule {
+  nothrow:
   spasm.bindings.cssom.CSSGroupingRule _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -88,6 +95,7 @@ struct CSSPageRule {
   }
 }
 struct CSSRule {
+  nothrow:
   JsHandle handle;
   alias handle this;
   enum ushort STYLE_RULE = 1;
@@ -115,6 +123,7 @@ struct CSSRule {
   }
 }
 struct CSSRuleList {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto item(uint index) {
@@ -125,6 +134,7 @@ struct CSSRuleList {
   }
 }
 struct CSSStyleDeclaration {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void cssText(string cssText) {
@@ -195,6 +205,7 @@ struct CSSStyleDeclaration {
   }
 }
 struct CSSStyleRule {
+  nothrow:
   spasm.bindings.cssom.CSSRule _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -211,6 +222,7 @@ struct CSSStyleRule {
   }
 }
 struct CSSStyleSheet {
+  nothrow:
   spasm.bindings.cssom.StyleSheet _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -230,6 +242,7 @@ struct CSSStyleSheet {
   }
 }
 struct LinkStyle {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto sheet() {
@@ -237,6 +250,7 @@ struct LinkStyle {
   }
 }
 struct MediaList {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void mediaText(string mediaText) {
@@ -259,6 +273,7 @@ struct MediaList {
   }
 }
 struct StyleSheet {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto type() {
@@ -287,6 +302,7 @@ struct StyleSheet {
   }
 }
 struct StyleSheetList {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto item(uint index) {

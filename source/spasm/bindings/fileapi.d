@@ -5,7 +5,9 @@ import spasm.bindings.common;
 import spasm.bindings.dom;
 import spasm.bindings.html;
 
+nothrow:
 struct Blob {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto size() {
@@ -29,6 +31,7 @@ struct Blob {
 }
 alias BlobPart = SumType!(BufferSource, Blob, string);
 struct BlobPropertyBag {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -52,6 +55,7 @@ enum EndingType {
   native
 }
 struct File {
+  nothrow:
   spasm.bindings.fileapi.Blob _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -65,6 +69,7 @@ struct File {
   }
 }
 struct FileList {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto item(uint index) {
@@ -75,6 +80,7 @@ struct FileList {
   }
 }
 struct FilePropertyBag {
+  nothrow:
   spasm.bindings.fileapi.BlobPropertyBag _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -91,6 +97,7 @@ struct FilePropertyBag {
   }
 }
 struct FileReader {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -164,6 +171,7 @@ struct FileReader {
   }
 }
 struct FileReaderSync {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto readAsArrayBuffer(Blob blob) {

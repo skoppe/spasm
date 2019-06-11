@@ -4,7 +4,9 @@ import spasm.types;
 import spasm.bindings.dom;
 import spasm.bindings.html;
 
+nothrow:
 struct DevicePermissionDescriptor {
+  nothrow:
   spasm.bindings.permissions.PermissionDescriptor _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -21,6 +23,7 @@ struct DevicePermissionDescriptor {
   }
 }
 struct MidiPermissionDescriptor {
+  nothrow:
   spasm.bindings.permissions.PermissionDescriptor _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -37,6 +40,7 @@ struct MidiPermissionDescriptor {
   }
 }
 struct PermissionDescriptor {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -70,6 +74,7 @@ enum PermissionName {
   display
 }
 struct PermissionSetParameters {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -100,6 +105,7 @@ enum PermissionState {
   prompt
 }
 struct PermissionStatus {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -116,6 +122,7 @@ struct PermissionStatus {
   }
 }
 struct Permissions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto query(JsObject permissionDesc) {
@@ -123,6 +130,7 @@ struct Permissions {
   }
 }
 struct PushPermissionDescriptor {
+  nothrow:
   spasm.bindings.permissions.PermissionDescriptor _parent;
   alias _parent this;
   this(JsHandle h) {

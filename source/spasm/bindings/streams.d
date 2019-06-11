@@ -3,7 +3,9 @@ module spasm.bindings.streams;
 import spasm.types;
 import spasm.bindings.common;
 
+nothrow:
 struct ByteLengthQueuingStrategy {
+  nothrow:
   spasm.bindings.streams.QueuingStrategy _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -20,6 +22,7 @@ struct ByteLengthQueuingStrategy {
   }
 }
 struct CountQueuingStrategy {
+  nothrow:
   spasm.bindings.streams.QueuingStrategy _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -39,6 +42,7 @@ struct CountQueuingStrategy {
   }
 }
 struct PipeOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -64,6 +68,7 @@ struct PipeOptions {
   }
 }
 struct QueuingStrategy {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -84,6 +89,7 @@ struct QueuingStrategy {
 }
 alias QueuingStrategySizeCallback = double delegate(Any);
 struct ReadableByteStreamController {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto byobRequest() {
@@ -109,6 +115,7 @@ struct ReadableByteStreamController {
 }
 alias ReadableByteStreamControllerCallback = Any delegate(ReadableByteStreamController);
 struct ReadableStream {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto locked() {
@@ -155,6 +162,7 @@ struct ReadableStream {
   }
 }
 struct ReadableStreamBYOBReader {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto closed() {
@@ -177,6 +185,7 @@ struct ReadableStreamBYOBReader {
   }
 }
 struct ReadableStreamBYOBRequest {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto view() {
@@ -190,6 +199,7 @@ struct ReadableStreamBYOBRequest {
   }
 }
 struct ReadableStreamDefaultController {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto desiredSize() {
@@ -214,6 +224,7 @@ struct ReadableStreamDefaultController {
 }
 alias ReadableStreamDefaultControllerCallback = Any delegate(ReadableStreamDefaultController);
 struct ReadableStreamDefaultReader {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto closed() {
@@ -237,6 +248,7 @@ struct ReadableStreamDefaultReader {
 }
 alias ReadableStreamErrorCallback = Any delegate(Any);
 struct ReadableStreamReadResult {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void done(bool done) {
@@ -253,6 +265,7 @@ struct ReadableStreamReadResult {
   }
 }
 struct TransformStream {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto readable() {
@@ -263,6 +276,7 @@ struct TransformStream {
   }
 }
 struct TransformStreamDefaultController {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto desiredSize() {
@@ -288,6 +302,7 @@ struct TransformStreamDefaultController {
 alias TransformStreamDefaultControllerCallback = Any delegate(TransformStreamDefaultController);
 alias TransformStreamDefaultControllerTransformCallback = Any delegate(Any, TransformStreamDefaultController);
 struct Transformer {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -329,6 +344,7 @@ struct Transformer {
   }
 }
 struct UnderlyingByteSource {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -366,6 +382,7 @@ struct UnderlyingByteSource {
   }
 }
 struct UnderlyingSink {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -405,6 +422,7 @@ struct UnderlyingSink {
   }
 }
 struct UnderlyingSource {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -438,6 +456,7 @@ struct UnderlyingSource {
   }
 }
 struct WritableStream {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto locked() {
@@ -457,6 +476,7 @@ struct WritableStream {
   }
 }
 struct WritableStreamDefaultController {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void error(T0)(T0 error) {
@@ -472,6 +492,7 @@ alias WritableStreamDefaultControllerCloseCallback = Any delegate();
 alias WritableStreamDefaultControllerStartCallback = Any delegate(WritableStreamDefaultController);
 alias WritableStreamDefaultControllerWriteCallback = Any delegate(Any, WritableStreamDefaultController);
 struct WritableStreamDefaultWriter {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto closed() {

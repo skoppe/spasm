@@ -5,6 +5,7 @@ import spasm.bindings.common;
 import spasm.bindings.dom;
 import spasm.bindings.html;
 
+nothrow:
 enum AppendMode {
   segments,
   sequence
@@ -14,6 +15,7 @@ enum EndOfStreamError {
   decode
 }
 struct MediaSource {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -80,6 +82,7 @@ enum ReadyState {
   ended
 }
 struct SourceBuffer {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -165,6 +168,7 @@ struct SourceBuffer {
   }
 }
 struct SourceBufferList {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {

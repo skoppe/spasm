@@ -4,7 +4,9 @@ import spasm.types;
 import spasm.bindings.common;
 import spasm.bindings.streams;
 
+nothrow:
 struct TextDecodeOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -18,6 +20,7 @@ struct TextDecodeOptions {
   }
 }
 struct TextDecoder {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto decode(BufferSource input, TextDecodeOptions options) {
@@ -40,6 +43,7 @@ struct TextDecoder {
   }
 }
 struct TextDecoderOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -59,6 +63,7 @@ struct TextDecoderOptions {
   }
 }
 struct TextDecoderStream {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto encoding() {
@@ -78,6 +83,7 @@ struct TextDecoderStream {
   }
 }
 struct TextEncoder {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto encode(string input /* = "" */) {
@@ -91,6 +97,7 @@ struct TextEncoder {
   }
 }
 struct TextEncoderStream {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto encoding() {

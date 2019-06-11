@@ -3,7 +3,9 @@ module spasm.bindings.worklet;
 import spasm.types;
 import spasm.bindings.fetch;
 
+nothrow:
 struct Worklet {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto addModule(string moduleURL, WorkletOptions options) {
@@ -14,10 +16,12 @@ struct Worklet {
   }
 }
 struct WorkletGlobalScope {
+  nothrow:
   JsHandle handle;
   alias handle this;
 }
 struct WorkletOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {

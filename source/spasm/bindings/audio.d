@@ -8,7 +8,9 @@ import spasm.bindings.html;
 import spasm.bindings.mediastream;
 import spasm.bindings.worklet;
 
+nothrow:
 struct AnalyserNode {
+  nothrow:
   spasm.bindings.audio.AudioNode _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -55,6 +57,7 @@ struct AnalyserNode {
   }
 }
 struct AnalyserOptions {
+  nothrow:
   spasm.bindings.audio.AudioNodeOptions _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -89,6 +92,7 @@ struct AnalyserOptions {
   }
 }
 struct AudioBuffer {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto sampleRate() {
@@ -120,6 +124,7 @@ struct AudioBuffer {
   }
 }
 struct AudioBufferOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -145,6 +150,7 @@ struct AudioBufferOptions {
   }
 }
 struct AudioBufferSourceNode {
+  nothrow:
   spasm.bindings.audio.AudioScheduledSourceNode _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -194,6 +200,7 @@ struct AudioBufferSourceNode {
   }
 }
 struct AudioBufferSourceOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -237,6 +244,7 @@ struct AudioBufferSourceOptions {
   }
 }
 struct AudioContext {
+  nothrow:
   spasm.bindings.audio.BaseAudioContext _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -279,6 +287,7 @@ enum AudioContextLatencyCategory {
   playback
 }
 struct AudioContextOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -303,6 +312,7 @@ enum AudioContextState {
   closed
 }
 struct AudioDestinationNode {
+  nothrow:
   spasm.bindings.audio.AudioNode _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -313,6 +323,7 @@ struct AudioDestinationNode {
   }
 }
 struct AudioListener {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto positionX() {
@@ -350,6 +361,7 @@ struct AudioListener {
   }
 }
 struct AudioNode {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -420,6 +432,7 @@ struct AudioNode {
   }
 }
 struct AudioNodeOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -445,6 +458,7 @@ struct AudioNodeOptions {
   }
 }
 struct AudioParam {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void value(float value) {
@@ -491,6 +505,7 @@ struct AudioParam {
   }
 }
 struct AudioParamDescriptor {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -528,6 +543,7 @@ struct AudioParamDescriptor {
   }
 }
 struct AudioParamMap {
+  nothrow:
   JsHandle handle;
   alias handle this;
   uint size() {
@@ -562,6 +578,7 @@ struct AudioParamMap {
   }
 }
 struct AudioProcessingEvent {
+  nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -578,6 +595,7 @@ struct AudioProcessingEvent {
   }
 }
 struct AudioProcessingEventInit {
+  nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -606,6 +624,7 @@ struct AudioProcessingEventInit {
   }
 }
 struct AudioScheduledSourceNode {
+  nothrow:
   spasm.bindings.audio.AudioNode _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -631,6 +650,7 @@ struct AudioScheduledSourceNode {
   }
 }
 struct AudioTimestamp {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -650,6 +670,7 @@ struct AudioTimestamp {
   }
 }
 struct AudioWorklet {
+  nothrow:
   spasm.bindings.worklet.Worklet _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -666,6 +687,7 @@ struct AudioWorklet {
   }
 }
 struct AudioWorkletGlobalScope {
+  nothrow:
   spasm.bindings.worklet.WorkletGlobalScope _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -685,6 +707,7 @@ struct AudioWorkletGlobalScope {
   }
 }
 struct AudioWorkletNode {
+  nothrow:
   spasm.bindings.audio.AudioNode _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -704,6 +727,7 @@ struct AudioWorkletNode {
   }
 }
 struct AudioWorkletNodeOptions {
+  nothrow:
   spasm.bindings.audio.AudioNodeOptions _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -744,6 +768,7 @@ struct AudioWorkletNodeOptions {
   }
 }
 struct AudioWorkletProcessor {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto port() {
@@ -755,6 +780,7 @@ enum AutomationRate {
   k_rate
 }
 struct BaseAudioContext {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -870,6 +896,7 @@ struct BaseAudioContext {
   }
 }
 struct BiquadFilterNode {
+  nothrow:
   spasm.bindings.audio.AudioNode _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -898,6 +925,7 @@ struct BiquadFilterNode {
   }
 }
 struct BiquadFilterOptions {
+  nothrow:
   spasm.bindings.audio.AudioNodeOptions _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -957,6 +985,7 @@ enum ChannelInterpretation {
   discrete
 }
 struct ChannelMergerNode {
+  nothrow:
   spasm.bindings.audio.AudioNode _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -964,6 +993,7 @@ struct ChannelMergerNode {
   }
 }
 struct ChannelMergerOptions {
+  nothrow:
   spasm.bindings.audio.AudioNodeOptions _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -980,6 +1010,7 @@ struct ChannelMergerOptions {
   }
 }
 struct ChannelSplitterNode {
+  nothrow:
   spasm.bindings.audio.AudioNode _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -987,6 +1018,7 @@ struct ChannelSplitterNode {
   }
 }
 struct ChannelSplitterOptions {
+  nothrow:
   spasm.bindings.audio.AudioNodeOptions _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1003,6 +1035,7 @@ struct ChannelSplitterOptions {
   }
 }
 struct ConstantSourceNode {
+  nothrow:
   spasm.bindings.audio.AudioScheduledSourceNode _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1013,6 +1046,7 @@ struct ConstantSourceNode {
   }
 }
 struct ConstantSourceOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -1026,6 +1060,7 @@ struct ConstantSourceOptions {
   }
 }
 struct ConvolverNode {
+  nothrow:
   spasm.bindings.audio.AudioNode _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1045,6 +1080,7 @@ struct ConvolverNode {
   }
 }
 struct ConvolverOptions {
+  nothrow:
   spasm.bindings.audio.AudioNodeOptions _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1069,6 +1105,7 @@ struct ConvolverOptions {
 alias DecodeErrorCallback = void delegate(DOMException);
 alias DecodeSuccessCallback = void delegate(AudioBuffer);
 struct DelayNode {
+  nothrow:
   spasm.bindings.audio.AudioNode _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1079,6 +1116,7 @@ struct DelayNode {
   }
 }
 struct DelayOptions {
+  nothrow:
   spasm.bindings.audio.AudioNodeOptions _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1106,6 +1144,7 @@ enum DistanceModelType {
   exponential
 }
 struct DynamicsCompressorNode {
+  nothrow:
   spasm.bindings.audio.AudioNode _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1131,6 +1170,7 @@ struct DynamicsCompressorNode {
   }
 }
 struct DynamicsCompressorOptions {
+  nothrow:
   spasm.bindings.audio.AudioNodeOptions _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1171,6 +1211,7 @@ struct DynamicsCompressorOptions {
   }
 }
 struct GainNode {
+  nothrow:
   spasm.bindings.audio.AudioNode _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1181,6 +1222,7 @@ struct GainNode {
   }
 }
 struct GainOptions {
+  nothrow:
   spasm.bindings.audio.AudioNodeOptions _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1197,6 +1239,7 @@ struct GainOptions {
   }
 }
 struct IIRFilterNode {
+  nothrow:
   spasm.bindings.audio.AudioNode _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1207,6 +1250,7 @@ struct IIRFilterNode {
   }
 }
 struct IIRFilterOptions {
+  nothrow:
   spasm.bindings.audio.AudioNodeOptions _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1229,6 +1273,7 @@ struct IIRFilterOptions {
   }
 }
 struct MediaElementAudioSourceNode {
+  nothrow:
   spasm.bindings.audio.AudioNode _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1239,6 +1284,7 @@ struct MediaElementAudioSourceNode {
   }
 }
 struct MediaElementAudioSourceOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -1252,6 +1298,7 @@ struct MediaElementAudioSourceOptions {
   }
 }
 struct MediaStreamAudioDestinationNode {
+  nothrow:
   spasm.bindings.audio.AudioNode _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1262,6 +1309,7 @@ struct MediaStreamAudioDestinationNode {
   }
 }
 struct MediaStreamAudioSourceNode {
+  nothrow:
   spasm.bindings.audio.AudioNode _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1272,6 +1320,7 @@ struct MediaStreamAudioSourceNode {
   }
 }
 struct MediaStreamAudioSourceOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -1285,6 +1334,7 @@ struct MediaStreamAudioSourceOptions {
   }
 }
 struct MediaStreamTrackAudioSourceNode {
+  nothrow:
   spasm.bindings.audio.AudioNode _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1292,6 +1342,7 @@ struct MediaStreamTrackAudioSourceNode {
   }
 }
 struct MediaStreamTrackAudioSourceOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -1305,6 +1356,7 @@ struct MediaStreamTrackAudioSourceOptions {
   }
 }
 struct OfflineAudioCompletionEvent {
+  nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1315,6 +1367,7 @@ struct OfflineAudioCompletionEvent {
   }
 }
 struct OfflineAudioCompletionEventInit {
+  nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1331,6 +1384,7 @@ struct OfflineAudioCompletionEventInit {
   }
 }
 struct OfflineAudioContext {
+  nothrow:
   spasm.bindings.audio.BaseAudioContext _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1356,6 +1410,7 @@ struct OfflineAudioContext {
   }
 }
 struct OfflineAudioContextOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -1381,6 +1436,7 @@ struct OfflineAudioContextOptions {
   }
 }
 struct OscillatorNode {
+  nothrow:
   spasm.bindings.audio.AudioScheduledSourceNode _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1403,6 +1459,7 @@ struct OscillatorNode {
   }
 }
 struct OscillatorOptions {
+  nothrow:
   spasm.bindings.audio.AudioNodeOptions _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1449,6 +1506,7 @@ enum OverSampleType {
   _4x
 }
 struct PannerNode {
+  nothrow:
   spasm.bindings.audio.AudioNode _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1528,6 +1586,7 @@ struct PannerNode {
   }
 }
 struct PannerOptions {
+  nothrow:
   spasm.bindings.audio.AudioNodeOptions _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1626,10 +1685,12 @@ enum PanningModelType {
   HRTF
 }
 struct PeriodicWave {
+  nothrow:
   JsHandle handle;
   alias handle this;
 }
 struct PeriodicWaveConstraints {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -1643,6 +1704,7 @@ struct PeriodicWaveConstraints {
   }
 }
 struct PeriodicWaveOptions {
+  nothrow:
   spasm.bindings.audio.PeriodicWaveConstraints _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1665,6 +1727,7 @@ struct PeriodicWaveOptions {
   }
 }
 struct ScriptProcessorNode {
+  nothrow:
   spasm.bindings.audio.AudioNode _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1681,6 +1744,7 @@ struct ScriptProcessorNode {
   }
 }
 struct StereoPannerNode {
+  nothrow:
   spasm.bindings.audio.AudioNode _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1691,6 +1755,7 @@ struct StereoPannerNode {
   }
 }
 struct StereoPannerOptions {
+  nothrow:
   spasm.bindings.audio.AudioNodeOptions _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1707,6 +1772,7 @@ struct StereoPannerOptions {
   }
 }
 struct WaveShaperNode {
+  nothrow:
   spasm.bindings.audio.AudioNode _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1726,6 +1792,7 @@ struct WaveShaperNode {
   }
 }
 struct WaveShaperOptions {
+  nothrow:
   spasm.bindings.audio.AudioNodeOptions _parent;
   alias _parent this;
   this(JsHandle h) {

@@ -4,7 +4,9 @@ import spasm.types;
 import spasm.bindings.dom;
 import spasm.bindings.uievents;
 
+nothrow:
 struct Touch {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto identifier() {
@@ -54,6 +56,7 @@ struct Touch {
   }
 }
 struct TouchEvent {
+  nothrow:
   spasm.bindings.uievents.UIEvent _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -82,6 +85,7 @@ struct TouchEvent {
   }
 }
 struct TouchEventInit {
+  nothrow:
   spasm.bindings.uievents.EventModifierInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -110,6 +114,7 @@ struct TouchEventInit {
   }
 }
 struct TouchInit {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -207,6 +212,7 @@ struct TouchInit {
   }
 }
 struct TouchList {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto length() {

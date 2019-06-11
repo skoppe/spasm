@@ -7,7 +7,9 @@ import spasm.bindings.html;
 import spasm.bindings.serviceworker;
 import spasm.bindings.vibration;
 
+nothrow:
 struct GetNotificationOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -21,6 +23,7 @@ struct GetNotificationOptions {
   }
 }
 struct Notification {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -118,6 +121,7 @@ struct Notification {
   }
 }
 struct NotificationAction {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -148,6 +152,7 @@ enum NotificationDirection {
   rtl
 }
 struct NotificationEvent {
+  nothrow:
   spasm.bindings.serviceworker.ExtendableEvent _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -161,6 +166,7 @@ struct NotificationEvent {
   }
 }
 struct NotificationEventInit {
+  nothrow:
   spasm.bindings.serviceworker.ExtendableEventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -183,6 +189,7 @@ struct NotificationEventInit {
   }
 }
 struct NotificationOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {

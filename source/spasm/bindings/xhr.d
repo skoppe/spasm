@@ -6,7 +6,9 @@ import spasm.bindings.fetch;
 import spasm.bindings.fileapi;
 import spasm.bindings.html;
 
+nothrow:
 struct FormData {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void append(string name, string value) {
@@ -42,6 +44,7 @@ struct FormData {
 }
 alias FormDataEntryValue = SumType!(File, string);
 struct ProgressEvent {
+  nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -58,6 +61,7 @@ struct ProgressEvent {
   }
 }
 struct ProgressEventInit {
+  nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -86,6 +90,7 @@ struct ProgressEventInit {
   }
 }
 struct XMLHttpRequest {
+  nothrow:
   spasm.bindings.xhr.XMLHttpRequestEventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -179,6 +184,7 @@ struct XMLHttpRequest {
   }
 }
 struct XMLHttpRequestEventTarget {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -236,6 +242,7 @@ enum XMLHttpRequestResponseType {
   text
 }
 struct XMLHttpRequestUpload {
+  nothrow:
   spasm.bindings.xhr.XMLHttpRequestEventTarget _parent;
   alias _parent this;
   this(JsHandle h) {

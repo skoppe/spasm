@@ -6,7 +6,9 @@ import spasm.bindings.dom;
 import spasm.bindings.geometry;
 import spasm.bindings.html;
 
+nothrow:
 struct SVGAElement {
+  nothrow:
   spasm.bindings.svg.SVGGraphicsElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -128,6 +130,7 @@ struct SVGAElement {
   }
 }
 struct SVGAngle {
+  nothrow:
   JsHandle handle;
   alias handle this;
   enum ushort SVG_ANGLETYPE_UNKNOWN = 0;
@@ -164,6 +167,7 @@ struct SVGAngle {
   }
 }
 struct SVGAnimatedAngle {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto baseVal() {
@@ -174,6 +178,7 @@ struct SVGAnimatedAngle {
   }
 }
 struct SVGAnimatedBoolean {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void baseVal(bool baseVal) {
@@ -187,6 +192,7 @@ struct SVGAnimatedBoolean {
   }
 }
 struct SVGAnimatedEnumeration {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void baseVal(ushort baseVal) {
@@ -200,6 +206,7 @@ struct SVGAnimatedEnumeration {
   }
 }
 struct SVGAnimatedInteger {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void baseVal(int baseVal) {
@@ -213,6 +220,7 @@ struct SVGAnimatedInteger {
   }
 }
 struct SVGAnimatedLength {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto baseVal() {
@@ -223,6 +231,7 @@ struct SVGAnimatedLength {
   }
 }
 struct SVGAnimatedLengthList {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto baseVal() {
@@ -233,6 +242,7 @@ struct SVGAnimatedLengthList {
   }
 }
 struct SVGAnimatedNumber {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void baseVal(float baseVal) {
@@ -246,6 +256,7 @@ struct SVGAnimatedNumber {
   }
 }
 struct SVGAnimatedNumberList {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto baseVal() {
@@ -256,6 +267,7 @@ struct SVGAnimatedNumberList {
   }
 }
 struct SVGAnimatedPreserveAspectRatio {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto baseVal() {
@@ -266,6 +278,7 @@ struct SVGAnimatedPreserveAspectRatio {
   }
 }
 struct SVGAnimatedRect {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto baseVal() {
@@ -276,6 +289,7 @@ struct SVGAnimatedRect {
   }
 }
 struct SVGAnimatedString {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void baseVal(string baseVal) {
@@ -289,6 +303,7 @@ struct SVGAnimatedString {
   }
 }
 struct SVGAnimatedTransformList {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto baseVal() {
@@ -299,6 +314,7 @@ struct SVGAnimatedTransformList {
   }
 }
 struct SVGBoundingBoxOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -330,6 +346,7 @@ struct SVGBoundingBoxOptions {
   }
 }
 struct SVGCircleElement {
+  nothrow:
   spasm.bindings.svg.SVGGeometryElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -346,6 +363,7 @@ struct SVGCircleElement {
   }
 }
 struct SVGDefsElement {
+  nothrow:
   spasm.bindings.svg.SVGGraphicsElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -353,6 +371,7 @@ struct SVGDefsElement {
   }
 }
 struct SVGDescElement {
+  nothrow:
   spasm.bindings.svg.SVGElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -360,6 +379,7 @@ struct SVGDescElement {
   }
 }
 struct SVGElement {
+  nothrow:
   spasm.bindings.dom.Element _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -883,6 +903,7 @@ struct SVGElement {
   }
 }
 struct SVGEllipseElement {
+  nothrow:
   spasm.bindings.svg.SVGGeometryElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -902,6 +923,7 @@ struct SVGEllipseElement {
   }
 }
 struct SVGForeignObjectElement {
+  nothrow:
   spasm.bindings.svg.SVGGraphicsElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -921,6 +943,7 @@ struct SVGForeignObjectElement {
   }
 }
 struct SVGGElement {
+  nothrow:
   spasm.bindings.svg.SVGGraphicsElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -928,6 +951,7 @@ struct SVGGElement {
   }
 }
 struct SVGGeometryElement {
+  nothrow:
   spasm.bindings.svg.SVGGraphicsElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -956,6 +980,7 @@ struct SVGGeometryElement {
   }
 }
 struct SVGGradientElement {
+  nothrow:
   spasm.bindings.svg.SVGElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -979,6 +1004,7 @@ struct SVGGradientElement {
   }
 }
 struct SVGGraphicsElement {
+  nothrow:
   spasm.bindings.svg.SVGElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1007,6 +1033,7 @@ struct SVGGraphicsElement {
   }
 }
 struct SVGImageElement {
+  nothrow:
   spasm.bindings.svg.SVGGraphicsElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1038,6 +1065,7 @@ struct SVGImageElement {
   }
 }
 struct SVGLength {
+  nothrow:
   JsHandle handle;
   alias handle this;
   enum ushort SVG_LENGTHTYPE_UNKNOWN = 0;
@@ -1080,6 +1108,7 @@ struct SVGLength {
   }
 }
 struct SVGLengthList {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto length() {
@@ -1117,6 +1146,7 @@ struct SVGLengthList {
   }
 }
 struct SVGLineElement {
+  nothrow:
   spasm.bindings.svg.SVGGeometryElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1136,6 +1166,7 @@ struct SVGLineElement {
   }
 }
 struct SVGLinearGradientElement {
+  nothrow:
   spasm.bindings.svg.SVGGradientElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1155,6 +1186,7 @@ struct SVGLinearGradientElement {
   }
 }
 struct SVGMarkerElement {
+  nothrow:
   spasm.bindings.svg.SVGElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1207,6 +1239,7 @@ struct SVGMarkerElement {
   }
 }
 struct SVGMetadataElement {
+  nothrow:
   spasm.bindings.svg.SVGElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1214,6 +1247,7 @@ struct SVGMetadataElement {
   }
 }
 struct SVGNumber {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void value(float value) {
@@ -1224,6 +1258,7 @@ struct SVGNumber {
   }
 }
 struct SVGNumberList {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto length() {
@@ -1261,6 +1296,7 @@ struct SVGNumberList {
   }
 }
 struct SVGPathElement {
+  nothrow:
   spasm.bindings.svg.SVGGeometryElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1268,6 +1304,7 @@ struct SVGPathElement {
   }
 }
 struct SVGPatternElement {
+  nothrow:
   spasm.bindings.svg.SVGElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1305,6 +1342,7 @@ struct SVGPatternElement {
   }
 }
 struct SVGPointList {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto length() {
@@ -1342,6 +1380,7 @@ struct SVGPointList {
   }
 }
 struct SVGPolygonElement {
+  nothrow:
   spasm.bindings.svg.SVGGeometryElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1355,6 +1394,7 @@ struct SVGPolygonElement {
   }
 }
 struct SVGPolylineElement {
+  nothrow:
   spasm.bindings.svg.SVGGeometryElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1368,6 +1408,7 @@ struct SVGPolylineElement {
   }
 }
 struct SVGPreserveAspectRatio {
+  nothrow:
   JsHandle handle;
   alias handle this;
   enum ushort SVG_PRESERVEASPECTRATIO_UNKNOWN = 0;
@@ -1398,6 +1439,7 @@ struct SVGPreserveAspectRatio {
   }
 }
 struct SVGRadialGradientElement {
+  nothrow:
   spasm.bindings.svg.SVGGradientElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1423,6 +1465,7 @@ struct SVGRadialGradientElement {
   }
 }
 struct SVGRectElement {
+  nothrow:
   spasm.bindings.svg.SVGGeometryElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1448,6 +1491,7 @@ struct SVGRectElement {
   }
 }
 struct SVGSVGElement {
+  nothrow:
   spasm.bindings.svg.SVGGraphicsElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1641,6 +1685,7 @@ struct SVGSVGElement {
   }
 }
 struct SVGScriptElement {
+  nothrow:
   spasm.bindings.svg.SVGElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1663,6 +1708,7 @@ struct SVGScriptElement {
   }
 }
 struct SVGStopElement {
+  nothrow:
   spasm.bindings.svg.SVGElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1673,6 +1719,7 @@ struct SVGStopElement {
   }
 }
 struct SVGStringList {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto length() {
@@ -1710,6 +1757,7 @@ struct SVGStringList {
   }
 }
 struct SVGStyleElement {
+  nothrow:
   spasm.bindings.svg.SVGElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1735,6 +1783,7 @@ struct SVGStyleElement {
   }
 }
 struct SVGSwitchElement {
+  nothrow:
   spasm.bindings.svg.SVGGraphicsElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1742,6 +1791,7 @@ struct SVGSwitchElement {
   }
 }
 struct SVGSymbolElement {
+  nothrow:
   spasm.bindings.svg.SVGGraphicsElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1755,6 +1805,7 @@ struct SVGSymbolElement {
   }
 }
 struct SVGTSpanElement {
+  nothrow:
   spasm.bindings.svg.SVGTextPositioningElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1762,6 +1813,7 @@ struct SVGTSpanElement {
   }
 }
 struct SVGTextContentElement {
+  nothrow:
   spasm.bindings.svg.SVGGraphicsElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1808,6 +1860,7 @@ struct SVGTextContentElement {
   }
 }
 struct SVGTextElement {
+  nothrow:
   spasm.bindings.svg.SVGTextPositioningElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1815,6 +1868,7 @@ struct SVGTextElement {
   }
 }
 struct SVGTextPathElement {
+  nothrow:
   spasm.bindings.svg.SVGTextContentElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1840,6 +1894,7 @@ struct SVGTextPathElement {
   }
 }
 struct SVGTextPositioningElement {
+  nothrow:
   spasm.bindings.svg.SVGTextContentElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1862,6 +1917,7 @@ struct SVGTextPositioningElement {
   }
 }
 struct SVGTitleElement {
+  nothrow:
   spasm.bindings.svg.SVGElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1869,6 +1925,7 @@ struct SVGTitleElement {
   }
 }
 struct SVGTransform {
+  nothrow:
   JsHandle handle;
   alias handle this;
   enum ushort SVG_TRANSFORM_UNKNOWN = 0;
@@ -1907,6 +1964,7 @@ struct SVGTransform {
   }
 }
 struct SVGTransformList {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto length() {
@@ -1950,6 +2008,7 @@ struct SVGTransformList {
   }
 }
 struct SVGUnitTypes {
+  nothrow:
   JsHandle handle;
   alias handle this;
   enum ushort SVG_UNIT_TYPE_UNKNOWN = 0;
@@ -1957,6 +2016,7 @@ struct SVGUnitTypes {
   enum ushort SVG_UNIT_TYPE_OBJECTBOUNDINGBOX = 2;
 }
 struct SVGUnknownElement {
+  nothrow:
   spasm.bindings.svg.SVGGraphicsElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1964,6 +2024,7 @@ struct SVGUnknownElement {
   }
 }
 struct SVGUseElement {
+  nothrow:
   spasm.bindings.svg.SVGGraphicsElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1992,6 +2053,7 @@ struct SVGUseElement {
   }
 }
 struct SVGUseElementShadowRoot {
+  nothrow:
   spasm.bindings.dom.ShadowRoot _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1999,6 +2061,7 @@ struct SVGUseElementShadowRoot {
   }
 }
 struct SVGViewElement {
+  nothrow:
   spasm.bindings.svg.SVGElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -2021,6 +2084,7 @@ struct SVGViewElement {
   }
 }
 struct ShadowAnimation {
+  nothrow:
   Animation _parent;
   alias _parent this;
   this(JsHandle h) {

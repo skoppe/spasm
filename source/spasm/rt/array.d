@@ -107,8 +107,6 @@ struct PointerArray(T, Allocator = SpasmGCAllocator) if (is(T : U*, U)) {
  * Params:
  *     T = the array element type
  *     Allocator = the allocator to use. Defaults to `Mallocator`.
- *     supportGC = true if the container should support holding references to
- *         GC-allocated memory.
  */
 
 struct DynamicArray(T, Allocator = SpasmGCAllocator)
@@ -183,7 +181,7 @@ struct DynamicArray(T, Allocator = SpasmGCAllocator)
 	{
 		if (arr.length == 0)
 		{
-			arr = cast(typeof(arr)) allocator.allocate(T.sizeof * 4);
+			arr = allocator.make!(typeof(arr))(4);
 		}
 		else if (l >= arr.length)
 		{
@@ -299,7 +297,7 @@ struct DynamicArray(T, Allocator = SpasmGCAllocator)
 			size_t c = 4;
 			if (c < n)
 				c = n;
-			arr = cast(typeof(arr)) allocator.allocate(T.sizeof * c);
+			arr = allocator.make!(typeof(arr))(c);
 		}
 		else
 		{

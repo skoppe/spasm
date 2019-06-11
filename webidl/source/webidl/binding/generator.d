@@ -185,6 +185,7 @@ void toDImport(virtual!Node node, StructNode parent, Semantics semantics, Indent
 @method void _toDBinding(StructNode node, Semantics semantics, IndentedStringAppender* a) {
   a.putLn(["struct ", node.name.friendlyName, " {"]);
   a.indent();
+  a.putLn("nothrow:");
   if (node.isStatic == Yes.isStatic) {
     a.putLn("static:");
   } else if (node.baseType != ParseTree.init) {

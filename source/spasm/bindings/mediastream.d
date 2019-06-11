@@ -4,7 +4,9 @@ import spasm.types;
 import spasm.bindings.dom;
 import spasm.bindings.html;
 
+nothrow:
 struct Capabilities {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -13,6 +15,7 @@ struct Capabilities {
 }
 alias ConstrainBoolean = SumType!(bool, ConstrainBooleanParameters);
 struct ConstrainBooleanParameters {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -33,6 +36,7 @@ struct ConstrainBooleanParameters {
 }
 alias ConstrainDOMString = SumType!(string, Sequence!(string), ConstrainDOMStringParameters);
 struct ConstrainDOMStringParameters {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -53,6 +57,7 @@ struct ConstrainDOMStringParameters {
 }
 alias ConstrainDouble = SumType!(double, ConstrainDoubleRange);
 struct ConstrainDoubleRange {
+  nothrow:
   spasm.bindings.mediastream.DoubleRange _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -76,6 +81,7 @@ struct ConstrainDoubleRange {
 }
 alias ConstrainULong = SumType!(uint, ConstrainULongRange);
 struct ConstrainULongRange {
+  nothrow:
   spasm.bindings.mediastream.ULongRange _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -98,6 +104,7 @@ struct ConstrainULongRange {
   }
 }
 struct ConstrainablePattern {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto getCapabilities() {
@@ -123,6 +130,7 @@ struct ConstrainablePattern {
   }
 }
 struct ConstraintSet {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -130,6 +138,7 @@ struct ConstraintSet {
   }
 }
 struct Constraints {
+  nothrow:
   spasm.bindings.mediastream.ConstraintSet _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -146,6 +155,7 @@ struct Constraints {
   }
 }
 struct DoubleRange {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -165,6 +175,7 @@ struct DoubleRange {
   }
 }
 struct InputDeviceInfo {
+  nothrow:
   spasm.bindings.mediastream.MediaDeviceInfo _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -175,6 +186,7 @@ struct InputDeviceInfo {
   }
 }
 struct MediaDeviceInfo {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto deviceId() {
@@ -199,6 +211,7 @@ enum MediaDeviceKind {
   videoinput
 }
 struct MediaDevices {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -224,6 +237,7 @@ struct MediaDevices {
   }
 }
 struct MediaStream {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -270,6 +284,7 @@ struct MediaStream {
   }
 }
 struct MediaStreamConstraints {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -290,6 +305,7 @@ struct MediaStreamConstraints {
 }
 alias MediaStreamError = JsObject;
 struct MediaStreamTrack {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -363,6 +379,7 @@ struct MediaStreamTrack {
   }
 }
 struct MediaStreamTrackEvent {
+  nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -373,6 +390,7 @@ struct MediaStreamTrackEvent {
   }
 }
 struct MediaStreamTrackEventInit {
+  nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -393,6 +411,7 @@ enum MediaStreamTrackState {
   ended
 }
 struct MediaTrackCapabilities {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -496,6 +515,7 @@ struct MediaTrackCapabilities {
   }
 }
 struct MediaTrackConstraintSet {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -599,6 +619,7 @@ struct MediaTrackConstraintSet {
   }
 }
 struct MediaTrackConstraints {
+  nothrow:
   spasm.bindings.mediastream.MediaTrackConstraintSet _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -615,6 +636,7 @@ struct MediaTrackConstraints {
   }
 }
 struct MediaTrackSettings {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -718,6 +740,7 @@ struct MediaTrackSettings {
   }
 }
 struct MediaTrackSupportedConstraints {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -823,10 +846,12 @@ struct MediaTrackSupportedConstraints {
 alias NavigatorUserMediaErrorCallback = void delegate(JsObject);
 alias NavigatorUserMediaSuccessCallback = void delegate(MediaStream);
 struct OverconstrainedError {
+  nothrow:
   JsHandle handle;
   alias handle this;
 }
 struct OverconstrainedErrorEvent {
+  nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -837,6 +862,7 @@ struct OverconstrainedErrorEvent {
   }
 }
 struct OverconstrainedErrorEventInit {
+  nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -853,6 +879,7 @@ struct OverconstrainedErrorEventInit {
   }
 }
 struct Settings {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -860,6 +887,7 @@ struct Settings {
   }
 }
 struct ULongRange {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {

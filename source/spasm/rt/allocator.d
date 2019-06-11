@@ -1,6 +1,8 @@
 ///
 module spasm.rt.allocator;
 
+nothrow:
+
 import stdx.allocator.building_blocks.bitmapped_block : BitmappedBlock;
 import stdx.allocator.building_blocks.allocator_list : AllocatorList;
 import stdx.allocator.building_blocks.null_allocator : NullAllocator;
@@ -20,7 +22,7 @@ version (unittest) {
       return Ternary.yes;
     }
 
-    bool deallocate(void[] b) {
+    bool deallocate(void[] b) nothrow {
       return true;
     }
 
@@ -35,6 +37,7 @@ version (unittest) {
     import spasm.rt.memory : wasmPageSize;
     enum uint alignment = platformAlignment;
 
+    nothrow:
     static __gshared typeof(this) instance = WasmAllocator();
 
     Ternary owns(void[] b) {
@@ -110,6 +113,7 @@ private auto totalBitmappedBlockAllocation(size_t capacity, size_t blockSize) {
   return tuple!("leadingUlongs", "blocks","bytes")(leadingUlongs, blocks, leadingUlongs * 8 + maxSlack + blockSize * blocks);
 }
 
+nothrow
 auto initPool(size_t blockSize, size_t capacity) {
   import spasm.ct : tuple;
   auto poolSize = totalBitmappedBlockAllocation(capacity, blockSize);
@@ -118,6 +122,7 @@ auto initPool(size_t blockSize, size_t capacity) {
 }
 
 struct PoolAllocatorBacking {
+  nothrow:
   void* pool;
 
   MarkResult mark(void* ptr) {
@@ -155,6 +160,7 @@ enum MarkResult {
 }
 
 struct PoolAllocatorIndex {
+  nothrow:
   void*[] addresses;
   uint lastFree = 0;
 
@@ -250,6 +256,7 @@ struct PoolAllocatorIndex {
 static __gshared auto poolAllocatorIndex = PoolAllocatorIndex();
 
 struct PoolAllocator {
+  nothrow:
   import stdx.allocator.common : chooseAtRuntime;
   alias Block = BitmappedBlock!(chooseAtRuntime, platformAlignment, NullAllocator);
   alias alignment = platformAlignment;

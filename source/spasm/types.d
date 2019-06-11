@@ -1,5 +1,7 @@
 module spasm.types;
 
+nothrow:
+
 public import optional;
 public import spasm.sumtype;
 import std.traits : hasMember, isCallable, isBasicType;
@@ -38,13 +40,47 @@ extern (C) {
 
 extern(C) export @assumeUsed ubyte* allocString(uint bytes) {
   import spasm.rt.memory;
-  void[] raw = allocator.allocate(bytes);
-  return cast(ubyte*)raw.ptr;
+  return allocator.make!(ubyte[])(bytes).ptr;
 }
 
 alias Handle = uint;
 struct JsHandle {
+  nothrow:
   package Handle handle;
+  private uint* refCount;
+  this(Handle handle) {
+    this.handle = handle;
+    if (__ctfe) {} else {
+      import spasm.rt.allocator;
+      refCount = cast(uint*)WasmAllocator.instance.allocate(uint.sizeof).ptr;
+      (*refCount) = 1;
+      import spasm.types;
+      doLog(cast(uint)refCount);
+      doLog((*refCount));
+    }
+  }
+  ~this() {
+    if (refCount is null)
+      return;
+    if ((*refCount) == 1) {
+      spasm_removeObject(handle);
+      import spasm.rt.allocator;
+      WasmAllocator.instance.deallocate(cast(void[])refCount[0..1]);
+    } else {
+      (*refCount)--;
+      import spasm.types;
+      doLog(cast(uint)refCount);
+      doLog((*refCount));
+    }
+  }
+  this(this) {
+    if (refCount is null)
+      return;
+    (*refCount)++;
+    import spasm.types;
+    doLog(cast(uint)refCount);
+    doLog((*refCount));
+  }
   alias handle this;
 }
 
@@ -265,6 +301,7 @@ auto dropHandle(T)(Handle data) {
 }
 
 struct Any {
+  nothrow:
   JsHandle handle;
   alias handle this;
 }
@@ -296,6 +333,7 @@ mixin template ExternPromiseCallback(string funName, T, U) {
 }
 
 struct Promise(T, U = Any) {
+  nothrow:
   JsHandle handle;
   alias handle this;
   alias JoinedType = BridgeType!T;
@@ -318,14 +356,17 @@ struct Promise(T, U = Any) {
   }
 }
 struct Sequence(T) {
+  nothrow:
   JsHandle handle;
   alias handle this;
 }
 struct TypedArray(T) {
+  nothrow:
 	JsHandle handle;
 	alias handle this;
 }
 struct Int8Array {
+  nothrow:
 	TypedArray!(byte) _array;
 	alias _array this;
   this(JsHandle h) {
@@ -333,6 +374,7 @@ struct Int8Array {
   }
 }
 struct Int16Array {
+  nothrow:
 	TypedArray!(short) _array;
 	alias _array this;
   this(JsHandle h) {
@@ -340,6 +382,7 @@ struct Int16Array {
   }
 }
 struct Int32Array {
+  nothrow:
 	TypedArray!(int) _array;
 	alias _array this;
   this(JsHandle h) {
@@ -347,6 +390,7 @@ struct Int32Array {
   }
 }
 struct Uint8Array {
+  nothrow:
 	TypedArray!(ubyte) _array;
 	alias _array this;
   this(JsHandle h) {
@@ -354,6 +398,7 @@ struct Uint8Array {
   }
 }
 struct Uint16Array {
+  nothrow:
 	TypedArray!(ushort) _array;
 	alias _array this;
   this(JsHandle h) {
@@ -361,6 +406,7 @@ struct Uint16Array {
   }
 }
 struct Uint32Array {
+  nothrow:
 	TypedArray!(uint) _array;
 	alias _array this;
   this(JsHandle h) {
@@ -368,6 +414,7 @@ struct Uint32Array {
   }
 }
 struct Float32Array {
+  nothrow:
 	TypedArray!(float) _array;
 	alias _array this;
   this(JsHandle h) {
@@ -375,6 +422,7 @@ struct Float32Array {
   }
 }
 struct Float64Array {
+  nothrow:
 	TypedArray!(double) _array;
 	alias _array this;
   this(JsHandle h) {
@@ -382,39 +430,48 @@ struct Float64Array {
   }
 }
 struct Uint8ClampedArray {
+  nothrow:
 	JsHandle handle;
 	alias handle this;
 }
 struct DataView {
+  nothrow:
 	JsHandle handle;
 	alias handle this;
 }
 struct ArrayBuffer {
+  nothrow:
 	JsHandle handle;
 	alias handle this;
 }
 struct FrozenArray(T) {
+  nothrow:
   JsHandle handle;
   alias handle this;
 }
 // TODO: for now animation is defined here, but when accepted we can use the idl (or newer) at https://www.w3.org/TR/2018/WD-web-animations-1-20181011
 struct Animation {
+  nothrow:
   JsHandle handle;
   alias handle this;
 }
 struct Iterator(T) {
+  nothrow:
   JsHandle handle;
   alias handle this;
 }
 struct Record(T...) {
+  nothrow:
   JsHandle handle;
   alias handle this;
 }
 struct ArrayPair(T,U) {
+  nothrow:
   JsHandle handle;
   alias handle this;
 }
 struct JsObject {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto opDispatch(string name)() {
@@ -422,6 +479,7 @@ struct JsObject {
   }
 }
 struct Json {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto opDispatch(string name)() {

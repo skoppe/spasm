@@ -26,7 +26,9 @@ import spasm.bindings.webgl2;
 import spasm.bindings.webgl;
 import spasm.bindings.xhr;
 
+nothrow:
 struct ApplicationCache {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -100,6 +102,7 @@ struct ApplicationCache {
   }
 }
 struct AssignedNodesOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -113,6 +116,7 @@ struct AssignedNodesOptions {
   }
 }
 struct AudioTrack {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto id() {
@@ -138,6 +142,7 @@ struct AudioTrack {
   }
 }
 struct AudioTrackList {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -175,6 +180,7 @@ struct AudioTrackList {
   }
 }
 struct BarProp {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto visible() {
@@ -182,6 +188,7 @@ struct BarProp {
   }
 }
 struct BeforeUnloadEvent {
+  nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -200,6 +207,7 @@ enum BinaryType {
 }
 alias BlobCallback = void delegate(Optional!(Blob));
 struct BroadcastChannel {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -244,6 +252,7 @@ enum CanvasFillRule {
   evenodd
 }
 struct CanvasGradient {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void addColorStop(double offset, string color) {
@@ -262,6 +271,7 @@ enum CanvasLineJoin {
   miter
 }
 struct CanvasPattern {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void setTransform(DOMMatrix2DInit transform) {
@@ -272,6 +282,7 @@ struct CanvasPattern {
   }
 }
 struct CanvasRenderingContext2D {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto canvas() {
@@ -591,6 +602,7 @@ struct CanvasRenderingContext2D {
   }
 }
 struct CanvasRenderingContext2DSettings {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -619,6 +631,7 @@ enum CanvasTextBaseline {
   bottom
 }
 struct CloseEvent {
+  nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -635,6 +648,7 @@ struct CloseEvent {
   }
 }
 struct CloseEventInit {
+  nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -668,6 +682,7 @@ enum ColorSpaceConversion {
 }
 alias CustomElementConstructor = Any delegate();
 struct CustomElementRegistry {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void define(string name, CustomElementConstructor constructor, ElementDefinitionOptions options) {
@@ -687,6 +702,7 @@ struct CustomElementRegistry {
   }
 }
 struct DOMStringList {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto length() {
@@ -700,6 +716,7 @@ struct DOMStringList {
   }
 }
 struct DOMStringMap {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto opIndex(string name) {
@@ -719,6 +736,7 @@ struct DOMStringMap {
   }
 }
 struct DataTransfer {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void dropEffect(string dropEffect) {
@@ -759,6 +777,7 @@ struct DataTransfer {
   }
 }
 struct DataTransferItem {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto kind() {
@@ -775,6 +794,7 @@ struct DataTransferItem {
   }
 }
 struct DataTransferItemList {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto length() {
@@ -800,6 +820,7 @@ struct DataTransferItemList {
   }
 }
 struct DedicatedWorkerGlobalScope {
+  nothrow:
   spasm.bindings.html.WorkerGlobalScope _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -851,6 +872,7 @@ enum DocumentReadyState {
   complete
 }
 struct DragEvent {
+  nothrow:
   spasm.bindings.uievents.MouseEvent _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -861,6 +883,7 @@ struct DragEvent {
   }
 }
 struct DragEventInit {
+  nothrow:
   spasm.bindings.uievents.MouseEventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -877,6 +900,7 @@ struct DragEventInit {
   }
 }
 struct ElementDefinitionOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -890,6 +914,7 @@ struct ElementDefinitionOptions {
   }
 }
 struct ErrorEvent {
+  nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -912,6 +937,7 @@ struct ErrorEvent {
   }
 }
 struct ErrorEventInit {
+  nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -956,6 +982,7 @@ struct ErrorEventInit {
 alias EventHandler = EventHandlerNonNull;
 alias EventHandlerNonNull = Any delegate(Event);
 struct EventSource {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -996,6 +1023,7 @@ struct EventSource {
   }
 }
 struct EventSourceInit {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -1009,6 +1037,7 @@ struct EventSourceInit {
   }
 }
 struct External {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void AddSearchProvider() {
@@ -1019,6 +1048,7 @@ struct External {
   }
 }
 struct FocusOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -1034,6 +1064,7 @@ struct FocusOptions {
 alias FrameRequestCallback = void delegate(double);
 alias FunctionStringCallback = void delegate(string);
 struct HTMLAllCollection {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto length() {
@@ -1056,6 +1087,7 @@ struct HTMLAllCollection {
   }
 }
 struct HTMLAnchorElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1207,6 +1239,7 @@ struct HTMLAnchorElement {
   }
 }
 struct HTMLAreaElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1334,6 +1367,7 @@ struct HTMLAreaElement {
   }
 }
 struct HTMLAudioElement {
+  nothrow:
   spasm.bindings.html.HTMLMediaElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1341,6 +1375,7 @@ struct HTMLAudioElement {
   }
 }
 struct HTMLBRElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1354,6 +1389,7 @@ struct HTMLBRElement {
   }
 }
 struct HTMLBaseElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1373,6 +1409,7 @@ struct HTMLBaseElement {
   }
 }
 struct HTMLBodyElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1518,6 +1555,7 @@ struct HTMLBodyElement {
   }
 }
 struct HTMLButtonElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1609,6 +1647,7 @@ struct HTMLButtonElement {
   }
 }
 struct HTMLCanvasElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1663,6 +1702,7 @@ struct HTMLCanvasElement {
   }
 }
 struct HTMLDListElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1676,6 +1716,7 @@ struct HTMLDListElement {
   }
 }
 struct HTMLDataElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1689,6 +1730,7 @@ struct HTMLDataElement {
   }
 }
 struct HTMLDataListElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1699,6 +1741,7 @@ struct HTMLDataListElement {
   }
 }
 struct HTMLDetailsElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1712,6 +1755,7 @@ struct HTMLDetailsElement {
   }
 }
 struct HTMLDialogElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1743,6 +1787,7 @@ struct HTMLDialogElement {
   }
 }
 struct HTMLDirectoryElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1756,6 +1801,7 @@ struct HTMLDirectoryElement {
   }
 }
 struct HTMLDivElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -1769,6 +1815,7 @@ struct HTMLDivElement {
   }
 }
 struct HTMLElement {
+  nothrow:
   spasm.bindings.dom.Element _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -2364,6 +2411,7 @@ struct HTMLElement {
   }
 }
 struct HTMLEmbedElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -2410,6 +2458,7 @@ struct HTMLEmbedElement {
   }
 }
 struct HTMLFieldSetElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -2456,6 +2505,7 @@ struct HTMLFieldSetElement {
   }
 }
 struct HTMLFontElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -2481,6 +2531,7 @@ struct HTMLFontElement {
   }
 }
 struct HTMLFormControlsCollection {
+  nothrow:
   spasm.bindings.dom.HTMLCollection _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -2491,6 +2542,7 @@ struct HTMLFormControlsCollection {
   }
 }
 struct HTMLFormElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -2582,6 +2634,7 @@ struct HTMLFormElement {
   }
 }
 struct HTMLFrameElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -2643,6 +2696,7 @@ struct HTMLFrameElement {
   }
 }
 struct HTMLFrameSetElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -2758,6 +2812,7 @@ struct HTMLFrameSetElement {
   }
 }
 struct HTMLHRElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -2795,6 +2850,7 @@ struct HTMLHRElement {
   }
 }
 struct HTMLHeadElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -2802,6 +2858,7 @@ struct HTMLHeadElement {
   }
 }
 struct HTMLHeadingElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -2815,6 +2872,7 @@ struct HTMLHeadingElement {
   }
 }
 struct HTMLHtmlElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -2828,6 +2886,7 @@ struct HTMLHtmlElement {
   }
 }
 struct HTMLIFrameElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -2937,6 +2996,7 @@ struct HTMLIFrameElement {
   }
 }
 struct HTMLImageElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -3067,6 +3127,7 @@ struct HTMLImageElement {
   }
 }
 struct HTMLInputElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -3371,6 +3432,7 @@ struct HTMLInputElement {
   }
 }
 struct HTMLLIElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -3390,6 +3452,7 @@ struct HTMLLIElement {
   }
 }
 struct HTMLLabelElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -3409,6 +3472,7 @@ struct HTMLLabelElement {
   }
 }
 struct HTMLLegendElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -3425,6 +3489,7 @@ struct HTMLLegendElement {
   }
 }
 struct HTMLLinkElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -3510,6 +3575,7 @@ struct HTMLLinkElement {
   }
 }
 struct HTMLMapElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -3526,6 +3592,7 @@ struct HTMLMapElement {
   }
 }
 struct HTMLMarqueeElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -3623,6 +3690,7 @@ struct HTMLMarqueeElement {
   }
 }
 struct HTMLMediaElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -3786,6 +3854,7 @@ struct HTMLMediaElement {
   }
 }
 struct HTMLMenuElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -3799,6 +3868,7 @@ struct HTMLMenuElement {
   }
 }
 struct HTMLMetaElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -3830,6 +3900,7 @@ struct HTMLMetaElement {
   }
 }
 struct HTMLMeterElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -3876,6 +3947,7 @@ struct HTMLMeterElement {
   }
 }
 struct HTMLModElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -3895,6 +3967,7 @@ struct HTMLModElement {
   }
 }
 struct HTMLOListElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -3926,6 +3999,7 @@ struct HTMLOListElement {
   }
 }
 struct HTMLObjectElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -4065,6 +4139,7 @@ struct HTMLObjectElement {
   }
 }
 struct HTMLOptGroupElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -4084,6 +4159,7 @@ struct HTMLOptGroupElement {
   }
 }
 struct HTMLOptionElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -4133,6 +4209,7 @@ struct HTMLOptionElement {
   }
 }
 struct HTMLOptionsCollection {
+  nothrow:
   spasm.bindings.dom.HTMLCollection _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -4169,6 +4246,7 @@ struct HTMLOptionsCollection {
 alias HTMLOrSVGImageElement = SumType!(HTMLImageElement, SVGImageElement);
 alias HTMLOrSVGScriptElement = SumType!(HTMLScriptElement, SVGScriptElement);
 struct HTMLOutputElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -4224,6 +4302,7 @@ struct HTMLOutputElement {
   }
 }
 struct HTMLParagraphElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -4237,6 +4316,7 @@ struct HTMLParagraphElement {
   }
 }
 struct HTMLParamElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -4268,6 +4348,7 @@ struct HTMLParamElement {
   }
 }
 struct HTMLPictureElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -4275,6 +4356,7 @@ struct HTMLPictureElement {
   }
 }
 struct HTMLPreElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -4288,6 +4370,7 @@ struct HTMLPreElement {
   }
 }
 struct HTMLProgressElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -4313,6 +4396,7 @@ struct HTMLProgressElement {
   }
 }
 struct HTMLQuoteElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -4326,6 +4410,7 @@ struct HTMLQuoteElement {
   }
 }
 struct HTMLScriptElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -4405,6 +4490,7 @@ struct HTMLScriptElement {
   }
 }
 struct HTMLSelectElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -4529,6 +4615,7 @@ struct HTMLSelectElement {
   }
 }
 struct HTMLSlotElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -4554,6 +4641,7 @@ struct HTMLSlotElement {
   }
 }
 struct HTMLSourceElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -4591,6 +4679,7 @@ struct HTMLSourceElement {
   }
 }
 struct HTMLSpanElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -4598,6 +4687,7 @@ struct HTMLSpanElement {
   }
 }
 struct HTMLStyleElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -4617,6 +4707,7 @@ struct HTMLStyleElement {
   }
 }
 struct HTMLTableCaptionElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -4630,6 +4721,7 @@ struct HTMLTableCaptionElement {
   }
 }
 struct HTMLTableCellElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -4724,6 +4816,7 @@ struct HTMLTableCellElement {
   }
 }
 struct HTMLTableColElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -4767,6 +4860,7 @@ struct HTMLTableColElement {
   }
 }
 struct HTMLTableElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -4882,6 +4976,7 @@ struct HTMLTableElement {
   }
 }
 struct HTMLTableRowElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -4937,6 +5032,7 @@ struct HTMLTableRowElement {
   }
 }
 struct HTMLTableSectionElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -4980,6 +5076,7 @@ struct HTMLTableSectionElement {
   }
 }
 struct HTMLTemplateElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -4990,6 +5087,7 @@ struct HTMLTemplateElement {
   }
 }
 struct HTMLTextAreaElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -5153,6 +5251,7 @@ struct HTMLTextAreaElement {
   }
 }
 struct HTMLTimeElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -5166,6 +5265,7 @@ struct HTMLTimeElement {
   }
 }
 struct HTMLTitleElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -5179,6 +5279,7 @@ struct HTMLTitleElement {
   }
 }
 struct HTMLTrackElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -5226,6 +5327,7 @@ struct HTMLTrackElement {
   }
 }
 struct HTMLUListElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -5245,6 +5347,7 @@ struct HTMLUListElement {
   }
 }
 struct HTMLUnknownElement {
+  nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -5252,6 +5355,7 @@ struct HTMLUnknownElement {
   }
 }
 struct HTMLVideoElement {
+  nothrow:
   spasm.bindings.html.HTMLMediaElement _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -5289,6 +5393,7 @@ struct HTMLVideoElement {
   }
 }
 struct HashChangeEvent {
+  nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -5302,6 +5407,7 @@ struct HashChangeEvent {
   }
 }
 struct HashChangeEventInit {
+  nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -5324,6 +5430,7 @@ struct HashChangeEventInit {
   }
 }
 struct History {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto length() {
@@ -5372,6 +5479,7 @@ struct History {
   }
 }
 struct ImageBitmap {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto width() {
@@ -5385,6 +5493,7 @@ struct ImageBitmap {
   }
 }
 struct ImageBitmapOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -5428,6 +5537,7 @@ struct ImageBitmapOptions {
   }
 }
 struct ImageBitmapRenderingContext {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto canvas() {
@@ -5438,6 +5548,7 @@ struct ImageBitmapRenderingContext {
   }
 }
 struct ImageBitmapRenderingContextSettings {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -5452,6 +5563,7 @@ struct ImageBitmapRenderingContextSettings {
 }
 alias ImageBitmapSource = SumType!(CanvasImageSource, Blob, ImageData);
 struct ImageData {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto width() {
@@ -5465,6 +5577,7 @@ struct ImageData {
   }
 }
 struct ImageEncodeOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -5493,6 +5606,7 @@ enum ImageSmoothingQuality {
   high
 }
 struct Location {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void href(string href) {
@@ -5560,6 +5674,7 @@ struct Location {
   }
 }
 struct MediaError {
+  nothrow:
   JsHandle handle;
   alias handle this;
   enum ushort MEDIA_ERR_ABORTED = 1;
@@ -5575,6 +5690,7 @@ struct MediaError {
 }
 alias MediaProvider = SumType!(MediaStream, MediaSource, Blob);
 struct MessageChannel {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto port1() {
@@ -5585,6 +5701,7 @@ struct MessageChannel {
   }
 }
 struct MessageEvent {
+  nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -5641,6 +5758,7 @@ struct MessageEvent {
   }
 }
 struct MessageEventInit {
+  nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -5684,6 +5802,7 @@ struct MessageEventInit {
 }
 alias MessageEventSource = SumType!(Window, MessagePort, ServiceWorker);
 struct MessagePort {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -5724,6 +5843,7 @@ struct MessagePort {
   }
 }
 struct MimeType {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto type() {
@@ -5740,6 +5860,7 @@ struct MimeType {
   }
 }
 struct MimeTypeArray {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto length() {
@@ -5753,6 +5874,7 @@ struct MimeTypeArray {
   }
 }
 struct Navigator {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto clipboard() {
@@ -5841,6 +5963,7 @@ struct Navigator {
   }
 }
 struct OffscreenCanvas {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -5878,6 +6001,7 @@ struct OffscreenCanvas {
   }
 }
 struct OffscreenCanvasRenderingContext2D {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void commit() {
@@ -6198,6 +6322,7 @@ alias OnBeforeUnloadEventHandlerNonNull = Optional!(string) delegate(Event);
 alias OnErrorEventHandler = Optional!(OnErrorEventHandlerNonNull);
 alias OnErrorEventHandlerNonNull = Any delegate(SumType!(Event, string), string, uint, uint, Any);
 struct PageTransitionEvent {
+  nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -6208,6 +6333,7 @@ struct PageTransitionEvent {
   }
 }
 struct PageTransitionEventInit {
+  nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -6224,6 +6350,7 @@ struct PageTransitionEventInit {
   }
 }
 struct Path2D {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void addPath(Path2D path, DOMMatrix2DInit transform) {
@@ -6267,6 +6394,7 @@ struct Path2D {
   }
 }
 struct Plugin {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto name() {
@@ -6289,6 +6417,7 @@ struct Plugin {
   }
 }
 struct PluginArray {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void refresh(bool reload /* = false */) {
@@ -6308,6 +6437,7 @@ struct PluginArray {
   }
 }
 struct PopStateEvent {
+  nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -6318,6 +6448,7 @@ struct PopStateEvent {
   }
 }
 struct PopStateEventInit {
+  nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -6336,6 +6467,7 @@ struct PopStateEventInit {
   }
 }
 struct PostMessageOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -6354,6 +6486,7 @@ enum PremultiplyAlpha {
   default_
 }
 struct PromiseRejectionEvent {
+  nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -6367,6 +6500,7 @@ struct PromiseRejectionEvent {
   }
 }
 struct PromiseRejectionEventInit {
+  nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -6391,6 +6525,7 @@ struct PromiseRejectionEventInit {
   }
 }
 struct RadioNodeList {
+  nothrow:
   spasm.bindings.dom.NodeList _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -6421,6 +6556,7 @@ enum SelectionMode {
   preserve
 }
 struct SharedWorker {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -6446,6 +6582,7 @@ struct SharedWorker {
   }
 }
 struct SharedWorkerGlobalScope {
+  nothrow:
   spasm.bindings.html.WorkerGlobalScope _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -6465,6 +6602,7 @@ struct SharedWorkerGlobalScope {
   }
 }
 struct Storage {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto length() {
@@ -6487,6 +6625,7 @@ struct Storage {
   }
 }
 struct StorageEvent {
+  nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -6533,6 +6672,7 @@ struct StorageEvent {
   }
 }
 struct StorageEventInit {
+  nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -6573,6 +6713,7 @@ struct StorageEventInit {
   }
 }
 struct TextMetrics {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto width() {
@@ -6613,6 +6754,7 @@ struct TextMetrics {
   }
 }
 struct TextTrack {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -6662,6 +6804,7 @@ struct TextTrack {
   }
 }
 struct TextTrackCue {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -6708,6 +6851,7 @@ struct TextTrackCue {
   }
 }
 struct TextTrackCueList {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto length() {
@@ -6731,6 +6875,7 @@ enum TextTrackKind {
   metadata
 }
 struct TextTrackList {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -6773,6 +6918,7 @@ enum TextTrackMode {
   showing
 }
 struct TimeRanges {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto length() {
@@ -6787,6 +6933,7 @@ struct TimeRanges {
 }
 alias TimerHandler = SumType!(string, Function);
 struct TrackEvent {
+  nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -6797,6 +6944,7 @@ struct TrackEvent {
   }
 }
 struct TrackEventInit {
+  nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -6813,6 +6961,7 @@ struct TrackEventInit {
   }
 }
 struct ValidityState {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto valueMissing() {
@@ -6850,6 +6999,7 @@ struct ValidityState {
   }
 }
 struct VideoTrack {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto id() {
@@ -6875,6 +7025,7 @@ struct VideoTrack {
   }
 }
 struct VideoTrackList {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -6915,6 +7066,7 @@ struct VideoTrackList {
   }
 }
 struct WebSocket {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -6992,6 +7144,7 @@ struct WebSocket {
   }
 }
 struct Window {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -7868,6 +8021,7 @@ struct Window {
   }
 }
 struct WindowPostMessageOptions {
+  nothrow:
   spasm.bindings.html.PostMessageOptions _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -7885,6 +8039,7 @@ struct WindowPostMessageOptions {
 }
 alias WindowProxy = Window;
 struct Worker {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -8084,6 +8239,7 @@ struct Worker {
   }
 }
 struct WorkerGlobalScope {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -8199,6 +8355,7 @@ struct WorkerGlobalScope {
   }
 }
 struct WorkerLocation {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void href(string href) {
@@ -8233,6 +8390,7 @@ struct WorkerLocation {
   }
 }
 struct WorkerNavigator {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto permissions() {
@@ -8288,6 +8446,7 @@ struct WorkerNavigator {
   }
 }
 struct WorkerOptions {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {

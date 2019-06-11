@@ -1,7 +1,9 @@
 module spasm.bindings.console;
 
 import spasm.types;
+nothrow:
 struct console {
+  nothrow:
   static:
   void assert_(T1)(bool condition /* = false */, T1 data) {
     Handle _handle_data = getOrCreateHandle(data);

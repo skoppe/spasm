@@ -5,6 +5,7 @@ import spasm.bindings.common;
 import spasm.bindings.dom;
 import spasm.bindings.html;
 
+nothrow:
 alias BufferDataSource = SumType!(ArrayBuffer, ArrayBufferView);
 alias GLbitfield = uint;
 alias GLboolean = bool;
@@ -22,6 +23,7 @@ alias GLuint = uint;
 alias GLushort = ushort;
 alias TexImageSource = SumType!(ImageData, HTMLImageElement, HTMLCanvasElement, HTMLVideoElement);
 struct WebGLActiveInfo {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto size() {
@@ -35,6 +37,7 @@ struct WebGLActiveInfo {
   }
 }
 struct WebGLBuffer {
+  nothrow:
   spasm.bindings.webgl.WebGLObject _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -42,6 +45,7 @@ struct WebGLBuffer {
   }
 }
 struct WebGLContextAttributes {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -97,6 +101,7 @@ struct WebGLContextAttributes {
   }
 }
 struct WebGLContextEvent {
+  nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -107,6 +112,7 @@ struct WebGLContextEvent {
   }
 }
 struct WebGLContextEventInit {
+  nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -123,6 +129,7 @@ struct WebGLContextEventInit {
   }
 }
 struct WebGLFramebuffer {
+  nothrow:
   spasm.bindings.webgl.WebGLObject _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -130,10 +137,12 @@ struct WebGLFramebuffer {
   }
 }
 struct WebGLObject {
+  nothrow:
   JsHandle handle;
   alias handle this;
 }
 struct WebGLProgram {
+  nothrow:
   spasm.bindings.webgl.WebGLObject _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -141,6 +150,7 @@ struct WebGLProgram {
   }
 }
 struct WebGLRenderbuffer {
+  nothrow:
   spasm.bindings.webgl.WebGLObject _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -148,10 +158,12 @@ struct WebGLRenderbuffer {
   }
 }
 struct WebGLRenderingContext {
+  nothrow:
   JsHandle handle;
   alias handle this;
 }
 struct WebGLRenderingContextBase {
+  nothrow:
   JsHandle handle;
   alias handle this;
   enum uint DEPTH_BUFFER_BIT = 0x00000100;
@@ -924,6 +936,7 @@ struct WebGLRenderingContextBase {
   }
 }
 struct WebGLShader {
+  nothrow:
   spasm.bindings.webgl.WebGLObject _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -931,6 +944,7 @@ struct WebGLShader {
   }
 }
 struct WebGLShaderPrecisionFormat {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto rangeMin() {
@@ -944,6 +958,7 @@ struct WebGLShaderPrecisionFormat {
   }
 }
 struct WebGLTexture {
+  nothrow:
   spasm.bindings.webgl.WebGLObject _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -951,6 +966,7 @@ struct WebGLTexture {
   }
 }
 struct WebGLUniformLocation {
+  nothrow:
   JsHandle handle;
   alias handle this;
 }

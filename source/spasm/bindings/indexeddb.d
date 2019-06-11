@@ -5,7 +5,9 @@ import spasm.bindings.common;
 import spasm.bindings.dom;
 import spasm.bindings.html;
 
+nothrow:
 struct IDBCursor {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto source() {
@@ -55,6 +57,7 @@ enum IDBCursorDirection {
   prevunique
 }
 struct IDBCursorWithValue {
+  nothrow:
   spasm.bindings.indexeddb.IDBCursor _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -65,6 +68,7 @@ struct IDBCursorWithValue {
   }
 }
 struct IDBDatabase {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -123,6 +127,7 @@ struct IDBDatabase {
   }
 }
 struct IDBDatabaseInfo {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -142,6 +147,7 @@ struct IDBDatabaseInfo {
   }
 }
 struct IDBFactory {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto open(string name, ulong version_) {
@@ -166,6 +172,7 @@ struct IDBFactory {
   }
 }
 struct IDBIndex {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void name(string name) {
@@ -269,6 +276,7 @@ struct IDBIndex {
   }
 }
 struct IDBIndexParameters {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -288,6 +296,7 @@ struct IDBIndexParameters {
   }
 }
 struct IDBKeyRange {
+  nothrow:
   JsHandle handle;
   alias handle this;
   auto lower() {
@@ -364,6 +373,7 @@ struct IDBKeyRange {
   }
 }
 struct IDBObjectStore {
+  nothrow:
   JsHandle handle;
   alias handle this;
   void name(string name) {
@@ -516,6 +526,7 @@ struct IDBObjectStore {
   }
 }
 struct IDBObjectStoreParameters {
+  nothrow:
   JsHandle handle;
   alias handle this;
   static auto create() {
@@ -535,6 +546,7 @@ struct IDBObjectStoreParameters {
   }
 }
 struct IDBOpenDBRequest {
+  nothrow:
   spasm.bindings.indexeddb.IDBRequest _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -554,6 +566,7 @@ struct IDBOpenDBRequest {
   }
 }
 struct IDBRequest {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -592,6 +605,7 @@ enum IDBRequestReadyState {
   done
 }
 struct IDBTransaction {
+  nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -640,6 +654,7 @@ enum IDBTransactionMode {
   versionchange
 }
 struct IDBVersionChangeEvent {
+  nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -653,6 +668,7 @@ struct IDBVersionChangeEvent {
   }
 }
 struct IDBVersionChangeEventInit {
+  nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
   this(JsHandle h) {

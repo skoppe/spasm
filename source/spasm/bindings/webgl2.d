@@ -4,16 +4,19 @@ import spasm.types;
 import spasm.bindings.common;
 import spasm.bindings.webgl;
 
+nothrow:
 alias Float32List = SumType!(Float32Array, Sequence!(float));
 alias GLint64 = long;
 alias GLuint64 = ulong;
 alias Int32List = SumType!(Int32Array, Sequence!(int));
 alias Uint32List = SumType!(Uint32Array, Sequence!(uint));
 struct WebGL2RenderingContext {
+  nothrow:
   JsHandle handle;
   alias handle this;
 }
 struct WebGL2RenderingContextBase {
+  nothrow:
   JsHandle handle;
   alias handle this;
   enum uint READ_BUFFER = 0x0C02;
@@ -844,6 +847,7 @@ struct WebGL2RenderingContextBase {
   }
 }
 struct WebGLQuery {
+  nothrow:
   spasm.bindings.webgl.WebGLObject _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -851,6 +855,7 @@ struct WebGLQuery {
   }
 }
 struct WebGLSampler {
+  nothrow:
   spasm.bindings.webgl.WebGLObject _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -858,6 +863,7 @@ struct WebGLSampler {
   }
 }
 struct WebGLSync {
+  nothrow:
   spasm.bindings.webgl.WebGLObject _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -865,6 +871,7 @@ struct WebGLSync {
   }
 }
 struct WebGLTransformFeedback {
+  nothrow:
   spasm.bindings.webgl.WebGLObject _parent;
   alias _parent this;
   this(JsHandle h) {
@@ -872,6 +879,7 @@ struct WebGLTransformFeedback {
   }
 }
 struct WebGLVertexArrayObject {
+  nothrow:
   spasm.bindings.webgl.WebGLObject _parent;
   alias _parent this;
   this(JsHandle h) {
