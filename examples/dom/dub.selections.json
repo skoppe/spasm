@@ -2,9 +2,11 @@
 	"fileVersion": 1,
 	"versions": {
 		"bolts": "0.11.1",
+		"mir-core": "0.2.2",
 		"optional": "0.10.1",
-		"silly": "0.8.0",
+		"silly": "0.8.2",
 		"spasm": {"path":"../.."},
-		"stdx-allocator": "2.77.3"
+		"stdx-allocator": "3.1.0-beta.1",
+		"unit-threaded": "0.9.4"
 	}
 }
