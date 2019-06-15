@@ -3,7 +3,41 @@ module spasm.event;
 import spasm.types;
 import ldc.attributes;
 
+@trusted
+extern(C)
+export
+@assumeUsed
+void domEvent(JsHandle node, uint ctx, uint fun, EventType type) {
+  // NOTE: since all the Event structs (MouseEvent, KeyboardEvent)
+  // are all just empty structs with only static functions,
+  // the type signature of the delegate doesn't really matter much,
+  // as long as there is one param
+  // This allows us to sidestep the fact that we should have had
+  // one event handler per event type
+  // Type safety is ensured with static asserts in addEventListenerTyped
+  static struct Handler
+  {
+    union
+    {
+      void delegate(Event) handle;
+      struct
+      {
+        void* contextPtr;
+        void* funcPtr;
+      }
+    }
+  }
+  Handler c;
+  c.contextPtr = cast(void*) ctx;
+  c.funcPtr = cast(void*) fun;
+  c.handle(Event());
+}
+
+@safe:
+nothrow:
+
 private extern(C) {
+  nothrow:
   bool getEventBool(string prop);
   uint getEventInt(string prop);
   string getEventString(string prop);
@@ -26,22 +60,26 @@ mixin template StringProperty(alias name) {
 }
 
 struct Event {
+  nothrow:
   mixin BoolProperty!("bubbles");
   mixin BoolProperty!("isComposing");
   mixin IntProperty!("eventPhase");
 }
 
 struct KeyboardEvent {
+  nothrow:
   mixin BoolProperty!("altKey");
   mixin StringProperty!("key");
 }
 
 struct InputEvent {
+  nothrow:
   mixin BoolProperty!("isComposing");
   // mixin StringProperty!("inputType");
 }
 
 struct MouseEvent {
+  nothrow:
   mixin IntProperty!("x");
   mixin IntProperty!("y");
   mixin IntProperty!("offsetX");
@@ -100,7 +138,7 @@ template toListenerType(string t) {
 
 
 // TODO: please combine with function below
-auto removeEventListenerTyped(string name, T)(JsHandle node, auto ref T t) {
+auto removeEventListenerTyped(string name, T)(Handle node, auto ref T t) {
   import std.traits : fullyQualifiedName, Parameters;
   import std.algorithm : findSplitAfter;
   import spasm.ct : toLower;
@@ -121,7 +159,7 @@ auto removeEventListenerTyped(string name, T)(JsHandle node, auto ref T t) {
   removeEventListener(node, listenerType, toTuple(delPtr).expand, eventType);
 }
 
-auto addEventListenerTyped(string name, T)(JsHandle node, auto ref T t) {
+auto addEventListenerTyped(string name, T)(Handle node, auto ref T t) {
   import std.traits : fullyQualifiedName, Parameters;
   import std.algorithm : findSplitAfter;
   import spasm.ct : toLower;
@@ -143,12 +181,13 @@ auto addEventListenerTyped(string name, T)(JsHandle node, auto ref T t) {
 }
 
 struct EventEmitter {
+  nothrow:
   void delegate() plain = null;
   void delegate(size_t) addr = null;
-  void add(void delegate() del) {
+  void add(void delegate() nothrow @safe del) {
     plain = del;
   }
-  void add(void delegate(size_t) del) {
+  void add(void delegate(size_t) nothrow @safe del) {
     addr = del;
   }
 }
@@ -172,34 +211,5 @@ auto emit(EventEmitter emitter, size_t addr) {
   if (emitter.addr != null) {
     emitter.addr(addr);
   }
-}
-
-extern(C)
-export
-@assumeUsed
-void domEvent(JsHandle node, uint ctx, uint fun, EventType type) {
-  // NOTE: since all the Event structs (MouseEvent, KeyboardEvent)
-  // are all just empty structs with only static functions,
-  // the type signature of the delegate doesn't really matter much,
-  // as long as there is one param
-  // This allows us to sidestep the fact that we should have had
-  // one event handler per event type
-  // Type safety is ensured with static asserts in addEventListenerTyped
-  static struct Handler
-  {
-    union
-    {
-      void delegate(Event) handle;
-      struct
-      {
-        void* contextPtr;
-        void* funcPtr;
-      }
-    }
-  }
-  Handler c;
-  c.contextPtr = cast(void*) ctx;
-  c.funcPtr = cast(void*) fun;
-  c.handle(Event());
 }
 

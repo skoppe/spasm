@@ -8,13 +8,18 @@ import spasm.bindings.html;
 import spasm.bindings.pagevisibility;
 import spasm.bindings.svg;
 
+@safe:
 nothrow:
+
 struct AbortController {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto signal() {
-    return AbortSignal(JsHandle(AbortController_signal_Get(this.handle)));
+    return AbortSignal(AbortController_signal_Get(this.handle));
   }
   void abort() {
     AbortController_abort(this.handle);
@@ -24,7 +29,7 @@ struct AbortSignal {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   auto aborted() {
@@ -41,14 +46,17 @@ struct AbstractRange {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto startContainer() {
-    return Node(JsHandle(AbstractRange_startContainer_Get(this.handle)));
+    return Node(AbstractRange_startContainer_Get(this.handle));
   }
   auto startOffset() {
     return AbstractRange_startOffset_Get(this.handle);
   }
   auto endContainer() {
-    return Node(JsHandle(AbstractRange_endContainer_Get(this.handle)));
+    return Node(AbstractRange_endContainer_Get(this.handle));
   }
   auto endOffset() {
     return AbstractRange_endOffset_Get(this.handle);
@@ -61,11 +69,11 @@ struct AddEventListenerOptions {
   nothrow:
   spasm.bindings.dom.EventListenerOptions _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventListenerOptions(h);
   }
   static auto create() {
-    return AddEventListenerOptions(JsHandle(spasm_add__object()));
+    return AddEventListenerOptions(spasm_add__object());
   }
   void passive(bool passive) {
     AddEventListenerOptions_passive_Set(this._parent, passive);
@@ -84,7 +92,7 @@ struct Attr {
   nothrow:
   spasm.bindings.dom.Node _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Node(h);
   }
   auto namespaceURI() {
@@ -116,7 +124,7 @@ struct CDATASection {
   nothrow:
   spasm.bindings.dom.Text _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Text(h);
   }
 }
@@ -124,7 +132,7 @@ struct CharacterData {
   nothrow:
   spasm.bindings.dom.Node _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Node(h);
   }
   void data(string data) {
@@ -157,13 +165,13 @@ struct CharacterData {
   auto nextElementSibling() {
     return NonDocumentTypeChildNode_nextElementSibling_Get(this._parent);
   }
-  void before(SumType!(Node, string) nodes) {
+  void before(scope ref SumType!(Node, string) nodes) {
     ChildNode_before(this._parent, nodes);
   }
-  void after(SumType!(Node, string) nodes) {
+  void after(scope ref SumType!(Node, string) nodes) {
     ChildNode_after(this._parent, nodes);
   }
-  void replaceWith(SumType!(Node, string) nodes) {
+  void replaceWith(scope ref SumType!(Node, string) nodes) {
     ChildNode_replaceWith(this._parent, nodes);
   }
   void remove() {
@@ -174,7 +182,7 @@ struct Comment {
   nothrow:
   spasm.bindings.dom.CharacterData _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .CharacterData(h);
   }
 }
@@ -182,13 +190,13 @@ struct CustomEvent {
   nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Event(h);
   }
   auto detail() {
-    return Any(JsHandle(CustomEvent_detail_Get(this._parent)));
+    return Any(CustomEvent_detail_Get(this._parent));
   }
-  void initCustomEvent(T3)(string type, bool bubbles /* = false */, bool cancelable /* = false */, T3 detail /* = null */) {
+  void initCustomEvent(T3)(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope auto ref T3 detail /* = null */) {
     Handle _handle_detail = getOrCreateHandle(detail);
     CustomEvent_initCustomEvent(this._parent, type, bubbles, cancelable, _handle_detail);
     dropHandle!(T3)(_handle_detail);
@@ -207,39 +215,42 @@ struct CustomEventInit {
   nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventInit(h);
   }
   static auto create() {
-    return CustomEventInit(JsHandle(spasm_add__object()));
+    return CustomEventInit(spasm_add__object());
   }
-  void detail(T0)(T0 detail) {
+  void detail(T0)(scope auto ref T0 detail) {
     Handle _handle_detail = getOrCreateHandle(detail);
     CustomEventInit_detail_Set(this._parent, _handle_detail);
     dropHandle!(T0)(_handle_detail);
   }
   auto detail() {
-    return Any(JsHandle(CustomEventInit_detail_Get(this._parent)));
+    return Any(CustomEventInit_detail_Get(this._parent));
   }
 }
 struct DOMImplementation {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto createDocumentType(string qualifiedName, string publicId, string systemId) {
-    return DocumentType(JsHandle(DOMImplementation_createDocumentType(this.handle, qualifiedName, publicId, systemId)));
+    return DocumentType(DOMImplementation_createDocumentType(this.handle, qualifiedName, publicId, systemId));
   }
-  auto createDocument(Optional!(string) namespace, string qualifiedName, Optional!(DocumentType) doctype /* = no!(DocumentType) */) {
-    return XMLDocument(JsHandle(DOMImplementation_createDocument(this.handle, !namespace.empty, namespace.front, qualifiedName, !doctype.empty, doctype.front._parent)));
+  auto createDocument(scope ref Optional!(string) namespace, string qualifiedName, scope ref Optional!(DocumentType) doctype /* = no!(DocumentType) */) {
+    return XMLDocument(DOMImplementation_createDocument(this.handle, !namespace.empty, namespace.front, qualifiedName, !doctype.empty, doctype.front._parent));
   }
-  auto createDocument(Optional!(string) namespace, string qualifiedName) {
-    return XMLDocument(JsHandle(DOMImplementation_createDocument_0(this.handle, !namespace.empty, namespace.front, qualifiedName)));
+  auto createDocument(scope ref Optional!(string) namespace, string qualifiedName) {
+    return XMLDocument(DOMImplementation_createDocument_0(this.handle, !namespace.empty, namespace.front, qualifiedName));
   }
   auto createHTMLDocument(string title) {
-    return Document(JsHandle(DOMImplementation_createHTMLDocument(this.handle, title)));
+    return Document(DOMImplementation_createHTMLDocument(this.handle, title));
   }
   auto createHTMLDocument() {
-    return Document(JsHandle(DOMImplementation_createHTMLDocument_0(this.handle)));
+    return Document(DOMImplementation_createHTMLDocument_0(this.handle));
   }
   auto hasFeature() {
     return DOMImplementation_hasFeature(this.handle);
@@ -249,6 +260,9 @@ struct DOMTokenList {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto length() {
     return DOMTokenList_length_Get(this.handle);
   }
@@ -287,11 +301,11 @@ struct Document {
   nothrow:
   spasm.bindings.dom.Node _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Node(h);
   }
   auto implementation() {
-    return DOMImplementation(JsHandle(Document_implementation_Get(this._parent)));
+    return DOMImplementation(Document_implementation_Get(this._parent));
   }
   auto URL() {
     return Document_URL_Get(this._parent);
@@ -324,79 +338,79 @@ struct Document {
     return Document_documentElement_Get(this._parent);
   }
   auto getElementsByTagName(string qualifiedName) {
-    return HTMLCollection(JsHandle(Document_getElementsByTagName(this._parent, qualifiedName)));
+    return HTMLCollection(Document_getElementsByTagName(this._parent, qualifiedName));
   }
-  auto getElementsByTagNameNS(Optional!(string) namespace, string localName) {
-    return HTMLCollection(JsHandle(Document_getElementsByTagNameNS(this._parent, !namespace.empty, namespace.front, localName)));
+  auto getElementsByTagNameNS(scope ref Optional!(string) namespace, string localName) {
+    return HTMLCollection(Document_getElementsByTagNameNS(this._parent, !namespace.empty, namespace.front, localName));
   }
   auto getElementsByClassName(string classNames) {
-    return HTMLCollection(JsHandle(Document_getElementsByClassName(this._parent, classNames)));
+    return HTMLCollection(Document_getElementsByClassName(this._parent, classNames));
   }
-  auto createElement(string localName, SumType!(string, ElementCreationOptions) options) {
-    return Element(JsHandle(Document_createElement(this._parent, localName, options)));
+  auto createElement(string localName, scope ref SumType!(string, ElementCreationOptions) options) {
+    return Element(Document_createElement(this._parent, localName, options));
   }
   auto createElement(string localName) {
-    return Element(JsHandle(Document_createElement_0(this._parent, localName)));
+    return Element(Document_createElement_0(this._parent, localName));
   }
-  auto createElementNS(Optional!(string) namespace, string qualifiedName, SumType!(string, ElementCreationOptions) options) {
-    return Element(JsHandle(Document_createElementNS(this._parent, !namespace.empty, namespace.front, qualifiedName, options)));
+  auto createElementNS(scope ref Optional!(string) namespace, string qualifiedName, scope ref SumType!(string, ElementCreationOptions) options) {
+    return Element(Document_createElementNS(this._parent, !namespace.empty, namespace.front, qualifiedName, options));
   }
-  auto createElementNS(Optional!(string) namespace, string qualifiedName) {
-    return Element(JsHandle(Document_createElementNS_0(this._parent, !namespace.empty, namespace.front, qualifiedName)));
+  auto createElementNS(scope ref Optional!(string) namespace, string qualifiedName) {
+    return Element(Document_createElementNS_0(this._parent, !namespace.empty, namespace.front, qualifiedName));
   }
   auto createDocumentFragment() {
-    return DocumentFragment(JsHandle(Document_createDocumentFragment(this._parent)));
+    return DocumentFragment(Document_createDocumentFragment(this._parent));
   }
   auto createTextNode(string data) {
-    return Text(JsHandle(Document_createTextNode(this._parent, data)));
+    return Text(Document_createTextNode(this._parent, data));
   }
   auto createCDATASection(string data) {
-    return CDATASection(JsHandle(Document_createCDATASection(this._parent, data)));
+    return CDATASection(Document_createCDATASection(this._parent, data));
   }
   auto createComment(string data) {
-    return Comment(JsHandle(Document_createComment(this._parent, data)));
+    return Comment(Document_createComment(this._parent, data));
   }
   auto createProcessingInstruction(string target, string data) {
-    return ProcessingInstruction(JsHandle(Document_createProcessingInstruction(this._parent, target, data)));
+    return ProcessingInstruction(Document_createProcessingInstruction(this._parent, target, data));
   }
-  auto importNode(Node node, bool deep /* = false */) {
-    return Node(JsHandle(Document_importNode(this._parent, node._parent, deep)));
+  auto importNode(scope ref Node node, bool deep /* = false */) {
+    return Node(Document_importNode(this._parent, node._parent, deep));
   }
-  auto importNode(Node node) {
-    return Node(JsHandle(Document_importNode_0(this._parent, node._parent)));
+  auto importNode(scope ref Node node) {
+    return Node(Document_importNode_0(this._parent, node._parent));
   }
-  auto adoptNode(Node node) {
-    return Node(JsHandle(Document_adoptNode(this._parent, node._parent)));
+  auto adoptNode(scope ref Node node) {
+    return Node(Document_adoptNode(this._parent, node._parent));
   }
   auto createAttribute(string localName) {
-    return Attr(JsHandle(Document_createAttribute(this._parent, localName)));
+    return Attr(Document_createAttribute(this._parent, localName));
   }
-  auto createAttributeNS(Optional!(string) namespace, string qualifiedName) {
-    return Attr(JsHandle(Document_createAttributeNS(this._parent, !namespace.empty, namespace.front, qualifiedName)));
+  auto createAttributeNS(scope ref Optional!(string) namespace, string qualifiedName) {
+    return Attr(Document_createAttributeNS(this._parent, !namespace.empty, namespace.front, qualifiedName));
   }
   auto createEvent(string interface_) {
-    return Event(JsHandle(Document_createEvent(this._parent, interface_)));
+    return Event(Document_createEvent(this._parent, interface_));
   }
   auto createRange() {
-    return Range(JsHandle(Document_createRange(this._parent)));
+    return Range(Document_createRange(this._parent));
   }
-  auto createNodeIterator(Node root, uint whatToShow /* = 0xFFFFFFFF */, Optional!(NodeFilter) filter /* = no!(NodeFilter) */) {
-    return NodeIterator(JsHandle(Document_createNodeIterator(this._parent, root._parent, whatToShow, !filter.empty, filter.front.handle)));
+  auto createNodeIterator(scope ref Node root, uint whatToShow /* = 0xFFFFFFFF */, scope ref Optional!(NodeFilter) filter /* = no!(NodeFilter) */) {
+    return NodeIterator(Document_createNodeIterator(this._parent, root._parent, whatToShow, !filter.empty, filter.front.handle));
   }
-  auto createNodeIterator(Node root, uint whatToShow /* = 0xFFFFFFFF */) {
-    return NodeIterator(JsHandle(Document_createNodeIterator_0(this._parent, root._parent, whatToShow)));
+  auto createNodeIterator(scope ref Node root, uint whatToShow /* = 0xFFFFFFFF */) {
+    return NodeIterator(Document_createNodeIterator_0(this._parent, root._parent, whatToShow));
   }
-  auto createNodeIterator(Node root) {
-    return NodeIterator(JsHandle(Document_createNodeIterator_1(this._parent, root._parent)));
+  auto createNodeIterator(scope ref Node root) {
+    return NodeIterator(Document_createNodeIterator_1(this._parent, root._parent));
   }
-  auto createTreeWalker(Node root, uint whatToShow /* = 0xFFFFFFFF */, Optional!(NodeFilter) filter /* = no!(NodeFilter) */) {
-    return TreeWalker(JsHandle(Document_createTreeWalker(this._parent, root._parent, whatToShow, !filter.empty, filter.front.handle)));
+  auto createTreeWalker(scope ref Node root, uint whatToShow /* = 0xFFFFFFFF */, scope ref Optional!(NodeFilter) filter /* = no!(NodeFilter) */) {
+    return TreeWalker(Document_createTreeWalker(this._parent, root._parent, whatToShow, !filter.empty, filter.front.handle));
   }
-  auto createTreeWalker(Node root, uint whatToShow /* = 0xFFFFFFFF */) {
-    return TreeWalker(JsHandle(Document_createTreeWalker_0(this._parent, root._parent, whatToShow)));
+  auto createTreeWalker(scope ref Node root, uint whatToShow /* = 0xFFFFFFFF */) {
+    return TreeWalker(Document_createTreeWalker_0(this._parent, root._parent, whatToShow));
   }
-  auto createTreeWalker(Node root) {
-    return TreeWalker(JsHandle(Document_createTreeWalker_1(this._parent, root._parent)));
+  auto createTreeWalker(scope ref Node root) {
+    return TreeWalker(Document_createTreeWalker_1(this._parent, root._parent));
   }
   auto location() {
     return Document_location_Get(this._parent);
@@ -434,7 +448,7 @@ struct Document {
   auto dir() {
     return Document_dir_Get(this._parent);
   }
-  void body_(Optional!(HTMLElement) body_) {
+  void body_(scope ref Optional!(HTMLElement) body_) {
     Document_body_Set(this._parent, !body_.empty, body_.front.handle);
   }
   auto body_() {
@@ -444,37 +458,37 @@ struct Document {
     return Document_head_Get(this._parent);
   }
   auto images() {
-    return HTMLCollection(JsHandle(Document_images_Get(this._parent)));
+    return HTMLCollection(Document_images_Get(this._parent));
   }
   auto embeds() {
-    return HTMLCollection(JsHandle(Document_embeds_Get(this._parent)));
+    return HTMLCollection(Document_embeds_Get(this._parent));
   }
   auto plugins() {
-    return HTMLCollection(JsHandle(Document_plugins_Get(this._parent)));
+    return HTMLCollection(Document_plugins_Get(this._parent));
   }
   auto links() {
-    return HTMLCollection(JsHandle(Document_links_Get(this._parent)));
+    return HTMLCollection(Document_links_Get(this._parent));
   }
   auto forms() {
-    return HTMLCollection(JsHandle(Document_forms_Get(this._parent)));
+    return HTMLCollection(Document_forms_Get(this._parent));
   }
   auto scripts() {
-    return HTMLCollection(JsHandle(Document_scripts_Get(this._parent)));
+    return HTMLCollection(Document_scripts_Get(this._parent));
   }
   auto getElementsByName(string elementName) {
-    return NodeList(JsHandle(Document_getElementsByName(this._parent, elementName)));
+    return NodeList(Document_getElementsByName(this._parent, elementName));
   }
   auto currentScript() {
     return Document_currentScript_Get(this._parent);
   }
   auto open(string unused1, string unused2) {
-    return Document(JsHandle(Document_open__string_string(this._parent, unused1, unused2)));
+    return Document(Document_open__string_string(this._parent, unused1, unused2));
   }
   auto open(string unused1) {
-    return Document(JsHandle(Document_open_0(this._parent, unused1)));
+    return Document(Document_open_0(this._parent, unused1));
   }
   auto open() {
-    return Document(JsHandle(Document_open_1(this._parent)));
+    return Document(Document_open_1(this._parent));
   }
   auto open(string url, string name, string features) {
     return Document_open__string_string_string(this._parent, url, name, features);
@@ -564,10 +578,10 @@ struct Document {
     return Document_bgColor_Get(this._parent);
   }
   auto anchors() {
-    return HTMLCollection(JsHandle(Document_anchors_Get(this._parent)));
+    return HTMLCollection(Document_anchors_Get(this._parent));
   }
   auto applets() {
-    return HTMLCollection(JsHandle(Document_applets_Get(this._parent)));
+    return HTMLCollection(Document_applets_Get(this._parent));
   }
   void clear() {
     Document_clear(this._parent);
@@ -579,7 +593,7 @@ struct Document {
     Document_releaseEvents(this._parent);
   }
   auto all() {
-    return HTMLAllCollection(JsHandle(Document_all_Get(this._parent)));
+    return HTMLAllCollection(Document_all_Get(this._parent));
   }
   auto hidden() {
     return Document_hidden_Get(this._parent);
@@ -600,7 +614,7 @@ struct Document {
     return Document_fullscreen_Get(this._parent);
   }
   auto exitFullscreen() {
-    return Promise!(void)(JsHandle(Document_exitFullscreen(this._parent)));
+    return Promise!(void)(Document_exitFullscreen(this._parent));
   }
   void onfullscreenchange(EventHandler onfullscreenchange) {
     Document_onfullscreenchange_Set(this._parent, onfullscreenchange);
@@ -618,7 +632,7 @@ struct Document {
     return Document_rootElement_Get(this._parent);
   }
   auto styleSheets() {
-    return StyleSheetList(JsHandle(Document_styleSheets_Get(this._parent)));
+    return StyleSheetList(Document_styleSheets_Get(this._parent));
   }
   auto getElementById(string elementId) {
     return NonElementParentNode_getElementById(this._parent, elementId);
@@ -627,7 +641,7 @@ struct Document {
     return DocumentOrShadowRoot_fullscreenElement_Get(this._parent);
   }
   auto children() {
-    return HTMLCollection(JsHandle(ParentNode_children_Get(this._parent)));
+    return HTMLCollection(ParentNode_children_Get(this._parent));
   }
   auto firstElementChild() {
     return ParentNode_firstElementChild_Get(this._parent);
@@ -638,17 +652,17 @@ struct Document {
   auto childElementCount() {
     return ParentNode_childElementCount_Get(this._parent);
   }
-  void prepend(SumType!(Node, string) nodes) {
+  void prepend(scope ref SumType!(Node, string) nodes) {
     ParentNode_prepend(this._parent, nodes);
   }
-  void append(SumType!(Node, string) nodes) {
+  void append(scope ref SumType!(Node, string) nodes) {
     ParentNode_append(this._parent, nodes);
   }
   auto querySelector(string selectors) {
     return ParentNode_querySelector(this._parent, selectors);
   }
   auto querySelectorAll(string selectors) {
-    return NodeList(JsHandle(ParentNode_querySelectorAll(this._parent, selectors)));
+    return NodeList(ParentNode_querySelectorAll(this._parent, selectors));
   }
   void oncopy(EventHandler oncopy) {
     DocumentAndElementEventHandlers_oncopy_Set(this._parent, oncopy);
@@ -806,7 +820,7 @@ struct Document {
   auto onended() {
     return GlobalEventHandlers_onended_Get(this._parent);
   }
-  void onerror(OnErrorEventHandler onerror) {
+  void onerror(scope ref OnErrorEventHandler onerror) {
     GlobalEventHandlers_onerror_Set(this._parent, !onerror.empty, onerror.front);
   }
   auto onerror() {
@@ -1129,14 +1143,14 @@ struct DocumentFragment {
   nothrow:
   spasm.bindings.dom.Node _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Node(h);
   }
   auto getElementById(string elementId) {
     return NonElementParentNode_getElementById(this._parent, elementId);
   }
   auto children() {
-    return HTMLCollection(JsHandle(ParentNode_children_Get(this._parent)));
+    return HTMLCollection(ParentNode_children_Get(this._parent));
   }
   auto firstElementChild() {
     return ParentNode_firstElementChild_Get(this._parent);
@@ -1147,24 +1161,24 @@ struct DocumentFragment {
   auto childElementCount() {
     return ParentNode_childElementCount_Get(this._parent);
   }
-  void prepend(SumType!(Node, string) nodes) {
+  void prepend(scope ref SumType!(Node, string) nodes) {
     ParentNode_prepend(this._parent, nodes);
   }
-  void append(SumType!(Node, string) nodes) {
+  void append(scope ref SumType!(Node, string) nodes) {
     ParentNode_append(this._parent, nodes);
   }
   auto querySelector(string selectors) {
     return ParentNode_querySelector(this._parent, selectors);
   }
   auto querySelectorAll(string selectors) {
-    return NodeList(JsHandle(ParentNode_querySelectorAll(this._parent, selectors)));
+    return NodeList(ParentNode_querySelectorAll(this._parent, selectors));
   }
 }
 struct DocumentType {
   nothrow:
   spasm.bindings.dom.Node _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Node(h);
   }
   auto name() {
@@ -1176,13 +1190,13 @@ struct DocumentType {
   auto systemId() {
     return DocumentType_systemId_Get(this._parent);
   }
-  void before(SumType!(Node, string) nodes) {
+  void before(scope ref SumType!(Node, string) nodes) {
     ChildNode_before(this._parent, nodes);
   }
-  void after(SumType!(Node, string) nodes) {
+  void after(scope ref SumType!(Node, string) nodes) {
     ChildNode_after(this._parent, nodes);
   }
-  void replaceWith(SumType!(Node, string) nodes) {
+  void replaceWith(scope ref SumType!(Node, string) nodes) {
     ChildNode_replaceWith(this._parent, nodes);
   }
   void remove() {
@@ -1193,7 +1207,7 @@ struct Element {
   nothrow:
   spasm.bindings.dom.Node _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Node(h);
   }
   auto namespaceURI() {
@@ -1221,7 +1235,7 @@ struct Element {
     return Element_className_Get(this._parent);
   }
   auto classList() {
-    return DOMTokenList(JsHandle(Element_classList_Get(this._parent)));
+    return DOMTokenList(Element_classList_Get(this._parent));
   }
   void slot(string slot) {
     Element_slot_Set(this._parent, slot);
@@ -1233,27 +1247,27 @@ struct Element {
     return Element_hasAttributes(this._parent);
   }
   auto attributes() {
-    return NamedNodeMap(JsHandle(Element_attributes_Get(this._parent)));
+    return NamedNodeMap(Element_attributes_Get(this._parent));
   }
   auto getAttributeNames() {
-    return Sequence!(string)(JsHandle(Element_getAttributeNames(this._parent)));
+    return Sequence!(string)(Element_getAttributeNames(this._parent));
   }
   auto getAttribute(string qualifiedName) {
     return Element_getAttribute(this._parent, qualifiedName);
   }
-  auto getAttributeNS(Optional!(string) namespace, string localName) {
+  auto getAttributeNS(scope ref Optional!(string) namespace, string localName) {
     return Element_getAttributeNS(this._parent, !namespace.empty, namespace.front, localName);
   }
   void setAttribute(string qualifiedName, string value) {
     Element_setAttribute(this._parent, qualifiedName, value);
   }
-  void setAttributeNS(Optional!(string) namespace, string qualifiedName, string value) {
+  void setAttributeNS(scope ref Optional!(string) namespace, string qualifiedName, string value) {
     Element_setAttributeNS(this._parent, !namespace.empty, namespace.front, qualifiedName, value);
   }
   void removeAttribute(string qualifiedName) {
     Element_removeAttribute(this._parent, qualifiedName);
   }
-  void removeAttributeNS(Optional!(string) namespace, string localName) {
+  void removeAttributeNS(scope ref Optional!(string) namespace, string localName) {
     Element_removeAttributeNS(this._parent, !namespace.empty, namespace.front, localName);
   }
   auto toggleAttribute(string qualifiedName, bool force) {
@@ -1265,26 +1279,26 @@ struct Element {
   auto hasAttribute(string qualifiedName) {
     return Element_hasAttribute(this._parent, qualifiedName);
   }
-  auto hasAttributeNS(Optional!(string) namespace, string localName) {
+  auto hasAttributeNS(scope ref Optional!(string) namespace, string localName) {
     return Element_hasAttributeNS(this._parent, !namespace.empty, namespace.front, localName);
   }
   auto getAttributeNode(string qualifiedName) {
     return Element_getAttributeNode(this._parent, qualifiedName);
   }
-  auto getAttributeNodeNS(Optional!(string) namespace, string localName) {
+  auto getAttributeNodeNS(scope ref Optional!(string) namespace, string localName) {
     return Element_getAttributeNodeNS(this._parent, !namespace.empty, namespace.front, localName);
   }
-  auto setAttributeNode(Attr attr) {
+  auto setAttributeNode(scope ref Attr attr) {
     return Element_setAttributeNode(this._parent, attr._parent);
   }
-  auto setAttributeNodeNS(Attr attr) {
+  auto setAttributeNodeNS(scope ref Attr attr) {
     return Element_setAttributeNodeNS(this._parent, attr._parent);
   }
-  auto removeAttributeNode(Attr attr) {
-    return Attr(JsHandle(Element_removeAttributeNode(this._parent, attr._parent)));
+  auto removeAttributeNode(scope ref Attr attr) {
+    return Attr(Element_removeAttributeNode(this._parent, attr._parent));
   }
-  auto attachShadow(ShadowRootInit init) {
-    return ShadowRoot(JsHandle(Element_attachShadow(this._parent, init.handle)));
+  auto attachShadow(scope ref ShadowRootInit init) {
+    return ShadowRoot(Element_attachShadow(this._parent, init.handle));
   }
   auto shadowRoot() {
     return Element_shadowRoot_Get(this._parent);
@@ -1299,15 +1313,15 @@ struct Element {
     return Element_webkitMatchesSelector(this._parent, selectors);
   }
   auto getElementsByTagName(string qualifiedName) {
-    return HTMLCollection(JsHandle(Element_getElementsByTagName(this._parent, qualifiedName)));
+    return HTMLCollection(Element_getElementsByTagName(this._parent, qualifiedName));
   }
-  auto getElementsByTagNameNS(Optional!(string) namespace, string localName) {
-    return HTMLCollection(JsHandle(Element_getElementsByTagNameNS(this._parent, !namespace.empty, namespace.front, localName)));
+  auto getElementsByTagNameNS(scope ref Optional!(string) namespace, string localName) {
+    return HTMLCollection(Element_getElementsByTagNameNS(this._parent, !namespace.empty, namespace.front, localName));
   }
   auto getElementsByClassName(string classNames) {
-    return HTMLCollection(JsHandle(Element_getElementsByClassName(this._parent, classNames)));
+    return HTMLCollection(Element_getElementsByClassName(this._parent, classNames));
   }
-  auto insertAdjacentElement(string where, Element element) {
+  auto insertAdjacentElement(string where, scope ref Element element) {
     return Element_insertAdjacentElement(this._parent, where, element._parent);
   }
   void insertAdjacentText(string where, string data) {
@@ -1337,11 +1351,11 @@ struct Element {
   auto hasPointerCapture(int pointerId) {
     return Element_hasPointerCapture(this._parent, pointerId);
   }
-  auto requestFullscreen(FullscreenOptions options) {
-    return Promise!(void)(JsHandle(Element_requestFullscreen(this._parent, options.handle)));
+  auto requestFullscreen(scope ref FullscreenOptions options) {
+    return Promise!(void)(Element_requestFullscreen(this._parent, options.handle));
   }
   auto requestFullscreen() {
-    return Promise!(void)(JsHandle(Element_requestFullscreen_0(this._parent)));
+    return Promise!(void)(Element_requestFullscreen_0(this._parent));
   }
   void onfullscreenchange(EventHandler onfullscreenchange) {
     Element_onfullscreenchange_Set(this._parent, onfullscreenchange);
@@ -1356,7 +1370,7 @@ struct Element {
     return Element_onfullscreenerror_Get(this._parent);
   }
   auto children() {
-    return HTMLCollection(JsHandle(ParentNode_children_Get(this._parent)));
+    return HTMLCollection(ParentNode_children_Get(this._parent));
   }
   auto firstElementChild() {
     return ParentNode_firstElementChild_Get(this._parent);
@@ -1367,17 +1381,17 @@ struct Element {
   auto childElementCount() {
     return ParentNode_childElementCount_Get(this._parent);
   }
-  void prepend(SumType!(Node, string) nodes) {
+  void prepend(scope ref SumType!(Node, string) nodes) {
     ParentNode_prepend(this._parent, nodes);
   }
-  void append(SumType!(Node, string) nodes) {
+  void append(scope ref SumType!(Node, string) nodes) {
     ParentNode_append(this._parent, nodes);
   }
   auto querySelector(string selectors) {
     return ParentNode_querySelector(this._parent, selectors);
   }
   auto querySelectorAll(string selectors) {
-    return NodeList(JsHandle(ParentNode_querySelectorAll(this._parent, selectors)));
+    return NodeList(ParentNode_querySelectorAll(this._parent, selectors));
   }
   auto previousElementSibling() {
     return NonDocumentTypeChildNode_previousElementSibling_Get(this._parent);
@@ -1385,13 +1399,13 @@ struct Element {
   auto nextElementSibling() {
     return NonDocumentTypeChildNode_nextElementSibling_Get(this._parent);
   }
-  void before(SumType!(Node, string) nodes) {
+  void before(scope ref SumType!(Node, string) nodes) {
     ChildNode_before(this._parent, nodes);
   }
-  void after(SumType!(Node, string) nodes) {
+  void after(scope ref SumType!(Node, string) nodes) {
     ChildNode_after(this._parent, nodes);
   }
-  void replaceWith(SumType!(Node, string) nodes) {
+  void replaceWith(scope ref SumType!(Node, string) nodes) {
     ChildNode_replaceWith(this._parent, nodes);
   }
   void remove() {
@@ -1405,8 +1419,11 @@ struct ElementCreationOptions {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return ElementCreationOptions(JsHandle(spasm_add__object()));
+    return ElementCreationOptions(spasm_add__object());
   }
   void is_(string is_) {
     ElementCreationOptions_is_Set(this.handle, is_);
@@ -1419,6 +1436,9 @@ struct Event {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto type() {
     return Event_type_Get(this.handle);
   }
@@ -1432,7 +1452,7 @@ struct Event {
     return Event_currentTarget_Get(this.handle);
   }
   auto composedPath() {
-    return Sequence!(EventTarget)(JsHandle(Event_composedPath(this.handle)));
+    return Sequence!(EventTarget)(Event_composedPath(this.handle));
   }
   enum ushort NONE = 0;
   enum ushort CAPTURING_PHASE = 1;
@@ -1494,8 +1514,11 @@ struct EventInit {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return EventInit(JsHandle(spasm_add__object()));
+    return EventInit(spasm_add__object());
   }
   void bubbles(bool bubbles) {
     EventInit_bubbles_Set(this.handle, bubbles);
@@ -1521,8 +1544,11 @@ struct EventListenerOptions {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return EventListenerOptions(JsHandle(spasm_add__object()));
+    return EventListenerOptions(spasm_add__object());
   }
   void capture(bool capture) {
     EventListenerOptions_capture_Set(this.handle, capture);
@@ -1535,19 +1561,22 @@ struct EventTarget {
   nothrow:
   JsHandle handle;
   alias handle this;
-  void addEventListener(string type, EventListener callback, SumType!(AddEventListenerOptions, bool) options) {
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
+  void addEventListener(string type, EventListener callback, scope ref SumType!(AddEventListenerOptions, bool) options) {
     EventTarget_addEventListener(this.handle, type, callback, options);
   }
   void addEventListener(string type, EventListener callback) {
     EventTarget_addEventListener_0(this.handle, type, callback);
   }
-  void removeEventListener(string type, EventListener callback, SumType!(EventListenerOptions, bool) options) {
+  void removeEventListener(string type, EventListener callback, scope ref SumType!(EventListenerOptions, bool) options) {
     EventTarget_removeEventListener(this.handle, type, callback, options);
   }
   void removeEventListener(string type, EventListener callback) {
     EventTarget_removeEventListener_0(this.handle, type, callback);
   }
-  auto dispatchEvent(Event event) {
+  auto dispatchEvent(scope ref Event event) {
     return EventTarget_dispatchEvent(this.handle, event.handle);
   }
 }
@@ -1555,8 +1584,11 @@ struct GetRootNodeOptions {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return GetRootNodeOptions(JsHandle(spasm_add__object()));
+    return GetRootNodeOptions(spasm_add__object());
   }
   void composed(bool composed) {
     GetRootNodeOptions_composed_Set(this.handle, composed);
@@ -1569,6 +1601,9 @@ struct HTMLCollection {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto length() {
     return HTMLCollection_length_Get(this.handle);
   }
@@ -1584,25 +1619,31 @@ struct MutationObserver {
   nothrow:
   JsHandle handle;
   alias handle this;
-  void observe(Node target, MutationObserverInit options) {
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
+  void observe(scope ref Node target, scope ref MutationObserverInit options) {
     MutationObserver_observe(this.handle, target._parent, options.handle);
   }
-  void observe(Node target) {
+  void observe(scope ref Node target) {
     MutationObserver_observe_0(this.handle, target._parent);
   }
   void disconnect() {
     MutationObserver_disconnect(this.handle);
   }
   auto takeRecords() {
-    return Sequence!(MutationRecord)(JsHandle(MutationObserver_takeRecords(this.handle)));
+    return Sequence!(MutationRecord)(MutationObserver_takeRecords(this.handle));
   }
 }
 struct MutationObserverInit {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return MutationObserverInit(JsHandle(spasm_add__object()));
+    return MutationObserverInit(spasm_add__object());
   }
   void childList(bool childList) {
     MutationObserverInit_childList_Set(this.handle, childList);
@@ -1640,28 +1681,31 @@ struct MutationObserverInit {
   auto characterDataOldValue() {
     return MutationObserverInit_characterDataOldValue_Get(this.handle);
   }
-  void attributeFilter(Sequence!(string) attributeFilter) {
+  void attributeFilter(scope ref Sequence!(string) attributeFilter) {
     MutationObserverInit_attributeFilter_Set(this.handle, attributeFilter.handle);
   }
   auto attributeFilter() {
-    return Sequence!(string)(JsHandle(MutationObserverInit_attributeFilter_Get(this.handle)));
+    return Sequence!(string)(MutationObserverInit_attributeFilter_Get(this.handle));
   }
 }
 struct MutationRecord {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto type() {
     return MutationRecord_type_Get(this.handle);
   }
   auto target() {
-    return Node(JsHandle(MutationRecord_target_Get(this.handle)));
+    return Node(MutationRecord_target_Get(this.handle));
   }
   auto addedNodes() {
-    return NodeList(JsHandle(MutationRecord_addedNodes_Get(this.handle)));
+    return NodeList(MutationRecord_addedNodes_Get(this.handle));
   }
   auto removedNodes() {
-    return NodeList(JsHandle(MutationRecord_removedNodes_Get(this.handle)));
+    return NodeList(MutationRecord_removedNodes_Get(this.handle));
   }
   auto previousSibling() {
     return MutationRecord_previousSibling_Get(this.handle);
@@ -1683,6 +1727,9 @@ struct NamedNodeMap {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto length() {
     return NamedNodeMap_length_Get(this.handle);
   }
@@ -1692,27 +1739,27 @@ struct NamedNodeMap {
   auto getNamedItem(string qualifiedName) {
     return NamedNodeMap_getNamedItem_getter(this.handle, qualifiedName);
   }
-  auto getNamedItemNS(Optional!(string) namespace, string localName) {
+  auto getNamedItemNS(scope ref Optional!(string) namespace, string localName) {
     return NamedNodeMap_getNamedItemNS(this.handle, !namespace.empty, namespace.front, localName);
   }
-  auto setNamedItem(Attr attr) {
+  auto setNamedItem(scope ref Attr attr) {
     return NamedNodeMap_setNamedItem(this.handle, attr._parent);
   }
-  auto setNamedItemNS(Attr attr) {
+  auto setNamedItemNS(scope ref Attr attr) {
     return NamedNodeMap_setNamedItemNS(this.handle, attr._parent);
   }
   auto removeNamedItem(string qualifiedName) {
-    return Attr(JsHandle(NamedNodeMap_removeNamedItem(this.handle, qualifiedName)));
+    return Attr(NamedNodeMap_removeNamedItem(this.handle, qualifiedName));
   }
-  auto removeNamedItemNS(Optional!(string) namespace, string localName) {
-    return Attr(JsHandle(NamedNodeMap_removeNamedItemNS(this.handle, !namespace.empty, namespace.front, localName)));
+  auto removeNamedItemNS(scope ref Optional!(string) namespace, string localName) {
+    return Attr(NamedNodeMap_removeNamedItemNS(this.handle, !namespace.empty, namespace.front, localName));
   }
 }
 struct Node {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   enum ushort ELEMENT_NODE = 1;
@@ -1742,11 +1789,11 @@ struct Node {
   auto ownerDocument() {
     return Node_ownerDocument_Get(this._parent);
   }
-  auto getRootNode(GetRootNodeOptions options) {
-    return Node(JsHandle(Node_getRootNode(this._parent, options.handle)));
+  auto getRootNode(scope ref GetRootNodeOptions options) {
+    return Node(Node_getRootNode(this._parent, options.handle));
   }
   auto getRootNode() {
-    return Node(JsHandle(Node_getRootNode_0(this._parent)));
+    return Node(Node_getRootNode_0(this._parent));
   }
   auto parentNode() {
     return Node_parentNode_Get(this._parent);
@@ -1758,7 +1805,7 @@ struct Node {
     return Node_hasChildNodes(this._parent);
   }
   auto childNodes() {
-    return NodeList(JsHandle(Node_childNodes_Get(this._parent)));
+    return NodeList(Node_childNodes_Get(this._parent));
   }
   auto firstChild() {
     return Node_firstChild_Get(this._parent);
@@ -1772,13 +1819,13 @@ struct Node {
   auto nextSibling() {
     return Node_nextSibling_Get(this._parent);
   }
-  void nodeValue(Optional!(string) nodeValue) {
+  void nodeValue(scope ref Optional!(string) nodeValue) {
     Node_nodeValue_Set(this._parent, !nodeValue.empty, nodeValue.front);
   }
   auto nodeValue() {
     return Node_nodeValue_Get(this._parent);
   }
-  void textContent(Optional!(string) textContent) {
+  void textContent(scope ref Optional!(string) textContent) {
     Node_textContent_Set(this._parent, !textContent.empty, textContent.front);
   }
   auto textContent() {
@@ -1788,15 +1835,15 @@ struct Node {
     Node_normalize(this._parent);
   }
   auto cloneNode(bool deep /* = false */) {
-    return Node(JsHandle(Node_cloneNode(this._parent, deep)));
+    return Node(Node_cloneNode(this._parent, deep));
   }
   auto cloneNode() {
-    return Node(JsHandle(Node_cloneNode_0(this._parent)));
+    return Node(Node_cloneNode_0(this._parent));
   }
-  auto isEqualNode(Optional!(Node) otherNode) {
+  auto isEqualNode(scope ref Optional!(Node) otherNode) {
     return Node_isEqualNode(this._parent, !otherNode.empty, otherNode.front._parent);
   }
-  auto isSameNode(Optional!(Node) otherNode) {
+  auto isSameNode(scope ref Optional!(Node) otherNode) {
     return Node_isSameNode(this._parent, !otherNode.empty, otherNode.front._parent);
   }
   enum ushort DOCUMENT_POSITION_DISCONNECTED = 0x01;
@@ -1805,38 +1852,41 @@ struct Node {
   enum ushort DOCUMENT_POSITION_CONTAINS = 0x08;
   enum ushort DOCUMENT_POSITION_CONTAINED_BY = 0x10;
   enum ushort DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC = 0x20;
-  auto compareDocumentPosition(Node other) {
+  auto compareDocumentPosition(scope ref Node other) {
     return Node_compareDocumentPosition(this._parent, other._parent);
   }
-  auto contains(Optional!(Node) other) {
+  auto contains(scope ref Optional!(Node) other) {
     return Node_contains(this._parent, !other.empty, other.front._parent);
   }
-  auto lookupPrefix(Optional!(string) namespace) {
+  auto lookupPrefix(scope ref Optional!(string) namespace) {
     return Node_lookupPrefix(this._parent, !namespace.empty, namespace.front);
   }
-  auto lookupNamespaceURI(Optional!(string) prefix) {
+  auto lookupNamespaceURI(scope ref Optional!(string) prefix) {
     return Node_lookupNamespaceURI(this._parent, !prefix.empty, prefix.front);
   }
-  auto isDefaultNamespace(Optional!(string) namespace) {
+  auto isDefaultNamespace(scope ref Optional!(string) namespace) {
     return Node_isDefaultNamespace(this._parent, !namespace.empty, namespace.front);
   }
-  auto insertBefore(Node node, Optional!(Node) child) {
-    return Node(JsHandle(Node_insertBefore(this._parent, node._parent, !child.empty, child.front._parent)));
+  auto insertBefore(scope ref Node node, scope ref Optional!(Node) child) {
+    return Node(Node_insertBefore(this._parent, node._parent, !child.empty, child.front._parent));
   }
-  auto appendChild(Node node) {
-    return Node(JsHandle(Node_appendChild(this._parent, node._parent)));
+  auto appendChild(scope ref Node node) {
+    return Node(Node_appendChild(this._parent, node._parent));
   }
-  auto replaceChild(Node node, Node child) {
-    return Node(JsHandle(Node_replaceChild(this._parent, node._parent, child._parent)));
+  auto replaceChild(scope ref Node node, scope ref Node child) {
+    return Node(Node_replaceChild(this._parent, node._parent, child._parent));
   }
-  auto removeChild(Node child) {
-    return Node(JsHandle(Node_removeChild(this._parent, child._parent)));
+  auto removeChild(scope ref Node child) {
+    return Node(Node_removeChild(this._parent, child._parent));
   }
 }
 struct NodeFilter {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   enum ushort FILTER_ACCEPT = 1;
   enum ushort FILTER_REJECT = 2;
   enum ushort FILTER_SKIP = 3;
@@ -1853,7 +1903,7 @@ struct NodeFilter {
   enum uint SHOW_DOCUMENT_TYPE = 0x200;
   enum uint SHOW_DOCUMENT_FRAGMENT = 0x400;
   enum uint SHOW_NOTATION = 0x800;
-  auto acceptNode(Node node) {
+  auto acceptNode(scope ref Node node) {
     return NodeFilter_acceptNode(this.handle, node._parent);
   }
 }
@@ -1861,11 +1911,14 @@ struct NodeIterator {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto root() {
-    return Node(JsHandle(NodeIterator_root_Get(this.handle)));
+    return Node(NodeIterator_root_Get(this.handle));
   }
   auto referenceNode() {
-    return Node(JsHandle(NodeIterator_referenceNode_Get(this.handle)));
+    return Node(NodeIterator_referenceNode_Get(this.handle));
   }
   auto pointerBeforeReferenceNode() {
     return NodeIterator_pointerBeforeReferenceNode_Get(this.handle);
@@ -1890,6 +1943,9 @@ struct NodeList {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto item(uint index) {
     return NodeList_item_getter(this.handle, index);
   }
@@ -1901,7 +1957,7 @@ struct ProcessingInstruction {
   nothrow:
   spasm.bindings.dom.CharacterData _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .CharacterData(h);
   }
   auto target() {
@@ -1912,28 +1968,28 @@ struct Range {
   nothrow:
   spasm.bindings.dom.AbstractRange _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .AbstractRange(h);
   }
   auto commonAncestorContainer() {
-    return Node(JsHandle(Range_commonAncestorContainer_Get(this._parent)));
+    return Node(Range_commonAncestorContainer_Get(this._parent));
   }
-  void setStart(Node node, uint offset) {
+  void setStart(scope ref Node node, uint offset) {
     Range_setStart(this._parent, node._parent, offset);
   }
-  void setEnd(Node node, uint offset) {
+  void setEnd(scope ref Node node, uint offset) {
     Range_setEnd(this._parent, node._parent, offset);
   }
-  void setStartBefore(Node node) {
+  void setStartBefore(scope ref Node node) {
     Range_setStartBefore(this._parent, node._parent);
   }
-  void setStartAfter(Node node) {
+  void setStartAfter(scope ref Node node) {
     Range_setStartAfter(this._parent, node._parent);
   }
-  void setEndBefore(Node node) {
+  void setEndBefore(scope ref Node node) {
     Range_setEndBefore(this._parent, node._parent);
   }
-  void setEndAfter(Node node) {
+  void setEndAfter(scope ref Node node) {
     Range_setEndAfter(this._parent, node._parent);
   }
   void collapse(bool toStart /* = false */) {
@@ -1942,65 +1998,65 @@ struct Range {
   void collapse() {
     Range_collapse_0(this._parent);
   }
-  void selectNode(Node node) {
+  void selectNode(scope ref Node node) {
     Range_selectNode(this._parent, node._parent);
   }
-  void selectNodeContents(Node node) {
+  void selectNodeContents(scope ref Node node) {
     Range_selectNodeContents(this._parent, node._parent);
   }
   enum ushort START_TO_START = 0;
   enum ushort START_TO_END = 1;
   enum ushort END_TO_END = 2;
   enum ushort END_TO_START = 3;
-  auto compareBoundaryPoints(ushort how, Range sourceRange) {
+  auto compareBoundaryPoints(ushort how, scope ref Range sourceRange) {
     return Range_compareBoundaryPoints(this._parent, how, sourceRange._parent);
   }
   void deleteContents() {
     Range_deleteContents(this._parent);
   }
   auto extractContents() {
-    return DocumentFragment(JsHandle(Range_extractContents(this._parent)));
+    return DocumentFragment(Range_extractContents(this._parent));
   }
   auto cloneContents() {
-    return DocumentFragment(JsHandle(Range_cloneContents(this._parent)));
+    return DocumentFragment(Range_cloneContents(this._parent));
   }
-  void insertNode(Node node) {
+  void insertNode(scope ref Node node) {
     Range_insertNode(this._parent, node._parent);
   }
-  void surroundContents(Node newParent) {
+  void surroundContents(scope ref Node newParent) {
     Range_surroundContents(this._parent, newParent._parent);
   }
   auto cloneRange() {
-    return Range(JsHandle(Range_cloneRange(this._parent)));
+    return Range(Range_cloneRange(this._parent));
   }
   void detach() {
     Range_detach(this._parent);
   }
-  auto isPointInRange(Node node, uint offset) {
+  auto isPointInRange(scope ref Node node, uint offset) {
     return Range_isPointInRange(this._parent, node._parent, offset);
   }
-  auto comparePoint(Node node, uint offset) {
+  auto comparePoint(scope ref Node node, uint offset) {
     return Range_comparePoint(this._parent, node._parent, offset);
   }
-  auto intersectsNode(Node node) {
+  auto intersectsNode(scope ref Node node) {
     return Range_intersectsNode(this._parent, node._parent);
   }
   auto createContextualFragment(string fragment) {
-    return DocumentFragment(JsHandle(Range_createContextualFragment(this._parent, fragment)));
+    return DocumentFragment(Range_createContextualFragment(this._parent, fragment));
   }
 }
 struct ShadowRoot {
   nothrow:
   spasm.bindings.dom.DocumentFragment _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .DocumentFragment(h);
   }
   auto mode() {
     return ShadowRoot_mode_Get(this._parent);
   }
   auto host() {
-    return Element(JsHandle(ShadowRoot_host_Get(this._parent)));
+    return Element(ShadowRoot_host_Get(this._parent));
   }
   auto fullscreenElement() {
     return DocumentOrShadowRoot_fullscreenElement_Get(this._parent);
@@ -2010,8 +2066,11 @@ struct ShadowRootInit {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return ShadowRootInit(JsHandle(spasm_add__object()));
+    return ShadowRootInit(spasm_add__object());
   }
   void mode(ShadowRootMode mode) {
     ShadowRootInit_mode_Set(this.handle, mode);
@@ -2028,7 +2087,7 @@ struct StaticRange {
   nothrow:
   spasm.bindings.dom.AbstractRange _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .AbstractRange(h);
   }
 }
@@ -2036,11 +2095,11 @@ struct Text {
   nothrow:
   spasm.bindings.dom.CharacterData _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .CharacterData(h);
   }
   auto splitText(uint offset) {
-    return Text(JsHandle(Text_splitText(this._parent, offset)));
+    return Text(Text_splitText(this._parent, offset));
   }
   auto wholeText() {
     return Text_wholeText_Get(this._parent);
@@ -2053,8 +2112,11 @@ struct TreeWalker {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto root() {
-    return Node(JsHandle(TreeWalker_root_Get(this.handle)));
+    return Node(TreeWalker_root_Get(this.handle));
   }
   auto whatToShow() {
     return TreeWalker_whatToShow_Get(this.handle);
@@ -2062,11 +2124,11 @@ struct TreeWalker {
   auto filter() {
     return TreeWalker_filter_Get(this.handle);
   }
-  void currentNode(Node currentNode) {
+  void currentNode(scope ref Node currentNode) {
     TreeWalker_currentNode_Set(this.handle, currentNode.handle);
   }
   auto currentNode() {
-    return Node(JsHandle(TreeWalker_currentNode_Get(this.handle)));
+    return Node(TreeWalker_currentNode_Get(this.handle));
   }
   auto parentNode() {
     return TreeWalker_parentNode(this.handle);
@@ -2094,7 +2156,7 @@ struct XMLDocument {
   nothrow:
   spasm.bindings.dom.Document _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Document(h);
   }
 }
@@ -2130,9 +2192,9 @@ extern (C) void CharacterData_appendData(Handle, string);
 extern (C) void CharacterData_insertData(Handle, uint, string);
 extern (C) void CharacterData_deleteData(Handle, uint, uint);
 extern (C) void CharacterData_replaceData(Handle, uint, uint, string);
-extern (C) void ChildNode_before(Handle, SumType!(Node, string));
-extern (C) void ChildNode_after(Handle, SumType!(Node, string));
-extern (C) void ChildNode_replaceWith(Handle, SumType!(Node, string));
+extern (C) void ChildNode_before(Handle, scope ref SumType!(Node, string));
+extern (C) void ChildNode_after(Handle, scope ref SumType!(Node, string));
+extern (C) void ChildNode_replaceWith(Handle, scope ref SumType!(Node, string));
 extern (C) void ChildNode_remove(Handle);
 extern (C) Handle CustomEvent_detail_Get(Handle);
 extern (C) void CustomEvent_initCustomEvent(Handle, string, bool, bool, Handle);
@@ -2172,9 +2234,9 @@ extern (C) Optional!(Element) Document_documentElement_Get(Handle);
 extern (C) Handle Document_getElementsByTagName(Handle, string);
 extern (C) Handle Document_getElementsByTagNameNS(Handle, bool, string, string);
 extern (C) Handle Document_getElementsByClassName(Handle, string);
-extern (C) Handle Document_createElement(Handle, string, SumType!(string, ElementCreationOptions));
+extern (C) Handle Document_createElement(Handle, string, scope ref SumType!(string, ElementCreationOptions));
 extern (C) Handle Document_createElement_0(Handle, string);
-extern (C) Handle Document_createElementNS(Handle, bool, string, string, SumType!(string, ElementCreationOptions));
+extern (C) Handle Document_createElementNS(Handle, bool, string, string, scope ref SumType!(string, ElementCreationOptions));
 extern (C) Handle Document_createElementNS_0(Handle, bool, string, string);
 extern (C) Handle Document_createDocumentFragment(Handle);
 extern (C) Handle Document_createTextNode(Handle, string);
@@ -2357,9 +2419,9 @@ extern (C) void EventInit_composed_Set(Handle, bool);
 extern (C) bool EventInit_composed_Get(Handle);
 extern (C) void EventListenerOptions_capture_Set(Handle, bool);
 extern (C) bool EventListenerOptions_capture_Get(Handle);
-extern (C) void EventTarget_addEventListener(Handle, string, EventListener, SumType!(AddEventListenerOptions, bool));
+extern (C) void EventTarget_addEventListener(Handle, string, EventListener, scope ref SumType!(AddEventListenerOptions, bool));
 extern (C) void EventTarget_addEventListener_0(Handle, string, EventListener);
-extern (C) void EventTarget_removeEventListener(Handle, string, EventListener, SumType!(EventListenerOptions, bool));
+extern (C) void EventTarget_removeEventListener(Handle, string, EventListener, scope ref SumType!(EventListenerOptions, bool));
 extern (C) void EventTarget_removeEventListener_0(Handle, string, EventListener);
 extern (C) bool EventTarget_dispatchEvent(Handle, Handle);
 extern (C) void GetRootNodeOptions_composed_Set(Handle, bool);
@@ -2453,8 +2515,8 @@ extern (C) Handle ParentNode_children_Get(Handle);
 extern (C) Optional!(Element) ParentNode_firstElementChild_Get(Handle);
 extern (C) Optional!(Element) ParentNode_lastElementChild_Get(Handle);
 extern (C) uint ParentNode_childElementCount_Get(Handle);
-extern (C) void ParentNode_prepend(Handle, SumType!(Node, string));
-extern (C) void ParentNode_append(Handle, SumType!(Node, string));
+extern (C) void ParentNode_prepend(Handle, scope ref SumType!(Node, string));
+extern (C) void ParentNode_append(Handle, scope ref SumType!(Node, string));
 extern (C) Optional!(Element) ParentNode_querySelector(Handle, string);
 extern (C) Handle ParentNode_querySelectorAll(Handle, string);
 extern (C) string ProcessingInstruction_target_Get(Handle);

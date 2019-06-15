@@ -5,7 +5,9 @@ import spasm.bindings.common;
 import spasm.bindings.dom;
 import spasm.bindings.html;
 
+@safe:
 nothrow:
+
 enum AppendMode {
   segments,
   sequence
@@ -18,14 +20,14 @@ struct MediaSource {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   auto sourceBuffers() {
-    return SourceBufferList(JsHandle(MediaSource_sourceBuffers_Get(this._parent)));
+    return SourceBufferList(MediaSource_sourceBuffers_Get(this._parent));
   }
   auto activeSourceBuffers() {
-    return SourceBufferList(JsHandle(MediaSource_activeSourceBuffers_Get(this._parent)));
+    return SourceBufferList(MediaSource_activeSourceBuffers_Get(this._parent));
   }
   auto readyState() {
     return MediaSource_readyState_Get(this._parent);
@@ -55,9 +57,9 @@ struct MediaSource {
     return MediaSource_onsourceclose_Get(this._parent);
   }
   auto addSourceBuffer(string type) {
-    return SourceBuffer(JsHandle(MediaSource_addSourceBuffer(this._parent, type)));
+    return SourceBuffer(MediaSource_addSourceBuffer(this._parent, type));
   }
-  void removeSourceBuffer(SourceBuffer sourceBuffer) {
+  void removeSourceBuffer(scope ref SourceBuffer sourceBuffer) {
     MediaSource_removeSourceBuffer(this._parent, sourceBuffer._parent);
   }
   void endOfStream(EndOfStreamError error) {
@@ -85,7 +87,7 @@ struct SourceBuffer {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   void mode(AppendMode mode) {
@@ -98,7 +100,7 @@ struct SourceBuffer {
     return SourceBuffer_updating_Get(this._parent);
   }
   auto buffered() {
-    return TimeRanges(JsHandle(SourceBuffer_buffered_Get(this._parent)));
+    return TimeRanges(SourceBuffer_buffered_Get(this._parent));
   }
   void timestampOffset(double timestampOffset) {
     SourceBuffer_timestampOffset_Set(this._parent, timestampOffset);
@@ -107,13 +109,13 @@ struct SourceBuffer {
     return SourceBuffer_timestampOffset_Get(this._parent);
   }
   auto audioTracks() {
-    return AudioTrackList(JsHandle(SourceBuffer_audioTracks_Get(this._parent)));
+    return AudioTrackList(SourceBuffer_audioTracks_Get(this._parent));
   }
   auto videoTracks() {
-    return VideoTrackList(JsHandle(SourceBuffer_videoTracks_Get(this._parent)));
+    return VideoTrackList(SourceBuffer_videoTracks_Get(this._parent));
   }
   auto textTracks() {
-    return TextTrackList(JsHandle(SourceBuffer_textTracks_Get(this._parent)));
+    return TextTrackList(SourceBuffer_textTracks_Get(this._parent));
   }
   void appendWindowStart(double appendWindowStart) {
     SourceBuffer_appendWindowStart_Set(this._parent, appendWindowStart);
@@ -157,7 +159,7 @@ struct SourceBuffer {
   auto onabort() {
     return SourceBuffer_onabort_Get(this._parent);
   }
-  void appendBuffer(BufferSource data) {
+  void appendBuffer(scope ref BufferSource data) {
     SourceBuffer_appendBuffer(this._parent, data);
   }
   void abort() {
@@ -171,7 +173,7 @@ struct SourceBufferList {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   auto length() {
@@ -190,10 +192,10 @@ struct SourceBufferList {
     return SourceBufferList_onremovesourcebuffer_Get(this._parent);
   }
   auto opIndex(uint index) {
-    return SourceBuffer(JsHandle(SourceBufferList_getter__uint(this._parent, index)));
+    return SourceBuffer(SourceBufferList_getter__uint(this._parent, index));
   }
   auto opDispatch(uint index)() {
-    return SourceBuffer(JsHandle(SourceBufferList_getter__uint(this._parent, index)));
+    return SourceBuffer(SourceBufferList_getter__uint(this._parent, index));
   }
 }
 
@@ -239,7 +241,7 @@ extern (C) void SourceBuffer_onerror_Set(Handle, EventHandler);
 extern (C) EventHandler SourceBuffer_onerror_Get(Handle);
 extern (C) void SourceBuffer_onabort_Set(Handle, EventHandler);
 extern (C) EventHandler SourceBuffer_onabort_Get(Handle);
-extern (C) void SourceBuffer_appendBuffer(Handle, BufferSource);
+extern (C) void SourceBuffer_appendBuffer(Handle, scope ref BufferSource);
 extern (C) void SourceBuffer_abort(Handle);
 extern (C) void SourceBuffer_remove(Handle, double, double);
 extern (C) uint SourceBufferList_length_Get(Handle);

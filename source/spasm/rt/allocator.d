@@ -44,7 +44,7 @@ version (unittest) {
       return Ternary(b.ptr >= begin);
     }
 
-    static void init(uint heap_base) {
+    @trusted static void init(uint heap_base) {
       begin = cast(void*)heap_base;
       current = begin;
       end = cast(void*)(wasmMemorySize * wasmPageSize);
@@ -168,7 +168,7 @@ struct PoolAllocatorIndex {
     if (addresses.length > lastFree)
       return;
     if (addresses.length == 0) {
-      addresses = cast(void*[])(cast(void**)WasmAllocator.instance.allocate(32 * (void*).sizeof).ptr)[0..32];
+      addresses = (cast(void**)WasmAllocator.instance.allocate(32 * (void*).sizeof).ptr)[0..32];
       return;
     }
     size_t n = (void*).sizeof * addresses.length * 2;
@@ -185,8 +185,8 @@ struct PoolAllocatorIndex {
   }
 
   MarkResult mark(void* ptr) {
-    if (owns(cast(void*)ptr)) {
-      return findAllocator(cast(void*)ptr).mark(cast(void*)ptr);
+    if (owns(ptr)) {
+      return findAllocator(ptr).mark(ptr);
     }
     return MarkResult.WasUnmarked;
   }
@@ -370,6 +370,7 @@ private struct BitVector
     immutable i = cast(size_t) (x / 64);
     immutable j = 0x8000_0000_0000_0000UL >> (x % 64);
     const wasSet = (_rep[i] & j) > 0;
+
     _rep[i] |= j;
     return wasSet;
   }

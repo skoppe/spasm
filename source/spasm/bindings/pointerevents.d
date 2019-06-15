@@ -3,16 +3,18 @@ module spasm.bindings.pointerevents;
 import spasm.types;
 import spasm.bindings.uievents;
 
+@safe:
 nothrow:
+
 struct PointerEventInit {
   nothrow:
   spasm.bindings.uievents.MouseEventInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .MouseEventInit(h);
   }
   static auto create() {
-    return PointerEventInit(JsHandle(spasm_add__object()));
+    return PointerEventInit(spasm_add__object());
   }
   void pointerId(int pointerId) {
     PointerEventInit_pointerId_Set(this._parent, pointerId);

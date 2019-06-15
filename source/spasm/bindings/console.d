@@ -1,11 +1,13 @@
 module spasm.bindings.console;
 
 import spasm.types;
+@safe:
 nothrow:
+
 struct console {
   nothrow:
   static:
-  void assert_(T1)(bool condition /* = false */, T1 data) {
+  void assert_(T1)(bool condition /* = false */, scope auto ref T1 data) {
     Handle _handle_data = getOrCreateHandle(data);
     console_assert(condition, _handle_data);
     dropHandle!(T1)(_handle_data);
@@ -13,57 +15,57 @@ struct console {
   void clear() {
     console_clear();
   }
-  void debug_(T0)(T0 data) {
+  void debug_(T0)(scope auto ref T0 data) {
     Handle _handle_data = getOrCreateHandle(data);
     console_debug(_handle_data);
     dropHandle!(T0)(_handle_data);
   }
-  void error(T0)(T0 data) {
+  void error(T0)(scope auto ref T0 data) {
     Handle _handle_data = getOrCreateHandle(data);
     console_error(_handle_data);
     dropHandle!(T0)(_handle_data);
   }
-  void info(T0)(T0 data) {
+  void info(T0)(scope auto ref T0 data) {
     Handle _handle_data = getOrCreateHandle(data);
     console_info(_handle_data);
     dropHandle!(T0)(_handle_data);
   }
-  void log(T0)(T0 data) {
+  void log(T0)(scope auto ref T0 data) {
     Handle _handle_data = getOrCreateHandle(data);
     console_log(_handle_data);
     dropHandle!(T0)(_handle_data);
   }
-  void table(T0)(T0 tabularData, Sequence!(string) properties) {
+  void table(T0)(scope auto ref T0 tabularData, scope ref Sequence!(string) properties) {
     Handle _handle_tabularData = getOrCreateHandle(tabularData);
     console_table(_handle_tabularData, properties.handle);
     dropHandle!(T0)(_handle_tabularData);
   }
-  void table(T0)(T0 tabularData) {
+  void table(T0)(scope auto ref T0 tabularData) {
     Handle _handle_tabularData = getOrCreateHandle(tabularData);
     console_table_0(_handle_tabularData);
     dropHandle!(T0)(_handle_tabularData);
   }
-  void trace(T0)(T0 data) {
+  void trace(T0)(scope auto ref T0 data) {
     Handle _handle_data = getOrCreateHandle(data);
     console_trace(_handle_data);
     dropHandle!(T0)(_handle_data);
   }
-  void warn(T0)(T0 data) {
+  void warn(T0)(scope auto ref T0 data) {
     Handle _handle_data = getOrCreateHandle(data);
     console_warn(_handle_data);
     dropHandle!(T0)(_handle_data);
   }
-  void dir(T0)(T0 item, Optional!(JsObject) options) {
+  void dir(T0)(scope auto ref T0 item, scope ref Optional!(JsObject) options) {
     Handle _handle_item = getOrCreateHandle(item);
     console_dir(_handle_item, !options.empty, options.front.handle);
     dropHandle!(T0)(_handle_item);
   }
-  void dir(T0)(T0 item) {
+  void dir(T0)(scope auto ref T0 item) {
     Handle _handle_item = getOrCreateHandle(item);
     console_dir_0(_handle_item);
     dropHandle!(T0)(_handle_item);
   }
-  void dirxml(T0)(T0 data) {
+  void dirxml(T0)(scope auto ref T0 data) {
     Handle _handle_data = getOrCreateHandle(data);
     console_dirxml(_handle_data);
     dropHandle!(T0)(_handle_data);
@@ -80,12 +82,12 @@ struct console {
   void countReset() {
     console_countReset_0();
   }
-  void group(T0)(T0 data) {
+  void group(T0)(scope auto ref T0 data) {
     Handle _handle_data = getOrCreateHandle(data);
     console_group(_handle_data);
     dropHandle!(T0)(_handle_data);
   }
-  void groupCollapsed(T0)(T0 data) {
+  void groupCollapsed(T0)(scope auto ref T0 data) {
     Handle _handle_data = getOrCreateHandle(data);
     console_groupCollapsed(_handle_data);
     dropHandle!(T0)(_handle_data);
@@ -99,7 +101,7 @@ struct console {
   void time() {
     console_time_0();
   }
-  void timeLog(T1)(string label /* = "default" */, T1 data) {
+  void timeLog(T1)(string label /* = "default" */, scope auto ref T1 data) {
     Handle _handle_data = getOrCreateHandle(data);
     console_timeLog(label, _handle_data);
     dropHandle!(T1)(_handle_data);

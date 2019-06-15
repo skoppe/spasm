@@ -198,7 +198,7 @@ void toDImport(virtual!Node node, StructNode parent, Semantics semantics, Indent
     a.put(node.baseType.matches[0].friendlyName);
     a.putLn(" _parent;");
     a.putLn("alias _parent this;");
-    a.putLn("this(JsHandle h) {");
+    a.putLn("this(Handle h) {");
     a.indent();
     a.putLn(["_parent = .", node.baseType.matches[0].friendlyName,"(h);"]);
     a.undent();
@@ -206,6 +206,11 @@ void toDImport(virtual!Node node, StructNode parent, Semantics semantics, Indent
   } else {
     a.putLn("JsHandle handle;");
     a.putLn("alias handle this;");
+    a.putLn("this(Handle h) {");
+    a.indent();
+    a.putLn("this.handle = JsHandle(h);");
+    a.undent();
+    a.putLn("}");
   }
   node.children.each!(c => toDBinding(c, node, semantics, a));
   a.undent();
@@ -450,6 +455,7 @@ class MaplikeNode : Node {
 @method void _toDBinding(MaplikeNode node, StructNode parent, Semantics semantics, IndentedStringAppender* a) {
   auto context = Context(semantics);
   string keyType = node.keyType.generateDType(context);
+  string valueQualifiers = (semantics.isPrimitive(node.valueType) || semantics.isNullable(node.valueType)) ? "" : "scope ref ";
   string valueType = node.valueType.generateDType(context);
   string mangleKeyType = node.keyType.generateDImports(Context(semantics));
   string mangleValueType = node.valueType.generateDImports(Context(semantics));
@@ -464,25 +470,25 @@ class MaplikeNode : Node {
   a.putLn(["  ", manglePrefix, "delete(this.handle, key);"]);
   a.putLn("}");
   a.putLn(["Iterator!(ArrayPair!(",keyType,", ",valueType,")) entries() {"]);
-  a.putLn(["  return Iterator!(ArrayPair!(",keyType,", ",valueType,"))(JsHandle(", manglePrefix, "entries(this.handle)));"]);
+  a.putLn(["  return Iterator!(ArrayPair!(",keyType,", ",valueType,"))(", manglePrefix, "entries(this.handle));"]);
   a.putLn("}");
   a.putLn(["extern(C) void forEach(void delegate(",keyType,", Handle, Handle) callback) {"]);
   a.putLn(["  ", manglePrefix, "forEach(this.handle, callback);"]);
   a.putLn("}");
   a.putLn(["",valueType," get(",keyType," key) {"]);
-  a.putLn(["  return ",valueType,"(JsHandle(", manglePrefix, "get(this.handle, key)));"]);
+  a.putLn(["  return ",valueType,"(", manglePrefix, "get(this.handle, key));"]);
   a.putLn("}");
   a.putLn(["bool has(",keyType," key) {"]);
   a.putLn(["  return ", manglePrefix, "has(this.handle, key);"]);
   a.putLn("}");
   a.putLn(["Iterator!(",keyType,") keys() {"]);
-  a.putLn(["  return Iterator!(",keyType,")(JsHandle(", manglePrefix, "keys(this.handle)));"]);
+  a.putLn(["  return Iterator!(",keyType,")(", manglePrefix, "keys(this.handle));"]);
   a.putLn("}");
-  a.putLn(["void set(",keyType," key, ",valueType," value) {"]);
+  a.putLn(["void set(",keyType," key, ", valueQualifiers, valueType," value) {"]);
   a.putLn(["  ", manglePrefix, "set(this.handle, key, value.handle);"]);
   a.putLn("}");
   a.putLn(["Iterator!(",valueType,") values() {"]);
-  a.putLn(["  return Iterator!(",valueType,")(JsHandle(", manglePrefix, "values(this.handle)));"]);
+  a.putLn(["  return Iterator!(",valueType,")(", manglePrefix, "values(this.handle));"]);
   a.putLn("}");
 }
 @method void _toDImport(MaplikeNode node, StructNode parent, Semantics semantics, IndentedStringAppender* a) {
@@ -853,30 +859,30 @@ void dump(Appender)(ref Semantics semantics, DBindingFunction item, ref Appender
   if (item.type & FunctionType.DictionaryConstructor) {
     a.putLn("static auto create() {");
     a.indent();
-    a.putLn(["return ", item.parentTypeName, "(JsHandle(spasm_add__object()));"]);
+    a.putLn(["return ", item.parentTypeName, "(spasm_add__object());"]);
     a.undent();
     a.putLn("}");
     return;
   }
   bool returns = item.result != ParseTree.init && item.result.matches[0] != "void";
-  if (returns)
-    a.put("auto ");
-  else
-    a.put("void ");
-  switch (item.type & (FunctionType.OpIndex | FunctionType.OpDispatch | FunctionType.OpIndexAssign)) {
-  case FunctionType.OpIndex:
-    a.put("opIndex");
-    break;
-  case FunctionType.OpDispatch:
-    a.put("opDispatch");
-    break;
-  case FunctionType.OpIndexAssign:
-    a.put("opIndexAssign");
-    break;
-  default:
-    a.put(item.name.friendlyName);
-    break;
+  if (returns) a.put("auto "); else a.put("void ");
+  void putFuncName() {
+    switch (item.type & (FunctionType.OpIndex | FunctionType.OpDispatch | FunctionType.OpIndexAssign)) {
+    case FunctionType.OpIndex:
+      a.put("opIndex");
+      break;
+    case FunctionType.OpDispatch:
+      a.put("opDispatch");
+      break;
+    case FunctionType.OpIndexAssign:
+      a.put("opIndexAssign");
+      break;
+    default:
+      a.put(item.name.friendlyName);
+      break;
+    }
   }
+  putFuncName();
   auto anys = item.args.enumerate.filter!(a => semantics.isAny(a.value.type)).array();
   auto templArgs = item.args.filter!(a => a.templated).array();
   auto runArgs = item.args.filter!(a => !a.templated).array();
@@ -918,7 +924,7 @@ void dump(Appender)(ref Semantics semantics, DBindingFunction item, ref Appender
         a.put([".",item.name]);
       else
         item.result.generateDType(a, Context(semantics).withLocals(locals));
-      a.put("(JsHandle(");
+      a.put("(");
     }
   }
   a.put(mangleName(item.parentTypeName, item.customName.length > 0 ? item.customName : item.name,item.manglePostfix));
@@ -931,7 +937,7 @@ void dump(Appender)(ref Semantics semantics, DBindingFunction item, ref Appender
   semantics.dumpDJsArguments(item.args, a);
   if (returns) {
     if (!semantics.isPrimitive(item.result) && !semantics.isUnion(item.result) && !semantics.isNullable(item.result)) {
-      a.put("))");
+      a.put(")");
     }
   }
   a.putLn(");");
@@ -953,10 +959,14 @@ void dumpDParameters(Appender)(ref Semantics semantics, Argument[] args, ref App
   semantics.dumpDParameter(args[$-1], a, locals, args.length-1);
 }
 void dumpDParameter(Appender)(ref Semantics semantics, Argument arg, ref Appender a, string[] locals, size_t idx) {
-  if (semantics.isAny(arg.type))
+  if (semantics.isAny(arg.type)) {
+    a.put("scope auto ref ");
     a.put(getTemplatedTypeName(idx));
-  else
+  } else {
+    if (!semantics.isPrimitive(arg.type) || semantics.isNullable(arg.type))
+      a.put("scope ref ");
     arg.type.generateDType(a, Context(semantics).withLocals(locals));
+  }
   a.put(" ");
   a.putCamelCase(arg.name.friendlyName);
   if (arg.default_.matches.length > 1) {
@@ -964,12 +974,12 @@ void dumpDParameter(Appender)(ref Semantics semantics, Argument arg, ref Appende
     if (arg.default_.children[0].matches[0] == "null") {
       if (semantics.isNullable(arg.type)) {
         a.put("/* = no!(");
-        arg.type.generateDType(a, Context(semantics).withSkipOptional.withLocals(locals));
+        arg.type.generateDType(a, Context(semantics).withSkipOptional.withLocals(locals).setDParameter);
         a.put(") */");
         return;
       }
     }
-    arg.default_.generateDType(a, Context(semantics).withLocals(locals));
+    arg.default_.generateDType(a, Context(semantics).withLocals(locals).setDParameter);
   }
 }
 
@@ -1127,6 +1137,7 @@ struct Context {
   bool returnType = false;
   bool isIncludes = false;
   bool skipOptional = false;
+  bool dParameter = false;
   string typeName;
   string customName;
   string[] locals;
@@ -1134,6 +1145,11 @@ struct Context {
 
 auto withLocals(Context c, string[] locals) {
   c.locals = locals;
+  return c;
+}
+
+auto setDParameter(Context c) {
+  c.dParameter = true;
   return c;
 }
 
@@ -1845,8 +1861,10 @@ void generateDImports(Appender)(ParseTree tree, ref Appender a, Context context)
         else
           a.put("bool, ");
       }
-      if (!context.isTypedef(tree))
+      a.put("scope ref ");
+      if (!context.isTypedef(tree)) {
         a.put("SumType!(");
+      }
       context.sumType = true;
       tree.children[0].children.putWithDelimiter!(generateDImports)(", ", a, context.withSkipOptional);
       if (optional && context.returnType)
@@ -2992,8 +3010,9 @@ void generateDType(Appender)(ParseTree tree, ref Appender a, Context context) {
     break;
   case "WebIDL.SequenceType":
     if (tree.children[$-1].matches[0] == "?")
-      a.put("Optional!(");
-    a.put("Sequence!(");
+      a.put("Optional!(Sequence!(");
+    else
+      a.put("Sequence!(");
     tree.children[0].generateDType(a, context);
     a.put(")");
     if (tree.children[$-1].matches[0] == "?")

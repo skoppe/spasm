@@ -5,11 +5,16 @@ import spasm.bindings.common;
 import spasm.bindings.dom;
 import spasm.bindings.html;
 
+@safe:
 nothrow:
+
 struct Blob {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto size() {
     return Blob_size_Get(this.handle);
   }
@@ -17,16 +22,16 @@ struct Blob {
     return Blob_type_Get(this.handle);
   }
   auto slice(long start, long end, string contentType) {
-    return Blob(JsHandle(Blob_slice(this.handle, start, end, contentType)));
+    return Blob(Blob_slice(this.handle, start, end, contentType));
   }
   auto slice(long start, long end) {
-    return Blob(JsHandle(Blob_slice_0(this.handle, start, end)));
+    return Blob(Blob_slice_0(this.handle, start, end));
   }
   auto slice(long start) {
-    return Blob(JsHandle(Blob_slice_1(this.handle, start)));
+    return Blob(Blob_slice_1(this.handle, start));
   }
   auto slice() {
-    return Blob(JsHandle(Blob_slice_2(this.handle)));
+    return Blob(Blob_slice_2(this.handle));
   }
 }
 alias BlobPart = SumType!(BufferSource, Blob, string);
@@ -34,8 +39,11 @@ struct BlobPropertyBag {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return BlobPropertyBag(JsHandle(spasm_add__object()));
+    return BlobPropertyBag(spasm_add__object());
   }
   void type(string type) {
     BlobPropertyBag_type_Set(this.handle, type);
@@ -58,7 +66,7 @@ struct File {
   nothrow:
   spasm.bindings.fileapi.Blob _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Blob(h);
   }
   auto name() {
@@ -72,6 +80,9 @@ struct FileList {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto item(uint index) {
     return FileList_item_getter(this.handle, index);
   }
@@ -83,11 +94,11 @@ struct FilePropertyBag {
   nothrow:
   spasm.bindings.fileapi.BlobPropertyBag _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .BlobPropertyBag(h);
   }
   static auto create() {
-    return FilePropertyBag(JsHandle(spasm_add__object()));
+    return FilePropertyBag(spasm_add__object());
   }
   void lastModified(long lastModified) {
     FilePropertyBag_lastModified_Set(this._parent, lastModified);
@@ -100,22 +111,22 @@ struct FileReader {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
-  void readAsArrayBuffer(Blob blob) {
+  void readAsArrayBuffer(scope ref Blob blob) {
     FileReader_readAsArrayBuffer(this._parent, blob.handle);
   }
-  void readAsBinaryString(Blob blob) {
+  void readAsBinaryString(scope ref Blob blob) {
     FileReader_readAsBinaryString(this._parent, blob.handle);
   }
-  void readAsText(Blob blob, string encoding) {
+  void readAsText(scope ref Blob blob, string encoding) {
     FileReader_readAsText(this._parent, blob.handle, encoding);
   }
-  void readAsText(Blob blob) {
+  void readAsText(scope ref Blob blob) {
     FileReader_readAsText_0(this._parent, blob.handle);
   }
-  void readAsDataURL(Blob blob) {
+  void readAsDataURL(scope ref Blob blob) {
     FileReader_readAsDataURL(this._parent, blob.handle);
   }
   void abort() {
@@ -174,19 +185,22 @@ struct FileReaderSync {
   nothrow:
   JsHandle handle;
   alias handle this;
-  auto readAsArrayBuffer(Blob blob) {
-    return ArrayBuffer(JsHandle(FileReaderSync_readAsArrayBuffer(this.handle, blob.handle)));
+  this(Handle h) {
+    this.handle = JsHandle(h);
   }
-  auto readAsBinaryString(Blob blob) {
+  auto readAsArrayBuffer(scope ref Blob blob) {
+    return ArrayBuffer(FileReaderSync_readAsArrayBuffer(this.handle, blob.handle));
+  }
+  auto readAsBinaryString(scope ref Blob blob) {
     return FileReaderSync_readAsBinaryString(this.handle, blob.handle);
   }
-  auto readAsText(Blob blob, string encoding) {
+  auto readAsText(scope ref Blob blob, string encoding) {
     return FileReaderSync_readAsText(this.handle, blob.handle, encoding);
   }
-  auto readAsText(Blob blob) {
+  auto readAsText(scope ref Blob blob) {
     return FileReaderSync_readAsText_0(this.handle, blob.handle);
   }
-  auto readAsDataURL(Blob blob) {
+  auto readAsDataURL(scope ref Blob blob) {
     return FileReaderSync_readAsDataURL(this.handle, blob.handle);
   }
 }

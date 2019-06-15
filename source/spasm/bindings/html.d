@@ -26,12 +26,14 @@ import spasm.bindings.webgl2;
 import spasm.bindings.webgl;
 import spasm.bindings.xhr;
 
+@safe:
 nothrow:
+
 struct ApplicationCache {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   enum ushort UNCACHED = 0;
@@ -105,8 +107,11 @@ struct AssignedNodesOptions {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return AssignedNodesOptions(JsHandle(spasm_add__object()));
+    return AssignedNodesOptions(spasm_add__object());
   }
   void flatten(bool flatten) {
     AssignedNodesOptions_flatten_Set(this.handle, flatten);
@@ -119,6 +124,9 @@ struct AudioTrack {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto id() {
     return AudioTrack_id_Get(this.handle);
   }
@@ -145,17 +153,17 @@ struct AudioTrackList {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   auto length() {
     return AudioTrackList_length_Get(this._parent);
   }
   auto opIndex(uint index) {
-    return AudioTrack(JsHandle(AudioTrackList_getter__uint(this._parent, index)));
+    return AudioTrack(AudioTrackList_getter__uint(this._parent, index));
   }
   auto opDispatch(uint index)() {
-    return AudioTrack(JsHandle(AudioTrackList_getter__uint(this._parent, index)));
+    return AudioTrack(AudioTrackList_getter__uint(this._parent, index));
   }
   auto getTrackById(string id) {
     return AudioTrackList_getTrackById(this._parent, id);
@@ -183,6 +191,9 @@ struct BarProp {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto visible() {
     return BarProp_visible_Get(this.handle);
   }
@@ -191,7 +202,7 @@ struct BeforeUnloadEvent {
   nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Event(h);
   }
   void returnValue(string returnValue) {
@@ -210,13 +221,13 @@ struct BroadcastChannel {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   auto name() {
     return BroadcastChannel_name_Get(this._parent);
   }
-  void postMessage(T0)(T0 message) {
+  void postMessage(T0)(scope auto ref T0 message) {
     Handle _handle_message = getOrCreateHandle(message);
     BroadcastChannel_postMessage(this._parent, _handle_message);
     dropHandle!(T0)(_handle_message);
@@ -255,6 +266,9 @@ struct CanvasGradient {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   void addColorStop(double offset, string color) {
     CanvasGradient_addColorStop(this.handle, offset, color);
   }
@@ -274,7 +288,10 @@ struct CanvasPattern {
   nothrow:
   JsHandle handle;
   alias handle this;
-  void setTransform(DOMMatrix2DInit transform) {
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
+  void setTransform(scope ref DOMMatrix2DInit transform) {
     CanvasPattern_setTransform(this.handle, transform.handle);
   }
   void setTransform() {
@@ -285,8 +302,11 @@ struct CanvasRenderingContext2D {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto canvas() {
-    return HTMLCanvasElement(JsHandle(CanvasRenderingContext2D_canvas_Get(this.handle)));
+    return HTMLCanvasElement(CanvasRenderingContext2D_canvas_Get(this.handle));
   }
   void closePath() {
     CanvasPath_closePath(this.handle);
@@ -369,11 +389,11 @@ struct CanvasRenderingContext2D {
   auto miterLimit() {
     return CanvasPathDrawingStyles_miterLimit_Get(this.handle);
   }
-  void setLineDash(Sequence!(double) segments) {
+  void setLineDash(scope ref Sequence!(double) segments) {
     CanvasPathDrawingStyles_setLineDash(this.handle, segments.handle);
   }
   auto getLineDash() {
-    return Sequence!(double)(JsHandle(CanvasPathDrawingStyles_getLineDash(this.handle)));
+    return Sequence!(double)(CanvasPathDrawingStyles_getLineDash(this.handle));
   }
   void lineDashOffset(double lineDashOffset) {
     CanvasPathDrawingStyles_lineDashOffset_Set(this.handle, lineDashOffset);
@@ -382,27 +402,27 @@ struct CanvasRenderingContext2D {
     return CanvasPathDrawingStyles_lineDashOffset_Get(this.handle);
   }
   auto createImageData(int sw, int sh) {
-    return ImageData(JsHandle(CanvasImageData_createImageData__int_int(this.handle, sw, sh)));
+    return ImageData(CanvasImageData_createImageData__int_int(this.handle, sw, sh));
   }
-  auto createImageData(ImageData imagedata) {
-    return ImageData(JsHandle(CanvasImageData_createImageData__Handle(this.handle, imagedata.handle)));
+  auto createImageData(scope ref ImageData imagedata) {
+    return ImageData(CanvasImageData_createImageData__Handle(this.handle, imagedata.handle));
   }
   auto getImageData(int sx, int sy, int sw, int sh) {
-    return ImageData(JsHandle(CanvasImageData_getImageData(this.handle, sx, sy, sw, sh)));
+    return ImageData(CanvasImageData_getImageData(this.handle, sx, sy, sw, sh));
   }
-  void putImageData(ImageData imagedata, int dx, int dy) {
+  void putImageData(scope ref ImageData imagedata, int dx, int dy) {
     CanvasImageData_putImageData__Handle_int_int(this.handle, imagedata.handle, dx, dy);
   }
-  void putImageData(ImageData imagedata, int dx, int dy, int dirtyX, int dirtyY, int dirtyWidth, int dirtyHeight) {
+  void putImageData(scope ref ImageData imagedata, int dx, int dy, int dirtyX, int dirtyY, int dirtyWidth, int dirtyHeight) {
     CanvasImageData_putImageData__Handle_int_int_int_int_int_int(this.handle, imagedata.handle, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight);
   }
-  void drawImage(CanvasImageSource image, double dx, double dy) {
+  void drawImage(scope ref CanvasImageSource image, double dx, double dy) {
     CanvasDrawImage_drawImage__CanvasImageSource_double_double(this.handle, image, dx, dy);
   }
-  void drawImage(CanvasImageSource image, double dx, double dy, double dw, double dh) {
+  void drawImage(scope ref CanvasImageSource image, double dx, double dy, double dw, double dh) {
     CanvasDrawImage_drawImage__CanvasImageSource_double_double_double_double(this.handle, image, dx, dy, dw, dh);
   }
-  void drawImage(CanvasImageSource image, double sx, double sy, double sw, double sh, double dx, double dy, double dw, double dh) {
+  void drawImage(scope ref CanvasImageSource image, double sx, double sy, double sw, double sh, double dx, double dy, double dw, double dh) {
     CanvasDrawImage_drawImage__CanvasImageSource_double_double_double_double_double_double_double_double(this.handle, image, sx, sy, sw, sh, dx, dy, dw, dh);
   }
   void fillText(string text, double x, double y, double maxWidth) {
@@ -418,18 +438,18 @@ struct CanvasRenderingContext2D {
     CanvasText_strokeText_0(this.handle, text, x, y);
   }
   auto measureText(string text) {
-    return TextMetrics(JsHandle(CanvasText_measureText(this.handle, text)));
+    return TextMetrics(CanvasText_measureText(this.handle, text));
   }
-  void drawFocusIfNeeded(Element element) {
+  void drawFocusIfNeeded(scope ref Element element) {
     CanvasUserInterface_drawFocusIfNeeded__Handle(this.handle, element._parent);
   }
-  void drawFocusIfNeeded(Path2D path, Element element) {
+  void drawFocusIfNeeded(scope ref Path2D path, scope ref Element element) {
     CanvasUserInterface_drawFocusIfNeeded__Handle_Handle(this.handle, path.handle, element._parent);
   }
   void scrollPathIntoView() {
     CanvasUserInterface_scrollPathIntoView__(this.handle);
   }
-  void scrollPathIntoView(Path2D path) {
+  void scrollPathIntoView(scope ref Path2D path) {
     CanvasUserInterface_scrollPathIntoView__Handle(this.handle, path.handle);
   }
   void beginPath() {
@@ -441,16 +461,16 @@ struct CanvasRenderingContext2D {
   void fill() {
     CanvasDrawPath_fill_0_(this.handle);
   }
-  void fill(Path2D path, CanvasFillRule fillRule /* = "nonzero" */) {
+  void fill(scope ref Path2D path, CanvasFillRule fillRule /* = "nonzero" */) {
     CanvasDrawPath_fill__Handle_CanvasFillRule(this.handle, path.handle, fillRule);
   }
-  void fill(Path2D path) {
+  void fill(scope ref Path2D path) {
     CanvasDrawPath_fill_0_Handle(this.handle, path.handle);
   }
   void stroke() {
     CanvasDrawPath_stroke__(this.handle);
   }
-  void stroke(Path2D path) {
+  void stroke(scope ref Path2D path) {
     CanvasDrawPath_stroke__Handle(this.handle, path.handle);
   }
   void clip(CanvasFillRule fillRule /* = "nonzero" */) {
@@ -459,10 +479,10 @@ struct CanvasRenderingContext2D {
   void clip() {
     CanvasDrawPath_clip_0_(this.handle);
   }
-  void clip(Path2D path, CanvasFillRule fillRule /* = "nonzero" */) {
+  void clip(scope ref Path2D path, CanvasFillRule fillRule /* = "nonzero" */) {
     CanvasDrawPath_clip__Handle_CanvasFillRule(this.handle, path.handle, fillRule);
   }
-  void clip(Path2D path) {
+  void clip(scope ref Path2D path) {
     CanvasDrawPath_clip_0_Handle(this.handle, path.handle);
   }
   auto isPointInPath(double x, double y, CanvasFillRule fillRule /* = "nonzero" */) {
@@ -471,16 +491,16 @@ struct CanvasRenderingContext2D {
   auto isPointInPath(double x, double y) {
     return CanvasDrawPath_isPointInPath_0_double_double(this.handle, x, y);
   }
-  auto isPointInPath(Path2D path, double x, double y, CanvasFillRule fillRule /* = "nonzero" */) {
+  auto isPointInPath(scope ref Path2D path, double x, double y, CanvasFillRule fillRule /* = "nonzero" */) {
     return CanvasDrawPath_isPointInPath__Handle_double_double_CanvasFillRule(this.handle, path.handle, x, y, fillRule);
   }
-  auto isPointInPath(Path2D path, double x, double y) {
+  auto isPointInPath(scope ref Path2D path, double x, double y) {
     return CanvasDrawPath_isPointInPath_0_Handle_double_double(this.handle, path.handle, x, y);
   }
   auto isPointInStroke(double x, double y) {
     return CanvasDrawPath_isPointInStroke__double_double(this.handle, x, y);
   }
-  auto isPointInStroke(Path2D path, double x, double y) {
+  auto isPointInStroke(scope ref Path2D path, double x, double y) {
     return CanvasDrawPath_isPointInStroke__Handle_double_double(this.handle, path.handle, x, y);
   }
   void clearRect(double x, double y, double w, double h) {
@@ -522,25 +542,25 @@ struct CanvasRenderingContext2D {
   auto shadowColor() {
     return CanvasShadowStyles_shadowColor_Get(this.handle);
   }
-  void strokeStyle(SumType!(string, CanvasGradient, CanvasPattern) strokeStyle) {
+  void strokeStyle(scope ref SumType!(string, CanvasGradient, CanvasPattern) strokeStyle) {
     CanvasFillStrokeStyles_strokeStyle_Set(this.handle, strokeStyle);
   }
   auto strokeStyle() {
     return CanvasFillStrokeStyles_strokeStyle_Get(this.handle);
   }
-  void fillStyle(SumType!(string, CanvasGradient, CanvasPattern) fillStyle) {
+  void fillStyle(scope ref SumType!(string, CanvasGradient, CanvasPattern) fillStyle) {
     CanvasFillStrokeStyles_fillStyle_Set(this.handle, fillStyle);
   }
   auto fillStyle() {
     return CanvasFillStrokeStyles_fillStyle_Get(this.handle);
   }
   auto createLinearGradient(double x0, double y0, double x1, double y1) {
-    return CanvasGradient(JsHandle(CanvasFillStrokeStyles_createLinearGradient(this.handle, x0, y0, x1, y1)));
+    return CanvasGradient(CanvasFillStrokeStyles_createLinearGradient(this.handle, x0, y0, x1, y1));
   }
   auto createRadialGradient(double x0, double y0, double r0, double x1, double y1, double r1) {
-    return CanvasGradient(JsHandle(CanvasFillStrokeStyles_createRadialGradient(this.handle, x0, y0, r0, x1, y1, r1)));
+    return CanvasGradient(CanvasFillStrokeStyles_createRadialGradient(this.handle, x0, y0, r0, x1, y1, r1));
   }
-  auto createPattern(CanvasImageSource image, string repetition) {
+  auto createPattern(scope ref CanvasImageSource image, string repetition) {
     return CanvasFillStrokeStyles_createPattern(this.handle, image, repetition);
   }
   void imageSmoothingEnabled(bool imageSmoothingEnabled) {
@@ -580,12 +600,12 @@ struct CanvasRenderingContext2D {
     CanvasTransform_transform(this.handle, a, b, c, d, e, f);
   }
   auto getTransform() {
-    return DOMMatrix(JsHandle(CanvasTransform_getTransform(this.handle)));
+    return DOMMatrix(CanvasTransform_getTransform(this.handle));
   }
   void setTransform(double a, double b, double c, double d, double e, double f) {
     CanvasTransform_setTransform__double_double_double_double_double_double(this.handle, a, b, c, d, e, f);
   }
-  void setTransform(DOMMatrix2DInit transform) {
+  void setTransform(scope ref DOMMatrix2DInit transform) {
     CanvasTransform_setTransform__Handle(this.handle, transform.handle);
   }
   void setTransform() {
@@ -605,8 +625,11 @@ struct CanvasRenderingContext2DSettings {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return CanvasRenderingContext2DSettings(JsHandle(spasm_add__object()));
+    return CanvasRenderingContext2DSettings(spasm_add__object());
   }
   void alpha(bool alpha) {
     CanvasRenderingContext2DSettings_alpha_Set(this.handle, alpha);
@@ -634,7 +657,7 @@ struct CloseEvent {
   nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Event(h);
   }
   auto wasClean() {
@@ -651,11 +674,11 @@ struct CloseEventInit {
   nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventInit(h);
   }
   static auto create() {
-    return CloseEventInit(JsHandle(spasm_add__object()));
+    return CloseEventInit(spasm_add__object());
   }
   void wasClean(bool wasClean) {
     CloseEventInit_wasClean_Set(this._parent, wasClean);
@@ -685,19 +708,22 @@ struct CustomElementRegistry {
   nothrow:
   JsHandle handle;
   alias handle this;
-  void define(string name, CustomElementConstructor constructor, ElementDefinitionOptions options) {
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
+  void define(string name, CustomElementConstructor constructor, scope ref ElementDefinitionOptions options) {
     CustomElementRegistry_define(this.handle, name, constructor, options.handle);
   }
   void define(string name, CustomElementConstructor constructor) {
     CustomElementRegistry_define_0(this.handle, name, constructor);
   }
   auto get(string name) {
-    return Any(JsHandle(CustomElementRegistry_get(this.handle, name)));
+    return Any(CustomElementRegistry_get(this.handle, name));
   }
   auto whenDefined(string name) {
-    return Promise!(void)(JsHandle(CustomElementRegistry_whenDefined(this.handle, name)));
+    return Promise!(void)(CustomElementRegistry_whenDefined(this.handle, name));
   }
-  void upgrade(Node root) {
+  void upgrade(scope ref Node root) {
     CustomElementRegistry_upgrade(this.handle, root._parent);
   }
 }
@@ -705,6 +731,9 @@ struct DOMStringList {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto length() {
     return DOMStringList_length_Get(this.handle);
   }
@@ -719,6 +748,9 @@ struct DOMStringMap {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto opIndex(string name) {
     return DOMStringMap_getter__string(this.handle, name);
   }
@@ -739,6 +771,9 @@ struct DataTransfer {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   void dropEffect(string dropEffect) {
     DataTransfer_dropEffect_Set(this.handle, dropEffect);
   }
@@ -752,13 +787,13 @@ struct DataTransfer {
     return DataTransfer_effectAllowed_Get(this.handle);
   }
   auto items() {
-    return DataTransferItemList(JsHandle(DataTransfer_items_Get(this.handle)));
+    return DataTransferItemList(DataTransfer_items_Get(this.handle));
   }
-  void setDragImage(Element image, int x, int y) {
+  void setDragImage(scope ref Element image, int x, int y) {
     DataTransfer_setDragImage(this.handle, image._parent, x, y);
   }
   auto types() {
-    return FrozenArray!(string)(JsHandle(DataTransfer_types_Get(this.handle)));
+    return FrozenArray!(string)(DataTransfer_types_Get(this.handle));
   }
   auto getData(string format) {
     return DataTransfer_getData(this.handle, format);
@@ -773,20 +808,23 @@ struct DataTransfer {
     DataTransfer_clearData_0(this.handle);
   }
   auto files() {
-    return FileList(JsHandle(DataTransfer_files_Get(this.handle)));
+    return FileList(DataTransfer_files_Get(this.handle));
   }
 }
 struct DataTransferItem {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto kind() {
     return DataTransferItem_kind_Get(this.handle);
   }
   auto type() {
     return DataTransferItem_type_Get(this.handle);
   }
-  void getAsString(Optional!(FunctionStringCallback) _callback) {
+  void getAsString(scope ref Optional!(FunctionStringCallback) _callback) {
     DataTransferItem_getAsString(this.handle, !_callback.empty, _callback.front);
   }
   auto getAsFile() {
@@ -797,19 +835,22 @@ struct DataTransferItemList {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto length() {
     return DataTransferItemList_length_Get(this.handle);
   }
   auto opIndex(uint index) {
-    return DataTransferItem(JsHandle(DataTransferItemList_getter__uint(this.handle, index)));
+    return DataTransferItem(DataTransferItemList_getter__uint(this.handle, index));
   }
   auto opDispatch(uint index)() {
-    return DataTransferItem(JsHandle(DataTransferItemList_getter__uint(this.handle, index)));
+    return DataTransferItem(DataTransferItemList_getter__uint(this.handle, index));
   }
   auto add(string data, string type) {
     return DataTransferItemList_add__string_string(this.handle, data, type);
   }
-  auto add(File data) {
+  auto add(scope ref File data) {
     return DataTransferItemList_add__Handle(this.handle, data._parent);
   }
   void remove(uint index) {
@@ -823,23 +864,23 @@ struct DedicatedWorkerGlobalScope {
   nothrow:
   spasm.bindings.html.WorkerGlobalScope _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .WorkerGlobalScope(h);
   }
   auto name() {
     return DedicatedWorkerGlobalScope_name_Get(this._parent);
   }
-  void postMessage(T0)(T0 message, Sequence!(JsObject) transfer) {
+  void postMessage(T0)(scope auto ref T0 message, scope ref Sequence!(JsObject) transfer) {
     Handle _handle_message = getOrCreateHandle(message);
     DedicatedWorkerGlobalScope_postMessage__Handle_sequence(this._parent, _handle_message, transfer.handle);
     dropHandle!(T0)(_handle_message);
   }
-  void postMessage(T0)(T0 message, PostMessageOptions options) {
+  void postMessage(T0)(scope auto ref T0 message, scope ref PostMessageOptions options) {
     Handle _handle_message = getOrCreateHandle(message);
     DedicatedWorkerGlobalScope_postMessage__Handle_Handle(this._parent, _handle_message, options.handle);
     dropHandle!(T0)(_handle_message);
   }
-  void postMessage(T0)(T0 message) {
+  void postMessage(T0)(scope auto ref T0 message) {
     Handle _handle_message = getOrCreateHandle(message);
     DedicatedWorkerGlobalScope_postMessage_0(this._parent, _handle_message);
     dropHandle!(T0)(_handle_message);
@@ -875,7 +916,7 @@ struct DragEvent {
   nothrow:
   spasm.bindings.uievents.MouseEvent _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .MouseEvent(h);
   }
   auto dataTransfer() {
@@ -886,13 +927,13 @@ struct DragEventInit {
   nothrow:
   spasm.bindings.uievents.MouseEventInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .MouseEventInit(h);
   }
   static auto create() {
-    return DragEventInit(JsHandle(spasm_add__object()));
+    return DragEventInit(spasm_add__object());
   }
-  void dataTransfer(Optional!(DataTransfer) dataTransfer) {
+  void dataTransfer(scope ref Optional!(DataTransfer) dataTransfer) {
     DragEventInit_dataTransfer_Set(this._parent, !dataTransfer.empty, dataTransfer.front.handle);
   }
   auto dataTransfer() {
@@ -903,8 +944,11 @@ struct ElementDefinitionOptions {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return ElementDefinitionOptions(JsHandle(spasm_add__object()));
+    return ElementDefinitionOptions(spasm_add__object());
   }
   void extends(string extends) {
     ElementDefinitionOptions_extends_Set(this.handle, extends);
@@ -917,7 +961,7 @@ struct ErrorEvent {
   nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Event(h);
   }
   auto message() {
@@ -933,18 +977,18 @@ struct ErrorEvent {
     return ErrorEvent_colno_Get(this._parent);
   }
   auto error() {
-    return Any(JsHandle(ErrorEvent_error_Get(this._parent)));
+    return Any(ErrorEvent_error_Get(this._parent));
   }
 }
 struct ErrorEventInit {
   nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventInit(h);
   }
   static auto create() {
-    return ErrorEventInit(JsHandle(spasm_add__object()));
+    return ErrorEventInit(spasm_add__object());
   }
   void message(string message) {
     ErrorEventInit_message_Set(this._parent, message);
@@ -970,13 +1014,13 @@ struct ErrorEventInit {
   auto colno() {
     return ErrorEventInit_colno_Get(this._parent);
   }
-  void error(T0)(T0 error) {
+  void error(T0)(scope auto ref T0 error) {
     Handle _handle_error = getOrCreateHandle(error);
     ErrorEventInit_error_Set(this._parent, _handle_error);
     dropHandle!(T0)(_handle_error);
   }
   auto error() {
-    return Any(JsHandle(ErrorEventInit_error_Get(this._parent)));
+    return Any(ErrorEventInit_error_Get(this._parent));
   }
 }
 alias EventHandler = EventHandlerNonNull;
@@ -985,7 +1029,7 @@ struct EventSource {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   auto url() {
@@ -1026,8 +1070,11 @@ struct EventSourceInit {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return EventSourceInit(JsHandle(spasm_add__object()));
+    return EventSourceInit(spasm_add__object());
   }
   void withCredentials(bool withCredentials) {
     EventSourceInit_withCredentials_Set(this.handle, withCredentials);
@@ -1040,6 +1087,9 @@ struct External {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   void AddSearchProvider() {
     External_AddSearchProvider(this.handle);
   }
@@ -1051,8 +1101,11 @@ struct FocusOptions {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return FocusOptions(JsHandle(spasm_add__object()));
+    return FocusOptions(spasm_add__object());
   }
   void preventScroll(bool preventScroll) {
     FocusOptions_preventScroll_Set(this.handle, preventScroll);
@@ -1067,14 +1120,17 @@ struct HTMLAllCollection {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto length() {
     return HTMLAllCollection_length_Get(this.handle);
   }
   auto opIndex(uint index) {
-    return Element(JsHandle(HTMLAllCollection_getter__uint(this.handle, index)));
+    return Element(HTMLAllCollection_getter__uint(this.handle, index));
   }
   auto opDispatch(uint index)() {
-    return Element(JsHandle(HTMLAllCollection_getter__uint(this.handle, index)));
+    return Element(HTMLAllCollection_getter__uint(this.handle, index));
   }
   auto namedItem(string name) {
     return HTMLAllCollection_namedItem_getter(this.handle, name);
@@ -1090,7 +1146,7 @@ struct HTMLAnchorElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void target(string target) {
@@ -1118,7 +1174,7 @@ struct HTMLAnchorElement {
     return HTMLAnchorElement_rel_Get(this._parent);
   }
   auto relList() {
-    return DOMTokenList(JsHandle(HTMLAnchorElement_relList_Get(this._parent)));
+    return DOMTokenList(HTMLAnchorElement_relList_Get(this._parent));
   }
   void hreflang(string hreflang) {
     HTMLAnchorElement_hreflang_Set(this._parent, hreflang);
@@ -1242,7 +1298,7 @@ struct HTMLAreaElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void alt(string alt) {
@@ -1288,7 +1344,7 @@ struct HTMLAreaElement {
     return HTMLAreaElement_rel_Get(this._parent);
   }
   auto relList() {
-    return DOMTokenList(JsHandle(HTMLAreaElement_relList_Get(this._parent)));
+    return DOMTokenList(HTMLAreaElement_relList_Get(this._parent));
   }
   void referrerPolicy(string referrerPolicy) {
     HTMLAreaElement_referrerPolicy_Set(this._parent, referrerPolicy);
@@ -1370,7 +1426,7 @@ struct HTMLAudioElement {
   nothrow:
   spasm.bindings.html.HTMLMediaElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLMediaElement(h);
   }
 }
@@ -1378,7 +1434,7 @@ struct HTMLBRElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void clear(string clear) {
@@ -1392,7 +1448,7 @@ struct HTMLBaseElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void href(string href) {
@@ -1412,7 +1468,7 @@ struct HTMLBodyElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void text(string text) {
@@ -1469,7 +1525,7 @@ struct HTMLBodyElement {
   auto onbeforeprint() {
     return WindowEventHandlers_onbeforeprint_Get(this._parent);
   }
-  void onbeforeunload(OnBeforeUnloadEventHandler onbeforeunload) {
+  void onbeforeunload(scope ref OnBeforeUnloadEventHandler onbeforeunload) {
     WindowEventHandlers_onbeforeunload_Set(this._parent, !onbeforeunload.empty, onbeforeunload.front);
   }
   auto onbeforeunload() {
@@ -1558,7 +1614,7 @@ struct HTMLButtonElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void autofocus(bool autofocus) {
@@ -1628,7 +1684,7 @@ struct HTMLButtonElement {
     return HTMLButtonElement_willValidate_Get(this._parent);
   }
   auto validity() {
-    return ValidityState(JsHandle(HTMLButtonElement_validity_Get(this._parent)));
+    return ValidityState(HTMLButtonElement_validity_Get(this._parent));
   }
   auto validationMessage() {
     return HTMLButtonElement_validationMessage_Get(this._parent);
@@ -1643,14 +1699,14 @@ struct HTMLButtonElement {
     HTMLButtonElement_setCustomValidity(this._parent, error);
   }
   auto labels() {
-    return NodeList(JsHandle(HTMLButtonElement_labels_Get(this._parent)));
+    return NodeList(HTMLButtonElement_labels_Get(this._parent));
   }
 }
 struct HTMLCanvasElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void width(uint width) {
@@ -1665,7 +1721,7 @@ struct HTMLCanvasElement {
   auto height() {
     return HTMLCanvasElement_height_Get(this._parent);
   }
-  auto getContext(T1)(string contextId, T1 options /* = null */) {
+  auto getContext(T1)(string contextId, scope auto ref T1 options /* = null */) {
     Handle _handle_options = getOrCreateHandle(options);
     auto result = HTMLCanvasElement_getContext(this._parent, contextId, _handle_options);
     dropHandle!(T1)(_handle_options);
@@ -1674,7 +1730,7 @@ struct HTMLCanvasElement {
   auto getContext(string contextId) {
     return HTMLCanvasElement_getContext_0(this._parent, contextId);
   }
-  auto toDataURL(T1)(string type, T1 quality) {
+  auto toDataURL(T1)(string type, scope auto ref T1 quality) {
     Handle _handle_quality = getOrCreateHandle(quality);
     auto result = HTMLCanvasElement_toDataURL(this._parent, type, _handle_quality);
     dropHandle!(T1)(_handle_quality);
@@ -1686,7 +1742,7 @@ struct HTMLCanvasElement {
   auto toDataURL() {
     return HTMLCanvasElement_toDataURL_1(this._parent);
   }
-  void toBlob(T2)(BlobCallback _callback, string type, T2 quality) {
+  void toBlob(T2)(BlobCallback _callback, string type, scope auto ref T2 quality) {
     Handle _handle_quality = getOrCreateHandle(quality);
     HTMLCanvasElement_toBlob(this._parent, _callback, type, _handle_quality);
     dropHandle!(T2)(_handle_quality);
@@ -1698,14 +1754,14 @@ struct HTMLCanvasElement {
     HTMLCanvasElement_toBlob_1(this._parent, _callback);
   }
   auto transferControlToOffscreen() {
-    return OffscreenCanvas(JsHandle(HTMLCanvasElement_transferControlToOffscreen(this._parent)));
+    return OffscreenCanvas(HTMLCanvasElement_transferControlToOffscreen(this._parent));
   }
 }
 struct HTMLDListElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void compact(bool compact) {
@@ -1719,7 +1775,7 @@ struct HTMLDataElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void value(string value) {
@@ -1733,18 +1789,18 @@ struct HTMLDataListElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   auto options() {
-    return HTMLCollection(JsHandle(HTMLDataListElement_options_Get(this._parent)));
+    return HTMLCollection(HTMLDataListElement_options_Get(this._parent));
   }
 }
 struct HTMLDetailsElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void open(bool open) {
@@ -1758,7 +1814,7 @@ struct HTMLDialogElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void open(bool open) {
@@ -1790,7 +1846,7 @@ struct HTMLDirectoryElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void compact(bool compact) {
@@ -1804,7 +1860,7 @@ struct HTMLDivElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void align_(string align_) {
@@ -1818,7 +1874,7 @@ struct HTMLElement {
   nothrow:
   spasm.bindings.dom.Element _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Element(h);
   }
   void title(string title) {
@@ -1888,7 +1944,7 @@ struct HTMLElement {
     return HTMLElement_innerText_Get(this._parent);
   }
   auto dataset() {
-    return DOMStringMap(JsHandle(HTMLOrSVGElement_dataset_Get(this._parent)));
+    return DOMStringMap(HTMLOrSVGElement_dataset_Get(this._parent));
   }
   void nonce(string nonce) {
     HTMLOrSVGElement_nonce_Set(this._parent, nonce);
@@ -1902,7 +1958,7 @@ struct HTMLElement {
   auto tabIndex() {
     return HTMLOrSVGElement_tabIndex_Get(this._parent);
   }
-  void focus(FocusOptions options) {
+  void focus(scope ref FocusOptions options) {
     HTMLOrSVGElement_focus(this._parent, options.handle);
   }
   void focus() {
@@ -2088,7 +2144,7 @@ struct HTMLElement {
   auto onended() {
     return GlobalEventHandlers_onended_Get(this._parent);
   }
-  void onerror(OnErrorEventHandler onerror) {
+  void onerror(scope ref OnErrorEventHandler onerror) {
     GlobalEventHandlers_onerror_Set(this._parent, !onerror.empty, onerror.front);
   }
   auto onerror() {
@@ -2407,14 +2463,14 @@ struct HTMLElement {
     return GlobalEventHandlers_ontouchcancel_Get(this._parent);
   }
   auto style() {
-    return CSSStyleDeclaration(JsHandle(ElementCSSInlineStyle_style_Get(this._parent)));
+    return CSSStyleDeclaration(ElementCSSInlineStyle_style_Get(this._parent));
   }
 }
 struct HTMLEmbedElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void src(string src) {
@@ -2461,7 +2517,7 @@ struct HTMLFieldSetElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void disabled(bool disabled) {
@@ -2483,13 +2539,13 @@ struct HTMLFieldSetElement {
     return HTMLFieldSetElement_type_Get(this._parent);
   }
   auto elements() {
-    return HTMLCollection(JsHandle(HTMLFieldSetElement_elements_Get(this._parent)));
+    return HTMLCollection(HTMLFieldSetElement_elements_Get(this._parent));
   }
   auto willValidate() {
     return HTMLFieldSetElement_willValidate_Get(this._parent);
   }
   auto validity() {
-    return ValidityState(JsHandle(HTMLFieldSetElement_validity_Get(this._parent)));
+    return ValidityState(HTMLFieldSetElement_validity_Get(this._parent));
   }
   auto validationMessage() {
     return HTMLFieldSetElement_validationMessage_Get(this._parent);
@@ -2508,7 +2564,7 @@ struct HTMLFontElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void color(string color) {
@@ -2534,7 +2590,7 @@ struct HTMLFormControlsCollection {
   nothrow:
   spasm.bindings.dom.HTMLCollection _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLCollection(h);
   }
   auto namedItem(string name) {
@@ -2545,7 +2601,7 @@ struct HTMLFormElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void acceptCharset(string acceptCharset) {
@@ -2603,16 +2659,16 @@ struct HTMLFormElement {
     return HTMLFormElement_target_Get(this._parent);
   }
   auto elements() {
-    return HTMLFormControlsCollection(JsHandle(HTMLFormElement_elements_Get(this._parent)));
+    return HTMLFormControlsCollection(HTMLFormElement_elements_Get(this._parent));
   }
   auto length() {
     return HTMLFormElement_length_Get(this._parent);
   }
   auto opIndex(uint index) {
-    return Element(JsHandle(HTMLFormElement_getter__uint(this._parent, index)));
+    return Element(HTMLFormElement_getter__uint(this._parent, index));
   }
   auto opDispatch(uint index)() {
-    return Element(JsHandle(HTMLFormElement_getter__uint(this._parent, index)));
+    return Element(HTMLFormElement_getter__uint(this._parent, index));
   }
   auto opIndex(string name) {
     return HTMLFormElement_getter__string(this._parent, name);
@@ -2637,7 +2693,7 @@ struct HTMLFrameElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void name(string name) {
@@ -2699,7 +2755,7 @@ struct HTMLFrameSetElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void cols(string cols) {
@@ -2726,7 +2782,7 @@ struct HTMLFrameSetElement {
   auto onbeforeprint() {
     return WindowEventHandlers_onbeforeprint_Get(this._parent);
   }
-  void onbeforeunload(OnBeforeUnloadEventHandler onbeforeunload) {
+  void onbeforeunload(scope ref OnBeforeUnloadEventHandler onbeforeunload) {
     WindowEventHandlers_onbeforeunload_Set(this._parent, !onbeforeunload.empty, onbeforeunload.front);
   }
   auto onbeforeunload() {
@@ -2815,7 +2871,7 @@ struct HTMLHRElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void align_(string align_) {
@@ -2853,7 +2909,7 @@ struct HTMLHeadElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
 }
@@ -2861,7 +2917,7 @@ struct HTMLHeadingElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void align_(string align_) {
@@ -2875,7 +2931,7 @@ struct HTMLHtmlElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void version_(string version_) {
@@ -2889,7 +2945,7 @@ struct HTMLIFrameElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void src(string src) {
@@ -2911,7 +2967,7 @@ struct HTMLIFrameElement {
     return HTMLIFrameElement_name_Get(this._parent);
   }
   auto sandbox() {
-    return DOMTokenList(JsHandle(HTMLIFrameElement_sandbox_Get(this._parent)));
+    return DOMTokenList(HTMLIFrameElement_sandbox_Get(this._parent));
   }
   void allow(string allow) {
     HTMLIFrameElement_allow_Set(this._parent, allow);
@@ -2999,7 +3055,7 @@ struct HTMLImageElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void alt(string alt) {
@@ -3026,7 +3082,7 @@ struct HTMLImageElement {
   auto sizes() {
     return HTMLImageElement_sizes_Get(this._parent);
   }
-  void crossOrigin(Optional!(string) crossOrigin) {
+  void crossOrigin(scope ref Optional!(string) crossOrigin) {
     HTMLImageElement_crossOrigin_Set(this._parent, !crossOrigin.empty, crossOrigin.front);
   }
   auto crossOrigin() {
@@ -3081,7 +3137,7 @@ struct HTMLImageElement {
     return HTMLImageElement_decoding_Get(this._parent);
   }
   auto decode() {
-    return Promise!(void)(JsHandle(HTMLImageElement_decode(this._parent)));
+    return Promise!(void)(HTMLImageElement_decode(this._parent));
   }
   void name(string name) {
     HTMLImageElement_name_Set(this._parent, name);
@@ -3130,7 +3186,7 @@ struct HTMLInputElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void accept(string accept) {
@@ -3184,7 +3240,7 @@ struct HTMLInputElement {
   auto form() {
     return HTMLInputElement_form_Get(this._parent);
   }
-  void files(Optional!(FileList) files) {
+  void files(scope ref Optional!(FileList) files) {
     HTMLInputElement_files_Set(this._parent, !files.empty, files.front.handle);
   }
   auto files() {
@@ -3331,7 +3387,7 @@ struct HTMLInputElement {
   auto value() {
     return HTMLInputElement_value_Get(this._parent);
   }
-  void valueAsDate(Optional!(JsObject) valueAsDate) {
+  void valueAsDate(scope ref Optional!(JsObject) valueAsDate) {
     HTMLInputElement_valueAsDate_Set(this._parent, !valueAsDate.empty, valueAsDate.front.handle);
   }
   auto valueAsDate() {
@@ -3365,7 +3421,7 @@ struct HTMLInputElement {
     return HTMLInputElement_willValidate_Get(this._parent);
   }
   auto validity() {
-    return ValidityState(JsHandle(HTMLInputElement_validity_Get(this._parent)));
+    return ValidityState(HTMLInputElement_validity_Get(this._parent));
   }
   auto validationMessage() {
     return HTMLInputElement_validationMessage_Get(this._parent);
@@ -3385,19 +3441,19 @@ struct HTMLInputElement {
   void select() {
     HTMLInputElement_select(this._parent);
   }
-  void selectionStart(Optional!(uint) selectionStart) {
+  void selectionStart(scope ref Optional!(uint) selectionStart) {
     HTMLInputElement_selectionStart_Set(this._parent, !selectionStart.empty, selectionStart.front);
   }
   auto selectionStart() {
     return HTMLInputElement_selectionStart_Get(this._parent);
   }
-  void selectionEnd(Optional!(uint) selectionEnd) {
+  void selectionEnd(scope ref Optional!(uint) selectionEnd) {
     HTMLInputElement_selectionEnd_Set(this._parent, !selectionEnd.empty, selectionEnd.front);
   }
   auto selectionEnd() {
     return HTMLInputElement_selectionEnd_Get(this._parent);
   }
-  void selectionDirection(Optional!(string) selectionDirection) {
+  void selectionDirection(scope ref Optional!(string) selectionDirection) {
     HTMLInputElement_selectionDirection_Set(this._parent, !selectionDirection.empty, selectionDirection.front);
   }
   auto selectionDirection() {
@@ -3435,7 +3491,7 @@ struct HTMLLIElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void value(int value) {
@@ -3455,7 +3511,7 @@ struct HTMLLabelElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   auto form() {
@@ -3475,7 +3531,7 @@ struct HTMLLegendElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   auto form() {
@@ -3492,7 +3548,7 @@ struct HTMLLinkElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void href(string href) {
@@ -3501,7 +3557,7 @@ struct HTMLLinkElement {
   auto href() {
     return HTMLLinkElement_href_Get(this._parent);
   }
-  void crossOrigin(Optional!(string) crossOrigin) {
+  void crossOrigin(scope ref Optional!(string) crossOrigin) {
     HTMLLinkElement_crossOrigin_Set(this._parent, !crossOrigin.empty, crossOrigin.front);
   }
   auto crossOrigin() {
@@ -3520,7 +3576,7 @@ struct HTMLLinkElement {
     return HTMLLinkElement_as_Get(this._parent);
   }
   auto relList() {
-    return DOMTokenList(JsHandle(HTMLLinkElement_relList_Get(this._parent)));
+    return DOMTokenList(HTMLLinkElement_relList_Get(this._parent));
   }
   void media(string media) {
     HTMLLinkElement_media_Set(this._parent, media);
@@ -3547,7 +3603,7 @@ struct HTMLLinkElement {
     return HTMLLinkElement_type_Get(this._parent);
   }
   auto sizes() {
-    return DOMTokenList(JsHandle(HTMLLinkElement_sizes_Get(this._parent)));
+    return DOMTokenList(HTMLLinkElement_sizes_Get(this._parent));
   }
   void referrerPolicy(string referrerPolicy) {
     HTMLLinkElement_referrerPolicy_Set(this._parent, referrerPolicy);
@@ -3578,7 +3634,7 @@ struct HTMLMapElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void name(string name) {
@@ -3588,14 +3644,14 @@ struct HTMLMapElement {
     return HTMLMapElement_name_Get(this._parent);
   }
   auto areas() {
-    return HTMLCollection(JsHandle(HTMLMapElement_areas_Get(this._parent)));
+    return HTMLCollection(HTMLMapElement_areas_Get(this._parent));
   }
 }
 struct HTMLMarqueeElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void behavior(string behavior) {
@@ -3693,7 +3749,7 @@ struct HTMLMediaElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   auto error() {
@@ -3705,7 +3761,7 @@ struct HTMLMediaElement {
   auto src() {
     return HTMLMediaElement_src_Get(this._parent);
   }
-  void srcObject(Optional!(MediaProvider) srcObject) {
+  void srcObject(scope ref Optional!(MediaProvider) srcObject) {
     HTMLMediaElement_srcObject_Set(this._parent, !srcObject.empty, srcObject.front);
   }
   auto srcObject() {
@@ -3714,7 +3770,7 @@ struct HTMLMediaElement {
   auto currentSrc() {
     return HTMLMediaElement_currentSrc_Get(this._parent);
   }
-  void crossOrigin(Optional!(string) crossOrigin) {
+  void crossOrigin(scope ref Optional!(string) crossOrigin) {
     HTMLMediaElement_crossOrigin_Set(this._parent, !crossOrigin.empty, crossOrigin.front);
   }
   auto crossOrigin() {
@@ -3734,7 +3790,7 @@ struct HTMLMediaElement {
     return HTMLMediaElement_preload_Get(this._parent);
   }
   auto buffered() {
-    return TimeRanges(JsHandle(HTMLMediaElement_buffered_Get(this._parent)));
+    return TimeRanges(HTMLMediaElement_buffered_Get(this._parent));
   }
   void load() {
     HTMLMediaElement_load(this._parent);
@@ -3766,7 +3822,7 @@ struct HTMLMediaElement {
     return HTMLMediaElement_duration_Get(this._parent);
   }
   auto getStartDate() {
-    return JsObject(JsHandle(HTMLMediaElement_getStartDate(this._parent)));
+    return JsObject(HTMLMediaElement_getStartDate(this._parent));
   }
   auto paused() {
     return HTMLMediaElement_paused_Get(this._parent);
@@ -3784,10 +3840,10 @@ struct HTMLMediaElement {
     return HTMLMediaElement_playbackRate_Get(this._parent);
   }
   auto played() {
-    return TimeRanges(JsHandle(HTMLMediaElement_played_Get(this._parent)));
+    return TimeRanges(HTMLMediaElement_played_Get(this._parent));
   }
   auto seekable() {
-    return TimeRanges(JsHandle(HTMLMediaElement_seekable_Get(this._parent)));
+    return TimeRanges(HTMLMediaElement_seekable_Get(this._parent));
   }
   auto ended() {
     return HTMLMediaElement_ended_Get(this._parent);
@@ -3805,7 +3861,7 @@ struct HTMLMediaElement {
     return HTMLMediaElement_loop_Get(this._parent);
   }
   auto play() {
-    return Promise!(void)(JsHandle(HTMLMediaElement_play(this._parent)));
+    return Promise!(void)(HTMLMediaElement_play(this._parent));
   }
   void pause() {
     HTMLMediaElement_pause(this._parent);
@@ -3835,29 +3891,29 @@ struct HTMLMediaElement {
     return HTMLMediaElement_defaultMuted_Get(this._parent);
   }
   auto audioTracks() {
-    return AudioTrackList(JsHandle(HTMLMediaElement_audioTracks_Get(this._parent)));
+    return AudioTrackList(HTMLMediaElement_audioTracks_Get(this._parent));
   }
   auto videoTracks() {
-    return VideoTrackList(JsHandle(HTMLMediaElement_videoTracks_Get(this._parent)));
+    return VideoTrackList(HTMLMediaElement_videoTracks_Get(this._parent));
   }
   auto textTracks() {
-    return TextTrackList(JsHandle(HTMLMediaElement_textTracks_Get(this._parent)));
+    return TextTrackList(HTMLMediaElement_textTracks_Get(this._parent));
   }
   auto addTextTrack(TextTrackKind kind, string label /* = "" */, string language /* = "" */) {
-    return TextTrack(JsHandle(HTMLMediaElement_addTextTrack(this._parent, kind, label, language)));
+    return TextTrack(HTMLMediaElement_addTextTrack(this._parent, kind, label, language));
   }
   auto addTextTrack(TextTrackKind kind, string label /* = "" */) {
-    return TextTrack(JsHandle(HTMLMediaElement_addTextTrack_0(this._parent, kind, label)));
+    return TextTrack(HTMLMediaElement_addTextTrack_0(this._parent, kind, label));
   }
   auto addTextTrack(TextTrackKind kind) {
-    return TextTrack(JsHandle(HTMLMediaElement_addTextTrack_1(this._parent, kind)));
+    return TextTrack(HTMLMediaElement_addTextTrack_1(this._parent, kind));
   }
 }
 struct HTMLMenuElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void compact(bool compact) {
@@ -3871,7 +3927,7 @@ struct HTMLMetaElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void name(string name) {
@@ -3903,7 +3959,7 @@ struct HTMLMeterElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void value(double value) {
@@ -3943,14 +3999,14 @@ struct HTMLMeterElement {
     return HTMLMeterElement_optimum_Get(this._parent);
   }
   auto labels() {
-    return NodeList(JsHandle(HTMLMeterElement_labels_Get(this._parent)));
+    return NodeList(HTMLMeterElement_labels_Get(this._parent));
   }
 }
 struct HTMLModElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void cite(string cite) {
@@ -3970,7 +4026,7 @@ struct HTMLOListElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void reversed(bool reversed) {
@@ -4002,7 +4058,7 @@ struct HTMLObjectElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void data(string data) {
@@ -4063,7 +4119,7 @@ struct HTMLObjectElement {
     return HTMLObjectElement_willValidate_Get(this._parent);
   }
   auto validity() {
-    return ValidityState(JsHandle(HTMLObjectElement_validity_Get(this._parent)));
+    return ValidityState(HTMLObjectElement_validity_Get(this._parent));
   }
   auto validationMessage() {
     return HTMLObjectElement_validationMessage_Get(this._parent);
@@ -4142,7 +4198,7 @@ struct HTMLOptGroupElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void disabled(bool disabled) {
@@ -4162,7 +4218,7 @@ struct HTMLOptionElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void disabled(bool disabled) {
@@ -4212,7 +4268,7 @@ struct HTMLOptionsCollection {
   nothrow:
   spasm.bindings.dom.HTMLCollection _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLCollection(h);
   }
   void length(uint length) {
@@ -4221,16 +4277,16 @@ struct HTMLOptionsCollection {
   auto length() {
     return HTMLOptionsCollection_length_Get(this._parent);
   }
-  void opIndexAssign(Optional!(HTMLOptionElement) option, uint index) {
+  void opIndexAssign(scope ref Optional!(HTMLOptionElement) option, uint index) {
     HTMLOptionsCollection_setter__uint_optional_Handle(this._parent, index, !option.empty, option.front._parent);
   }
-  void opDispatch(uint index)(Optional!(HTMLOptionElement) option) {
+  void opDispatch(uint index)(scope ref Optional!(HTMLOptionElement) option) {
     HTMLOptionsCollection_setter__uint_optional_Handle(this._parent, index, !option.empty, option.front._parent);
   }
-  void add(SumType!(HTMLOptionElement, HTMLOptGroupElement) element, Optional!(SumType!(HTMLElement, int)) before /* = no!(SumType!(HTMLElement, int)) */) {
+  void add(scope ref SumType!(HTMLOptionElement, HTMLOptGroupElement) element, scope ref Optional!(SumType!(HTMLElement, int)) before /* = no!(SumType!(HTMLElement, int)) */) {
     HTMLOptionsCollection_add(this._parent, element, !before.empty, before.front);
   }
-  void add(SumType!(HTMLOptionElement, HTMLOptGroupElement) element) {
+  void add(scope ref SumType!(HTMLOptionElement, HTMLOptGroupElement) element) {
     HTMLOptionsCollection_add_0(this._parent, element);
   }
   void remove(int index) {
@@ -4249,11 +4305,11 @@ struct HTMLOutputElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   auto htmlFor() {
-    return DOMTokenList(JsHandle(HTMLOutputElement_htmlFor_Get(this._parent)));
+    return DOMTokenList(HTMLOutputElement_htmlFor_Get(this._parent));
   }
   auto form() {
     return HTMLOutputElement_form_Get(this._parent);
@@ -4283,7 +4339,7 @@ struct HTMLOutputElement {
     return HTMLOutputElement_willValidate_Get(this._parent);
   }
   auto validity() {
-    return ValidityState(JsHandle(HTMLOutputElement_validity_Get(this._parent)));
+    return ValidityState(HTMLOutputElement_validity_Get(this._parent));
   }
   auto validationMessage() {
     return HTMLOutputElement_validationMessage_Get(this._parent);
@@ -4298,14 +4354,14 @@ struct HTMLOutputElement {
     HTMLOutputElement_setCustomValidity(this._parent, error);
   }
   auto labels() {
-    return NodeList(JsHandle(HTMLOutputElement_labels_Get(this._parent)));
+    return NodeList(HTMLOutputElement_labels_Get(this._parent));
   }
 }
 struct HTMLParagraphElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void align_(string align_) {
@@ -4319,7 +4375,7 @@ struct HTMLParamElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void name(string name) {
@@ -4351,7 +4407,7 @@ struct HTMLPictureElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
 }
@@ -4359,7 +4415,7 @@ struct HTMLPreElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void width(int width) {
@@ -4373,7 +4429,7 @@ struct HTMLProgressElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void value(double value) {
@@ -4392,14 +4448,14 @@ struct HTMLProgressElement {
     return HTMLProgressElement_position_Get(this._parent);
   }
   auto labels() {
-    return NodeList(JsHandle(HTMLProgressElement_labels_Get(this._parent)));
+    return NodeList(HTMLProgressElement_labels_Get(this._parent));
   }
 }
 struct HTMLQuoteElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void cite(string cite) {
@@ -4413,7 +4469,7 @@ struct HTMLScriptElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void src(string src) {
@@ -4446,7 +4502,7 @@ struct HTMLScriptElement {
   auto defer() {
     return HTMLScriptElement_defer_Get(this._parent);
   }
-  void crossOrigin(Optional!(string) crossOrigin) {
+  void crossOrigin(scope ref Optional!(string) crossOrigin) {
     HTMLScriptElement_crossOrigin_Set(this._parent, !crossOrigin.empty, crossOrigin.front);
   }
   auto crossOrigin() {
@@ -4493,7 +4549,7 @@ struct HTMLSelectElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void autocomplete(string autocomplete) {
@@ -4545,7 +4601,7 @@ struct HTMLSelectElement {
     return HTMLSelectElement_type_Get(this._parent);
   }
   auto options() {
-    return HTMLOptionsCollection(JsHandle(HTMLSelectElement_options_Get(this._parent)));
+    return HTMLOptionsCollection(HTMLSelectElement_options_Get(this._parent));
   }
   void length(uint length) {
     HTMLSelectElement_length_Set(this._parent, length);
@@ -4559,10 +4615,10 @@ struct HTMLSelectElement {
   auto namedItem(string name) {
     return HTMLSelectElement_namedItem(this._parent, name);
   }
-  void add(SumType!(HTMLOptionElement, HTMLOptGroupElement) element, Optional!(SumType!(HTMLElement, int)) before /* = no!(SumType!(HTMLElement, int)) */) {
+  void add(scope ref SumType!(HTMLOptionElement, HTMLOptGroupElement) element, scope ref Optional!(SumType!(HTMLElement, int)) before /* = no!(SumType!(HTMLElement, int)) */) {
     HTMLSelectElement_add(this._parent, element, !before.empty, before.front);
   }
-  void add(SumType!(HTMLOptionElement, HTMLOptGroupElement) element) {
+  void add(scope ref SumType!(HTMLOptionElement, HTMLOptGroupElement) element) {
     HTMLSelectElement_add_0(this._parent, element);
   }
   void remove() {
@@ -4571,14 +4627,14 @@ struct HTMLSelectElement {
   void remove(int index) {
     HTMLSelectElement_remove__int(this._parent, index);
   }
-  void opIndexAssign(Optional!(HTMLOptionElement) option, uint index) {
+  void opIndexAssign(scope ref Optional!(HTMLOptionElement) option, uint index) {
     HTMLSelectElement_setter__uint_optional_Handle(this._parent, index, !option.empty, option.front._parent);
   }
-  void opDispatch(uint index)(Optional!(HTMLOptionElement) option) {
+  void opDispatch(uint index)(scope ref Optional!(HTMLOptionElement) option) {
     HTMLSelectElement_setter__uint_optional_Handle(this._parent, index, !option.empty, option.front._parent);
   }
   auto selectedOptions() {
-    return HTMLCollection(JsHandle(HTMLSelectElement_selectedOptions_Get(this._parent)));
+    return HTMLCollection(HTMLSelectElement_selectedOptions_Get(this._parent));
   }
   void selectedIndex(int selectedIndex) {
     HTMLSelectElement_selectedIndex_Set(this._parent, selectedIndex);
@@ -4596,7 +4652,7 @@ struct HTMLSelectElement {
     return HTMLSelectElement_willValidate_Get(this._parent);
   }
   auto validity() {
-    return ValidityState(JsHandle(HTMLSelectElement_validity_Get(this._parent)));
+    return ValidityState(HTMLSelectElement_validity_Get(this._parent));
   }
   auto validationMessage() {
     return HTMLSelectElement_validationMessage_Get(this._parent);
@@ -4611,14 +4667,14 @@ struct HTMLSelectElement {
     HTMLSelectElement_setCustomValidity(this._parent, error);
   }
   auto labels() {
-    return NodeList(JsHandle(HTMLSelectElement_labels_Get(this._parent)));
+    return NodeList(HTMLSelectElement_labels_Get(this._parent));
   }
 }
 struct HTMLSlotElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void name(string name) {
@@ -4627,24 +4683,24 @@ struct HTMLSlotElement {
   auto name() {
     return HTMLSlotElement_name_Get(this._parent);
   }
-  auto assignedNodes(AssignedNodesOptions options) {
-    return Sequence!(Node)(JsHandle(HTMLSlotElement_assignedNodes(this._parent, options.handle)));
+  auto assignedNodes(scope ref AssignedNodesOptions options) {
+    return Sequence!(Node)(HTMLSlotElement_assignedNodes(this._parent, options.handle));
   }
   auto assignedNodes() {
-    return Sequence!(Node)(JsHandle(HTMLSlotElement_assignedNodes_0(this._parent)));
+    return Sequence!(Node)(HTMLSlotElement_assignedNodes_0(this._parent));
   }
-  auto assignedElements(AssignedNodesOptions options) {
-    return Sequence!(Element)(JsHandle(HTMLSlotElement_assignedElements(this._parent, options.handle)));
+  auto assignedElements(scope ref AssignedNodesOptions options) {
+    return Sequence!(Element)(HTMLSlotElement_assignedElements(this._parent, options.handle));
   }
   auto assignedElements() {
-    return Sequence!(Element)(JsHandle(HTMLSlotElement_assignedElements_0(this._parent)));
+    return Sequence!(Element)(HTMLSlotElement_assignedElements_0(this._parent));
   }
 }
 struct HTMLSourceElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void src(string src) {
@@ -4682,7 +4738,7 @@ struct HTMLSpanElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
 }
@@ -4690,7 +4746,7 @@ struct HTMLStyleElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void media(string media) {
@@ -4710,7 +4766,7 @@ struct HTMLTableCaptionElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void align_(string align_) {
@@ -4724,7 +4780,7 @@ struct HTMLTableCellElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void colSpan(uint colSpan) {
@@ -4819,7 +4875,7 @@ struct HTMLTableColElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void span(uint span) {
@@ -4863,59 +4919,59 @@ struct HTMLTableElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
-  void caption(Optional!(HTMLTableCaptionElement) caption) {
+  void caption(scope ref Optional!(HTMLTableCaptionElement) caption) {
     HTMLTableElement_caption_Set(this._parent, !caption.empty, caption.front.handle);
   }
   auto caption() {
     return HTMLTableElement_caption_Get(this._parent);
   }
   auto createCaption() {
-    return HTMLTableCaptionElement(JsHandle(HTMLTableElement_createCaption(this._parent)));
+    return HTMLTableCaptionElement(HTMLTableElement_createCaption(this._parent));
   }
   void deleteCaption() {
     HTMLTableElement_deleteCaption(this._parent);
   }
-  void tHead(Optional!(HTMLTableSectionElement) tHead) {
+  void tHead(scope ref Optional!(HTMLTableSectionElement) tHead) {
     HTMLTableElement_tHead_Set(this._parent, !tHead.empty, tHead.front.handle);
   }
   auto tHead() {
     return HTMLTableElement_tHead_Get(this._parent);
   }
   auto createTHead() {
-    return HTMLTableSectionElement(JsHandle(HTMLTableElement_createTHead(this._parent)));
+    return HTMLTableSectionElement(HTMLTableElement_createTHead(this._parent));
   }
   void deleteTHead() {
     HTMLTableElement_deleteTHead(this._parent);
   }
-  void tFoot(Optional!(HTMLTableSectionElement) tFoot) {
+  void tFoot(scope ref Optional!(HTMLTableSectionElement) tFoot) {
     HTMLTableElement_tFoot_Set(this._parent, !tFoot.empty, tFoot.front.handle);
   }
   auto tFoot() {
     return HTMLTableElement_tFoot_Get(this._parent);
   }
   auto createTFoot() {
-    return HTMLTableSectionElement(JsHandle(HTMLTableElement_createTFoot(this._parent)));
+    return HTMLTableSectionElement(HTMLTableElement_createTFoot(this._parent));
   }
   void deleteTFoot() {
     HTMLTableElement_deleteTFoot(this._parent);
   }
   auto tBodies() {
-    return HTMLCollection(JsHandle(HTMLTableElement_tBodies_Get(this._parent)));
+    return HTMLCollection(HTMLTableElement_tBodies_Get(this._parent));
   }
   auto createTBody() {
-    return HTMLTableSectionElement(JsHandle(HTMLTableElement_createTBody(this._parent)));
+    return HTMLTableSectionElement(HTMLTableElement_createTBody(this._parent));
   }
   auto rows() {
-    return HTMLCollection(JsHandle(HTMLTableElement_rows_Get(this._parent)));
+    return HTMLCollection(HTMLTableElement_rows_Get(this._parent));
   }
   auto insertRow(int index /* = -1 */) {
-    return HTMLTableRowElement(JsHandle(HTMLTableElement_insertRow(this._parent, index)));
+    return HTMLTableRowElement(HTMLTableElement_insertRow(this._parent, index));
   }
   auto insertRow() {
-    return HTMLTableRowElement(JsHandle(HTMLTableElement_insertRow_0(this._parent)));
+    return HTMLTableRowElement(HTMLTableElement_insertRow_0(this._parent));
   }
   void deleteRow(int index) {
     HTMLTableElement_deleteRow(this._parent, index);
@@ -4979,7 +5035,7 @@ struct HTMLTableRowElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   auto rowIndex() {
@@ -4989,13 +5045,13 @@ struct HTMLTableRowElement {
     return HTMLTableRowElement_sectionRowIndex_Get(this._parent);
   }
   auto cells() {
-    return HTMLCollection(JsHandle(HTMLTableRowElement_cells_Get(this._parent)));
+    return HTMLCollection(HTMLTableRowElement_cells_Get(this._parent));
   }
   auto insertCell(int index /* = -1 */) {
-    return HTMLTableCellElement(JsHandle(HTMLTableRowElement_insertCell(this._parent, index)));
+    return HTMLTableCellElement(HTMLTableRowElement_insertCell(this._parent, index));
   }
   auto insertCell() {
-    return HTMLTableCellElement(JsHandle(HTMLTableRowElement_insertCell_0(this._parent)));
+    return HTMLTableCellElement(HTMLTableRowElement_insertCell_0(this._parent));
   }
   void deleteCell(int index) {
     HTMLTableRowElement_deleteCell(this._parent, index);
@@ -5035,17 +5091,17 @@ struct HTMLTableSectionElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   auto rows() {
-    return HTMLCollection(JsHandle(HTMLTableSectionElement_rows_Get(this._parent)));
+    return HTMLCollection(HTMLTableSectionElement_rows_Get(this._parent));
   }
   auto insertRow(int index /* = -1 */) {
-    return HTMLTableRowElement(JsHandle(HTMLTableSectionElement_insertRow(this._parent, index)));
+    return HTMLTableRowElement(HTMLTableSectionElement_insertRow(this._parent, index));
   }
   auto insertRow() {
-    return HTMLTableRowElement(JsHandle(HTMLTableSectionElement_insertRow_0(this._parent)));
+    return HTMLTableRowElement(HTMLTableSectionElement_insertRow_0(this._parent));
   }
   void deleteRow(int index) {
     HTMLTableSectionElement_deleteRow(this._parent, index);
@@ -5079,18 +5135,18 @@ struct HTMLTemplateElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   auto content() {
-    return DocumentFragment(JsHandle(HTMLTemplateElement_content_Get(this._parent)));
+    return DocumentFragment(HTMLTemplateElement_content_Get(this._parent));
   }
 }
 struct HTMLTextAreaElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void autocomplete(string autocomplete) {
@@ -5196,7 +5252,7 @@ struct HTMLTextAreaElement {
     return HTMLTextAreaElement_willValidate_Get(this._parent);
   }
   auto validity() {
-    return ValidityState(JsHandle(HTMLTextAreaElement_validity_Get(this._parent)));
+    return ValidityState(HTMLTextAreaElement_validity_Get(this._parent));
   }
   auto validationMessage() {
     return HTMLTextAreaElement_validationMessage_Get(this._parent);
@@ -5211,7 +5267,7 @@ struct HTMLTextAreaElement {
     HTMLTextAreaElement_setCustomValidity(this._parent, error);
   }
   auto labels() {
-    return NodeList(JsHandle(HTMLTextAreaElement_labels_Get(this._parent)));
+    return NodeList(HTMLTextAreaElement_labels_Get(this._parent));
   }
   void select() {
     HTMLTextAreaElement_select(this._parent);
@@ -5254,7 +5310,7 @@ struct HTMLTimeElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void dateTime(string dateTime) {
@@ -5268,7 +5324,7 @@ struct HTMLTitleElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void text(string text) {
@@ -5282,7 +5338,7 @@ struct HTMLTrackElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void kind(string kind) {
@@ -5323,14 +5379,14 @@ struct HTMLTrackElement {
     return HTMLTrackElement_readyState_Get(this._parent);
   }
   auto track() {
-    return TextTrack(JsHandle(HTMLTrackElement_track_Get(this._parent)));
+    return TextTrack(HTMLTrackElement_track_Get(this._parent));
   }
 }
 struct HTMLUListElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
   void compact(bool compact) {
@@ -5350,7 +5406,7 @@ struct HTMLUnknownElement {
   nothrow:
   spasm.bindings.html.HTMLElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLElement(h);
   }
 }
@@ -5358,7 +5414,7 @@ struct HTMLVideoElement {
   nothrow:
   spasm.bindings.html.HTMLMediaElement _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .HTMLMediaElement(h);
   }
   void width(uint width) {
@@ -5396,7 +5452,7 @@ struct HashChangeEvent {
   nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Event(h);
   }
   auto oldURL() {
@@ -5410,11 +5466,11 @@ struct HashChangeEventInit {
   nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventInit(h);
   }
   static auto create() {
-    return HashChangeEventInit(JsHandle(spasm_add__object()));
+    return HashChangeEventInit(spasm_add__object());
   }
   void oldURL(string oldURL) {
     HashChangeEventInit_oldURL_Set(this._parent, oldURL);
@@ -5433,6 +5489,9 @@ struct History {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto length() {
     return History_length_Get(this.handle);
   }
@@ -5443,7 +5502,7 @@ struct History {
     return History_scrollRestoration_Get(this.handle);
   }
   auto state() {
-    return Any(JsHandle(History_state_Get(this.handle)));
+    return Any(History_state_Get(this.handle));
   }
   void go(int delta /* = 0 */) {
     History_go(this.handle, delta);
@@ -5457,22 +5516,22 @@ struct History {
   void forward() {
     History_forward(this.handle);
   }
-  void pushState(T0)(T0 data, string title, Optional!(string) url /* = no!(string) */) {
+  void pushState(T0)(scope auto ref T0 data, string title, scope ref Optional!(string) url /* = no!(string) */) {
     Handle _handle_data = getOrCreateHandle(data);
     History_pushState(this.handle, _handle_data, title, !url.empty, url.front);
     dropHandle!(T0)(_handle_data);
   }
-  void pushState(T0)(T0 data, string title) {
+  void pushState(T0)(scope auto ref T0 data, string title) {
     Handle _handle_data = getOrCreateHandle(data);
     History_pushState_0(this.handle, _handle_data, title);
     dropHandle!(T0)(_handle_data);
   }
-  void replaceState(T0)(T0 data, string title, Optional!(string) url /* = no!(string) */) {
+  void replaceState(T0)(scope auto ref T0 data, string title, scope ref Optional!(string) url /* = no!(string) */) {
     Handle _handle_data = getOrCreateHandle(data);
     History_replaceState(this.handle, _handle_data, title, !url.empty, url.front);
     dropHandle!(T0)(_handle_data);
   }
-  void replaceState(T0)(T0 data, string title) {
+  void replaceState(T0)(scope auto ref T0 data, string title) {
     Handle _handle_data = getOrCreateHandle(data);
     History_replaceState_0(this.handle, _handle_data, title);
     dropHandle!(T0)(_handle_data);
@@ -5482,6 +5541,9 @@ struct ImageBitmap {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto width() {
     return ImageBitmap_width_Get(this.handle);
   }
@@ -5496,8 +5558,11 @@ struct ImageBitmapOptions {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return ImageBitmapOptions(JsHandle(spasm_add__object()));
+    return ImageBitmapOptions(spasm_add__object());
   }
   void imageOrientation(ImageOrientation imageOrientation) {
     ImageBitmapOptions_imageOrientation_Set(this.handle, imageOrientation);
@@ -5540,10 +5605,13 @@ struct ImageBitmapRenderingContext {
   nothrow:
   JsHandle handle;
   alias handle this;
-  auto canvas() {
-    return HTMLCanvasElement(JsHandle(ImageBitmapRenderingContext_canvas_Get(this.handle)));
+  this(Handle h) {
+    this.handle = JsHandle(h);
   }
-  void transferFromImageBitmap(Optional!(ImageBitmap) bitmap) {
+  auto canvas() {
+    return HTMLCanvasElement(ImageBitmapRenderingContext_canvas_Get(this.handle));
+  }
+  void transferFromImageBitmap(scope ref Optional!(ImageBitmap) bitmap) {
     ImageBitmapRenderingContext_transferFromImageBitmap(this.handle, !bitmap.empty, bitmap.front.handle);
   }
 }
@@ -5551,8 +5619,11 @@ struct ImageBitmapRenderingContextSettings {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return ImageBitmapRenderingContextSettings(JsHandle(spasm_add__object()));
+    return ImageBitmapRenderingContextSettings(spasm_add__object());
   }
   void alpha(bool alpha) {
     ImageBitmapRenderingContextSettings_alpha_Set(this.handle, alpha);
@@ -5566,6 +5637,9 @@ struct ImageData {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto width() {
     return ImageData_width_Get(this.handle);
   }
@@ -5573,15 +5647,18 @@ struct ImageData {
     return ImageData_height_Get(this.handle);
   }
   auto data() {
-    return Uint8ClampedArray(JsHandle(ImageData_data_Get(this.handle)));
+    return Uint8ClampedArray(ImageData_data_Get(this.handle));
   }
 }
 struct ImageEncodeOptions {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return ImageEncodeOptions(JsHandle(spasm_add__object()));
+    return ImageEncodeOptions(spasm_add__object());
   }
   void type(string type) {
     ImageEncodeOptions_type_Set(this.handle, type);
@@ -5609,6 +5686,9 @@ struct Location {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   void href(string href) {
     Location_href_Set(this.handle, href);
   }
@@ -5670,13 +5750,16 @@ struct Location {
     Location_reload(this.handle);
   }
   auto ancestorOrigins() {
-    return DOMStringList(JsHandle(Location_ancestorOrigins_Get(this.handle)));
+    return DOMStringList(Location_ancestorOrigins_Get(this.handle));
   }
 }
 struct MediaError {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   enum ushort MEDIA_ERR_ABORTED = 1;
   enum ushort MEDIA_ERR_NETWORK = 2;
   enum ushort MEDIA_ERR_DECODE = 3;
@@ -5693,22 +5776,25 @@ struct MessageChannel {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto port1() {
-    return MessagePort(JsHandle(MessageChannel_port1_Get(this.handle)));
+    return MessagePort(MessageChannel_port1_Get(this.handle));
   }
   auto port2() {
-    return MessagePort(JsHandle(MessageChannel_port2_Get(this.handle)));
+    return MessagePort(MessageChannel_port2_Get(this.handle));
   }
 }
 struct MessageEvent {
   nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Event(h);
   }
   auto data() {
-    return Any(JsHandle(MessageEvent_data_Get(this._parent)));
+    return Any(MessageEvent_data_Get(this._parent));
   }
   auto origin() {
     return MessageEvent_origin_Get(this._parent);
@@ -5720,29 +5806,29 @@ struct MessageEvent {
     return MessageEvent_source_Get(this._parent);
   }
   auto ports() {
-    return FrozenArray!(MessagePort)(JsHandle(MessageEvent_ports_Get(this._parent)));
+    return FrozenArray!(MessagePort)(MessageEvent_ports_Get(this._parent));
   }
-  void initMessageEvent(T3)(string type, bool bubbles /* = false */, bool cancelable /* = false */, T3 data /* = null */, string origin /* = "" */, string lastEventId /* = "" */, Optional!(MessageEventSource) source /* = no!(MessageEventSource) */, Sequence!(MessagePort) ports /* = [] */) {
+  void initMessageEvent(T3)(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope auto ref T3 data /* = null */, string origin /* = "" */, string lastEventId /* = "" */, scope ref Optional!(MessageEventSource) source /* = no!(MessageEventSource) */, scope ref Sequence!(MessagePort) ports /* = [] */) {
     Handle _handle_data = getOrCreateHandle(data);
     MessageEvent_initMessageEvent(this._parent, type, bubbles, cancelable, _handle_data, origin, lastEventId, !source.empty, source.front, ports.handle);
     dropHandle!(T3)(_handle_data);
   }
-  void initMessageEvent(T3)(string type, bool bubbles /* = false */, bool cancelable /* = false */, T3 data /* = null */, string origin /* = "" */, string lastEventId /* = "" */, Optional!(MessageEventSource) source /* = no!(MessageEventSource) */) {
+  void initMessageEvent(T3)(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope auto ref T3 data /* = null */, string origin /* = "" */, string lastEventId /* = "" */, scope ref Optional!(MessageEventSource) source /* = no!(MessageEventSource) */) {
     Handle _handle_data = getOrCreateHandle(data);
     MessageEvent_initMessageEvent_0(this._parent, type, bubbles, cancelable, _handle_data, origin, lastEventId, !source.empty, source.front);
     dropHandle!(T3)(_handle_data);
   }
-  void initMessageEvent(T3)(string type, bool bubbles /* = false */, bool cancelable /* = false */, T3 data /* = null */, string origin /* = "" */, string lastEventId /* = "" */) {
+  void initMessageEvent(T3)(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope auto ref T3 data /* = null */, string origin /* = "" */, string lastEventId /* = "" */) {
     Handle _handle_data = getOrCreateHandle(data);
     MessageEvent_initMessageEvent_1(this._parent, type, bubbles, cancelable, _handle_data, origin, lastEventId);
     dropHandle!(T3)(_handle_data);
   }
-  void initMessageEvent(T3)(string type, bool bubbles /* = false */, bool cancelable /* = false */, T3 data /* = null */, string origin /* = "" */) {
+  void initMessageEvent(T3)(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope auto ref T3 data /* = null */, string origin /* = "" */) {
     Handle _handle_data = getOrCreateHandle(data);
     MessageEvent_initMessageEvent_2(this._parent, type, bubbles, cancelable, _handle_data, origin);
     dropHandle!(T3)(_handle_data);
   }
-  void initMessageEvent(T3)(string type, bool bubbles /* = false */, bool cancelable /* = false */, T3 data /* = null */) {
+  void initMessageEvent(T3)(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope auto ref T3 data /* = null */) {
     Handle _handle_data = getOrCreateHandle(data);
     MessageEvent_initMessageEvent_3(this._parent, type, bubbles, cancelable, _handle_data);
     dropHandle!(T3)(_handle_data);
@@ -5761,19 +5847,19 @@ struct MessageEventInit {
   nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventInit(h);
   }
   static auto create() {
-    return MessageEventInit(JsHandle(spasm_add__object()));
+    return MessageEventInit(spasm_add__object());
   }
-  void data(T0)(T0 data) {
+  void data(T0)(scope auto ref T0 data) {
     Handle _handle_data = getOrCreateHandle(data);
     MessageEventInit_data_Set(this._parent, _handle_data);
     dropHandle!(T0)(_handle_data);
   }
   auto data() {
-    return Any(JsHandle(MessageEventInit_data_Get(this._parent)));
+    return Any(MessageEventInit_data_Get(this._parent));
   }
   void origin(string origin) {
     MessageEventInit_origin_Set(this._parent, origin);
@@ -5787,17 +5873,17 @@ struct MessageEventInit {
   auto lastEventId() {
     return MessageEventInit_lastEventId_Get(this._parent);
   }
-  void source(Optional!(MessageEventSource) source) {
+  void source(scope ref Optional!(MessageEventSource) source) {
     MessageEventInit_source_Set(this._parent, !source.empty, source.front);
   }
   auto source() {
     return MessageEventInit_source_Get(this._parent);
   }
-  void ports(Sequence!(MessagePort) ports) {
+  void ports(scope ref Sequence!(MessagePort) ports) {
     MessageEventInit_ports_Set(this._parent, ports.handle);
   }
   auto ports() {
-    return Sequence!(MessagePort)(JsHandle(MessageEventInit_ports_Get(this._parent)));
+    return Sequence!(MessagePort)(MessageEventInit_ports_Get(this._parent));
   }
 }
 alias MessageEventSource = SumType!(Window, MessagePort, ServiceWorker);
@@ -5805,20 +5891,20 @@ struct MessagePort {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
-  void postMessage(T0)(T0 message, Sequence!(JsObject) transfer) {
+  void postMessage(T0)(scope auto ref T0 message, scope ref Sequence!(JsObject) transfer) {
     Handle _handle_message = getOrCreateHandle(message);
     MessagePort_postMessage__Handle_sequence(this._parent, _handle_message, transfer.handle);
     dropHandle!(T0)(_handle_message);
   }
-  void postMessage(T0)(T0 message, PostMessageOptions options) {
+  void postMessage(T0)(scope auto ref T0 message, scope ref PostMessageOptions options) {
     Handle _handle_message = getOrCreateHandle(message);
     MessagePort_postMessage__Handle_Handle(this._parent, _handle_message, options.handle);
     dropHandle!(T0)(_handle_message);
   }
-  void postMessage(T0)(T0 message) {
+  void postMessage(T0)(scope auto ref T0 message) {
     Handle _handle_message = getOrCreateHandle(message);
     MessagePort_postMessage_0(this._parent, _handle_message);
     dropHandle!(T0)(_handle_message);
@@ -5846,6 +5932,9 @@ struct MimeType {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto type() {
     return MimeType_type_Get(this.handle);
   }
@@ -5856,13 +5945,16 @@ struct MimeType {
     return MimeType_suffixes_Get(this.handle);
   }
   auto enabledPlugin() {
-    return Plugin(JsHandle(MimeType_enabledPlugin_Get(this.handle)));
+    return Plugin(MimeType_enabledPlugin_Get(this.handle));
   }
 }
 struct MimeTypeArray {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto length() {
     return MimeTypeArray_length_Get(this.handle);
   }
@@ -5877,35 +5969,38 @@ struct Navigator {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto clipboard() {
-    return Clipboard(JsHandle(Navigator_clipboard_Get(this.handle)));
+    return Clipboard(Navigator_clipboard_Get(this.handle));
   }
   auto permissions() {
-    return Permissions(JsHandle(Navigator_permissions_Get(this.handle)));
+    return Permissions(Navigator_permissions_Get(this.handle));
   }
-  auto vibrate(VibratePattern pattern) {
+  auto vibrate(scope ref VibratePattern pattern) {
     return Navigator_vibrate(this.handle, pattern);
   }
   auto mediaDevices() {
-    return MediaDevices(JsHandle(Navigator_mediaDevices_Get(this.handle)));
+    return MediaDevices(Navigator_mediaDevices_Get(this.handle));
   }
-  void getUserMedia(MediaStreamConstraints constraints, NavigatorUserMediaSuccessCallback successCallback, NavigatorUserMediaErrorCallback errorCallback) {
+  void getUserMedia(scope ref MediaStreamConstraints constraints, NavigatorUserMediaSuccessCallback successCallback, NavigatorUserMediaErrorCallback errorCallback) {
     Navigator_getUserMedia(this.handle, constraints.handle, successCallback, errorCallback);
   }
   auto maxTouchPoints() {
     return Navigator_maxTouchPoints_Get(this.handle);
   }
   auto serviceWorker() {
-    return ServiceWorkerContainer(JsHandle(Navigator_serviceWorker_Get(this.handle)));
+    return ServiceWorkerContainer(Navigator_serviceWorker_Get(this.handle));
   }
   auto hardwareConcurrency() {
     return NavigatorConcurrentHardware_hardwareConcurrency_Get(this.handle);
   }
   auto plugins() {
-    return PluginArray(JsHandle(NavigatorPlugins_plugins_Get(this.handle)));
+    return PluginArray(NavigatorPlugins_plugins_Get(this.handle));
   }
   auto mimeTypes() {
-    return MimeTypeArray(JsHandle(NavigatorPlugins_mimeTypes_Get(this.handle)));
+    return MimeTypeArray(NavigatorPlugins_mimeTypes_Get(this.handle));
   }
   auto javaEnabled() {
     return NavigatorPlugins_javaEnabled(this.handle);
@@ -5926,7 +6021,7 @@ struct Navigator {
     return NavigatorLanguage_language_Get(this.handle);
   }
   auto languages() {
-    return FrozenArray!(string)(JsHandle(NavigatorLanguage_languages_Get(this.handle)));
+    return FrozenArray!(string)(NavigatorLanguage_languages_Get(this.handle));
   }
   auto appCodeName() {
     return NavigatorID_appCodeName_Get(this.handle);
@@ -5966,7 +6061,7 @@ struct OffscreenCanvas {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   void width(ulong width) {
@@ -5981,7 +6076,7 @@ struct OffscreenCanvas {
   auto height() {
     return OffscreenCanvas_height_Get(this._parent);
   }
-  auto getContext(T1)(OffscreenRenderingContextId contextId, T1 options /* = null */) {
+  auto getContext(T1)(OffscreenRenderingContextId contextId, scope auto ref T1 options /* = null */) {
     Handle _handle_options = getOrCreateHandle(options);
     auto result = OffscreenCanvas_getContext(this._parent, contextId, _handle_options);
     dropHandle!(T1)(_handle_options);
@@ -5991,24 +6086,27 @@ struct OffscreenCanvas {
     return OffscreenCanvas_getContext_0(this._parent, contextId);
   }
   auto transferToImageBitmap() {
-    return ImageBitmap(JsHandle(OffscreenCanvas_transferToImageBitmap(this._parent)));
+    return ImageBitmap(OffscreenCanvas_transferToImageBitmap(this._parent));
   }
-  auto convertToBlob(ImageEncodeOptions options) {
-    return Promise!(Blob)(JsHandle(OffscreenCanvas_convertToBlob(this._parent, options.handle)));
+  auto convertToBlob(scope ref ImageEncodeOptions options) {
+    return Promise!(Blob)(OffscreenCanvas_convertToBlob(this._parent, options.handle));
   }
   auto convertToBlob() {
-    return Promise!(Blob)(JsHandle(OffscreenCanvas_convertToBlob_0(this._parent)));
+    return Promise!(Blob)(OffscreenCanvas_convertToBlob_0(this._parent));
   }
 }
 struct OffscreenCanvasRenderingContext2D {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   void commit() {
     OffscreenCanvasRenderingContext2D_commit(this.handle);
   }
   auto canvas() {
-    return OffscreenCanvas(JsHandle(OffscreenCanvasRenderingContext2D_canvas_Get(this.handle)));
+    return OffscreenCanvas(OffscreenCanvasRenderingContext2D_canvas_Get(this.handle));
   }
   void closePath() {
     CanvasPath_closePath(this.handle);
@@ -6091,11 +6189,11 @@ struct OffscreenCanvasRenderingContext2D {
   auto miterLimit() {
     return CanvasPathDrawingStyles_miterLimit_Get(this.handle);
   }
-  void setLineDash(Sequence!(double) segments) {
+  void setLineDash(scope ref Sequence!(double) segments) {
     CanvasPathDrawingStyles_setLineDash(this.handle, segments.handle);
   }
   auto getLineDash() {
-    return Sequence!(double)(JsHandle(CanvasPathDrawingStyles_getLineDash(this.handle)));
+    return Sequence!(double)(CanvasPathDrawingStyles_getLineDash(this.handle));
   }
   void lineDashOffset(double lineDashOffset) {
     CanvasPathDrawingStyles_lineDashOffset_Set(this.handle, lineDashOffset);
@@ -6104,27 +6202,27 @@ struct OffscreenCanvasRenderingContext2D {
     return CanvasPathDrawingStyles_lineDashOffset_Get(this.handle);
   }
   auto createImageData(int sw, int sh) {
-    return ImageData(JsHandle(CanvasImageData_createImageData__int_int(this.handle, sw, sh)));
+    return ImageData(CanvasImageData_createImageData__int_int(this.handle, sw, sh));
   }
-  auto createImageData(ImageData imagedata) {
-    return ImageData(JsHandle(CanvasImageData_createImageData__Handle(this.handle, imagedata.handle)));
+  auto createImageData(scope ref ImageData imagedata) {
+    return ImageData(CanvasImageData_createImageData__Handle(this.handle, imagedata.handle));
   }
   auto getImageData(int sx, int sy, int sw, int sh) {
-    return ImageData(JsHandle(CanvasImageData_getImageData(this.handle, sx, sy, sw, sh)));
+    return ImageData(CanvasImageData_getImageData(this.handle, sx, sy, sw, sh));
   }
-  void putImageData(ImageData imagedata, int dx, int dy) {
+  void putImageData(scope ref ImageData imagedata, int dx, int dy) {
     CanvasImageData_putImageData__Handle_int_int(this.handle, imagedata.handle, dx, dy);
   }
-  void putImageData(ImageData imagedata, int dx, int dy, int dirtyX, int dirtyY, int dirtyWidth, int dirtyHeight) {
+  void putImageData(scope ref ImageData imagedata, int dx, int dy, int dirtyX, int dirtyY, int dirtyWidth, int dirtyHeight) {
     CanvasImageData_putImageData__Handle_int_int_int_int_int_int(this.handle, imagedata.handle, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight);
   }
-  void drawImage(CanvasImageSource image, double dx, double dy) {
+  void drawImage(scope ref CanvasImageSource image, double dx, double dy) {
     CanvasDrawImage_drawImage__CanvasImageSource_double_double(this.handle, image, dx, dy);
   }
-  void drawImage(CanvasImageSource image, double dx, double dy, double dw, double dh) {
+  void drawImage(scope ref CanvasImageSource image, double dx, double dy, double dw, double dh) {
     CanvasDrawImage_drawImage__CanvasImageSource_double_double_double_double(this.handle, image, dx, dy, dw, dh);
   }
-  void drawImage(CanvasImageSource image, double sx, double sy, double sw, double sh, double dx, double dy, double dw, double dh) {
+  void drawImage(scope ref CanvasImageSource image, double sx, double sy, double sw, double sh, double dx, double dy, double dw, double dh) {
     CanvasDrawImage_drawImage__CanvasImageSource_double_double_double_double_double_double_double_double(this.handle, image, sx, sy, sw, sh, dx, dy, dw, dh);
   }
   void fillText(string text, double x, double y, double maxWidth) {
@@ -6140,7 +6238,7 @@ struct OffscreenCanvasRenderingContext2D {
     CanvasText_strokeText_0(this.handle, text, x, y);
   }
   auto measureText(string text) {
-    return TextMetrics(JsHandle(CanvasText_measureText(this.handle, text)));
+    return TextMetrics(CanvasText_measureText(this.handle, text));
   }
   void beginPath() {
     CanvasDrawPath_beginPath(this.handle);
@@ -6151,16 +6249,16 @@ struct OffscreenCanvasRenderingContext2D {
   void fill() {
     CanvasDrawPath_fill_0_(this.handle);
   }
-  void fill(Path2D path, CanvasFillRule fillRule /* = "nonzero" */) {
+  void fill(scope ref Path2D path, CanvasFillRule fillRule /* = "nonzero" */) {
     CanvasDrawPath_fill__Handle_CanvasFillRule(this.handle, path.handle, fillRule);
   }
-  void fill(Path2D path) {
+  void fill(scope ref Path2D path) {
     CanvasDrawPath_fill_0_Handle(this.handle, path.handle);
   }
   void stroke() {
     CanvasDrawPath_stroke__(this.handle);
   }
-  void stroke(Path2D path) {
+  void stroke(scope ref Path2D path) {
     CanvasDrawPath_stroke__Handle(this.handle, path.handle);
   }
   void clip(CanvasFillRule fillRule /* = "nonzero" */) {
@@ -6169,10 +6267,10 @@ struct OffscreenCanvasRenderingContext2D {
   void clip() {
     CanvasDrawPath_clip_0_(this.handle);
   }
-  void clip(Path2D path, CanvasFillRule fillRule /* = "nonzero" */) {
+  void clip(scope ref Path2D path, CanvasFillRule fillRule /* = "nonzero" */) {
     CanvasDrawPath_clip__Handle_CanvasFillRule(this.handle, path.handle, fillRule);
   }
-  void clip(Path2D path) {
+  void clip(scope ref Path2D path) {
     CanvasDrawPath_clip_0_Handle(this.handle, path.handle);
   }
   auto isPointInPath(double x, double y, CanvasFillRule fillRule /* = "nonzero" */) {
@@ -6181,16 +6279,16 @@ struct OffscreenCanvasRenderingContext2D {
   auto isPointInPath(double x, double y) {
     return CanvasDrawPath_isPointInPath_0_double_double(this.handle, x, y);
   }
-  auto isPointInPath(Path2D path, double x, double y, CanvasFillRule fillRule /* = "nonzero" */) {
+  auto isPointInPath(scope ref Path2D path, double x, double y, CanvasFillRule fillRule /* = "nonzero" */) {
     return CanvasDrawPath_isPointInPath__Handle_double_double_CanvasFillRule(this.handle, path.handle, x, y, fillRule);
   }
-  auto isPointInPath(Path2D path, double x, double y) {
+  auto isPointInPath(scope ref Path2D path, double x, double y) {
     return CanvasDrawPath_isPointInPath_0_Handle_double_double(this.handle, path.handle, x, y);
   }
   auto isPointInStroke(double x, double y) {
     return CanvasDrawPath_isPointInStroke__double_double(this.handle, x, y);
   }
-  auto isPointInStroke(Path2D path, double x, double y) {
+  auto isPointInStroke(scope ref Path2D path, double x, double y) {
     return CanvasDrawPath_isPointInStroke__Handle_double_double(this.handle, path.handle, x, y);
   }
   void clearRect(double x, double y, double w, double h) {
@@ -6232,25 +6330,25 @@ struct OffscreenCanvasRenderingContext2D {
   auto shadowColor() {
     return CanvasShadowStyles_shadowColor_Get(this.handle);
   }
-  void strokeStyle(SumType!(string, CanvasGradient, CanvasPattern) strokeStyle) {
+  void strokeStyle(scope ref SumType!(string, CanvasGradient, CanvasPattern) strokeStyle) {
     CanvasFillStrokeStyles_strokeStyle_Set(this.handle, strokeStyle);
   }
   auto strokeStyle() {
     return CanvasFillStrokeStyles_strokeStyle_Get(this.handle);
   }
-  void fillStyle(SumType!(string, CanvasGradient, CanvasPattern) fillStyle) {
+  void fillStyle(scope ref SumType!(string, CanvasGradient, CanvasPattern) fillStyle) {
     CanvasFillStrokeStyles_fillStyle_Set(this.handle, fillStyle);
   }
   auto fillStyle() {
     return CanvasFillStrokeStyles_fillStyle_Get(this.handle);
   }
   auto createLinearGradient(double x0, double y0, double x1, double y1) {
-    return CanvasGradient(JsHandle(CanvasFillStrokeStyles_createLinearGradient(this.handle, x0, y0, x1, y1)));
+    return CanvasGradient(CanvasFillStrokeStyles_createLinearGradient(this.handle, x0, y0, x1, y1));
   }
   auto createRadialGradient(double x0, double y0, double r0, double x1, double y1, double r1) {
-    return CanvasGradient(JsHandle(CanvasFillStrokeStyles_createRadialGradient(this.handle, x0, y0, r0, x1, y1, r1)));
+    return CanvasGradient(CanvasFillStrokeStyles_createRadialGradient(this.handle, x0, y0, r0, x1, y1, r1));
   }
-  auto createPattern(CanvasImageSource image, string repetition) {
+  auto createPattern(scope ref CanvasImageSource image, string repetition) {
     return CanvasFillStrokeStyles_createPattern(this.handle, image, repetition);
   }
   void globalAlpha(double globalAlpha) {
@@ -6278,12 +6376,12 @@ struct OffscreenCanvasRenderingContext2D {
     CanvasTransform_transform(this.handle, a, b, c, d, e, f);
   }
   auto getTransform() {
-    return DOMMatrix(JsHandle(CanvasTransform_getTransform(this.handle)));
+    return DOMMatrix(CanvasTransform_getTransform(this.handle));
   }
   void setTransform(double a, double b, double c, double d, double e, double f) {
     CanvasTransform_setTransform__double_double_double_double_double_double(this.handle, a, b, c, d, e, f);
   }
-  void setTransform(DOMMatrix2DInit transform) {
+  void setTransform(scope ref DOMMatrix2DInit transform) {
     CanvasTransform_setTransform__Handle(this.handle, transform.handle);
   }
   void setTransform() {
@@ -6325,7 +6423,7 @@ struct PageTransitionEvent {
   nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Event(h);
   }
   auto persisted() {
@@ -6336,11 +6434,11 @@ struct PageTransitionEventInit {
   nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventInit(h);
   }
   static auto create() {
-    return PageTransitionEventInit(JsHandle(spasm_add__object()));
+    return PageTransitionEventInit(spasm_add__object());
   }
   void persisted(bool persisted) {
     PageTransitionEventInit_persisted_Set(this._parent, persisted);
@@ -6353,10 +6451,13 @@ struct Path2D {
   nothrow:
   JsHandle handle;
   alias handle this;
-  void addPath(Path2D path, DOMMatrix2DInit transform) {
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
+  void addPath(scope ref Path2D path, scope ref DOMMatrix2DInit transform) {
     Path2D_addPath(this.handle, path.handle, transform.handle);
   }
-  void addPath(Path2D path) {
+  void addPath(scope ref Path2D path) {
     Path2D_addPath_0(this.handle, path.handle);
   }
   void closePath() {
@@ -6397,6 +6498,9 @@ struct Plugin {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto name() {
     return Plugin_name_Get(this.handle);
   }
@@ -6420,6 +6524,9 @@ struct PluginArray {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   void refresh(bool reload /* = false */) {
     PluginArray_refresh(this.handle, reload);
   }
@@ -6440,44 +6547,47 @@ struct PopStateEvent {
   nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Event(h);
   }
   auto state() {
-    return Any(JsHandle(PopStateEvent_state_Get(this._parent)));
+    return Any(PopStateEvent_state_Get(this._parent));
   }
 }
 struct PopStateEventInit {
   nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventInit(h);
   }
   static auto create() {
-    return PopStateEventInit(JsHandle(spasm_add__object()));
+    return PopStateEventInit(spasm_add__object());
   }
-  void state(T0)(T0 state) {
+  void state(T0)(scope auto ref T0 state) {
     Handle _handle_state = getOrCreateHandle(state);
     PopStateEventInit_state_Set(this._parent, _handle_state);
     dropHandle!(T0)(_handle_state);
   }
   auto state() {
-    return Any(JsHandle(PopStateEventInit_state_Get(this._parent)));
+    return Any(PopStateEventInit_state_Get(this._parent));
   }
 }
 struct PostMessageOptions {
   nothrow:
   JsHandle handle;
   alias handle this;
-  static auto create() {
-    return PostMessageOptions(JsHandle(spasm_add__object()));
+  this(Handle h) {
+    this.handle = JsHandle(h);
   }
-  void transfer(Sequence!(JsObject) transfer) {
+  static auto create() {
+    return PostMessageOptions(spasm_add__object());
+  }
+  void transfer(scope ref Sequence!(JsObject) transfer) {
     PostMessageOptions_transfer_Set(this.handle, transfer.handle);
   }
   auto transfer() {
-    return Sequence!(JsObject)(JsHandle(PostMessageOptions_transfer_Get(this.handle)));
+    return Sequence!(JsObject)(PostMessageOptions_transfer_Get(this.handle));
   }
 }
 enum PremultiplyAlpha {
@@ -6489,46 +6599,46 @@ struct PromiseRejectionEvent {
   nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Event(h);
   }
   auto promise() {
-    return Promise!(Any)(JsHandle(PromiseRejectionEvent_promise_Get(this._parent)));
+    return Promise!(Any)(PromiseRejectionEvent_promise_Get(this._parent));
   }
   auto reason() {
-    return Any(JsHandle(PromiseRejectionEvent_reason_Get(this._parent)));
+    return Any(PromiseRejectionEvent_reason_Get(this._parent));
   }
 }
 struct PromiseRejectionEventInit {
   nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventInit(h);
   }
   static auto create() {
-    return PromiseRejectionEventInit(JsHandle(spasm_add__object()));
+    return PromiseRejectionEventInit(spasm_add__object());
   }
-  void promise(Promise!(Any) promise) {
+  void promise(scope ref Promise!(Any) promise) {
     PromiseRejectionEventInit_promise_Set(this._parent, promise.handle);
   }
   auto promise() {
-    return Promise!(Any)(JsHandle(PromiseRejectionEventInit_promise_Get(this._parent)));
+    return Promise!(Any)(PromiseRejectionEventInit_promise_Get(this._parent));
   }
-  void reason(T0)(T0 reason) {
+  void reason(T0)(scope auto ref T0 reason) {
     Handle _handle_reason = getOrCreateHandle(reason);
     PromiseRejectionEventInit_reason_Set(this._parent, _handle_reason);
     dropHandle!(T0)(_handle_reason);
   }
   auto reason() {
-    return Any(JsHandle(PromiseRejectionEventInit_reason_Get(this._parent)));
+    return Any(PromiseRejectionEventInit_reason_Get(this._parent));
   }
 }
 struct RadioNodeList {
   nothrow:
   spasm.bindings.dom.NodeList _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .NodeList(h);
   }
   void value(string value) {
@@ -6559,11 +6669,11 @@ struct SharedWorker {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   auto port() {
-    return MessagePort(JsHandle(SharedWorker_port_Get(this._parent)));
+    return MessagePort(SharedWorker_port_Get(this._parent));
   }
   void onerror(EventHandler onerror) {
     AbstractWorker_onerror_Set(this._parent, onerror);
@@ -6572,20 +6682,20 @@ struct SharedWorker {
     return AbstractWorker_onerror_Get(this._parent);
   }
   auto FileReaderSync() {
-    return .FileReaderSync(JsHandle(SharedWorker_FileReaderSync(this._parent)));
+    return .FileReaderSync(SharedWorker_FileReaderSync(this._parent));
   }
-  auto ProgressEvent(string type, ProgressEventInit eventInitDict) {
-    return .ProgressEvent(JsHandle(SharedWorker_ProgressEvent(this._parent, type, eventInitDict._parent)));
+  auto ProgressEvent(string type, scope ref ProgressEventInit eventInitDict) {
+    return .ProgressEvent(SharedWorker_ProgressEvent(this._parent, type, eventInitDict._parent));
   }
   auto XMLHttpRequest() {
-    return .XMLHttpRequest(JsHandle(SharedWorker_XMLHttpRequest(this._parent)));
+    return .XMLHttpRequest(SharedWorker_XMLHttpRequest(this._parent));
   }
 }
 struct SharedWorkerGlobalScope {
   nothrow:
   spasm.bindings.html.WorkerGlobalScope _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .WorkerGlobalScope(h);
   }
   auto name() {
@@ -6605,6 +6715,9 @@ struct Storage {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto length() {
     return Storage_length_Get(this.handle);
   }
@@ -6628,7 +6741,7 @@ struct StorageEvent {
   nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Event(h);
   }
   auto key() {
@@ -6646,19 +6759,19 @@ struct StorageEvent {
   auto storageArea() {
     return StorageEvent_storageArea_Get(this._parent);
   }
-  void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, Optional!(string) key /* = no!(string) */, Optional!(string) oldValue /* = no!(string) */, Optional!(string) newValue /* = no!(string) */, string url /* = "" */, Optional!(Storage) storageArea /* = no!(Storage) */) {
+  void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope ref Optional!(string) key /* = no!(string) */, scope ref Optional!(string) oldValue /* = no!(string) */, scope ref Optional!(string) newValue /* = no!(string) */, string url /* = "" */, scope ref Optional!(Storage) storageArea /* = no!(Storage) */) {
     StorageEvent_initStorageEvent(this._parent, type, bubbles, cancelable, !key.empty, key.front, !oldValue.empty, oldValue.front, !newValue.empty, newValue.front, url, !storageArea.empty, storageArea.front.handle);
   }
-  void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, Optional!(string) key /* = no!(string) */, Optional!(string) oldValue /* = no!(string) */, Optional!(string) newValue /* = no!(string) */, string url /* = "" */) {
+  void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope ref Optional!(string) key /* = no!(string) */, scope ref Optional!(string) oldValue /* = no!(string) */, scope ref Optional!(string) newValue /* = no!(string) */, string url /* = "" */) {
     StorageEvent_initStorageEvent_0(this._parent, type, bubbles, cancelable, !key.empty, key.front, !oldValue.empty, oldValue.front, !newValue.empty, newValue.front, url);
   }
-  void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, Optional!(string) key /* = no!(string) */, Optional!(string) oldValue /* = no!(string) */, Optional!(string) newValue /* = no!(string) */) {
+  void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope ref Optional!(string) key /* = no!(string) */, scope ref Optional!(string) oldValue /* = no!(string) */, scope ref Optional!(string) newValue /* = no!(string) */) {
     StorageEvent_initStorageEvent_1(this._parent, type, bubbles, cancelable, !key.empty, key.front, !oldValue.empty, oldValue.front, !newValue.empty, newValue.front);
   }
-  void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, Optional!(string) key /* = no!(string) */, Optional!(string) oldValue /* = no!(string) */) {
+  void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope ref Optional!(string) key /* = no!(string) */, scope ref Optional!(string) oldValue /* = no!(string) */) {
     StorageEvent_initStorageEvent_2(this._parent, type, bubbles, cancelable, !key.empty, key.front, !oldValue.empty, oldValue.front);
   }
-  void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, Optional!(string) key /* = no!(string) */) {
+  void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope ref Optional!(string) key /* = no!(string) */) {
     StorageEvent_initStorageEvent_3(this._parent, type, bubbles, cancelable, !key.empty, key.front);
   }
   void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */) {
@@ -6675,25 +6788,25 @@ struct StorageEventInit {
   nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventInit(h);
   }
   static auto create() {
-    return StorageEventInit(JsHandle(spasm_add__object()));
+    return StorageEventInit(spasm_add__object());
   }
-  void key(Optional!(string) key) {
+  void key(scope ref Optional!(string) key) {
     StorageEventInit_key_Set(this._parent, !key.empty, key.front);
   }
   auto key() {
     return StorageEventInit_key_Get(this._parent);
   }
-  void oldValue(Optional!(string) oldValue) {
+  void oldValue(scope ref Optional!(string) oldValue) {
     StorageEventInit_oldValue_Set(this._parent, !oldValue.empty, oldValue.front);
   }
   auto oldValue() {
     return StorageEventInit_oldValue_Get(this._parent);
   }
-  void newValue(Optional!(string) newValue) {
+  void newValue(scope ref Optional!(string) newValue) {
     StorageEventInit_newValue_Set(this._parent, !newValue.empty, newValue.front);
   }
   auto newValue() {
@@ -6705,7 +6818,7 @@ struct StorageEventInit {
   auto url() {
     return StorageEventInit_url_Get(this._parent);
   }
-  void storageArea(Optional!(Storage) storageArea) {
+  void storageArea(scope ref Optional!(Storage) storageArea) {
     StorageEventInit_storageArea_Set(this._parent, !storageArea.empty, storageArea.front.handle);
   }
   auto storageArea() {
@@ -6716,6 +6829,9 @@ struct TextMetrics {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto width() {
     return TextMetrics_width_Get(this.handle);
   }
@@ -6757,7 +6873,7 @@ struct TextTrack {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   auto kind() {
@@ -6787,10 +6903,10 @@ struct TextTrack {
   auto activeCues() {
     return TextTrack_activeCues_Get(this._parent);
   }
-  void addCue(TextTrackCue cue) {
+  void addCue(scope ref TextTrackCue cue) {
     TextTrack_addCue(this._parent, cue._parent);
   }
-  void removeCue(TextTrackCue cue) {
+  void removeCue(scope ref TextTrackCue cue) {
     TextTrack_removeCue(this._parent, cue._parent);
   }
   void oncuechange(EventHandler oncuechange) {
@@ -6807,7 +6923,7 @@ struct TextTrackCue {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   auto track() {
@@ -6854,14 +6970,17 @@ struct TextTrackCueList {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto length() {
     return TextTrackCueList_length_Get(this.handle);
   }
   auto opIndex(uint index) {
-    return TextTrackCue(JsHandle(TextTrackCueList_getter__uint(this.handle, index)));
+    return TextTrackCue(TextTrackCueList_getter__uint(this.handle, index));
   }
   auto opDispatch(uint index)() {
-    return TextTrackCue(JsHandle(TextTrackCueList_getter__uint(this.handle, index)));
+    return TextTrackCue(TextTrackCueList_getter__uint(this.handle, index));
   }
   auto getCueById(string id) {
     return TextTrackCueList_getCueById(this.handle, id);
@@ -6878,17 +6997,17 @@ struct TextTrackList {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   auto length() {
     return TextTrackList_length_Get(this._parent);
   }
   auto opIndex(uint index) {
-    return TextTrack(JsHandle(TextTrackList_getter__uint(this._parent, index)));
+    return TextTrack(TextTrackList_getter__uint(this._parent, index));
   }
   auto opDispatch(uint index)() {
-    return TextTrack(JsHandle(TextTrackList_getter__uint(this._parent, index)));
+    return TextTrack(TextTrackList_getter__uint(this._parent, index));
   }
   auto getTrackById(string id) {
     return TextTrackList_getTrackById(this._parent, id);
@@ -6921,6 +7040,9 @@ struct TimeRanges {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto length() {
     return TimeRanges_length_Get(this.handle);
   }
@@ -6936,7 +7058,7 @@ struct TrackEvent {
   nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Event(h);
   }
   auto track() {
@@ -6947,13 +7069,13 @@ struct TrackEventInit {
   nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventInit(h);
   }
   static auto create() {
-    return TrackEventInit(JsHandle(spasm_add__object()));
+    return TrackEventInit(spasm_add__object());
   }
-  void track(Optional!(SumType!(VideoTrack, AudioTrack, TextTrack)) track) {
+  void track(scope ref Optional!(SumType!(VideoTrack, AudioTrack, TextTrack)) track) {
     TrackEventInit_track_Set(this._parent, !track.empty, track.front);
   }
   auto track() {
@@ -6964,6 +7086,9 @@ struct ValidityState {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto valueMissing() {
     return ValidityState_valueMissing_Get(this.handle);
   }
@@ -7002,6 +7127,9 @@ struct VideoTrack {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto id() {
     return VideoTrack_id_Get(this.handle);
   }
@@ -7028,17 +7156,17 @@ struct VideoTrackList {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   auto length() {
     return VideoTrackList_length_Get(this._parent);
   }
   auto opIndex(uint index) {
-    return VideoTrack(JsHandle(VideoTrackList_getter__uint(this._parent, index)));
+    return VideoTrack(VideoTrackList_getter__uint(this._parent, index));
   }
   auto opDispatch(uint index)() {
-    return VideoTrack(JsHandle(VideoTrackList_getter__uint(this._parent, index)));
+    return VideoTrack(VideoTrackList_getter__uint(this._parent, index));
   }
   auto getTrackById(string id) {
     return VideoTrackList_getTrackById(this._parent, id);
@@ -7069,7 +7197,7 @@ struct WebSocket {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   auto url() {
@@ -7133,13 +7261,13 @@ struct WebSocket {
   void send(string data) {
     WebSocket_send__string(this._parent, data);
   }
-  void send(Blob data) {
+  void send(scope ref Blob data) {
     WebSocket_send__Handle(this._parent, data.handle);
   }
-  void send(ArrayBuffer data) {
+  void send(scope ref ArrayBuffer data) {
     WebSocket_send__Handle(this._parent, data.handle);
   }
-  void send(ArrayBufferView data) {
+  void send(scope ref ArrayBufferView data) {
     WebSocket_send__ArrayBufferView(this._parent, data);
   }
 }
@@ -7147,17 +7275,17 @@ struct Window {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   auto window() {
-    return Window(JsHandle(Window_window_Get(this._parent)));
+    return Window(Window_window_Get(this._parent));
   }
   auto self() {
-    return Window(JsHandle(Window_self_Get(this._parent)));
+    return Window(Window_self_Get(this._parent));
   }
   auto document() {
-    return Document(JsHandle(Window_document_Get(this._parent)));
+    return Document(Window_document_Get(this._parent));
   }
   void name(string name) {
     Window_name_Set(this._parent, name);
@@ -7166,31 +7294,31 @@ struct Window {
     return Window_name_Get(this._parent);
   }
   auto location() {
-    return Location(JsHandle(Window_location_Get(this._parent)));
+    return Location(Window_location_Get(this._parent));
   }
   auto history() {
-    return History(JsHandle(Window_history_Get(this._parent)));
+    return History(Window_history_Get(this._parent));
   }
   auto customElements() {
-    return CustomElementRegistry(JsHandle(Window_customElements_Get(this._parent)));
+    return CustomElementRegistry(Window_customElements_Get(this._parent));
   }
   auto locationbar() {
-    return BarProp(JsHandle(Window_locationbar_Get(this._parent)));
+    return BarProp(Window_locationbar_Get(this._parent));
   }
   auto menubar() {
-    return BarProp(JsHandle(Window_menubar_Get(this._parent)));
+    return BarProp(Window_menubar_Get(this._parent));
   }
   auto personalbar() {
-    return BarProp(JsHandle(Window_personalbar_Get(this._parent)));
+    return BarProp(Window_personalbar_Get(this._parent));
   }
   auto scrollbars() {
-    return BarProp(JsHandle(Window_scrollbars_Get(this._parent)));
+    return BarProp(Window_scrollbars_Get(this._parent));
   }
   auto statusbar() {
-    return BarProp(JsHandle(Window_statusbar_Get(this._parent)));
+    return BarProp(Window_statusbar_Get(this._parent));
   }
   auto toolbar() {
-    return BarProp(JsHandle(Window_toolbar_Get(this._parent)));
+    return BarProp(Window_toolbar_Get(this._parent));
   }
   void status(string status) {
     Window_status_Set(this._parent, status);
@@ -7214,7 +7342,7 @@ struct Window {
     Window_blur(this._parent);
   }
   auto frames() {
-    return Window(JsHandle(Window_frames_Get(this._parent)));
+    return Window(Window_frames_Get(this._parent));
   }
   auto length() {
     return Window_length_Get(this._parent);
@@ -7222,11 +7350,11 @@ struct Window {
   auto top() {
     return Window_top_Get(this._parent);
   }
-  void opener(Any opener) {
+  void opener(scope ref Any opener) {
     Window_opener_Set(this._parent, opener.handle);
   }
   auto opener() {
-    return Any(JsHandle(Window_opener_Get(this._parent)));
+    return Any(Window_opener_Get(this._parent));
   }
   auto parent() {
     return Window_parent_Get(this._parent);
@@ -7247,16 +7375,16 @@ struct Window {
     return Window_open_2(this._parent);
   }
   auto opIndex(string name) {
-    return JsObject(JsHandle(Window_getter__string(this._parent, name)));
+    return JsObject(Window_getter__string(this._parent, name));
   }
   auto opDispatch(string name)() {
-    return JsObject(JsHandle(Window_getter__string(this._parent, name)));
+    return JsObject(Window_getter__string(this._parent, name));
   }
   auto navigator() {
-    return Navigator(JsHandle(Window_navigator_Get(this._parent)));
+    return Navigator(Window_navigator_Get(this._parent));
   }
   auto applicationCache() {
-    return ApplicationCache(JsHandle(Window_applicationCache_Get(this._parent)));
+    return ApplicationCache(Window_applicationCache_Get(this._parent));
   }
   void alert() {
     Window_alert__(this._parent);
@@ -7282,28 +7410,28 @@ struct Window {
   void print() {
     Window_print(this._parent);
   }
-  void postMessage(T0)(T0 message, string targetOrigin, Sequence!(JsObject) transfer /* = [] */) {
+  void postMessage(T0)(scope auto ref T0 message, string targetOrigin, scope ref Sequence!(JsObject) transfer /* = [] */) {
     Handle _handle_message = getOrCreateHandle(message);
     Window_postMessage__Handle_string_sequence(this._parent, _handle_message, targetOrigin, transfer.handle);
     dropHandle!(T0)(_handle_message);
   }
-  void postMessage(T0)(T0 message, string targetOrigin) {
+  void postMessage(T0)(scope auto ref T0 message, string targetOrigin) {
     Handle _handle_message = getOrCreateHandle(message);
     Window_postMessage_0_Handle_string(this._parent, _handle_message, targetOrigin);
     dropHandle!(T0)(_handle_message);
   }
-  void postMessage(T0)(T0 message, WindowPostMessageOptions options) {
+  void postMessage(T0)(scope auto ref T0 message, scope ref WindowPostMessageOptions options) {
     Handle _handle_message = getOrCreateHandle(message);
     Window_postMessage__Handle_Handle(this._parent, _handle_message, options._parent);
     dropHandle!(T0)(_handle_message);
   }
-  void postMessage(T0)(T0 message) {
+  void postMessage(T0)(scope auto ref T0 message) {
     Handle _handle_message = getOrCreateHandle(message);
     Window_postMessage_0_Handle(this._parent, _handle_message);
     dropHandle!(T0)(_handle_message);
   }
   auto event() {
-    return Any(JsHandle(Window_event_Get(this._parent)));
+    return Any(Window_event_Get(this._parent));
   }
   void captureEvents() {
     Window_captureEvents(this._parent);
@@ -7312,13 +7440,13 @@ struct Window {
     Window_releaseEvents(this._parent);
   }
   auto external() {
-    return External(JsHandle(Window_external_Get(this._parent)));
+    return External(Window_external_Get(this._parent));
   }
-  auto getComputedStyle(Element elt, Optional!(string) pseudoElt) {
-    return CSSStyleDeclaration(JsHandle(Window_getComputedStyle(this._parent, elt._parent, !pseudoElt.empty, pseudoElt.front)));
+  auto getComputedStyle(scope ref Element elt, scope ref Optional!(string) pseudoElt) {
+    return CSSStyleDeclaration(Window_getComputedStyle(this._parent, elt._parent, !pseudoElt.empty, pseudoElt.front));
   }
-  auto getComputedStyle(Element elt) {
-    return CSSStyleDeclaration(JsHandle(Window_getComputedStyle_0(this._parent, elt._parent)));
+  auto getComputedStyle(scope ref Element elt) {
+    return CSSStyleDeclaration(Window_getComputedStyle_0(this._parent, elt._parent));
   }
   auto orientation() {
     return Window_orientation_Get(this._parent);
@@ -7330,10 +7458,10 @@ struct Window {
     return Window_onorientationchange_Get(this._parent);
   }
   auto localStorage() {
-    return Storage(JsHandle(WindowLocalStorage_localStorage_Get(this._parent)));
+    return Storage(WindowLocalStorage_localStorage_Get(this._parent));
   }
   auto sessionStorage() {
-    return Storage(JsHandle(WindowSessionStorage_sessionStorage_Get(this._parent)));
+    return Storage(WindowSessionStorage_sessionStorage_Get(this._parent));
   }
   auto requestAnimationFrame(FrameRequestCallback callback) {
     return AnimationFrameProvider_requestAnimationFrame(this._parent, callback);
@@ -7350,7 +7478,7 @@ struct Window {
   auto atob(string data) {
     return WindowOrWorkerGlobalScope_atob(this._parent, data);
   }
-  auto setTimeout(T2)(TimerHandler handler, int timeout /* = 0 */, T2 arguments) {
+  auto setTimeout(T2)(scope ref TimerHandler handler, int timeout /* = 0 */, scope auto ref T2 arguments) {
     Handle _handle_arguments = getOrCreateHandle(arguments);
     auto result = WindowOrWorkerGlobalScope_setTimeout(this._parent, handler, timeout, _handle_arguments);
     dropHandle!(T2)(_handle_arguments);
@@ -7362,7 +7490,7 @@ struct Window {
   void clearTimeout() {
     WindowOrWorkerGlobalScope_clearTimeout_0(this._parent);
   }
-  auto setInterval(T2)(TimerHandler handler, int timeout /* = 0 */, T2 arguments) {
+  auto setInterval(T2)(scope ref TimerHandler handler, int timeout /* = 0 */, scope auto ref T2 arguments) {
     Handle _handle_arguments = getOrCreateHandle(arguments);
     auto result = WindowOrWorkerGlobalScope_setInterval(this._parent, handler, timeout, _handle_arguments);
     dropHandle!(T2)(_handle_arguments);
@@ -7377,29 +7505,29 @@ struct Window {
   void queueMicrotask(VoidFunction callback) {
     WindowOrWorkerGlobalScope_queueMicrotask(this._parent, callback);
   }
-  auto createImageBitmap(ImageBitmapSource image, ImageBitmapOptions options) {
-    return Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_Handle(this._parent, image, options.handle)));
+  auto createImageBitmap(scope ref ImageBitmapSource image, scope ref ImageBitmapOptions options) {
+    return Promise!(ImageBitmap)(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_Handle(this._parent, image, options.handle));
   }
-  auto createImageBitmap(ImageBitmapSource image) {
-    return Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap_0_ImageBitmapSource(this._parent, image)));
+  auto createImageBitmap(scope ref ImageBitmapSource image) {
+    return Promise!(ImageBitmap)(WindowOrWorkerGlobalScope_createImageBitmap_0_ImageBitmapSource(this._parent, image));
   }
-  auto createImageBitmap(ImageBitmapSource image, int sx, int sy, int sw, int sh, ImageBitmapOptions options) {
-    return Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_int_int_int_int_Handle(this._parent, image, sx, sy, sw, sh, options.handle)));
+  auto createImageBitmap(scope ref ImageBitmapSource image, int sx, int sy, int sw, int sh, scope ref ImageBitmapOptions options) {
+    return Promise!(ImageBitmap)(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_int_int_int_int_Handle(this._parent, image, sx, sy, sw, sh, options.handle));
   }
-  auto createImageBitmap(ImageBitmapSource image, int sx, int sy, int sw, int sh) {
-    return Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap_0_ImageBitmapSource_int_int_int_int(this._parent, image, sx, sy, sw, sh)));
+  auto createImageBitmap(scope ref ImageBitmapSource image, int sx, int sy, int sw, int sh) {
+    return Promise!(ImageBitmap)(WindowOrWorkerGlobalScope_createImageBitmap_0_ImageBitmapSource_int_int_int_int(this._parent, image, sx, sy, sw, sh));
   }
-  auto fetch(RequestInfo input, RequestInit init) {
-    return Promise!(.Response)(JsHandle(WindowOrWorkerGlobalScope_fetch(this._parent, input, init.handle)));
+  auto fetch(scope ref RequestInfo input, scope ref RequestInit init) {
+    return Promise!(.Response)(WindowOrWorkerGlobalScope_fetch(this._parent, input, init.handle));
   }
-  auto fetch(RequestInfo input) {
-    return Promise!(.Response)(JsHandle(WindowOrWorkerGlobalScope_fetch_0(this._parent, input)));
+  auto fetch(scope ref RequestInfo input) {
+    return Promise!(.Response)(WindowOrWorkerGlobalScope_fetch_0(this._parent, input));
   }
   auto indexedDB() {
-    return IDBFactory(JsHandle(WindowOrWorkerGlobalScope_indexedDB_Get(this._parent)));
+    return IDBFactory(WindowOrWorkerGlobalScope_indexedDB_Get(this._parent));
   }
   auto caches() {
-    return CacheStorage(JsHandle(WindowOrWorkerGlobalScope_caches_Get(this._parent)));
+    return CacheStorage(WindowOrWorkerGlobalScope_caches_Get(this._parent));
   }
   void onabort(EventHandler onabort) {
     GlobalEventHandlers_onabort_Set(this._parent, onabort);
@@ -7539,7 +7667,7 @@ struct Window {
   auto onended() {
     return GlobalEventHandlers_onended_Get(this._parent);
   }
-  void onerror(OnErrorEventHandler onerror) {
+  void onerror(scope ref OnErrorEventHandler onerror) {
     GlobalEventHandlers_onerror_Set(this._parent, !onerror.empty, onerror.front);
   }
   auto onerror() {
@@ -7857,178 +7985,178 @@ struct Window {
   auto ontouchcancel() {
     return GlobalEventHandlers_ontouchcancel_Get(this._parent);
   }
-  auto Blob(Sequence!(BlobPart) blobParts, BlobPropertyBag options) {
-    return .Blob(JsHandle(Window_Blob(this._parent, blobParts.handle, options.handle)));
+  auto Blob(scope ref Sequence!(BlobPart) blobParts, scope ref BlobPropertyBag options) {
+    return .Blob(Window_Blob(this._parent, blobParts.handle, options.handle));
   }
-  auto File(Sequence!(BlobPart) fileBits, string fileName, FilePropertyBag options) {
-    return .File(JsHandle(Window_File(this._parent, fileBits.handle, fileName, options._parent)));
+  auto File(scope ref Sequence!(BlobPart) fileBits, string fileName, scope ref FilePropertyBag options) {
+    return .File(Window_File(this._parent, fileBits.handle, fileName, options._parent));
   }
   auto FileReader() {
-    return .FileReader(JsHandle(Window_FileReader(this._parent)));
+    return .FileReader(Window_FileReader(this._parent));
   }
-  auto Headers(HeadersInit init) {
-    return .Headers(JsHandle(Window_Headers(this._parent, init)));
+  auto Headers(scope ref HeadersInit init) {
+    return .Headers(Window_Headers(this._parent, init));
   }
-  auto Request(RequestInfo input, RequestInit init) {
-    return .Request(JsHandle(Window_Request(this._parent, input, init.handle)));
+  auto Request(scope ref RequestInfo input, scope ref RequestInit init) {
+    return .Request(Window_Request(this._parent, input, init.handle));
   }
-  auto Response(Optional!(BodyInit) body_ /* = no!(BodyInit) */, ResponseInit init) {
-    return .Response(JsHandle(Window_Response(this._parent, !body_.empty, body_.front, init.handle)));
+  auto Response(scope ref Optional!(BodyInit) body_ /* = no!(BodyInit) */, scope ref ResponseInit init) {
+    return .Response(Window_Response(this._parent, !body_.empty, body_.front, init.handle));
   }
-  auto Notification(string title, NotificationOptions options) {
-    return .Notification(JsHandle(Window_Notification(this._parent, title, options.handle)));
+  auto Notification(string title, scope ref NotificationOptions options) {
+    return .Notification(Window_Notification(this._parent, title, options.handle));
   }
   auto AbortController() {
-    return .AbortController(JsHandle(Window_AbortController(this._parent)));
+    return .AbortController(Window_AbortController(this._parent));
   }
-  auto CustomEvent(string type, CustomEventInit eventInitDict) {
-    return .CustomEvent(JsHandle(Window_CustomEvent(this._parent, type, eventInitDict._parent)));
+  auto CustomEvent(string type, scope ref CustomEventInit eventInitDict) {
+    return .CustomEvent(Window_CustomEvent(this._parent, type, eventInitDict._parent));
   }
-  auto Event(string type, EventInit eventInitDict) {
-    return .Event(JsHandle(Window_Event(this._parent, type, eventInitDict.handle)));
+  auto Event(string type, scope ref EventInit eventInitDict) {
+    return .Event(Window_Event(this._parent, type, eventInitDict.handle));
   }
   auto EventTarget() {
-    return .EventTarget(JsHandle(Window_EventTarget(this._parent)));
+    return .EventTarget(Window_EventTarget(this._parent));
   }
   auto BroadcastChannel(string name) {
-    return .BroadcastChannel(JsHandle(Window_BroadcastChannel(this._parent, name)));
+    return .BroadcastChannel(Window_BroadcastChannel(this._parent, name));
   }
-  auto CloseEvent(string type, CloseEventInit eventInitDict) {
-    return .CloseEvent(JsHandle(Window_CloseEvent(this._parent, type, eventInitDict._parent)));
+  auto CloseEvent(string type, scope ref CloseEventInit eventInitDict) {
+    return .CloseEvent(Window_CloseEvent(this._parent, type, eventInitDict._parent));
   }
-  auto ErrorEvent(string type, ErrorEventInit eventInitDict) {
-    return .ErrorEvent(JsHandle(Window_ErrorEvent(this._parent, type, eventInitDict._parent)));
+  auto ErrorEvent(string type, scope ref ErrorEventInit eventInitDict) {
+    return .ErrorEvent(Window_ErrorEvent(this._parent, type, eventInitDict._parent));
   }
-  auto EventSource(string url, EventSourceInit eventSourceInitDict) {
-    return .EventSource(JsHandle(Window_EventSource(this._parent, url, eventSourceInitDict.handle)));
+  auto EventSource(string url, scope ref EventSourceInit eventSourceInitDict) {
+    return .EventSource(Window_EventSource(this._parent, url, eventSourceInitDict.handle));
   }
   auto ImageData(uint sw, uint sh) {
-    return .ImageData(JsHandle(Window_ImageData__uint_uint(this._parent, sw, sh)));
+    return .ImageData(Window_ImageData__uint_uint(this._parent, sw, sh));
   }
-  auto ImageData(Uint8ClampedArray data, uint sw, uint sh) {
-    return .ImageData(JsHandle(Window_ImageData__Handle_uint_uint(this._parent, data.handle, sw, sh)));
+  auto ImageData(scope ref Uint8ClampedArray data, uint sw, uint sh) {
+    return .ImageData(Window_ImageData__Handle_uint_uint(this._parent, data.handle, sw, sh));
   }
   auto MessageChannel() {
-    return .MessageChannel(JsHandle(Window_MessageChannel(this._parent)));
+    return .MessageChannel(Window_MessageChannel(this._parent));
   }
-  auto MessageEvent(string type, MessageEventInit eventInitDict) {
-    return .MessageEvent(JsHandle(Window_MessageEvent(this._parent, type, eventInitDict._parent)));
+  auto MessageEvent(string type, scope ref MessageEventInit eventInitDict) {
+    return .MessageEvent(Window_MessageEvent(this._parent, type, eventInitDict._parent));
   }
   auto OffscreenCanvas(ulong width, ulong height) {
-    return .OffscreenCanvas(JsHandle(Window_OffscreenCanvas(this._parent, width, height)));
+    return .OffscreenCanvas(Window_OffscreenCanvas(this._parent, width, height));
   }
-  auto Path2D(SumType!(.Path2D, string) path) {
-    return .Path2D(JsHandle(Window_Path2D(this._parent, path)));
+  auto Path2D(scope ref SumType!(.Path2D, string) path) {
+    return .Path2D(Window_Path2D(this._parent, path));
   }
-  auto PromiseRejectionEvent(string type, PromiseRejectionEventInit eventInitDict) {
-    return .PromiseRejectionEvent(JsHandle(Window_PromiseRejectionEvent(this._parent, type, eventInitDict._parent)));
+  auto PromiseRejectionEvent(string type, scope ref PromiseRejectionEventInit eventInitDict) {
+    return .PromiseRejectionEvent(Window_PromiseRejectionEvent(this._parent, type, eventInitDict._parent));
   }
-  auto SharedWorker(string scriptURL, SumType!(string, WorkerOptions) options) {
-    return .SharedWorker(JsHandle(Window_SharedWorker(this._parent, scriptURL, options)));
+  auto SharedWorker(string scriptURL, scope ref SumType!(string, WorkerOptions) options) {
+    return .SharedWorker(Window_SharedWorker(this._parent, scriptURL, options));
   }
-  auto WebSocket(string url, SumType!(string, Sequence!(string)) protocols /* = [] */) {
-    return .WebSocket(JsHandle(Window_WebSocket(this._parent, url, protocols)));
+  auto WebSocket(string url, scope ref SumType!(string, Sequence!(string)) protocols /* = [] */) {
+    return .WebSocket(Window_WebSocket(this._parent, url, protocols));
   }
-  auto Worker(string scriptURL, WorkerOptions options) {
-    return .Worker(JsHandle(Window_Worker(this._parent, scriptURL, options.handle)));
+  auto Worker(string scriptURL, scope ref WorkerOptions options) {
+    return .Worker(Window_Worker(this._parent, scriptURL, options.handle));
   }
   auto DOMException(string message /* = "" */, string name /* = "Error" */) {
-    return .DOMException(JsHandle(Window_DOMException(this._parent, message, name)));
+    return .DOMException(Window_DOMException(this._parent, message, name));
   }
   auto URL(string url, string base) {
-    return .URL(JsHandle(Window_URL(this._parent, url, base)));
+    return .URL(Window_URL(this._parent, url, base));
   }
-  auto URLSearchParams(SumType!(Sequence!(Sequence!(string)), Record!(string, string), string) init /* = "" */) {
-    return .URLSearchParams(JsHandle(Window_URLSearchParams(this._parent, init)));
+  auto URLSearchParams(scope ref SumType!(Sequence!(Sequence!(string)), Record!(string, string), string) init /* = "" */) {
+    return .URLSearchParams(Window_URLSearchParams(this._parent, init));
   }
-  auto DOMMatrix(SumType!(string, Sequence!(double)) init) {
-    return .DOMMatrix(JsHandle(Window_DOMMatrix(this._parent, init)));
+  auto DOMMatrix(scope ref SumType!(string, Sequence!(double)) init) {
+    return .DOMMatrix(Window_DOMMatrix(this._parent, init));
   }
-  auto DOMMatrixReadOnly(SumType!(string, Sequence!(double)) init) {
-    return .DOMMatrixReadOnly(JsHandle(Window_DOMMatrixReadOnly(this._parent, init)));
+  auto DOMMatrixReadOnly(scope ref SumType!(string, Sequence!(double)) init) {
+    return .DOMMatrixReadOnly(Window_DOMMatrixReadOnly(this._parent, init));
   }
   auto DOMPoint(double x /* = 0 */, double y /* = 0 */, double z /* = 0 */, double w /* = 1 */) {
-    return .DOMPoint(JsHandle(Window_DOMPoint(this._parent, x, y, z, w)));
+    return .DOMPoint(Window_DOMPoint(this._parent, x, y, z, w));
   }
   auto DOMPointReadOnly(double x /* = 0 */, double y /* = 0 */, double z /* = 0 */, double w /* = 1 */) {
-    return .DOMPointReadOnly(JsHandle(Window_DOMPointReadOnly(this._parent, x, y, z, w)));
+    return .DOMPointReadOnly(Window_DOMPointReadOnly(this._parent, x, y, z, w));
   }
-  auto DOMQuad(DOMPointInit p1, DOMPointInit p2, DOMPointInit p3, DOMPointInit p4) {
-    return .DOMQuad(JsHandle(Window_DOMQuad(this._parent, p1.handle, p2.handle, p3.handle, p4.handle)));
+  auto DOMQuad(scope ref DOMPointInit p1, scope ref DOMPointInit p2, scope ref DOMPointInit p3, scope ref DOMPointInit p4) {
+    return .DOMQuad(Window_DOMQuad(this._parent, p1.handle, p2.handle, p3.handle, p4.handle));
   }
   auto DOMRect(double x /* = 0 */, double y /* = 0 */, double width /* = 0 */, double height /* = 0 */) {
-    return .DOMRect(JsHandle(Window_DOMRect(this._parent, x, y, width, height)));
+    return .DOMRect(Window_DOMRect(this._parent, x, y, width, height));
   }
   auto DOMRectReadOnly(double x /* = 0 */, double y /* = 0 */, double width /* = 0 */, double height /* = 0 */) {
-    return .DOMRectReadOnly(JsHandle(Window_DOMRectReadOnly(this._parent, x, y, width, height)));
+    return .DOMRectReadOnly(Window_DOMRectReadOnly(this._parent, x, y, width, height));
   }
-  auto IDBVersionChangeEvent(string type, IDBVersionChangeEventInit eventInitDict) {
-    return .IDBVersionChangeEvent(JsHandle(Window_IDBVersionChangeEvent(this._parent, type, eventInitDict._parent)));
+  auto IDBVersionChangeEvent(string type, scope ref IDBVersionChangeEventInit eventInitDict) {
+    return .IDBVersionChangeEvent(Window_IDBVersionChangeEvent(this._parent, type, eventInitDict._parent));
   }
-  auto ByteLengthQueuingStrategy(T0)(T0 options) {
+  auto ByteLengthQueuingStrategy(T0)(scope auto ref T0 options) {
     Handle _handle_options = getOrCreateHandle(options);
-    auto result = .ByteLengthQueuingStrategy(JsHandle(Window_ByteLengthQueuingStrategy(this._parent, _handle_options)));
+    auto result = .ByteLengthQueuingStrategy(Window_ByteLengthQueuingStrategy(this._parent, _handle_options));
     dropHandle!(T0)(_handle_options);
     return result;
   }
-  auto CountQueuingStrategy(T0)(T0 options) {
+  auto CountQueuingStrategy(T0)(scope auto ref T0 options) {
     Handle _handle_options = getOrCreateHandle(options);
-    auto result = .CountQueuingStrategy(JsHandle(Window_CountQueuingStrategy(this._parent, _handle_options)));
+    auto result = .CountQueuingStrategy(Window_CountQueuingStrategy(this._parent, _handle_options));
     dropHandle!(T0)(_handle_options);
     return result;
   }
-  auto ReadableStream(UnderlyingSource underlyingSource, QueuingStrategy strategy) {
-    return .ReadableStream(JsHandle(Window_ReadableStream__Handle_Handle(this._parent, underlyingSource.handle, strategy.handle)));
+  auto ReadableStream(scope ref UnderlyingSource underlyingSource, scope ref QueuingStrategy strategy) {
+    return .ReadableStream(Window_ReadableStream__Handle_Handle(this._parent, underlyingSource.handle, strategy.handle));
   }
-  auto ReadableStream(UnderlyingByteSource underlyingSource, QueuingStrategy strategy) {
-    return .ReadableStream(JsHandle(Window_ReadableStream__Handle_Handle(this._parent, underlyingSource.handle, strategy.handle)));
+  auto ReadableStream(scope ref UnderlyingByteSource underlyingSource, scope ref QueuingStrategy strategy) {
+    return .ReadableStream(Window_ReadableStream__Handle_Handle(this._parent, underlyingSource.handle, strategy.handle));
   }
-  auto ReadableStreamBYOBReader(.ReadableStream stream) {
-    return .ReadableStreamBYOBReader(JsHandle(Window_ReadableStreamBYOBReader(this._parent, stream.handle)));
+  auto ReadableStreamBYOBReader(scope ref .ReadableStream stream) {
+    return .ReadableStreamBYOBReader(Window_ReadableStreamBYOBReader(this._parent, stream.handle));
   }
-  auto ReadableStreamDefaultReader(.ReadableStream stream) {
-    return .ReadableStreamDefaultReader(JsHandle(Window_ReadableStreamDefaultReader(this._parent, stream.handle)));
+  auto ReadableStreamDefaultReader(scope ref .ReadableStream stream) {
+    return .ReadableStreamDefaultReader(Window_ReadableStreamDefaultReader(this._parent, stream.handle));
   }
-  auto TransformStream(Transformer transformer, QueuingStrategy writableStrategy, QueuingStrategy readableStrategy) {
-    return .TransformStream(JsHandle(Window_TransformStream(this._parent, transformer.handle, writableStrategy.handle, readableStrategy.handle)));
+  auto TransformStream(scope ref Transformer transformer, scope ref QueuingStrategy writableStrategy, scope ref QueuingStrategy readableStrategy) {
+    return .TransformStream(Window_TransformStream(this._parent, transformer.handle, writableStrategy.handle, readableStrategy.handle));
   }
-  auto WritableStream(UnderlyingSink underlyingSink, QueuingStrategy strategy) {
-    return .WritableStream(JsHandle(Window_WritableStream(this._parent, underlyingSink.handle, strategy.handle)));
+  auto WritableStream(scope ref UnderlyingSink underlyingSink, scope ref QueuingStrategy strategy) {
+    return .WritableStream(Window_WritableStream(this._parent, underlyingSink.handle, strategy.handle));
   }
-  auto WritableStreamDefaultWriter(.ReadableStream stream) {
-    return .WritableStreamDefaultWriter(JsHandle(Window_WritableStreamDefaultWriter(this._parent, stream.handle)));
+  auto WritableStreamDefaultWriter(scope ref .ReadableStream stream) {
+    return .WritableStreamDefaultWriter(Window_WritableStreamDefaultWriter(this._parent, stream.handle));
   }
-  auto FormData(HTMLFormElement form) {
-    return .FormData(JsHandle(Window_FormData(this._parent, form._parent)));
+  auto FormData(scope ref HTMLFormElement form) {
+    return .FormData(Window_FormData(this._parent, form._parent));
   }
-  auto ProgressEvent(string type, ProgressEventInit eventInitDict) {
-    return .ProgressEvent(JsHandle(Window_ProgressEvent(this._parent, type, eventInitDict._parent)));
+  auto ProgressEvent(string type, scope ref ProgressEventInit eventInitDict) {
+    return .ProgressEvent(Window_ProgressEvent(this._parent, type, eventInitDict._parent));
   }
   auto XMLHttpRequest() {
-    return .XMLHttpRequest(JsHandle(Window_XMLHttpRequest(this._parent)));
+    return .XMLHttpRequest(Window_XMLHttpRequest(this._parent));
   }
-  auto TextDecoder(string label /* = "utf-8" */, TextDecoderOptions options) {
-    return .TextDecoder(JsHandle(Window_TextDecoder(this._parent, label, options.handle)));
+  auto TextDecoder(string label /* = "utf-8" */, scope ref TextDecoderOptions options) {
+    return .TextDecoder(Window_TextDecoder(this._parent, label, options.handle));
   }
-  auto TextDecoderStream(string label /* = "utf-8" */, TextDecoderOptions options) {
-    return .TextDecoderStream(JsHandle(Window_TextDecoderStream(this._parent, label, options.handle)));
+  auto TextDecoderStream(string label /* = "utf-8" */, scope ref TextDecoderOptions options) {
+    return .TextDecoderStream(Window_TextDecoderStream(this._parent, label, options.handle));
   }
   auto TextEncoder() {
-    return .TextEncoder(JsHandle(Window_TextEncoder(this._parent)));
+    return .TextEncoder(Window_TextEncoder(this._parent));
   }
   auto TextEncoderStream() {
-    return .TextEncoderStream(JsHandle(Window_TextEncoderStream(this._parent)));
+    return .TextEncoderStream(Window_TextEncoderStream(this._parent));
   }
 }
 struct WindowPostMessageOptions {
   nothrow:
   spasm.bindings.html.PostMessageOptions _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .PostMessageOptions(h);
   }
   static auto create() {
-    return WindowPostMessageOptions(JsHandle(spasm_add__object()));
+    return WindowPostMessageOptions(spasm_add__object());
   }
   void targetOrigin(string targetOrigin) {
     WindowPostMessageOptions_targetOrigin_Set(this._parent, targetOrigin);
@@ -8042,23 +8170,23 @@ struct Worker {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   void terminate() {
     Worker_terminate(this._parent);
   }
-  void postMessage(T0)(T0 message, Sequence!(JsObject) transfer) {
+  void postMessage(T0)(scope auto ref T0 message, scope ref Sequence!(JsObject) transfer) {
     Handle _handle_message = getOrCreateHandle(message);
     Worker_postMessage__Handle_sequence(this._parent, _handle_message, transfer.handle);
     dropHandle!(T0)(_handle_message);
   }
-  void postMessage(T0)(T0 message, PostMessageOptions options) {
+  void postMessage(T0)(scope auto ref T0 message, scope ref PostMessageOptions options) {
     Handle _handle_message = getOrCreateHandle(message);
     Worker_postMessage__Handle_Handle(this._parent, _handle_message, options.handle);
     dropHandle!(T0)(_handle_message);
   }
-  void postMessage(T0)(T0 message) {
+  void postMessage(T0)(scope auto ref T0 message) {
     Handle _handle_message = getOrCreateHandle(message);
     Worker_postMessage_0(this._parent, _handle_message);
     dropHandle!(T0)(_handle_message);
@@ -8081,183 +8209,183 @@ struct Worker {
   auto onerror() {
     return AbstractWorker_onerror_Get(this._parent);
   }
-  auto Blob(Sequence!(BlobPart) blobParts, BlobPropertyBag options) {
-    return .Blob(JsHandle(Worker_Blob(this._parent, blobParts.handle, options.handle)));
+  auto Blob(scope ref Sequence!(BlobPart) blobParts, scope ref BlobPropertyBag options) {
+    return .Blob(Worker_Blob(this._parent, blobParts.handle, options.handle));
   }
-  auto File(Sequence!(BlobPart) fileBits, string fileName, FilePropertyBag options) {
-    return .File(JsHandle(Worker_File(this._parent, fileBits.handle, fileName, options._parent)));
+  auto File(scope ref Sequence!(BlobPart) fileBits, string fileName, scope ref FilePropertyBag options) {
+    return .File(Worker_File(this._parent, fileBits.handle, fileName, options._parent));
   }
   auto FileReader() {
-    return .FileReader(JsHandle(Worker_FileReader(this._parent)));
+    return .FileReader(Worker_FileReader(this._parent));
   }
-  auto Headers(HeadersInit init) {
-    return .Headers(JsHandle(Worker_Headers(this._parent, init)));
+  auto Headers(scope ref HeadersInit init) {
+    return .Headers(Worker_Headers(this._parent, init));
   }
-  auto Request(RequestInfo input, RequestInit init) {
-    return .Request(JsHandle(Worker_Request(this._parent, input, init.handle)));
+  auto Request(scope ref RequestInfo input, scope ref RequestInit init) {
+    return .Request(Worker_Request(this._parent, input, init.handle));
   }
-  auto Response(Optional!(BodyInit) body_ /* = no!(BodyInit) */, ResponseInit init) {
-    return .Response(JsHandle(Worker_Response(this._parent, !body_.empty, body_.front, init.handle)));
+  auto Response(scope ref Optional!(BodyInit) body_ /* = no!(BodyInit) */, scope ref ResponseInit init) {
+    return .Response(Worker_Response(this._parent, !body_.empty, body_.front, init.handle));
   }
-  auto Notification(string title, NotificationOptions options) {
-    return .Notification(JsHandle(Worker_Notification(this._parent, title, options.handle)));
+  auto Notification(string title, scope ref NotificationOptions options) {
+    return .Notification(Worker_Notification(this._parent, title, options.handle));
   }
   auto AbortController() {
-    return .AbortController(JsHandle(Worker_AbortController(this._parent)));
+    return .AbortController(Worker_AbortController(this._parent));
   }
-  auto CustomEvent(string type, CustomEventInit eventInitDict) {
-    return .CustomEvent(JsHandle(Worker_CustomEvent(this._parent, type, eventInitDict._parent)));
+  auto CustomEvent(string type, scope ref CustomEventInit eventInitDict) {
+    return .CustomEvent(Worker_CustomEvent(this._parent, type, eventInitDict._parent));
   }
-  auto Event(string type, EventInit eventInitDict) {
-    return .Event(JsHandle(Worker_Event(this._parent, type, eventInitDict.handle)));
+  auto Event(string type, scope ref EventInit eventInitDict) {
+    return .Event(Worker_Event(this._parent, type, eventInitDict.handle));
   }
   auto EventTarget() {
-    return .EventTarget(JsHandle(Worker_EventTarget(this._parent)));
+    return .EventTarget(Worker_EventTarget(this._parent));
   }
   auto BroadcastChannel(string name) {
-    return .BroadcastChannel(JsHandle(Worker_BroadcastChannel(this._parent, name)));
+    return .BroadcastChannel(Worker_BroadcastChannel(this._parent, name));
   }
-  auto CloseEvent(string type, CloseEventInit eventInitDict) {
-    return .CloseEvent(JsHandle(Worker_CloseEvent(this._parent, type, eventInitDict._parent)));
+  auto CloseEvent(string type, scope ref CloseEventInit eventInitDict) {
+    return .CloseEvent(Worker_CloseEvent(this._parent, type, eventInitDict._parent));
   }
-  auto ErrorEvent(string type, ErrorEventInit eventInitDict) {
-    return .ErrorEvent(JsHandle(Worker_ErrorEvent(this._parent, type, eventInitDict._parent)));
+  auto ErrorEvent(string type, scope ref ErrorEventInit eventInitDict) {
+    return .ErrorEvent(Worker_ErrorEvent(this._parent, type, eventInitDict._parent));
   }
-  auto EventSource(string url, EventSourceInit eventSourceInitDict) {
-    return .EventSource(JsHandle(Worker_EventSource(this._parent, url, eventSourceInitDict.handle)));
+  auto EventSource(string url, scope ref EventSourceInit eventSourceInitDict) {
+    return .EventSource(Worker_EventSource(this._parent, url, eventSourceInitDict.handle));
   }
   auto ImageData(uint sw, uint sh) {
-    return .ImageData(JsHandle(Worker_ImageData__uint_uint(this._parent, sw, sh)));
+    return .ImageData(Worker_ImageData__uint_uint(this._parent, sw, sh));
   }
-  auto ImageData(Uint8ClampedArray data, uint sw, uint sh) {
-    return .ImageData(JsHandle(Worker_ImageData__Handle_uint_uint(this._parent, data.handle, sw, sh)));
+  auto ImageData(scope ref Uint8ClampedArray data, uint sw, uint sh) {
+    return .ImageData(Worker_ImageData__Handle_uint_uint(this._parent, data.handle, sw, sh));
   }
   auto MessageChannel() {
-    return .MessageChannel(JsHandle(Worker_MessageChannel(this._parent)));
+    return .MessageChannel(Worker_MessageChannel(this._parent));
   }
-  auto MessageEvent(string type, MessageEventInit eventInitDict) {
-    return .MessageEvent(JsHandle(Worker_MessageEvent(this._parent, type, eventInitDict._parent)));
+  auto MessageEvent(string type, scope ref MessageEventInit eventInitDict) {
+    return .MessageEvent(Worker_MessageEvent(this._parent, type, eventInitDict._parent));
   }
   auto OffscreenCanvas(ulong width, ulong height) {
-    return .OffscreenCanvas(JsHandle(Worker_OffscreenCanvas(this._parent, width, height)));
+    return .OffscreenCanvas(Worker_OffscreenCanvas(this._parent, width, height));
   }
-  auto Path2D(SumType!(.Path2D, string) path) {
-    return .Path2D(JsHandle(Worker_Path2D(this._parent, path)));
+  auto Path2D(scope ref SumType!(.Path2D, string) path) {
+    return .Path2D(Worker_Path2D(this._parent, path));
   }
-  auto PromiseRejectionEvent(string type, PromiseRejectionEventInit eventInitDict) {
-    return .PromiseRejectionEvent(JsHandle(Worker_PromiseRejectionEvent(this._parent, type, eventInitDict._parent)));
+  auto PromiseRejectionEvent(string type, scope ref PromiseRejectionEventInit eventInitDict) {
+    return .PromiseRejectionEvent(Worker_PromiseRejectionEvent(this._parent, type, eventInitDict._parent));
   }
-  auto SharedWorker(string scriptURL, SumType!(string, WorkerOptions) options) {
-    return .SharedWorker(JsHandle(Worker_SharedWorker(this._parent, scriptURL, options)));
+  auto SharedWorker(string scriptURL, scope ref SumType!(string, WorkerOptions) options) {
+    return .SharedWorker(Worker_SharedWorker(this._parent, scriptURL, options));
   }
-  auto WebSocket(string url, SumType!(string, Sequence!(string)) protocols /* = [] */) {
-    return .WebSocket(JsHandle(Worker_WebSocket(this._parent, url, protocols)));
+  auto WebSocket(string url, scope ref SumType!(string, Sequence!(string)) protocols /* = [] */) {
+    return .WebSocket(Worker_WebSocket(this._parent, url, protocols));
   }
-  auto Worker(string scriptURL, WorkerOptions options) {
-    return .Worker(JsHandle(Worker_Worker(this._parent, scriptURL, options.handle)));
+  auto Worker(string scriptURL, scope ref WorkerOptions options) {
+    return .Worker(Worker_Worker(this._parent, scriptURL, options.handle));
   }
   auto DOMException(string message /* = "" */, string name /* = "Error" */) {
-    return .DOMException(JsHandle(Worker_DOMException(this._parent, message, name)));
+    return .DOMException(Worker_DOMException(this._parent, message, name));
   }
   auto URL(string url, string base) {
-    return .URL(JsHandle(Worker_URL(this._parent, url, base)));
+    return .URL(Worker_URL(this._parent, url, base));
   }
-  auto URLSearchParams(SumType!(Sequence!(Sequence!(string)), Record!(string, string), string) init /* = "" */) {
-    return .URLSearchParams(JsHandle(Worker_URLSearchParams(this._parent, init)));
+  auto URLSearchParams(scope ref SumType!(Sequence!(Sequence!(string)), Record!(string, string), string) init /* = "" */) {
+    return .URLSearchParams(Worker_URLSearchParams(this._parent, init));
   }
-  auto DOMMatrix(SumType!(string, Sequence!(double)) init) {
-    return .DOMMatrix(JsHandle(Worker_DOMMatrix(this._parent, init)));
+  auto DOMMatrix(scope ref SumType!(string, Sequence!(double)) init) {
+    return .DOMMatrix(Worker_DOMMatrix(this._parent, init));
   }
-  auto DOMMatrixReadOnly(SumType!(string, Sequence!(double)) init) {
-    return .DOMMatrixReadOnly(JsHandle(Worker_DOMMatrixReadOnly(this._parent, init)));
+  auto DOMMatrixReadOnly(scope ref SumType!(string, Sequence!(double)) init) {
+    return .DOMMatrixReadOnly(Worker_DOMMatrixReadOnly(this._parent, init));
   }
   auto DOMPoint(double x /* = 0 */, double y /* = 0 */, double z /* = 0 */, double w /* = 1 */) {
-    return .DOMPoint(JsHandle(Worker_DOMPoint(this._parent, x, y, z, w)));
+    return .DOMPoint(Worker_DOMPoint(this._parent, x, y, z, w));
   }
   auto DOMPointReadOnly(double x /* = 0 */, double y /* = 0 */, double z /* = 0 */, double w /* = 1 */) {
-    return .DOMPointReadOnly(JsHandle(Worker_DOMPointReadOnly(this._parent, x, y, z, w)));
+    return .DOMPointReadOnly(Worker_DOMPointReadOnly(this._parent, x, y, z, w));
   }
-  auto DOMQuad(DOMPointInit p1, DOMPointInit p2, DOMPointInit p3, DOMPointInit p4) {
-    return .DOMQuad(JsHandle(Worker_DOMQuad(this._parent, p1.handle, p2.handle, p3.handle, p4.handle)));
+  auto DOMQuad(scope ref DOMPointInit p1, scope ref DOMPointInit p2, scope ref DOMPointInit p3, scope ref DOMPointInit p4) {
+    return .DOMQuad(Worker_DOMQuad(this._parent, p1.handle, p2.handle, p3.handle, p4.handle));
   }
   auto DOMRect(double x /* = 0 */, double y /* = 0 */, double width /* = 0 */, double height /* = 0 */) {
-    return .DOMRect(JsHandle(Worker_DOMRect(this._parent, x, y, width, height)));
+    return .DOMRect(Worker_DOMRect(this._parent, x, y, width, height));
   }
   auto DOMRectReadOnly(double x /* = 0 */, double y /* = 0 */, double width /* = 0 */, double height /* = 0 */) {
-    return .DOMRectReadOnly(JsHandle(Worker_DOMRectReadOnly(this._parent, x, y, width, height)));
+    return .DOMRectReadOnly(Worker_DOMRectReadOnly(this._parent, x, y, width, height));
   }
-  auto IDBVersionChangeEvent(string type, IDBVersionChangeEventInit eventInitDict) {
-    return .IDBVersionChangeEvent(JsHandle(Worker_IDBVersionChangeEvent(this._parent, type, eventInitDict._parent)));
+  auto IDBVersionChangeEvent(string type, scope ref IDBVersionChangeEventInit eventInitDict) {
+    return .IDBVersionChangeEvent(Worker_IDBVersionChangeEvent(this._parent, type, eventInitDict._parent));
   }
-  auto ByteLengthQueuingStrategy(T0)(T0 options) {
+  auto ByteLengthQueuingStrategy(T0)(scope auto ref T0 options) {
     Handle _handle_options = getOrCreateHandle(options);
-    auto result = .ByteLengthQueuingStrategy(JsHandle(Worker_ByteLengthQueuingStrategy(this._parent, _handle_options)));
+    auto result = .ByteLengthQueuingStrategy(Worker_ByteLengthQueuingStrategy(this._parent, _handle_options));
     dropHandle!(T0)(_handle_options);
     return result;
   }
-  auto CountQueuingStrategy(T0)(T0 options) {
+  auto CountQueuingStrategy(T0)(scope auto ref T0 options) {
     Handle _handle_options = getOrCreateHandle(options);
-    auto result = .CountQueuingStrategy(JsHandle(Worker_CountQueuingStrategy(this._parent, _handle_options)));
+    auto result = .CountQueuingStrategy(Worker_CountQueuingStrategy(this._parent, _handle_options));
     dropHandle!(T0)(_handle_options);
     return result;
   }
-  auto ReadableStream(UnderlyingSource underlyingSource, QueuingStrategy strategy) {
-    return .ReadableStream(JsHandle(Worker_ReadableStream__Handle_Handle(this._parent, underlyingSource.handle, strategy.handle)));
+  auto ReadableStream(scope ref UnderlyingSource underlyingSource, scope ref QueuingStrategy strategy) {
+    return .ReadableStream(Worker_ReadableStream__Handle_Handle(this._parent, underlyingSource.handle, strategy.handle));
   }
-  auto ReadableStream(UnderlyingByteSource underlyingSource, QueuingStrategy strategy) {
-    return .ReadableStream(JsHandle(Worker_ReadableStream__Handle_Handle(this._parent, underlyingSource.handle, strategy.handle)));
+  auto ReadableStream(scope ref UnderlyingByteSource underlyingSource, scope ref QueuingStrategy strategy) {
+    return .ReadableStream(Worker_ReadableStream__Handle_Handle(this._parent, underlyingSource.handle, strategy.handle));
   }
-  auto ReadableStreamBYOBReader(.ReadableStream stream) {
-    return .ReadableStreamBYOBReader(JsHandle(Worker_ReadableStreamBYOBReader(this._parent, stream.handle)));
+  auto ReadableStreamBYOBReader(scope ref .ReadableStream stream) {
+    return .ReadableStreamBYOBReader(Worker_ReadableStreamBYOBReader(this._parent, stream.handle));
   }
-  auto ReadableStreamDefaultReader(.ReadableStream stream) {
-    return .ReadableStreamDefaultReader(JsHandle(Worker_ReadableStreamDefaultReader(this._parent, stream.handle)));
+  auto ReadableStreamDefaultReader(scope ref .ReadableStream stream) {
+    return .ReadableStreamDefaultReader(Worker_ReadableStreamDefaultReader(this._parent, stream.handle));
   }
-  auto TransformStream(Transformer transformer, QueuingStrategy writableStrategy, QueuingStrategy readableStrategy) {
-    return .TransformStream(JsHandle(Worker_TransformStream(this._parent, transformer.handle, writableStrategy.handle, readableStrategy.handle)));
+  auto TransformStream(scope ref Transformer transformer, scope ref QueuingStrategy writableStrategy, scope ref QueuingStrategy readableStrategy) {
+    return .TransformStream(Worker_TransformStream(this._parent, transformer.handle, writableStrategy.handle, readableStrategy.handle));
   }
-  auto WritableStream(UnderlyingSink underlyingSink, QueuingStrategy strategy) {
-    return .WritableStream(JsHandle(Worker_WritableStream(this._parent, underlyingSink.handle, strategy.handle)));
+  auto WritableStream(scope ref UnderlyingSink underlyingSink, scope ref QueuingStrategy strategy) {
+    return .WritableStream(Worker_WritableStream(this._parent, underlyingSink.handle, strategy.handle));
   }
-  auto WritableStreamDefaultWriter(.ReadableStream stream) {
-    return .WritableStreamDefaultWriter(JsHandle(Worker_WritableStreamDefaultWriter(this._parent, stream.handle)));
+  auto WritableStreamDefaultWriter(scope ref .ReadableStream stream) {
+    return .WritableStreamDefaultWriter(Worker_WritableStreamDefaultWriter(this._parent, stream.handle));
   }
-  auto FormData(HTMLFormElement form) {
-    return .FormData(JsHandle(Worker_FormData(this._parent, form._parent)));
+  auto FormData(scope ref HTMLFormElement form) {
+    return .FormData(Worker_FormData(this._parent, form._parent));
   }
-  auto TextDecoder(string label /* = "utf-8" */, TextDecoderOptions options) {
-    return .TextDecoder(JsHandle(Worker_TextDecoder(this._parent, label, options.handle)));
+  auto TextDecoder(string label /* = "utf-8" */, scope ref TextDecoderOptions options) {
+    return .TextDecoder(Worker_TextDecoder(this._parent, label, options.handle));
   }
-  auto TextDecoderStream(string label /* = "utf-8" */, TextDecoderOptions options) {
-    return .TextDecoderStream(JsHandle(Worker_TextDecoderStream(this._parent, label, options.handle)));
+  auto TextDecoderStream(string label /* = "utf-8" */, scope ref TextDecoderOptions options) {
+    return .TextDecoderStream(Worker_TextDecoderStream(this._parent, label, options.handle));
   }
   auto TextEncoder() {
-    return .TextEncoder(JsHandle(Worker_TextEncoder(this._parent)));
+    return .TextEncoder(Worker_TextEncoder(this._parent));
   }
   auto TextEncoderStream() {
-    return .TextEncoderStream(JsHandle(Worker_TextEncoderStream(this._parent)));
+    return .TextEncoderStream(Worker_TextEncoderStream(this._parent));
   }
 }
 struct WorkerGlobalScope {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   auto self() {
-    return WorkerGlobalScope(JsHandle(WorkerGlobalScope_self_Get(this._parent)));
+    return WorkerGlobalScope(WorkerGlobalScope_self_Get(this._parent));
   }
   auto location() {
-    return WorkerLocation(JsHandle(WorkerGlobalScope_location_Get(this._parent)));
+    return WorkerLocation(WorkerGlobalScope_location_Get(this._parent));
   }
   auto navigator() {
-    return WorkerNavigator(JsHandle(WorkerGlobalScope_navigator_Get(this._parent)));
+    return WorkerNavigator(WorkerGlobalScope_navigator_Get(this._parent));
   }
   void importScripts(string urls) {
     WorkerGlobalScope_importScripts(this._parent, urls);
   }
-  void onerror(OnErrorEventHandler onerror) {
+  void onerror(scope ref OnErrorEventHandler onerror) {
     WorkerGlobalScope_onerror_Set(this._parent, !onerror.empty, onerror.front);
   }
   auto onerror() {
@@ -8302,7 +8430,7 @@ struct WorkerGlobalScope {
   auto atob(string data) {
     return WindowOrWorkerGlobalScope_atob(this._parent, data);
   }
-  auto setTimeout(T2)(TimerHandler handler, int timeout /* = 0 */, T2 arguments) {
+  auto setTimeout(T2)(scope ref TimerHandler handler, int timeout /* = 0 */, scope auto ref T2 arguments) {
     Handle _handle_arguments = getOrCreateHandle(arguments);
     auto result = WindowOrWorkerGlobalScope_setTimeout(this._parent, handler, timeout, _handle_arguments);
     dropHandle!(T2)(_handle_arguments);
@@ -8314,7 +8442,7 @@ struct WorkerGlobalScope {
   void clearTimeout() {
     WindowOrWorkerGlobalScope_clearTimeout_0(this._parent);
   }
-  auto setInterval(T2)(TimerHandler handler, int timeout /* = 0 */, T2 arguments) {
+  auto setInterval(T2)(scope ref TimerHandler handler, int timeout /* = 0 */, scope auto ref T2 arguments) {
     Handle _handle_arguments = getOrCreateHandle(arguments);
     auto result = WindowOrWorkerGlobalScope_setInterval(this._parent, handler, timeout, _handle_arguments);
     dropHandle!(T2)(_handle_arguments);
@@ -8329,35 +8457,38 @@ struct WorkerGlobalScope {
   void queueMicrotask(VoidFunction callback) {
     WindowOrWorkerGlobalScope_queueMicrotask(this._parent, callback);
   }
-  auto createImageBitmap(ImageBitmapSource image, ImageBitmapOptions options) {
-    return Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_Handle(this._parent, image, options.handle)));
+  auto createImageBitmap(scope ref ImageBitmapSource image, scope ref ImageBitmapOptions options) {
+    return Promise!(ImageBitmap)(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_Handle(this._parent, image, options.handle));
   }
-  auto createImageBitmap(ImageBitmapSource image) {
-    return Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap_0_ImageBitmapSource(this._parent, image)));
+  auto createImageBitmap(scope ref ImageBitmapSource image) {
+    return Promise!(ImageBitmap)(WindowOrWorkerGlobalScope_createImageBitmap_0_ImageBitmapSource(this._parent, image));
   }
-  auto createImageBitmap(ImageBitmapSource image, int sx, int sy, int sw, int sh, ImageBitmapOptions options) {
-    return Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_int_int_int_int_Handle(this._parent, image, sx, sy, sw, sh, options.handle)));
+  auto createImageBitmap(scope ref ImageBitmapSource image, int sx, int sy, int sw, int sh, scope ref ImageBitmapOptions options) {
+    return Promise!(ImageBitmap)(WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_int_int_int_int_Handle(this._parent, image, sx, sy, sw, sh, options.handle));
   }
-  auto createImageBitmap(ImageBitmapSource image, int sx, int sy, int sw, int sh) {
-    return Promise!(ImageBitmap)(JsHandle(WindowOrWorkerGlobalScope_createImageBitmap_0_ImageBitmapSource_int_int_int_int(this._parent, image, sx, sy, sw, sh)));
+  auto createImageBitmap(scope ref ImageBitmapSource image, int sx, int sy, int sw, int sh) {
+    return Promise!(ImageBitmap)(WindowOrWorkerGlobalScope_createImageBitmap_0_ImageBitmapSource_int_int_int_int(this._parent, image, sx, sy, sw, sh));
   }
-  auto fetch(RequestInfo input, RequestInit init) {
-    return Promise!(Response)(JsHandle(WindowOrWorkerGlobalScope_fetch(this._parent, input, init.handle)));
+  auto fetch(scope ref RequestInfo input, scope ref RequestInit init) {
+    return Promise!(Response)(WindowOrWorkerGlobalScope_fetch(this._parent, input, init.handle));
   }
-  auto fetch(RequestInfo input) {
-    return Promise!(Response)(JsHandle(WindowOrWorkerGlobalScope_fetch_0(this._parent, input)));
+  auto fetch(scope ref RequestInfo input) {
+    return Promise!(Response)(WindowOrWorkerGlobalScope_fetch_0(this._parent, input));
   }
   auto indexedDB() {
-    return IDBFactory(JsHandle(WindowOrWorkerGlobalScope_indexedDB_Get(this._parent)));
+    return IDBFactory(WindowOrWorkerGlobalScope_indexedDB_Get(this._parent));
   }
   auto caches() {
-    return CacheStorage(JsHandle(WindowOrWorkerGlobalScope_caches_Get(this._parent)));
+    return CacheStorage(WindowOrWorkerGlobalScope_caches_Get(this._parent));
   }
 }
 struct WorkerLocation {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   void href(string href) {
     WorkerLocation_href_Set(this.handle, href);
   }
@@ -8393,11 +8524,14 @@ struct WorkerNavigator {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto permissions() {
-    return Permissions(JsHandle(WorkerNavigator_permissions_Get(this.handle)));
+    return Permissions(WorkerNavigator_permissions_Get(this.handle));
   }
   auto serviceWorker() {
-    return ServiceWorkerContainer(JsHandle(WorkerNavigator_serviceWorker_Get(this.handle)));
+    return ServiceWorkerContainer(WorkerNavigator_serviceWorker_Get(this.handle));
   }
   auto hardwareConcurrency() {
     return NavigatorConcurrentHardware_hardwareConcurrency_Get(this.handle);
@@ -8409,7 +8543,7 @@ struct WorkerNavigator {
     return NavigatorLanguage_language_Get(this.handle);
   }
   auto languages() {
-    return FrozenArray!(string)(JsHandle(NavigatorLanguage_languages_Get(this.handle)));
+    return FrozenArray!(string)(NavigatorLanguage_languages_Get(this.handle));
   }
   auto appCodeName() {
     return NavigatorID_appCodeName_Get(this.handle);
@@ -8449,8 +8583,11 @@ struct WorkerOptions {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return WorkerOptions(JsHandle(spasm_add__object()));
+    return WorkerOptions(spasm_add__object());
   }
   void type(WorkerType type) {
     WorkerOptions_type_Set(this.handle, type);
@@ -8533,9 +8670,9 @@ extern (C) void CanvasCompositing_globalAlpha_Set(Handle, double);
 extern (C) double CanvasCompositing_globalAlpha_Get(Handle);
 extern (C) void CanvasCompositing_globalCompositeOperation_Set(Handle, string);
 extern (C) string CanvasCompositing_globalCompositeOperation_Get(Handle);
-extern (C) void CanvasDrawImage_drawImage__CanvasImageSource_double_double(Handle, CanvasImageSource, double, double);
-extern (C) void CanvasDrawImage_drawImage__CanvasImageSource_double_double_double_double(Handle, CanvasImageSource, double, double, double, double);
-extern (C) void CanvasDrawImage_drawImage__CanvasImageSource_double_double_double_double_double_double_double_double(Handle, CanvasImageSource, double, double, double, double, double, double, double, double);
+extern (C) void CanvasDrawImage_drawImage__CanvasImageSource_double_double(Handle, scope ref CanvasImageSource, double, double);
+extern (C) void CanvasDrawImage_drawImage__CanvasImageSource_double_double_double_double(Handle, scope ref CanvasImageSource, double, double, double, double);
+extern (C) void CanvasDrawImage_drawImage__CanvasImageSource_double_double_double_double_double_double_double_double(Handle, scope ref CanvasImageSource, double, double, double, double, double, double, double, double);
 extern (C) void CanvasDrawPath_beginPath(Handle);
 extern (C) void CanvasDrawPath_fill__CanvasFillRule(Handle, CanvasFillRule);
 extern (C) void CanvasDrawPath_fill_0_(Handle);
@@ -8553,13 +8690,13 @@ extern (C) bool CanvasDrawPath_isPointInPath__Handle_double_double_CanvasFillRul
 extern (C) bool CanvasDrawPath_isPointInPath_0_Handle_double_double(Handle, Handle, double, double);
 extern (C) bool CanvasDrawPath_isPointInStroke__double_double(Handle, double, double);
 extern (C) bool CanvasDrawPath_isPointInStroke__Handle_double_double(Handle, Handle, double, double);
-extern (C) void CanvasFillStrokeStyles_strokeStyle_Set(Handle, SumType!(string, CanvasGradient, CanvasPattern));
+extern (C) void CanvasFillStrokeStyles_strokeStyle_Set(Handle, scope ref SumType!(string, CanvasGradient, CanvasPattern));
 extern (C) SumType!(string, CanvasGradient, CanvasPattern) CanvasFillStrokeStyles_strokeStyle_Get(Handle);
-extern (C) void CanvasFillStrokeStyles_fillStyle_Set(Handle, SumType!(string, CanvasGradient, CanvasPattern));
+extern (C) void CanvasFillStrokeStyles_fillStyle_Set(Handle, scope ref SumType!(string, CanvasGradient, CanvasPattern));
 extern (C) SumType!(string, CanvasGradient, CanvasPattern) CanvasFillStrokeStyles_fillStyle_Get(Handle);
 extern (C) Handle CanvasFillStrokeStyles_createLinearGradient(Handle, double, double, double, double);
 extern (C) Handle CanvasFillStrokeStyles_createRadialGradient(Handle, double, double, double, double, double, double);
-extern (C) Optional!(CanvasPattern) CanvasFillStrokeStyles_createPattern(Handle, CanvasImageSource, string);
+extern (C) Optional!(CanvasPattern) CanvasFillStrokeStyles_createPattern(Handle, scope ref CanvasImageSource, string);
 extern (C) void CanvasFilters_filter_Set(Handle, string);
 extern (C) string CanvasFilters_filter_Get(Handle);
 extern (C) void CanvasGradient_addColorStop(Handle, double, string);
@@ -9407,7 +9544,7 @@ extern (C) void HTMLMarqueeElement_stop(Handle);
 extern (C) Optional!(MediaError) HTMLMediaElement_error_Get(Handle);
 extern (C) void HTMLMediaElement_src_Set(Handle, string);
 extern (C) string HTMLMediaElement_src_Get(Handle);
-extern (C) void HTMLMediaElement_srcObject_Set(Handle, bool, MediaProvider);
+extern (C) void HTMLMediaElement_srcObject_Set(Handle, bool, scope ref MediaProvider);
 extern (C) Optional!(MediaProvider) HTMLMediaElement_srcObject_Get(Handle);
 extern (C) string HTMLMediaElement_currentSrc_Get(Handle);
 extern (C) void HTMLMediaElement_crossOrigin_Set(Handle, bool, string);
@@ -9553,8 +9690,8 @@ extern (C) int HTMLOptionElement_index_Get(Handle);
 extern (C) void HTMLOptionsCollection_length_Set(Handle, uint);
 extern (C) uint HTMLOptionsCollection_length_Get(Handle);
 extern (C) void HTMLOptionsCollection_setter__uint_optional_Handle(Handle, uint, bool, Handle);
-extern (C) void HTMLOptionsCollection_add(Handle, SumType!(HTMLOptionElement, HTMLOptGroupElement), bool, SumType!(HTMLElement, int));
-extern (C) void HTMLOptionsCollection_add_0(Handle, SumType!(HTMLOptionElement, HTMLOptGroupElement));
+extern (C) void HTMLOptionsCollection_add(Handle, scope ref SumType!(HTMLOptionElement, HTMLOptGroupElement), bool, scope ref SumType!(HTMLElement, int));
+extern (C) void HTMLOptionsCollection_add_0(Handle, scope ref SumType!(HTMLOptionElement, HTMLOptGroupElement));
 extern (C) void HTMLOptionsCollection_remove(Handle, int);
 extern (C) void HTMLOptionsCollection_selectedIndex_Set(Handle, int);
 extern (C) int HTMLOptionsCollection_selectedIndex_Get(Handle);
@@ -9647,8 +9784,8 @@ extern (C) void HTMLSelectElement_length_Set(Handle, uint);
 extern (C) uint HTMLSelectElement_length_Get(Handle);
 extern (C) Optional!(Element) HTMLSelectElement_item_getter(Handle, uint);
 extern (C) Optional!(HTMLOptionElement) HTMLSelectElement_namedItem(Handle, string);
-extern (C) void HTMLSelectElement_add(Handle, SumType!(HTMLOptionElement, HTMLOptGroupElement), bool, SumType!(HTMLElement, int));
-extern (C) void HTMLSelectElement_add_0(Handle, SumType!(HTMLOptionElement, HTMLOptGroupElement));
+extern (C) void HTMLSelectElement_add(Handle, scope ref SumType!(HTMLOptionElement, HTMLOptGroupElement), bool, scope ref SumType!(HTMLElement, int));
+extern (C) void HTMLSelectElement_add_0(Handle, scope ref SumType!(HTMLOptionElement, HTMLOptGroupElement));
 extern (C) void HTMLSelectElement_remove__(Handle);
 extern (C) void HTMLSelectElement_remove__int(Handle, int);
 extern (C) void HTMLSelectElement_setter__uint_optional_Handle(Handle, uint, bool, Handle);
@@ -9948,8 +10085,8 @@ extern (C) string MessageEvent_origin_Get(Handle);
 extern (C) string MessageEvent_lastEventId_Get(Handle);
 extern (C) Optional!(MessageEventSource) MessageEvent_source_Get(Handle);
 extern (C) Handle MessageEvent_ports_Get(Handle);
-extern (C) void MessageEvent_initMessageEvent(Handle, string, bool, bool, Handle, string, string, bool, MessageEventSource, Handle);
-extern (C) void MessageEvent_initMessageEvent_0(Handle, string, bool, bool, Handle, string, string, bool, MessageEventSource);
+extern (C) void MessageEvent_initMessageEvent(Handle, string, bool, bool, Handle, string, string, bool, scope ref MessageEventSource, Handle);
+extern (C) void MessageEvent_initMessageEvent_0(Handle, string, bool, bool, Handle, string, string, bool, scope ref MessageEventSource);
 extern (C) void MessageEvent_initMessageEvent_1(Handle, string, bool, bool, Handle, string, string);
 extern (C) void MessageEvent_initMessageEvent_2(Handle, string, bool, bool, Handle, string);
 extern (C) void MessageEvent_initMessageEvent_3(Handle, string, bool, bool, Handle);
@@ -9962,7 +10099,7 @@ extern (C) void MessageEventInit_origin_Set(Handle, string);
 extern (C) string MessageEventInit_origin_Get(Handle);
 extern (C) void MessageEventInit_lastEventId_Set(Handle, string);
 extern (C) string MessageEventInit_lastEventId_Get(Handle);
-extern (C) void MessageEventInit_source_Set(Handle, bool, MessageEventSource);
+extern (C) void MessageEventInit_source_Set(Handle, bool, scope ref MessageEventSource);
 extern (C) Optional!(MessageEventSource) MessageEventInit_source_Get(Handle);
 extern (C) void MessageEventInit_ports_Set(Handle, Handle);
 extern (C) Handle MessageEventInit_ports_Get(Handle);
@@ -9984,7 +10121,7 @@ extern (C) Optional!(MimeType) MimeTypeArray_item_getter(Handle, uint);
 extern (C) Optional!(MimeType) MimeTypeArray_namedItem_getter(Handle, string);
 extern (C) Handle Navigator_clipboard_Get(Handle);
 extern (C) Handle Navigator_permissions_Get(Handle);
-extern (C) bool Navigator_vibrate(Handle, VibratePattern);
+extern (C) bool Navigator_vibrate(Handle, scope ref VibratePattern);
 extern (C) Handle Navigator_mediaDevices_Get(Handle);
 extern (C) void Navigator_getUserMedia(Handle, Handle, NavigatorUserMediaSuccessCallback, NavigatorUserMediaErrorCallback);
 extern (C) int Navigator_maxTouchPoints_Get(Handle);
@@ -10142,7 +10279,7 @@ extern (C) uint TimeRanges_length_Get(Handle);
 extern (C) double TimeRanges_start(Handle, uint);
 extern (C) double TimeRanges_end(Handle, uint);
 extern (C) Optional!(SumType!(VideoTrack, AudioTrack, TextTrack)) TrackEvent_track_Get(Handle);
-extern (C) void TrackEventInit_track_Set(Handle, bool, SumType!(VideoTrack, AudioTrack, TextTrack));
+extern (C) void TrackEventInit_track_Set(Handle, bool, scope ref SumType!(VideoTrack, AudioTrack, TextTrack));
 extern (C) Optional!(SumType!(VideoTrack, AudioTrack, TextTrack)) TrackEventInit_track_Get(Handle);
 extern (C) bool ValidityState_valueMissing_Get(Handle);
 extern (C) bool ValidityState_typeMismatch_Get(Handle);
@@ -10192,7 +10329,7 @@ extern (C) void WebSocket_binaryType_Set(Handle, BinaryType);
 extern (C) BinaryType WebSocket_binaryType_Get(Handle);
 extern (C) void WebSocket_send__string(Handle, string);
 extern (C) void WebSocket_send__Handle(Handle, Handle);
-extern (C) void WebSocket_send__ArrayBufferView(Handle, ArrayBufferView);
+extern (C) void WebSocket_send__ArrayBufferView(Handle, scope ref ArrayBufferView);
 extern (C) Handle Window_window_Get(Handle);
 extern (C) Handle Window_self_Get(Handle);
 extern (C) Handle Window_document_Get(Handle);
@@ -10252,9 +10389,9 @@ extern (C) EventHandler Window_onorientationchange_Get(Handle);
 extern (C) Handle Window_Blob(Handle, Handle, Handle);
 extern (C) Handle Window_File(Handle, Handle, string, Handle);
 extern (C) Handle Window_FileReader(Handle);
-extern (C) Handle Window_Headers(Handle, HeadersInit);
-extern (C) Handle Window_Request(Handle, RequestInfo, Handle);
-extern (C) Handle Window_Response(Handle, bool, BodyInit, Handle);
+extern (C) Handle Window_Headers(Handle, scope ref HeadersInit);
+extern (C) Handle Window_Request(Handle, scope ref RequestInfo, Handle);
+extern (C) Handle Window_Response(Handle, bool, scope ref BodyInit, Handle);
 extern (C) Handle Window_Notification(Handle, string, Handle);
 extern (C) Handle Window_AbortController(Handle);
 extern (C) Handle Window_CustomEvent(Handle, string, Handle);
@@ -10269,16 +10406,16 @@ extern (C) Handle Window_ImageData__Handle_uint_uint(Handle, Handle, uint, uint)
 extern (C) Handle Window_MessageChannel(Handle);
 extern (C) Handle Window_MessageEvent(Handle, string, Handle);
 extern (C) Handle Window_OffscreenCanvas(Handle, ulong, ulong);
-extern (C) Handle Window_Path2D(Handle, SumType!(Path2D, string));
+extern (C) Handle Window_Path2D(Handle, scope ref SumType!(Path2D, string));
 extern (C) Handle Window_PromiseRejectionEvent(Handle, string, Handle);
-extern (C) Handle Window_SharedWorker(Handle, string, SumType!(string, WorkerOptions));
-extern (C) Handle Window_WebSocket(Handle, string, SumType!(string, Sequence!(string)));
+extern (C) Handle Window_SharedWorker(Handle, string, scope ref SumType!(string, WorkerOptions));
+extern (C) Handle Window_WebSocket(Handle, string, scope ref SumType!(string, Sequence!(string)));
 extern (C) Handle Window_Worker(Handle, string, Handle);
 extern (C) Handle Window_DOMException(Handle, string, string);
 extern (C) Handle Window_URL(Handle, string, string);
-extern (C) Handle Window_URLSearchParams(Handle, SumType!(Sequence!(Sequence!(string)), Record!(string, string), string));
-extern (C) Handle Window_DOMMatrix(Handle, SumType!(string, Sequence!(double)));
-extern (C) Handle Window_DOMMatrixReadOnly(Handle, SumType!(string, Sequence!(double)));
+extern (C) Handle Window_URLSearchParams(Handle, scope ref SumType!(Sequence!(Sequence!(string)), Record!(string, string), string));
+extern (C) Handle Window_DOMMatrix(Handle, scope ref SumType!(string, Sequence!(double)));
+extern (C) Handle Window_DOMMatrixReadOnly(Handle, scope ref SumType!(string, Sequence!(double)));
 extern (C) Handle Window_DOMPoint(Handle, double, double, double, double);
 extern (C) Handle Window_DOMPointReadOnly(Handle, double, double, double, double);
 extern (C) Handle Window_DOMQuad(Handle, Handle, Handle, Handle, Handle);
@@ -10336,19 +10473,19 @@ extern (C) Handle WindowLocalStorage_localStorage_Get(Handle);
 extern (C) string WindowOrWorkerGlobalScope_origin_Get(Handle);
 extern (C) string WindowOrWorkerGlobalScope_btoa(Handle, string);
 extern (C) string WindowOrWorkerGlobalScope_atob(Handle, string);
-extern (C) int WindowOrWorkerGlobalScope_setTimeout(Handle, TimerHandler, int, Handle);
+extern (C) int WindowOrWorkerGlobalScope_setTimeout(Handle, scope ref TimerHandler, int, Handle);
 extern (C) void WindowOrWorkerGlobalScope_clearTimeout(Handle, int);
 extern (C) void WindowOrWorkerGlobalScope_clearTimeout_0(Handle);
-extern (C) int WindowOrWorkerGlobalScope_setInterval(Handle, TimerHandler, int, Handle);
+extern (C) int WindowOrWorkerGlobalScope_setInterval(Handle, scope ref TimerHandler, int, Handle);
 extern (C) void WindowOrWorkerGlobalScope_clearInterval(Handle, int);
 extern (C) void WindowOrWorkerGlobalScope_clearInterval_0(Handle);
 extern (C) void WindowOrWorkerGlobalScope_queueMicrotask(Handle, VoidFunction);
-extern (C) Handle WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_Handle(Handle, ImageBitmapSource, Handle);
-extern (C) Handle WindowOrWorkerGlobalScope_createImageBitmap_0_ImageBitmapSource(Handle, ImageBitmapSource);
-extern (C) Handle WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_int_int_int_int_Handle(Handle, ImageBitmapSource, int, int, int, int, Handle);
-extern (C) Handle WindowOrWorkerGlobalScope_createImageBitmap_0_ImageBitmapSource_int_int_int_int(Handle, ImageBitmapSource, int, int, int, int);
-extern (C) Handle WindowOrWorkerGlobalScope_fetch(Handle, RequestInfo, Handle);
-extern (C) Handle WindowOrWorkerGlobalScope_fetch_0(Handle, RequestInfo);
+extern (C) Handle WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_Handle(Handle, scope ref ImageBitmapSource, Handle);
+extern (C) Handle WindowOrWorkerGlobalScope_createImageBitmap_0_ImageBitmapSource(Handle, scope ref ImageBitmapSource);
+extern (C) Handle WindowOrWorkerGlobalScope_createImageBitmap__ImageBitmapSource_int_int_int_int_Handle(Handle, scope ref ImageBitmapSource, int, int, int, int, Handle);
+extern (C) Handle WindowOrWorkerGlobalScope_createImageBitmap_0_ImageBitmapSource_int_int_int_int(Handle, scope ref ImageBitmapSource, int, int, int, int);
+extern (C) Handle WindowOrWorkerGlobalScope_fetch(Handle, scope ref RequestInfo, Handle);
+extern (C) Handle WindowOrWorkerGlobalScope_fetch_0(Handle, scope ref RequestInfo);
 extern (C) Handle WindowOrWorkerGlobalScope_indexedDB_Get(Handle);
 extern (C) Handle WindowOrWorkerGlobalScope_caches_Get(Handle);
 extern (C) void WindowPostMessageOptions_targetOrigin_Set(Handle, string);
@@ -10365,9 +10502,9 @@ extern (C) EventHandler Worker_onmessageerror_Get(Handle);
 extern (C) Handle Worker_Blob(Handle, Handle, Handle);
 extern (C) Handle Worker_File(Handle, Handle, string, Handle);
 extern (C) Handle Worker_FileReader(Handle);
-extern (C) Handle Worker_Headers(Handle, HeadersInit);
-extern (C) Handle Worker_Request(Handle, RequestInfo, Handle);
-extern (C) Handle Worker_Response(Handle, bool, BodyInit, Handle);
+extern (C) Handle Worker_Headers(Handle, scope ref HeadersInit);
+extern (C) Handle Worker_Request(Handle, scope ref RequestInfo, Handle);
+extern (C) Handle Worker_Response(Handle, bool, scope ref BodyInit, Handle);
 extern (C) Handle Worker_Notification(Handle, string, Handle);
 extern (C) Handle Worker_AbortController(Handle);
 extern (C) Handle Worker_CustomEvent(Handle, string, Handle);
@@ -10382,16 +10519,16 @@ extern (C) Handle Worker_ImageData__Handle_uint_uint(Handle, Handle, uint, uint)
 extern (C) Handle Worker_MessageChannel(Handle);
 extern (C) Handle Worker_MessageEvent(Handle, string, Handle);
 extern (C) Handle Worker_OffscreenCanvas(Handle, ulong, ulong);
-extern (C) Handle Worker_Path2D(Handle, SumType!(Path2D, string));
+extern (C) Handle Worker_Path2D(Handle, scope ref SumType!(Path2D, string));
 extern (C) Handle Worker_PromiseRejectionEvent(Handle, string, Handle);
-extern (C) Handle Worker_SharedWorker(Handle, string, SumType!(string, WorkerOptions));
-extern (C) Handle Worker_WebSocket(Handle, string, SumType!(string, Sequence!(string)));
+extern (C) Handle Worker_SharedWorker(Handle, string, scope ref SumType!(string, WorkerOptions));
+extern (C) Handle Worker_WebSocket(Handle, string, scope ref SumType!(string, Sequence!(string)));
 extern (C) Handle Worker_Worker(Handle, string, Handle);
 extern (C) Handle Worker_DOMException(Handle, string, string);
 extern (C) Handle Worker_URL(Handle, string, string);
-extern (C) Handle Worker_URLSearchParams(Handle, SumType!(Sequence!(Sequence!(string)), Record!(string, string), string));
-extern (C) Handle Worker_DOMMatrix(Handle, SumType!(string, Sequence!(double)));
-extern (C) Handle Worker_DOMMatrixReadOnly(Handle, SumType!(string, Sequence!(double)));
+extern (C) Handle Worker_URLSearchParams(Handle, scope ref SumType!(Sequence!(Sequence!(string)), Record!(string, string), string));
+extern (C) Handle Worker_DOMMatrix(Handle, scope ref SumType!(string, Sequence!(double)));
+extern (C) Handle Worker_DOMMatrixReadOnly(Handle, scope ref SumType!(string, Sequence!(double)));
 extern (C) Handle Worker_DOMPoint(Handle, double, double, double, double);
 extern (C) Handle Worker_DOMPointReadOnly(Handle, double, double, double, double);
 extern (C) Handle Worker_DOMQuad(Handle, Handle, Handle, Handle, Handle);

@@ -6,18 +6,23 @@ import spasm.bindings.fetch;
 import spasm.bindings.fileapi;
 import spasm.bindings.html;
 
+@safe:
 nothrow:
+
 struct FormData {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   void append(string name, string value) {
     FormData_append__string_string(this.handle, name, value);
   }
-  void append(string name, Blob blobValue, string filename) {
+  void append(string name, scope ref Blob blobValue, string filename) {
     FormData_append__string_Handle_string(this.handle, name, blobValue.handle, filename);
   }
-  void append(string name, Blob blobValue) {
+  void append(string name, scope ref Blob blobValue) {
     FormData_append_0(this.handle, name, blobValue.handle);
   }
   void delete_(string name) {
@@ -27,7 +32,7 @@ struct FormData {
     return FormData_get(this.handle, name);
   }
   auto getAll(string name) {
-    return Sequence!(FormDataEntryValue)(JsHandle(FormData_getAll(this.handle, name)));
+    return Sequence!(FormDataEntryValue)(FormData_getAll(this.handle, name));
   }
   auto has(string name) {
     return FormData_has(this.handle, name);
@@ -35,10 +40,10 @@ struct FormData {
   void set(string name, string value) {
     FormData_set__string_string(this.handle, name, value);
   }
-  void set(string name, Blob blobValue, string filename) {
+  void set(string name, scope ref Blob blobValue, string filename) {
     FormData_set__string_Handle_string(this.handle, name, blobValue.handle, filename);
   }
-  void set(string name, Blob blobValue) {
+  void set(string name, scope ref Blob blobValue) {
     FormData_set_0(this.handle, name, blobValue.handle);
   }
 }
@@ -47,7 +52,7 @@ struct ProgressEvent {
   nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Event(h);
   }
   auto lengthComputable() {
@@ -64,11 +69,11 @@ struct ProgressEventInit {
   nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventInit(h);
   }
   static auto create() {
-    return ProgressEventInit(JsHandle(spasm_add__object()));
+    return ProgressEventInit(spasm_add__object());
   }
   void lengthComputable(bool lengthComputable) {
     ProgressEventInit_lengthComputable_Set(this._parent, lengthComputable);
@@ -93,7 +98,7 @@ struct XMLHttpRequest {
   nothrow:
   spasm.bindings.xhr.XMLHttpRequestEventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .XMLHttpRequestEventTarget(h);
   }
   void onreadystatechange(EventHandler onreadystatechange) {
@@ -113,10 +118,10 @@ struct XMLHttpRequest {
   void open(string method, string url) {
     XMLHttpRequest_open__string_string(this._parent, method, url);
   }
-  void open(string method, string url, bool async, Optional!(string) username /* = no!(string) */, Optional!(string) password /* = no!(string) */) {
+  void open(string method, string url, bool async, scope ref Optional!(string) username /* = no!(string) */, scope ref Optional!(string) password /* = no!(string) */) {
     XMLHttpRequest_open__string_string_bool_optional_string_optional_string(this._parent, method, url, async, !username.empty, username.front, !password.empty, password.front);
   }
-  void open(string method, string url, bool async, Optional!(string) username /* = no!(string) */) {
+  void open(string method, string url, bool async, scope ref Optional!(string) username /* = no!(string) */) {
     XMLHttpRequest_open_0(this._parent, method, url, async, !username.empty, username.front);
   }
   void open(string method, string url, bool async) {
@@ -138,9 +143,9 @@ struct XMLHttpRequest {
     return XMLHttpRequest_withCredentials_Get(this._parent);
   }
   auto upload() {
-    return XMLHttpRequestUpload(JsHandle(XMLHttpRequest_upload_Get(this._parent)));
+    return XMLHttpRequestUpload(XMLHttpRequest_upload_Get(this._parent));
   }
-  void send(Optional!(SumType!(Document, BodyInit)) body_ /* = no!(SumType!(Document, BodyInit)) */) {
+  void send(scope ref Optional!(SumType!(Document, BodyInit)) body_ /* = no!(SumType!(Document, BodyInit)) */) {
     XMLHttpRequest_send(this._parent, !body_.empty, body_.front);
   }
   void send() {
@@ -174,7 +179,7 @@ struct XMLHttpRequest {
     return XMLHttpRequest_responseType_Get(this._parent);
   }
   auto response() {
-    return Any(JsHandle(XMLHttpRequest_response_Get(this._parent)));
+    return Any(XMLHttpRequest_response_Get(this._parent));
   }
   auto responseText() {
     return XMLHttpRequest_responseText_Get(this._parent);
@@ -187,7 +192,7 @@ struct XMLHttpRequestEventTarget {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   void onloadstart(EventHandler onloadstart) {
@@ -245,7 +250,7 @@ struct XMLHttpRequestUpload {
   nothrow:
   spasm.bindings.xhr.XMLHttpRequestEventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .XMLHttpRequestEventTarget(h);
   }
 }
@@ -283,7 +288,7 @@ extern (C) uint XMLHttpRequest_timeout_Get(Handle);
 extern (C) void XMLHttpRequest_withCredentials_Set(Handle, bool);
 extern (C) bool XMLHttpRequest_withCredentials_Get(Handle);
 extern (C) Handle XMLHttpRequest_upload_Get(Handle);
-extern (C) void XMLHttpRequest_send(Handle, bool, SumType!(Document, BodyInit));
+extern (C) void XMLHttpRequest_send(Handle, bool, scope ref SumType!(Document, BodyInit));
 extern (C) void XMLHttpRequest_send_0(Handle);
 extern (C) void XMLHttpRequest_abort(Handle);
 extern (C) string XMLHttpRequest_responseURL_Get(Handle);

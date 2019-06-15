@@ -147,7 +147,7 @@ void generateDFiles(IR ir, string dFolder) {
     auto imports = ir.getImports(m);
     if (imports.length > 0)
       std.file.append(dFile, imports.joiner("\n").text~"\n\n");
-    std.file.append(dFile, "nothrow:\n");
+    std.file.append(dFile, "@safe:\nnothrow:\n\n");
     std.file.append(dFile, ir.generateDBindings(m) ~ "\n\n");
     std.file.append(dFile, ir.generateDImports(m));
   }

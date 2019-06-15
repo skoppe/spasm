@@ -1,7 +1,9 @@
 module spasm.bindings.webappsec;
 
 import spasm.types;
+@safe:
 nothrow:
+
 enum ReferrerPolicy {
   none,
   no_referrer,

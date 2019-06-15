@@ -8,6 +8,7 @@ import std.traits : hasMember, isCallable, isBasicType;
 import ldc.attributes;
 
 extern (C) {
+  @safe:
   void doLog(uint val);
   Handle spasm_add__bool(bool);
   Handle spasm_add__int(int);
@@ -20,7 +21,7 @@ extern (C) {
   Handle spasm_add__double(double);
   Handle spasm_add__byte(byte);
   Handle spasm_add__ubyte(ubyte);
-  Handle spasm_add__string(string);
+  Handle spasm_add__string(scope ref string);
   Handle spasm_add__object();
   void spasm_removeObject(Handle);
   Handle spasm_get__field(Handle, string);
@@ -38,49 +39,26 @@ extern (C) {
   string spasm_get__string(Handle);
 }
 
-extern(C) export @assumeUsed ubyte* allocString(uint bytes) {
+@trusted extern(C) export @assumeUsed ubyte* allocString(uint bytes) {
   import spasm.rt.memory;
   return allocator.make!(ubyte[])(bytes).ptr;
 }
+
+@safe:
 
 alias Handle = uint;
 struct JsHandle {
   nothrow:
   package Handle handle;
-  private uint* refCount;
-  this(Handle handle) {
-    this.handle = handle;
-    if (__ctfe) {} else {
-      import spasm.rt.allocator;
-      refCount = cast(uint*)WasmAllocator.instance.allocate(uint.sizeof).ptr;
-      (*refCount) = 1;
-      import spasm.types;
-      doLog(cast(uint)refCount);
-      doLog((*refCount));
-    }
-  }
   ~this() {
-    if (refCount is null)
-      return;
-    if ((*refCount) == 1) {
+    if (handle > 2) {
       spasm_removeObject(handle);
-      import spasm.rt.allocator;
-      WasmAllocator.instance.deallocate(cast(void[])refCount[0..1]);
-    } else {
-      (*refCount)--;
-      import spasm.types;
-      doLog(cast(uint)refCount);
-      doLog((*refCount));
     }
   }
-  this(this) {
-    if (refCount is null)
-      return;
-    (*refCount)++;
-    import spasm.types;
-    doLog(cast(uint)refCount);
-    doLog((*refCount));
+  void opAssign(Handle handle) {
+    this.handle = handle;
   }
+  @disable this(this);
   alias handle this;
 }
 
@@ -270,10 +248,12 @@ enum EventType {
   event = 44
 }
 
-template as(Target) {
+@safe template as(Target) {
   static if (hasMember!(Target, "handle")) {
-    auto as(Source)(auto ref Source s) if (hasMember!(Source, "handle")){
-      return Target(s.handle);
+    @safe auto as(Source)(Source s) if (hasMember!(Source, "handle")){
+      Handle h = s.handle;
+      s.handle = 0;
+      return Target(h);
     }
   } else static if (isBasicType!Target || is(Target : string)) {
     auto as(Source)(auto ref Source s) if (hasMember!(Source, "handle")){
@@ -282,7 +262,7 @@ template as(Target) {
   }
 }
 
-Handle getOrCreateHandle(T)(auto ref T data) {
+Handle getOrCreateHandle(T)(scope ref T data) {
   static if (isBasicType!T || is(T : string)) {
     mixin("return spasm_add__" ~ T.stringof~ "(data);");
   } else static if (is(T : Optional!U, U)) {
@@ -304,6 +284,9 @@ struct Any {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
 }
 
 template SpasmMangle(T) {
@@ -336,6 +319,9 @@ struct Promise(T, U = Any) {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   alias JoinedType = BridgeType!T;
   enum ResultMangled = SpasmMangle!T;
   static if (is(T == void)) {
@@ -359,17 +345,23 @@ struct Sequence(T) {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
 }
 struct TypedArray(T) {
   nothrow:
 	JsHandle handle;
 	alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
 }
 struct Int8Array {
   nothrow:
 	TypedArray!(byte) _array;
 	alias _array this;
-  this(JsHandle h) {
+  this(Handle h) {
     _array = TypedArray!(byte)(h);
   }
 }
@@ -377,7 +369,7 @@ struct Int16Array {
   nothrow:
 	TypedArray!(short) _array;
 	alias _array this;
-  this(JsHandle h) {
+  this(Handle h) {
     _array = TypedArray!(short)(h);
   }
 }
@@ -385,7 +377,7 @@ struct Int32Array {
   nothrow:
 	TypedArray!(int) _array;
 	alias _array this;
-  this(JsHandle h) {
+  this(Handle h) {
     _array = TypedArray!(int)(h);
   }
 }
@@ -393,7 +385,7 @@ struct Uint8Array {
   nothrow:
 	TypedArray!(ubyte) _array;
 	alias _array this;
-  this(JsHandle h) {
+  this(Handle h) {
     _array = TypedArray!(ubyte)(h);
   }
 }
@@ -401,7 +393,7 @@ struct Uint16Array {
   nothrow:
 	TypedArray!(ushort) _array;
 	alias _array this;
-  this(JsHandle h) {
+  this(Handle h) {
     _array = TypedArray!(ushort)(h);
   }
 }
@@ -409,7 +401,7 @@ struct Uint32Array {
   nothrow:
 	TypedArray!(uint) _array;
 	alias _array this;
-  this(JsHandle h) {
+  this(Handle h) {
     _array = TypedArray!(uint)(h);
   }
 }
@@ -417,7 +409,7 @@ struct Float32Array {
   nothrow:
 	TypedArray!(float) _array;
 	alias _array this;
-  this(JsHandle h) {
+  this(Handle h) {
     _array = TypedArray!(float)(h);
   }
 }
@@ -425,7 +417,7 @@ struct Float64Array {
   nothrow:
 	TypedArray!(double) _array;
 	alias _array this;
-  this(JsHandle h) {
+  this(Handle h) {
     _array = TypedArray!(double)(h);
   }
 }
@@ -433,57 +425,87 @@ struct Uint8ClampedArray {
   nothrow:
 	JsHandle handle;
 	alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
 }
 struct DataView {
   nothrow:
 	JsHandle handle;
 	alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
 }
 struct ArrayBuffer {
   nothrow:
 	JsHandle handle;
 	alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
 }
 struct FrozenArray(T) {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
 }
 // TODO: for now animation is defined here, but when accepted we can use the idl (or newer) at https://www.w3.org/TR/2018/WD-web-animations-1-20181011
 struct Animation {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
 }
 struct Iterator(T) {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
 }
 struct Record(T...) {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
 }
 struct ArrayPair(T,U) {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
 }
 struct JsObject {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto opDispatch(string name)() {
-    return Any(JsHandle(spasm_get__field(this.handle, name)));
+    return Any(spasm_get__field(this.handle, name));
   }
 }
 struct Json {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto opDispatch(string name)() {
-    return Json(JsHandle(spasm_get__field(this.handle, name)));
+    return Json(spasm_get__field(this.handle, name));
   }
   auto as(Target)() {
     return .as!(Target)(this);

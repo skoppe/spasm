@@ -8,6 +8,8 @@ public import spasm.event;
 public import spasm.array;
 public import spasm.css;
 
+nothrow:
+
 extern(C) {
   Handle getRoot();
 }
@@ -56,11 +58,11 @@ mixin template Spa(Application, Theme) {
   pragma(mangle, "_start")
   extern(C)
   export
-  void _start(uint heap_base) {
+  @trusted void _start(uint heap_base) {
     import spasm.rt.memory;
     alloc_init(heap_base);
     addRoot(&application);
-    JsHandle root = JsHandle(getRoot());
+    auto root = getRoot();
     addApplicationCss!(Application, Theme)();
     application.setPointers();
     spasm.dom.render(root, application);

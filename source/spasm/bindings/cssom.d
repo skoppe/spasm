@@ -3,16 +3,18 @@ module spasm.bindings.cssom;
 import spasm.types;
 import spasm.bindings.dom;
 
+@safe:
 nothrow:
+
 struct CSSGroupingRule {
   nothrow:
   spasm.bindings.cssom.CSSRule _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .CSSRule(h);
   }
   auto cssRules() {
-    return CSSRuleList(JsHandle(CSSGroupingRule_cssRules_Get(this._parent)));
+    return CSSRuleList(CSSGroupingRule_cssRules_Get(this._parent));
   }
   auto insertRule(string rule, uint index) {
     return CSSGroupingRule_insertRule(this._parent, rule, index);
@@ -25,49 +27,49 @@ struct CSSImportRule {
   nothrow:
   spasm.bindings.cssom.CSSRule _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .CSSRule(h);
   }
   auto href() {
     return CSSImportRule_href_Get(this._parent);
   }
   auto media() {
-    return MediaList(JsHandle(CSSImportRule_media_Get(this._parent)));
+    return MediaList(CSSImportRule_media_Get(this._parent));
   }
   auto styleSheet() {
-    return CSSStyleSheet(JsHandle(CSSImportRule_styleSheet_Get(this._parent)));
+    return CSSStyleSheet(CSSImportRule_styleSheet_Get(this._parent));
   }
 }
 struct CSSMarginRule {
   nothrow:
   spasm.bindings.cssom.CSSRule _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .CSSRule(h);
   }
   auto name() {
     return CSSMarginRule_name_Get(this._parent);
   }
   auto style() {
-    return CSSStyleDeclaration(JsHandle(CSSMarginRule_style_Get(this._parent)));
+    return CSSStyleDeclaration(CSSMarginRule_style_Get(this._parent));
   }
 }
 struct CSSMediaRule {
   nothrow:
   spasm.bindings.cssom.CSSGroupingRule _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .CSSGroupingRule(h);
   }
   auto media() {
-    return MediaList(JsHandle(CSSMediaRule_media_Get(this._parent)));
+    return MediaList(CSSMediaRule_media_Get(this._parent));
   }
 }
 struct CSSNamespaceRule {
   nothrow:
   spasm.bindings.cssom.CSSRule _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .CSSRule(h);
   }
   auto namespaceURI() {
@@ -81,7 +83,7 @@ struct CSSPageRule {
   nothrow:
   spasm.bindings.cssom.CSSGroupingRule _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .CSSGroupingRule(h);
   }
   void selectorText(string selectorText) {
@@ -91,13 +93,16 @@ struct CSSPageRule {
     return CSSPageRule_selectorText_Get(this._parent);
   }
   auto style() {
-    return CSSStyleDeclaration(JsHandle(CSSPageRule_style_Get(this._parent)));
+    return CSSStyleDeclaration(CSSPageRule_style_Get(this._parent));
   }
 }
 struct CSSRule {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   enum ushort STYLE_RULE = 1;
   enum ushort CHARSET_RULE = 2;
   enum ushort IMPORT_RULE = 3;
@@ -126,6 +131,9 @@ struct CSSRuleList {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto item(uint index) {
     return CSSRuleList_item_getter(this.handle, index);
   }
@@ -137,6 +145,9 @@ struct CSSStyleDeclaration {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   void cssText(string cssText) {
     CSSStyleDeclaration_cssText_Set(this.handle, cssText);
   }
@@ -208,7 +219,7 @@ struct CSSStyleRule {
   nothrow:
   spasm.bindings.cssom.CSSRule _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .CSSRule(h);
   }
   void selectorText(string selectorText) {
@@ -218,21 +229,21 @@ struct CSSStyleRule {
     return CSSStyleRule_selectorText_Get(this._parent);
   }
   auto style() {
-    return CSSStyleDeclaration(JsHandle(CSSStyleRule_style_Get(this._parent)));
+    return CSSStyleDeclaration(CSSStyleRule_style_Get(this._parent));
   }
 }
 struct CSSStyleSheet {
   nothrow:
   spasm.bindings.cssom.StyleSheet _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .StyleSheet(h);
   }
   auto ownerRule() {
     return CSSStyleSheet_ownerRule_Get(this._parent);
   }
   auto cssRules() {
-    return CSSRuleList(JsHandle(CSSStyleSheet_cssRules_Get(this._parent)));
+    return CSSRuleList(CSSStyleSheet_cssRules_Get(this._parent));
   }
   auto insertRule(string rule, uint index) {
     return CSSStyleSheet_insertRule(this._parent, rule, index);
@@ -245,6 +256,9 @@ struct LinkStyle {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto sheet() {
     return LinkStyle_sheet_Get(this.handle);
   }
@@ -253,6 +267,9 @@ struct MediaList {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   void mediaText(string mediaText) {
     MediaList_mediaText_Set(this.handle, mediaText);
   }
@@ -276,6 +293,9 @@ struct StyleSheet {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto type() {
     return StyleSheet_type_Get(this.handle);
   }
@@ -292,7 +312,7 @@ struct StyleSheet {
     return StyleSheet_title_Get(this.handle);
   }
   auto media() {
-    return MediaList(JsHandle(StyleSheet_media_Get(this.handle)));
+    return MediaList(StyleSheet_media_Get(this.handle));
   }
   void disabled(bool disabled) {
     StyleSheet_disabled_Set(this.handle, disabled);
@@ -305,6 +325,9 @@ struct StyleSheetList {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto item(uint index) {
     return StyleSheetList_item_getter(this.handle, index);
   }

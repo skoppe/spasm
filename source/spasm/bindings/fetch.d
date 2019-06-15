@@ -9,12 +9,17 @@ import spasm.bindings.url;
 import spasm.bindings.webappsec;
 import spasm.bindings.xhr;
 
+@safe:
 nothrow:
+
 alias BodyInit = SumType!(Blob, BufferSource, FormData, URLSearchParams, ReadableStream, string);
 struct Headers {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   void append(string name, string value) {
     Headers_append(this.handle, name, value);
   }
@@ -36,6 +41,9 @@ struct Request {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto method() {
     return Request_method_Get(this.handle);
   }
@@ -43,7 +51,7 @@ struct Request {
     return Request_url_Get(this.handle);
   }
   auto headers() {
-    return Headers(JsHandle(Request_headers_Get(this.handle)));
+    return Headers(Request_headers_Get(this.handle));
   }
   auto destination() {
     return Request_destination_Get(this.handle);
@@ -79,10 +87,10 @@ struct Request {
     return Request_isHistoryNavigation_Get(this.handle);
   }
   auto signal() {
-    return AbortSignal(JsHandle(Request_signal_Get(this.handle)));
+    return AbortSignal(Request_signal_Get(this.handle));
   }
   auto clone() {
-    return Request(JsHandle(Request_clone(this.handle)));
+    return Request(Request_clone(this.handle));
   }
   auto body_() {
     return Body_body_Get(this.handle);
@@ -91,19 +99,19 @@ struct Request {
     return Body_bodyUsed_Get(this.handle);
   }
   auto arrayBuffer() {
-    return Promise!(ArrayBuffer)(JsHandle(Body_arrayBuffer(this.handle)));
+    return Promise!(ArrayBuffer)(Body_arrayBuffer(this.handle));
   }
   auto blob() {
-    return Promise!(Blob)(JsHandle(Body_blob(this.handle)));
+    return Promise!(Blob)(Body_blob(this.handle));
   }
   auto formData() {
-    return Promise!(FormData)(JsHandle(Body_formData(this.handle)));
+    return Promise!(FormData)(Body_formData(this.handle));
   }
   auto json() {
-    return Promise!(Any)(JsHandle(Body_json(this.handle)));
+    return Promise!(Any)(Body_json(this.handle));
   }
   auto text() {
-    return Promise!(string)(JsHandle(Body_text(this.handle)));
+    return Promise!(string)(Body_text(this.handle));
   }
 }
 enum RequestCache {
@@ -144,8 +152,11 @@ struct RequestInit {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return RequestInit(JsHandle(spasm_add__object()));
+    return RequestInit(spasm_add__object());
   }
   void method(string method) {
     RequestInit_method_Set(this.handle, method);
@@ -153,13 +164,13 @@ struct RequestInit {
   auto method() {
     return RequestInit_method_Get(this.handle);
   }
-  void headers(HeadersInit headers) {
+  void headers(scope ref HeadersInit headers) {
     RequestInit_headers_Set(this.handle, headers);
   }
   auto headers() {
     return RequestInit_headers_Get(this.handle);
   }
-  void body_(Optional!(BodyInit) body_) {
+  void body_(scope ref Optional!(BodyInit) body_) {
     RequestInit_body_Set(this.handle, !body_.empty, body_.front);
   }
   auto body_() {
@@ -213,19 +224,19 @@ struct RequestInit {
   auto keepalive() {
     return RequestInit_keepalive_Get(this.handle);
   }
-  void signal(Optional!(AbortSignal) signal) {
+  void signal(scope ref Optional!(AbortSignal) signal) {
     RequestInit_signal_Set(this.handle, !signal.empty, signal.front._parent);
   }
   auto signal() {
     return RequestInit_signal_Get(this.handle);
   }
-  void window(T0)(T0 window) {
+  void window(T0)(scope auto ref T0 window) {
     Handle _handle_window = getOrCreateHandle(window);
     RequestInit_window_Set(this.handle, _handle_window);
     dropHandle!(T0)(_handle_window);
   }
   auto window() {
-    return Any(JsHandle(RequestInit_window_Get(this.handle)));
+    return Any(RequestInit_window_Get(this.handle));
   }
 }
 enum RequestMode {
@@ -243,14 +254,17 @@ struct Response {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto error() {
-    return Response(JsHandle(Response_error(this.handle)));
+    return Response(Response_error(this.handle));
   }
   auto redirect(string url, ushort status /* = 302 */) {
-    return Response(JsHandle(Response_redirect(this.handle, url, status)));
+    return Response(Response_redirect(this.handle, url, status));
   }
   auto redirect(string url) {
-    return Response(JsHandle(Response_redirect_0(this.handle, url)));
+    return Response(Response_redirect_0(this.handle, url));
   }
   auto type() {
     return Response_type_Get(this.handle);
@@ -271,13 +285,13 @@ struct Response {
     return Response_statusText_Get(this.handle);
   }
   auto headers() {
-    return Headers(JsHandle(Response_headers_Get(this.handle)));
+    return Headers(Response_headers_Get(this.handle));
   }
   auto trailer() {
-    return Promise!(Headers)(JsHandle(Response_trailer_Get(this.handle)));
+    return Promise!(Headers)(Response_trailer_Get(this.handle));
   }
   auto clone() {
-    return Response(JsHandle(Response_clone(this.handle)));
+    return Response(Response_clone(this.handle));
   }
   auto body_() {
     return Body_body_Get(this.handle);
@@ -286,27 +300,30 @@ struct Response {
     return Body_bodyUsed_Get(this.handle);
   }
   auto arrayBuffer() {
-    return Promise!(ArrayBuffer)(JsHandle(Body_arrayBuffer(this.handle)));
+    return Promise!(ArrayBuffer)(Body_arrayBuffer(this.handle));
   }
   auto blob() {
-    return Promise!(Blob)(JsHandle(Body_blob(this.handle)));
+    return Promise!(Blob)(Body_blob(this.handle));
   }
   auto formData() {
-    return Promise!(FormData)(JsHandle(Body_formData(this.handle)));
+    return Promise!(FormData)(Body_formData(this.handle));
   }
   auto json() {
-    return Promise!(Any)(JsHandle(Body_json(this.handle)));
+    return Promise!(Any)(Body_json(this.handle));
   }
   auto text() {
-    return Promise!(string)(JsHandle(Body_text(this.handle)));
+    return Promise!(string)(Body_text(this.handle));
   }
 }
 struct ResponseInit {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return ResponseInit(JsHandle(spasm_add__object()));
+    return ResponseInit(spasm_add__object());
   }
   void status(ushort status) {
     ResponseInit_status_Set(this.handle, status);
@@ -320,7 +337,7 @@ struct ResponseInit {
   auto statusText() {
     return ResponseInit_statusText_Get(this.handle);
   }
-  void headers(HeadersInit headers) {
+  void headers(scope ref HeadersInit headers) {
     ResponseInit_headers_Set(this.handle, headers);
   }
   auto headers() {
@@ -367,9 +384,9 @@ extern (C) Handle Request_signal_Get(Handle);
 extern (C) Handle Request_clone(Handle);
 extern (C) void RequestInit_method_Set(Handle, string);
 extern (C) string RequestInit_method_Get(Handle);
-extern (C) void RequestInit_headers_Set(Handle, HeadersInit);
+extern (C) void RequestInit_headers_Set(Handle, scope ref HeadersInit);
 extern (C) HeadersInit RequestInit_headers_Get(Handle);
-extern (C) void RequestInit_body_Set(Handle, bool, BodyInit);
+extern (C) void RequestInit_body_Set(Handle, bool, scope ref BodyInit);
 extern (C) Optional!(BodyInit) RequestInit_body_Get(Handle);
 extern (C) void RequestInit_referrer_Set(Handle, string);
 extern (C) string RequestInit_referrer_Get(Handle);
@@ -407,5 +424,5 @@ extern (C) void ResponseInit_status_Set(Handle, ushort);
 extern (C) ushort ResponseInit_status_Get(Handle);
 extern (C) void ResponseInit_statusText_Set(Handle, string);
 extern (C) string ResponseInit_statusText_Get(Handle);
-extern (C) void ResponseInit_headers_Set(Handle, HeadersInit);
+extern (C) void ResponseInit_headers_Set(Handle, scope ref HeadersInit);
 extern (C) HeadersInit ResponseInit_headers_Get(Handle);

@@ -7,13 +7,18 @@ import spasm.bindings.html;
 import spasm.bindings.serviceworker;
 import spasm.bindings.vibration;
 
+@safe:
 nothrow:
+
 struct GetNotificationOptions {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return GetNotificationOptions(JsHandle(spasm_add__object()));
+    return GetNotificationOptions(spasm_add__object());
   }
   void tag(string tag) {
     GetNotificationOptions_tag_Set(this.handle, tag);
@@ -26,7 +31,7 @@ struct Notification {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   void permission(NotificationPermission permission) {
@@ -36,10 +41,10 @@ struct Notification {
     return Notification_permission_Get(this._parent);
   }
   auto requestPermission(NotificationPermissionCallback deprecatedCallback) {
-    return Promise!(NotificationPermission)(JsHandle(Notification_requestPermission(this._parent, deprecatedCallback)));
+    return Promise!(NotificationPermission)(Notification_requestPermission(this._parent, deprecatedCallback));
   }
   auto requestPermission() {
-    return Promise!(NotificationPermission)(JsHandle(Notification_requestPermission_0(this._parent)));
+    return Promise!(NotificationPermission)(Notification_requestPermission_0(this._parent));
   }
   void maxActions(uint maxActions) {
     Notification_maxActions_Set(this._parent, maxActions);
@@ -96,7 +101,7 @@ struct Notification {
     return Notification_badge_Get(this._parent);
   }
   auto vibrate() {
-    return FrozenArray!(uint)(JsHandle(Notification_vibrate_Get(this._parent)));
+    return FrozenArray!(uint)(Notification_vibrate_Get(this._parent));
   }
   auto timestamp() {
     return Notification_timestamp_Get(this._parent);
@@ -111,10 +116,10 @@ struct Notification {
     return Notification_requireInteraction_Get(this._parent);
   }
   auto data() {
-    return Any(JsHandle(Notification_data_Get(this._parent)));
+    return Any(Notification_data_Get(this._parent));
   }
   auto actions() {
-    return FrozenArray!(NotificationAction)(JsHandle(Notification_actions_Get(this._parent)));
+    return FrozenArray!(NotificationAction)(Notification_actions_Get(this._parent));
   }
   void close() {
     Notification_close(this._parent);
@@ -124,8 +129,11 @@ struct NotificationAction {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return NotificationAction(JsHandle(spasm_add__object()));
+    return NotificationAction(spasm_add__object());
   }
   void action(string action) {
     NotificationAction_action_Set(this.handle, action);
@@ -155,11 +163,11 @@ struct NotificationEvent {
   nothrow:
   spasm.bindings.serviceworker.ExtendableEvent _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .ExtendableEvent(h);
   }
   auto notification() {
-    return Notification(JsHandle(NotificationEvent_notification_Get(this._parent)));
+    return Notification(NotificationEvent_notification_Get(this._parent));
   }
   auto action() {
     return NotificationEvent_action_Get(this._parent);
@@ -169,17 +177,17 @@ struct NotificationEventInit {
   nothrow:
   spasm.bindings.serviceworker.ExtendableEventInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .ExtendableEventInit(h);
   }
   static auto create() {
-    return NotificationEventInit(JsHandle(spasm_add__object()));
+    return NotificationEventInit(spasm_add__object());
   }
-  void notification(Notification notification) {
+  void notification(scope ref Notification notification) {
     NotificationEventInit_notification_Set(this._parent, notification.handle);
   }
   auto notification() {
-    return Notification(JsHandle(NotificationEventInit_notification_Get(this._parent)));
+    return Notification(NotificationEventInit_notification_Get(this._parent));
   }
   void action(string action) {
     NotificationEventInit_action_Set(this._parent, action);
@@ -192,8 +200,11 @@ struct NotificationOptions {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return NotificationOptions(JsHandle(spasm_add__object()));
+    return NotificationOptions(spasm_add__object());
   }
   void dir(NotificationDirection dir) {
     NotificationOptions_dir_Set(this.handle, dir);
@@ -237,7 +248,7 @@ struct NotificationOptions {
   auto badge() {
     return NotificationOptions_badge_Get(this.handle);
   }
-  void vibrate(VibratePattern vibrate) {
+  void vibrate(scope ref VibratePattern vibrate) {
     NotificationOptions_vibrate_Set(this.handle, vibrate);
   }
   auto vibrate() {
@@ -267,19 +278,19 @@ struct NotificationOptions {
   auto requireInteraction() {
     return NotificationOptions_requireInteraction_Get(this.handle);
   }
-  void data(T0)(T0 data) {
+  void data(T0)(scope auto ref T0 data) {
     Handle _handle_data = getOrCreateHandle(data);
     NotificationOptions_data_Set(this.handle, _handle_data);
     dropHandle!(T0)(_handle_data);
   }
   auto data() {
-    return Any(JsHandle(NotificationOptions_data_Get(this.handle)));
+    return Any(NotificationOptions_data_Get(this.handle));
   }
-  void actions(Sequence!(NotificationAction) actions) {
+  void actions(scope ref Sequence!(NotificationAction) actions) {
     NotificationOptions_actions_Set(this.handle, actions.handle);
   }
   auto actions() {
-    return Sequence!(NotificationAction)(JsHandle(NotificationOptions_actions_Get(this.handle)));
+    return Sequence!(NotificationAction)(NotificationOptions_actions_Get(this.handle));
   }
 }
 enum NotificationPermission {
@@ -348,7 +359,7 @@ extern (C) void NotificationOptions_icon_Set(Handle, string);
 extern (C) string NotificationOptions_icon_Get(Handle);
 extern (C) void NotificationOptions_badge_Set(Handle, string);
 extern (C) string NotificationOptions_badge_Get(Handle);
-extern (C) void NotificationOptions_vibrate_Set(Handle, VibratePattern);
+extern (C) void NotificationOptions_vibrate_Set(Handle, scope ref VibratePattern);
 extern (C) VibratePattern NotificationOptions_vibrate_Get(Handle);
 extern (C) void NotificationOptions_timestamp_Set(Handle, ulong);
 extern (C) ulong NotificationOptions_timestamp_Get(Handle);

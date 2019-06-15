@@ -1,13 +1,18 @@
 module spasm.bindings.common;
 
 import spasm.types;
+@safe:
 nothrow:
+
 alias ArrayBufferView = SumType!(Int8Array, Int16Array, Int32Array, Uint8Array, Uint16Array, Uint32Array, Uint8ClampedArray, Float32Array, Float64Array, DataView);
 alias BufferSource = SumType!(ArrayBufferView, ArrayBuffer);
 struct DOMException {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto name() {
     return DOMException_name_Get(this.handle);
   }

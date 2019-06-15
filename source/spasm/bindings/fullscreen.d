@@ -3,7 +3,9 @@ module spasm.bindings.fullscreen;
 import spasm.types;
 import spasm.bindings.html;
 
+@safe:
 nothrow:
+
 enum FullscreenNavigationUI {
   auto_,
   show,
@@ -13,8 +15,11 @@ struct FullscreenOptions {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return FullscreenOptions(JsHandle(spasm_add__object()));
+    return FullscreenOptions(spasm_add__object());
   }
   void navigationUI(FullscreenNavigationUI navigationUI) {
     FullscreenOptions_navigationUI_Set(this.handle, navigationUI);

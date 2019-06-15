@@ -8,6 +8,7 @@ dependency "optional" version="~>0.10.0"
 #target "library"
 subPackage "bootstrap-webpack"
 subPackage "webidl"
+dflags "-dip1000"
 
 configuration "library" {
               dflags "-mtriple=wasm32-unknown-unknown-wasm" "-betterC"

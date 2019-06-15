@@ -4,12 +4,14 @@ import spasm.types;
 import spasm.bindings.dom;
 import spasm.bindings.html;
 
+@safe:
 nothrow:
+
 struct CompositionEvent {
   nothrow:
   spasm.bindings.uievents.UIEvent _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .UIEvent(h);
   }
   auto data() {
@@ -20,11 +22,11 @@ struct CompositionEventInit {
   nothrow:
   spasm.bindings.uievents.UIEventInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .UIEventInit(h);
   }
   static auto create() {
-    return CompositionEventInit(JsHandle(spasm_add__object()));
+    return CompositionEventInit(spasm_add__object());
   }
   void data(string data) {
     CompositionEventInit_data_Set(this._parent, data);
@@ -37,11 +39,11 @@ struct EventModifierInit {
   nothrow:
   spasm.bindings.uievents.UIEventInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .UIEventInit(h);
   }
   static auto create() {
-    return EventModifierInit(JsHandle(spasm_add__object()));
+    return EventModifierInit(spasm_add__object());
   }
   void ctrlKey(bool ctrlKey) {
     EventModifierInit_ctrlKey_Set(this._parent, ctrlKey);
@@ -132,7 +134,7 @@ struct FocusEvent {
   nothrow:
   spasm.bindings.uievents.UIEvent _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .UIEvent(h);
   }
   auto relatedTarget() {
@@ -143,13 +145,13 @@ struct FocusEventInit {
   nothrow:
   spasm.bindings.uievents.UIEventInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .UIEventInit(h);
   }
   static auto create() {
-    return FocusEventInit(JsHandle(spasm_add__object()));
+    return FocusEventInit(spasm_add__object());
   }
-  void relatedTarget(Optional!(EventTarget) relatedTarget) {
+  void relatedTarget(scope ref Optional!(EventTarget) relatedTarget) {
     FocusEventInit_relatedTarget_Set(this._parent, !relatedTarget.empty, relatedTarget.front.handle);
   }
   auto relatedTarget() {
@@ -160,7 +162,7 @@ struct InputEvent {
   nothrow:
   spasm.bindings.uievents.UIEvent _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .UIEvent(h);
   }
   auto data() {
@@ -177,13 +179,13 @@ struct InputEventInit {
   nothrow:
   spasm.bindings.uievents.UIEventInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .UIEventInit(h);
   }
   static auto create() {
-    return InputEventInit(JsHandle(spasm_add__object()));
+    return InputEventInit(spasm_add__object());
   }
-  void data(Optional!(string) data) {
+  void data(scope ref Optional!(string) data) {
     InputEventInit_data_Set(this._parent, !data.empty, data.front);
   }
   auto data() {
@@ -206,7 +208,7 @@ struct KeyboardEvent {
   nothrow:
   spasm.bindings.uievents.UIEvent _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .UIEvent(h);
   }
   enum uint DOM_KEY_LOCATION_STANDARD = 0x00;
@@ -254,11 +256,11 @@ struct KeyboardEventInit {
   nothrow:
   spasm.bindings.uievents.EventModifierInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventModifierInit(h);
   }
   static auto create() {
-    return KeyboardEventInit(JsHandle(spasm_add__object()));
+    return KeyboardEventInit(spasm_add__object());
   }
   void key(string key) {
     KeyboardEventInit_key_Set(this._parent, key);
@@ -295,7 +297,7 @@ struct MouseEvent {
   nothrow:
   spasm.bindings.uievents.UIEvent _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .UIEvent(h);
   }
   auto screenX() {
@@ -339,11 +341,11 @@ struct MouseEventInit {
   nothrow:
   spasm.bindings.uievents.EventModifierInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventModifierInit(h);
   }
   static auto create() {
-    return MouseEventInit(JsHandle(spasm_add__object()));
+    return MouseEventInit(spasm_add__object());
   }
   void screenX(int screenX) {
     MouseEventInit_screenX_Set(this._parent, screenX);
@@ -381,7 +383,7 @@ struct MouseEventInit {
   auto buttons() {
     return MouseEventInit_buttons_Get(this._parent);
   }
-  void relatedTarget(Optional!(EventTarget) relatedTarget) {
+  void relatedTarget(scope ref Optional!(EventTarget) relatedTarget) {
     MouseEventInit_relatedTarget_Set(this._parent, !relatedTarget.empty, relatedTarget.front.handle);
   }
   auto relatedTarget() {
@@ -392,7 +394,7 @@ struct UIEvent {
   nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Event(h);
   }
   auto view() {
@@ -409,13 +411,13 @@ struct UIEventInit {
   nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventInit(h);
   }
   static auto create() {
-    return UIEventInit(JsHandle(spasm_add__object()));
+    return UIEventInit(spasm_add__object());
   }
-  void view(Optional!(Window) view) {
+  void view(scope ref Optional!(Window) view) {
     UIEventInit_view_Set(this._parent, !view.empty, view.front._parent);
   }
   auto view() {
@@ -432,7 +434,7 @@ struct WheelEvent {
   nothrow:
   spasm.bindings.uievents.MouseEvent _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .MouseEvent(h);
   }
   enum uint DOM_DELTA_PIXEL = 0x00;
@@ -455,11 +457,11 @@ struct WheelEventInit {
   nothrow:
   spasm.bindings.uievents.MouseEventInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .MouseEventInit(h);
   }
   static auto create() {
-    return WheelEventInit(JsHandle(spasm_add__object()));
+    return WheelEventInit(spasm_add__object());
   }
   void deltaX(double deltaX) {
     WheelEventInit_deltaX_Set(this._parent, deltaX);

@@ -4,16 +4,18 @@ import spasm.types;
 import spasm.bindings.dom;
 import spasm.bindings.html;
 
+@safe:
 nothrow:
+
 struct DevicePermissionDescriptor {
   nothrow:
   spasm.bindings.permissions.PermissionDescriptor _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .PermissionDescriptor(h);
   }
   static auto create() {
-    return DevicePermissionDescriptor(JsHandle(spasm_add__object()));
+    return DevicePermissionDescriptor(spasm_add__object());
   }
   void deviceId(string deviceId) {
     DevicePermissionDescriptor_deviceId_Set(this._parent, deviceId);
@@ -26,11 +28,11 @@ struct MidiPermissionDescriptor {
   nothrow:
   spasm.bindings.permissions.PermissionDescriptor _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .PermissionDescriptor(h);
   }
   static auto create() {
-    return MidiPermissionDescriptor(JsHandle(spasm_add__object()));
+    return MidiPermissionDescriptor(spasm_add__object());
   }
   void sysex(bool sysex) {
     MidiPermissionDescriptor_sysex_Set(this._parent, sysex);
@@ -43,8 +45,11 @@ struct PermissionDescriptor {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return PermissionDescriptor(JsHandle(spasm_add__object()));
+    return PermissionDescriptor(spasm_add__object());
   }
   void name(PermissionName name) {
     PermissionDescriptor_name_Set(this.handle, name);
@@ -77,14 +82,17 @@ struct PermissionSetParameters {
   nothrow:
   JsHandle handle;
   alias handle this;
-  static auto create() {
-    return PermissionSetParameters(JsHandle(spasm_add__object()));
+  this(Handle h) {
+    this.handle = JsHandle(h);
   }
-  void descriptor(PermissionDescriptor descriptor) {
+  static auto create() {
+    return PermissionSetParameters(spasm_add__object());
+  }
+  void descriptor(scope ref PermissionDescriptor descriptor) {
     PermissionSetParameters_descriptor_Set(this.handle, descriptor.handle);
   }
   auto descriptor() {
-    return PermissionDescriptor(JsHandle(PermissionSetParameters_descriptor_Get(this.handle)));
+    return PermissionDescriptor(PermissionSetParameters_descriptor_Get(this.handle));
   }
   void state(PermissionState state) {
     PermissionSetParameters_state_Set(this.handle, state);
@@ -108,7 +116,7 @@ struct PermissionStatus {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   auto state() {
@@ -125,19 +133,22 @@ struct Permissions {
   nothrow:
   JsHandle handle;
   alias handle this;
-  auto query(JsObject permissionDesc) {
-    return Promise!(PermissionStatus)(JsHandle(Permissions_query(this.handle, permissionDesc.handle)));
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
+  auto query(scope ref JsObject permissionDesc) {
+    return Promise!(PermissionStatus)(Permissions_query(this.handle, permissionDesc.handle));
   }
 }
 struct PushPermissionDescriptor {
   nothrow:
   spasm.bindings.permissions.PermissionDescriptor _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .PermissionDescriptor(h);
   }
   static auto create() {
-    return PushPermissionDescriptor(JsHandle(spasm_add__object()));
+    return PushPermissionDescriptor(spasm_add__object());
   }
   void userVisibleOnly(bool userVisibleOnly) {
     PushPermissionDescriptor_userVisibleOnly_Set(this._parent, userVisibleOnly);

@@ -12,7 +12,7 @@ import spasm.rt.gc;
 
 enum wasmPageSize = 64 * 1024;
 
-void alloc_init(uint heap_base) {
+@safe nothrow void alloc_init(uint heap_base) {
   version (unittest) {} else WasmAllocator.init(heap_base);
 }
 
@@ -32,7 +32,7 @@ version (unittest) {
   __gshared auto allocator = &gcAllocator;
 }
 
-template make(T) {
+@trusted template make(T) {
   import spasm.types;
   static if (is(T == Item[], Item)) {
     Item[] make(A)(A allocator, size_t size) {

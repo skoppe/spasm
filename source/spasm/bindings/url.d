@@ -4,11 +4,16 @@ import spasm.types;
 import spasm.bindings.fileapi;
 import spasm.bindings.mediasource;
 
+@safe:
 nothrow:
+
 struct URL {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   void href(string href) {
     URL_href_Set(this.handle, href);
   }
@@ -67,7 +72,7 @@ struct URL {
     return URL_search_Get(this.handle);
   }
   auto searchParams() {
-    return URLSearchParams(JsHandle(URL_searchParams_Get(this.handle)));
+    return URLSearchParams(URL_searchParams_Get(this.handle));
   }
   void hash(string hash) {
     URL_hash_Set(this.handle, hash);
@@ -78,13 +83,13 @@ struct URL {
   auto toJSON() {
     return URL_toJSON(this.handle);
   }
-  auto createObjectURL(Blob blob) {
+  auto createObjectURL(scope ref Blob blob) {
     return URL_createObjectURL__Handle(this.handle, blob.handle);
   }
   void revokeObjectURL(string url) {
     URL_revokeObjectURL(this.handle, url);
   }
-  auto createObjectURL(MediaSource mediaSource) {
+  auto createObjectURL(scope ref MediaSource mediaSource) {
     return URL_createObjectURL__Handle(this.handle, mediaSource._parent);
   }
 }
@@ -92,6 +97,9 @@ struct URLSearchParams {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   void append(string name, string value) {
     URLSearchParams_append(this.handle, name, value);
   }
@@ -102,7 +110,7 @@ struct URLSearchParams {
     return URLSearchParams_get(this.handle, name);
   }
   auto getAll(string name) {
-    return Sequence!(string)(JsHandle(URLSearchParams_getAll(this.handle, name)));
+    return Sequence!(string)(URLSearchParams_getAll(this.handle, name));
   }
   auto has(string name) {
     return URLSearchParams_has(this.handle, name);

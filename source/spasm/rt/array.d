@@ -9,6 +9,9 @@ module spasm.rt.array;
 import spasm.rt.memory;
 import spasm.rt.gc : SpasmGCAllocator;
 
+@safe:
+nothrow:
+
 /* an optimized version of DynamicArray when T is an pointer
  *
  * to reduce template bloat all PointerArray!T* are backed by a
@@ -113,7 +116,7 @@ struct DynamicArray(T, Allocator = SpasmGCAllocator)
 {
   static if (!is(Allocator == SpasmGCAllocator)) {
     Allocator* allocator;
-    this(ref Allocator allocator) {
+    @trusted this(ref Allocator allocator) {
       this.allocator = &allocator;
     }
   }
@@ -136,7 +139,7 @@ struct DynamicArray(T, Allocator = SpasmGCAllocator)
 		alias AppendTypeOfThis = typeof(this);
 	}
 
-	~this()
+	@trusted ~this()
 	{
 		if (arr is null)
 			return;
@@ -177,7 +180,7 @@ struct DynamicArray(T, Allocator = SpasmGCAllocator)
 	/**
 	 * Inserts the given value into the end of the array.
 	 */
-	void insertBack(T value)
+	@trusted void insertBack(T value)
 	{
 		if (arr.length == 0)
 		{
@@ -288,7 +291,7 @@ struct DynamicArray(T, Allocator = SpasmGCAllocator)
 	/**
 	 * Ensures sufficient capacity to accommodate `n` elements.
 	 */
-	void reserve(size_t n)
+	@trusted void reserve(size_t n)
 	{
 		if (arr.length >= n)
 			return;
@@ -453,11 +456,11 @@ struct DynamicArray(T, Allocator = SpasmGCAllocator)
 
 private:
 
-	static void emplace(ref ContainerStorageType!T target, ref AppendT source)
+	@trusted static void emplace(ref ContainerStorageType!T target, ref AppendT source)
 	{
 		(cast(void[])((&target)[0..1]))[] = cast(void[])((&source)[0..1]);
-		static if (__traits(hasMember, T, "__xpostblit"))
-			target.__xpostblit();
+		// static if (__traits(hasMember, T, "__xpostblit"))
+		// 	target.__xpostblit();
 	}
 
 	enum bool useGC = false;
@@ -644,14 +647,14 @@ struct StringAppender(Allocator = SpasmGCAllocator) {
   }
 }
 
-string text(Allocator, T...)(ref Allocator allocator, T t) {
+@trusted string text(Allocator, T...)(ref Allocator allocator, T t) {
   auto app = StringAppender!(Allocator)(allocator);
   write(app, t);
   auto end = app.length;
   return cast(string)app[0..end];
 }
 
-string text(T...)(T t) {
+@trusted string text(T...)(T t) {
   StringAppender!() app;
   write(app, t);
   auto end = app.length;
@@ -740,6 +743,8 @@ auto signedToTempString(long value, uint radix = 10) @safe
 
 import std.traits : isIntegral;
 import std.range.primitives : isOutputRange;
+// TODO: std.range.put doesn't do scope on second args therefor compiler thinks buf escapes. resolve it and we can avoid the @trusted
+@trusted
 void toTextRange(T, W)(T value, auto ref W writer)
     if (isIntegral!T && isOutputRange!(W, char))
 {

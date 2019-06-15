@@ -100,13 +100,17 @@ unittest {
     });
   gen.generateDBindings.shouldBeLike(q{
       struct Event {
+        nothrow:
         JsHandle handle;
         alias handle this;
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
         auto createDelay(double maxDelayTime /* = 1.0 */) {
-          return DelayNode(JsHandle(Event_createDelay(this.handle, maxDelayTime)));
+          return DelayNode(Event_createDelay(this.handle, maxDelayTime));
         }
         auto createDelay() {
-          return DelayNode(JsHandle(Event_createDelay_0(this.handle)));
+          return DelayNode(Event_createDelay_0(this.handle));
         }
       }
     });
@@ -136,26 +140,34 @@ unittest {
     });
   gen.generateDBindings.shouldBeLike(q{
       struct AudioWorklet {
+        nothrow:
         JsHandle handle;
         alias handle this;
-        auto Event(string type, EventInit eventInitDict) {
-          return .Event(JsHandle(AudioWorklet_Event(this.handle, type, eventInitDict.handle)));
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
+        auto Event(string type, scope ref EventInit eventInitDict) {
+          return .Event(AudioWorklet_Event(this.handle, type, eventInitDict.handle));
         }
       }
       struct Event {
+        nothrow:
         JsHandle handle;
         alias handle this;
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
         auto type() {
           return Event_type_Get(this.handle);
         }
-        void target(Optional!(EventTarget) target) {
+        void target(scope ref Optional!(EventTarget) target) {
           Event_target_Set(this.handle, !target.empty, target.front.handle);
         }
         auto target() {
           return Event_target_Get(this.handle);
         }
         auto composedPath() {
-          return Sequence!(EventTarget)(JsHandle(Event_composedPath(this.handle)));
+          return Sequence!(EventTarget)(Event_composedPath(this.handle));
         }
         enum ushort NONE = 0;
         void eventPhase(ushort eventPhase) {
@@ -166,10 +178,14 @@ unittest {
         }
       }
       struct Window {
+        nothrow:
         JsHandle handle;
         alias handle this;
-        auto Event(string type, EventInit eventInitDict) {
-          return .Event(JsHandle(Window_Event(this.handle, type, eventInitDict.handle)));
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
+        auto Event(string type, scope ref EventInit eventInitDict) {
+          return .Event(Window_Event(this.handle, type, eventInitDict.handle));
         }
       }
     });
@@ -224,8 +240,12 @@ unittest {
 
   gen.generateDBindings.shouldBeLike(q{
       struct Foo {
+        nothrow:
         JsHandle handle;
         alias handle this;
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
         void orientation(ImageOrientation orientation) {
           Foo_orientation_Set(this.handle, orientation);
         }
@@ -289,16 +309,17 @@ unittest {
     });
   gen.generateDBindings.shouldBeLike(q{
       struct BaseAudioContext {
+        nothrow:
         EventTarget _parent;
         alias _parent this;
-        this(JsHandle h) {
+        this(Handle h) {
           _parent = .EventTarget(h);
         }
-        auto createPeriodicWave(Sequence!(float) real_, PeriodicWaveConstraints constraints) {
-          return PeriodicWave(JsHandle(BaseAudioContext_createPeriodicWave(this._parent, real_.handle, constraints.handle)));
+        auto createPeriodicWave(scope ref Sequence!(float) real_, scope ref PeriodicWaveConstraints constraints) {
+          return PeriodicWave(BaseAudioContext_createPeriodicWave(this._parent, real_.handle, constraints.handle));
         }
-        auto createPeriodicWave(Sequence!(float) real_) {
-          return PeriodicWave(JsHandle(BaseAudioContext_createPeriodicWave_0(this._parent, real_.handle)));
+        auto createPeriodicWave(scope ref Sequence!(float) real_) {
+          return PeriodicWave(BaseAudioContext_createPeriodicWave_0(this._parent, real_.handle));
         }
       }
     });
@@ -325,8 +346,12 @@ unittest {
     });
   gen.generateDBindings.shouldBeLike(q{
       struct Foo {
+        nothrow:
         JsHandle handle;
         alias handle this;
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
         void bar(uint number) {
           Foo_bar(this.handle, number);
         }
@@ -358,9 +383,13 @@ unittest {
     });
   gen.generateDBindings.shouldBeLike(q{
       struct Foo {
+        nothrow:
         JsHandle handle;
         alias handle this;
-        void bar(Optional!(uint) number, Optional!(Bar) constraints) {
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
+        void bar(scope ref Optional!(uint) number, scope ref Optional!(Bar) constraints) {
           Foo_bar(this.handle, !number.empty, number.front, !constraints.empty, constraints.front.handle);
         }
       }
@@ -386,19 +415,20 @@ unittest {
     });
   gen.generateDBindings.shouldBeLike(q{
       struct BaseAudioContext {
+        nothrow:
         EventTarget _parent;
         alias _parent this;
-        this(JsHandle h) {
+        this(Handle h) {
           _parent = .EventTarget(h);
         }
-        auto decodeAudioData(ArrayBuffer audioData, Optional!(DecodeSuccessCallback) successCallback, Optional!(DecodeErrorCallback) errorCallback) {
-          return Promise!(AudioBuffer)(JsHandle(BaseAudioContext_decodeAudioData(this._parent, audioData.handle, !successCallback.empty, successCallback.front, !errorCallback.empty, errorCallback.front)));
+        auto decodeAudioData(scope ref ArrayBuffer audioData, scope ref Optional!(DecodeSuccessCallback) successCallback, scope ref Optional!(DecodeErrorCallback) errorCallback) {
+          return Promise!(AudioBuffer)(BaseAudioContext_decodeAudioData(this._parent, audioData.handle, !successCallback.empty, successCallback.front, !errorCallback.empty, errorCallback.front));
         }
-        auto decodeAudioData(ArrayBuffer audioData, Optional!(DecodeSuccessCallback) successCallback) {
-          return Promise!(AudioBuffer)(JsHandle(BaseAudioContext_decodeAudioData_0(this._parent, audioData.handle, !successCallback.empty, successCallback.front)));
+        auto decodeAudioData(scope ref ArrayBuffer audioData, scope ref Optional!(DecodeSuccessCallback) successCallback) {
+          return Promise!(AudioBuffer)(BaseAudioContext_decodeAudioData_0(this._parent, audioData.handle, !successCallback.empty, successCallback.front));
         }
-        auto decodeAudioData(ArrayBuffer audioData) {
-          return Promise!(AudioBuffer)(JsHandle(BaseAudioContext_decodeAudioData_1(this._parent, audioData.handle)));
+        auto decodeAudioData(scope ref ArrayBuffer audioData) {
+          return Promise!(AudioBuffer)(BaseAudioContext_decodeAudioData_1(this._parent, audioData.handle));
         }
       }
       alias DecodeErrorCallback = void delegate(DOMException);
@@ -439,15 +469,19 @@ unittest {
         playback
       }
       struct AudioContextOptions {
+        nothrow:
         JsHandle handle;
         alias handle this;
-        void latencyHint(SumType!(AudioContextLatencyCategory, double) latencyHint) {
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
+        void latencyHint(scope ref SumType!(AudioContextLatencyCategory, double) latencyHint) {
           AudioContextOptions_latencyHint_Set(this.handle, latencyHint);
         }
         auto latencyHint() {
           return AudioContextOptions_latencyHint_Get(this.handle);
         }
-        void sampleRate(Optional!(SumType!(bool, double)) sampleRate) {
+        void sampleRate(scope ref Optional!(SumType!(bool, double)) sampleRate) {
           AudioContextOptions_sampleRate_Set(this.handle, !sampleRate.empty, sampleRate.front);
         }
         auto sampleRate() {
@@ -459,9 +493,9 @@ unittest {
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) void AudioContextOptions_latencyHint_Set(Handle, SumType!(AudioContextLatencyCategory, double));
+      extern (C) void AudioContextOptions_latencyHint_Set(Handle, scope ref SumType!(AudioContextLatencyCategory, double));
       extern (C) SumType!(AudioContextLatencyCategory, double) AudioContextOptions_latencyHint_Get(Handle);
-      extern (C) void AudioContextOptions_sampleRate_Set(Handle, bool, SumType!(bool, double));
+      extern (C) void AudioContextOptions_sampleRate_Set(Handle, bool, scope ref SumType!(bool, double));
       extern (C) Optional!(SumType!(bool, double)) AudioContextOptions_sampleRate_Get(Handle);
       extern (C) SumType!(string, AudioContextLatencyCategory) AudioContextOptions_fooBar(Handle);
     });
@@ -501,18 +535,22 @@ unittest {
         playback
       }
       struct AudioContextOptions {
+        nothrow:
         JsHandle handle;
         alias handle this;
-        static auto create() {
-          return AudioContextOptions(JsHandle(spasm_add__object()));
+        this(Handle h) {
+          this.handle = JsHandle(h);
         }
-        void latencyHint(SumType!(AudioContextLatencyCategory, double) latencyHint) {
+        static auto create() {
+          return AudioContextOptions(spasm_add__object());
+        }
+        void latencyHint(scope ref SumType!(AudioContextLatencyCategory, double) latencyHint) {
           AudioContextOptions_latencyHint_Set(this.handle, latencyHint);
         }
         auto latencyHint() {
           return AudioContextOptions_latencyHint_Get(this.handle);
         }
-        void sampleRate(Optional!(SumType!(bool, double)) sampleRate) {
+        void sampleRate(scope ref Optional!(SumType!(bool, double)) sampleRate) {
           AudioContextOptions_sampleRate_Set(this.handle, !sampleRate.empty, sampleRate.front);
         }
         auto sampleRate() {
@@ -521,9 +559,9 @@ unittest {
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) void AudioContextOptions_latencyHint_Set(Handle, SumType!(AudioContextLatencyCategory, double));
+      extern (C) void AudioContextOptions_latencyHint_Set(Handle, scope ref SumType!(AudioContextLatencyCategory, double));
       extern (C) SumType!(AudioContextLatencyCategory, double) AudioContextOptions_latencyHint_Get(Handle);
-      extern (C) void AudioContextOptions_sampleRate_Set(Handle, bool, SumType!(bool, double));
+      extern (C) void AudioContextOptions_sampleRate_Set(Handle, bool, scope ref SumType!(bool, double));
       extern (C) Optional!(SumType!(bool, double)) AudioContextOptions_sampleRate_Get(Handle);
     });
   gen.generateJsExports.shouldBeLike("
@@ -559,8 +597,12 @@ unittest {
     });
   gen.generateDBindings.shouldBeLike(q{
       struct double_ {
+        nothrow:
         JsHandle handle;
         alias handle this;
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
         void real_(string real_) {
           double_real_Set(this.handle, real_);
         }
@@ -592,10 +634,14 @@ unittest {
     });
   gen.generateDBindings.shouldBeLike(q{
       struct AudioTimestamp {
+        nothrow:
         JsHandle handle;
         alias handle this;
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
         static auto create() {
-          return AudioTimestamp(JsHandle(spasm_add__object()));
+          return AudioTimestamp(spasm_add__object());
         }
         void contextTime(double contextTime) {
           AudioTimestamp_contextTime_Set(this.handle, contextTime);
@@ -627,13 +673,14 @@ unittest {
     });
   gen.generateDBindings.shouldBeLike(q{
       struct AudioWorkletNodeOptions {
+        nothrow:
         AudioNodeOptions _parent;
         alias _parent this;
-        this(JsHandle h) {
+        this(Handle h) {
           _parent = .AudioNodeOptions(h);
         }
         static auto create() {
-          return AudioWorkletNodeOptions(JsHandle(spasm_add__object()));
+          return AudioWorkletNodeOptions(spasm_add__object());
         }
       }
     });
@@ -650,8 +697,12 @@ unittest {
     });
   gen.generateDBindings.shouldBeLike(q{
       struct double_ {
+        nothrow:
         JsHandle handle;
         alias handle this;
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
         void real_(double real_) {
           double_real_Set(this.handle, real_);
         }
@@ -683,16 +734,20 @@ unittest {
     });
   gen.generateDBindings.shouldBeLike(q{
       struct AudioWorkletNodeOptions {
+        nothrow:
         JsHandle handle;
         alias handle this;
-        static auto create() {
-          return AudioWorkletNodeOptions(JsHandle(spasm_add__object()));
+        this(Handle h) {
+          this.handle = JsHandle(h);
         }
-        void real_(Record!(string, double) real_) {
+        static auto create() {
+          return AudioWorkletNodeOptions(spasm_add__object());
+        }
+        void real_(scope ref Record!(string, double) real_) {
           AudioWorkletNodeOptions_real_Set(this.handle, real_.handle);
         }
         auto real_() {
-          return Record!(string, double)(JsHandle(AudioWorkletNodeOptions_real_Get(this.handle)));
+          return Record!(string, double)(AudioWorkletNodeOptions_real_Get(this.handle));
         }
       }
     });
@@ -713,10 +768,14 @@ unittest {
     });
   gen.generateDBindings.shouldBeLike(q{
       struct AudioParamDescriptor {
+        nothrow:
         JsHandle handle;
         alias handle this;
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
         static auto create() {
-          return AudioParamDescriptor(JsHandle(spasm_add__object()));
+          return AudioParamDescriptor(spasm_add__object());
         }
         void maxValue(float maxValue) {
           AudioParamDescriptor_maxValue_Set(this.handle, maxValue);
@@ -765,8 +824,12 @@ unittest {
   // TODO: a readonly maplike should probably not have clear, set, delete, etc.
   gen.generateDBindings.shouldBeLike(q{
       struct AudioParamMap {
+        nothrow:
         JsHandle handle;
         alias handle this;
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
         uint size() {
           return Maplike_string_Handle_size(this.handle);
         }
@@ -777,25 +840,25 @@ unittest {
           Maplike_string_Handle_delete(this.handle, key);
         }
         Iterator!(ArrayPair!(string, AudioParam)) entries() {
-          return Iterator!(ArrayPair!(string, AudioParam))(JsHandle(Maplike_string_Handle_entries(this.handle)));
+          return Iterator!(ArrayPair!(string, AudioParam))(Maplike_string_Handle_entries(this.handle));
         }
         extern(C) void forEach(void delegate(string, Handle, Handle) callback) {
           Maplike_string_Handle_forEach(this.handle, callback);
         }
         AudioParam get(string key) {
-          return AudioParam(JsHandle(Maplike_string_Handle_get(this.handle, key)));
+          return AudioParam(Maplike_string_Handle_get(this.handle, key));
         }
         bool has(string key) {
           return Maplike_string_Handle_has(this.handle, key);
         }
         Iterator!(string) keys() {
-          return Iterator!(string)(JsHandle(Maplike_string_Handle_keys(this.handle)));
+          return Iterator!(string)(Maplike_string_Handle_keys(this.handle));
         }
-        void set(string key, AudioParam value) {
+        void set(string key, scope ref AudioParam value) {
           Maplike_string_Handle_set(this.handle, key, value.handle);
         }
         Iterator!(AudioParam) values() {
-          return Iterator!(AudioParam)(JsHandle(Maplike_string_Handle_values(this.handle)));
+          return Iterator!(AudioParam)(Maplike_string_Handle_values(this.handle));
         }
       }
     });
@@ -851,21 +914,22 @@ unittest {
     });
   gen.generateDBindings.shouldBeLike(q{
       struct BaseAudioContext {
+        nothrow:
         EventTarget _parent;
         alias _parent this;
-        this(JsHandle h) {
+        this(Handle h) {
           _parent = .EventTarget(h);
         }
         auto createPeriodicWave() {
           return BaseAudioContext_createPeriodicWave(this._parent);
         }
-        void name(Optional!(string) name) {
+        void name(scope ref Optional!(string) name) {
           BaseAudioContext_name_Set(this._parent, !name.empty, name.front);
         }
         auto name() {
           return BaseAudioContext_name_Get(this._parent);
         }
-        void foo(Optional!(string) title) {
+        void foo(scope ref Optional!(string) title) {
           BaseAudioContext_foo(this._parent, !title.empty, title.front);
         }
       }
@@ -901,9 +965,10 @@ unittest {
     });
   gen.generateDBindings.shouldBeLike(q{
       struct ClipboardEvent {
+        nothrow:
         Event _parent;
         alias _parent this;
-        this(JsHandle h) {
+        this(Handle h) {
           _parent = .Event(h);
         }
         auto clipboardData() {
@@ -930,12 +995,16 @@ unittest {
     });
   gen.generateDBindings.shouldBeLike(q{
       struct FocusEventInit {
+        nothrow:
         JsHandle handle;
         alias handle this;
-        static auto create() {
-          return FocusEventInit(JsHandle(spasm_add__object()));
+        this(Handle h) {
+          this.handle = JsHandle(h);
         }
-        void relatedTarget(Optional!(EventTarget) relatedTarget) {
+        static auto create() {
+          return FocusEventInit(spasm_add__object());
+        }
+        void relatedTarget(scope ref Optional!(EventTarget) relatedTarget) {
           FocusEventInit_relatedTarget_Set(this.handle, !relatedTarget.empty, relatedTarget.front.handle);
         }
         auto relatedTarget() {
@@ -970,13 +1039,17 @@ unittest {
     });
   gen.generateDBindings.shouldBeLike(q{
       struct TextDecoderStream {
+        nothrow:
         JsHandle handle;
         alias handle this;
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
         auto writable() {
-          return WritableStream(JsHandle(GenericTransformStream_writable_Get(this.handle)));
+          return WritableStream(GenericTransformStream_writable_Get(this.handle));
         }
         auto readable() {
-          return ReadbleStream(JsHandle(GenericTransformStream_readable_Get(this.handle)));
+          return ReadbleStream(GenericTransformStream_readable_Get(this.handle));
         }
       }
     });
@@ -1003,10 +1076,14 @@ unittest {
     });
   gen.generateDBindings.shouldBeLike(q{
       struct HTMLOrSVGElement {
+        nothrow:
         JsHandle handle;
         alias handle this;
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
         auto datacube() {
-          return DOMStringMap(JsHandle(HTMLOrSVGElement_datacube_Get(this.handle)));
+          return DOMStringMap(HTMLOrSVGElement_datacube_Get(this.handle));
         }
       }
     });
@@ -1035,8 +1112,12 @@ unittest {
     });
   gen.generateDBindings.shouldBeLike(q{
       struct DOMStringMap {
+        nothrow:
         JsHandle handle;
         alias handle this;
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
         auto opIndex(string name) {
           return DOMStringMap_getter__string(this.handle, name);
         }
@@ -1129,8 +1210,12 @@ unittest {
     });
   gen.generateDBindings.shouldBeLike(q{
       struct AnimationFrameProvider {
+        nothrow:
         JsHandle handle;
         alias handle this;
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
         auto requestAnimationFrame(FrameRequestCallback callback) {
           return AnimationFrameProvider_requestAnimationFrame(this.handle, callback);
         }
@@ -1159,18 +1244,22 @@ unittest {
   gen.generateDBindings.shouldBeLike(q{
       alias BufferSource = SumType!(ArrayBufferView, ArrayBuffer);
       struct TextDecoder {
+        nothrow:
         JsHandle handle;
         alias handle this;
-        auto decode(BufferSource input, TextDecodeOptions options) {
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
+        auto decode(scope ref BufferSource input, scope ref TextDecodeOptions options) {
           return TextDecoder_decode(this.handle, input, options.handle);
         }
-        auto decode(BufferSource input) {
+        auto decode(scope ref BufferSource input) {
           return TextDecoder_decode_0(this.handle, input);
         }
         auto decode() {
           return TextDecoder_decode_1(this.handle);
         }
-        auto encode(TextDecodeOptions options) {
+        auto encode(scope ref TextDecodeOptions options) {
           return TextDecoder_encode(this.handle, options.handle);
         }
         auto encode() {
@@ -1179,8 +1268,8 @@ unittest {
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) string TextDecoder_decode(Handle, BufferSource, Handle);
-      extern (C) string TextDecoder_decode_0(Handle, BufferSource);
+      extern (C) string TextDecoder_decode(Handle, scope ref BufferSource, Handle);
+      extern (C) string TextDecoder_decode_0(Handle, scope ref BufferSource);
       extern (C) string TextDecoder_decode_1(Handle);
       extern (C) BufferSource TextDecoder_encode(Handle, Handle);
       extern (C) BufferSource TextDecoder_encode_0(Handle);
@@ -1215,12 +1304,16 @@ unittest {
   gen.generateDBindings.shouldBeLike(q{
       alias BodyInit = SumType!(Blob, BufferSource, FormData, URLSearchParams, ReadableStream, string);
       struct RequestInit {
+        nothrow:
         JsHandle handle;
         alias handle this;
-        static auto create() {
-          return RequestInit(JsHandle(spasm_add__object()));
+        this(Handle h) {
+          this.handle = JsHandle(h);
         }
-        void body_(Optional!(BodyInit) body_) {
+        static auto create() {
+          return RequestInit(spasm_add__object());
+        }
+        void body_(scope ref Optional!(BodyInit) body_) {
           RequestInit_body_Set(this.handle, !body_.empty, body_.front);
         }
         auto body_() {
@@ -1229,7 +1322,7 @@ unittest {
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) void RequestInit_body_Set(Handle, bool, BodyInit);
+      extern (C) void RequestInit_body_Set(Handle, bool, scope ref BodyInit);
       extern (C) Optional!(BodyInit) RequestInit_body_Get(Handle);
     });
   gen.generateJsExports.shouldBeLike("
@@ -1252,9 +1345,13 @@ unittest {
     });
   gen.generateDBindings.shouldBeLike(q{
       struct Foo {
+        nothrow:
         JsHandle handle;
         alias handle this;
-        auto bar(Sequence!(string) names) {
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
+        auto bar(scope ref Sequence!(string) names) {
           return Foo_bar(this.handle, names.handle);
         }
       }
@@ -1279,8 +1376,12 @@ unittest {
   // TODO: also opIndex
   gen.generateDBindings.shouldBeLike(q{
       struct Foo {
+        nothrow:
         JsHandle handle;
         alias handle this;
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
         auto item(uint index) {
           return Foo_item_getter(this.handle, index);
         }
@@ -1312,8 +1413,12 @@ unittest {
     });
   gen.generateDBindings.shouldBeLike(q{
       struct Bar {
+        nothrow:
         JsHandle handle;
         alias handle this;
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
         auto name() {
           return Foo_name(this.handle);
         }
@@ -1354,6 +1459,7 @@ unittest {
   auto funcs = gen.semantics.toIr();
   gen.generateDBindings.shouldBeLike(q{
       struct console {
+        nothrow:
       static:
         void clear() {
           console_clear();
@@ -1497,14 +1603,15 @@ unittest {
   auto funcs = gen.semantics.toIr();
   gen.generateDBindings.shouldBeLike(q{
       struct foo {
+        nothrow:
       static:
-        void log(T0)(T0 data) {
+        void log(T0)(scope auto ref T0 data) {
           Handle _handle_data = getOrCreateHandle(data);
           foo_log(_handle_data);
           dropHandle!(T0)(_handle_data);
         }
         auto get() {
-          return Any(JsHandle(foo_get()));
+          return Any(foo_get());
         }
       }
     });
@@ -1535,12 +1642,13 @@ unittest {
       alias OnErrorEventHandler = Optional!(OnErrorEventHandlerNonNull);
       alias OnErrorEventHandlerNonNull = Any delegate(SumType!(Event, string), string, uint, uint, Any);
       struct WorkerGlobalScope {
+        nothrow:
         EventTarget _parent;
         alias _parent this;
-        this(JsHandle h) {
+        this(Handle h) {
           _parent = .EventTarget(h);
         }
-        void onerror(OnErrorEventHandler onerror) {
+        void onerror(scope ref OnErrorEventHandler onerror) {
           WorkerGlobalScope_onerror_Set(this._parent, !onerror.empty, onerror.front);
         }
         auto onerror() {
@@ -1573,12 +1681,13 @@ unittest {
   gen.generateDBindings.shouldBeLike(q{
       alias BodyInit = SumType!(Blob, BufferSource, FormData, URLSearchParams, ReadableStream, string);
       struct XMLHttpRequest {
+        nothrow:
         XMLHttpRequestEventTarget _parent;
         alias _parent this;
-        this(JsHandle h) {
+        this(Handle h) {
           _parent = .XMLHttpRequestEventTarget(h);
         }
-        void send(Optional!(SumType!(Document, BodyInit)) body_ /* = no!(SumType!(Document, BodyInit)) */) {
+        void send(scope ref Optional!(SumType!(Document, BodyInit)) body_ /* = no!(SumType!(Document, BodyInit)) */) {
           XMLHttpRequest_send(this._parent, !body_.empty, body_.front);
         }
         void send() {
@@ -1586,7 +1695,7 @@ unittest {
         }
 }    });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) void XMLHttpRequest_send(Handle, bool, SumType!(Document, BodyInit));
+      extern (C) void XMLHttpRequest_send(Handle, bool, scope ref SumType!(Document, BodyInit));
       extern (C) void XMLHttpRequest_send_0(Handle);
     });
   gen.generateJsExports.shouldBeLike("
@@ -1611,13 +1720,14 @@ unittest {
     });
   gen.generateDBindings.shouldBeLike(q{
       struct TextDecoderStream {
+        nothrow:
         Foo _parent;
         alias _parent this;
-        this(JsHandle h) {
+        this(Handle h) {
           _parent = .Foo(h);
         }
         auto writable() {
-          return WritableStream(JsHandle(GenericTransformStream_writable_Get(this._parent)));
+          return WritableStream(GenericTransformStream_writable_Get(this._parent));
         }
       }
     });
@@ -1646,25 +1756,33 @@ unittest {
     });
   gen.generateDBindings.shouldBeLike(q{
       struct ImageData {
+        nothrow:
         JsHandle handle;
         alias handle this;
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
       }
       struct Window {
+        nothrow:
         JsHandle handle;
         alias handle this;
-        void stuff(SumType!(.ImageData, string) s) {
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
+        void stuff(scope ref SumType!(.ImageData, string) s) {
           Window_stuff(this.handle, s);
         }
         auto ImageData(uint sw, uint sh) {
-          return .ImageData(JsHandle(Window_ImageData__uint_uint(this.handle, sw, sh)));
+          return .ImageData(Window_ImageData__uint_uint(this.handle, sw, sh));
         }
-        auto ImageData(Uint8ClampedArray data, uint sw, uint sh) {
-          return .ImageData(JsHandle(Window_ImageData__Handle_uint_uint(this.handle, data.handle, sw, sh)));
+        auto ImageData(scope ref Uint8ClampedArray data, uint sw, uint sh) {
+          return .ImageData(Window_ImageData__Handle_uint_uint(this.handle, data.handle, sw, sh));
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) void Window_stuff(Handle, SumType!(ImageData, string));
+      extern (C) void Window_stuff(Handle, scope ref SumType!(ImageData, string));
       extern (C) Handle Window_ImageData__uint_uint(Handle, uint, uint);
       extern (C) Handle Window_ImageData__Handle_uint_uint(Handle, Handle, uint, uint);
     });
@@ -1712,8 +1830,12 @@ unittest {
       alias EventHandler = EventHandlerNonNull;
       alias EventHandlerNonNull = Any delegate(Event);
       struct Window {
+        nothrow:
         JsHandle handle;
         alias handle this;
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
         void onabort(EventHandler onabort) {
           GlobalEventHandlers_onabort_Set(this.handle, onabort);
         }
@@ -1775,22 +1897,27 @@ unittest {
     });
   gen.generateDBindings.shouldBeLike(q{
       struct WebSocket {
+        nothrow:
         EventTarget _parent;
         alias _parent this;
-        this(JsHandle h) {
+        this(Handle h) {
           _parent = .EventTarget(h);
         }
       }
       struct Window {
+        nothrow:
         JsHandle handle;
         alias handle this;
-        auto WebSocket(string url, SumType!(string, Sequence!(string)) protocols /* = [] */) {
-          return .WebSocket(JsHandle(Window_WebSocket(this.handle, url, protocols)));
+        this(Handle h) {
+          this.handle = JsHandle(h);
+        }
+        auto WebSocket(string url, scope ref SumType!(string, Sequence!(string)) protocols /* = [] */) {
+          return .WebSocket(Window_WebSocket(this.handle, url, protocols));
         }
       }
     });
   gen.generateDImports.shouldBeLike(q{
-      extern (C) Handle Window_WebSocket(Handle, string, SumType!(string, Sequence!(string)));
+      extern (C) Handle Window_WebSocket(Handle, string, scope ref SumType!(string, Sequence!(string)));
     });
   gen.generateJsExports.shouldBeLike("
 Window_WebSocket: (ctx, urlLen, urlPtr, protocols) => {

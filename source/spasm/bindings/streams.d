@@ -3,12 +3,14 @@ module spasm.bindings.streams;
 import spasm.types;
 import spasm.bindings.common;
 
+@safe:
 nothrow:
+
 struct ByteLengthQueuingStrategy {
   nothrow:
   spasm.bindings.streams.QueuingStrategy _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .QueuingStrategy(h);
   }
   void highWaterMark(double highWaterMark) {
@@ -17,7 +19,7 @@ struct ByteLengthQueuingStrategy {
   auto highWaterMark() {
     return ByteLengthQueuingStrategy_highWaterMark_Get(this._parent);
   }
-  auto size(ArrayBufferView chunk) {
+  auto size(scope ref ArrayBufferView chunk) {
     return ByteLengthQueuingStrategy_size(this._parent, chunk);
   }
 }
@@ -25,7 +27,7 @@ struct CountQueuingStrategy {
   nothrow:
   spasm.bindings.streams.QueuingStrategy _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .QueuingStrategy(h);
   }
   void highWaterMark(double highWaterMark) {
@@ -34,7 +36,7 @@ struct CountQueuingStrategy {
   auto highWaterMark() {
     return CountQueuingStrategy_highWaterMark_Get(this._parent);
   }
-  auto size(T0)(T0 chunk) {
+  auto size(T0)(scope auto ref T0 chunk) {
     Handle _handle_chunk = getOrCreateHandle(chunk);
     auto result = CountQueuingStrategy_size(this._parent, _handle_chunk);
     dropHandle!(T0)(_handle_chunk);
@@ -45,22 +47,25 @@ struct PipeOptions {
   nothrow:
   JsHandle handle;
   alias handle this;
-  static auto create() {
-    return PipeOptions(JsHandle(spasm_add__object()));
+  this(Handle h) {
+    this.handle = JsHandle(h);
   }
-  void preventClose(Optional!(bool) preventClose) {
+  static auto create() {
+    return PipeOptions(spasm_add__object());
+  }
+  void preventClose(scope ref Optional!(bool) preventClose) {
     PipeOptions_preventClose_Set(this.handle, !preventClose.empty, preventClose.front);
   }
   auto preventClose() {
     return PipeOptions_preventClose_Get(this.handle);
   }
-  void preventAbort(Optional!(bool) preventAbort) {
+  void preventAbort(scope ref Optional!(bool) preventAbort) {
     PipeOptions_preventAbort_Set(this.handle, !preventAbort.empty, preventAbort.front);
   }
   auto preventAbort() {
     return PipeOptions_preventAbort_Get(this.handle);
   }
-  void preventCancel(Optional!(bool) preventCancel) {
+  void preventCancel(scope ref Optional!(bool) preventCancel) {
     PipeOptions_preventCancel_Set(this.handle, !preventCancel.empty, preventCancel.front);
   }
   auto preventCancel() {
@@ -71,16 +76,19 @@ struct QueuingStrategy {
   nothrow:
   JsHandle handle;
   alias handle this;
-  static auto create() {
-    return QueuingStrategy(JsHandle(spasm_add__object()));
+  this(Handle h) {
+    this.handle = JsHandle(h);
   }
-  void highWaterMark(Optional!(double) highWaterMark) {
+  static auto create() {
+    return QueuingStrategy(spasm_add__object());
+  }
+  void highWaterMark(scope ref Optional!(double) highWaterMark) {
     QueuingStrategy_highWaterMark_Set(this.handle, !highWaterMark.empty, highWaterMark.front);
   }
   auto highWaterMark() {
     return QueuingStrategy_highWaterMark_Get(this.handle);
   }
-  void size(Optional!(QueuingStrategySizeCallback) size) {
+  void size(scope ref Optional!(QueuingStrategySizeCallback) size) {
     QueuingStrategy_size_Set(this.handle, !size.empty, size.front);
   }
   auto size() {
@@ -92,8 +100,11 @@ struct ReadableByteStreamController {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto byobRequest() {
-    return ReadableStreamBYOBRequest(JsHandle(ReadableByteStreamController_byobRequest_Get(this.handle)));
+    return ReadableStreamBYOBRequest(ReadableByteStreamController_byobRequest_Get(this.handle));
   }
   auto desiredSize() {
     return ReadableByteStreamController_desiredSize_Get(this.handle);
@@ -101,10 +112,10 @@ struct ReadableByteStreamController {
   void close() {
     ReadableByteStreamController_close(this.handle);
   }
-  void enqueue(ArrayBufferView chunk) {
+  void enqueue(scope ref ArrayBufferView chunk) {
     ReadableByteStreamController_enqueue(this.handle, chunk);
   }
-  void error(T0)(T0 error) {
+  void error(T0)(scope auto ref T0 error) {
     Handle _handle_error = getOrCreateHandle(error);
     ReadableByteStreamController_error(this.handle, _handle_error);
     dropHandle!(T0)(_handle_error);
@@ -118,67 +129,73 @@ struct ReadableStream {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto locked() {
     return ReadableStream_locked_Get(this.handle);
   }
-  auto cancel(T0)(T0 reason) {
+  auto cancel(T0)(scope auto ref T0 reason) {
     Handle _handle_reason = getOrCreateHandle(reason);
-    auto result = Promise!(void)(JsHandle(ReadableStream_cancel(this.handle, _handle_reason)));
+    auto result = Promise!(void)(ReadableStream_cancel(this.handle, _handle_reason));
     dropHandle!(T0)(_handle_reason);
     return result;
   }
   auto cancel() {
-    return Promise!(void)(JsHandle(ReadableStream_cancel_0(this.handle)));
+    return Promise!(void)(ReadableStream_cancel_0(this.handle));
   }
-  auto getReader(T0)(T0 options) {
+  auto getReader(T0)(scope auto ref T0 options) {
     Handle _handle_options = getOrCreateHandle(options);
-    auto result = ReadableStreamBYOBReader(JsHandle(ReadableStream_getReader__Handle(this.handle, _handle_options)));
+    auto result = ReadableStreamBYOBReader(ReadableStream_getReader__Handle(this.handle, _handle_options));
     dropHandle!(T0)(_handle_options);
     return result;
   }
   auto getReader() {
-    return ReadableStreamDefaultReader(JsHandle(ReadableStream_getReader__(this.handle)));
+    return ReadableStreamDefaultReader(ReadableStream_getReader__(this.handle));
   }
-  auto pipeThrough(T0)(T0 pair, PipeOptions options) {
+  auto pipeThrough(T0)(scope auto ref T0 pair, scope ref PipeOptions options) {
     Handle _handle_pair = getOrCreateHandle(pair);
-    auto result = Any(JsHandle(ReadableStream_pipeThrough(this.handle, _handle_pair, options.handle)));
+    auto result = Any(ReadableStream_pipeThrough(this.handle, _handle_pair, options.handle));
     dropHandle!(T0)(_handle_pair);
     return result;
   }
-  auto pipeThrough(T0)(T0 pair) {
+  auto pipeThrough(T0)(scope auto ref T0 pair) {
     Handle _handle_pair = getOrCreateHandle(pair);
-    auto result = Any(JsHandle(ReadableStream_pipeThrough_0(this.handle, _handle_pair)));
+    auto result = Any(ReadableStream_pipeThrough_0(this.handle, _handle_pair));
     dropHandle!(T0)(_handle_pair);
     return result;
   }
-  auto pipeTo(WritableStream dest, PipeOptions options) {
-    return Promise!(void)(JsHandle(ReadableStream_pipeTo(this.handle, dest.handle, options.handle)));
+  auto pipeTo(scope ref WritableStream dest, scope ref PipeOptions options) {
+    return Promise!(void)(ReadableStream_pipeTo(this.handle, dest.handle, options.handle));
   }
-  auto pipeTo(WritableStream dest) {
-    return Promise!(void)(JsHandle(ReadableStream_pipeTo_0(this.handle, dest.handle)));
+  auto pipeTo(scope ref WritableStream dest) {
+    return Promise!(void)(ReadableStream_pipeTo_0(this.handle, dest.handle));
   }
   auto tee() {
-    return Sequence!(ReadableStream)(JsHandle(ReadableStream_tee(this.handle)));
+    return Sequence!(ReadableStream)(ReadableStream_tee(this.handle));
   }
 }
 struct ReadableStreamBYOBReader {
   nothrow:
   JsHandle handle;
   alias handle this;
-  auto closed() {
-    return Promise!(void)(JsHandle(ReadableStreamBYOBReader_closed_Get(this.handle)));
+  this(Handle h) {
+    this.handle = JsHandle(h);
   }
-  auto cancel(T0)(T0 reason) {
+  auto closed() {
+    return Promise!(void)(ReadableStreamBYOBReader_closed_Get(this.handle));
+  }
+  auto cancel(T0)(scope auto ref T0 reason) {
     Handle _handle_reason = getOrCreateHandle(reason);
-    auto result = Promise!(void)(JsHandle(ReadableStreamBYOBReader_cancel(this.handle, _handle_reason)));
+    auto result = Promise!(void)(ReadableStreamBYOBReader_cancel(this.handle, _handle_reason));
     dropHandle!(T0)(_handle_reason);
     return result;
   }
   auto cancel() {
-    return Promise!(void)(JsHandle(ReadableStreamBYOBReader_cancel_0(this.handle)));
+    return Promise!(void)(ReadableStreamBYOBReader_cancel_0(this.handle));
   }
-  auto read(ArrayBufferView view) {
-    return Promise!(ReadableStreamReadResult)(JsHandle(ReadableStreamBYOBReader_read(this.handle, view)));
+  auto read(scope ref ArrayBufferView view) {
+    return Promise!(ReadableStreamReadResult)(ReadableStreamBYOBReader_read(this.handle, view));
   }
   void releaseLock() {
     ReadableStreamBYOBReader_releaseLock(this.handle);
@@ -188,13 +205,16 @@ struct ReadableStreamBYOBRequest {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto view() {
     return ReadableStreamBYOBRequest_view_Get(this.handle);
   }
   void respond(uint bytesWritten) {
     ReadableStreamBYOBRequest_respond(this.handle, bytesWritten);
   }
-  void respondWithNewView(ArrayBufferView view) {
+  void respondWithNewView(scope ref ArrayBufferView view) {
     ReadableStreamBYOBRequest_respondWithNewView(this.handle, view);
   }
 }
@@ -202,18 +222,21 @@ struct ReadableStreamDefaultController {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto desiredSize() {
     return ReadableStreamDefaultController_desiredSize_Get(this.handle);
   }
   void close() {
     ReadableStreamDefaultController_close(this.handle);
   }
-  void enqueue(T0)(T0 chunk) {
+  void enqueue(T0)(scope auto ref T0 chunk) {
     Handle _handle_chunk = getOrCreateHandle(chunk);
     ReadableStreamDefaultController_enqueue(this.handle, _handle_chunk);
     dropHandle!(T0)(_handle_chunk);
   }
-  void error(T0)(T0 error) {
+  void error(T0)(scope auto ref T0 error) {
     Handle _handle_error = getOrCreateHandle(error);
     ReadableStreamDefaultController_error(this.handle, _handle_error);
     dropHandle!(T0)(_handle_error);
@@ -227,20 +250,23 @@ struct ReadableStreamDefaultReader {
   nothrow:
   JsHandle handle;
   alias handle this;
-  auto closed() {
-    return Promise!(void)(JsHandle(ReadableStreamDefaultReader_closed_Get(this.handle)));
+  this(Handle h) {
+    this.handle = JsHandle(h);
   }
-  auto cancel(T0)(T0 reason) {
+  auto closed() {
+    return Promise!(void)(ReadableStreamDefaultReader_closed_Get(this.handle));
+  }
+  auto cancel(T0)(scope auto ref T0 reason) {
     Handle _handle_reason = getOrCreateHandle(reason);
-    auto result = Promise!(void)(JsHandle(ReadableStreamDefaultReader_cancel(this.handle, _handle_reason)));
+    auto result = Promise!(void)(ReadableStreamDefaultReader_cancel(this.handle, _handle_reason));
     dropHandle!(T0)(_handle_reason);
     return result;
   }
   auto cancel() {
-    return Promise!(void)(JsHandle(ReadableStreamDefaultReader_cancel_0(this.handle)));
+    return Promise!(void)(ReadableStreamDefaultReader_cancel_0(this.handle));
   }
   auto read() {
-    return Promise!(ReadableStreamReadResult)(JsHandle(ReadableStreamDefaultReader_read(this.handle)));
+    return Promise!(ReadableStreamReadResult)(ReadableStreamDefaultReader_read(this.handle));
   }
   void releaseLock() {
     ReadableStreamDefaultReader_releaseLock(this.handle);
@@ -251,43 +277,52 @@ struct ReadableStreamReadResult {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   void done(bool done) {
     ReadableStreamReadResult_done_Set(this.handle, done);
   }
   auto done() {
     return ReadableStreamReadResult_done_Get(this.handle);
   }
-  void value(Any value) {
+  void value(scope ref Any value) {
     ReadableStreamReadResult_value_Set(this.handle, value.handle);
   }
   auto value() {
-    return Any(JsHandle(ReadableStreamReadResult_value_Get(this.handle)));
+    return Any(ReadableStreamReadResult_value_Get(this.handle));
   }
 }
 struct TransformStream {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto readable() {
-    return ReadableStream(JsHandle(TransformStream_readable_Get(this.handle)));
+    return ReadableStream(TransformStream_readable_Get(this.handle));
   }
   auto writable() {
-    return WritableStream(JsHandle(TransformStream_writable_Get(this.handle)));
+    return WritableStream(TransformStream_writable_Get(this.handle));
   }
 }
 struct TransformStreamDefaultController {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto desiredSize() {
     return TransformStreamDefaultController_desiredSize_Get(this.handle);
   }
-  void enqueue(T0)(T0 chunk) {
+  void enqueue(T0)(scope auto ref T0 chunk) {
     Handle _handle_chunk = getOrCreateHandle(chunk);
     TransformStreamDefaultController_enqueue(this.handle, _handle_chunk);
     dropHandle!(T0)(_handle_chunk);
   }
-  void error(T0)(T0 reason) {
+  void error(T0)(scope auto ref T0 reason) {
     Handle _handle_reason = getOrCreateHandle(reason);
     TransformStreamDefaultController_error(this.handle, _handle_reason);
     dropHandle!(T0)(_handle_reason);
@@ -305,64 +340,70 @@ struct Transformer {
   nothrow:
   JsHandle handle;
   alias handle this;
-  static auto create() {
-    return Transformer(JsHandle(spasm_add__object()));
+  this(Handle h) {
+    this.handle = JsHandle(h);
   }
-  void start(Optional!(TransformStreamDefaultControllerCallback) start) {
+  static auto create() {
+    return Transformer(spasm_add__object());
+  }
+  void start(scope ref Optional!(TransformStreamDefaultControllerCallback) start) {
     Transformer_start_Set(this.handle, !start.empty, start.front);
   }
   auto start() {
     return Transformer_start_Get(this.handle);
   }
-  void transform(Optional!(TransformStreamDefaultControllerTransformCallback) transform) {
+  void transform(scope ref Optional!(TransformStreamDefaultControllerTransformCallback) transform) {
     Transformer_transform_Set(this.handle, !transform.empty, transform.front);
   }
   auto transform() {
     return Transformer_transform_Get(this.handle);
   }
-  void flush(Optional!(TransformStreamDefaultControllerCallback) flush) {
+  void flush(scope ref Optional!(TransformStreamDefaultControllerCallback) flush) {
     Transformer_flush_Set(this.handle, !flush.empty, flush.front);
   }
   auto flush() {
     return Transformer_flush_Get(this.handle);
   }
-  void readableType(T0)(T0 readableType) {
+  void readableType(T0)(scope auto ref T0 readableType) {
     Handle _handle_readableType = getOrCreateHandle(readableType);
     Transformer_readableType_Set(this.handle, _handle_readableType);
     dropHandle!(T0)(_handle_readableType);
   }
   auto readableType() {
-    return Any(JsHandle(Transformer_readableType_Get(this.handle)));
+    return Any(Transformer_readableType_Get(this.handle));
   }
-  void writableType(T0)(T0 writableType) {
+  void writableType(T0)(scope auto ref T0 writableType) {
     Handle _handle_writableType = getOrCreateHandle(writableType);
     Transformer_writableType_Set(this.handle, _handle_writableType);
     dropHandle!(T0)(_handle_writableType);
   }
   auto writableType() {
-    return Any(JsHandle(Transformer_writableType_Get(this.handle)));
+    return Any(Transformer_writableType_Get(this.handle));
   }
 }
 struct UnderlyingByteSource {
   nothrow:
   JsHandle handle;
   alias handle this;
-  static auto create() {
-    return UnderlyingByteSource(JsHandle(spasm_add__object()));
+  this(Handle h) {
+    this.handle = JsHandle(h);
   }
-  void start(Optional!(ReadableByteStreamControllerCallback) start) {
+  static auto create() {
+    return UnderlyingByteSource(spasm_add__object());
+  }
+  void start(scope ref Optional!(ReadableByteStreamControllerCallback) start) {
     UnderlyingByteSource_start_Set(this.handle, !start.empty, start.front);
   }
   auto start() {
     return UnderlyingByteSource_start_Get(this.handle);
   }
-  void pull(Optional!(ReadableByteStreamControllerCallback) pull) {
+  void pull(scope ref Optional!(ReadableByteStreamControllerCallback) pull) {
     UnderlyingByteSource_pull_Set(this.handle, !pull.empty, pull.front);
   }
   auto pull() {
     return UnderlyingByteSource_pull_Get(this.handle);
   }
-  void cancel(Optional!(ReadableStreamErrorCallback) cancel) {
+  void cancel(scope ref Optional!(ReadableStreamErrorCallback) cancel) {
     UnderlyingByteSource_cancel_Set(this.handle, !cancel.empty, cancel.front);
   }
   auto cancel() {
@@ -374,7 +415,7 @@ struct UnderlyingByteSource {
   auto type() {
     return UnderlyingByteSource_type_Get(this.handle);
   }
-  void autoAllocateChunkSize(Optional!(uint) autoAllocateChunkSize) {
+  void autoAllocateChunkSize(scope ref Optional!(uint) autoAllocateChunkSize) {
     UnderlyingByteSource_autoAllocateChunkSize_Set(this.handle, !autoAllocateChunkSize.empty, autoAllocateChunkSize.front);
   }
   auto autoAllocateChunkSize() {
@@ -385,101 +426,113 @@ struct UnderlyingSink {
   nothrow:
   JsHandle handle;
   alias handle this;
-  static auto create() {
-    return UnderlyingSink(JsHandle(spasm_add__object()));
+  this(Handle h) {
+    this.handle = JsHandle(h);
   }
-  void start(Optional!(WritableStreamDefaultControllerStartCallback) start) {
+  static auto create() {
+    return UnderlyingSink(spasm_add__object());
+  }
+  void start(scope ref Optional!(WritableStreamDefaultControllerStartCallback) start) {
     UnderlyingSink_start_Set(this.handle, !start.empty, start.front);
   }
   auto start() {
     return UnderlyingSink_start_Get(this.handle);
   }
-  void write(Optional!(WritableStreamDefaultControllerWriteCallback) write) {
+  void write(scope ref Optional!(WritableStreamDefaultControllerWriteCallback) write) {
     UnderlyingSink_write_Set(this.handle, !write.empty, write.front);
   }
   auto write() {
     return UnderlyingSink_write_Get(this.handle);
   }
-  void close(Optional!(WritableStreamDefaultControllerCloseCallback) close) {
+  void close(scope ref Optional!(WritableStreamDefaultControllerCloseCallback) close) {
     UnderlyingSink_close_Set(this.handle, !close.empty, close.front);
   }
   auto close() {
     return UnderlyingSink_close_Get(this.handle);
   }
-  void abort(Optional!(WritableStreamErrorCallback) abort) {
+  void abort(scope ref Optional!(WritableStreamErrorCallback) abort) {
     UnderlyingSink_abort_Set(this.handle, !abort.empty, abort.front);
   }
   auto abort() {
     return UnderlyingSink_abort_Get(this.handle);
   }
-  void type(T0)(T0 type) {
+  void type(T0)(scope auto ref T0 type) {
     Handle _handle_type = getOrCreateHandle(type);
     UnderlyingSink_type_Set(this.handle, _handle_type);
     dropHandle!(T0)(_handle_type);
   }
   auto type() {
-    return Any(JsHandle(UnderlyingSink_type_Get(this.handle)));
+    return Any(UnderlyingSink_type_Get(this.handle));
   }
 }
 struct UnderlyingSource {
   nothrow:
   JsHandle handle;
   alias handle this;
-  static auto create() {
-    return UnderlyingSource(JsHandle(spasm_add__object()));
+  this(Handle h) {
+    this.handle = JsHandle(h);
   }
-  void start(Optional!(ReadableStreamDefaultControllerCallback) start) {
+  static auto create() {
+    return UnderlyingSource(spasm_add__object());
+  }
+  void start(scope ref Optional!(ReadableStreamDefaultControllerCallback) start) {
     UnderlyingSource_start_Set(this.handle, !start.empty, start.front);
   }
   auto start() {
     return UnderlyingSource_start_Get(this.handle);
   }
-  void pull(Optional!(ReadableStreamDefaultControllerCallback) pull) {
+  void pull(scope ref Optional!(ReadableStreamDefaultControllerCallback) pull) {
     UnderlyingSource_pull_Set(this.handle, !pull.empty, pull.front);
   }
   auto pull() {
     return UnderlyingSource_pull_Get(this.handle);
   }
-  void cancel(Optional!(ReadableStreamErrorCallback) cancel) {
+  void cancel(scope ref Optional!(ReadableStreamErrorCallback) cancel) {
     UnderlyingSource_cancel_Set(this.handle, !cancel.empty, cancel.front);
   }
   auto cancel() {
     return UnderlyingSource_cancel_Get(this.handle);
   }
-  void type(T0)(T0 type) {
+  void type(T0)(scope auto ref T0 type) {
     Handle _handle_type = getOrCreateHandle(type);
     UnderlyingSource_type_Set(this.handle, _handle_type);
     dropHandle!(T0)(_handle_type);
   }
   auto type() {
-    return Any(JsHandle(UnderlyingSource_type_Get(this.handle)));
+    return Any(UnderlyingSource_type_Get(this.handle));
   }
 }
 struct WritableStream {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto locked() {
     return WritableStream_locked_Get(this.handle);
   }
-  auto abort(T0)(T0 reason) {
+  auto abort(T0)(scope auto ref T0 reason) {
     Handle _handle_reason = getOrCreateHandle(reason);
-    auto result = Promise!(void)(JsHandle(WritableStream_abort(this.handle, _handle_reason)));
+    auto result = Promise!(void)(WritableStream_abort(this.handle, _handle_reason));
     dropHandle!(T0)(_handle_reason);
     return result;
   }
   auto abort() {
-    return Promise!(void)(JsHandle(WritableStream_abort_0(this.handle)));
+    return Promise!(void)(WritableStream_abort_0(this.handle));
   }
   auto getWriter() {
-    return WritableStreamDefaultWriter(JsHandle(WritableStream_getWriter(this.handle)));
+    return WritableStreamDefaultWriter(WritableStream_getWriter(this.handle));
   }
 }
 struct WritableStreamDefaultController {
   nothrow:
   JsHandle handle;
   alias handle this;
-  void error(T0)(T0 error) {
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
+  void error(T0)(scope auto ref T0 error) {
     Handle _handle_error = getOrCreateHandle(error);
     WritableStreamDefaultController_error(this.handle, _handle_error);
     dropHandle!(T0)(_handle_error);
@@ -495,33 +548,36 @@ struct WritableStreamDefaultWriter {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto closed() {
-    return Promise!(void)(JsHandle(WritableStreamDefaultWriter_closed_Get(this.handle)));
+    return Promise!(void)(WritableStreamDefaultWriter_closed_Get(this.handle));
   }
   auto desiredSize() {
     return WritableStreamDefaultWriter_desiredSize_Get(this.handle);
   }
   auto ready() {
-    return Promise!(void)(JsHandle(WritableStreamDefaultWriter_ready_Get(this.handle)));
+    return Promise!(void)(WritableStreamDefaultWriter_ready_Get(this.handle));
   }
-  auto abort(T0)(T0 reason) {
+  auto abort(T0)(scope auto ref T0 reason) {
     Handle _handle_reason = getOrCreateHandle(reason);
-    auto result = Promise!(void)(JsHandle(WritableStreamDefaultWriter_abort(this.handle, _handle_reason)));
+    auto result = Promise!(void)(WritableStreamDefaultWriter_abort(this.handle, _handle_reason));
     dropHandle!(T0)(_handle_reason);
     return result;
   }
   auto abort() {
-    return Promise!(void)(JsHandle(WritableStreamDefaultWriter_abort_0(this.handle)));
+    return Promise!(void)(WritableStreamDefaultWriter_abort_0(this.handle));
   }
   auto close() {
-    return Promise!(void)(JsHandle(WritableStreamDefaultWriter_close(this.handle)));
+    return Promise!(void)(WritableStreamDefaultWriter_close(this.handle));
   }
   void releaseLock() {
     WritableStreamDefaultWriter_releaseLock(this.handle);
   }
-  auto write(T0)(T0 chunk) {
+  auto write(T0)(scope auto ref T0 chunk) {
     Handle _handle_chunk = getOrCreateHandle(chunk);
-    auto result = Promise!(void)(JsHandle(WritableStreamDefaultWriter_write(this.handle, _handle_chunk)));
+    auto result = Promise!(void)(WritableStreamDefaultWriter_write(this.handle, _handle_chunk));
     dropHandle!(T0)(_handle_chunk);
     return result;
   }
@@ -531,7 +587,7 @@ alias WritableStreamErrorCallback = Any delegate(Any);
 
 extern (C) void ByteLengthQueuingStrategy_highWaterMark_Set(Handle, double);
 extern (C) double ByteLengthQueuingStrategy_highWaterMark_Get(Handle);
-extern (C) double ByteLengthQueuingStrategy_size(Handle, ArrayBufferView);
+extern (C) double ByteLengthQueuingStrategy_size(Handle, scope ref ArrayBufferView);
 extern (C) void CountQueuingStrategy_highWaterMark_Set(Handle, double);
 extern (C) double CountQueuingStrategy_highWaterMark_Get(Handle);
 extern (C) double CountQueuingStrategy_size(Handle, Handle);
@@ -548,7 +604,7 @@ extern (C) Optional!(QueuingStrategySizeCallback) QueuingStrategy_size_Get(Handl
 extern (C) Handle ReadableByteStreamController_byobRequest_Get(Handle);
 extern (C) Optional!(double) ReadableByteStreamController_desiredSize_Get(Handle);
 extern (C) void ReadableByteStreamController_close(Handle);
-extern (C) void ReadableByteStreamController_enqueue(Handle, ArrayBufferView);
+extern (C) void ReadableByteStreamController_enqueue(Handle, scope ref ArrayBufferView);
 extern (C) void ReadableByteStreamController_error(Handle, Handle);
 extern (C) void ReadableByteStreamController_error_0(Handle);
 extern (C) bool ReadableStream_locked_Get(Handle);
@@ -564,11 +620,11 @@ extern (C) Handle ReadableStream_tee(Handle);
 extern (C) Handle ReadableStreamBYOBReader_closed_Get(Handle);
 extern (C) Handle ReadableStreamBYOBReader_cancel(Handle, Handle);
 extern (C) Handle ReadableStreamBYOBReader_cancel_0(Handle);
-extern (C) Handle ReadableStreamBYOBReader_read(Handle, ArrayBufferView);
+extern (C) Handle ReadableStreamBYOBReader_read(Handle, scope ref ArrayBufferView);
 extern (C) void ReadableStreamBYOBReader_releaseLock(Handle);
 extern (C) ArrayBufferView ReadableStreamBYOBRequest_view_Get(Handle);
 extern (C) void ReadableStreamBYOBRequest_respond(Handle, uint);
-extern (C) void ReadableStreamBYOBRequest_respondWithNewView(Handle, ArrayBufferView);
+extern (C) void ReadableStreamBYOBRequest_respondWithNewView(Handle, scope ref ArrayBufferView);
 extern (C) Optional!(double) ReadableStreamDefaultController_desiredSize_Get(Handle);
 extern (C) void ReadableStreamDefaultController_close(Handle);
 extern (C) void ReadableStreamDefaultController_enqueue(Handle, Handle);

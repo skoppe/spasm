@@ -4,13 +4,18 @@ import spasm.types;
 import spasm.bindings.dom;
 import spasm.bindings.html;
 
+@safe:
 nothrow:
+
 struct Capabilities {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return Capabilities(JsHandle(spasm_add__object()));
+    return Capabilities(spasm_add__object());
   }
 }
 alias ConstrainBoolean = SumType!(bool, ConstrainBooleanParameters);
@@ -18,8 +23,11 @@ struct ConstrainBooleanParameters {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return ConstrainBooleanParameters(JsHandle(spasm_add__object()));
+    return ConstrainBooleanParameters(spasm_add__object());
   }
   void exact(bool exact) {
     ConstrainBooleanParameters_exact_Set(this.handle, exact);
@@ -39,16 +47,19 @@ struct ConstrainDOMStringParameters {
   nothrow:
   JsHandle handle;
   alias handle this;
-  static auto create() {
-    return ConstrainDOMStringParameters(JsHandle(spasm_add__object()));
+  this(Handle h) {
+    this.handle = JsHandle(h);
   }
-  void exact(SumType!(string, Sequence!(string)) exact) {
+  static auto create() {
+    return ConstrainDOMStringParameters(spasm_add__object());
+  }
+  void exact(scope ref SumType!(string, Sequence!(string)) exact) {
     ConstrainDOMStringParameters_exact_Set(this.handle, exact);
   }
   auto exact() {
     return ConstrainDOMStringParameters_exact_Get(this.handle);
   }
-  void ideal(SumType!(string, Sequence!(string)) ideal) {
+  void ideal(scope ref SumType!(string, Sequence!(string)) ideal) {
     ConstrainDOMStringParameters_ideal_Set(this.handle, ideal);
   }
   auto ideal() {
@@ -60,11 +71,11 @@ struct ConstrainDoubleRange {
   nothrow:
   spasm.bindings.mediastream.DoubleRange _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .DoubleRange(h);
   }
   static auto create() {
-    return ConstrainDoubleRange(JsHandle(spasm_add__object()));
+    return ConstrainDoubleRange(spasm_add__object());
   }
   void exact(double exact) {
     ConstrainDoubleRange_exact_Set(this._parent, exact);
@@ -84,11 +95,11 @@ struct ConstrainULongRange {
   nothrow:
   spasm.bindings.mediastream.ULongRange _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .ULongRange(h);
   }
   static auto create() {
-    return ConstrainULongRange(JsHandle(spasm_add__object()));
+    return ConstrainULongRange(spasm_add__object());
   }
   void exact(uint exact) {
     ConstrainULongRange_exact_Set(this._parent, exact);
@@ -107,20 +118,23 @@ struct ConstrainablePattern {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto getCapabilities() {
-    return Capabilities(JsHandle(ConstrainablePattern_getCapabilities(this.handle)));
+    return Capabilities(ConstrainablePattern_getCapabilities(this.handle));
   }
   auto getConstraints() {
-    return Constraints(JsHandle(ConstrainablePattern_getConstraints(this.handle)));
+    return Constraints(ConstrainablePattern_getConstraints(this.handle));
   }
   auto getSettings() {
-    return Settings(JsHandle(ConstrainablePattern_getSettings(this.handle)));
+    return Settings(ConstrainablePattern_getSettings(this.handle));
   }
-  auto applyConstraints(Constraints constraints) {
-    return Promise!(void)(JsHandle(ConstrainablePattern_applyConstraints(this.handle, constraints._parent)));
+  auto applyConstraints(scope ref Constraints constraints) {
+    return Promise!(void)(ConstrainablePattern_applyConstraints(this.handle, constraints._parent));
   }
   auto applyConstraints() {
-    return Promise!(void)(JsHandle(ConstrainablePattern_applyConstraints_0(this.handle)));
+    return Promise!(void)(ConstrainablePattern_applyConstraints_0(this.handle));
   }
   void onoverconstrained(EventHandler onoverconstrained) {
     ConstrainablePattern_onoverconstrained_Set(this.handle, onoverconstrained);
@@ -133,33 +147,39 @@ struct ConstraintSet {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return ConstraintSet(JsHandle(spasm_add__object()));
+    return ConstraintSet(spasm_add__object());
   }
 }
 struct Constraints {
   nothrow:
   spasm.bindings.mediastream.ConstraintSet _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .ConstraintSet(h);
   }
   static auto create() {
-    return Constraints(JsHandle(spasm_add__object()));
+    return Constraints(spasm_add__object());
   }
-  void advanced(Sequence!(ConstraintSet) advanced) {
+  void advanced(scope ref Sequence!(ConstraintSet) advanced) {
     Constraints_advanced_Set(this._parent, advanced.handle);
   }
   auto advanced() {
-    return Sequence!(ConstraintSet)(JsHandle(Constraints_advanced_Get(this._parent)));
+    return Sequence!(ConstraintSet)(Constraints_advanced_Get(this._parent));
   }
 }
 struct DoubleRange {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return DoubleRange(JsHandle(spasm_add__object()));
+    return DoubleRange(spasm_add__object());
   }
   void max(double max) {
     DoubleRange_max_Set(this.handle, max);
@@ -178,17 +198,20 @@ struct InputDeviceInfo {
   nothrow:
   spasm.bindings.mediastream.MediaDeviceInfo _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .MediaDeviceInfo(h);
   }
   auto getCapabilities() {
-    return MediaTrackCapabilities(JsHandle(InputDeviceInfo_getCapabilities(this._parent)));
+    return MediaTrackCapabilities(InputDeviceInfo_getCapabilities(this._parent));
   }
 }
 struct MediaDeviceInfo {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto deviceId() {
     return MediaDeviceInfo_deviceId_Get(this.handle);
   }
@@ -202,7 +225,7 @@ struct MediaDeviceInfo {
     return MediaDeviceInfo_groupId_Get(this.handle);
   }
   auto toJSON() {
-    return JsObject(JsHandle(MediaDeviceInfo_toJSON(this.handle)));
+    return JsObject(MediaDeviceInfo_toJSON(this.handle));
   }
 }
 enum MediaDeviceKind {
@@ -214,7 +237,7 @@ struct MediaDevices {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   void ondevicechange(EventHandler ondevicechange) {
@@ -224,48 +247,48 @@ struct MediaDevices {
     return MediaDevices_ondevicechange_Get(this._parent);
   }
   auto enumerateDevices() {
-    return Promise!(Sequence!(MediaDeviceInfo))(JsHandle(MediaDevices_enumerateDevices(this._parent)));
+    return Promise!(Sequence!(MediaDeviceInfo))(MediaDevices_enumerateDevices(this._parent));
   }
   auto getSupportedConstraints() {
-    return MediaTrackSupportedConstraints(JsHandle(MediaDevices_getSupportedConstraints(this._parent)));
+    return MediaTrackSupportedConstraints(MediaDevices_getSupportedConstraints(this._parent));
   }
-  auto getUserMedia(MediaStreamConstraints constraints) {
-    return Promise!(MediaStream)(JsHandle(MediaDevices_getUserMedia(this._parent, constraints.handle)));
+  auto getUserMedia(scope ref MediaStreamConstraints constraints) {
+    return Promise!(MediaStream)(MediaDevices_getUserMedia(this._parent, constraints.handle));
   }
   auto getUserMedia() {
-    return Promise!(MediaStream)(JsHandle(MediaDevices_getUserMedia_0(this._parent)));
+    return Promise!(MediaStream)(MediaDevices_getUserMedia_0(this._parent));
   }
 }
 struct MediaStream {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   auto id() {
     return MediaStream_id_Get(this._parent);
   }
   auto getAudioTracks() {
-    return Sequence!(MediaStreamTrack)(JsHandle(MediaStream_getAudioTracks(this._parent)));
+    return Sequence!(MediaStreamTrack)(MediaStream_getAudioTracks(this._parent));
   }
   auto getVideoTracks() {
-    return Sequence!(MediaStreamTrack)(JsHandle(MediaStream_getVideoTracks(this._parent)));
+    return Sequence!(MediaStreamTrack)(MediaStream_getVideoTracks(this._parent));
   }
   auto getTracks() {
-    return Sequence!(MediaStreamTrack)(JsHandle(MediaStream_getTracks(this._parent)));
+    return Sequence!(MediaStreamTrack)(MediaStream_getTracks(this._parent));
   }
   auto getTrackById(string trackId) {
     return MediaStream_getTrackById(this._parent, trackId);
   }
-  void addTrack(MediaStreamTrack track) {
+  void addTrack(scope ref MediaStreamTrack track) {
     MediaStream_addTrack(this._parent, track._parent);
   }
-  void removeTrack(MediaStreamTrack track) {
+  void removeTrack(scope ref MediaStreamTrack track) {
     MediaStream_removeTrack(this._parent, track._parent);
   }
   auto clone() {
-    return MediaStream(JsHandle(MediaStream_clone(this._parent)));
+    return MediaStream(MediaStream_clone(this._parent));
   }
   auto active() {
     return MediaStream_active_Get(this._parent);
@@ -287,16 +310,19 @@ struct MediaStreamConstraints {
   nothrow:
   JsHandle handle;
   alias handle this;
-  static auto create() {
-    return MediaStreamConstraints(JsHandle(spasm_add__object()));
+  this(Handle h) {
+    this.handle = JsHandle(h);
   }
-  void video(SumType!(bool, MediaTrackConstraints) video) {
+  static auto create() {
+    return MediaStreamConstraints(spasm_add__object());
+  }
+  void video(scope ref SumType!(bool, MediaTrackConstraints) video) {
     MediaStreamConstraints_video_Set(this.handle, video);
   }
   auto video() {
     return MediaStreamConstraints_video_Get(this.handle);
   }
-  void audio(SumType!(bool, MediaTrackConstraints) audio) {
+  void audio(scope ref SumType!(bool, MediaTrackConstraints) audio) {
     MediaStreamConstraints_audio_Set(this.handle, audio);
   }
   auto audio() {
@@ -308,7 +334,7 @@ struct MediaStreamTrack {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   auto kind() {
@@ -351,25 +377,25 @@ struct MediaStreamTrack {
     return MediaStreamTrack_onended_Get(this._parent);
   }
   auto clone() {
-    return MediaStreamTrack(JsHandle(MediaStreamTrack_clone(this._parent)));
+    return MediaStreamTrack(MediaStreamTrack_clone(this._parent));
   }
   void stop() {
     MediaStreamTrack_stop(this._parent);
   }
   auto getCapabilities() {
-    return MediaTrackCapabilities(JsHandle(MediaStreamTrack_getCapabilities(this._parent)));
+    return MediaTrackCapabilities(MediaStreamTrack_getCapabilities(this._parent));
   }
   auto getConstraints() {
-    return MediaTrackConstraints(JsHandle(MediaStreamTrack_getConstraints(this._parent)));
+    return MediaTrackConstraints(MediaStreamTrack_getConstraints(this._parent));
   }
   auto getSettings() {
-    return MediaTrackSettings(JsHandle(MediaStreamTrack_getSettings(this._parent)));
+    return MediaTrackSettings(MediaStreamTrack_getSettings(this._parent));
   }
-  auto applyConstraints(MediaTrackConstraints constraints) {
-    return Promise!(void)(JsHandle(MediaStreamTrack_applyConstraints(this._parent, constraints._parent)));
+  auto applyConstraints(scope ref MediaTrackConstraints constraints) {
+    return Promise!(void)(MediaStreamTrack_applyConstraints(this._parent, constraints._parent));
   }
   auto applyConstraints() {
-    return Promise!(void)(JsHandle(MediaStreamTrack_applyConstraints_0(this._parent)));
+    return Promise!(void)(MediaStreamTrack_applyConstraints_0(this._parent));
   }
   void onoverconstrained(EventHandler onoverconstrained) {
     MediaStreamTrack_onoverconstrained_Set(this._parent, onoverconstrained);
@@ -382,28 +408,28 @@ struct MediaStreamTrackEvent {
   nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Event(h);
   }
   auto track() {
-    return MediaStreamTrack(JsHandle(MediaStreamTrackEvent_track_Get(this._parent)));
+    return MediaStreamTrack(MediaStreamTrackEvent_track_Get(this._parent));
   }
 }
 struct MediaStreamTrackEventInit {
   nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventInit(h);
   }
   static auto create() {
-    return MediaStreamTrackEventInit(JsHandle(spasm_add__object()));
+    return MediaStreamTrackEventInit(spasm_add__object());
   }
-  void track(MediaStreamTrack track) {
+  void track(scope ref MediaStreamTrack track) {
     MediaStreamTrackEventInit_track_Set(this._parent, track.handle);
   }
   auto track() {
-    return MediaStreamTrack(JsHandle(MediaStreamTrackEventInit_track_Get(this._parent)));
+    return MediaStreamTrack(MediaStreamTrackEventInit_track_Get(this._parent));
   }
 }
 enum MediaStreamTrackState {
@@ -414,92 +440,95 @@ struct MediaTrackCapabilities {
   nothrow:
   JsHandle handle;
   alias handle this;
-  static auto create() {
-    return MediaTrackCapabilities(JsHandle(spasm_add__object()));
+  this(Handle h) {
+    this.handle = JsHandle(h);
   }
-  void width(ULongRange width) {
+  static auto create() {
+    return MediaTrackCapabilities(spasm_add__object());
+  }
+  void width(scope ref ULongRange width) {
     MediaTrackCapabilities_width_Set(this.handle, width.handle);
   }
   auto width() {
-    return ULongRange(JsHandle(MediaTrackCapabilities_width_Get(this.handle)));
+    return ULongRange(MediaTrackCapabilities_width_Get(this.handle));
   }
-  void height(ULongRange height) {
+  void height(scope ref ULongRange height) {
     MediaTrackCapabilities_height_Set(this.handle, height.handle);
   }
   auto height() {
-    return ULongRange(JsHandle(MediaTrackCapabilities_height_Get(this.handle)));
+    return ULongRange(MediaTrackCapabilities_height_Get(this.handle));
   }
-  void aspectRatio(DoubleRange aspectRatio) {
+  void aspectRatio(scope ref DoubleRange aspectRatio) {
     MediaTrackCapabilities_aspectRatio_Set(this.handle, aspectRatio.handle);
   }
   auto aspectRatio() {
-    return DoubleRange(JsHandle(MediaTrackCapabilities_aspectRatio_Get(this.handle)));
+    return DoubleRange(MediaTrackCapabilities_aspectRatio_Get(this.handle));
   }
-  void frameRate(DoubleRange frameRate) {
+  void frameRate(scope ref DoubleRange frameRate) {
     MediaTrackCapabilities_frameRate_Set(this.handle, frameRate.handle);
   }
   auto frameRate() {
-    return DoubleRange(JsHandle(MediaTrackCapabilities_frameRate_Get(this.handle)));
+    return DoubleRange(MediaTrackCapabilities_frameRate_Get(this.handle));
   }
-  void facingMode(Sequence!(string) facingMode) {
+  void facingMode(scope ref Sequence!(string) facingMode) {
     MediaTrackCapabilities_facingMode_Set(this.handle, facingMode.handle);
   }
   auto facingMode() {
-    return Sequence!(string)(JsHandle(MediaTrackCapabilities_facingMode_Get(this.handle)));
+    return Sequence!(string)(MediaTrackCapabilities_facingMode_Get(this.handle));
   }
-  void resizeMode(Sequence!(string) resizeMode) {
+  void resizeMode(scope ref Sequence!(string) resizeMode) {
     MediaTrackCapabilities_resizeMode_Set(this.handle, resizeMode.handle);
   }
   auto resizeMode() {
-    return Sequence!(string)(JsHandle(MediaTrackCapabilities_resizeMode_Get(this.handle)));
+    return Sequence!(string)(MediaTrackCapabilities_resizeMode_Get(this.handle));
   }
-  void volume(DoubleRange volume) {
+  void volume(scope ref DoubleRange volume) {
     MediaTrackCapabilities_volume_Set(this.handle, volume.handle);
   }
   auto volume() {
-    return DoubleRange(JsHandle(MediaTrackCapabilities_volume_Get(this.handle)));
+    return DoubleRange(MediaTrackCapabilities_volume_Get(this.handle));
   }
-  void sampleRate(ULongRange sampleRate) {
+  void sampleRate(scope ref ULongRange sampleRate) {
     MediaTrackCapabilities_sampleRate_Set(this.handle, sampleRate.handle);
   }
   auto sampleRate() {
-    return ULongRange(JsHandle(MediaTrackCapabilities_sampleRate_Get(this.handle)));
+    return ULongRange(MediaTrackCapabilities_sampleRate_Get(this.handle));
   }
-  void sampleSize(ULongRange sampleSize) {
+  void sampleSize(scope ref ULongRange sampleSize) {
     MediaTrackCapabilities_sampleSize_Set(this.handle, sampleSize.handle);
   }
   auto sampleSize() {
-    return ULongRange(JsHandle(MediaTrackCapabilities_sampleSize_Get(this.handle)));
+    return ULongRange(MediaTrackCapabilities_sampleSize_Get(this.handle));
   }
-  void echoCancellation(Sequence!(bool) echoCancellation) {
+  void echoCancellation(scope ref Sequence!(bool) echoCancellation) {
     MediaTrackCapabilities_echoCancellation_Set(this.handle, echoCancellation.handle);
   }
   auto echoCancellation() {
-    return Sequence!(bool)(JsHandle(MediaTrackCapabilities_echoCancellation_Get(this.handle)));
+    return Sequence!(bool)(MediaTrackCapabilities_echoCancellation_Get(this.handle));
   }
-  void autoGainControl(Sequence!(bool) autoGainControl) {
+  void autoGainControl(scope ref Sequence!(bool) autoGainControl) {
     MediaTrackCapabilities_autoGainControl_Set(this.handle, autoGainControl.handle);
   }
   auto autoGainControl() {
-    return Sequence!(bool)(JsHandle(MediaTrackCapabilities_autoGainControl_Get(this.handle)));
+    return Sequence!(bool)(MediaTrackCapabilities_autoGainControl_Get(this.handle));
   }
-  void noiseSuppression(Sequence!(bool) noiseSuppression) {
+  void noiseSuppression(scope ref Sequence!(bool) noiseSuppression) {
     MediaTrackCapabilities_noiseSuppression_Set(this.handle, noiseSuppression.handle);
   }
   auto noiseSuppression() {
-    return Sequence!(bool)(JsHandle(MediaTrackCapabilities_noiseSuppression_Get(this.handle)));
+    return Sequence!(bool)(MediaTrackCapabilities_noiseSuppression_Get(this.handle));
   }
-  void latency(DoubleRange latency) {
+  void latency(scope ref DoubleRange latency) {
     MediaTrackCapabilities_latency_Set(this.handle, latency.handle);
   }
   auto latency() {
-    return DoubleRange(JsHandle(MediaTrackCapabilities_latency_Get(this.handle)));
+    return DoubleRange(MediaTrackCapabilities_latency_Get(this.handle));
   }
-  void channelCount(ULongRange channelCount) {
+  void channelCount(scope ref ULongRange channelCount) {
     MediaTrackCapabilities_channelCount_Set(this.handle, channelCount.handle);
   }
   auto channelCount() {
-    return ULongRange(JsHandle(MediaTrackCapabilities_channelCount_Get(this.handle)));
+    return ULongRange(MediaTrackCapabilities_channelCount_Get(this.handle));
   }
   void deviceId(string deviceId) {
     MediaTrackCapabilities_deviceId_Set(this.handle, deviceId);
@@ -518,100 +547,103 @@ struct MediaTrackConstraintSet {
   nothrow:
   JsHandle handle;
   alias handle this;
-  static auto create() {
-    return MediaTrackConstraintSet(JsHandle(spasm_add__object()));
+  this(Handle h) {
+    this.handle = JsHandle(h);
   }
-  void width(ConstrainULong width) {
+  static auto create() {
+    return MediaTrackConstraintSet(spasm_add__object());
+  }
+  void width(scope ref ConstrainULong width) {
     MediaTrackConstraintSet_width_Set(this.handle, width);
   }
   auto width() {
     return MediaTrackConstraintSet_width_Get(this.handle);
   }
-  void height(ConstrainULong height) {
+  void height(scope ref ConstrainULong height) {
     MediaTrackConstraintSet_height_Set(this.handle, height);
   }
   auto height() {
     return MediaTrackConstraintSet_height_Get(this.handle);
   }
-  void aspectRatio(ConstrainDouble aspectRatio) {
+  void aspectRatio(scope ref ConstrainDouble aspectRatio) {
     MediaTrackConstraintSet_aspectRatio_Set(this.handle, aspectRatio);
   }
   auto aspectRatio() {
     return MediaTrackConstraintSet_aspectRatio_Get(this.handle);
   }
-  void frameRate(ConstrainDouble frameRate) {
+  void frameRate(scope ref ConstrainDouble frameRate) {
     MediaTrackConstraintSet_frameRate_Set(this.handle, frameRate);
   }
   auto frameRate() {
     return MediaTrackConstraintSet_frameRate_Get(this.handle);
   }
-  void facingMode(ConstrainDOMString facingMode) {
+  void facingMode(scope ref ConstrainDOMString facingMode) {
     MediaTrackConstraintSet_facingMode_Set(this.handle, facingMode);
   }
   auto facingMode() {
     return MediaTrackConstraintSet_facingMode_Get(this.handle);
   }
-  void resizeMode(ConstrainDOMString resizeMode) {
+  void resizeMode(scope ref ConstrainDOMString resizeMode) {
     MediaTrackConstraintSet_resizeMode_Set(this.handle, resizeMode);
   }
   auto resizeMode() {
     return MediaTrackConstraintSet_resizeMode_Get(this.handle);
   }
-  void volume(ConstrainDouble volume) {
+  void volume(scope ref ConstrainDouble volume) {
     MediaTrackConstraintSet_volume_Set(this.handle, volume);
   }
   auto volume() {
     return MediaTrackConstraintSet_volume_Get(this.handle);
   }
-  void sampleRate(ConstrainULong sampleRate) {
+  void sampleRate(scope ref ConstrainULong sampleRate) {
     MediaTrackConstraintSet_sampleRate_Set(this.handle, sampleRate);
   }
   auto sampleRate() {
     return MediaTrackConstraintSet_sampleRate_Get(this.handle);
   }
-  void sampleSize(ConstrainULong sampleSize) {
+  void sampleSize(scope ref ConstrainULong sampleSize) {
     MediaTrackConstraintSet_sampleSize_Set(this.handle, sampleSize);
   }
   auto sampleSize() {
     return MediaTrackConstraintSet_sampleSize_Get(this.handle);
   }
-  void echoCancellation(ConstrainBoolean echoCancellation) {
+  void echoCancellation(scope ref ConstrainBoolean echoCancellation) {
     MediaTrackConstraintSet_echoCancellation_Set(this.handle, echoCancellation);
   }
   auto echoCancellation() {
     return MediaTrackConstraintSet_echoCancellation_Get(this.handle);
   }
-  void autoGainControl(ConstrainBoolean autoGainControl) {
+  void autoGainControl(scope ref ConstrainBoolean autoGainControl) {
     MediaTrackConstraintSet_autoGainControl_Set(this.handle, autoGainControl);
   }
   auto autoGainControl() {
     return MediaTrackConstraintSet_autoGainControl_Get(this.handle);
   }
-  void noiseSuppression(ConstrainBoolean noiseSuppression) {
+  void noiseSuppression(scope ref ConstrainBoolean noiseSuppression) {
     MediaTrackConstraintSet_noiseSuppression_Set(this.handle, noiseSuppression);
   }
   auto noiseSuppression() {
     return MediaTrackConstraintSet_noiseSuppression_Get(this.handle);
   }
-  void latency(ConstrainDouble latency) {
+  void latency(scope ref ConstrainDouble latency) {
     MediaTrackConstraintSet_latency_Set(this.handle, latency);
   }
   auto latency() {
     return MediaTrackConstraintSet_latency_Get(this.handle);
   }
-  void channelCount(ConstrainULong channelCount) {
+  void channelCount(scope ref ConstrainULong channelCount) {
     MediaTrackConstraintSet_channelCount_Set(this.handle, channelCount);
   }
   auto channelCount() {
     return MediaTrackConstraintSet_channelCount_Get(this.handle);
   }
-  void deviceId(ConstrainDOMString deviceId) {
+  void deviceId(scope ref ConstrainDOMString deviceId) {
     MediaTrackConstraintSet_deviceId_Set(this.handle, deviceId);
   }
   auto deviceId() {
     return MediaTrackConstraintSet_deviceId_Get(this.handle);
   }
-  void groupId(ConstrainDOMString groupId) {
+  void groupId(scope ref ConstrainDOMString groupId) {
     MediaTrackConstraintSet_groupId_Set(this.handle, groupId);
   }
   auto groupId() {
@@ -622,25 +654,28 @@ struct MediaTrackConstraints {
   nothrow:
   spasm.bindings.mediastream.MediaTrackConstraintSet _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .MediaTrackConstraintSet(h);
   }
   static auto create() {
-    return MediaTrackConstraints(JsHandle(spasm_add__object()));
+    return MediaTrackConstraints(spasm_add__object());
   }
-  void advanced(Sequence!(MediaTrackConstraintSet) advanced) {
+  void advanced(scope ref Sequence!(MediaTrackConstraintSet) advanced) {
     MediaTrackConstraints_advanced_Set(this._parent, advanced.handle);
   }
   auto advanced() {
-    return Sequence!(MediaTrackConstraintSet)(JsHandle(MediaTrackConstraints_advanced_Get(this._parent)));
+    return Sequence!(MediaTrackConstraintSet)(MediaTrackConstraints_advanced_Get(this._parent));
   }
 }
 struct MediaTrackSettings {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return MediaTrackSettings(JsHandle(spasm_add__object()));
+    return MediaTrackSettings(spasm_add__object());
   }
   void width(int width) {
     MediaTrackSettings_width_Set(this.handle, width);
@@ -743,8 +778,11 @@ struct MediaTrackSupportedConstraints {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return MediaTrackSupportedConstraints(JsHandle(spasm_add__object()));
+    return MediaTrackSupportedConstraints(spasm_add__object());
   }
   void width(bool width) {
     MediaTrackSupportedConstraints_width_Set(this.handle, width);
@@ -849,12 +887,15 @@ struct OverconstrainedError {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
 }
 struct OverconstrainedErrorEvent {
   nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Event(h);
   }
   auto error() {
@@ -865,13 +906,13 @@ struct OverconstrainedErrorEventInit {
   nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventInit(h);
   }
   static auto create() {
-    return OverconstrainedErrorEventInit(JsHandle(spasm_add__object()));
+    return OverconstrainedErrorEventInit(spasm_add__object());
   }
-  void error(Optional!(OverconstrainedError) error) {
+  void error(scope ref Optional!(OverconstrainedError) error) {
     OverconstrainedErrorEventInit_error_Set(this._parent, !error.empty, error.front.handle);
   }
   auto error() {
@@ -882,16 +923,22 @@ struct Settings {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return Settings(JsHandle(spasm_add__object()));
+    return Settings(spasm_add__object());
   }
 }
 struct ULongRange {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return ULongRange(JsHandle(spasm_add__object()));
+    return ULongRange(spasm_add__object());
   }
   void max(uint max) {
     ULongRange_max_Set(this.handle, max);
@@ -922,9 +969,9 @@ extern (C) void ConstrainBooleanParameters_exact_Set(Handle, bool);
 extern (C) bool ConstrainBooleanParameters_exact_Get(Handle);
 extern (C) void ConstrainBooleanParameters_ideal_Set(Handle, bool);
 extern (C) bool ConstrainBooleanParameters_ideal_Get(Handle);
-extern (C) void ConstrainDOMStringParameters_exact_Set(Handle, SumType!(string, Sequence!(string)));
+extern (C) void ConstrainDOMStringParameters_exact_Set(Handle, scope ref SumType!(string, Sequence!(string)));
 extern (C) SumType!(string, Sequence!(string)) ConstrainDOMStringParameters_exact_Get(Handle);
-extern (C) void ConstrainDOMStringParameters_ideal_Set(Handle, SumType!(string, Sequence!(string)));
+extern (C) void ConstrainDOMStringParameters_ideal_Set(Handle, scope ref SumType!(string, Sequence!(string)));
 extern (C) SumType!(string, Sequence!(string)) ConstrainDOMStringParameters_ideal_Get(Handle);
 extern (C) void ConstrainDoubleRange_exact_Set(Handle, double);
 extern (C) double ConstrainDoubleRange_exact_Get(Handle);
@@ -972,9 +1019,9 @@ extern (C) void MediaStream_onaddtrack_Set(Handle, EventHandler);
 extern (C) EventHandler MediaStream_onaddtrack_Get(Handle);
 extern (C) void MediaStream_onremovetrack_Set(Handle, EventHandler);
 extern (C) EventHandler MediaStream_onremovetrack_Get(Handle);
-extern (C) void MediaStreamConstraints_video_Set(Handle, SumType!(bool, MediaTrackConstraints));
+extern (C) void MediaStreamConstraints_video_Set(Handle, scope ref SumType!(bool, MediaTrackConstraints));
 extern (C) SumType!(bool, MediaTrackConstraints) MediaStreamConstraints_video_Get(Handle);
-extern (C) void MediaStreamConstraints_audio_Set(Handle, SumType!(bool, MediaTrackConstraints));
+extern (C) void MediaStreamConstraints_audio_Set(Handle, scope ref SumType!(bool, MediaTrackConstraints));
 extern (C) SumType!(bool, MediaTrackConstraints) MediaStreamConstraints_audio_Get(Handle);
 extern (C) string MediaStreamTrack_kind_Get(Handle);
 extern (C) string MediaStreamTrack_id_Get(Handle);
@@ -1033,37 +1080,37 @@ extern (C) void MediaTrackCapabilities_deviceId_Set(Handle, string);
 extern (C) string MediaTrackCapabilities_deviceId_Get(Handle);
 extern (C) void MediaTrackCapabilities_groupId_Set(Handle, string);
 extern (C) string MediaTrackCapabilities_groupId_Get(Handle);
-extern (C) void MediaTrackConstraintSet_width_Set(Handle, ConstrainULong);
+extern (C) void MediaTrackConstraintSet_width_Set(Handle, scope ref ConstrainULong);
 extern (C) ConstrainULong MediaTrackConstraintSet_width_Get(Handle);
-extern (C) void MediaTrackConstraintSet_height_Set(Handle, ConstrainULong);
+extern (C) void MediaTrackConstraintSet_height_Set(Handle, scope ref ConstrainULong);
 extern (C) ConstrainULong MediaTrackConstraintSet_height_Get(Handle);
-extern (C) void MediaTrackConstraintSet_aspectRatio_Set(Handle, ConstrainDouble);
+extern (C) void MediaTrackConstraintSet_aspectRatio_Set(Handle, scope ref ConstrainDouble);
 extern (C) ConstrainDouble MediaTrackConstraintSet_aspectRatio_Get(Handle);
-extern (C) void MediaTrackConstraintSet_frameRate_Set(Handle, ConstrainDouble);
+extern (C) void MediaTrackConstraintSet_frameRate_Set(Handle, scope ref ConstrainDouble);
 extern (C) ConstrainDouble MediaTrackConstraintSet_frameRate_Get(Handle);
-extern (C) void MediaTrackConstraintSet_facingMode_Set(Handle, ConstrainDOMString);
+extern (C) void MediaTrackConstraintSet_facingMode_Set(Handle, scope ref ConstrainDOMString);
 extern (C) ConstrainDOMString MediaTrackConstraintSet_facingMode_Get(Handle);
-extern (C) void MediaTrackConstraintSet_resizeMode_Set(Handle, ConstrainDOMString);
+extern (C) void MediaTrackConstraintSet_resizeMode_Set(Handle, scope ref ConstrainDOMString);
 extern (C) ConstrainDOMString MediaTrackConstraintSet_resizeMode_Get(Handle);
-extern (C) void MediaTrackConstraintSet_volume_Set(Handle, ConstrainDouble);
+extern (C) void MediaTrackConstraintSet_volume_Set(Handle, scope ref ConstrainDouble);
 extern (C) ConstrainDouble MediaTrackConstraintSet_volume_Get(Handle);
-extern (C) void MediaTrackConstraintSet_sampleRate_Set(Handle, ConstrainULong);
+extern (C) void MediaTrackConstraintSet_sampleRate_Set(Handle, scope ref ConstrainULong);
 extern (C) ConstrainULong MediaTrackConstraintSet_sampleRate_Get(Handle);
-extern (C) void MediaTrackConstraintSet_sampleSize_Set(Handle, ConstrainULong);
+extern (C) void MediaTrackConstraintSet_sampleSize_Set(Handle, scope ref ConstrainULong);
 extern (C) ConstrainULong MediaTrackConstraintSet_sampleSize_Get(Handle);
-extern (C) void MediaTrackConstraintSet_echoCancellation_Set(Handle, ConstrainBoolean);
+extern (C) void MediaTrackConstraintSet_echoCancellation_Set(Handle, scope ref ConstrainBoolean);
 extern (C) ConstrainBoolean MediaTrackConstraintSet_echoCancellation_Get(Handle);
-extern (C) void MediaTrackConstraintSet_autoGainControl_Set(Handle, ConstrainBoolean);
+extern (C) void MediaTrackConstraintSet_autoGainControl_Set(Handle, scope ref ConstrainBoolean);
 extern (C) ConstrainBoolean MediaTrackConstraintSet_autoGainControl_Get(Handle);
-extern (C) void MediaTrackConstraintSet_noiseSuppression_Set(Handle, ConstrainBoolean);
+extern (C) void MediaTrackConstraintSet_noiseSuppression_Set(Handle, scope ref ConstrainBoolean);
 extern (C) ConstrainBoolean MediaTrackConstraintSet_noiseSuppression_Get(Handle);
-extern (C) void MediaTrackConstraintSet_latency_Set(Handle, ConstrainDouble);
+extern (C) void MediaTrackConstraintSet_latency_Set(Handle, scope ref ConstrainDouble);
 extern (C) ConstrainDouble MediaTrackConstraintSet_latency_Get(Handle);
-extern (C) void MediaTrackConstraintSet_channelCount_Set(Handle, ConstrainULong);
+extern (C) void MediaTrackConstraintSet_channelCount_Set(Handle, scope ref ConstrainULong);
 extern (C) ConstrainULong MediaTrackConstraintSet_channelCount_Get(Handle);
-extern (C) void MediaTrackConstraintSet_deviceId_Set(Handle, ConstrainDOMString);
+extern (C) void MediaTrackConstraintSet_deviceId_Set(Handle, scope ref ConstrainDOMString);
 extern (C) ConstrainDOMString MediaTrackConstraintSet_deviceId_Get(Handle);
-extern (C) void MediaTrackConstraintSet_groupId_Set(Handle, ConstrainDOMString);
+extern (C) void MediaTrackConstraintSet_groupId_Set(Handle, scope ref ConstrainDOMString);
 extern (C) ConstrainDOMString MediaTrackConstraintSet_groupId_Get(Handle);
 extern (C) void MediaTrackConstraints_advanced_Set(Handle, Handle);
 extern (C) Handle MediaTrackConstraints_advanced_Get(Handle);

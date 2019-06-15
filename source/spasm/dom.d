@@ -13,6 +13,9 @@ import std.meta : staticIndexOf;
 import spasm.array;
 import spasm.rt.array;
 
+@safe:
+nothrow:
+
 version (unittest) {
   import spasm.sumtype;
   import std.array : Appender;
@@ -159,9 +162,19 @@ version (unittest) {
 
 import spasm.bindings.dom : Document;
 import spasm.bindings.html : Window;
-__gshared undefined = Any(JsHandle(0));
-__gshared document = Document(JsHandle(1));
-__gshared window = Window(JsHandle(2));
+
+@trusted ref auto undefined() {
+  static __gshared u = Any(JsHandle(0));
+  return u;
+}
+@trusted ref auto document() {
+  static __gshared d = Document(JsHandle(1));
+  return d;
+}
+@trusted ref auto window() {
+  static __gshared w = Window(JsHandle(2));
+  return w;
+}
 
 void unmount(T)(auto ref T t) if (hasMember!(T, "node")) {
   unmount(t.node.node);
@@ -181,7 +194,7 @@ auto focus(T)(auto ref T t) if (hasMember!(T,"node")) {
   t.node.node.focus();
  }
 
-auto renderBefore(T, Ts...)(JsHandle parent, auto ref T t, JsHandle sibling, auto ref Ts ts) {
+auto renderBefore(T, Ts...)(Handle parent, auto ref T t, Handle sibling, auto ref Ts ts) {
   if (parent == invalidHandle)
     return;
   renderIntoNode(parent, t, ts);
@@ -192,7 +205,7 @@ auto renderBefore(T, Ts...)(JsHandle parent, auto ref T t, JsHandle sibling, aut
   t.propagateOnMount();
 }
 
-auto render(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) {
+auto render(T, Ts...)(Handle parent, auto ref T t, auto ref Ts ts) {
   if (parent == invalidHandle)
     return;
   renderIntoNode(parent, t, ts);
@@ -248,7 +261,7 @@ template createParameterTuple(Params...) {
     template extractName(Arg) {
       enum extractName = Arg.Name;
     }
-    static auto extractField(alias sym)(auto ref Ts ts) {
+    static auto extractField(alias sym)(auto ref Ts ts) @trusted {
       enum name = sym.stringof;
       enum literal = isValue!(sym);
       static if (isValue!(sym)) {
@@ -268,7 +281,7 @@ template createParameterTuple(Params...) {
         return &__traits(getMember, ts[index], name);
       }
     }
-    static auto extractFields(Args...)(auto ref Ts ts) if (Args.length > 0) {
+    static auto extractFields(Args...)(auto ref Ts ts) @safe if (Args.length > 0) {
       static if (Args.length > 1)
         return tuple(extractField!(TemplateArgsOf!(Args[0])[1])(ts), extractFields!(Args[1..$])(ts).expand);
       else
@@ -351,11 +364,12 @@ auto callMember(string fun, T)(auto ref T t) {
   }
 }
 
-auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if (isPointer!T) {
+auto renderIntoNode(T, Ts...)(Handle parent, auto ref T t, auto ref Ts ts) if (isPointer!T) {
   return renderIntoNode(parent, *t, ts);
 }
 
-auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if (!isPointer!T) {
+// NOTE: only trusted because of the one __gshared thing
+@trusted auto renderIntoNode(T, Ts...)(Handle parent, auto ref T t, auto ref Ts ts) if (!isPointer!T) {
   import std.traits : hasUDA, getUDAs;
   import std.meta : AliasSeq;
   import std.meta : staticMap;
@@ -454,7 +468,7 @@ auto renderIntoNode(T, Ts...)(JsHandle parent, auto ref T t, auto ref Ts ts) if 
         }
       }}
     static if (hasMember!(T, "node")) {
-      t.node.node.handle = node;
+      t.node.node.handle.handle = node;
     }
 
     alias enumsWithApplyStyles = getSymbolsByUDA!(T, ApplyStyle);
@@ -570,7 +584,8 @@ template updateChildren(alias member) {
 
 auto update(T)(ref T node) if (hasMember!(T, "node")){
   struct Inner {
-    void opDispatch(string name, V)(auto ref V v) const {
+    nothrow:
+    void opDispatch(string name, V)(auto ref V v) const @safe {
       mixin("node.update!(node." ~ name ~ ")(v);");
       // NOTE: static assert won't work in opDispatch, as the compiler will not output the string but just ignore the opDispatch call and error out saying missing field on Inner
       static if(!hasMember!(T, name))
@@ -600,6 +615,7 @@ void setVisible(string field, Parent)(auto ref Parent parent, bool visible) {
   }
 }
 
+@trusted
 template update(alias field) {
   import std.traits : isPointer;
   static void updateDom(Parent, T)(auto ref Parent parent, auto ref T t) {
@@ -672,13 +688,13 @@ template update(alias field) {
       }}
     updateChildren!(field)(parent);
   }
-  static void update(Parent)(auto ref Parent parent) {
+  static void update(Parent)(scope auto ref Parent parent) {
     static if (isPointer!Parent)
       updateDom(*parent, __traits(getMember, parent, field.stringof));
     else
       updateDom(parent, __traits(getMember, parent, field.stringof));
   }
-  static void update(Parent, T)(auto ref Parent parent, T t) {
+  static void update(Parent, T)(scope auto ref Parent parent, T t) {
     mixin("parent."~field.stringof~" = t;");
     static if (isPointer!Parent)
       updateDom(*parent, t);
@@ -698,6 +714,7 @@ template symbolFromAliasThis(Parent, string name) {
   }
 }
 
+@trusted
 void setParamFromParent(string name, T, Ts...)(ref T t, auto ref Ts ts) {
   import std.traits : PointerTarget, isPointer;
   import std.meta : AliasSeq;
@@ -741,7 +758,7 @@ void setParamFromParent(string name, T, Ts...)(ref T t, auto ref Ts ts) {
   }
 }
 
-auto setAttributeTyped(string name, T)(JsHandle node, auto ref T t) {
+auto setAttributeTyped(string name, T)(Handle node, auto ref T t) {
   import std.traits : isPointer;
   static if (isPointer!T) {
     if (t !is null)
@@ -755,7 +772,7 @@ auto setAttributeTyped(string name, T)(JsHandle node, auto ref T t) {
   }
 }
 
-auto setPropertyTyped(string name, T)(JsHandle node, auto ref T t) {
+auto setPropertyTyped(string name, T)(Handle node, auto ref T t) {
   import std.traits : isPointer, isNumeric;
   static if (isPointer!T) {
     if (t !is null)
@@ -774,17 +791,17 @@ auto setPropertyTyped(string name, T)(JsHandle node, auto ref T t) {
   }
 }
 
-auto applyStyles(T, styles...)(JsHandle node) {
+auto applyStyles(T, styles...)(Handle node) {
   static foreach(style; styles) {
     node.addClass(GetCssClassName!(T, style));
   }
 }
 
-JsHandle createNode(T)(JsHandle parent, ref T t) {
+Handle createNode(T)(Handle parent, ref T t) {
   enum hasNode = hasMember!(T, "node");
   static if (hasNode && is(typeof(t.node) : NamedNode!tag, alias tag)) {
     mixin("NodeType n = NodeType." ~ tag ~ ";");
-    return JsHandle(createElement(n));
+    return createElement(n);
   } else
     return parent;
 }

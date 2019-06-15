@@ -5,6 +5,8 @@ import std.meta : staticMap, Filter;
 import ldc.attributes;
 import spasm.rt.allocator : poolAllocatorIndex, MarkResult;
 
+nothrow:
+
 auto mark(T)(T arr) if (is(T : A[], A)) {
   return mark(arr.ptr);
 }
@@ -16,6 +18,7 @@ auto mark(T)(T* ptr) {
 alias MarkFunction = void function(void*);
 
 struct Node {
+  nothrow:
   MarkFunction markFn;
   void* root;
   void markIt() {

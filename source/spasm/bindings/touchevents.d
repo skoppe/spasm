@@ -4,16 +4,21 @@ import spasm.types;
 import spasm.bindings.dom;
 import spasm.bindings.uievents;
 
+@safe:
 nothrow:
+
 struct Touch {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto identifier() {
     return Touch_identifier_Get(this.handle);
   }
   auto target() {
-    return EventTarget(JsHandle(Touch_target_Get(this.handle)));
+    return EventTarget(Touch_target_Get(this.handle));
   }
   auto screenX() {
     return Touch_screenX_Get(this.handle);
@@ -59,17 +64,17 @@ struct TouchEvent {
   nothrow:
   spasm.bindings.uievents.UIEvent _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .UIEvent(h);
   }
   auto touches() {
-    return TouchList(JsHandle(TouchEvent_touches_Get(this._parent)));
+    return TouchList(TouchEvent_touches_Get(this._parent));
   }
   auto targetTouches() {
-    return TouchList(JsHandle(TouchEvent_targetTouches_Get(this._parent)));
+    return TouchList(TouchEvent_targetTouches_Get(this._parent));
   }
   auto changedTouches() {
-    return TouchList(JsHandle(TouchEvent_changedTouches_Get(this._parent)));
+    return TouchList(TouchEvent_changedTouches_Get(this._parent));
   }
   auto altKey() {
     return TouchEvent_altKey_Get(this._parent);
@@ -88,37 +93,40 @@ struct TouchEventInit {
   nothrow:
   spasm.bindings.uievents.EventModifierInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventModifierInit(h);
   }
   static auto create() {
-    return TouchEventInit(JsHandle(spasm_add__object()));
+    return TouchEventInit(spasm_add__object());
   }
-  void touches(Sequence!(Touch) touches) {
+  void touches(scope ref Sequence!(Touch) touches) {
     TouchEventInit_touches_Set(this._parent, touches.handle);
   }
   auto touches() {
-    return Sequence!(Touch)(JsHandle(TouchEventInit_touches_Get(this._parent)));
+    return Sequence!(Touch)(TouchEventInit_touches_Get(this._parent));
   }
-  void targetTouches(Sequence!(Touch) targetTouches) {
+  void targetTouches(scope ref Sequence!(Touch) targetTouches) {
     TouchEventInit_targetTouches_Set(this._parent, targetTouches.handle);
   }
   auto targetTouches() {
-    return Sequence!(Touch)(JsHandle(TouchEventInit_targetTouches_Get(this._parent)));
+    return Sequence!(Touch)(TouchEventInit_targetTouches_Get(this._parent));
   }
-  void changedTouches(Sequence!(Touch) changedTouches) {
+  void changedTouches(scope ref Sequence!(Touch) changedTouches) {
     TouchEventInit_changedTouches_Set(this._parent, changedTouches.handle);
   }
   auto changedTouches() {
-    return Sequence!(Touch)(JsHandle(TouchEventInit_changedTouches_Get(this._parent)));
+    return Sequence!(Touch)(TouchEventInit_changedTouches_Get(this._parent));
   }
 }
 struct TouchInit {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   static auto create() {
-    return TouchInit(JsHandle(spasm_add__object()));
+    return TouchInit(spasm_add__object());
   }
   void identifier(int identifier) {
     TouchInit_identifier_Set(this.handle, identifier);
@@ -126,11 +134,11 @@ struct TouchInit {
   auto identifier() {
     return TouchInit_identifier_Get(this.handle);
   }
-  void target(EventTarget target) {
+  void target(scope ref EventTarget target) {
     TouchInit_target_Set(this.handle, target.handle);
   }
   auto target() {
-    return EventTarget(JsHandle(TouchInit_target_Get(this.handle)));
+    return EventTarget(TouchInit_target_Get(this.handle));
   }
   void clientX(double clientX) {
     TouchInit_clientX_Set(this.handle, clientX);
@@ -215,6 +223,9 @@ struct TouchList {
   nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) {
+    this.handle = JsHandle(h);
+  }
   auto length() {
     return TouchList_length_Get(this.handle);
   }

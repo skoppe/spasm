@@ -5,32 +5,34 @@ import spasm.bindings.dom;
 import spasm.bindings.html;
 import spasm.bindings.permissions;
 
+@safe:
 nothrow:
+
 struct Clipboard {
   nothrow:
   spasm.bindings.dom.EventTarget _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventTarget(h);
   }
   auto read() {
-    return Promise!(DataTransfer)(JsHandle(Clipboard_read(this._parent)));
+    return Promise!(DataTransfer)(Clipboard_read(this._parent));
   }
   auto readText() {
-    return Promise!(string)(JsHandle(Clipboard_readText(this._parent)));
+    return Promise!(string)(Clipboard_readText(this._parent));
   }
-  auto write(DataTransfer data) {
-    return Promise!(void)(JsHandle(Clipboard_write(this._parent, data.handle)));
+  auto write(scope ref DataTransfer data) {
+    return Promise!(void)(Clipboard_write(this._parent, data.handle));
   }
   auto writeText(string data) {
-    return Promise!(void)(JsHandle(Clipboard_writeText(this._parent, data)));
+    return Promise!(void)(Clipboard_writeText(this._parent, data));
   }
 }
 struct ClipboardEvent {
   nothrow:
   spasm.bindings.dom.Event _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .Event(h);
   }
   auto clipboardData() {
@@ -41,13 +43,13 @@ struct ClipboardEventInit {
   nothrow:
   spasm.bindings.dom.EventInit _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .EventInit(h);
   }
   static auto create() {
-    return ClipboardEventInit(JsHandle(spasm_add__object()));
+    return ClipboardEventInit(spasm_add__object());
   }
-  void clipboardData(Optional!(DataTransfer) clipboardData) {
+  void clipboardData(scope ref Optional!(DataTransfer) clipboardData) {
     ClipboardEventInit_clipboardData_Set(this._parent, !clipboardData.empty, clipboardData.front.handle);
   }
   auto clipboardData() {
@@ -58,11 +60,11 @@ struct ClipboardPermissionDescriptor {
   nothrow:
   spasm.bindings.permissions.PermissionDescriptor _parent;
   alias _parent this;
-  this(JsHandle h) {
+  this(Handle h) {
     _parent = .PermissionDescriptor(h);
   }
   static auto create() {
-    return ClipboardPermissionDescriptor(JsHandle(spasm_add__object()));
+    return ClipboardPermissionDescriptor(spasm_add__object());
   }
   void allowWithoutGesture(bool allowWithoutGesture) {
     ClipboardPermissionDescriptor_allowWithoutGesture_Set(this._parent, allowWithoutGesture);

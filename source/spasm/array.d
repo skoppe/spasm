@@ -11,6 +11,9 @@ import std.algorithm : joiner;
 import std.conv : text;
 import spasm.rt.array;
 
+nothrow:
+@safe:
+
 template extractEventPaths(T, Ts...) {
   import std.meta : staticMap, AliasSeq;
   import std.traits : getSymbolsByUDA;
@@ -106,12 +109,12 @@ struct Updater(T) {
           list.items[i] = t;
           list.items.assignEventListeners(*t);
           if (list.items[i+1].node.marked)
-            list.node.renderBefore(*list.items[i], list.items[i+1].node);
+            list.node.renderBefore((*list.items[i]).node.handle, list.items[i+1].node);
           else {
             size_t off = 2;
             while (i+off < list.items.length) {
               if (list.items[i+off].node.marked) {
-                list.node.renderBefore(*list.items[i], list.items[i+off].node);
+                list.node.renderBefore((*list.items[i]).node.handle, list.items[i+off].node);
                 return;
               }
               off+=1;
