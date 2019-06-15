@@ -4,6 +4,9 @@ import spasm.types;
 import spasm.spa;
 import spasm.rt.array;
 
+@safe:
+nothrow:
+
 mixin Spa!App;
 
 enum FilterStyle {
@@ -13,6 +16,7 @@ enum FilterStyle {
 }
 
 struct App {
+  nothrow:
   @style!"todoapp" mixin Node!"section";
   @child Header header;
   @child Main main;
@@ -39,7 +43,7 @@ struct App {
     main.toggleEach(checked);
     updateItems();
   }
-  @connect!"header.field.enter" void enter() {
+  @trusted @connect!"header.field.enter" void enter() {
     import spasm.rt.memory;
     Item* item = allocator.make!Item;
     item.textContent = header.field.value;
@@ -86,6 +90,7 @@ struct Title {
 
 struct ToggleAll {
   struct Input {
+    nothrow:
     @style!"toggle-all" mixin Node!"input";
     mixin Slot!"toggle";
     @attr type = "checkbox";
@@ -108,6 +113,7 @@ struct ToggleAll {
 }
 
 struct Main {
+  nothrow:
   @style!"main" mixin Node!"section";
   @child ToggleAll toggleAll;
   @style!"todo-list" @child UnorderedList!Item list;
@@ -134,7 +140,9 @@ struct Main {
 }
 
 struct Footer {
+  nothrow:
   struct Span {
+    nothrow:
     @style!"todo-count" mixin Node!"span";
     int* count;
     // TODO: need to refactor to use textContent
@@ -150,6 +158,7 @@ struct Footer {
   }
   struct Option {
     struct Link {
+      nothrow:
       mixin Node!"a";
       mixin Slot!"click";
       @attr string href = "#";
@@ -202,6 +211,7 @@ struct Input {
 }
 
 struct Item {
+  nothrow:
   mixin Node!"li";
   @style!"completed" bool checked = false;
   @style!"editing" bool editing;
@@ -230,6 +240,7 @@ struct View {
 }
 
 struct InlineInput {
+  nothrow:
   @style!"edit" mixin Node!"input";
   mixin Slot!"enter";
   mixin Slot!"esc";
@@ -250,6 +261,7 @@ struct InlineInput {
 }
 
 struct Button {
+  nothrow:
   mixin Slot!"click";
   @style!"destroy" mixin Node!"button";
   @callback void onClick(MouseEvent event) {
@@ -258,6 +270,7 @@ struct Button {
 }
 
 struct ClickableLabel {
+  nothrow:
   mixin Slot!"click";
   mixin Node!"label";
   @prop string* textContent;
@@ -272,6 +285,7 @@ struct Label {
 }
 
 struct Checkbox {
+  nothrow:
   @style!"toggle" mixin Node!"input";
   mixin Slot!"toggle";
   @attr string type = "checkbox";
