@@ -50,7 +50,7 @@ Not only are your applications fast, they are also small. The [todo-mvc example]
 
 ## How to start
 
-Make sure to have at least ldc 1.13.0 installed.
+Make sure to have at least ldc 1.14.0 installed.
 
 - run `dub init <my-project> spasm`, this will create a folder named `<my-project>` with a dub file and the latest spasm added as dependency
 - add `dflags "-betterC"` to your dub.sdl or add `"dflags": ["-betterC"]` to your dub.json
@@ -67,13 +67,13 @@ Make sure to run `dub run spasm:webidl -- --bindgen` after compiling to ensure a
 
 ## How to compile your application
 
-Make sure to have at least ldc 1.13.0 installed. Also, make sure that `ldc2 --version` returns the `wasm32` among its target types. If not, you may need to install ldc from official sources or run one in docker (e.g. `dlang2/ldc-ubuntu:1.13.0`).
+Make sure to have at least ldc 1.14.0 installed. Also, make sure that `ldc2 --version` returns the `wasm32` among its target types. If not, you may need to install ldc from official sources or run one in docker (e.g. `dlang2/ldc-ubuntu:1.14.0`).
 
 Run `dub build --compiler=ldc2 --build=release` to compile your application, then run `npx webpack` to generate the `index.html`.
 
 You can also `npm run start` to start a webpack development server that serves your application on localhost:3000.
 
-- Note: I could not get it to build on my aged mac (el capitan). Instead I use the `dlang2/ldc-ubuntu:1.13.0` docker image to run ldc.
+- Note: I could not get it to build on my aged mac (el capitan). Instead I use the `dlang2/ldc-ubuntu:1.14.0` docker image to run ldc.
 
 ## Writing your own js bindings
 
@@ -105,7 +105,7 @@ Since ldc 1.13.0 there is the `-fvisibility=hidden` flag that hides all function
 
 By default symbol names aren't stripped, which means the full mangled name is in the binary, this is convenient for debugging but adds to the binary's size. Add `-strip-all` to the lflags in your `dub.(sdl|json)` to strip all internal function names.
 
-For yet unknown reasons a pointer to each struct's init section gets exported as a global. These globals are completely unused and add some additional bloat. The binaryen project has several tools to (dis)assemble a wasm to text representation and back, which allows manual removing of those exported symbols.
+For yet unknown reasons a pointer to each struct's init section gets exported as a global. These globals are completely unused and add some additional bloat. The binaryen project has several tools to (dis)assemble a wasm to text representation and back, which allows manual removing of those exported symbols. (note: this section needs an update, as this no longer applies)
 
 Also, llvm doesn't skip consecutive zeros in the data segment. Running wasm-opt (from binaryen project) removes them and reduces code size further.
 

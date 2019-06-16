@@ -1,10 +1,10 @@
-box: dlang2/ldc-ubuntu:1.13.0
+box: dlang2/ldc-ubuntu:latest
 
-build-1.13.0:
-  box: dlang2/ldc-ubuntu:1.13.0
+build-1.14.0:
+  box: dlang2/ldc-ubuntu:1.14.0
   steps:
     - script:
-        name: build ldc 1.13.0
+        name: build ldc 1.14.0
         code: |
           mkdir -p $WERCKER_CACHE_DIR/dub
           ln -s $WERCKER_CACHE_DIR/dub ~/.dub
