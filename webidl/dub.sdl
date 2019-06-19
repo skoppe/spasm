@@ -1,5 +1,5 @@
 name "webidl"
-description "A minimal D application."
+description "Generate D bindings and js glue code from webidl files"
 authors "Sebastiaan Koppe"
 copyright "Copyright © 2018, Sebastiaan Koppe"
 license "MIT"
