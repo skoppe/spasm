@@ -8,11 +8,13 @@ const utf8Encoder = new TextEncoder();
 const memory = new WebAssembly.Memory({initial:16*16, maximum:16*16});
 
 let objects = {1: document, 2: window};
+let freelist = [];
 let buffer = memory.buffer,
     addObject = (value) => {
         if (value === null || value == undefined) return 0;
-        objects[++spasm.lastPtr] = value;
-        return spasm.lastPtr;
+        let idx = freelist.pop() || ++spasm.lastPtr;
+        objects[idx] = value;
+        return idx;
     },
     getObject = (ptr) => objects[ptr];
 const spasm = {
@@ -115,6 +117,7 @@ let jsExports = {
         encoders.string(rawResult, getObject(ptr));
     },
     spasm_removeObject: (ctx) => {
+        freelist.push(ctx)
         delete objects[ctx]
     }
 };
