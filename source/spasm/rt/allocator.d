@@ -18,6 +18,7 @@ version (unittest) {
 
     static __gshared typeof(this) instance = WasmAllocator();
 
+    nothrow:
     auto owns(void[] b) {
       return Ternary.yes;
     }
@@ -26,7 +27,7 @@ version (unittest) {
       return true;
     }
 
-    void[] allocate(size_t n) {
+    void[] allocate(size_t n) nothrow {
       return new ubyte[n];
     }
   }
@@ -102,7 +103,7 @@ package size_t divideRoundUp()(size_t a, size_t b)
 pure nothrow @safe @nogc
 private auto totalBitmappedBlockAllocation(size_t capacity, size_t blockSize) {
   import spasm.ct : tuple;
-  auto blocks = capacity.divideRoundUp(blockSize);
+  auto blocks = cast(uint)capacity.divideRoundUp(blockSize);
   auto leadingUlongs = blocks.divideRoundUp(64);
   import std.algorithm.comparison : min;
   immutable initialAlignment = min(platformAlignment,
@@ -129,8 +130,8 @@ struct PoolAllocatorBacking {
     // TODO; we can get the marking a little bit faster by precalculating all this stuff
     uint blockSize = (cast(uint*)pool)[0];
     uint blockCount = (cast(uint*)pool)[1];
-    uint leadingMarkerUlongs = blockCount.divideRoundUp(64);
-    uint offset = (uint.sizeof * 2 + leadingMarkerUlongs * ulong.sizeof).roundUpToMultipleOf(platformAlignment);
+    size_t leadingMarkerUlongs = blockCount.divideRoundUp(64);
+    size_t offset = (uint.sizeof * 2 + leadingMarkerUlongs * ulong.sizeof).roundUpToMultipleOf(platformAlignment);
     void* startOfBitmappedBlock = pool + offset;
     auto vector = BitVector((cast(ulong*)(pool + uint.sizeof * 2))[0..leadingMarkerUlongs]);
     void* startOfBlocks = startOfBitmappedBlock + leadingMarkerUlongs * ulong.sizeof;
@@ -144,8 +145,8 @@ struct PoolAllocatorBacking {
     // TODO; we can get the marking a little bit faster by precalculating all this stuff
     uint blockSize = (cast(uint*)pool)[0];
     uint blockCount = (cast(uint*)pool)[1];
-    uint leadingMarkerUlongs = blockCount.divideRoundUp(64);
-    uint offset = (uint.sizeof * 2 + leadingMarkerUlongs * ulong.sizeof).roundUpToMultipleOf(platformAlignment);
+    size_t leadingMarkerUlongs = blockCount.divideRoundUp(64);
+    size_t offset = (uint.sizeof * 2 + leadingMarkerUlongs * ulong.sizeof).roundUpToMultipleOf(platformAlignment);
     void* startOfBitmappedBlock = pool + offset;
     ulong[] markers = (cast(ulong*)(pool + uint.sizeof * 2))[0..leadingMarkerUlongs];
     ulong[] control = (cast(ulong*)startOfBitmappedBlock)[0..leadingMarkerUlongs];

@@ -1,6 +1,4 @@
 module spasm.rt.memory;
-pragma(LDC_no_moduleinfo);
-pragma(LDC_no_typeinfo);
 
 import spasm.rt.allocator : WasmAllocator;
 import stdx.allocator.building_blocks.null_allocator;
@@ -18,6 +16,7 @@ enum wasmPageSize = 64 * 1024;
 
 version (unittest) {
   struct Allocator {
+    nothrow:
     void[] allocate(size_t n) {
       auto mem = new byte[n];
       return mem;
@@ -35,7 +34,7 @@ version (unittest) {
 @trusted template make(T) {
   import spasm.types;
   static if (is(T == Item[], Item)) {
-    Item[] make(A)(A allocator, size_t size) {
+    Item[] make(A)(A allocator, size_t size) nothrow {
       void[] raw = allocator.allocate(Item.sizeof * size);
       auto t = cast(Item*) raw.ptr;
       return t[0 .. size];

@@ -28,20 +28,20 @@ version (unittest) {
     Attribute[string] attributes;
     string[] classes;
     Appender!(UnittestDomNode[]) children;
-    this(NodeType type, Handle handle) { this.type = type; this.handle = handle; }
-    void setAttribute(T)(string name, T value) {
+    this(NodeType type, Handle handle) nothrow { this.type = type; this.handle = handle; }
+    void setAttribute(T)(string name, T value) nothrow {
       attributes[name] = Attribute(value);
     }
-    Attribute getAttribute(string name) {
+    Attribute getAttribute(string name) nothrow {
       return attributes[name];
     }
-    void setProperty(T)(string name, T value) {
+    void setProperty(T)(string name, T value) nothrow {
       properties[name] = Property(value);
     }
-    Property getProperty(string name) {
+    Property getProperty(string name) nothrow {
       return properties[name];
     }
-    void toString(scope void delegate(const(char)[]) sink) {
+    void toString(scope void delegate(const(char)[]) @safe sink) @trusted {
       import std.algorithm : each;
       import std.format : formattedWrite, format;
       import std.array : join;
@@ -120,13 +120,13 @@ version (unittest) {
         removeClass(node, className);
     }
     Optional!string getProperty(Handle node, string prop) {
-      return node.getNode().getProperty(prop).as!string;
+      return some(node.getNode().getProperty(prop).trustedGet!string);
     }
     Optional!int getPropertyInt(Handle node, string prop) {
-      return node.getNode().getProperty(prop).as!int;
+      return some(node.getNode().getProperty(prop).trustedGet!int);
     }
     Optional!bool getPropertyBool(Handle node, string prop) {
-      return node.getNode().getProperty(prop).as!bool;
+      return some(node.getNode().getProperty(prop).trustedGet!bool);
     }
     void setSelectionRange(Handle node, uint start, uint end) {
     }

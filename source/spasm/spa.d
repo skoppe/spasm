@@ -15,6 +15,13 @@ extern(C) {
 }
 
 version (unittest) {
+  auto assumeNoThrow(T)(lazy T block) {
+    try {
+      return block();
+    } catch (Exception e) {
+      assert(false, e.msg);
+    }
+  }
   auto renderToNode(T)(auto ref T t) {
     import unit_threaded;
     Handle rootIdx = cast(Handle)unittest_dom_nodes.data.length;
@@ -32,7 +39,7 @@ version (unittest) {
       auto node = t;
     } else
       auto node = t.renderToNode;
-    return format("%s", node);
+    return format("%s", node).assumeNoThrow;
   }
   string renderToString(T)() {
     T t;

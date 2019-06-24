@@ -7,36 +7,42 @@ public import spasm.sumtype;
 import std.traits : hasMember, isCallable, isBasicType;
 import ldc.attributes;
 
-extern (C) {
+version (unittest) {
   @safe:
-  void doLog(uint val);
-  Handle spasm_add__bool(bool);
-  Handle spasm_add__int(int);
-  Handle spasm_add__uint(uint);
-  Handle spasm_add__long(long);
-  Handle spasm_add__ulong(ulong);
-  Handle spasm_add__short(short);
-  Handle spasm_add__ushort(ushort);
-  Handle spasm_add__float(float);
-  Handle spasm_add__double(double);
-  Handle spasm_add__byte(byte);
-  Handle spasm_add__ubyte(ubyte);
-  Handle spasm_add__string(scope ref string);
-  Handle spasm_add__object();
-  void spasm_removeObject(Handle);
-  Handle spasm_get__field(Handle, string);
-  bool spasm_get__bool(Handle);
-  int spasm_get__int(Handle);
-  uint spasm_get__uint(Handle);
-  long spasm_get__long(Handle);
-  ulong spasm_get__ulong(Handle);
-  short spasm_get__short(Handle);
-  ushort spasm_get__ushort(Handle);
-  float spasm_get__float(Handle);
-  double spasm_get__double(Handle);
-  byte spasm_get__byte(Handle);
-  ubyte spasm_get__ubyte(Handle);
-  string spasm_get__string(Handle);
+  Handle spasm_add__object() {return 0;}
+  void spasm_removeObject(Handle) {}
+} else {
+  extern (C) {
+    @safe:
+    void doLog(uint val);
+    Handle spasm_add__bool(bool);
+    Handle spasm_add__int(int);
+    Handle spasm_add__uint(uint);
+    Handle spasm_add__long(long);
+    Handle spasm_add__ulong(ulong);
+    Handle spasm_add__short(short);
+    Handle spasm_add__ushort(ushort);
+    Handle spasm_add__float(float);
+    Handle spasm_add__double(double);
+    Handle spasm_add__byte(byte);
+    Handle spasm_add__ubyte(ubyte);
+    Handle spasm_add__string(scope ref string);
+    Handle spasm_add__object();
+    void spasm_removeObject(Handle);
+    Handle spasm_get__field(Handle, string);
+    bool spasm_get__bool(Handle);
+    int spasm_get__int(Handle);
+    uint spasm_get__uint(Handle);
+    long spasm_get__long(Handle);
+    ulong spasm_get__ulong(Handle);
+    short spasm_get__short(Handle);
+    ushort spasm_get__ushort(Handle);
+    float spasm_get__float(Handle);
+    double spasm_get__double(Handle);
+    byte spasm_get__byte(Handle);
+    ubyte spasm_get__ubyte(Handle);
+    string spasm_get__string(Handle);
+  }
 }
 
 @trusted extern(C) export @assumeUsed ubyte* allocString(uint bytes) {

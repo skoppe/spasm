@@ -1762,6 +1762,7 @@ struct Node {
   this(Handle h) {
     _parent = .EventTarget(h);
   }
+  string toString() const { return "Node"; }
   enum ushort ELEMENT_NODE = 1;
   enum ushort ATTRIBUTE_NODE = 2;
   enum ushort TEXT_NODE = 3;

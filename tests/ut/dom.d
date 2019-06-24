@@ -7,6 +7,8 @@ import spasm.dom;
 import spasm.spa;
 import spasm.types;
 
+@safe:
+
 struct Div {
   mixin Node!"div";
 }
@@ -82,6 +84,7 @@ unittest {
 
 unittest {
   static struct Appy {
+    nothrow:
     mixin Node!"section";
     bool hidden;
     @style!"active" bool isActive(bool hidden) {
