@@ -517,3 +517,5 @@ struct Json {
     return .as!(Target)(this);
   }
 }
+
+alias CSSOMString = string;

@@ -9,6 +9,6 @@
 		"taggedalgebraic": "0.11.4",
 		"unit-threaded": "0.7.55",
 		"wasm-reader": "0.0.4",
-		"webidl-grammar": "0.0.7"
+		"webidl-grammar": "0.0.8"
 	}
 }

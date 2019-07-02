@@ -301,16 +301,16 @@ struct MouseEvent {
     _parent = .UIEvent(h);
   }
   auto screenX() {
-    return MouseEvent_screenX_Get(this._parent);
+    return MouseEvent_screenX_Get_(this._parent);
   }
   auto screenY() {
-    return MouseEvent_screenY_Get(this._parent);
+    return MouseEvent_screenY_Get_(this._parent);
   }
   auto clientX() {
-    return MouseEvent_clientX_Get(this._parent);
+    return MouseEvent_clientX_Get_(this._parent);
   }
   auto clientY() {
-    return MouseEvent_clientY_Get(this._parent);
+    return MouseEvent_clientY_Get_(this._parent);
   }
   auto ctrlKey() {
     return MouseEvent_ctrlKey_Get(this._parent);
@@ -335,6 +335,36 @@ struct MouseEvent {
   }
   auto getModifierState(string keyArg) {
     return MouseEvent_getModifierState(this._parent, keyArg);
+  }
+  auto screenX() {
+    return MouseEvent_screenX_Get_(this._parent);
+  }
+  auto screenY() {
+    return MouseEvent_screenY_Get_(this._parent);
+  }
+  auto pageX() {
+    return MouseEvent_pageX_Get(this._parent);
+  }
+  auto pageY() {
+    return MouseEvent_pageY_Get(this._parent);
+  }
+  auto clientX() {
+    return MouseEvent_clientX_Get_(this._parent);
+  }
+  auto clientY() {
+    return MouseEvent_clientY_Get_(this._parent);
+  }
+  auto x() {
+    return MouseEvent_x_Get(this._parent);
+  }
+  auto y() {
+    return MouseEvent_y_Get(this._parent);
+  }
+  auto offsetX() {
+    return MouseEvent_offsetX_Get(this._parent);
+  }
+  auto offsetY() {
+    return MouseEvent_offsetY_Get(this._parent);
   }
 }
 struct MouseEventInit {
@@ -555,10 +585,10 @@ extern (C) void KeyboardEventInit_repeat_Set(Handle, bool);
 extern (C) bool KeyboardEventInit_repeat_Get(Handle);
 extern (C) void KeyboardEventInit_isComposing_Set(Handle, bool);
 extern (C) bool KeyboardEventInit_isComposing_Get(Handle);
-extern (C) int MouseEvent_screenX_Get(Handle);
-extern (C) int MouseEvent_screenY_Get(Handle);
-extern (C) int MouseEvent_clientX_Get(Handle);
-extern (C) int MouseEvent_clientY_Get(Handle);
+extern (C) int MouseEvent_screenX_Get_(Handle);
+extern (C) int MouseEvent_screenY_Get_(Handle);
+extern (C) int MouseEvent_clientX_Get_(Handle);
+extern (C) int MouseEvent_clientY_Get_(Handle);
 extern (C) bool MouseEvent_ctrlKey_Get(Handle);
 extern (C) bool MouseEvent_shiftKey_Get(Handle);
 extern (C) bool MouseEvent_altKey_Get(Handle);
@@ -567,6 +597,12 @@ extern (C) short MouseEvent_button_Get(Handle);
 extern (C) ushort MouseEvent_buttons_Get(Handle);
 extern (C) Optional!(EventTarget) MouseEvent_relatedTarget_Get(Handle);
 extern (C) bool MouseEvent_getModifierState(Handle, string);
+extern (C) double MouseEvent_pageX_Get(Handle);
+extern (C) double MouseEvent_pageY_Get(Handle);
+extern (C) double MouseEvent_x_Get(Handle);
+extern (C) double MouseEvent_y_Get(Handle);
+extern (C) double MouseEvent_offsetX_Get(Handle);
+extern (C) double MouseEvent_offsetY_Get(Handle);
 extern (C) void MouseEventInit_screenX_Set(Handle, int);
 extern (C) int MouseEventInit_screenX_Get(Handle);
 extern (C) void MouseEventInit_screenY_Set(Handle, int);

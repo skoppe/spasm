@@ -2,8 +2,11 @@ module spasm.bindings.dom;
 
 import spasm.types;
 import spasm.bindings.cssom;
+import spasm.bindings.cssomview;
+import spasm.bindings.csspseudo;
 import spasm.bindings.domhighrestimestamp;
 import spasm.bindings.fullscreen;
+import spasm.bindings.geometry;
 import spasm.bindings.html;
 import spasm.bindings.pagevisibility;
 import spasm.bindings.svg;
@@ -412,6 +415,18 @@ struct Document {
   auto createTreeWalker(scope ref Node root) {
     return TreeWalker(Document_createTreeWalker_1(this._parent, root._parent));
   }
+  auto elementFromPoint(double x, double y) {
+    return Document_elementFromPoint(this._parent, x, y);
+  }
+  auto elementsFromPoint(double x, double y) {
+    return Sequence!(Element)(Document_elementsFromPoint(this._parent, x, y));
+  }
+  auto caretPositionFromPoint(double x, double y) {
+    return Document_caretPositionFromPoint(this._parent, x, y);
+  }
+  auto scrollingElement() {
+    return Document_scrollingElement_Get(this._parent);
+  }
   auto location() {
     return Document_location_Get(this._parent);
   }
@@ -633,6 +648,30 @@ struct Document {
   }
   auto styleSheets() {
     return StyleSheetList(Document_styleSheets_Get(this._parent));
+  }
+  auto getBoxQuads(scope ref BoxQuadOptions options) {
+    return Sequence!(DOMQuad)(GeometryUtils_getBoxQuads(this._parent, options.handle));
+  }
+  auto getBoxQuads() {
+    return Sequence!(DOMQuad)(GeometryUtils_getBoxQuads_0(this._parent));
+  }
+  auto convertQuadFromNode(scope ref DOMQuadInit quad, scope ref GeometryNode from, scope ref ConvertCoordinateOptions options) {
+    return DOMQuad(GeometryUtils_convertQuadFromNode(this._parent, quad.handle, from, options.handle));
+  }
+  auto convertQuadFromNode(scope ref DOMQuadInit quad, scope ref GeometryNode from) {
+    return DOMQuad(GeometryUtils_convertQuadFromNode_0(this._parent, quad.handle, from));
+  }
+  auto convertRectFromNode(scope ref DOMRectReadOnly rect, scope ref GeometryNode from, scope ref ConvertCoordinateOptions options) {
+    return DOMQuad(GeometryUtils_convertRectFromNode(this._parent, rect.handle, from, options.handle));
+  }
+  auto convertRectFromNode(scope ref DOMRectReadOnly rect, scope ref GeometryNode from) {
+    return DOMQuad(GeometryUtils_convertRectFromNode_0(this._parent, rect.handle, from));
+  }
+  auto convertPointFromNode(scope ref DOMPointInit point, scope ref GeometryNode from, scope ref ConvertCoordinateOptions options) {
+    return DOMPoint(GeometryUtils_convertPointFromNode(this._parent, point.handle, from, options.handle));
+  }
+  auto convertPointFromNode(scope ref DOMPointInit point, scope ref GeometryNode from) {
+    return DOMPoint(GeometryUtils_convertPointFromNode_0(this._parent, point.handle, from));
   }
   auto getElementById(string elementId) {
     return NonElementParentNode_getElementById(this._parent, elementId);
@@ -1342,6 +1381,75 @@ struct Element {
   void insertAdjacentHTML(string position, string text) {
     Element_insertAdjacentHTML(this._parent, position, text);
   }
+  auto getClientRects() {
+    return DOMRectList(Element_getClientRects(this._parent));
+  }
+  auto getBoundingClientRect() {
+    return DOMRect(Element_getBoundingClientRect(this._parent));
+  }
+  void scrollIntoView(scope ref SumType!(bool, ScrollIntoViewOptions) arg) {
+    Element_scrollIntoView(this._parent, arg);
+  }
+  void scrollIntoView() {
+    Element_scrollIntoView_0(this._parent);
+  }
+  void scroll(scope ref ScrollToOptions options) {
+    Element_scroll__Handle(this._parent, options._parent);
+  }
+  void scroll() {
+    Element_scroll_0(this._parent);
+  }
+  void scroll(double x, double y) {
+    Element_scroll__double_double(this._parent, x, y);
+  }
+  void scrollTo(scope ref ScrollToOptions options) {
+    Element_scrollTo__Handle(this._parent, options._parent);
+  }
+  void scrollTo() {
+    Element_scrollTo_0(this._parent);
+  }
+  void scrollTo(double x, double y) {
+    Element_scrollTo__double_double(this._parent, x, y);
+  }
+  void scrollBy(scope ref ScrollToOptions options) {
+    Element_scrollBy__Handle(this._parent, options._parent);
+  }
+  void scrollBy() {
+    Element_scrollBy_0(this._parent);
+  }
+  void scrollBy(double x, double y) {
+    Element_scrollBy__double_double(this._parent, x, y);
+  }
+  void scrollTop(double scrollTop) {
+    Element_scrollTop_Set(this._parent, scrollTop);
+  }
+  auto scrollTop() {
+    return Element_scrollTop_Get(this._parent);
+  }
+  void scrollLeft(double scrollLeft) {
+    Element_scrollLeft_Set(this._parent, scrollLeft);
+  }
+  auto scrollLeft() {
+    return Element_scrollLeft_Get(this._parent);
+  }
+  auto scrollWidth() {
+    return Element_scrollWidth_Get(this._parent);
+  }
+  auto scrollHeight() {
+    return Element_scrollHeight_Get(this._parent);
+  }
+  auto clientTop() {
+    return Element_clientTop_Get(this._parent);
+  }
+  auto clientLeft() {
+    return Element_clientLeft_Get(this._parent);
+  }
+  auto clientWidth() {
+    return Element_clientWidth_Get(this._parent);
+  }
+  auto clientHeight() {
+    return Element_clientHeight_Get(this._parent);
+  }
   void setPointerCapture(int pointerId) {
     Element_setPointerCapture(this._parent, pointerId);
   }
@@ -1368,6 +1476,33 @@ struct Element {
   }
   auto onfullscreenerror() {
     return Element_onfullscreenerror_Get(this._parent);
+  }
+  auto pseudo(string type) {
+    return Element_pseudo(this._parent, type);
+  }
+  auto getBoxQuads(scope ref BoxQuadOptions options) {
+    return Sequence!(DOMQuad)(GeometryUtils_getBoxQuads(this._parent, options.handle));
+  }
+  auto getBoxQuads() {
+    return Sequence!(DOMQuad)(GeometryUtils_getBoxQuads_0(this._parent));
+  }
+  auto convertQuadFromNode(scope ref DOMQuadInit quad, scope ref GeometryNode from, scope ref ConvertCoordinateOptions options) {
+    return DOMQuad(GeometryUtils_convertQuadFromNode(this._parent, quad.handle, from, options.handle));
+  }
+  auto convertQuadFromNode(scope ref DOMQuadInit quad, scope ref GeometryNode from) {
+    return DOMQuad(GeometryUtils_convertQuadFromNode_0(this._parent, quad.handle, from));
+  }
+  auto convertRectFromNode(scope ref DOMRectReadOnly rect, scope ref GeometryNode from, scope ref ConvertCoordinateOptions options) {
+    return DOMQuad(GeometryUtils_convertRectFromNode(this._parent, rect.handle, from, options.handle));
+  }
+  auto convertRectFromNode(scope ref DOMRectReadOnly rect, scope ref GeometryNode from) {
+    return DOMQuad(GeometryUtils_convertRectFromNode_0(this._parent, rect.handle, from));
+  }
+  auto convertPointFromNode(scope ref DOMPointInit point, scope ref GeometryNode from, scope ref ConvertCoordinateOptions options) {
+    return DOMPoint(GeometryUtils_convertPointFromNode(this._parent, point.handle, from, options.handle));
+  }
+  auto convertPointFromNode(scope ref DOMPointInit point, scope ref GeometryNode from) {
+    return DOMPoint(GeometryUtils_convertPointFromNode_0(this._parent, point.handle, from));
   }
   auto children() {
     return HTMLCollection(ParentNode_children_Get(this._parent));
@@ -1762,7 +1897,6 @@ struct Node {
   this(Handle h) {
     _parent = .EventTarget(h);
   }
-  string toString() const { return "Node"; }
   enum ushort ELEMENT_NODE = 1;
   enum ushort ATTRIBUTE_NODE = 2;
   enum ushort TEXT_NODE = 3;
@@ -2045,6 +2179,12 @@ struct Range {
   auto createContextualFragment(string fragment) {
     return DocumentFragment(Range_createContextualFragment(this._parent, fragment));
   }
+  auto getClientRects() {
+    return DOMRectList(Range_getClientRects(this._parent));
+  }
+  auto getBoundingClientRect() {
+    return DOMRect(Range_getBoundingClientRect(this._parent));
+  }
 }
 struct ShadowRoot {
   nothrow:
@@ -2104,6 +2244,30 @@ struct Text {
   }
   auto wholeText() {
     return Text_wholeText_Get(this._parent);
+  }
+  auto getBoxQuads(scope ref BoxQuadOptions options) {
+    return Sequence!(DOMQuad)(GeometryUtils_getBoxQuads(this._parent, options.handle));
+  }
+  auto getBoxQuads() {
+    return Sequence!(DOMQuad)(GeometryUtils_getBoxQuads_0(this._parent));
+  }
+  auto convertQuadFromNode(scope ref DOMQuadInit quad, scope ref GeometryNode from, scope ref ConvertCoordinateOptions options) {
+    return DOMQuad(GeometryUtils_convertQuadFromNode(this._parent, quad.handle, from, options.handle));
+  }
+  auto convertQuadFromNode(scope ref DOMQuadInit quad, scope ref GeometryNode from) {
+    return DOMQuad(GeometryUtils_convertQuadFromNode_0(this._parent, quad.handle, from));
+  }
+  auto convertRectFromNode(scope ref DOMRectReadOnly rect, scope ref GeometryNode from, scope ref ConvertCoordinateOptions options) {
+    return DOMQuad(GeometryUtils_convertRectFromNode(this._parent, rect.handle, from, options.handle));
+  }
+  auto convertRectFromNode(scope ref DOMRectReadOnly rect, scope ref GeometryNode from) {
+    return DOMQuad(GeometryUtils_convertRectFromNode_0(this._parent, rect.handle, from));
+  }
+  auto convertPointFromNode(scope ref DOMPointInit point, scope ref GeometryNode from, scope ref ConvertCoordinateOptions options) {
+    return DOMPoint(GeometryUtils_convertPointFromNode(this._parent, point.handle, from, options.handle));
+  }
+  auto convertPointFromNode(scope ref DOMPointInit point, scope ref GeometryNode from) {
+    return DOMPoint(GeometryUtils_convertPointFromNode_0(this._parent, point.handle, from));
   }
   auto assignedSlot() {
     return Slotable_assignedSlot_Get(this._parent);
@@ -2257,6 +2421,10 @@ extern (C) Handle Document_createNodeIterator_1(Handle, Handle);
 extern (C) Handle Document_createTreeWalker(Handle, Handle, uint, bool, Handle);
 extern (C) Handle Document_createTreeWalker_0(Handle, Handle, uint);
 extern (C) Handle Document_createTreeWalker_1(Handle, Handle);
+extern (C) Optional!(Element) Document_elementFromPoint(Handle, double, double);
+extern (C) Handle Document_elementsFromPoint(Handle, double, double);
+extern (C) Optional!(CaretPosition) Document_caretPositionFromPoint(Handle, double, double);
+extern (C) Optional!(Element) Document_scrollingElement_Get(Handle);
 extern (C) Optional!(Location) Document_location_Get(Handle);
 extern (C) void Document_domain_Set(Handle, string);
 extern (C) string Document_domain_Get(Handle);
@@ -2379,6 +2547,29 @@ extern (C) string Element_innerHTML_Get(Handle);
 extern (C) void Element_outerHTML_Set(Handle, string);
 extern (C) string Element_outerHTML_Get(Handle);
 extern (C) void Element_insertAdjacentHTML(Handle, string, string);
+extern (C) Handle Element_getClientRects(Handle);
+extern (C) Handle Element_getBoundingClientRect(Handle);
+extern (C) void Element_scrollIntoView(Handle, scope ref SumType!(bool, ScrollIntoViewOptions));
+extern (C) void Element_scrollIntoView_0(Handle);
+extern (C) void Element_scroll__Handle(Handle, Handle);
+extern (C) void Element_scroll_0(Handle);
+extern (C) void Element_scroll__double_double(Handle, double, double);
+extern (C) void Element_scrollTo__Handle(Handle, Handle);
+extern (C) void Element_scrollTo_0(Handle);
+extern (C) void Element_scrollTo__double_double(Handle, double, double);
+extern (C) void Element_scrollBy__Handle(Handle, Handle);
+extern (C) void Element_scrollBy_0(Handle);
+extern (C) void Element_scrollBy__double_double(Handle, double, double);
+extern (C) void Element_scrollTop_Set(Handle, double);
+extern (C) double Element_scrollTop_Get(Handle);
+extern (C) void Element_scrollLeft_Set(Handle, double);
+extern (C) double Element_scrollLeft_Get(Handle);
+extern (C) int Element_scrollWidth_Get(Handle);
+extern (C) int Element_scrollHeight_Get(Handle);
+extern (C) int Element_clientTop_Get(Handle);
+extern (C) int Element_clientLeft_Get(Handle);
+extern (C) int Element_clientWidth_Get(Handle);
+extern (C) int Element_clientHeight_Get(Handle);
 extern (C) void Element_setPointerCapture(Handle, int);
 extern (C) void Element_releasePointerCapture(Handle, int);
 extern (C) bool Element_hasPointerCapture(Handle, int);
@@ -2388,6 +2579,7 @@ extern (C) void Element_onfullscreenchange_Set(Handle, EventHandler);
 extern (C) EventHandler Element_onfullscreenchange_Get(Handle);
 extern (C) void Element_onfullscreenerror_Set(Handle, EventHandler);
 extern (C) EventHandler Element_onfullscreenerror_Get(Handle);
+extern (C) Optional!(CSSPseudoElement) Element_pseudo(Handle, string);
 extern (C) void ElementCreationOptions_is_Set(Handle, string);
 extern (C) string ElementCreationOptions_is_Get(Handle);
 extern (C) string Event_type_Get(Handle);
@@ -2544,6 +2736,8 @@ extern (C) bool Range_isPointInRange(Handle, Handle, uint);
 extern (C) short Range_comparePoint(Handle, Handle, uint);
 extern (C) bool Range_intersectsNode(Handle, Handle);
 extern (C) Handle Range_createContextualFragment(Handle, string);
+extern (C) Handle Range_getClientRects(Handle);
+extern (C) Handle Range_getBoundingClientRect(Handle);
 extern (C) ShadowRootMode ShadowRoot_mode_Get(Handle);
 extern (C) Handle ShadowRoot_host_Get(Handle);
 extern (C) void ShadowRootInit_mode_Set(Handle, ShadowRootMode);

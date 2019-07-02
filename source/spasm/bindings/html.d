@@ -4,6 +4,7 @@ import spasm.types;
 import spasm.bindings.clipboard;
 import spasm.bindings.common;
 import spasm.bindings.cssom;
+import spasm.bindings.cssomview;
 import spasm.bindings.dom;
 import spasm.bindings.domhighrestimestamp;
 import spasm.bindings.encoding;
@@ -1943,6 +1944,21 @@ struct HTMLElement {
   auto innerText() {
     return HTMLElement_innerText_Get(this._parent);
   }
+  auto offsetParent() {
+    return HTMLElement_offsetParent_Get(this._parent);
+  }
+  auto offsetTop() {
+    return HTMLElement_offsetTop_Get(this._parent);
+  }
+  auto offsetLeft() {
+    return HTMLElement_offsetLeft_Get(this._parent);
+  }
+  auto offsetWidth() {
+    return HTMLElement_offsetWidth_Get(this._parent);
+  }
+  auto offsetHeight() {
+    return HTMLElement_offsetHeight_Get(this._parent);
+  }
   auto dataset() {
     return DOMStringMap(HTMLOrSVGElement_dataset_Get(this._parent));
   }
@@ -3138,6 +3154,12 @@ struct HTMLImageElement {
   }
   auto decode() {
     return Promise!(void)(HTMLImageElement_decode(this._parent));
+  }
+  auto x() {
+    return HTMLImageElement_x_Get(this._parent);
+  }
+  auto y() {
+    return HTMLImageElement_y_Get(this._parent);
   }
   void name(string name) {
     HTMLImageElement_name_Set(this._parent, name);
@@ -7430,6 +7452,90 @@ struct Window {
     Window_postMessage_0_Handle(this._parent, _handle_message);
     dropHandle!(T0)(_handle_message);
   }
+  auto matchMedia(string query) {
+    return MediaQueryList(Window_matchMedia(this._parent, query));
+  }
+  auto screen() {
+    return Screen(Window_screen_Get(this._parent));
+  }
+  void moveTo(int x, int y) {
+    Window_moveTo(this._parent, x, y);
+  }
+  void moveBy(int x, int y) {
+    Window_moveBy(this._parent, x, y);
+  }
+  void resizeTo(int x, int y) {
+    Window_resizeTo(this._parent, x, y);
+  }
+  void resizeBy(int x, int y) {
+    Window_resizeBy(this._parent, x, y);
+  }
+  auto innerWidth() {
+    return Window_innerWidth_Get(this._parent);
+  }
+  auto innerHeight() {
+    return Window_innerHeight_Get(this._parent);
+  }
+  auto scrollX() {
+    return Window_scrollX_Get(this._parent);
+  }
+  auto pageXOffset() {
+    return Window_pageXOffset_Get(this._parent);
+  }
+  auto scrollY() {
+    return Window_scrollY_Get(this._parent);
+  }
+  auto pageYOffset() {
+    return Window_pageYOffset_Get(this._parent);
+  }
+  void scroll(scope ref ScrollToOptions options) {
+    Window_scroll__Handle(this._parent, options._parent);
+  }
+  void scroll() {
+    Window_scroll_0(this._parent);
+  }
+  void scroll(double x, double y) {
+    Window_scroll__double_double(this._parent, x, y);
+  }
+  void scrollTo(scope ref ScrollToOptions options) {
+    Window_scrollTo__Handle(this._parent, options._parent);
+  }
+  void scrollTo() {
+    Window_scrollTo_0(this._parent);
+  }
+  void scrollTo(double x, double y) {
+    Window_scrollTo__double_double(this._parent, x, y);
+  }
+  void scrollBy(scope ref ScrollToOptions options) {
+    Window_scrollBy__Handle(this._parent, options._parent);
+  }
+  void scrollBy() {
+    Window_scrollBy_0(this._parent);
+  }
+  void scrollBy(double x, double y) {
+    Window_scrollBy__double_double(this._parent, x, y);
+  }
+  auto screenX() {
+    return Window_screenX_Get(this._parent);
+  }
+  auto screenLeft() {
+    return Window_screenLeft_Get(this._parent);
+  }
+  auto screenY() {
+    return Window_screenY_Get(this._parent);
+  }
+  auto screenTop() {
+    return Window_screenTop_Get(this._parent);
+  }
+  auto outerWidth() {
+    return Window_outerWidth_Get(this._parent);
+  }
+  auto outerHeight() {
+    return Window_outerHeight_Get(this._parent);
+  }
+  auto devicePixelRatio() {
+    return Window_devicePixelRatio_Get(this._parent);
+  }
   auto event() {
     return Any(Window_event_Get(this._parent));
   }
@@ -9181,6 +9287,11 @@ extern (C) void HTMLElement_autocapitalize_Set(Handle, string);
 extern (C) string HTMLElement_autocapitalize_Get(Handle);
 extern (C) void HTMLElement_innerText_Set(Handle, string);
 extern (C) string HTMLElement_innerText_Get(Handle);
+extern (C) Optional!(Element) HTMLElement_offsetParent_Get(Handle);
+extern (C) int HTMLElement_offsetTop_Get(Handle);
+extern (C) int HTMLElement_offsetLeft_Get(Handle);
+extern (C) int HTMLElement_offsetWidth_Get(Handle);
+extern (C) int HTMLElement_offsetHeight_Get(Handle);
 extern (C) void HTMLEmbedElement_src_Set(Handle, string);
 extern (C) string HTMLEmbedElement_src_Get(Handle);
 extern (C) void HTMLEmbedElement_type_Set(Handle, string);
@@ -9358,6 +9469,8 @@ extern (C) string HTMLImageElement_referrerPolicy_Get(Handle);
 extern (C) void HTMLImageElement_decoding_Set(Handle, string);
 extern (C) string HTMLImageElement_decoding_Get(Handle);
 extern (C) Handle HTMLImageElement_decode(Handle);
+extern (C) int HTMLImageElement_x_Get(Handle);
+extern (C) int HTMLImageElement_y_Get(Handle);
 extern (C) void HTMLImageElement_name_Set(Handle, string);
 extern (C) string HTMLImageElement_name_Get(Handle);
 extern (C) void HTMLImageElement_lowsrc_Set(Handle, string);
@@ -10377,6 +10490,34 @@ extern (C) void Window_postMessage__Handle_string_sequence(Handle, Handle, strin
 extern (C) void Window_postMessage_0_Handle_string(Handle, Handle, string);
 extern (C) void Window_postMessage__Handle_Handle(Handle, Handle, Handle);
 extern (C) void Window_postMessage_0_Handle(Handle, Handle);
+extern (C) Handle Window_matchMedia(Handle, string);
+extern (C) Handle Window_screen_Get(Handle);
+extern (C) void Window_moveTo(Handle, int, int);
+extern (C) void Window_moveBy(Handle, int, int);
+extern (C) void Window_resizeTo(Handle, int, int);
+extern (C) void Window_resizeBy(Handle, int, int);
+extern (C) int Window_innerWidth_Get(Handle);
+extern (C) int Window_innerHeight_Get(Handle);
+extern (C) double Window_scrollX_Get(Handle);
+extern (C) double Window_pageXOffset_Get(Handle);
+extern (C) double Window_scrollY_Get(Handle);
+extern (C) double Window_pageYOffset_Get(Handle);
+extern (C) void Window_scroll__Handle(Handle, Handle);
+extern (C) void Window_scroll_0(Handle);
+extern (C) void Window_scroll__double_double(Handle, double, double);
+extern (C) void Window_scrollTo__Handle(Handle, Handle);
+extern (C) void Window_scrollTo_0(Handle);
+extern (C) void Window_scrollTo__double_double(Handle, double, double);
+extern (C) void Window_scrollBy__Handle(Handle, Handle);
+extern (C) void Window_scrollBy_0(Handle);
+extern (C) void Window_scrollBy__double_double(Handle, double, double);
+extern (C) int Window_screenX_Get(Handle);
+extern (C) int Window_screenLeft_Get(Handle);
+extern (C) int Window_screenY_Get(Handle);
+extern (C) int Window_screenTop_Get(Handle);
+extern (C) int Window_outerWidth_Get(Handle);
+extern (C) int Window_outerHeight_Get(Handle);
+extern (C) double Window_devicePixelRatio_Get(Handle);
 extern (C) Handle Window_event_Get(Handle);
 extern (C) void Window_captureEvents(Handle);
 extern (C) void Window_releaseEvents(Handle);
