@@ -8,24 +8,32 @@ It contains bindings to the most commonly used web apis, including the dom, fetc
 
 As well as a small but powerful SPA framework, which includes CSS. Yes. CSS-in-wasm.
 
-* [Web bindings](#web-bindings)
-* [SPA framework](#spa-framework)
-* [Examples](#examples)
-* [How to start](#how-to-start)
-* [Using the web bindings](#using-the-web-bindings)
-* [How to compile your application](#how-to-compile-your-application)
-* [Writing your own js bindings](#writing-your-own-js-bindings)
-* [Optimizing for size](#optimizing-for-size)
-* [Limitations](#limitations)
-* [WIP](#wip)
-* [Hot module reloading](#hmr)
-* [How the SPA framework works](#how-the-spa-framework-works)
-    
+<details><summary>Table Of Contents</summary>
+
+- [Spasm](#Spasm)
+  - [Web Bindings](#Web-Bindings)
+  - [SPA framework](#SPA-framework)
+  - [Examples](#Examples)
+  - [How to start](#How-to-start)
+  - [Using the web bindings](#Using-the-web-bindings)
+  - [How to compile your application](#How-to-compile-your-application)
+  - [Writing your own js bindings](#Writing-your-own-js-bindings)
+  - [Optimizing for size](#Optimizing-for-size)
+  - [Limitations](#Limitations)
+  - [WIP](#WIP)
+  - [Hot module reloading](#Hot-module-reloading)
+    - [Enabling hmr for new projects](#Enabling-hmr-for-new-projects)
+    - [Enabling hmr for existing projects](#Enabling-hmr-for-existing-projects)
+    - [How it works](#How-it-works)
+  - [How the SPA framework works](#How-the-SPA-framework-works)
+
+</details>
+
 ## Web Bindings
 
 D bindings are generated from webidl files. The bindings try to mimick as much as possible the javascript api's you are already familiar with.
 
-Until Webassembly gets host bindings it is still necessary to generate JS glue code. A small bindgen utility is included to generate exactly the glue code you need. 
+Until Webassembly gets host bindings it is still necessary to generate JS glue code. A small bindgen utility is included to generate exactly the glue code you need.
 
 ## SPA framework
 
@@ -44,7 +52,7 @@ Not only are your applications fast, they are also small. The [todo-mvc example]
 
 Make sure to have at least ldc 1.13.0 installed.
 
-- run `dub init <my-project> spasm`, this will create a folder named `<my-project>` with a dub file and the latest spasm added as dependency 
+- run `dub init <my-project> spasm`, this will create a folder named `<my-project>` with a dub file and the latest spasm added as dependency
 - add `dflags "-betterC"` to your dub.sdl or add `"dflags": ["-betterC"]` to your dub.json
 - run `dub upgrade && dub run spasm:bootstrap-webpack` to generate the webpack/dev-server boilerplate
 - start writing!
@@ -59,13 +67,13 @@ Make sure to run `dub run spasm:webidl -- --bindgen` after compiling to ensure a
 
 ## How to compile your application
 
-Make sure to have at least ldc 1.13.0 installed. Also, make sure that ``ldc2 --version`` returns the `wasm32` among its target types. If not, you may need to install ldc from official sources or run one in docker (e.g. `dlang2/ldc-ubuntu:1.13.0`).
+Make sure to have at least ldc 1.13.0 installed. Also, make sure that `ldc2 --version` returns the `wasm32` among its target types. If not, you may need to install ldc from official sources or run one in docker (e.g. `dlang2/ldc-ubuntu:1.13.0`).
 
 Run `dub build --compiler=ldc2 --build=release` to compile your application, then run `npx webpack` to generate the `index.html`.
 
 You can also `npm run start` to start a webpack development server that serves your application on localhost:3000.
 
-* Note: I could not get it to build on my aged mac (el capitan). Instead I use the `dlang2/ldc-ubuntu:1.13.0` docker image to run ldc.
+- Note: I could not get it to build on my aged mac (el capitan). Instead I use the `dlang2/ldc-ubuntu:1.13.0` docker image to run ldc.
 
 ## Writing your own js bindings
 
@@ -79,10 +87,10 @@ After that you write a spasm module in javascript. Simply put a file in the `./s
 
 ```js
 export let jsExports = {
-  myFunc: (index) => {
+  myFunc: index => {
     return 42;
   }
-}
+};
 ```
 
 Manually put the file in the `./spasm/modules/index.js` or just run `dub spasm:webidl -- --bindgen` to automatically include it.
@@ -93,13 +101,26 @@ Working with strings (arrays) and aggregates requires a bit more work. You can s
 
 ## Optimizing for size
 
-Since ldc 1.13.0 there is the `-fvisibility=hidden` flag that hides all functions that aren't explicitly prefixed with the `export` keyword. This flag reduces binary size considerably and has reduced the need for manual stripping almost completely. 
+Since ldc 1.13.0 there is the `-fvisibility=hidden` flag that hides all functions that aren't explicitly prefixed with the `export` keyword. This flag reduces binary size considerably and has reduced the need for manual stripping almost completely.
 
 By default symbol names aren't stripped, which means the full mangled name is in the binary, this is convenient for debugging but adds to the binary's size. Add `-strip-all` to the lflags in your `dub.(sdl|json)` to strip all internal function names.
 
 For yet unknown reasons a pointer to each struct's init section gets exported as a global. These globals are completely unused and add some additional bloat. The binaryen project has several tools to (dis)assemble a wasm to text representation and back, which allows manual removing of those exported symbols.
 
 Also, llvm doesn't skip consecutive zeros in the data segment. Running wasm-opt (from binaryen project) removes them and reduces code size further.
+
+Using the [Binaryen](https://github.com/WebAssembly/binaryen) toolkit we can optimize even further than LLVM's WebAssembly backend does.
+
+```bash
+# Optimize for size.
+wasm-opt -Os -o main-optimized.wasm main.wasm
+# Optimize aggressively for size.
+wasm-opt -Oz -o main-optimized.wasm main.wasm
+# Optimize for speed.
+wasm-opt -O -o main-optimized.wasm main.wasm
+# Optimize aggressively for speed.
+wasm-opt -O3 -o main-optimized.wasm main.wasm
+```
 
 ## Limitations
 
@@ -118,6 +139,7 @@ The spa framework in Spasm has basic support for hot module reloading. Style cha
 ### Enabling hmr for new projects
 
 Make sure you use spasm `v0.1.14` and add the following to your `dub.sdl`:
+
 ```
 configuration "hmr" {
   targetType "executable"
@@ -158,6 +180,7 @@ The js glue code connects to the websocket (dev-only) and does the following for
 Each html element is mapped to a D struct. Each attribute, property, eventlistener and any children nodes are (annotated) members of that struct.
 
 Here is an example of rendering a div node.
+
 ```d
 struct App {
   mixin Node!"div";
@@ -269,7 +292,7 @@ struct App {
 mixin Spa!App;
 ```
 
-The result is when the button is clicked the text is changed into "Clicked!". 
+The result is when the button is clicked the text is changed into "Clicked!".
 
 We have inserted a `string innerText` field into App, and made the one in Button a pointer. When a struct is rendered for the first time, spasm will assign any pointers to the equivalent member of their parent. This approach is chosen due to its low performance impact (just a extra pointer to store) and simplicity (no need to pass prop structs between components).
 
