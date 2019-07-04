@@ -153,27 +153,29 @@ partial dictionary MouseEventInit {
   double clientY = 0.0;
 };
 
-enum CSSBoxType { "margin", "border", "padding", "content" };
-dictionary BoxQuadOptions {
-  CSSBoxType box = "border";
-  GeometryNode relativeTo; // XXX default document (i.e. viewport)
-};
+// TODO: disabled becase the GeometryNode typedef gave forward reference issues
+// enum CSSBoxType { "margin", "border", "padding", "content" };
+// 
+// dictionary BoxQuadOptions {
+//   CSSBoxType box = "border";
+//   GeometryNode relativeTo; // XXX default document (i.e. viewport)
+// };
 
-dictionary ConvertCoordinateOptions {
-  CSSBoxType fromBox = "border";
-  CSSBoxType toBox = "border";
-};
+// dictionary ConvertCoordinateOptions {
+//   CSSBoxType fromBox = "border";
+//   CSSBoxType toBox = "border";
+// };
 
-interface mixin GeometryUtils {
-  sequence<DOMQuad> getBoxQuads(optional BoxQuadOptions options);
-  DOMQuad convertQuadFromNode(DOMQuadInit quad, GeometryNode from, optional ConvertCoordinateOptions options);
-  DOMQuad convertRectFromNode(DOMRectReadOnly rect, GeometryNode from, optional ConvertCoordinateOptions options);
-  DOMPoint convertPointFromNode(DOMPointInit point, GeometryNode from, optional ConvertCoordinateOptions options); // XXX z,w turns into 0
-};
+// interface mixin GeometryUtils {
+//   sequence<DOMQuad> getBoxQuads(optional BoxQuadOptions options);
+//   DOMQuad convertQuadFromNode(DOMQuadInit quad, GeometryNode from, optional ConvertCoordinateOptions options);
+//   DOMQuad convertRectFromNode(DOMRectReadOnly rect, GeometryNode from, optional ConvertCoordinateOptions options);
+//   DOMPoint convertPointFromNode(DOMPointInit point, GeometryNode from, optional ConvertCoordinateOptions options); // XXX z,w turns into 0
+// };
 
-Text includes GeometryUtils; // like Range
-Element includes GeometryUtils;
-CSSPseudoElement includes GeometryUtils;
-Document includes GeometryUtils;
+// Text includes GeometryUtils; // like Range
+// Element includes GeometryUtils;
+// CSSPseudoElement includes GeometryUtils;
+// Document includes GeometryUtils;
 
-typedef (Text or Element or CSSPseudoElement or Document) GeometryNode;
+// typedef (Text or Element or CSSPseudoElement or Document) GeometryNode;

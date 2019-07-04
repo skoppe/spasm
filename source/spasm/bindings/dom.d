@@ -649,30 +649,6 @@ struct Document {
   auto styleSheets() {
     return StyleSheetList(Document_styleSheets_Get(this._parent));
   }
-  auto getBoxQuads(scope ref BoxQuadOptions options) {
-    return Sequence!(DOMQuad)(GeometryUtils_getBoxQuads(this._parent, options.handle));
-  }
-  auto getBoxQuads() {
-    return Sequence!(DOMQuad)(GeometryUtils_getBoxQuads_0(this._parent));
-  }
-  auto convertQuadFromNode(scope ref DOMQuadInit quad, scope ref GeometryNode from, scope ref ConvertCoordinateOptions options) {
-    return DOMQuad(GeometryUtils_convertQuadFromNode(this._parent, quad.handle, from, options.handle));
-  }
-  auto convertQuadFromNode(scope ref DOMQuadInit quad, scope ref GeometryNode from) {
-    return DOMQuad(GeometryUtils_convertQuadFromNode_0(this._parent, quad.handle, from));
-  }
-  auto convertRectFromNode(scope ref DOMRectReadOnly rect, scope ref GeometryNode from, scope ref ConvertCoordinateOptions options) {
-    return DOMQuad(GeometryUtils_convertRectFromNode(this._parent, rect.handle, from, options.handle));
-  }
-  auto convertRectFromNode(scope ref DOMRectReadOnly rect, scope ref GeometryNode from) {
-    return DOMQuad(GeometryUtils_convertRectFromNode_0(this._parent, rect.handle, from));
-  }
-  auto convertPointFromNode(scope ref DOMPointInit point, scope ref GeometryNode from, scope ref ConvertCoordinateOptions options) {
-    return DOMPoint(GeometryUtils_convertPointFromNode(this._parent, point.handle, from, options.handle));
-  }
-  auto convertPointFromNode(scope ref DOMPointInit point, scope ref GeometryNode from) {
-    return DOMPoint(GeometryUtils_convertPointFromNode_0(this._parent, point.handle, from));
-  }
   auto getElementById(string elementId) {
     return NonElementParentNode_getElementById(this._parent, elementId);
   }
@@ -1480,30 +1456,6 @@ struct Element {
   auto pseudo(string type) {
     return Element_pseudo(this._parent, type);
   }
-  auto getBoxQuads(scope ref BoxQuadOptions options) {
-    return Sequence!(DOMQuad)(GeometryUtils_getBoxQuads(this._parent, options.handle));
-  }
-  auto getBoxQuads() {
-    return Sequence!(DOMQuad)(GeometryUtils_getBoxQuads_0(this._parent));
-  }
-  auto convertQuadFromNode(scope ref DOMQuadInit quad, scope ref GeometryNode from, scope ref ConvertCoordinateOptions options) {
-    return DOMQuad(GeometryUtils_convertQuadFromNode(this._parent, quad.handle, from, options.handle));
-  }
-  auto convertQuadFromNode(scope ref DOMQuadInit quad, scope ref GeometryNode from) {
-    return DOMQuad(GeometryUtils_convertQuadFromNode_0(this._parent, quad.handle, from));
-  }
-  auto convertRectFromNode(scope ref DOMRectReadOnly rect, scope ref GeometryNode from, scope ref ConvertCoordinateOptions options) {
-    return DOMQuad(GeometryUtils_convertRectFromNode(this._parent, rect.handle, from, options.handle));
-  }
-  auto convertRectFromNode(scope ref DOMRectReadOnly rect, scope ref GeometryNode from) {
-    return DOMQuad(GeometryUtils_convertRectFromNode_0(this._parent, rect.handle, from));
-  }
-  auto convertPointFromNode(scope ref DOMPointInit point, scope ref GeometryNode from, scope ref ConvertCoordinateOptions options) {
-    return DOMPoint(GeometryUtils_convertPointFromNode(this._parent, point.handle, from, options.handle));
-  }
-  auto convertPointFromNode(scope ref DOMPointInit point, scope ref GeometryNode from) {
-    return DOMPoint(GeometryUtils_convertPointFromNode_0(this._parent, point.handle, from));
-  }
   auto children() {
     return HTMLCollection(ParentNode_children_Get(this._parent));
   }
@@ -2244,30 +2196,6 @@ struct Text {
   }
   auto wholeText() {
     return Text_wholeText_Get(this._parent);
-  }
-  auto getBoxQuads(scope ref BoxQuadOptions options) {
-    return Sequence!(DOMQuad)(GeometryUtils_getBoxQuads(this._parent, options.handle));
-  }
-  auto getBoxQuads() {
-    return Sequence!(DOMQuad)(GeometryUtils_getBoxQuads_0(this._parent));
-  }
-  auto convertQuadFromNode(scope ref DOMQuadInit quad, scope ref GeometryNode from, scope ref ConvertCoordinateOptions options) {
-    return DOMQuad(GeometryUtils_convertQuadFromNode(this._parent, quad.handle, from, options.handle));
-  }
-  auto convertQuadFromNode(scope ref DOMQuadInit quad, scope ref GeometryNode from) {
-    return DOMQuad(GeometryUtils_convertQuadFromNode_0(this._parent, quad.handle, from));
-  }
-  auto convertRectFromNode(scope ref DOMRectReadOnly rect, scope ref GeometryNode from, scope ref ConvertCoordinateOptions options) {
-    return DOMQuad(GeometryUtils_convertRectFromNode(this._parent, rect.handle, from, options.handle));
-  }
-  auto convertRectFromNode(scope ref DOMRectReadOnly rect, scope ref GeometryNode from) {
-    return DOMQuad(GeometryUtils_convertRectFromNode_0(this._parent, rect.handle, from));
-  }
-  auto convertPointFromNode(scope ref DOMPointInit point, scope ref GeometryNode from, scope ref ConvertCoordinateOptions options) {
-    return DOMPoint(GeometryUtils_convertPointFromNode(this._parent, point.handle, from, options.handle));
-  }
-  auto convertPointFromNode(scope ref DOMPointInit point, scope ref GeometryNode from) {
-    return DOMPoint(GeometryUtils_convertPointFromNode_0(this._parent, point.handle, from));
   }
   auto assignedSlot() {
     return Slotable_assignedSlot_Get(this._parent);
