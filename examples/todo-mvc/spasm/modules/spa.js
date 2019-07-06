@@ -25,131 +25,134 @@ const eventHandler = (event) => {
 
 export { nodes, addPtr };
 export let jsExports = {
-    appendChild: (parent, child) => {
-        nodes[parent].appendChild(nodes[child]);
-    },
-    insertBefore: (parent, child, sibling) => {
-        nodes[parent].insertBefore(nodes[child], nodes[sibling]);
-    },
-    addCss: (cssLen, cssOffset) => {
-        var style = document.createElement('style');
-        style.type = 'text/css';
-        style.innerHTML = decoder.string(cssLen, cssOffset);
-        document.getElementsByTagName('head')[0].appendChild(style);
-        addPtr(style);
-    },
-    addClass: (node, classLen, classOffset) => {
-        nodes[node].classList.add(decoder.string(classLen, classOffset));
-    },
-    removeClass: (node, classLen, classOffset) => {
-        nodes[node].classList.remove(decoder.string(classLen, classOffset));
-    },
-    changeClass: (node, classLen, classOffset, on) => {
-        if (on)
+    env: {
+        appendChild: (parent, child) => {
+            nodes[parent].appendChild(nodes[child]);
+        },
+        insertBefore: (parent, child, sibling) => {
+            nodes[parent].insertBefore(nodes[child], nodes[sibling]);
+        },
+        addCss: (cssLen, cssOffset) => {
+            var style = document.createElement('style');
+            style.type = 'text/css';
+            style.innerHTML = decoder.string(cssLen, cssOffset);
+            document.getElementsByTagName('head')[0].appendChild(style);
+            addPtr(style);
+        },
+        addClass: (node, classLen, classOffset) => {
             nodes[node].classList.add(decoder.string(classLen, classOffset));
-        else
+        },
+        removeClass: (node, classLen, classOffset) => {
             nodes[node].classList.remove(decoder.string(classLen, classOffset));
-    },
-    unmount: (childPtr) => {
-        var child = nodes[childPtr];
-        child.parentNode.removeChild(child);
-    },
-    removeChild: (childPtr) => {
-        var child = nodes[childPtr];
-        child.parentNode.removeChild(child);
-        // TODO: we can reuse the child node (it is cheaper than recreating a new one...)
-    },
-    getRoot: () => {
-        return addPtr(document.querySelector("#root"));
-    },
-    createElement: (type) => {
-        return addPtr(document.createElement(getTagFromType(type)));
-    },
-    setSelectionRange: (nodePtr, start, end) => {
-        nodes[nodePtr].setSelectionRange(start, end);
-    },
-    innerText: (nodePtr,textLen, textOffset) => {
-        nodes[nodePtr].innerText = decoder.string(textLen,textOffset);
-    },
-    setAttributeInt: (node, attrLen, attrOffset, value) => {
-        const attr = decoder.string(attrLen,attrOffset);
-        nodes[node].setAttribute(attr, value);
-    },
-    setAttribute: (node, attrLen, attrOffset, valueLen, valueOffset) => {
-        const attr = decoder.string(attrLen,attrOffset);
-        const value = decoder.string(valueLen,valueOffset);
-        nodes[node].setAttribute(attr, value);
-    },
-    addEventListener: (nodePtr, listenerType, ctx, fun, eventType) => {
-        var listenerTypeStr = events[listenerType];
-        var node = nodes[nodePtr];
-        if (node.wasmEvents === undefined)
-            var nodeEvents = node.wasmEvents = {};
-        else
+        },
+        changeClass: (node, classLen, classOffset, on) => {
+            if (on)
+                nodes[node].classList.add(decoder.string(classLen, classOffset));
+            else
+                nodes[node].classList.remove(decoder.string(classLen, classOffset));
+        },
+        unmount: (childPtr) => {
+            var child = nodes[childPtr];
+            child.parentNode.removeChild(child);
+        },
+        removeChild: (childPtr) => {
+            var child = nodes[childPtr];
+            child.parentNode.removeChild(child);
+            // TODO: we can reuse the child node (it is cheaper than recreating a new one...)
+        },
+        getRoot: () => {
+            return addPtr(document.querySelector("#root"));
+        },
+        createElement: (type) => {
+            console.log("createElement", getTagFromType(type));
+            return addPtr(document.createElement(getTagFromType(type)));
+        },
+        setSelectionRange: (nodePtr, start, end) => {
+            nodes[nodePtr].setSelectionRange(start, end);
+        },
+        innerText: (nodePtr,textLen, textOffset) => {
+            nodes[nodePtr].innerText = decoder.string(textLen,textOffset);
+        },
+        setAttributeInt: (node, attrLen, attrOffset, value) => {
+            const attr = decoder.string(attrLen,attrOffset);
+            nodes[node].setAttribute(attr, value);
+        },
+        setAttribute: (node, attrLen, attrOffset, valueLen, valueOffset) => {
+            const attr = decoder.string(attrLen,attrOffset);
+            const value = decoder.string(valueLen,valueOffset);
+            nodes[node].setAttribute(attr, value);
+        },
+        addEventListener: (nodePtr, listenerType, ctx, fun, eventType) => {
+            var listenerTypeStr = events[listenerType];
+            var node = nodes[nodePtr];
+            if (node.wasmEvents === undefined)
+                var nodeEvents = node.wasmEvents = {};
+            else
+                var nodeEvents = nodes[nodePtr].wasmEvents;
+            if (nodeEvents[listenerTypeStr] && nodeEvents[listenerTypeStr].cbs.length > 0) {
+                nodeEvents[listenerTypeStr].cbs.push({ctx:ctx,fun:fun});
+            } else {
+                nodeEvents[listenerTypeStr] = {cbs:[{ctx: ctx, fun: fun}], eventType: eventType};
+                node.addEventListener(listenerTypeStr, eventHandler);
+            }
+        },
+        removeEventListener: (nodePtr, listenerType, ctx, fun, eventType) => {
+            var listenerTypeStr = events[listenerType];
+            var node = nodes[nodePtr];
+            if (node.wasmEvents === undefined)
+                return;
             var nodeEvents = nodes[nodePtr].wasmEvents;
-        if (nodeEvents[listenerTypeStr] && nodeEvents[listenerTypeStr].cbs.length > 0) {
-            nodeEvents[listenerTypeStr].cbs.push({ctx:ctx,fun:fun});
-        } else {
-            nodeEvents[listenerTypeStr] = {cbs:[{ctx: ctx, fun: fun}], eventType: eventType};
-            node.addEventListener(listenerTypeStr, eventHandler);
-        }
-    },
-    removeEventListener: (nodePtr, listenerType, ctx, fun, eventType) => {
-        var listenerTypeStr = events[listenerType];
-        var node = nodes[nodePtr];
-        if (node.wasmEvents === undefined)
-            return;
-        var nodeEvents = nodes[nodePtr].wasmEvents;
-        if (nodeEvents[listenerTypeStr] && nodeEvents[listenerTypeStr].cbs.length > 0) {
-            nodeEvents[listenerTypeStr].cbs = nodeEvents[listenerTypeStr].cbs.filter(cb=>!(cb.ctx==ctx && cb.fun==fun));
-        }
-    },
-    getEventBool: (propLen, propOffset) => {
-        return !!currentEvent[decoder.string(propLen,propOffset)];
-    },
-    getEventInt: (propLen,propOffset) => {
-        return 0+currentEvent[decoder.string(propLen,propOffset)];
-    },
-    getEventString: (resultRaw, propLen,propOffset) => {
-        return encoder.string(resultRaw, currentEvent[decoder.string(propLen,propOffset)]);
-    },
-    setPropertyBool: (nodePtr, propLen, propOffset, value) => {
-        const node = nodes[nodePtr];
-        const prop = decoder.string(propLen, propOffset);
-        if (node && node[prop] !== undefined)
-            node[prop] = value;
-    },
-    setPropertyInt: (nodePtr, propLen, propOffset, value) => {
-        jsExports.setPropertyBool(nodePtr, propLen, propOffset, value);
-    },
-    setProperty: (nodePtr, propLen, propOffset, valueLen, valueOffset) => {
-        const node = nodes[nodePtr];
-        const prop = decoder.string(propLen, propOffset);
-        if (node && node[prop] !== undefined) {
-            node[prop] = decoder.string(valueLen, valueOffset);
-        }
-    },
-    getPropertyInt: (nodePtr, propLen, propOffset) => {
-        const node = nodes[nodePtr];
-        const prop = decoder.string(propLen, propOffset);
-        if (!node || node[prop] === undefined)
-            return false;
-        return +node[prop];
-    },
-    getPropertyBool: (nodePtr, propLen, propOffset) => {
-        const node = nodes[nodePtr];
-        const prop = decoder.string(propLen, propOffset);
-        if (!node || node[prop] === undefined)
-            return false;
-        return !!node[prop];
-    },
-    getProperty: (resultRaw, nodePtr, propLen, propOffset) => {
-        const node = nodes[nodePtr];
-        const prop = decoder.string(propLen, propOffset);
-        if (!node || node[prop] === undefined)
-            return encoder.string(resultRaw,"");
-        return encoder.string(resultRaw,node[prop]);
-    },
+            if (nodeEvents[listenerTypeStr] && nodeEvents[listenerTypeStr].cbs.length > 0) {
+                nodeEvents[listenerTypeStr].cbs = nodeEvents[listenerTypeStr].cbs.filter(cb=>!(cb.ctx==ctx && cb.fun==fun));
+            }
+        },
+        getEventBool: (propLen, propOffset) => {
+            return !!currentEvent[decoder.string(propLen,propOffset)];
+        },
+        getEventInt: (propLen,propOffset) => {
+            return 0+currentEvent[decoder.string(propLen,propOffset)];
+        },
+        getEventString: (resultRaw, propLen,propOffset) => {
+            return encoder.string(resultRaw, currentEvent[decoder.string(propLen,propOffset)]);
+        },
+        setPropertyBool: (nodePtr, propLen, propOffset, value) => {
+            const node = nodes[nodePtr];
+            const prop = decoder.string(propLen, propOffset);
+            if (node && node[prop] !== undefined)
+                node[prop] = value;
+        },
+        setPropertyInt: (nodePtr, propLen, propOffset, value) => {
+            jsExports.env.setPropertyBool(nodePtr, propLen, propOffset, value);
+        },
+        setProperty: (nodePtr, propLen, propOffset, valueLen, valueOffset) => {
+            const node = nodes[nodePtr];
+            const prop = decoder.string(propLen, propOffset);
+            if (node && node[prop] !== undefined) {
+                node[prop] = decoder.string(valueLen, valueOffset);
+            }
+        },
+        getPropertyInt: (nodePtr, propLen, propOffset) => {
+            const node = nodes[nodePtr];
+            const prop = decoder.string(propLen, propOffset);
+            if (!node || node[prop] === undefined)
+                return false;
+            return +node[prop];
+        },
+        getPropertyBool: (nodePtr, propLen, propOffset) => {
+            const node = nodes[nodePtr];
+            const prop = decoder.string(propLen, propOffset);
+            if (!node || node[prop] === undefined)
+                return false;
+            return !!node[prop];
+        },
+        getProperty: (resultRaw, nodePtr, propLen, propOffset) => {
+            const node = nodes[nodePtr];
+            const prop = decoder.string(propLen, propOffset);
+            if (!node || node[prop] === undefined)
+                return encoder.string(resultRaw,"");
+            return encoder.string(resultRaw,node[prop]);
+        },
+    }
 }
 
 if (process.env.NODE_ENV === 'development') {
@@ -176,7 +179,8 @@ if (process.env.NODE_ENV === 'development') {
             reload();
             setTimeout(()=>{
                 encoder.string(0, state);
-                spasm.instance.exports.loadApp(spasm.heapi32u[0], spasm.heapi32u[1]);
+                const heapi32u = new Uint32Array(spasm.memory.buffer)
+                spasm.instance.exports.loadApp(heapi32u[0], heapi32u[1]);
             }, 1);
         }
     }
