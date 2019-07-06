@@ -41,6 +41,7 @@ const spasm = {
                     instance.exports._start(instance.exports.__heap_base);
                 });
         } else {
+            window.spasm = spasm;
             WebAssembly.instantiateStreaming(fetch('todo-mvc-spasm-example'), spasm.exports)
                 .then(obj => {
                     let instance = obj.instance;

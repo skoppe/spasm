@@ -47,8 +47,8 @@ version (unittest) {
       return t[0..size];
     }
   } else {
-    T* make(A, Args...)(A allocator, Args args)
-    {
+    T* make(A, Args...)(A allocatorOld, Args args) {
+      static __gshared allocator = PoolAllocatorList!(T)();
       void[] raw = allocator.allocate(T.sizeof);
       auto t = cast(T*) raw.ptr;
       *t = T.init;
@@ -215,4 +215,9 @@ void _d_array_slice_copy(void* dst, size_t dstlen, void* src, size_t srclen, siz
 
  void _d_arraybounds(string file, int line) {
  }
+ extern (C) export void* _d_allocmemory(size_t sz)
+ {
+   import spasm.rt.memory : WasmAllocator;
+   return WasmAllocator.instance.allocate(sz).ptr;
+}
 }

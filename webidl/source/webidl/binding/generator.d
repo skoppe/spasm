@@ -12,6 +12,8 @@ import std.range : zip, only, retro;
 import std.typecons : Flag, No, Yes;
 import openmethods;
 
+enum is32Bit = true;
+
 enum dKeywords = ["abstract","alias","align","asm","assert","auto","body","bool","break","byte","case","cast","catch","cdouble","cent","cfloat","char","class","const","continue","creal","dchar","debug","default","delegate","delete","deprecated","do","double","else","enum","export","extern","false","final","finally","float","for","foreach","foreach_reverse","function","goto","idouble","if","ifloat","immutable","import","in","inout","int","interface","invariant","ireal","is","lazy","long","macro","mixin","module","new","nothrow","null","out","override","package","pragma","private","protected","public","pure","real","ref","return","scope","shared","short","static","struct","super","switch","synchronized","template","this","throw","true","try","typedef","typeid","typeof","ubyte","ucent","uint","ulong","union","unittest","ushort","version","void","wchar","while","with","__FILE__","__FILE_FULL_PATH__","__MODULE__","__LINE__","__FUNCTION__","__PRETTY_FUNCTION__","__gshared","__traits","__vector","__parameters","__DATE__","__EOF__","__TIME__","__TIMESTAMP__","__VENDOR__","__VERSION__"];
 
 enum jsKeywords = ["default", "arguments"];
@@ -658,6 +660,7 @@ void dump(Appender)(ref Context context, JsExportFunction item, ref Appender a) 
     });
   a.putLn(") => {");
   a.indent();
+  a.putLn("setupMemory();");
   bool returns = item.result != ParseTree.init && item.result.matches[0] != "void";
   bool needsClose = false;
   if (returns) {
@@ -883,22 +886,26 @@ void dump(Appender)(ref Semantics semantics, DBindingFunction item, ref Appender
     }
   }
   putFuncName();
-  auto anys = item.args.enumerate.filter!(a => semantics.isAny(a.value.type)).array();
   auto templArgs = item.args.filter!(a => a.templated).array();
   auto runArgs = item.args.filter!(a => !a.templated).array();
+  auto anyOrOptArgs = item.args.enumerate.filter!(a => semantics.isAny(a.value.type) || semantics.isNullable(a.value.type)).array();
+  auto anys = anyOrOptArgs.filter!(a => semantics.isAny(a.value.type)).array();
+  auto optArgs = anyOrOptArgs.filter!(a => semantics.isNullable(a.value.type)).array();
   if (templArgs.length > 0) {
     assert(anys.length == 0);
     a.put("(");
     semantics.dumpDParameters(templArgs, a, locals);
     a.put(")");
-  } else if (anys.length > 0) {
+  } else if (anyOrOptArgs.length > 0) {
     a.put("(");
-    foreach(any; anys[0..$-1]) {
-      a.put(getTemplatedTypeName(any.index));
+    foreach(anyOrOpt; anyOrOptArgs[0..$-1]) {
+      a.put(getTemplatedTypeName(anyOrOpt.index));
       a.put(", ");
     }
-    a.put(getTemplatedTypeName(anys[$-1].index));
+    a.put(getTemplatedTypeName(anyOrOptArgs[$-1].index));
     a.put(")");
+  } else {
+    // a.put("()");
   }
   a.put("(");
   if (item.type & FunctionType.OpIndexAssign) {
@@ -908,7 +915,23 @@ void dump(Appender)(ref Semantics semantics, DBindingFunction item, ref Appender
     semantics.dumpDParameters(runArgs[0..$-1], a, locals);
   } else
     semantics.dumpDParameters(runArgs, a, locals);
-  a.putLn(") {");
+  a.put(") ");
+  if (optArgs.length > 0) {
+    a.put("if (");
+    foreach(idx, opt; optArgs) {
+      pragma(msg, typeof(idx));
+      pragma(msg, typeof(opt));
+      a.put("isTOrPointer!(");
+      a.put(getTemplatedTypeName(opt.index));
+      a.put(", ");
+      opt.value.type.stripNullable.generateDType(a, Context(semantics).withLocals(locals));
+      a.put(")");
+      if (idx+1 < optArgs.length)
+        a.put(" && ");
+    }
+    a.put(") ");
+  }
+  a.putLn("{");
   a.indent();
   foreach(any; anys) {
     a.putLn(["Handle _handle_", any.value.name, " = getOrCreateHandle(", any.value.name.friendlyName, ");"]);
@@ -963,9 +986,15 @@ void dumpDParameter(Appender)(ref Semantics semantics, Argument arg, ref Appende
     a.put("scope auto ref ");
     a.put(getTemplatedTypeName(idx));
   } else {
-    if (!semantics.isPrimitive(arg.type) || semantics.isNullable(arg.type))
-      a.put("scope ref ");
-    arg.type.generateDType(a, Context(semantics).withLocals(locals));
+    if (semantics.isNullable(arg.type)) {
+      a.put("scope auto ref Optional!(");
+      a.put(getTemplatedTypeName(idx));
+      a.put(")");
+    } else {
+      if (!semantics.isPrimitive(arg.type))
+        a.put("scope ref ");
+      arg.type.generateDType(a, Context(semantics).withLocals(locals));
+    }
   }
   a.put(" ");
   a.putCamelCase(arg.name.friendlyName);
@@ -1003,8 +1032,15 @@ void dumpDJsArgument(Appender)(ref Semantics semantics, Argument arg, ref Append
   if (optional)
     a.put("!");
   a.put(arg.name.friendlyName);
-  if (optional)
-    a.put([".empty, ", arg.name.friendlyName, ".front"]);
+  if (optional) {
+    if (!semantics.isUnion(arg.type)) {
+      a.put([".empty, ", arg.name.friendlyName]);
+      a.put(".front");
+    } else {
+      a.put([".empty, *", arg.name.friendlyName]);
+      a.put(".frontRef");
+    }
+  }
   if (!semantics.isPrimitive(arg.type) && !semantics.isUnion(arg.type)) {
     auto s = arg.type.matches[0] in semantics.types;
     if (s !is null) {
@@ -1553,7 +1589,7 @@ uint getSizeOf(ref Semantics semantics, ParseTree tree) {
   switch(tree.name) {
     case "WebIDL.IntegerType":
       if (tree.matches[0] == "long") {
-        if (tree.matches.length > 1)
+        if (tree.matches.length > 1 && !is32Bit)
           return 8;
         return 4;
       }
@@ -1643,7 +1679,7 @@ void mangleTypeJsImpl(Appender)(ParseTree tree, ref Appender a, ref Semantics se
   case "WebIDL.IntegerType":
     if (tree.matches[0] == "long") {
       if (tree.matches.length > 1)
-        a.put("long");
+        a.put(is32Bit ? "int" : "long");
       else
         a.put("int");
     } else
@@ -1835,7 +1871,7 @@ void generateDImports(Appender)(ParseTree tree, ref Appender a, Context context)
   case "WebIDL.IntegerType":
     if (tree.matches[0] == "long") {
       if (tree.matches.length > 1)
-        a.put("long");
+        a.put(is32Bit ? "int" : "long");
       else
         a.put("int");
     } else
@@ -2264,7 +2300,9 @@ void generateDecodedTypes(IR ir, ref Appender!(ParseTree[]) a, string[] filter) 
   auto cbs = collectCallbacks!(c => callbackNames.canFind(c.name))(ir);
   foreach(fun; funcs) {
     foreach(arg; fun.args) {
-      if (semantics.isUnion(arg.type) || semantics.isEnum(arg.type)) {
+      if (semantics.isNullableTypedef(arg.type)) {
+        a.put(arg.type.stripNullable);
+      } else if (semantics.isUnion(arg.type) || semantics.isEnum(arg.type)) {
         a.put(arg.type);
       }
     }
@@ -2399,6 +2437,7 @@ void generateJsDecoder(Decoder)(Decoder decoder, ref IndentedStringAppender a, r
     a.putLn("");
   } else if (semantics.isSequence(decoder.tree)) {
     a.putLn("// sequence");
+    assert(false, "not implemented");
   } else if (semantics.isPrimitive(decoder.tree)) {
     switch (decoder.mangled) {
     case "ulong":
@@ -2410,9 +2449,11 @@ void generateJsDecoder(Decoder)(Decoder decoder, ref IndentedStringAppender a, r
       a.putLn(decoder.tree.toString);
       break;
     }
+    assert(false, "not implemented");
   } else {
     a.putLn(["// ", decoder.tree.name]);
     a.putLn("// other");
+    assert(false, "not implemented");
   }
   // where T can be any of the above
   // and Ts two or more of the set including the above and the following:
@@ -2500,6 +2541,7 @@ void generateJsEncoder(Encoder)(Encoder encoder, ref IndentedStringAppender a, r
     a.putLn("");
   } else if (semantics.isSequence(encoder.tree)) {
     a.putLn("// sequence");
+    assert(false, "not implemented");
   } else if (semantics.isPrimitive(encoder.tree)) {
     switch (encoder.mangled) {
     case "ulong":
@@ -2512,9 +2554,11 @@ void generateJsEncoder(Encoder)(Encoder encoder, ref IndentedStringAppender a, r
       a.putLn(encoder.tree.toString);
       break;
     }
+    assert(false, "not implemented");
   } else {
     a.putLn(["// ", encoder.tree.name]);
     a.putLn("// other");
+    assert(false, "not implemented");
   }
   // where T can be any of the above
   // and Ts two or more of the set including the above and the following:
@@ -2555,7 +2599,24 @@ ParseTree[] getUnionChildren(ref Semantics semantics, ParseTree tree) {
     return semantics.getUnionChildren(tree.children[0]);
   }
   assert(tree.name == "WebIDL.UnionType");
-  return tree.children;
+
+  // check each child's first child, if that is a UnionType (or via Typedef), we need to concat types
+  auto children = appender!(ParseTree[]);
+  foreach (child; tree.children) {
+    auto member = child.children[0];
+    if (member.name == "WebIDL.UnionType") {
+      semantics.getUnionChildren(member).copy(children);
+    } else if (semantics.isTypedef(child)) {
+      string typeName = child.getTypeName();
+      auto aliasedType = semantics.getAliasedType(typeName);
+      if (semantics.isUnion(aliasedType)) {
+        semantics.getUnionChildren(aliasedType).copy(children);
+      } else
+        children.put(child);
+    } else
+      children.put(child);
+  }
+  return children.data;
 }
 struct TypeEncoder {
   string mangled;
@@ -2839,27 +2900,41 @@ string generateSingleJsBinding(IR ir, string[] filtered = []) {
   app.putLn("// File is autogenerated with `dub spasm:webidl -- --bindgen`");
   app.putLn("import {spasm as spa, encoders as encoder, decoders as decoder} from '../modules/spasm.js';");
   app.putLn("let spasm = spa;");
+  app.putLn("let memory = {};");
+  app.putLn("const setupMemory = () => {");
+  app.putLn("    let buffer = spasm.memory.buffer;");
+  app.putLn("    if (memory.heapi32s && !memory.heapi32s.length === 0)");
+  app.putLn("        return;");
+  app.putLn("    memory.heapi32s = new Int32Array(buffer)");
+  app.putLn("    memory.heapi32u = new Uint32Array(buffer)");
+  app.putLn("    memory.heapi16s = new Int16Array(buffer)");
+  app.putLn("    memory.heapi16u = new Uint16Array(buffer)");
+  app.putLn("    memory.heapi8s = new Int8Array(buffer)");
+  app.putLn("    memory.heapi8u = new Uint8Array(buffer)");
+  app.putLn("    memory.heapf32 = new Float32Array(buffer)");
+  app.putLn("    memory.heapf64 = new Float64Array(buffer)");
+  app.putLn("}");
 
   auto decodedTypes = ir.generateDecodedTypes(filtered).sort!((a,b){return a.mangled < b.mangled;}).uniq!((a, b){return a.mangled == b.mangled;});
   auto encodedTypes = ir.generateEncodedTypes(filtered).sort!((a,b){return a.mangled < b.mangled;}).uniq!((a, b){return a.mangled == b.mangled;});
-  app.putLn("const setBool = (ptr, val) => (spasm.heapi32u[ptr/4] = +val),");
-  app.putLn("      setInt = (ptr, val) => (spasm.heapi32s[ptr/4] = val),");
-  app.putLn("      setUInt = (ptr, val) => (spasm.heapi32u[ptr/4] = val),");
-  app.putLn("      setShort = (ptr, val) => (spasm.heapi16s[ptr/2] = val),");
-  app.putLn("      setUShort = (ptr, val) => (spasm.heapi16u[ptr/2] = val),");
-  app.putLn("      setByte = (ptr, val) => (spasm.heapi8s[ptr] = val),");
-  app.putLn("      setUByte = (ptr, val) => (spasm.heapi8u[ptr] = val),");
-  app.putLn("      setFloat = (ptr, val) => (spasm.heapf32[ptr/4] = val),");
-  app.putLn("      setDouble = (ptr, val) => (spasm.heapf64[ptr/8] = val),");
-  app.putLn("      getBool = (ptr) => spasm.heapi32u[ptr/4],");
-  app.putLn("      getInt = (ptr) => spasm.heapi32s[ptr/4],");
-  app.putLn("      getUInt = (ptr) => spasm.heapi32u[ptr/4],");
-  app.putLn("      getShort = (ptr) => spasm.heapi16s[ptr/2],");
-  app.putLn("      getUShort = (ptr) => spasm.heapi16u[ptr/2],");
-  app.putLn("      getByte = (ptr) => spasm.heapi8s[ptr],");
-  app.putLn("      getUByte = (ptr) => spasm.heapi8u[ptr],");
-  app.putLn("      getFloat = (ptr) => spasm.heapf32[ptr/4],");
-  app.putLn("      getDouble = (ptr) => spasm.heapf64[ptr/8],");
+  app.putLn("const setBool = (ptr, val) => (memory.heapi32u[ptr/4] = +val),");
+  app.putLn("      setInt = (ptr, val) => (memory.heapi32s[ptr/4] = val),");
+  app.putLn("      setUInt = (ptr, val) => (memory.heapi32u[ptr/4] = val),");
+  app.putLn("      setShort = (ptr, val) => (memory.heapi16s[ptr/2] = val),");
+  app.putLn("      setUShort = (ptr, val) => (memory.heapi16u[ptr/2] = val),");
+  app.putLn("      setByte = (ptr, val) => (memory.heapi8s[ptr] = val),");
+  app.putLn("      setUByte = (ptr, val) => (memory.heapi8u[ptr] = val),");
+  app.putLn("      setFloat = (ptr, val) => (memory.heapf32[ptr/4] = val),");
+  app.putLn("      setDouble = (ptr, val) => (memory.heapf64[ptr/8] = val),");
+  app.putLn("      getBool = (ptr) => memory.heapi32u[ptr/4],");
+  app.putLn("      getInt = (ptr) => memory.heapi32s[ptr/4],");
+  app.putLn("      getUInt = (ptr) => memory.heapi32u[ptr/4],");
+  app.putLn("      getShort = (ptr) => memory.heapi16s[ptr/2],");
+  app.putLn("      getUShort = (ptr) => memory.heapi16u[ptr/2],");
+  app.putLn("      getByte = (ptr) => memory.heapi8s[ptr],");
+  app.putLn("      getUByte = (ptr) => memory.heapi8u[ptr],");
+  app.putLn("      getFloat = (ptr) => memory.heapf32[ptr/4],");
+  app.putLn("      getDouble = (ptr) => memory.heapf64[ptr/8],");
   app.putLn("      isDefined = (val) => (val != undefined && val != null),");
   app.putLn("      encode_handle = (ptr, val) => { setUInt(ptr, spasm.addObject(val)); },");
   app.putLn("      decode_handle = (ptr) => { return spasm.objects[getUInt(ptr)]; },");
@@ -2879,11 +2954,15 @@ string generateSingleJsBinding(IR ir, string[] filtered = []) {
   app.undent();
   app.putLn("export let jsExports = {");
   app.indent();
+  app.putLn("env: {");
+  app.indent();
 
   auto pos = app.data.length;
   ir.nodes.each!(n => n.toJsExport(semantics, filtered, &app));
   ir.generateJsGlobalBindings(filtered, app);
 
+  app.undent();
+  app.putLn("}");
   app.undent();
   app.put("}");
   return app.data;
@@ -3081,7 +3160,7 @@ void generateDType(Appender)(ParseTree tree, ref Appender a, Context context) {
   case "WebIDL.IntegerType":
     if (tree.matches[0] == "long") {
       if (tree.matches.length > 1)
-        a.put("long");
+        a.put(is32Bit ? "int" : "long");
       else
         a.put("int");
     } else

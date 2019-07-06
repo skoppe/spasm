@@ -170,8 +170,8 @@ struct RequestInit {
   auto headers() {
     return RequestInit_headers_Get(this.handle);
   }
-  void body_(scope ref Optional!(BodyInit) body_) {
-    RequestInit_body_Set(this.handle, !body_.empty, body_.front);
+  void body_(T0)(scope auto ref Optional!(T0) body_) if (isTOrPointer!(T0, BodyInit)) {
+    RequestInit_body_Set(this.handle, !body_.empty, *body_.frontRef);
   }
   auto body_() {
     return RequestInit_body_Get(this.handle);
@@ -224,7 +224,7 @@ struct RequestInit {
   auto keepalive() {
     return RequestInit_keepalive_Get(this.handle);
   }
-  void signal(scope ref Optional!(AbortSignal) signal) {
+  void signal(T0)(scope auto ref Optional!(T0) signal) if (isTOrPointer!(T0, AbortSignal)) {
     RequestInit_signal_Set(this.handle, !signal.empty, signal.front._parent);
   }
   auto signal() {

@@ -12,6 +12,8 @@ import stdx.allocator.common : reallocate;
 import stdx.allocator.common : alignedReallocate;
 import std.typecons : Flag, Yes, No;
 
+alias Destructor = void function(void*);
+
 version (unittest) {
   struct WasmAllocator {
     enum uint alignment = platformAlignment;
@@ -65,8 +67,10 @@ version (unittest) {
     }
 
     private void grow(size_t pages) {
+      auto currentPages = wasmMemoryGrow(0);
+      current = cast(void*)(currentPages * wasmPageSize);
       wasmMemoryGrow(pages);
-      end += pages * wasmPageSize;
+      end += (currentPages + pages) * wasmPageSize;
     }
   }
  }
@@ -118,7 +122,7 @@ nothrow
 auto initPool(size_t blockSize, size_t capacity) {
   import spasm.ct : tuple;
   auto poolSize = totalBitmappedBlockAllocation(capacity, blockSize);
-  size_t metaDataSize = ((uint.sizeof*2) + poolSize.leadingUlongs * ulong.sizeof).roundUpToMultipleOf(platformAlignment);
+  size_t metaDataSize = (PoolAllocator.MetaData.sizeof + poolSize.leadingUlongs * ulong.sizeof).roundUpToMultipleOf(platformAlignment);
   return tuple!("markerUlongs", "blocks", "memory", "metaDataSize")(poolSize.leadingUlongs, poolSize.blocks, WasmAllocator.instance.allocate(metaDataSize + poolSize.bytes), metaDataSize);
 }
 
@@ -131,9 +135,9 @@ struct PoolAllocatorBacking {
     uint blockSize = (cast(uint*)pool)[0];
     uint blockCount = (cast(uint*)pool)[1];
     size_t leadingMarkerUlongs = blockCount.divideRoundUp(64);
-    size_t offset = (uint.sizeof * 2 + leadingMarkerUlongs * ulong.sizeof).roundUpToMultipleOf(platformAlignment);
+    size_t offset = (PoolAllocator.MetaData.sizeof + leadingMarkerUlongs * ulong.sizeof).roundUpToMultipleOf(platformAlignment);
     void* startOfBitmappedBlock = pool + offset;
-    auto vector = BitVector((cast(ulong*)(pool + uint.sizeof * 2))[0..leadingMarkerUlongs]);
+    auto vector = BitVector((cast(ulong*)(pool + PoolAllocator.MetaData.sizeof))[0..leadingMarkerUlongs]);
     void* startOfBlocks = startOfBitmappedBlock + leadingMarkerUlongs * ulong.sizeof;
     auto index = cast(uint)(ptr - startOfBlocks) / blockSize;
     auto wasSet = vector.markBit(index);
@@ -143,15 +147,33 @@ struct PoolAllocatorBacking {
 
   void freeUnmarked() {
     // TODO; we can get the marking a little bit faster by precalculating all this stuff
-    uint blockSize = (cast(uint*)pool)[0];
-    uint blockCount = (cast(uint*)pool)[1];
-    size_t leadingMarkerUlongs = blockCount.divideRoundUp(64);
-    size_t offset = (uint.sizeof * 2 + leadingMarkerUlongs * ulong.sizeof).roundUpToMultipleOf(platformAlignment);
+    auto meta = cast(PoolAllocator.MetaData*)pool;
+    size_t leadingMarkerUlongs = meta.blocks.divideRoundUp(64);
+    size_t offset = (PoolAllocator.MetaData.sizeof + leadingMarkerUlongs * ulong.sizeof).roundUpToMultipleOf(platformAlignment);
     void* startOfBitmappedBlock = pool + offset;
-    ulong[] markers = (cast(ulong*)(pool + uint.sizeof * 2))[0..leadingMarkerUlongs];
+    ulong[] markers = (cast(ulong*)(pool + PoolAllocator.MetaData.sizeof))[0..leadingMarkerUlongs];
     ulong[] control = (cast(ulong*)startOfBitmappedBlock)[0..leadingMarkerUlongs];
+    if (meta.destructor !is null) {
+      import spasm.types;
+      doLog(-1);
+      destruct(markers, control, meta.destructor, meta.blockSize, pool);
+    }
     control[] = markers[];
     markers[] = 0;
+  }
+  private void destruct(ulong[] markers, ulong[] control, Destructor destructor, uint blockSize, void* pool) {
+    import mir.bitop : cttz;
+    for(uint i = 0; i < markers.length; i++) {
+      ulong toFree = markers[i] ^ control[i];
+      while(toFree != 0) {
+        auto lsbset = cttz(toFree);
+        void* item = pool + blockSize * ((i*64) + (64 - lsbset));
+        import spasm.types;
+        doLog(cast(uint)item);
+        destructor(item);
+        toFree = toFree & (toFree-1);
+      }
+    }
   }
 }
 
@@ -240,9 +262,9 @@ struct PoolAllocatorIndex {
       uint blockSize = (cast(uint*)ptr)[0];
       uint blockCount = (cast(uint*)ptr)[1];
       uint leadingMarkerUlongs = blockCount.divideRoundUp(64);
-      uint offset = (uint.sizeof * 2 + leadingMarkerUlongs * ulong.sizeof).roundUpToMultipleOf(platformAlignment);
+      uint offset = (PoolAllocator.MetaData.sizeof + leadingMarkerUlongs * ulong.sizeof).roundUpToMultipleOf(platformAlignment);
       void* startOfBitmappedBlock = ptr + offset;
-      ulong[] markers = (cast(ulong*)(ptr + uint.sizeof * 2))[0..leadingMarkerUlongs];
+      ulong[] markers = (cast(ulong*)(ptr + PoolAllocator.MetaData.sizeof))[0..leadingMarkerUlongs];
       ulong[] control = (cast(ulong*)startOfBitmappedBlock)[0..leadingMarkerUlongs];
       return tuple!("blockSize", "blockCount", "markers", "control")(blockSize, blockCount, markers, control);
     }
@@ -258,16 +280,23 @@ static __gshared auto poolAllocatorIndex = PoolAllocatorIndex();
 
 struct PoolAllocator {
   nothrow:
+  static struct MetaData {
+    uint blockSize;
+    uint blocks;
+    Destructor destructor;
+  }
   import stdx.allocator.common : chooseAtRuntime;
   alias Block = BitmappedBlock!(chooseAtRuntime, platformAlignment, NullAllocator);
   alias alignment = platformAlignment;
   private Block block;
   void[] memory;
-  this(uint blockSize, size_t capacity) {
+  this(uint blockSize, size_t capacity, Destructor destructor) {
     auto pool = initPool(blockSize, capacity);
     memory = pool.memory;
-    (cast(uint*)memory.ptr)[0] = blockSize;
-    (cast(uint*)memory.ptr)[1] = pool.blocks;
+    auto metaData = cast(MetaData*)memory.ptr;
+    metaData.blockSize = blockSize;
+    metaData.blocks = pool.blocks;
+    metaData.destructor = destructor;
     block = Block(cast(ubyte[])pool.memory[pool.metaDataSize..$], blockSize);
     poolAllocatorIndex.add(memory.ptr);
   }
@@ -311,13 +340,25 @@ auto getGoodCapacity(uint blockSize) {
 
 static struct PoolAllocatorFactory {
   private uint blockSize;
-  this(uint blockSize) {
+  private Destructor destructor;
+  this(uint blockSize, Destructor destructor = null) {
     this.blockSize = blockSize;
+    this.destructor = destructor;
   }
   auto opCall(size_t n) {
     auto capacity = getGoodCapacity(blockSize);
-    return PoolAllocator(blockSize, capacity);
+    return PoolAllocator(blockSize, capacity, destructor);
   }
+}
+
+struct PoolAllocatorList(T) {
+  enum blockSize = T.sizeof;
+  static void destructor(void* item) nothrow {
+    T* t = cast(T*)item;
+    t.__xdtor();
+  }
+  auto allocator = AllocatorList!(PoolAllocatorFactory, WasmAllocator)(PoolAllocatorFactory(blockSize, &destructor));
+  alias allocator this;
 }
 
 struct PoolAllocatorList(size_t blockSize) {

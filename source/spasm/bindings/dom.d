@@ -243,10 +243,10 @@ struct DOMImplementation {
   auto createDocumentType(string qualifiedName, string publicId, string systemId) {
     return DocumentType(DOMImplementation_createDocumentType(this.handle, qualifiedName, publicId, systemId));
   }
-  auto createDocument(scope ref Optional!(string) namespace, string qualifiedName, scope ref Optional!(DocumentType) doctype /* = no!(DocumentType) */) {
+  auto createDocument(T0, T2)(scope auto ref Optional!(T0) namespace, string qualifiedName, scope auto ref Optional!(T2) doctype /* = no!(DocumentType) */) if (isTOrPointer!(T0, string) && isTOrPointer!(T2, DocumentType)) {
     return XMLDocument(DOMImplementation_createDocument(this.handle, !namespace.empty, namespace.front, qualifiedName, !doctype.empty, doctype.front._parent));
   }
-  auto createDocument(scope ref Optional!(string) namespace, string qualifiedName) {
+  auto createDocument(T0)(scope auto ref Optional!(T0) namespace, string qualifiedName) if (isTOrPointer!(T0, string)) {
     return XMLDocument(DOMImplementation_createDocument_0(this.handle, !namespace.empty, namespace.front, qualifiedName));
   }
   auto createHTMLDocument(string title) {
@@ -343,7 +343,7 @@ struct Document {
   auto getElementsByTagName(string qualifiedName) {
     return HTMLCollection(Document_getElementsByTagName(this._parent, qualifiedName));
   }
-  auto getElementsByTagNameNS(scope ref Optional!(string) namespace, string localName) {
+  auto getElementsByTagNameNS(T0)(scope auto ref Optional!(T0) namespace, string localName) if (isTOrPointer!(T0, string)) {
     return HTMLCollection(Document_getElementsByTagNameNS(this._parent, !namespace.empty, namespace.front, localName));
   }
   auto getElementsByClassName(string classNames) {
@@ -355,10 +355,10 @@ struct Document {
   auto createElement(string localName) {
     return Element(Document_createElement_0(this._parent, localName));
   }
-  auto createElementNS(scope ref Optional!(string) namespace, string qualifiedName, scope ref SumType!(string, ElementCreationOptions) options) {
+  auto createElementNS(T0)(scope auto ref Optional!(T0) namespace, string qualifiedName, scope ref SumType!(string, ElementCreationOptions) options) if (isTOrPointer!(T0, string)) {
     return Element(Document_createElementNS(this._parent, !namespace.empty, namespace.front, qualifiedName, options));
   }
-  auto createElementNS(scope ref Optional!(string) namespace, string qualifiedName) {
+  auto createElementNS(T0)(scope auto ref Optional!(T0) namespace, string qualifiedName) if (isTOrPointer!(T0, string)) {
     return Element(Document_createElementNS_0(this._parent, !namespace.empty, namespace.front, qualifiedName));
   }
   auto createDocumentFragment() {
@@ -388,7 +388,7 @@ struct Document {
   auto createAttribute(string localName) {
     return Attr(Document_createAttribute(this._parent, localName));
   }
-  auto createAttributeNS(scope ref Optional!(string) namespace, string qualifiedName) {
+  auto createAttributeNS(T0)(scope auto ref Optional!(T0) namespace, string qualifiedName) if (isTOrPointer!(T0, string)) {
     return Attr(Document_createAttributeNS(this._parent, !namespace.empty, namespace.front, qualifiedName));
   }
   auto createEvent(string interface_) {
@@ -397,7 +397,7 @@ struct Document {
   auto createRange() {
     return Range(Document_createRange(this._parent));
   }
-  auto createNodeIterator(scope ref Node root, uint whatToShow /* = 0xFFFFFFFF */, scope ref Optional!(NodeFilter) filter /* = no!(NodeFilter) */) {
+  auto createNodeIterator(T2)(scope ref Node root, uint whatToShow /* = 0xFFFFFFFF */, scope auto ref Optional!(T2) filter /* = no!(NodeFilter) */) if (isTOrPointer!(T2, NodeFilter)) {
     return NodeIterator(Document_createNodeIterator(this._parent, root._parent, whatToShow, !filter.empty, filter.front.handle));
   }
   auto createNodeIterator(scope ref Node root, uint whatToShow /* = 0xFFFFFFFF */) {
@@ -406,7 +406,7 @@ struct Document {
   auto createNodeIterator(scope ref Node root) {
     return NodeIterator(Document_createNodeIterator_1(this._parent, root._parent));
   }
-  auto createTreeWalker(scope ref Node root, uint whatToShow /* = 0xFFFFFFFF */, scope ref Optional!(NodeFilter) filter /* = no!(NodeFilter) */) {
+  auto createTreeWalker(T2)(scope ref Node root, uint whatToShow /* = 0xFFFFFFFF */, scope auto ref Optional!(T2) filter /* = no!(NodeFilter) */) if (isTOrPointer!(T2, NodeFilter)) {
     return TreeWalker(Document_createTreeWalker(this._parent, root._parent, whatToShow, !filter.empty, filter.front.handle));
   }
   auto createTreeWalker(scope ref Node root, uint whatToShow /* = 0xFFFFFFFF */) {
@@ -463,7 +463,7 @@ struct Document {
   auto dir() {
     return Document_dir_Get(this._parent);
   }
-  void body_(scope ref Optional!(HTMLElement) body_) {
+  void body_(T0)(scope auto ref Optional!(T0) body_) if (isTOrPointer!(T0, HTMLElement)) {
     Document_body_Set(this._parent, !body_.empty, body_.front.handle);
   }
   auto body_() {
@@ -835,7 +835,7 @@ struct Document {
   auto onended() {
     return GlobalEventHandlers_onended_Get(this._parent);
   }
-  void onerror(scope ref OnErrorEventHandler onerror) {
+  void onerror(T0)(scope auto ref Optional!(T0) onerror) if (isTOrPointer!(T0, OnErrorEventHandler)) {
     GlobalEventHandlers_onerror_Set(this._parent, !onerror.empty, onerror.front);
   }
   auto onerror() {
@@ -1270,19 +1270,19 @@ struct Element {
   auto getAttribute(string qualifiedName) {
     return Element_getAttribute(this._parent, qualifiedName);
   }
-  auto getAttributeNS(scope ref Optional!(string) namespace, string localName) {
+  auto getAttributeNS(T0)(scope auto ref Optional!(T0) namespace, string localName) if (isTOrPointer!(T0, string)) {
     return Element_getAttributeNS(this._parent, !namespace.empty, namespace.front, localName);
   }
   void setAttribute(string qualifiedName, string value) {
     Element_setAttribute(this._parent, qualifiedName, value);
   }
-  void setAttributeNS(scope ref Optional!(string) namespace, string qualifiedName, string value) {
+  void setAttributeNS(T0)(scope auto ref Optional!(T0) namespace, string qualifiedName, string value) if (isTOrPointer!(T0, string)) {
     Element_setAttributeNS(this._parent, !namespace.empty, namespace.front, qualifiedName, value);
   }
   void removeAttribute(string qualifiedName) {
     Element_removeAttribute(this._parent, qualifiedName);
   }
-  void removeAttributeNS(scope ref Optional!(string) namespace, string localName) {
+  void removeAttributeNS(T0)(scope auto ref Optional!(T0) namespace, string localName) if (isTOrPointer!(T0, string)) {
     Element_removeAttributeNS(this._parent, !namespace.empty, namespace.front, localName);
   }
   auto toggleAttribute(string qualifiedName, bool force) {
@@ -1294,13 +1294,13 @@ struct Element {
   auto hasAttribute(string qualifiedName) {
     return Element_hasAttribute(this._parent, qualifiedName);
   }
-  auto hasAttributeNS(scope ref Optional!(string) namespace, string localName) {
+  auto hasAttributeNS(T0)(scope auto ref Optional!(T0) namespace, string localName) if (isTOrPointer!(T0, string)) {
     return Element_hasAttributeNS(this._parent, !namespace.empty, namespace.front, localName);
   }
   auto getAttributeNode(string qualifiedName) {
     return Element_getAttributeNode(this._parent, qualifiedName);
   }
-  auto getAttributeNodeNS(scope ref Optional!(string) namespace, string localName) {
+  auto getAttributeNodeNS(T0)(scope auto ref Optional!(T0) namespace, string localName) if (isTOrPointer!(T0, string)) {
     return Element_getAttributeNodeNS(this._parent, !namespace.empty, namespace.front, localName);
   }
   auto setAttributeNode(scope ref Attr attr) {
@@ -1330,7 +1330,7 @@ struct Element {
   auto getElementsByTagName(string qualifiedName) {
     return HTMLCollection(Element_getElementsByTagName(this._parent, qualifiedName));
   }
-  auto getElementsByTagNameNS(scope ref Optional!(string) namespace, string localName) {
+  auto getElementsByTagNameNS(T0)(scope auto ref Optional!(T0) namespace, string localName) if (isTOrPointer!(T0, string)) {
     return HTMLCollection(Element_getElementsByTagNameNS(this._parent, !namespace.empty, namespace.front, localName));
   }
   auto getElementsByClassName(string classNames) {
@@ -1826,7 +1826,7 @@ struct NamedNodeMap {
   auto getNamedItem(string qualifiedName) {
     return NamedNodeMap_getNamedItem_getter(this.handle, qualifiedName);
   }
-  auto getNamedItemNS(scope ref Optional!(string) namespace, string localName) {
+  auto getNamedItemNS(T0)(scope auto ref Optional!(T0) namespace, string localName) if (isTOrPointer!(T0, string)) {
     return NamedNodeMap_getNamedItemNS(this.handle, !namespace.empty, namespace.front, localName);
   }
   auto setNamedItem(scope ref Attr attr) {
@@ -1838,7 +1838,7 @@ struct NamedNodeMap {
   auto removeNamedItem(string qualifiedName) {
     return Attr(NamedNodeMap_removeNamedItem(this.handle, qualifiedName));
   }
-  auto removeNamedItemNS(scope ref Optional!(string) namespace, string localName) {
+  auto removeNamedItemNS(T0)(scope auto ref Optional!(T0) namespace, string localName) if (isTOrPointer!(T0, string)) {
     return Attr(NamedNodeMap_removeNamedItemNS(this.handle, !namespace.empty, namespace.front, localName));
   }
 }
@@ -1906,13 +1906,13 @@ struct Node {
   auto nextSibling() {
     return Node_nextSibling_Get(this._parent);
   }
-  void nodeValue(scope ref Optional!(string) nodeValue) {
+  void nodeValue(T0)(scope auto ref Optional!(T0) nodeValue) if (isTOrPointer!(T0, string)) {
     Node_nodeValue_Set(this._parent, !nodeValue.empty, nodeValue.front);
   }
   auto nodeValue() {
     return Node_nodeValue_Get(this._parent);
   }
-  void textContent(scope ref Optional!(string) textContent) {
+  void textContent(T0)(scope auto ref Optional!(T0) textContent) if (isTOrPointer!(T0, string)) {
     Node_textContent_Set(this._parent, !textContent.empty, textContent.front);
   }
   auto textContent() {
@@ -1927,10 +1927,10 @@ struct Node {
   auto cloneNode() {
     return Node(Node_cloneNode_0(this._parent));
   }
-  auto isEqualNode(scope ref Optional!(Node) otherNode) {
+  auto isEqualNode(T0)(scope auto ref Optional!(T0) otherNode) if (isTOrPointer!(T0, Node)) {
     return Node_isEqualNode(this._parent, !otherNode.empty, otherNode.front._parent);
   }
-  auto isSameNode(scope ref Optional!(Node) otherNode) {
+  auto isSameNode(T0)(scope auto ref Optional!(T0) otherNode) if (isTOrPointer!(T0, Node)) {
     return Node_isSameNode(this._parent, !otherNode.empty, otherNode.front._parent);
   }
   enum ushort DOCUMENT_POSITION_DISCONNECTED = 0x01;
@@ -1942,19 +1942,19 @@ struct Node {
   auto compareDocumentPosition(scope ref Node other) {
     return Node_compareDocumentPosition(this._parent, other._parent);
   }
-  auto contains(scope ref Optional!(Node) other) {
+  auto contains(T0)(scope auto ref Optional!(T0) other) if (isTOrPointer!(T0, Node)) {
     return Node_contains(this._parent, !other.empty, other.front._parent);
   }
-  auto lookupPrefix(scope ref Optional!(string) namespace) {
+  auto lookupPrefix(T0)(scope auto ref Optional!(T0) namespace) if (isTOrPointer!(T0, string)) {
     return Node_lookupPrefix(this._parent, !namespace.empty, namespace.front);
   }
-  auto lookupNamespaceURI(scope ref Optional!(string) prefix) {
+  auto lookupNamespaceURI(T0)(scope auto ref Optional!(T0) prefix) if (isTOrPointer!(T0, string)) {
     return Node_lookupNamespaceURI(this._parent, !prefix.empty, prefix.front);
   }
-  auto isDefaultNamespace(scope ref Optional!(string) namespace) {
+  auto isDefaultNamespace(T0)(scope auto ref Optional!(T0) namespace) if (isTOrPointer!(T0, string)) {
     return Node_isDefaultNamespace(this._parent, !namespace.empty, namespace.front);
   }
-  auto insertBefore(scope ref Node node, scope ref Optional!(Node) child) {
+  auto insertBefore(T1)(scope ref Node node, scope auto ref Optional!(T1) child) if (isTOrPointer!(T1, Node)) {
     return Node(Node_insertBefore(this._parent, node._parent, !child.empty, child.front._parent));
   }
   auto appendChild(scope ref Node node) {

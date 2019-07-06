@@ -147,7 +147,7 @@ struct IDBDatabaseInfo {
   auto name() {
     return IDBDatabaseInfo_name_Get(this.handle);
   }
-  void version_(ulong version_) {
+  void version_(uint version_) {
     IDBDatabaseInfo_version_Set(this.handle, version_);
   }
   auto version_() {
@@ -161,7 +161,7 @@ struct IDBFactory {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto open(string name, ulong version_) {
+  auto open(string name, uint version_) {
     return IDBOpenDBRequest(IDBFactory_open(this.handle, name, version_));
   }
   auto open(string name) {
@@ -558,8 +558,8 @@ struct IDBObjectStoreParameters {
   static auto create() {
     return IDBObjectStoreParameters(spasm_add__object());
   }
-  void keyPath(scope ref Optional!(SumType!(string, Sequence!(string))) keyPath) {
-    IDBObjectStoreParameters_keyPath_Set(this.handle, !keyPath.empty, keyPath.front);
+  void keyPath(T0)(scope auto ref Optional!(T0) keyPath) if (isTOrPointer!(T0, SumType!(string, Sequence!(string)))) {
+    IDBObjectStoreParameters_keyPath_Set(this.handle, !keyPath.empty, *keyPath.frontRef);
   }
   auto keyPath() {
     return IDBObjectStoreParameters_keyPath_Get(this.handle);
@@ -703,13 +703,13 @@ struct IDBVersionChangeEventInit {
   static auto create() {
     return IDBVersionChangeEventInit(spasm_add__object());
   }
-  void oldVersion(ulong oldVersion) {
+  void oldVersion(uint oldVersion) {
     IDBVersionChangeEventInit_oldVersion_Set(this._parent, oldVersion);
   }
   auto oldVersion() {
     return IDBVersionChangeEventInit_oldVersion_Get(this._parent);
   }
-  void newVersion(scope ref Optional!(ulong) newVersion) {
+  void newVersion(T0)(scope auto ref Optional!(T0) newVersion) if (isTOrPointer!(T0, uint)) {
     IDBVersionChangeEventInit_newVersion_Set(this._parent, !newVersion.empty, newVersion.front);
   }
   auto newVersion() {
@@ -730,7 +730,7 @@ extern (C) Handle IDBCursor_update(Handle, Handle);
 extern (C) Handle IDBCursor_delete(Handle);
 extern (C) Handle IDBCursorWithValue_value_Get(Handle);
 extern (C) string IDBDatabase_name_Get(Handle);
-extern (C) ulong IDBDatabase_version_Get(Handle);
+extern (C) uint IDBDatabase_version_Get(Handle);
 extern (C) Handle IDBDatabase_objectStoreNames_Get(Handle);
 extern (C) Handle IDBDatabase_transaction(Handle, scope ref SumType!(string, Sequence!(string)), IDBTransactionMode);
 extern (C) Handle IDBDatabase_transaction_0(Handle, scope ref SumType!(string, Sequence!(string)));
@@ -748,9 +748,9 @@ extern (C) void IDBDatabase_onversionchange_Set(Handle, EventHandler);
 extern (C) EventHandler IDBDatabase_onversionchange_Get(Handle);
 extern (C) void IDBDatabaseInfo_name_Set(Handle, string);
 extern (C) string IDBDatabaseInfo_name_Get(Handle);
-extern (C) void IDBDatabaseInfo_version_Set(Handle, ulong);
-extern (C) ulong IDBDatabaseInfo_version_Get(Handle);
-extern (C) Handle IDBFactory_open(Handle, string, ulong);
+extern (C) void IDBDatabaseInfo_version_Set(Handle, uint);
+extern (C) uint IDBDatabaseInfo_version_Get(Handle);
+extern (C) Handle IDBFactory_open(Handle, string, uint);
 extern (C) Handle IDBFactory_open_0(Handle, string);
 extern (C) Handle IDBFactory_deleteDatabase(Handle, string);
 extern (C) Handle IDBFactory_databases(Handle);
@@ -855,9 +855,9 @@ extern (C) void IDBTransaction_oncomplete_Set(Handle, EventHandler);
 extern (C) EventHandler IDBTransaction_oncomplete_Get(Handle);
 extern (C) void IDBTransaction_onerror_Set(Handle, EventHandler);
 extern (C) EventHandler IDBTransaction_onerror_Get(Handle);
-extern (C) ulong IDBVersionChangeEvent_oldVersion_Get(Handle);
-extern (C) Optional!(ulong) IDBVersionChangeEvent_newVersion_Get(Handle);
-extern (C) void IDBVersionChangeEventInit_oldVersion_Set(Handle, ulong);
-extern (C) ulong IDBVersionChangeEventInit_oldVersion_Get(Handle);
-extern (C) void IDBVersionChangeEventInit_newVersion_Set(Handle, bool, ulong);
-extern (C) Optional!(ulong) IDBVersionChangeEventInit_newVersion_Get(Handle);
+extern (C) uint IDBVersionChangeEvent_oldVersion_Get(Handle);
+extern (C) Optional!(uint) IDBVersionChangeEvent_newVersion_Get(Handle);
+extern (C) void IDBVersionChangeEventInit_oldVersion_Set(Handle, uint);
+extern (C) uint IDBVersionChangeEventInit_oldVersion_Get(Handle);
+extern (C) void IDBVersionChangeEventInit_newVersion_Set(Handle, bool, uint);
+extern (C) Optional!(uint) IDBVersionChangeEventInit_newVersion_Get(Handle);

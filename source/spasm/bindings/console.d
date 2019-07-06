@@ -55,7 +55,7 @@ struct console {
     console_warn(_handle_data);
     dropHandle!(T0)(_handle_data);
   }
-  void dir(T0)(scope auto ref T0 item, scope ref Optional!(JsObject) options) {
+  void dir(T0, T1)(scope auto ref T0 item, scope auto ref Optional!(T1) options) if (isTOrPointer!(T1, JsObject)) {
     Handle _handle_item = getOrCreateHandle(item);
     console_dir(_handle_item, !options.empty, options.front.handle);
     dropHandle!(T0)(_handle_item);

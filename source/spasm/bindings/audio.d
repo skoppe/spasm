@@ -164,7 +164,7 @@ struct AudioBufferSourceNode {
   this(Handle h) {
     _parent = .AudioScheduledSourceNode(h);
   }
-  void buffer(scope ref Optional!(AudioBuffer) buffer) {
+  void buffer(T0)(scope auto ref Optional!(T0) buffer) if (isTOrPointer!(T0, AudioBuffer)) {
     AudioBufferSourceNode_buffer_Set(this._parent, !buffer.empty, buffer.front.handle);
   }
   auto buffer() {
@@ -217,7 +217,7 @@ struct AudioBufferSourceOptions {
   static auto create() {
     return AudioBufferSourceOptions(spasm_add__object());
   }
-  void buffer(scope ref Optional!(AudioBuffer) buffer) {
+  void buffer(T0)(scope auto ref Optional!(T0) buffer) if (isTOrPointer!(T0, AudioBuffer)) {
     AudioBufferSourceOptions_buffer_Set(this.handle, !buffer.empty, buffer.front.handle);
   }
   auto buffer() {
@@ -792,7 +792,7 @@ struct AudioWorkletNodeOptions {
   auto parameterData() {
     return Record!(string, double)(AudioWorkletNodeOptions_parameterData_Get(this._parent));
   }
-  void processorOptions(scope ref Optional!(JsObject) processorOptions) {
+  void processorOptions(T0)(scope auto ref Optional!(T0) processorOptions) if (isTOrPointer!(T0, JsObject)) {
     AudioWorkletNodeOptions_processorOptions_Set(this._parent, !processorOptions.empty, processorOptions.front.handle);
   }
   auto processorOptions() {
@@ -920,10 +920,10 @@ struct BaseAudioContext {
   auto createWaveShaper() {
     return WaveShaperNode(BaseAudioContext_createWaveShaper(this._parent));
   }
-  auto decodeAudioData(scope ref ArrayBuffer audioData, scope ref Optional!(DecodeSuccessCallback) successCallback, scope ref Optional!(DecodeErrorCallback) errorCallback) {
+  auto decodeAudioData(T1, T2)(scope ref ArrayBuffer audioData, scope auto ref Optional!(T1) successCallback, scope auto ref Optional!(T2) errorCallback) if (isTOrPointer!(T1, DecodeSuccessCallback) && isTOrPointer!(T2, DecodeErrorCallback)) {
     return Promise!(AudioBuffer)(BaseAudioContext_decodeAudioData(this._parent, audioData.handle, !successCallback.empty, successCallback.front, !errorCallback.empty, errorCallback.front));
   }
-  auto decodeAudioData(scope ref ArrayBuffer audioData, scope ref Optional!(DecodeSuccessCallback) successCallback) {
+  auto decodeAudioData(T1)(scope ref ArrayBuffer audioData, scope auto ref Optional!(T1) successCallback) if (isTOrPointer!(T1, DecodeSuccessCallback)) {
     return Promise!(AudioBuffer)(BaseAudioContext_decodeAudioData_0(this._parent, audioData.handle, !successCallback.empty, successCallback.front));
   }
   auto decodeAudioData(scope ref ArrayBuffer audioData) {
@@ -1104,7 +1104,7 @@ struct ConvolverNode {
   this(Handle h) {
     _parent = .AudioNode(h);
   }
-  void buffer(scope ref Optional!(AudioBuffer) buffer) {
+  void buffer(T0)(scope auto ref Optional!(T0) buffer) if (isTOrPointer!(T0, AudioBuffer)) {
     ConvolverNode_buffer_Set(this._parent, !buffer.empty, buffer.front.handle);
   }
   auto buffer() {
@@ -1127,7 +1127,7 @@ struct ConvolverOptions {
   static auto create() {
     return ConvolverOptions(spasm_add__object());
   }
-  void buffer(scope ref Optional!(AudioBuffer) buffer) {
+  void buffer(T0)(scope auto ref Optional!(T0) buffer) if (isTOrPointer!(T0, AudioBuffer)) {
     ConvolverOptions_buffer_Set(this._parent, !buffer.empty, buffer.front.handle);
   }
   auto buffer() {
@@ -1834,7 +1834,7 @@ struct WaveShaperNode {
   this(Handle h) {
     _parent = .AudioNode(h);
   }
-  void curve(scope ref Optional!(Float32Array) curve) {
+  void curve(T0)(scope auto ref Optional!(T0) curve) if (isTOrPointer!(T0, Float32Array)) {
     WaveShaperNode_curve_Set(this._parent, !curve.empty, curve.front.handle);
   }
   auto curve() {
@@ -2042,7 +2042,7 @@ extern (C) Handle AudioWorklet_Event(Handle, string, Handle);
 extern (C) Handle AudioWorklet_EventTarget(Handle);
 extern (C) Handle AudioWorklet_MessageEvent(Handle, string, Handle);
 extern (C) void AudioWorkletGlobalScope_registerProcessor(Handle, string, VoidFunction);
-extern (C) ulong AudioWorkletGlobalScope_currentFrame_Get(Handle);
+extern (C) uint AudioWorkletGlobalScope_currentFrame_Get(Handle);
 extern (C) double AudioWorkletGlobalScope_currentTime_Get(Handle);
 extern (C) float AudioWorkletGlobalScope_sampleRate_Get(Handle);
 extern (C) Handle AudioWorkletNode_parameters_Get(Handle);

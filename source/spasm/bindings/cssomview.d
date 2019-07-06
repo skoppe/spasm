@@ -38,10 +38,10 @@ struct MediaQueryList {
   auto matches() {
     return MediaQueryList_matches_Get(this._parent);
   }
-  void addListener(scope ref Optional!(EventListener) listener) {
+  void addListener(T0)(scope auto ref Optional!(T0) listener) if (isTOrPointer!(T0, EventListener)) {
     MediaQueryList_addListener(this._parent, !listener.empty, listener.front);
   }
-  void removeListener(scope ref Optional!(EventListener) listener) {
+  void removeListener(T0)(scope auto ref Optional!(T0) listener) if (isTOrPointer!(T0, EventListener)) {
     MediaQueryList_removeListener(this._parent, !listener.empty, listener.front);
   }
   void onchange(EventHandler onchange) {

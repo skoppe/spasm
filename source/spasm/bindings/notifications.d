@@ -254,7 +254,7 @@ struct NotificationOptions {
   auto vibrate() {
     return NotificationOptions_vibrate_Get(this.handle);
   }
-  void timestamp(ulong timestamp) {
+  void timestamp(uint timestamp) {
     NotificationOptions_timestamp_Set(this.handle, timestamp);
   }
   auto timestamp() {
@@ -326,7 +326,7 @@ extern (C) string Notification_image_Get(Handle);
 extern (C) string Notification_icon_Get(Handle);
 extern (C) string Notification_badge_Get(Handle);
 extern (C) Handle Notification_vibrate_Get(Handle);
-extern (C) ulong Notification_timestamp_Get(Handle);
+extern (C) uint Notification_timestamp_Get(Handle);
 extern (C) bool Notification_renotify_Get(Handle);
 extern (C) bool Notification_silent_Get(Handle);
 extern (C) bool Notification_requireInteraction_Get(Handle);
@@ -361,8 +361,8 @@ extern (C) void NotificationOptions_badge_Set(Handle, string);
 extern (C) string NotificationOptions_badge_Get(Handle);
 extern (C) void NotificationOptions_vibrate_Set(Handle, scope ref VibratePattern);
 extern (C) VibratePattern NotificationOptions_vibrate_Get(Handle);
-extern (C) void NotificationOptions_timestamp_Set(Handle, ulong);
-extern (C) ulong NotificationOptions_timestamp_Get(Handle);
+extern (C) void NotificationOptions_timestamp_Set(Handle, uint);
+extern (C) uint NotificationOptions_timestamp_Get(Handle);
 extern (C) void NotificationOptions_renotify_Set(Handle, bool);
 extern (C) bool NotificationOptions_renotify_Get(Handle);
 extern (C) void NotificationOptions_silent_Set(Handle, bool);

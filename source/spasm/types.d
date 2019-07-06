@@ -57,6 +57,7 @@ struct JsHandle {
   nothrow:
   package Handle handle;
   ~this() {
+    import spasm.types;
     if (handle > 2) {
       spasm_removeObject(handle);
     }
@@ -191,6 +192,9 @@ enum attr;
 struct connect(field...) {};
 struct visible(alias condition) {};
 
+template isTOrPointer(T, Target) {
+  enum isTOrPointer = is(T : Target) || is(T : Target*);
+}
 // TODO: implement others as well
 enum ListenerType {
   click = 0,
@@ -255,7 +259,10 @@ enum EventType {
 }
 
 @safe template as(Target) {
-  static if (hasMember!(Target, "handle")) {
+  static if (__traits(compiles, "Target.init.handle")) {
+    @safe auto as(Source)(scope return ref Source s) {
+      return cast(Target*)&s;
+    }
     @safe auto as(Source)(Source s) if (hasMember!(Source, "handle")){
       Handle h = s.handle;
       s.handle = 0;
@@ -268,6 +275,17 @@ enum EventType {
   }
 }
 
+auto toOpt(T)(return scope ref T item) @trusted {
+  return Optional!(T*)(&item);
+}
+
+auto frontRef(T)(return scope ref T t) @trusted {
+  static if(is(T : Optional!(Base*), Base))
+    return t.front;
+  else
+    return &t.front();
+}
+
 Handle getOrCreateHandle(T)(scope ref T data) {
   static if (isBasicType!T || is(T : string)) {
     mixin("return spasm_add__" ~ T.stringof~ "(data);");
@@ -276,7 +294,7 @@ Handle getOrCreateHandle(T)(scope ref T data) {
       return 0;
     return data.front;
   } else
-    return data;
+    return data.handle;
 }
 
 auto dropHandle(T)(Handle data) {
@@ -370,6 +388,9 @@ struct Int8Array {
   this(Handle h) {
     _array = TypedArray!(byte)(h);
   }
+  static auto create(const byte[] data) {
+    return Int8Array(Int8Array_Create(data));
+  }
 }
 struct Int16Array {
   nothrow:
@@ -386,6 +407,9 @@ struct Int32Array {
   this(Handle h) {
     _array = TypedArray!(int)(h);
   }
+  static auto create(const int[] data) {
+    return Int32Array(Int32Array_Create(data));
+  }
 }
 struct Uint8Array {
   nothrow:
@@ -393,6 +417,9 @@ struct Uint8Array {
 	alias _array this;
   this(Handle h) {
     _array = TypedArray!(ubyte)(h);
+  }
+  static auto create(const ubyte[] data) {
+    return Uint8Array(Uint8Array_Create(data));
   }
 }
 struct Uint16Array {
@@ -418,6 +445,9 @@ struct Float32Array {
   this(Handle h) {
     _array = TypedArray!(float)(h);
   }
+  static auto create(const float[] data) {
+    return Float32Array(Float32Array_Create(data));
+  }
 }
 struct Float64Array {
   nothrow:
@@ -441,6 +471,9 @@ struct DataView {
 	alias handle this;
   this(Handle h) {
     this.handle = JsHandle(h);
+  }
+  static auto create(const ubyte[] data) {
+    return DataView(DataView_Create(data));
   }
 }
 struct ArrayBuffer {
@@ -518,4 +551,10 @@ struct Json {
   }
 }
 
-alias CSSOMString = string;
+extern (C) {
+  Handle Int8Array_Create(const byte[]);
+  Handle Int32Array_Create(const int[]);
+  Handle Uint8Array_Create(const ubyte[]);
+  Handle Float32Array_Create(const float[]);
+  Handle DataView_Create(const ubyte[]);
+}

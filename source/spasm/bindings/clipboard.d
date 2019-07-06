@@ -49,7 +49,7 @@ struct ClipboardEventInit {
   static auto create() {
     return ClipboardEventInit(spasm_add__object());
   }
-  void clipboardData(scope ref Optional!(DataTransfer) clipboardData) {
+  void clipboardData(T0)(scope auto ref Optional!(T0) clipboardData) if (isTOrPointer!(T0, DataTransfer)) {
     ClipboardEventInit_clipboardData_Set(this._parent, !clipboardData.empty, clipboardData.front.handle);
   }
   auto clipboardData() {

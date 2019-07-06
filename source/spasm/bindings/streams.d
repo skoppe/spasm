@@ -53,19 +53,19 @@ struct PipeOptions {
   static auto create() {
     return PipeOptions(spasm_add__object());
   }
-  void preventClose(scope ref Optional!(bool) preventClose) {
+  void preventClose(T0)(scope auto ref Optional!(T0) preventClose) if (isTOrPointer!(T0, bool)) {
     PipeOptions_preventClose_Set(this.handle, !preventClose.empty, preventClose.front);
   }
   auto preventClose() {
     return PipeOptions_preventClose_Get(this.handle);
   }
-  void preventAbort(scope ref Optional!(bool) preventAbort) {
+  void preventAbort(T0)(scope auto ref Optional!(T0) preventAbort) if (isTOrPointer!(T0, bool)) {
     PipeOptions_preventAbort_Set(this.handle, !preventAbort.empty, preventAbort.front);
   }
   auto preventAbort() {
     return PipeOptions_preventAbort_Get(this.handle);
   }
-  void preventCancel(scope ref Optional!(bool) preventCancel) {
+  void preventCancel(T0)(scope auto ref Optional!(T0) preventCancel) if (isTOrPointer!(T0, bool)) {
     PipeOptions_preventCancel_Set(this.handle, !preventCancel.empty, preventCancel.front);
   }
   auto preventCancel() {
@@ -82,13 +82,13 @@ struct QueuingStrategy {
   static auto create() {
     return QueuingStrategy(spasm_add__object());
   }
-  void highWaterMark(scope ref Optional!(double) highWaterMark) {
+  void highWaterMark(T0)(scope auto ref Optional!(T0) highWaterMark) if (isTOrPointer!(T0, double)) {
     QueuingStrategy_highWaterMark_Set(this.handle, !highWaterMark.empty, highWaterMark.front);
   }
   auto highWaterMark() {
     return QueuingStrategy_highWaterMark_Get(this.handle);
   }
-  void size(scope ref Optional!(QueuingStrategySizeCallback) size) {
+  void size(T0)(scope auto ref Optional!(T0) size) if (isTOrPointer!(T0, QueuingStrategySizeCallback)) {
     QueuingStrategy_size_Set(this.handle, !size.empty, size.front);
   }
   auto size() {
@@ -346,19 +346,19 @@ struct Transformer {
   static auto create() {
     return Transformer(spasm_add__object());
   }
-  void start(scope ref Optional!(TransformStreamDefaultControllerCallback) start) {
+  void start(T0)(scope auto ref Optional!(T0) start) if (isTOrPointer!(T0, TransformStreamDefaultControllerCallback)) {
     Transformer_start_Set(this.handle, !start.empty, start.front);
   }
   auto start() {
     return Transformer_start_Get(this.handle);
   }
-  void transform(scope ref Optional!(TransformStreamDefaultControllerTransformCallback) transform) {
+  void transform(T0)(scope auto ref Optional!(T0) transform) if (isTOrPointer!(T0, TransformStreamDefaultControllerTransformCallback)) {
     Transformer_transform_Set(this.handle, !transform.empty, transform.front);
   }
   auto transform() {
     return Transformer_transform_Get(this.handle);
   }
-  void flush(scope ref Optional!(TransformStreamDefaultControllerCallback) flush) {
+  void flush(T0)(scope auto ref Optional!(T0) flush) if (isTOrPointer!(T0, TransformStreamDefaultControllerCallback)) {
     Transformer_flush_Set(this.handle, !flush.empty, flush.front);
   }
   auto flush() {
@@ -391,19 +391,19 @@ struct UnderlyingByteSource {
   static auto create() {
     return UnderlyingByteSource(spasm_add__object());
   }
-  void start(scope ref Optional!(ReadableByteStreamControllerCallback) start) {
+  void start(T0)(scope auto ref Optional!(T0) start) if (isTOrPointer!(T0, ReadableByteStreamControllerCallback)) {
     UnderlyingByteSource_start_Set(this.handle, !start.empty, start.front);
   }
   auto start() {
     return UnderlyingByteSource_start_Get(this.handle);
   }
-  void pull(scope ref Optional!(ReadableByteStreamControllerCallback) pull) {
+  void pull(T0)(scope auto ref Optional!(T0) pull) if (isTOrPointer!(T0, ReadableByteStreamControllerCallback)) {
     UnderlyingByteSource_pull_Set(this.handle, !pull.empty, pull.front);
   }
   auto pull() {
     return UnderlyingByteSource_pull_Get(this.handle);
   }
-  void cancel(scope ref Optional!(ReadableStreamErrorCallback) cancel) {
+  void cancel(T0)(scope auto ref Optional!(T0) cancel) if (isTOrPointer!(T0, ReadableStreamErrorCallback)) {
     UnderlyingByteSource_cancel_Set(this.handle, !cancel.empty, cancel.front);
   }
   auto cancel() {
@@ -415,7 +415,7 @@ struct UnderlyingByteSource {
   auto type() {
     return UnderlyingByteSource_type_Get(this.handle);
   }
-  void autoAllocateChunkSize(scope ref Optional!(uint) autoAllocateChunkSize) {
+  void autoAllocateChunkSize(T0)(scope auto ref Optional!(T0) autoAllocateChunkSize) if (isTOrPointer!(T0, uint)) {
     UnderlyingByteSource_autoAllocateChunkSize_Set(this.handle, !autoAllocateChunkSize.empty, autoAllocateChunkSize.front);
   }
   auto autoAllocateChunkSize() {
@@ -432,25 +432,25 @@ struct UnderlyingSink {
   static auto create() {
     return UnderlyingSink(spasm_add__object());
   }
-  void start(scope ref Optional!(WritableStreamDefaultControllerStartCallback) start) {
+  void start(T0)(scope auto ref Optional!(T0) start) if (isTOrPointer!(T0, WritableStreamDefaultControllerStartCallback)) {
     UnderlyingSink_start_Set(this.handle, !start.empty, start.front);
   }
   auto start() {
     return UnderlyingSink_start_Get(this.handle);
   }
-  void write(scope ref Optional!(WritableStreamDefaultControllerWriteCallback) write) {
+  void write(T0)(scope auto ref Optional!(T0) write) if (isTOrPointer!(T0, WritableStreamDefaultControllerWriteCallback)) {
     UnderlyingSink_write_Set(this.handle, !write.empty, write.front);
   }
   auto write() {
     return UnderlyingSink_write_Get(this.handle);
   }
-  void close(scope ref Optional!(WritableStreamDefaultControllerCloseCallback) close) {
+  void close(T0)(scope auto ref Optional!(T0) close) if (isTOrPointer!(T0, WritableStreamDefaultControllerCloseCallback)) {
     UnderlyingSink_close_Set(this.handle, !close.empty, close.front);
   }
   auto close() {
     return UnderlyingSink_close_Get(this.handle);
   }
-  void abort(scope ref Optional!(WritableStreamErrorCallback) abort) {
+  void abort(T0)(scope auto ref Optional!(T0) abort) if (isTOrPointer!(T0, WritableStreamErrorCallback)) {
     UnderlyingSink_abort_Set(this.handle, !abort.empty, abort.front);
   }
   auto abort() {
@@ -475,19 +475,19 @@ struct UnderlyingSource {
   static auto create() {
     return UnderlyingSource(spasm_add__object());
   }
-  void start(scope ref Optional!(ReadableStreamDefaultControllerCallback) start) {
+  void start(T0)(scope auto ref Optional!(T0) start) if (isTOrPointer!(T0, ReadableStreamDefaultControllerCallback)) {
     UnderlyingSource_start_Set(this.handle, !start.empty, start.front);
   }
   auto start() {
     return UnderlyingSource_start_Get(this.handle);
   }
-  void pull(scope ref Optional!(ReadableStreamDefaultControllerCallback) pull) {
+  void pull(T0)(scope auto ref Optional!(T0) pull) if (isTOrPointer!(T0, ReadableStreamDefaultControllerCallback)) {
     UnderlyingSource_pull_Set(this.handle, !pull.empty, pull.front);
   }
   auto pull() {
     return UnderlyingSource_pull_Get(this.handle);
   }
-  void cancel(scope ref Optional!(ReadableStreamErrorCallback) cancel) {
+  void cancel(T0)(scope auto ref Optional!(T0) cancel) if (isTOrPointer!(T0, ReadableStreamErrorCallback)) {
     UnderlyingSource_cancel_Set(this.handle, !cancel.empty, cancel.front);
   }
   auto cancel() {

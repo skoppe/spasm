@@ -81,13 +81,13 @@ struct ProgressEventInit {
   auto lengthComputable() {
     return ProgressEventInit_lengthComputable_Get(this._parent);
   }
-  void loaded(ulong loaded) {
+  void loaded(uint loaded) {
     ProgressEventInit_loaded_Set(this._parent, loaded);
   }
   auto loaded() {
     return ProgressEventInit_loaded_Get(this._parent);
   }
-  void total(ulong total) {
+  void total(uint total) {
     ProgressEventInit_total_Set(this._parent, total);
   }
   auto total() {
@@ -118,10 +118,10 @@ struct XMLHttpRequest {
   void open(string method, string url) {
     XMLHttpRequest_open__string_string(this._parent, method, url);
   }
-  void open(string method, string url, bool async, scope ref Optional!(string) username /* = no!(string) */, scope ref Optional!(string) password /* = no!(string) */) {
+  void open(T3, T4)(string method, string url, bool async, scope auto ref Optional!(T3) username /* = no!(string) */, scope auto ref Optional!(T4) password /* = no!(string) */) if (isTOrPointer!(T3, string) && isTOrPointer!(T4, string)) {
     XMLHttpRequest_open__string_string_bool_optional_string_optional_string(this._parent, method, url, async, !username.empty, username.front, !password.empty, password.front);
   }
-  void open(string method, string url, bool async, scope ref Optional!(string) username /* = no!(string) */) {
+  void open(T3)(string method, string url, bool async, scope auto ref Optional!(T3) username /* = no!(string) */) if (isTOrPointer!(T3, string)) {
     XMLHttpRequest_open_0(this._parent, method, url, async, !username.empty, username.front);
   }
   void open(string method, string url, bool async) {
@@ -145,8 +145,8 @@ struct XMLHttpRequest {
   auto upload() {
     return XMLHttpRequestUpload(XMLHttpRequest_upload_Get(this._parent));
   }
-  void send(scope ref Optional!(SumType!(Document, BodyInit)) body_ /* = no!(SumType!(Document, BodyInit)) */) {
-    XMLHttpRequest_send(this._parent, !body_.empty, body_.front);
+  void send(T0)(scope auto ref Optional!(T0) body_ /* = no!(SumType!(Document, BodyInit)) */) if (isTOrPointer!(T0, SumType!(Document, BodyInit))) {
+    XMLHttpRequest_send(this._parent, !body_.empty, *body_.frontRef);
   }
   void send() {
     XMLHttpRequest_send_0(this._parent);
@@ -267,14 +267,14 @@ extern (C) void FormData_set__string_string(Handle, string, string);
 extern (C) void FormData_set__string_Handle_string(Handle, string, Handle, string);
 extern (C) void FormData_set_0(Handle, string, Handle);
 extern (C) bool ProgressEvent_lengthComputable_Get(Handle);
-extern (C) ulong ProgressEvent_loaded_Get(Handle);
-extern (C) ulong ProgressEvent_total_Get(Handle);
+extern (C) uint ProgressEvent_loaded_Get(Handle);
+extern (C) uint ProgressEvent_total_Get(Handle);
 extern (C) void ProgressEventInit_lengthComputable_Set(Handle, bool);
 extern (C) bool ProgressEventInit_lengthComputable_Get(Handle);
-extern (C) void ProgressEventInit_loaded_Set(Handle, ulong);
-extern (C) ulong ProgressEventInit_loaded_Get(Handle);
-extern (C) void ProgressEventInit_total_Set(Handle, ulong);
-extern (C) ulong ProgressEventInit_total_Get(Handle);
+extern (C) void ProgressEventInit_loaded_Set(Handle, uint);
+extern (C) uint ProgressEventInit_loaded_Get(Handle);
+extern (C) void ProgressEventInit_total_Set(Handle, uint);
+extern (C) uint ProgressEventInit_total_Get(Handle);
 extern (C) void XMLHttpRequest_onreadystatechange_Set(Handle, EventHandler);
 extern (C) EventHandler XMLHttpRequest_onreadystatechange_Get(Handle);
 extern (C) ushort XMLHttpRequest_readyState_Get(Handle);

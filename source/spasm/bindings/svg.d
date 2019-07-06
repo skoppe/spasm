@@ -576,7 +576,7 @@ struct SVGElement {
   auto onended() {
     return GlobalEventHandlers_onended_Get(this._parent);
   }
-  void onerror(scope ref OnErrorEventHandler onerror) {
+  void onerror(T0)(scope auto ref Optional!(T0) onerror) if (isTOrPointer!(T0, OnErrorEventHandler)) {
     GlobalEventHandlers_onerror_Set(this._parent, !onerror.empty, onerror.front);
   }
   auto onerror() {
@@ -1098,7 +1098,7 @@ struct SVGImageElement {
   auto preserveAspectRatio() {
     return SVGAnimatedPreserveAspectRatio(SVGImageElement_preserveAspectRatio_Get(this._parent));
   }
-  void crossOrigin(scope ref Optional!(string) crossOrigin) {
+  void crossOrigin(T0)(scope auto ref Optional!(T0) crossOrigin) if (isTOrPointer!(T0, string)) {
     SVGImageElement_crossOrigin_Set(this._parent, !crossOrigin.empty, crossOrigin.front);
   }
   auto crossOrigin() {
@@ -1580,10 +1580,10 @@ struct SVGSVGElement {
   auto currentTranslate() {
     return DOMPointReadOnly(SVGSVGElement_currentTranslate_Get(this._parent));
   }
-  auto getIntersectionList(scope ref DOMRectReadOnly rect, scope ref Optional!(SVGElement) referenceElement) {
+  auto getIntersectionList(T1)(scope ref DOMRectReadOnly rect, scope auto ref Optional!(T1) referenceElement) if (isTOrPointer!(T1, SVGElement)) {
     return NodeList(SVGSVGElement_getIntersectionList(this._parent, rect.handle, !referenceElement.empty, referenceElement.front._parent));
   }
-  auto getEnclosureList(scope ref DOMRectReadOnly rect, scope ref Optional!(SVGElement) referenceElement) {
+  auto getEnclosureList(T1)(scope ref DOMRectReadOnly rect, scope auto ref Optional!(T1) referenceElement) if (isTOrPointer!(T1, SVGElement)) {
     return NodeList(SVGSVGElement_getEnclosureList(this._parent, rect.handle, !referenceElement.empty, referenceElement.front._parent));
   }
   auto checkIntersection(scope ref SVGElement element, scope ref DOMRectReadOnly rect) {
@@ -1661,7 +1661,7 @@ struct SVGSVGElement {
   auto onbeforeprint() {
     return WindowEventHandlers_onbeforeprint_Get(this._parent);
   }
-  void onbeforeunload(scope ref OnBeforeUnloadEventHandler onbeforeunload) {
+  void onbeforeunload(T0)(scope auto ref Optional!(T0) onbeforeunload) if (isTOrPointer!(T0, OnBeforeUnloadEventHandler)) {
     WindowEventHandlers_onbeforeunload_Set(this._parent, !onbeforeunload.empty, onbeforeunload.front);
   }
   auto onbeforeunload() {
@@ -1759,7 +1759,7 @@ struct SVGScriptElement {
   auto type() {
     return SVGScriptElement_type_Get(this._parent);
   }
-  void crossOrigin(scope ref Optional!(string) crossOrigin) {
+  void crossOrigin(T0)(scope auto ref Optional!(T0) crossOrigin) if (isTOrPointer!(T0, string)) {
     SVGScriptElement_crossOrigin_Set(this._parent, !crossOrigin.empty, crossOrigin.front);
   }
   auto crossOrigin() {

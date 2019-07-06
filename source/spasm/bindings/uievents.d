@@ -151,7 +151,7 @@ struct FocusEventInit {
   static auto create() {
     return FocusEventInit(spasm_add__object());
   }
-  void relatedTarget(scope ref Optional!(EventTarget) relatedTarget) {
+  void relatedTarget(T0)(scope auto ref Optional!(T0) relatedTarget) if (isTOrPointer!(T0, EventTarget)) {
     FocusEventInit_relatedTarget_Set(this._parent, !relatedTarget.empty, relatedTarget.front.handle);
   }
   auto relatedTarget() {
@@ -185,7 +185,7 @@ struct InputEventInit {
   static auto create() {
     return InputEventInit(spasm_add__object());
   }
-  void data(scope ref Optional!(string) data) {
+  void data(T0)(scope auto ref Optional!(T0) data) if (isTOrPointer!(T0, string)) {
     InputEventInit_data_Set(this._parent, !data.empty, data.front);
   }
   auto data() {
@@ -401,7 +401,7 @@ struct MouseEventInit {
   auto buttons() {
     return MouseEventInit_buttons_Get(this._parent);
   }
-  void relatedTarget(scope ref Optional!(EventTarget) relatedTarget) {
+  void relatedTarget(T0)(scope auto ref Optional!(T0) relatedTarget) if (isTOrPointer!(T0, EventTarget)) {
     MouseEventInit_relatedTarget_Set(this._parent, !relatedTarget.empty, relatedTarget.front.handle);
   }
   auto relatedTarget() {
@@ -435,7 +435,7 @@ struct UIEventInit {
   static auto create() {
     return UIEventInit(spasm_add__object());
   }
-  void view(scope ref Optional!(Window) view) {
+  void view(T0)(scope auto ref Optional!(T0) view) if (isTOrPointer!(T0, Window)) {
     UIEventInit_view_Set(this._parent, !view.empty, view.front._parent);
   }
   auto view() {

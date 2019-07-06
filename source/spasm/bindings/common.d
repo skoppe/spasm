@@ -48,7 +48,7 @@ struct DOMException {
   enum ushort INVALID_NODE_TYPE_ERR = 24;
   enum ushort DATA_CLONE_ERR = 25;
 }
-alias DOMTimeStamp = ulong;
+alias DOMTimeStamp = uint;
 alias Function = Any delegate(Any);
 alias VoidFunction = void delegate();
 

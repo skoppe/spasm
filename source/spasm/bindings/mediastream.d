@@ -912,7 +912,7 @@ struct OverconstrainedErrorEventInit {
   static auto create() {
     return OverconstrainedErrorEventInit(spasm_add__object());
   }
-  void error(scope ref Optional!(OverconstrainedError) error) {
+  void error(T0)(scope auto ref Optional!(T0) error) if (isTOrPointer!(T0, OverconstrainedError)) {
     OverconstrainedErrorEventInit_error_Set(this._parent, !error.empty, error.front.handle);
   }
   auto error() {

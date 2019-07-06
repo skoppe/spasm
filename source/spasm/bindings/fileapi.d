@@ -21,13 +21,13 @@ struct Blob {
   auto type() {
     return Blob_type_Get(this.handle);
   }
-  auto slice(long start, long end, string contentType) {
+  auto slice(int start, int end, string contentType) {
     return Blob(Blob_slice(this.handle, start, end, contentType));
   }
-  auto slice(long start, long end) {
+  auto slice(int start, int end) {
     return Blob(Blob_slice_0(this.handle, start, end));
   }
-  auto slice(long start) {
+  auto slice(int start) {
     return Blob(Blob_slice_1(this.handle, start));
   }
   auto slice() {
@@ -100,7 +100,7 @@ struct FilePropertyBag {
   static auto create() {
     return FilePropertyBag(spasm_add__object());
   }
-  void lastModified(long lastModified) {
+  void lastModified(int lastModified) {
     FilePropertyBag_lastModified_Set(this._parent, lastModified);
   }
   auto lastModified() {
@@ -206,22 +206,22 @@ struct FileReaderSync {
 }
 
 
-extern (C) ulong Blob_size_Get(Handle);
+extern (C) uint Blob_size_Get(Handle);
 extern (C) string Blob_type_Get(Handle);
-extern (C) Handle Blob_slice(Handle, long, long, string);
-extern (C) Handle Blob_slice_0(Handle, long, long);
-extern (C) Handle Blob_slice_1(Handle, long);
+extern (C) Handle Blob_slice(Handle, int, int, string);
+extern (C) Handle Blob_slice_0(Handle, int, int);
+extern (C) Handle Blob_slice_1(Handle, int);
 extern (C) Handle Blob_slice_2(Handle);
 extern (C) void BlobPropertyBag_type_Set(Handle, string);
 extern (C) string BlobPropertyBag_type_Get(Handle);
 extern (C) void BlobPropertyBag_endings_Set(Handle, EndingType);
 extern (C) EndingType BlobPropertyBag_endings_Get(Handle);
 extern (C) string File_name_Get(Handle);
-extern (C) long File_lastModified_Get(Handle);
+extern (C) int File_lastModified_Get(Handle);
 extern (C) Optional!(File) FileList_item_getter(Handle, uint);
 extern (C) uint FileList_length_Get(Handle);
-extern (C) void FilePropertyBag_lastModified_Set(Handle, long);
-extern (C) long FilePropertyBag_lastModified_Get(Handle);
+extern (C) void FilePropertyBag_lastModified_Set(Handle, int);
+extern (C) int FilePropertyBag_lastModified_Get(Handle);
 extern (C) void FileReader_readAsArrayBuffer(Handle, Handle);
 extern (C) void FileReader_readAsBinaryString(Handle, Handle);
 extern (C) void FileReader_readAsText(Handle, Handle, string);

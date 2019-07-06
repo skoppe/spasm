@@ -269,8 +269,8 @@ struct ExtendableMessageEventInit {
   auto lastEventId() {
     return ExtendableMessageEventInit_lastEventId_Get(this._parent);
   }
-  void source(scope ref Optional!(SumType!(Client, ServiceWorker, MessagePort)) source) {
-    ExtendableMessageEventInit_source_Set(this._parent, !source.empty, source.front);
+  void source(T0)(scope auto ref Optional!(T0) source) if (isTOrPointer!(T0, SumType!(Client, ServiceWorker, MessagePort))) {
+    ExtendableMessageEventInit_source_Set(this._parent, !source.empty, *source.frontRef);
   }
   auto source() {
     return ExtendableMessageEventInit_source_Get(this._parent);

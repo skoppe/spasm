@@ -825,7 +825,7 @@ struct DataTransferItem {
   auto type() {
     return DataTransferItem_type_Get(this.handle);
   }
-  void getAsString(scope ref Optional!(FunctionStringCallback) _callback) {
+  void getAsString(T0)(scope auto ref Optional!(T0) _callback) if (isTOrPointer!(T0, FunctionStringCallback)) {
     DataTransferItem_getAsString(this.handle, !_callback.empty, _callback.front);
   }
   auto getAsFile() {
@@ -934,7 +934,7 @@ struct DragEventInit {
   static auto create() {
     return DragEventInit(spasm_add__object());
   }
-  void dataTransfer(scope ref Optional!(DataTransfer) dataTransfer) {
+  void dataTransfer(T0)(scope auto ref Optional!(T0) dataTransfer) if (isTOrPointer!(T0, DataTransfer)) {
     DragEventInit_dataTransfer_Set(this._parent, !dataTransfer.empty, dataTransfer.front.handle);
   }
   auto dataTransfer() {
@@ -1526,7 +1526,7 @@ struct HTMLBodyElement {
   auto onbeforeprint() {
     return WindowEventHandlers_onbeforeprint_Get(this._parent);
   }
-  void onbeforeunload(scope ref OnBeforeUnloadEventHandler onbeforeunload) {
+  void onbeforeunload(T0)(scope auto ref Optional!(T0) onbeforeunload) if (isTOrPointer!(T0, OnBeforeUnloadEventHandler)) {
     WindowEventHandlers_onbeforeunload_Set(this._parent, !onbeforeunload.empty, onbeforeunload.front);
   }
   auto onbeforeunload() {
@@ -2160,7 +2160,7 @@ struct HTMLElement {
   auto onended() {
     return GlobalEventHandlers_onended_Get(this._parent);
   }
-  void onerror(scope ref OnErrorEventHandler onerror) {
+  void onerror(T0)(scope auto ref Optional!(T0) onerror) if (isTOrPointer!(T0, OnErrorEventHandler)) {
     GlobalEventHandlers_onerror_Set(this._parent, !onerror.empty, onerror.front);
   }
   auto onerror() {
@@ -2798,7 +2798,7 @@ struct HTMLFrameSetElement {
   auto onbeforeprint() {
     return WindowEventHandlers_onbeforeprint_Get(this._parent);
   }
-  void onbeforeunload(scope ref OnBeforeUnloadEventHandler onbeforeunload) {
+  void onbeforeunload(T0)(scope auto ref Optional!(T0) onbeforeunload) if (isTOrPointer!(T0, OnBeforeUnloadEventHandler)) {
     WindowEventHandlers_onbeforeunload_Set(this._parent, !onbeforeunload.empty, onbeforeunload.front);
   }
   auto onbeforeunload() {
@@ -3098,7 +3098,7 @@ struct HTMLImageElement {
   auto sizes() {
     return HTMLImageElement_sizes_Get(this._parent);
   }
-  void crossOrigin(scope ref Optional!(string) crossOrigin) {
+  void crossOrigin(T0)(scope auto ref Optional!(T0) crossOrigin) if (isTOrPointer!(T0, string)) {
     HTMLImageElement_crossOrigin_Set(this._parent, !crossOrigin.empty, crossOrigin.front);
   }
   auto crossOrigin() {
@@ -3262,7 +3262,7 @@ struct HTMLInputElement {
   auto form() {
     return HTMLInputElement_form_Get(this._parent);
   }
-  void files(scope ref Optional!(FileList) files) {
+  void files(T0)(scope auto ref Optional!(T0) files) if (isTOrPointer!(T0, FileList)) {
     HTMLInputElement_files_Set(this._parent, !files.empty, files.front.handle);
   }
   auto files() {
@@ -3409,7 +3409,7 @@ struct HTMLInputElement {
   auto value() {
     return HTMLInputElement_value_Get(this._parent);
   }
-  void valueAsDate(scope ref Optional!(JsObject) valueAsDate) {
+  void valueAsDate(T0)(scope auto ref Optional!(T0) valueAsDate) if (isTOrPointer!(T0, JsObject)) {
     HTMLInputElement_valueAsDate_Set(this._parent, !valueAsDate.empty, valueAsDate.front.handle);
   }
   auto valueAsDate() {
@@ -3463,19 +3463,19 @@ struct HTMLInputElement {
   void select() {
     HTMLInputElement_select(this._parent);
   }
-  void selectionStart(scope ref Optional!(uint) selectionStart) {
+  void selectionStart(T0)(scope auto ref Optional!(T0) selectionStart) if (isTOrPointer!(T0, uint)) {
     HTMLInputElement_selectionStart_Set(this._parent, !selectionStart.empty, selectionStart.front);
   }
   auto selectionStart() {
     return HTMLInputElement_selectionStart_Get(this._parent);
   }
-  void selectionEnd(scope ref Optional!(uint) selectionEnd) {
+  void selectionEnd(T0)(scope auto ref Optional!(T0) selectionEnd) if (isTOrPointer!(T0, uint)) {
     HTMLInputElement_selectionEnd_Set(this._parent, !selectionEnd.empty, selectionEnd.front);
   }
   auto selectionEnd() {
     return HTMLInputElement_selectionEnd_Get(this._parent);
   }
-  void selectionDirection(scope ref Optional!(string) selectionDirection) {
+  void selectionDirection(T0)(scope auto ref Optional!(T0) selectionDirection) if (isTOrPointer!(T0, string)) {
     HTMLInputElement_selectionDirection_Set(this._parent, !selectionDirection.empty, selectionDirection.front);
   }
   auto selectionDirection() {
@@ -3579,7 +3579,7 @@ struct HTMLLinkElement {
   auto href() {
     return HTMLLinkElement_href_Get(this._parent);
   }
-  void crossOrigin(scope ref Optional!(string) crossOrigin) {
+  void crossOrigin(T0)(scope auto ref Optional!(T0) crossOrigin) if (isTOrPointer!(T0, string)) {
     HTMLLinkElement_crossOrigin_Set(this._parent, !crossOrigin.empty, crossOrigin.front);
   }
   auto crossOrigin() {
@@ -3783,8 +3783,8 @@ struct HTMLMediaElement {
   auto src() {
     return HTMLMediaElement_src_Get(this._parent);
   }
-  void srcObject(scope ref Optional!(MediaProvider) srcObject) {
-    HTMLMediaElement_srcObject_Set(this._parent, !srcObject.empty, srcObject.front);
+  void srcObject(T0)(scope auto ref Optional!(T0) srcObject) if (isTOrPointer!(T0, MediaProvider)) {
+    HTMLMediaElement_srcObject_Set(this._parent, !srcObject.empty, *srcObject.frontRef);
   }
   auto srcObject() {
     return HTMLMediaElement_srcObject_Get(this._parent);
@@ -3792,7 +3792,7 @@ struct HTMLMediaElement {
   auto currentSrc() {
     return HTMLMediaElement_currentSrc_Get(this._parent);
   }
-  void crossOrigin(scope ref Optional!(string) crossOrigin) {
+  void crossOrigin(T0)(scope auto ref Optional!(T0) crossOrigin) if (isTOrPointer!(T0, string)) {
     HTMLMediaElement_crossOrigin_Set(this._parent, !crossOrigin.empty, crossOrigin.front);
   }
   auto crossOrigin() {
@@ -4299,14 +4299,14 @@ struct HTMLOptionsCollection {
   auto length() {
     return HTMLOptionsCollection_length_Get(this._parent);
   }
-  void opIndexAssign(scope ref Optional!(HTMLOptionElement) option, uint index) {
+  void opIndexAssign(T1)(scope auto ref Optional!(T0) option, uint index) if (isTOrPointer!(T1, HTMLOptionElement)) {
     HTMLOptionsCollection_setter__uint_optional_Handle(this._parent, index, !option.empty, option.front._parent);
   }
-  void opDispatch(uint index)(scope ref Optional!(HTMLOptionElement) option) {
+  void opDispatch(uint index)(scope auto ref Optional!(T0) option) if (isTOrPointer!(T1, HTMLOptionElement)) {
     HTMLOptionsCollection_setter__uint_optional_Handle(this._parent, index, !option.empty, option.front._parent);
   }
-  void add(scope ref SumType!(HTMLOptionElement, HTMLOptGroupElement) element, scope ref Optional!(SumType!(HTMLElement, int)) before /* = no!(SumType!(HTMLElement, int)) */) {
-    HTMLOptionsCollection_add(this._parent, element, !before.empty, before.front);
+  void add(T1)(scope ref SumType!(HTMLOptionElement, HTMLOptGroupElement) element, scope auto ref Optional!(T1) before /* = no!(SumType!(HTMLElement, int)) */) if (isTOrPointer!(T1, SumType!(HTMLElement, int))) {
+    HTMLOptionsCollection_add(this._parent, element, !before.empty, *before.frontRef);
   }
   void add(scope ref SumType!(HTMLOptionElement, HTMLOptGroupElement) element) {
     HTMLOptionsCollection_add_0(this._parent, element);
@@ -4524,7 +4524,7 @@ struct HTMLScriptElement {
   auto defer() {
     return HTMLScriptElement_defer_Get(this._parent);
   }
-  void crossOrigin(scope ref Optional!(string) crossOrigin) {
+  void crossOrigin(T0)(scope auto ref Optional!(T0) crossOrigin) if (isTOrPointer!(T0, string)) {
     HTMLScriptElement_crossOrigin_Set(this._parent, !crossOrigin.empty, crossOrigin.front);
   }
   auto crossOrigin() {
@@ -4637,8 +4637,8 @@ struct HTMLSelectElement {
   auto namedItem(string name) {
     return HTMLSelectElement_namedItem(this._parent, name);
   }
-  void add(scope ref SumType!(HTMLOptionElement, HTMLOptGroupElement) element, scope ref Optional!(SumType!(HTMLElement, int)) before /* = no!(SumType!(HTMLElement, int)) */) {
-    HTMLSelectElement_add(this._parent, element, !before.empty, before.front);
+  void add(T1)(scope ref SumType!(HTMLOptionElement, HTMLOptGroupElement) element, scope auto ref Optional!(T1) before /* = no!(SumType!(HTMLElement, int)) */) if (isTOrPointer!(T1, SumType!(HTMLElement, int))) {
+    HTMLSelectElement_add(this._parent, element, !before.empty, *before.frontRef);
   }
   void add(scope ref SumType!(HTMLOptionElement, HTMLOptGroupElement) element) {
     HTMLSelectElement_add_0(this._parent, element);
@@ -4649,10 +4649,10 @@ struct HTMLSelectElement {
   void remove(int index) {
     HTMLSelectElement_remove__int(this._parent, index);
   }
-  void opIndexAssign(scope ref Optional!(HTMLOptionElement) option, uint index) {
+  void opIndexAssign(T1)(scope auto ref Optional!(T0) option, uint index) if (isTOrPointer!(T1, HTMLOptionElement)) {
     HTMLSelectElement_setter__uint_optional_Handle(this._parent, index, !option.empty, option.front._parent);
   }
-  void opDispatch(uint index)(scope ref Optional!(HTMLOptionElement) option) {
+  void opDispatch(uint index)(scope auto ref Optional!(T0) option) if (isTOrPointer!(T1, HTMLOptionElement)) {
     HTMLSelectElement_setter__uint_optional_Handle(this._parent, index, !option.empty, option.front._parent);
   }
   auto selectedOptions() {
@@ -4944,7 +4944,7 @@ struct HTMLTableElement {
   this(Handle h) {
     _parent = .HTMLElement(h);
   }
-  void caption(scope ref Optional!(HTMLTableCaptionElement) caption) {
+  void caption(T0)(scope auto ref Optional!(T0) caption) if (isTOrPointer!(T0, HTMLTableCaptionElement)) {
     HTMLTableElement_caption_Set(this._parent, !caption.empty, caption.front.handle);
   }
   auto caption() {
@@ -4956,7 +4956,7 @@ struct HTMLTableElement {
   void deleteCaption() {
     HTMLTableElement_deleteCaption(this._parent);
   }
-  void tHead(scope ref Optional!(HTMLTableSectionElement) tHead) {
+  void tHead(T0)(scope auto ref Optional!(T0) tHead) if (isTOrPointer!(T0, HTMLTableSectionElement)) {
     HTMLTableElement_tHead_Set(this._parent, !tHead.empty, tHead.front.handle);
   }
   auto tHead() {
@@ -4968,7 +4968,7 @@ struct HTMLTableElement {
   void deleteTHead() {
     HTMLTableElement_deleteTHead(this._parent);
   }
-  void tFoot(scope ref Optional!(HTMLTableSectionElement) tFoot) {
+  void tFoot(T0)(scope auto ref Optional!(T0) tFoot) if (isTOrPointer!(T0, HTMLTableSectionElement)) {
     HTMLTableElement_tFoot_Set(this._parent, !tFoot.empty, tFoot.front.handle);
   }
   auto tFoot() {
@@ -5538,7 +5538,7 @@ struct History {
   void forward() {
     History_forward(this.handle);
   }
-  void pushState(T0)(scope auto ref T0 data, string title, scope ref Optional!(string) url /* = no!(string) */) {
+  void pushState(T0, T2)(scope auto ref T0 data, string title, scope auto ref Optional!(T2) url /* = no!(string) */) if (isTOrPointer!(T2, string)) {
     Handle _handle_data = getOrCreateHandle(data);
     History_pushState(this.handle, _handle_data, title, !url.empty, url.front);
     dropHandle!(T0)(_handle_data);
@@ -5548,7 +5548,7 @@ struct History {
     History_pushState_0(this.handle, _handle_data, title);
     dropHandle!(T0)(_handle_data);
   }
-  void replaceState(T0)(scope auto ref T0 data, string title, scope ref Optional!(string) url /* = no!(string) */) {
+  void replaceState(T0, T2)(scope auto ref T0 data, string title, scope auto ref Optional!(T2) url /* = no!(string) */) if (isTOrPointer!(T2, string)) {
     Handle _handle_data = getOrCreateHandle(data);
     History_replaceState(this.handle, _handle_data, title, !url.empty, url.front);
     dropHandle!(T0)(_handle_data);
@@ -5633,7 +5633,7 @@ struct ImageBitmapRenderingContext {
   auto canvas() {
     return HTMLCanvasElement(ImageBitmapRenderingContext_canvas_Get(this.handle));
   }
-  void transferFromImageBitmap(scope ref Optional!(ImageBitmap) bitmap) {
+  void transferFromImageBitmap(T0)(scope auto ref Optional!(T0) bitmap) if (isTOrPointer!(T0, ImageBitmap)) {
     ImageBitmapRenderingContext_transferFromImageBitmap(this.handle, !bitmap.empty, bitmap.front.handle);
   }
 }
@@ -5830,14 +5830,14 @@ struct MessageEvent {
   auto ports() {
     return FrozenArray!(MessagePort)(MessageEvent_ports_Get(this._parent));
   }
-  void initMessageEvent(T3)(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope auto ref T3 data /* = null */, string origin /* = "" */, string lastEventId /* = "" */, scope ref Optional!(MessageEventSource) source /* = no!(MessageEventSource) */, scope ref Sequence!(MessagePort) ports /* = [] */) {
+  void initMessageEvent(T3, T6)(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope auto ref T3 data /* = null */, string origin /* = "" */, string lastEventId /* = "" */, scope auto ref Optional!(T6) source /* = no!(MessageEventSource) */, scope ref Sequence!(MessagePort) ports /* = [] */) if (isTOrPointer!(T6, MessageEventSource)) {
     Handle _handle_data = getOrCreateHandle(data);
-    MessageEvent_initMessageEvent(this._parent, type, bubbles, cancelable, _handle_data, origin, lastEventId, !source.empty, source.front, ports.handle);
+    MessageEvent_initMessageEvent(this._parent, type, bubbles, cancelable, _handle_data, origin, lastEventId, !source.empty, *source.frontRef, ports.handle);
     dropHandle!(T3)(_handle_data);
   }
-  void initMessageEvent(T3)(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope auto ref T3 data /* = null */, string origin /* = "" */, string lastEventId /* = "" */, scope ref Optional!(MessageEventSource) source /* = no!(MessageEventSource) */) {
+  void initMessageEvent(T3, T6)(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope auto ref T3 data /* = null */, string origin /* = "" */, string lastEventId /* = "" */, scope auto ref Optional!(T6) source /* = no!(MessageEventSource) */) if (isTOrPointer!(T6, MessageEventSource)) {
     Handle _handle_data = getOrCreateHandle(data);
-    MessageEvent_initMessageEvent_0(this._parent, type, bubbles, cancelable, _handle_data, origin, lastEventId, !source.empty, source.front);
+    MessageEvent_initMessageEvent_0(this._parent, type, bubbles, cancelable, _handle_data, origin, lastEventId, !source.empty, *source.frontRef);
     dropHandle!(T3)(_handle_data);
   }
   void initMessageEvent(T3)(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope auto ref T3 data /* = null */, string origin /* = "" */, string lastEventId /* = "" */) {
@@ -5895,8 +5895,8 @@ struct MessageEventInit {
   auto lastEventId() {
     return MessageEventInit_lastEventId_Get(this._parent);
   }
-  void source(scope ref Optional!(MessageEventSource) source) {
-    MessageEventInit_source_Set(this._parent, !source.empty, source.front);
+  void source(T0)(scope auto ref Optional!(T0) source) if (isTOrPointer!(T0, MessageEventSource)) {
+    MessageEventInit_source_Set(this._parent, !source.empty, *source.frontRef);
   }
   auto source() {
     return MessageEventInit_source_Get(this._parent);
@@ -6086,13 +6086,13 @@ struct OffscreenCanvas {
   this(Handle h) {
     _parent = .EventTarget(h);
   }
-  void width(ulong width) {
+  void width(uint width) {
     OffscreenCanvas_width_Set(this._parent, width);
   }
   auto width() {
     return OffscreenCanvas_width_Get(this._parent);
   }
-  void height(ulong height) {
+  void height(uint height) {
     OffscreenCanvas_height_Set(this._parent, height);
   }
   auto height() {
@@ -6781,19 +6781,19 @@ struct StorageEvent {
   auto storageArea() {
     return StorageEvent_storageArea_Get(this._parent);
   }
-  void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope ref Optional!(string) key /* = no!(string) */, scope ref Optional!(string) oldValue /* = no!(string) */, scope ref Optional!(string) newValue /* = no!(string) */, string url /* = "" */, scope ref Optional!(Storage) storageArea /* = no!(Storage) */) {
+  void initStorageEvent(T3, T4, T5, T7)(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope auto ref Optional!(T3) key /* = no!(string) */, scope auto ref Optional!(T4) oldValue /* = no!(string) */, scope auto ref Optional!(T5) newValue /* = no!(string) */, string url /* = "" */, scope auto ref Optional!(T7) storageArea /* = no!(Storage) */) if (isTOrPointer!(T3, string) && isTOrPointer!(T4, string) && isTOrPointer!(T5, string) && isTOrPointer!(T7, Storage)) {
     StorageEvent_initStorageEvent(this._parent, type, bubbles, cancelable, !key.empty, key.front, !oldValue.empty, oldValue.front, !newValue.empty, newValue.front, url, !storageArea.empty, storageArea.front.handle);
   }
-  void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope ref Optional!(string) key /* = no!(string) */, scope ref Optional!(string) oldValue /* = no!(string) */, scope ref Optional!(string) newValue /* = no!(string) */, string url /* = "" */) {
+  void initStorageEvent(T3, T4, T5)(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope auto ref Optional!(T3) key /* = no!(string) */, scope auto ref Optional!(T4) oldValue /* = no!(string) */, scope auto ref Optional!(T5) newValue /* = no!(string) */, string url /* = "" */) if (isTOrPointer!(T3, string) && isTOrPointer!(T4, string) && isTOrPointer!(T5, string)) {
     StorageEvent_initStorageEvent_0(this._parent, type, bubbles, cancelable, !key.empty, key.front, !oldValue.empty, oldValue.front, !newValue.empty, newValue.front, url);
   }
-  void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope ref Optional!(string) key /* = no!(string) */, scope ref Optional!(string) oldValue /* = no!(string) */, scope ref Optional!(string) newValue /* = no!(string) */) {
+  void initStorageEvent(T3, T4, T5)(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope auto ref Optional!(T3) key /* = no!(string) */, scope auto ref Optional!(T4) oldValue /* = no!(string) */, scope auto ref Optional!(T5) newValue /* = no!(string) */) if (isTOrPointer!(T3, string) && isTOrPointer!(T4, string) && isTOrPointer!(T5, string)) {
     StorageEvent_initStorageEvent_1(this._parent, type, bubbles, cancelable, !key.empty, key.front, !oldValue.empty, oldValue.front, !newValue.empty, newValue.front);
   }
-  void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope ref Optional!(string) key /* = no!(string) */, scope ref Optional!(string) oldValue /* = no!(string) */) {
+  void initStorageEvent(T3, T4)(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope auto ref Optional!(T3) key /* = no!(string) */, scope auto ref Optional!(T4) oldValue /* = no!(string) */) if (isTOrPointer!(T3, string) && isTOrPointer!(T4, string)) {
     StorageEvent_initStorageEvent_2(this._parent, type, bubbles, cancelable, !key.empty, key.front, !oldValue.empty, oldValue.front);
   }
-  void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope ref Optional!(string) key /* = no!(string) */) {
+  void initStorageEvent(T3)(string type, bool bubbles /* = false */, bool cancelable /* = false */, scope auto ref Optional!(T3) key /* = no!(string) */) if (isTOrPointer!(T3, string)) {
     StorageEvent_initStorageEvent_3(this._parent, type, bubbles, cancelable, !key.empty, key.front);
   }
   void initStorageEvent(string type, bool bubbles /* = false */, bool cancelable /* = false */) {
@@ -6816,19 +6816,19 @@ struct StorageEventInit {
   static auto create() {
     return StorageEventInit(spasm_add__object());
   }
-  void key(scope ref Optional!(string) key) {
+  void key(T0)(scope auto ref Optional!(T0) key) if (isTOrPointer!(T0, string)) {
     StorageEventInit_key_Set(this._parent, !key.empty, key.front);
   }
   auto key() {
     return StorageEventInit_key_Get(this._parent);
   }
-  void oldValue(scope ref Optional!(string) oldValue) {
+  void oldValue(T0)(scope auto ref Optional!(T0) oldValue) if (isTOrPointer!(T0, string)) {
     StorageEventInit_oldValue_Set(this._parent, !oldValue.empty, oldValue.front);
   }
   auto oldValue() {
     return StorageEventInit_oldValue_Get(this._parent);
   }
-  void newValue(scope ref Optional!(string) newValue) {
+  void newValue(T0)(scope auto ref Optional!(T0) newValue) if (isTOrPointer!(T0, string)) {
     StorageEventInit_newValue_Set(this._parent, !newValue.empty, newValue.front);
   }
   auto newValue() {
@@ -6840,7 +6840,7 @@ struct StorageEventInit {
   auto url() {
     return StorageEventInit_url_Get(this._parent);
   }
-  void storageArea(scope ref Optional!(Storage) storageArea) {
+  void storageArea(T0)(scope auto ref Optional!(T0) storageArea) if (isTOrPointer!(T0, Storage)) {
     StorageEventInit_storageArea_Set(this._parent, !storageArea.empty, storageArea.front.handle);
   }
   auto storageArea() {
@@ -7097,8 +7097,8 @@ struct TrackEventInit {
   static auto create() {
     return TrackEventInit(spasm_add__object());
   }
-  void track(scope ref Optional!(SumType!(VideoTrack, AudioTrack, TextTrack)) track) {
-    TrackEventInit_track_Set(this._parent, !track.empty, track.front);
+  void track(T0)(scope auto ref Optional!(T0) track) if (isTOrPointer!(T0, SumType!(VideoTrack, AudioTrack, TextTrack))) {
+    TrackEventInit_track_Set(this._parent, !track.empty, *track.frontRef);
   }
   auto track() {
     return TrackEventInit_track_Get(this._parent);
@@ -7548,7 +7548,7 @@ struct Window {
   auto external() {
     return External(Window_external_Get(this._parent));
   }
-  auto getComputedStyle(scope ref Element elt, scope ref Optional!(string) pseudoElt) {
+  auto getComputedStyle(T1)(scope ref Element elt, scope auto ref Optional!(T1) pseudoElt) if (isTOrPointer!(T1, string)) {
     return CSSStyleDeclaration(Window_getComputedStyle(this._parent, elt._parent, !pseudoElt.empty, pseudoElt.front));
   }
   auto getComputedStyle(scope ref Element elt) {
@@ -7773,7 +7773,7 @@ struct Window {
   auto onended() {
     return GlobalEventHandlers_onended_Get(this._parent);
   }
-  void onerror(scope ref OnErrorEventHandler onerror) {
+  void onerror(T0)(scope auto ref Optional!(T0) onerror) if (isTOrPointer!(T0, OnErrorEventHandler)) {
     GlobalEventHandlers_onerror_Set(this._parent, !onerror.empty, onerror.front);
   }
   auto onerror() {
@@ -8106,8 +8106,8 @@ struct Window {
   auto Request(scope ref RequestInfo input, scope ref RequestInit init) {
     return .Request(Window_Request(this._parent, input, init.handle));
   }
-  auto Response(scope ref Optional!(BodyInit) body_ /* = no!(BodyInit) */, scope ref ResponseInit init) {
-    return .Response(Window_Response(this._parent, !body_.empty, body_.front, init.handle));
+  auto Response(T0)(scope auto ref Optional!(T0) body_ /* = no!(BodyInit) */, scope ref ResponseInit init) if (isTOrPointer!(T0, BodyInit)) {
+    return .Response(Window_Response(this._parent, !body_.empty, *body_.frontRef, init.handle));
   }
   auto Notification(string title, scope ref NotificationOptions options) {
     return .Notification(Window_Notification(this._parent, title, options.handle));
@@ -8148,7 +8148,7 @@ struct Window {
   auto MessageEvent(string type, scope ref MessageEventInit eventInitDict) {
     return .MessageEvent(Window_MessageEvent(this._parent, type, eventInitDict._parent));
   }
-  auto OffscreenCanvas(ulong width, ulong height) {
+  auto OffscreenCanvas(uint width, uint height) {
     return .OffscreenCanvas(Window_OffscreenCanvas(this._parent, width, height));
   }
   auto Path2D(scope ref SumType!(.Path2D, string) path) {
@@ -8330,8 +8330,8 @@ struct Worker {
   auto Request(scope ref RequestInfo input, scope ref RequestInit init) {
     return .Request(Worker_Request(this._parent, input, init.handle));
   }
-  auto Response(scope ref Optional!(BodyInit) body_ /* = no!(BodyInit) */, scope ref ResponseInit init) {
-    return .Response(Worker_Response(this._parent, !body_.empty, body_.front, init.handle));
+  auto Response(T0)(scope auto ref Optional!(T0) body_ /* = no!(BodyInit) */, scope ref ResponseInit init) if (isTOrPointer!(T0, BodyInit)) {
+    return .Response(Worker_Response(this._parent, !body_.empty, *body_.frontRef, init.handle));
   }
   auto Notification(string title, scope ref NotificationOptions options) {
     return .Notification(Worker_Notification(this._parent, title, options.handle));
@@ -8372,7 +8372,7 @@ struct Worker {
   auto MessageEvent(string type, scope ref MessageEventInit eventInitDict) {
     return .MessageEvent(Worker_MessageEvent(this._parent, type, eventInitDict._parent));
   }
-  auto OffscreenCanvas(ulong width, ulong height) {
+  auto OffscreenCanvas(uint width, uint height) {
     return .OffscreenCanvas(Worker_OffscreenCanvas(this._parent, width, height));
   }
   auto Path2D(scope ref SumType!(.Path2D, string) path) {
@@ -8491,7 +8491,7 @@ struct WorkerGlobalScope {
   void importScripts(string urls) {
     WorkerGlobalScope_importScripts(this._parent, urls);
   }
-  void onerror(scope ref OnErrorEventHandler onerror) {
+  void onerror(T0)(scope auto ref Optional!(T0) onerror) if (isTOrPointer!(T0, OnErrorEventHandler)) {
     WorkerGlobalScope_onerror_Set(this._parent, !onerror.empty, onerror.front);
   }
   auto onerror() {
@@ -10239,7 +10239,7 @@ extern (C) Handle Navigator_mediaDevices_Get(Handle);
 extern (C) void Navigator_getUserMedia(Handle, Handle, NavigatorUserMediaSuccessCallback, NavigatorUserMediaErrorCallback);
 extern (C) int Navigator_maxTouchPoints_Get(Handle);
 extern (C) Handle Navigator_serviceWorker_Get(Handle);
-extern (C) ulong NavigatorConcurrentHardware_hardwareConcurrency_Get(Handle);
+extern (C) uint NavigatorConcurrentHardware_hardwareConcurrency_Get(Handle);
 extern (C) void NavigatorContentUtils_registerProtocolHandler(Handle, string, string, string);
 extern (C) void NavigatorContentUtils_unregisterProtocolHandler(Handle, string, string);
 extern (C) bool NavigatorCookies_cookieEnabled_Get(Handle);
@@ -10260,10 +10260,10 @@ extern (C) bool NavigatorOnLine_onLine_Get(Handle);
 extern (C) Handle NavigatorPlugins_plugins_Get(Handle);
 extern (C) Handle NavigatorPlugins_mimeTypes_Get(Handle);
 extern (C) bool NavigatorPlugins_javaEnabled(Handle);
-extern (C) void OffscreenCanvas_width_Set(Handle, ulong);
-extern (C) ulong OffscreenCanvas_width_Get(Handle);
-extern (C) void OffscreenCanvas_height_Set(Handle, ulong);
-extern (C) ulong OffscreenCanvas_height_Get(Handle);
+extern (C) void OffscreenCanvas_width_Set(Handle, uint);
+extern (C) uint OffscreenCanvas_width_Get(Handle);
+extern (C) void OffscreenCanvas_height_Set(Handle, uint);
+extern (C) uint OffscreenCanvas_height_Get(Handle);
 extern (C) Optional!(OffscreenRenderingContext) OffscreenCanvas_getContext(Handle, OffscreenRenderingContextId, Handle);
 extern (C) Optional!(OffscreenRenderingContext) OffscreenCanvas_getContext_0(Handle, OffscreenRenderingContextId);
 extern (C) Handle OffscreenCanvas_transferToImageBitmap(Handle);
@@ -10424,7 +10424,7 @@ extern (C) void VideoTrackList_onremovetrack_Set(Handle, EventHandler);
 extern (C) EventHandler VideoTrackList_onremovetrack_Get(Handle);
 extern (C) string WebSocket_url_Get(Handle);
 extern (C) ushort WebSocket_readyState_Get(Handle);
-extern (C) ulong WebSocket_bufferedAmount_Get(Handle);
+extern (C) uint WebSocket_bufferedAmount_Get(Handle);
 extern (C) void WebSocket_onopen_Set(Handle, EventHandler);
 extern (C) EventHandler WebSocket_onopen_Get(Handle);
 extern (C) void WebSocket_onerror_Set(Handle, EventHandler);
@@ -10546,7 +10546,7 @@ extern (C) Handle Window_ImageData__uint_uint(Handle, uint, uint);
 extern (C) Handle Window_ImageData__Handle_uint_uint(Handle, Handle, uint, uint);
 extern (C) Handle Window_MessageChannel(Handle);
 extern (C) Handle Window_MessageEvent(Handle, string, Handle);
-extern (C) Handle Window_OffscreenCanvas(Handle, ulong, ulong);
+extern (C) Handle Window_OffscreenCanvas(Handle, uint, uint);
 extern (C) Handle Window_Path2D(Handle, scope ref SumType!(Path2D, string));
 extern (C) Handle Window_PromiseRejectionEvent(Handle, string, Handle);
 extern (C) Handle Window_SharedWorker(Handle, string, scope ref SumType!(string, WorkerOptions));
@@ -10659,7 +10659,7 @@ extern (C) Handle Worker_ImageData__uint_uint(Handle, uint, uint);
 extern (C) Handle Worker_ImageData__Handle_uint_uint(Handle, Handle, uint, uint);
 extern (C) Handle Worker_MessageChannel(Handle);
 extern (C) Handle Worker_MessageEvent(Handle, string, Handle);
-extern (C) Handle Worker_OffscreenCanvas(Handle, ulong, ulong);
+extern (C) Handle Worker_OffscreenCanvas(Handle, uint, uint);
 extern (C) Handle Worker_Path2D(Handle, scope ref SumType!(Path2D, string));
 extern (C) Handle Worker_PromiseRejectionEvent(Handle, string, Handle);
 extern (C) Handle Worker_SharedWorker(Handle, string, scope ref SumType!(string, WorkerOptions));
