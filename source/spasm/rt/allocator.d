@@ -154,22 +154,19 @@ struct PoolAllocatorBacking {
     ulong[] markers = (cast(ulong*)(pool + PoolAllocator.MetaData.sizeof))[0..leadingMarkerUlongs];
     ulong[] control = (cast(ulong*)startOfBitmappedBlock)[0..leadingMarkerUlongs];
     if (meta.destructor !is null) {
-      import spasm.types;
-      doLog(-1);
-      destruct(markers, control, meta.destructor, meta.blockSize, pool);
+      destruct(markers, control, meta.destructor, meta.blockSize, pool + offset + control.length*ulong.sizeof);
     }
     control[] = markers[];
     markers[] = 0;
   }
-  private void destruct(ulong[] markers, ulong[] control, Destructor destructor, uint blockSize, void* pool) {
+
+  private void destruct(ulong[] markers, ulong[] control, Destructor destructor, uint blockSize, void* offset) {
     import mir.bitop : cttz;
     for(uint i = 0; i < markers.length; i++) {
       ulong toFree = markers[i] ^ control[i];
       while(toFree != 0) {
         auto lsbset = cttz(toFree);
-        void* item = pool + blockSize * ((i*64) + (64 - lsbset));
-        import spasm.types;
-        doLog(cast(uint)item);
+        void* item = offset + blockSize * ((i*64) + (63 - lsbset));
         destructor(item);
         toFree = toFree & (toFree-1);
       }
