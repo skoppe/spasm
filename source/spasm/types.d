@@ -259,7 +259,11 @@ enum EventType {
 }
 
 @safe template as(Target) {
-  static if (__traits(compiles, "Target.init.handle")) {
+  static if (isBasicType!Target || is(Target : string)) {
+    auto as(Source)(auto ref Source s) if (hasMember!(Source, "handle")){
+      mixin("return spasm_get__" ~ Target.stringof ~ "(s.handle);");
+    }
+  } else static if (__traits(compiles, "Target.init.handle")) {
     @safe auto as(Source)(scope return ref Source s) {
       return cast(Target*)&s;
     }
@@ -267,10 +271,6 @@ enum EventType {
       Handle h = s.handle;
       s.handle = 0;
       return Target(h);
-    }
-  } else static if (isBasicType!Target || is(Target : string)) {
-    auto as(Source)(auto ref Source s) if (hasMember!(Source, "handle")){
-      mixin("return spasm_get__" ~ Target.stringof ~ "(s.handle);");
     }
   }
 }
@@ -329,13 +329,14 @@ template BridgeType(T) {
 }
 
 mixin template ExternPromiseCallback(string funName, T, U) {
+  nothrow:
   static if (is(T == void)) {
     pragma(mangle, funName)
-      mixin("extern(C) Handle "~funName~"(Handle, U delegate());");
+      mixin("extern(C) Handle "~funName~"(Handle, U delegate() nothrow);");
   } else {
     import spasm.bindings;
     pragma(mangle, funName)
-      mixin("extern(C) Handle "~funName~"(Handle, U delegate("~T.stringof~"));");
+      mixin("extern(C) Handle "~funName~"(Handle, U delegate("~T.stringof~") nothrow);");
   }
 }
 
@@ -349,20 +350,20 @@ struct Promise(T, U = Any) {
   alias JoinedType = BridgeType!T;
   enum ResultMangled = SpasmMangle!T;
   static if (is(T == void)) {
-    alias FulfillCallback(P = void) = P delegate();
-    alias JoinedCallback(P = void) = extern(C) P delegate();
+    alias FulfillCallback(P = void) = P delegate() nothrow;
+    alias JoinedCallback(P = void) = extern(C) P delegate() nothrow;
   } else {
-    alias FulfillCallback(P) = P delegate(T);
-    alias JoinedCallback(P) = extern(C) P delegate(JoinedType);
+    alias FulfillCallback(P) = P delegate(T) nothrow;
+    alias JoinedCallback(P) = extern(C) P delegate(JoinedType) nothrow;
   }
-  alias RejectCallback = void delegate(U);
+  alias RejectCallback = void delegate(U) nothrow;
   // NOTE: right now we support no error callback
-  auto then(ResultType)(ResultType delegate(T) cb) {
+  auto then(ResultType)(ResultType delegate(T) nothrow cb) @trusted {
     enum TMangled = SpasmMangle!T;
     enum ResultTypeMangled = SpasmMangle!ResultType;
     enum funName = "promise_then_"~TMangled.length.stringof~TMangled~ResultTypeMangled;
     mixin ExternPromiseCallback!(funName, JoinedType, BridgeType!ResultType);
-    mixin("return Promise!(ResultType, U)(JsHandle("~funName~"(handle, cast(JoinedCallback!(BridgeType!ResultType))cb)));");
+    mixin("return Promise!(ResultType, U)("~funName~"(handle, cast(JoinedCallback!(BridgeType!ResultType))cb));");
   }
 }
 struct Sequence(T) {
