@@ -13,13 +13,13 @@ struct DOMException {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto name() {
+  auto name()() {
     return DOMException_name_Get(this.handle);
   }
-  auto message() {
+  auto message()() {
     return DOMException_message_Get(this.handle);
   }
-  auto code() {
+  auto code()() {
     return DOMException_code_Get(this.handle);
   }
   enum ushort INDEX_SIZE_ERR = 1;

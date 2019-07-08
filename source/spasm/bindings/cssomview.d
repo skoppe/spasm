@@ -15,13 +15,13 @@ struct CaretPosition {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto offsetNode() {
+  auto offsetNode()() {
     return Node(CaretPosition_offsetNode_Get(this.handle));
   }
-  auto offset() {
+  auto offset()() {
     return CaretPosition_offset_Get(this.handle);
   }
-  auto getClientRect() {
+  auto getClientRect()() {
     return CaretPosition_getClientRect(this.handle);
   }
 }
@@ -32,10 +32,10 @@ struct MediaQueryList {
   this(Handle h) {
     _parent = .EventTarget(h);
   }
-  auto media() {
+  auto media()() {
     return MediaQueryList_media_Get(this._parent);
   }
-  auto matches() {
+  auto matches()() {
     return MediaQueryList_matches_Get(this._parent);
   }
   void addListener(T0)(scope auto ref Optional!(T0) listener) if (isTOrPointer!(T0, EventListener)) {
@@ -44,10 +44,10 @@ struct MediaQueryList {
   void removeListener(T0)(scope auto ref Optional!(T0) listener) if (isTOrPointer!(T0, EventListener)) {
     MediaQueryList_removeListener(this._parent, !listener.empty, listener.front);
   }
-  void onchange(EventHandler onchange) {
+  void onchange()(EventHandler onchange) {
     MediaQueryList_onchange_Set(this._parent, onchange);
   }
-  auto onchange() {
+  auto onchange()() {
     return MediaQueryList_onchange_Get(this._parent);
   }
 }
@@ -58,10 +58,10 @@ struct MediaQueryListEvent {
   this(Handle h) {
     _parent = .Event(h);
   }
-  auto media() {
+  auto media()() {
     return MediaQueryListEvent_media_Get(this._parent);
   }
-  auto matches() {
+  auto matches()() {
     return MediaQueryListEvent_matches_Get(this._parent);
   }
 }
@@ -75,16 +75,16 @@ struct MediaQueryListEventInit {
   static auto create() {
     return MediaQueryListEventInit(spasm_add__object());
   }
-  void media(string media) {
+  void media()(string media) {
     MediaQueryListEventInit_media_Set(this._parent, media);
   }
-  auto media() {
+  auto media()() {
     return MediaQueryListEventInit_media_Get(this._parent);
   }
-  void matches(bool matches) {
+  void matches()(bool matches) {
     MediaQueryListEventInit_matches_Set(this._parent, matches);
   }
-  auto matches() {
+  auto matches()() {
     return MediaQueryListEventInit_matches_Get(this._parent);
   }
 }
@@ -95,22 +95,22 @@ struct Screen {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto availWidth() {
+  auto availWidth()() {
     return Screen_availWidth_Get(this.handle);
   }
-  auto availHeight() {
+  auto availHeight()() {
     return Screen_availHeight_Get(this.handle);
   }
-  auto width() {
+  auto width()() {
     return Screen_width_Get(this.handle);
   }
-  auto height() {
+  auto height()() {
     return Screen_height_Get(this.handle);
   }
-  auto colorDepth() {
+  auto colorDepth()() {
     return Screen_colorDepth_Get(this.handle);
   }
-  auto pixelDepth() {
+  auto pixelDepth()() {
     return Screen_pixelDepth_Get(this.handle);
   }
 }
@@ -128,16 +128,16 @@ struct ScrollIntoViewOptions {
   static auto create() {
     return ScrollIntoViewOptions(spasm_add__object());
   }
-  void block(ScrollLogicalPosition block) {
+  void block()(ScrollLogicalPosition block) {
     ScrollIntoViewOptions_block_Set(this._parent, block);
   }
-  auto block() {
+  auto block()() {
     return ScrollIntoViewOptions_block_Get(this._parent);
   }
-  void inline(ScrollLogicalPosition inline) {
+  void inline()(ScrollLogicalPosition inline) {
     ScrollIntoViewOptions_inline_Set(this._parent, inline);
   }
-  auto inline() {
+  auto inline()() {
     return ScrollIntoViewOptions_inline_Get(this._parent);
   }
 }
@@ -157,10 +157,10 @@ struct ScrollOptions {
   static auto create() {
     return ScrollOptions(spasm_add__object());
   }
-  void behavior(ScrollBehavior behavior) {
+  void behavior()(ScrollBehavior behavior) {
     ScrollOptions_behavior_Set(this.handle, behavior);
   }
-  auto behavior() {
+  auto behavior()() {
     return ScrollOptions_behavior_Get(this.handle);
   }
 }
@@ -174,16 +174,16 @@ struct ScrollToOptions {
   static auto create() {
     return ScrollToOptions(spasm_add__object());
   }
-  void left(double left) {
+  void left()(double left) {
     ScrollToOptions_left_Set(this._parent, left);
   }
-  auto left() {
+  auto left()() {
     return ScrollToOptions_left_Get(this._parent);
   }
-  void top(double top) {
+  void top()(double top) {
     ScrollToOptions_top_Set(this._parent, top);
   }
-  auto top() {
+  auto top()() {
     return ScrollToOptions_top_Get(this._parent);
   }
 }

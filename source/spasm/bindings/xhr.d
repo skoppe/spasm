@@ -16,34 +16,34 @@ struct FormData {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  void append(string name, string value) {
+  void append()(string name, string value) {
     FormData_append__string_string(this.handle, name, value);
   }
-  void append(string name, scope ref Blob blobValue, string filename) {
+  void append()(string name, scope ref Blob blobValue, string filename) {
     FormData_append__string_Handle_string(this.handle, name, blobValue.handle, filename);
   }
-  void append(string name, scope ref Blob blobValue) {
+  void append()(string name, scope ref Blob blobValue) {
     FormData_append_0(this.handle, name, blobValue.handle);
   }
-  void delete_(string name) {
+  void delete_()(string name) {
     FormData_delete(this.handle, name);
   }
-  auto get(string name) {
+  auto get()(string name) {
     return FormData_get(this.handle, name);
   }
-  auto getAll(string name) {
+  auto getAll()(string name) {
     return Sequence!(FormDataEntryValue)(FormData_getAll(this.handle, name));
   }
-  auto has(string name) {
+  auto has()(string name) {
     return FormData_has(this.handle, name);
   }
-  void set(string name, string value) {
+  void set()(string name, string value) {
     FormData_set__string_string(this.handle, name, value);
   }
-  void set(string name, scope ref Blob blobValue, string filename) {
+  void set()(string name, scope ref Blob blobValue, string filename) {
     FormData_set__string_Handle_string(this.handle, name, blobValue.handle, filename);
   }
-  void set(string name, scope ref Blob blobValue) {
+  void set()(string name, scope ref Blob blobValue) {
     FormData_set_0(this.handle, name, blobValue.handle);
   }
 }
@@ -55,13 +55,13 @@ struct ProgressEvent {
   this(Handle h) {
     _parent = .Event(h);
   }
-  auto lengthComputable() {
+  auto lengthComputable()() {
     return ProgressEvent_lengthComputable_Get(this._parent);
   }
-  auto loaded() {
+  auto loaded()() {
     return ProgressEvent_loaded_Get(this._parent);
   }
-  auto total() {
+  auto total()() {
     return ProgressEvent_total_Get(this._parent);
   }
 }
@@ -75,22 +75,22 @@ struct ProgressEventInit {
   static auto create() {
     return ProgressEventInit(spasm_add__object());
   }
-  void lengthComputable(bool lengthComputable) {
+  void lengthComputable()(bool lengthComputable) {
     ProgressEventInit_lengthComputable_Set(this._parent, lengthComputable);
   }
-  auto lengthComputable() {
+  auto lengthComputable()() {
     return ProgressEventInit_lengthComputable_Get(this._parent);
   }
-  void loaded(uint loaded) {
+  void loaded()(uint loaded) {
     ProgressEventInit_loaded_Set(this._parent, loaded);
   }
-  auto loaded() {
+  auto loaded()() {
     return ProgressEventInit_loaded_Get(this._parent);
   }
-  void total(uint total) {
+  void total()(uint total) {
     ProgressEventInit_total_Set(this._parent, total);
   }
-  auto total() {
+  auto total()() {
     return ProgressEventInit_total_Get(this._parent);
   }
 }
@@ -101,10 +101,10 @@ struct XMLHttpRequest {
   this(Handle h) {
     _parent = .XMLHttpRequestEventTarget(h);
   }
-  void onreadystatechange(EventHandler onreadystatechange) {
+  void onreadystatechange()(EventHandler onreadystatechange) {
     XMLHttpRequest_onreadystatechange_Set(this._parent, onreadystatechange);
   }
-  auto onreadystatechange() {
+  auto onreadystatechange()() {
     return XMLHttpRequest_onreadystatechange_Get(this._parent);
   }
   enum ushort UNSENT = 0;
@@ -112,10 +112,10 @@ struct XMLHttpRequest {
   enum ushort HEADERS_RECEIVED = 2;
   enum ushort LOADING = 3;
   enum ushort DONE = 4;
-  auto readyState() {
+  auto readyState()() {
     return XMLHttpRequest_readyState_Get(this._parent);
   }
-  void open(string method, string url) {
+  void open()(string method, string url) {
     XMLHttpRequest_open__string_string(this._parent, method, url);
   }
   void open(T3, T4)(string method, string url, bool async, scope auto ref Optional!(T3) username /* = no!(string) */, scope auto ref Optional!(T4) password /* = no!(string) */) if (isTOrPointer!(T3, string) && isTOrPointer!(T4, string)) {
@@ -124,67 +124,67 @@ struct XMLHttpRequest {
   void open(T3)(string method, string url, bool async, scope auto ref Optional!(T3) username /* = no!(string) */) if (isTOrPointer!(T3, string)) {
     XMLHttpRequest_open_0(this._parent, method, url, async, !username.empty, username.front);
   }
-  void open(string method, string url, bool async) {
+  void open()(string method, string url, bool async) {
     XMLHttpRequest_open_1(this._parent, method, url, async);
   }
-  void setRequestHeader(string name, string value) {
+  void setRequestHeader()(string name, string value) {
     XMLHttpRequest_setRequestHeader(this._parent, name, value);
   }
-  void timeout(uint timeout) {
+  void timeout()(uint timeout) {
     XMLHttpRequest_timeout_Set(this._parent, timeout);
   }
-  auto timeout() {
+  auto timeout()() {
     return XMLHttpRequest_timeout_Get(this._parent);
   }
-  void withCredentials(bool withCredentials) {
+  void withCredentials()(bool withCredentials) {
     XMLHttpRequest_withCredentials_Set(this._parent, withCredentials);
   }
-  auto withCredentials() {
+  auto withCredentials()() {
     return XMLHttpRequest_withCredentials_Get(this._parent);
   }
-  auto upload() {
+  auto upload()() {
     return XMLHttpRequestUpload(XMLHttpRequest_upload_Get(this._parent));
   }
   void send(T0)(scope auto ref Optional!(T0) body_ /* = no!(SumType!(Document, BodyInit)) */) if (isTOrPointer!(T0, SumType!(Document, BodyInit))) {
     XMLHttpRequest_send(this._parent, !body_.empty, *body_.frontRef);
   }
-  void send() {
+  void send()() {
     XMLHttpRequest_send_0(this._parent);
   }
-  void abort() {
+  void abort()() {
     XMLHttpRequest_abort(this._parent);
   }
-  auto responseURL() {
+  auto responseURL()() {
     return XMLHttpRequest_responseURL_Get(this._parent);
   }
-  auto status() {
+  auto status()() {
     return XMLHttpRequest_status_Get(this._parent);
   }
-  auto statusText() {
+  auto statusText()() {
     return XMLHttpRequest_statusText_Get(this._parent);
   }
-  auto getResponseHeader(string name) {
+  auto getResponseHeader()(string name) {
     return XMLHttpRequest_getResponseHeader(this._parent, name);
   }
-  auto getAllResponseHeaders() {
+  auto getAllResponseHeaders()() {
     return XMLHttpRequest_getAllResponseHeaders(this._parent);
   }
-  void overrideMimeType(string mime) {
+  void overrideMimeType()(string mime) {
     XMLHttpRequest_overrideMimeType(this._parent, mime);
   }
-  void responseType(XMLHttpRequestResponseType responseType) {
+  void responseType()(XMLHttpRequestResponseType responseType) {
     XMLHttpRequest_responseType_Set(this._parent, responseType);
   }
-  auto responseType() {
+  auto responseType()() {
     return XMLHttpRequest_responseType_Get(this._parent);
   }
-  auto response() {
+  auto response()() {
     return Any(XMLHttpRequest_response_Get(this._parent));
   }
-  auto responseText() {
+  auto responseText()() {
     return XMLHttpRequest_responseText_Get(this._parent);
   }
-  auto responseXML() {
+  auto responseXML()() {
     return XMLHttpRequest_responseXML_Get(this._parent);
   }
 }
@@ -195,46 +195,46 @@ struct XMLHttpRequestEventTarget {
   this(Handle h) {
     _parent = .EventTarget(h);
   }
-  void onloadstart(EventHandler onloadstart) {
+  void onloadstart()(EventHandler onloadstart) {
     XMLHttpRequestEventTarget_onloadstart_Set(this._parent, onloadstart);
   }
-  auto onloadstart() {
+  auto onloadstart()() {
     return XMLHttpRequestEventTarget_onloadstart_Get(this._parent);
   }
-  void onprogress(EventHandler onprogress) {
+  void onprogress()(EventHandler onprogress) {
     XMLHttpRequestEventTarget_onprogress_Set(this._parent, onprogress);
   }
-  auto onprogress() {
+  auto onprogress()() {
     return XMLHttpRequestEventTarget_onprogress_Get(this._parent);
   }
-  void onabort(EventHandler onabort) {
+  void onabort()(EventHandler onabort) {
     XMLHttpRequestEventTarget_onabort_Set(this._parent, onabort);
   }
-  auto onabort() {
+  auto onabort()() {
     return XMLHttpRequestEventTarget_onabort_Get(this._parent);
   }
-  void onerror(EventHandler onerror) {
+  void onerror()(EventHandler onerror) {
     XMLHttpRequestEventTarget_onerror_Set(this._parent, onerror);
   }
-  auto onerror() {
+  auto onerror()() {
     return XMLHttpRequestEventTarget_onerror_Get(this._parent);
   }
-  void onload(EventHandler onload) {
+  void onload()(EventHandler onload) {
     XMLHttpRequestEventTarget_onload_Set(this._parent, onload);
   }
-  auto onload() {
+  auto onload()() {
     return XMLHttpRequestEventTarget_onload_Get(this._parent);
   }
-  void ontimeout(EventHandler ontimeout) {
+  void ontimeout()(EventHandler ontimeout) {
     XMLHttpRequestEventTarget_ontimeout_Set(this._parent, ontimeout);
   }
-  auto ontimeout() {
+  auto ontimeout()() {
     return XMLHttpRequestEventTarget_ontimeout_Get(this._parent);
   }
-  void onloadend(EventHandler onloadend) {
+  void onloadend()(EventHandler onloadend) {
     XMLHttpRequestEventTarget_onloadend_Set(this._parent, onloadend);
   }
-  auto onloadend() {
+  auto onloadend()() {
     return XMLHttpRequestEventTarget_onloadend_Get(this._parent);
   }
 }

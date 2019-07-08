@@ -15,22 +15,22 @@ struct Blob {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto size() {
+  auto size()() {
     return Blob_size_Get(this.handle);
   }
-  auto type() {
+  auto type()() {
     return Blob_type_Get(this.handle);
   }
-  auto slice(int start, int end, string contentType) {
+  auto slice()(int start, int end, string contentType) {
     return Blob(Blob_slice(this.handle, start, end, contentType));
   }
-  auto slice(int start, int end) {
+  auto slice()(int start, int end) {
     return Blob(Blob_slice_0(this.handle, start, end));
   }
-  auto slice(int start) {
+  auto slice()(int start) {
     return Blob(Blob_slice_1(this.handle, start));
   }
-  auto slice() {
+  auto slice()() {
     return Blob(Blob_slice_2(this.handle));
   }
 }
@@ -45,16 +45,16 @@ struct BlobPropertyBag {
   static auto create() {
     return BlobPropertyBag(spasm_add__object());
   }
-  void type(string type) {
+  void type()(string type) {
     BlobPropertyBag_type_Set(this.handle, type);
   }
-  auto type() {
+  auto type()() {
     return BlobPropertyBag_type_Get(this.handle);
   }
-  void endings(EndingType endings) {
+  void endings()(EndingType endings) {
     BlobPropertyBag_endings_Set(this.handle, endings);
   }
-  auto endings() {
+  auto endings()() {
     return BlobPropertyBag_endings_Get(this.handle);
   }
 }
@@ -69,10 +69,10 @@ struct File {
   this(Handle h) {
     _parent = .Blob(h);
   }
-  auto name() {
+  auto name()() {
     return File_name_Get(this._parent);
   }
-  auto lastModified() {
+  auto lastModified()() {
     return File_lastModified_Get(this._parent);
   }
 }
@@ -83,10 +83,10 @@ struct FileList {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto item(uint index) {
+  auto item()(uint index) {
     return FileList_item_getter(this.handle, index);
   }
-  auto length() {
+  auto length()() {
     return FileList_length_Get(this.handle);
   }
 }
@@ -100,10 +100,10 @@ struct FilePropertyBag {
   static auto create() {
     return FilePropertyBag(spasm_add__object());
   }
-  void lastModified(int lastModified) {
+  void lastModified()(int lastModified) {
     FilePropertyBag_lastModified_Set(this._parent, lastModified);
   }
-  auto lastModified() {
+  auto lastModified()() {
     return FilePropertyBag_lastModified_Get(this._parent);
   }
 }
@@ -114,70 +114,70 @@ struct FileReader {
   this(Handle h) {
     _parent = .EventTarget(h);
   }
-  void readAsArrayBuffer(scope ref Blob blob) {
+  void readAsArrayBuffer()(scope ref Blob blob) {
     FileReader_readAsArrayBuffer(this._parent, blob.handle);
   }
-  void readAsBinaryString(scope ref Blob blob) {
+  void readAsBinaryString()(scope ref Blob blob) {
     FileReader_readAsBinaryString(this._parent, blob.handle);
   }
-  void readAsText(scope ref Blob blob, string encoding) {
+  void readAsText()(scope ref Blob blob, string encoding) {
     FileReader_readAsText(this._parent, blob.handle, encoding);
   }
-  void readAsText(scope ref Blob blob) {
+  void readAsText()(scope ref Blob blob) {
     FileReader_readAsText_0(this._parent, blob.handle);
   }
-  void readAsDataURL(scope ref Blob blob) {
+  void readAsDataURL()(scope ref Blob blob) {
     FileReader_readAsDataURL(this._parent, blob.handle);
   }
-  void abort() {
+  void abort()() {
     FileReader_abort(this._parent);
   }
   enum ushort EMPTY = 0;
   enum ushort LOADING = 1;
   enum ushort DONE = 2;
-  auto readyState() {
+  auto readyState()() {
     return FileReader_readyState_Get(this._parent);
   }
-  auto result() {
+  auto result()() {
     return FileReader_result_Get(this._parent);
   }
-  auto error() {
+  auto error()() {
     return FileReader_error_Get(this._parent);
   }
-  void onloadstart(EventHandler onloadstart) {
+  void onloadstart()(EventHandler onloadstart) {
     FileReader_onloadstart_Set(this._parent, onloadstart);
   }
-  auto onloadstart() {
+  auto onloadstart()() {
     return FileReader_onloadstart_Get(this._parent);
   }
-  void onprogress(EventHandler onprogress) {
+  void onprogress()(EventHandler onprogress) {
     FileReader_onprogress_Set(this._parent, onprogress);
   }
-  auto onprogress() {
+  auto onprogress()() {
     return FileReader_onprogress_Get(this._parent);
   }
-  void onload(EventHandler onload) {
+  void onload()(EventHandler onload) {
     FileReader_onload_Set(this._parent, onload);
   }
-  auto onload() {
+  auto onload()() {
     return FileReader_onload_Get(this._parent);
   }
-  void onabort(EventHandler onabort) {
+  void onabort()(EventHandler onabort) {
     FileReader_onabort_Set(this._parent, onabort);
   }
-  auto onabort() {
+  auto onabort()() {
     return FileReader_onabort_Get(this._parent);
   }
-  void onerror(EventHandler onerror) {
+  void onerror()(EventHandler onerror) {
     FileReader_onerror_Set(this._parent, onerror);
   }
-  auto onerror() {
+  auto onerror()() {
     return FileReader_onerror_Get(this._parent);
   }
-  void onloadend(EventHandler onloadend) {
+  void onloadend()(EventHandler onloadend) {
     FileReader_onloadend_Set(this._parent, onloadend);
   }
-  auto onloadend() {
+  auto onloadend()() {
     return FileReader_onloadend_Get(this._parent);
   }
 }
@@ -188,19 +188,19 @@ struct FileReaderSync {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto readAsArrayBuffer(scope ref Blob blob) {
+  auto readAsArrayBuffer()(scope ref Blob blob) {
     return ArrayBuffer(FileReaderSync_readAsArrayBuffer(this.handle, blob.handle));
   }
-  auto readAsBinaryString(scope ref Blob blob) {
+  auto readAsBinaryString()(scope ref Blob blob) {
     return FileReaderSync_readAsBinaryString(this.handle, blob.handle);
   }
-  auto readAsText(scope ref Blob blob, string encoding) {
+  auto readAsText()(scope ref Blob blob, string encoding) {
     return FileReaderSync_readAsText(this.handle, blob.handle, encoding);
   }
-  auto readAsText(scope ref Blob blob) {
+  auto readAsText()(scope ref Blob blob) {
     return FileReaderSync_readAsText_0(this.handle, blob.handle);
   }
-  auto readAsDataURL(scope ref Blob blob) {
+  auto readAsDataURL()(scope ref Blob blob) {
     return FileReaderSync_readAsDataURL(this.handle, blob.handle);
   }
 }

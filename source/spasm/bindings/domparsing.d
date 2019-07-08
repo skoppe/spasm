@@ -13,7 +13,7 @@ struct DOMParser {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto parseFromString(string str, SupportedType type) {
+  auto parseFromString()(string str, SupportedType type) {
     return Document(DOMParser_parseFromString(this.handle, str, type));
   }
 }
@@ -31,7 +31,7 @@ struct XMLSerializer {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto serializeToString(scope ref Node root) {
+  auto serializeToString()(scope ref Node root) {
     return XMLSerializer_serializeToString(this.handle, root._parent);
   }
 }

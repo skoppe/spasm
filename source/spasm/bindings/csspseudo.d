@@ -13,10 +13,10 @@ struct CSSPseudoElement {
   this(Handle h) {
     _parent = .EventTarget(h);
   }
-  auto type() {
+  auto type()() {
     return CSSPseudoElement_type_Get(this._parent);
   }
-  auto element() {
+  auto element()() {
     return Element(CSSPseudoElement_element_Get(this._parent));
   }
 }

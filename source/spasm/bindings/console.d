@@ -12,7 +12,7 @@ struct console {
     console_assert(condition, _handle_data);
     dropHandle!(T1)(_handle_data);
   }
-  void clear() {
+  void clear()() {
     console_clear();
   }
   void debug_(T0)(scope auto ref T0 data) {
@@ -70,16 +70,16 @@ struct console {
     console_dirxml(_handle_data);
     dropHandle!(T0)(_handle_data);
   }
-  void count(string label /* = "default" */) {
+  void count()(string label /* = "default" */) {
     console_count(label);
   }
-  void count() {
+  void count()() {
     console_count_0();
   }
-  void countReset(string label /* = "default" */) {
+  void countReset()(string label /* = "default" */) {
     console_countReset(label);
   }
-  void countReset() {
+  void countReset()() {
     console_countReset_0();
   }
   void group(T0)(scope auto ref T0 data) {
@@ -92,13 +92,13 @@ struct console {
     console_groupCollapsed(_handle_data);
     dropHandle!(T0)(_handle_data);
   }
-  void groupEnd() {
+  void groupEnd()() {
     console_groupEnd();
   }
-  void time(string label /* = "default" */) {
+  void time()(string label /* = "default" */) {
     console_time(label);
   }
-  void time() {
+  void time()() {
     console_time_0();
   }
   void timeLog(T1)(string label /* = "default" */, scope auto ref T1 data) {
@@ -106,10 +106,10 @@ struct console {
     console_timeLog(label, _handle_data);
     dropHandle!(T1)(_handle_data);
   }
-  void timeEnd(string label /* = "default" */) {
+  void timeEnd()(string label /* = "default" */) {
     console_timeEnd(label);
   }
-  void timeEnd() {
+  void timeEnd()() {
     console_timeEnd_0();
   }
 }

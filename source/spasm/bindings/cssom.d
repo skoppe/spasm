@@ -13,13 +13,13 @@ struct CSSGroupingRule {
   this(Handle h) {
     _parent = .CSSRule(h);
   }
-  auto cssRules() {
+  auto cssRules()() {
     return CSSRuleList(CSSGroupingRule_cssRules_Get(this._parent));
   }
-  auto insertRule(string rule, uint index) {
+  auto insertRule()(string rule, uint index) {
     return CSSGroupingRule_insertRule(this._parent, rule, index);
   }
-  void deleteRule(uint index) {
+  void deleteRule()(uint index) {
     CSSGroupingRule_deleteRule(this._parent, index);
   }
 }
@@ -30,13 +30,13 @@ struct CSSImportRule {
   this(Handle h) {
     _parent = .CSSRule(h);
   }
-  auto href() {
+  auto href()() {
     return CSSImportRule_href_Get(this._parent);
   }
-  auto media() {
+  auto media()() {
     return MediaList(CSSImportRule_media_Get(this._parent));
   }
-  auto styleSheet() {
+  auto styleSheet()() {
     return CSSStyleSheet(CSSImportRule_styleSheet_Get(this._parent));
   }
 }
@@ -47,10 +47,10 @@ struct CSSMarginRule {
   this(Handle h) {
     _parent = .CSSRule(h);
   }
-  auto name() {
+  auto name()() {
     return CSSMarginRule_name_Get(this._parent);
   }
-  auto style() {
+  auto style()() {
     return CSSStyleDeclaration(CSSMarginRule_style_Get(this._parent));
   }
 }
@@ -61,7 +61,7 @@ struct CSSMediaRule {
   this(Handle h) {
     _parent = .CSSGroupingRule(h);
   }
-  auto media() {
+  auto media()() {
     return MediaList(CSSMediaRule_media_Get(this._parent));
   }
 }
@@ -72,10 +72,10 @@ struct CSSNamespaceRule {
   this(Handle h) {
     _parent = .CSSRule(h);
   }
-  auto namespaceURI() {
+  auto namespaceURI()() {
     return CSSNamespaceRule_namespaceURI_Get(this._parent);
   }
-  auto prefix() {
+  auto prefix()() {
     return CSSNamespaceRule_prefix_Get(this._parent);
   }
 }
@@ -86,13 +86,13 @@ struct CSSPageRule {
   this(Handle h) {
     _parent = .CSSGroupingRule(h);
   }
-  void selectorText(string selectorText) {
+  void selectorText()(string selectorText) {
     CSSPageRule_selectorText_Set(this._parent, selectorText);
   }
-  auto selectorText() {
+  auto selectorText()() {
     return CSSPageRule_selectorText_Get(this._parent);
   }
-  auto style() {
+  auto style()() {
     return CSSStyleDeclaration(CSSPageRule_style_Get(this._parent));
   }
 }
@@ -111,19 +111,19 @@ struct CSSRule {
   enum ushort PAGE_RULE = 6;
   enum ushort MARGIN_RULE = 9;
   enum ushort NAMESPACE_RULE = 10;
-  auto type() {
+  auto type()() {
     return CSSRule_type_Get(this.handle);
   }
-  void cssText(string cssText) {
+  void cssText()(string cssText) {
     CSSRule_cssText_Set(this.handle, cssText);
   }
-  auto cssText() {
+  auto cssText()() {
     return CSSRule_cssText_Get(this.handle);
   }
-  auto parentRule() {
+  auto parentRule()() {
     return CSSRule_parentRule_Get(this.handle);
   }
-  auto parentStyleSheet() {
+  auto parentStyleSheet()() {
     return CSSRule_parentStyleSheet_Get(this.handle);
   }
 }
@@ -134,10 +134,10 @@ struct CSSRuleList {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto item(uint index) {
+  auto item()(uint index) {
     return CSSRuleList_item_getter(this.handle, index);
   }
-  auto length() {
+  auto length()() {
     return CSSRuleList_length_Get(this.handle);
   }
 }
@@ -148,70 +148,70 @@ struct CSSStyleDeclaration {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  void cssText(string cssText) {
+  void cssText()(string cssText) {
     CSSStyleDeclaration_cssText_Set(this.handle, cssText);
   }
-  auto cssText() {
+  auto cssText()() {
     return CSSStyleDeclaration_cssText_Get(this.handle);
   }
-  auto length() {
+  auto length()() {
     return CSSStyleDeclaration_length_Get(this.handle);
   }
-  auto item(uint index) {
+  auto item()(uint index) {
     return CSSStyleDeclaration_item_getter(this.handle, index);
   }
-  void opIndexAssign(string value, string property) {
+  void opIndexAssign()(string value, string property) {
     CSSStyleDeclaration_setter__string_string(this.handle, property, value);
   }
   void opDispatch(string property)(string value) {
     CSSStyleDeclaration_setter__string_string(this.handle, property, value);
   }
-  auto getPropertyValue(string property) {
+  auto getPropertyValue()(string property) {
     return CSSStyleDeclaration_getPropertyValue(this.handle, property);
   }
-  auto getPropertyPriority(string property) {
+  auto getPropertyPriority()(string property) {
     return CSSStyleDeclaration_getPropertyPriority(this.handle, property);
   }
-  void setProperty(string property, string value, string priority /* = "" */) {
+  void setProperty()(string property, string value, string priority /* = "" */) {
     CSSStyleDeclaration_setProperty(this.handle, property, value, priority);
   }
-  void setProperty(string property, string value) {
+  void setProperty()(string property, string value) {
     CSSStyleDeclaration_setProperty_0(this.handle, property, value);
   }
-  void setPropertyValue(string property, string value) {
+  void setPropertyValue()(string property, string value) {
     CSSStyleDeclaration_setPropertyValue(this.handle, property, value);
   }
-  void setPropertyPriority(string property, string priority) {
+  void setPropertyPriority()(string property, string priority) {
     CSSStyleDeclaration_setPropertyPriority(this.handle, property, priority);
   }
-  auto removeProperty(string property) {
+  auto removeProperty()(string property) {
     return CSSStyleDeclaration_removeProperty(this.handle, property);
   }
-  auto parentRule() {
+  auto parentRule()() {
     return CSSStyleDeclaration_parentRule_Get(this.handle);
   }
-  void cssFloat(string cssFloat) {
+  void cssFloat()(string cssFloat) {
     CSSStyleDeclaration_cssFloat_Set(this.handle, cssFloat);
   }
-  auto cssFloat() {
+  auto cssFloat()() {
     return CSSStyleDeclaration_cssFloat_Get(this.handle);
   }
-  void _camel_cased_attribute(string _camel_cased_attribute) {
+  void _camel_cased_attribute()(string _camel_cased_attribute) {
     CSSStyleDeclaration__camel_cased_attribute_Set(this.handle, _camel_cased_attribute);
   }
-  auto _camel_cased_attribute() {
+  auto _camel_cased_attribute()() {
     return CSSStyleDeclaration__camel_cased_attribute_Get(this.handle);
   }
-  void _webkit_cased_attribute(string _webkit_cased_attribute) {
+  void _webkit_cased_attribute()(string _webkit_cased_attribute) {
     CSSStyleDeclaration__webkit_cased_attribute_Set(this.handle, _webkit_cased_attribute);
   }
-  auto _webkit_cased_attribute() {
+  auto _webkit_cased_attribute()() {
     return CSSStyleDeclaration__webkit_cased_attribute_Get(this.handle);
   }
-  void _dashed_attribute(string _dashed_attribute) {
+  void _dashed_attribute()(string _dashed_attribute) {
     CSSStyleDeclaration__dashed_attribute_Set(this.handle, _dashed_attribute);
   }
-  auto _dashed_attribute() {
+  auto _dashed_attribute()() {
     return CSSStyleDeclaration__dashed_attribute_Get(this.handle);
   }
 }
@@ -222,13 +222,13 @@ struct CSSStyleRule {
   this(Handle h) {
     _parent = .CSSRule(h);
   }
-  void selectorText(string selectorText) {
+  void selectorText()(string selectorText) {
     CSSStyleRule_selectorText_Set(this._parent, selectorText);
   }
-  auto selectorText() {
+  auto selectorText()() {
     return CSSStyleRule_selectorText_Get(this._parent);
   }
-  auto style() {
+  auto style()() {
     return CSSStyleDeclaration(CSSStyleRule_style_Get(this._parent));
   }
 }
@@ -239,16 +239,16 @@ struct CSSStyleSheet {
   this(Handle h) {
     _parent = .StyleSheet(h);
   }
-  auto ownerRule() {
+  auto ownerRule()() {
     return CSSStyleSheet_ownerRule_Get(this._parent);
   }
-  auto cssRules() {
+  auto cssRules()() {
     return CSSRuleList(CSSStyleSheet_cssRules_Get(this._parent));
   }
-  auto insertRule(string rule, uint index) {
+  auto insertRule()(string rule, uint index) {
     return CSSStyleSheet_insertRule(this._parent, rule, index);
   }
-  void deleteRule(uint index) {
+  void deleteRule()(uint index) {
     CSSStyleSheet_deleteRule(this._parent, index);
   }
 }
@@ -259,7 +259,7 @@ struct LinkStyle {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto sheet() {
+  auto sheet()() {
     return LinkStyle_sheet_Get(this.handle);
   }
 }
@@ -270,22 +270,22 @@ struct MediaList {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  void mediaText(string mediaText) {
+  void mediaText()(string mediaText) {
     MediaList_mediaText_Set(this.handle, mediaText);
   }
-  auto mediaText() {
+  auto mediaText()() {
     return MediaList_mediaText_Get(this.handle);
   }
-  auto length() {
+  auto length()() {
     return MediaList_length_Get(this.handle);
   }
-  auto item(uint index) {
+  auto item()(uint index) {
     return MediaList_item_getter(this.handle, index);
   }
-  void appendMedium(string medium) {
+  void appendMedium()(string medium) {
     MediaList_appendMedium(this.handle, medium);
   }
-  void deleteMedium(string medium) {
+  void deleteMedium()(string medium) {
     MediaList_deleteMedium(this.handle, medium);
   }
 }
@@ -296,28 +296,28 @@ struct StyleSheet {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto type() {
+  auto type()() {
     return StyleSheet_type_Get(this.handle);
   }
-  auto href() {
+  auto href()() {
     return StyleSheet_href_Get(this.handle);
   }
-  auto ownerNode() {
+  auto ownerNode()() {
     return StyleSheet_ownerNode_Get(this.handle);
   }
-  auto parentStyleSheet() {
+  auto parentStyleSheet()() {
     return StyleSheet_parentStyleSheet_Get(this.handle);
   }
-  auto title() {
+  auto title()() {
     return StyleSheet_title_Get(this.handle);
   }
-  auto media() {
+  auto media()() {
     return MediaList(StyleSheet_media_Get(this.handle));
   }
-  void disabled(bool disabled) {
+  void disabled()(bool disabled) {
     StyleSheet_disabled_Set(this.handle, disabled);
   }
-  auto disabled() {
+  auto disabled()() {
     return StyleSheet_disabled_Get(this.handle);
   }
 }
@@ -328,10 +328,10 @@ struct StyleSheetList {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto item(uint index) {
+  auto item()(uint index) {
     return StyleSheetList_item_getter(this.handle, index);
   }
-  auto length() {
+  auto length()() {
     return StyleSheetList_length_Get(this.handle);
   }
 }

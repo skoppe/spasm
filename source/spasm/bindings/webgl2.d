@@ -292,115 +292,115 @@ struct WebGL2RenderingContextBase {
   enum uint TEXTURE_IMMUTABLE_LEVELS = 0x82DF;
   enum int TIMEOUT_IGNORED = -1;
   enum uint MAX_CLIENT_WAIT_TIMEOUT_WEBGL = 0x9247;
-  void bufferData(uint target, int size, uint usage) {
+  void bufferData()(uint target, int size, uint usage) {
     WebGL2RenderingContextBase_bufferData__uint_int_uint(this.handle, target, size, usage);
   }
   void bufferData(T1)(uint target, scope auto ref Optional!(T1) srcData, uint usage) if (isTOrPointer!(T1, ArrayBuffer)) {
     WebGL2RenderingContextBase_bufferData__uint_optional_Handle_uint(this.handle, target, !srcData.empty, srcData.front.handle, usage);
   }
-  void bufferData(uint target, scope ref ArrayBufferView srcData, uint usage) {
+  void bufferData()(uint target, scope ref ArrayBufferView srcData, uint usage) {
     WebGL2RenderingContextBase_bufferData__uint_ArrayBufferView_uint(this.handle, target, srcData, usage);
   }
-  void bufferSubData(uint target, int dstByteOffset, scope ref BufferDataSource srcData) {
+  void bufferSubData()(uint target, int dstByteOffset, scope ref BufferDataSource srcData) {
     WebGL2RenderingContextBase_bufferSubData__uint_int_BufferDataSource(this.handle, target, dstByteOffset, srcData);
   }
-  void bufferData(uint target, scope ref ArrayBufferView srcData, uint usage, uint srcOffset, uint length /* = 0 */) {
+  void bufferData()(uint target, scope ref ArrayBufferView srcData, uint usage, uint srcOffset, uint length /* = 0 */) {
     WebGL2RenderingContextBase_bufferData__uint_ArrayBufferView_uint_uint_uint(this.handle, target, srcData, usage, srcOffset, length);
   }
-  void bufferData(uint target, scope ref ArrayBufferView srcData, uint usage, uint srcOffset) {
+  void bufferData()(uint target, scope ref ArrayBufferView srcData, uint usage, uint srcOffset) {
     WebGL2RenderingContextBase_bufferData_0(this.handle, target, srcData, usage, srcOffset);
   }
-  void bufferSubData(uint target, int dstByteOffset, scope ref ArrayBufferView srcData, uint srcOffset, uint length /* = 0 */) {
+  void bufferSubData()(uint target, int dstByteOffset, scope ref ArrayBufferView srcData, uint srcOffset, uint length /* = 0 */) {
     WebGL2RenderingContextBase_bufferSubData__uint_int_ArrayBufferView_uint_uint(this.handle, target, dstByteOffset, srcData, srcOffset, length);
   }
-  void bufferSubData(uint target, int dstByteOffset, scope ref ArrayBufferView srcData, uint srcOffset) {
+  void bufferSubData()(uint target, int dstByteOffset, scope ref ArrayBufferView srcData, uint srcOffset) {
     WebGL2RenderingContextBase_bufferSubData_0(this.handle, target, dstByteOffset, srcData, srcOffset);
   }
-  void copyBufferSubData(uint readTarget, uint writeTarget, int readOffset, int writeOffset, int size) {
+  void copyBufferSubData()(uint readTarget, uint writeTarget, int readOffset, int writeOffset, int size) {
     WebGL2RenderingContextBase_copyBufferSubData(this.handle, readTarget, writeTarget, readOffset, writeOffset, size);
   }
-  void getBufferSubData(uint target, int srcByteOffset, scope ref ArrayBufferView dstData, uint dstOffset /* = 0 */, uint length /* = 0 */) {
+  void getBufferSubData()(uint target, int srcByteOffset, scope ref ArrayBufferView dstData, uint dstOffset /* = 0 */, uint length /* = 0 */) {
     WebGL2RenderingContextBase_getBufferSubData(this.handle, target, srcByteOffset, dstData, dstOffset, length);
   }
-  void getBufferSubData(uint target, int srcByteOffset, scope ref ArrayBufferView dstData, uint dstOffset /* = 0 */) {
+  void getBufferSubData()(uint target, int srcByteOffset, scope ref ArrayBufferView dstData, uint dstOffset /* = 0 */) {
     WebGL2RenderingContextBase_getBufferSubData_0(this.handle, target, srcByteOffset, dstData, dstOffset);
   }
-  void getBufferSubData(uint target, int srcByteOffset, scope ref ArrayBufferView dstData) {
+  void getBufferSubData()(uint target, int srcByteOffset, scope ref ArrayBufferView dstData) {
     WebGL2RenderingContextBase_getBufferSubData_1(this.handle, target, srcByteOffset, dstData);
   }
-  void blitFramebuffer(int srcX0, int srcY0, int srcX1, int srcY1, int dstX0, int dstY0, int dstX1, int dstY1, uint mask, uint filter) {
+  void blitFramebuffer()(int srcX0, int srcY0, int srcX1, int srcY1, int dstX0, int dstY0, int dstX1, int dstY1, uint mask, uint filter) {
     WebGL2RenderingContextBase_blitFramebuffer(this.handle, srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);
   }
   void framebufferTextureLayer(T2)(uint target, uint attachment, scope auto ref Optional!(T2) texture, int level, int layer) if (isTOrPointer!(T2, WebGLTexture)) {
     WebGL2RenderingContextBase_framebufferTextureLayer(this.handle, target, attachment, !texture.empty, texture.front._parent, level, layer);
   }
-  void invalidateFramebuffer(uint target, scope ref Sequence!(uint) attachments) {
+  void invalidateFramebuffer()(uint target, scope ref Sequence!(uint) attachments) {
     WebGL2RenderingContextBase_invalidateFramebuffer(this.handle, target, attachments.handle);
   }
-  void invalidateSubFramebuffer(uint target, scope ref Sequence!(uint) attachments, int x, int y, int width, int height) {
+  void invalidateSubFramebuffer()(uint target, scope ref Sequence!(uint) attachments, int x, int y, int width, int height) {
     WebGL2RenderingContextBase_invalidateSubFramebuffer(this.handle, target, attachments.handle, x, y, width, height);
   }
-  void readBuffer(uint src) {
+  void readBuffer()(uint src) {
     WebGL2RenderingContextBase_readBuffer(this.handle, src);
   }
-  auto getInternalformatParameter(uint target, uint internalformat, uint pname) {
+  auto getInternalformatParameter()(uint target, uint internalformat, uint pname) {
     return Any(WebGL2RenderingContextBase_getInternalformatParameter(this.handle, target, internalformat, pname));
   }
-  void renderbufferStorageMultisample(uint target, int samples, uint internalformat, int width, int height) {
+  void renderbufferStorageMultisample()(uint target, int samples, uint internalformat, int width, int height) {
     WebGL2RenderingContextBase_renderbufferStorageMultisample(this.handle, target, samples, internalformat, width, height);
   }
-  void texStorage2D(uint target, int levels, uint internalformat, int width, int height) {
+  void texStorage2D()(uint target, int levels, uint internalformat, int width, int height) {
     WebGL2RenderingContextBase_texStorage2D(this.handle, target, levels, internalformat, width, height);
   }
-  void texStorage3D(uint target, int levels, uint internalformat, int width, int height, int depth) {
+  void texStorage3D()(uint target, int levels, uint internalformat, int width, int height, int depth) {
     WebGL2RenderingContextBase_texStorage3D(this.handle, target, levels, internalformat, width, height, depth);
   }
   void texImage2D(T8)(uint target, int level, int internalformat, int width, int height, int border, uint format, uint type, scope auto ref Optional!(T8) pixels) if (isTOrPointer!(T8, ArrayBufferView)) {
     WebGL2RenderingContextBase_texImage2D__uint_int_int_int_int_int_uint_uint_optional_ArrayBufferView(this.handle, target, level, internalformat, width, height, border, format, type, !pixels.empty, *pixels.frontRef);
   }
-  void texImage2D(uint target, int level, int internalformat, uint format, uint type, scope ref TexImageSource source) {
+  void texImage2D()(uint target, int level, int internalformat, uint format, uint type, scope ref TexImageSource source) {
     WebGL2RenderingContextBase_texImage2D__uint_int_int_uint_uint_TexImageSource(this.handle, target, level, internalformat, format, type, source);
   }
   void texSubImage2D(T8)(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, uint type, scope auto ref Optional!(T8) pixels) if (isTOrPointer!(T8, ArrayBufferView)) {
     WebGL2RenderingContextBase_texSubImage2D__uint_int_int_int_int_int_uint_uint_optional_ArrayBufferView(this.handle, target, level, xoffset, yoffset, width, height, format, type, !pixels.empty, *pixels.frontRef);
   }
-  void texSubImage2D(uint target, int level, int xoffset, int yoffset, uint format, uint type, scope ref TexImageSource source) {
+  void texSubImage2D()(uint target, int level, int xoffset, int yoffset, uint format, uint type, scope ref TexImageSource source) {
     WebGL2RenderingContextBase_texSubImage2D__uint_int_int_int_uint_uint_TexImageSource(this.handle, target, level, xoffset, yoffset, format, type, source);
   }
-  void texImage2D(uint target, int level, int internalformat, int width, int height, int border, uint format, uint type, int pboOffset) {
+  void texImage2D()(uint target, int level, int internalformat, int width, int height, int border, uint format, uint type, int pboOffset) {
     WebGL2RenderingContextBase_texImage2D__uint_int_int_int_int_int_uint_uint_int(this.handle, target, level, internalformat, width, height, border, format, type, pboOffset);
   }
-  void texImage2D(uint target, int level, int internalformat, int width, int height, int border, uint format, uint type, scope ref TexImageSource source) {
+  void texImage2D()(uint target, int level, int internalformat, int width, int height, int border, uint format, uint type, scope ref TexImageSource source) {
     WebGL2RenderingContextBase_texImage2D__uint_int_int_int_int_int_uint_uint_TexImageSource(this.handle, target, level, internalformat, width, height, border, format, type, source);
   }
-  void texImage2D(uint target, int level, int internalformat, int width, int height, int border, uint format, uint type, scope ref ArrayBufferView srcData, uint srcOffset) {
+  void texImage2D()(uint target, int level, int internalformat, int width, int height, int border, uint format, uint type, scope ref ArrayBufferView srcData, uint srcOffset) {
     WebGL2RenderingContextBase_texImage2D__uint_int_int_int_int_int_uint_uint_ArrayBufferView_uint(this.handle, target, level, internalformat, width, height, border, format, type, srcData, srcOffset);
   }
-  void texImage3D(uint target, int level, int internalformat, int width, int height, int depth, int border, uint format, uint type, int pboOffset) {
+  void texImage3D()(uint target, int level, int internalformat, int width, int height, int depth, int border, uint format, uint type, int pboOffset) {
     WebGL2RenderingContextBase_texImage3D__uint_int_int_int_int_int_int_uint_uint_int(this.handle, target, level, internalformat, width, height, depth, border, format, type, pboOffset);
   }
-  void texImage3D(uint target, int level, int internalformat, int width, int height, int depth, int border, uint format, uint type, scope ref TexImageSource source) {
+  void texImage3D()(uint target, int level, int internalformat, int width, int height, int depth, int border, uint format, uint type, scope ref TexImageSource source) {
     WebGL2RenderingContextBase_texImage3D__uint_int_int_int_int_int_int_uint_uint_TexImageSource(this.handle, target, level, internalformat, width, height, depth, border, format, type, source);
   }
   void texImage3D(T9)(uint target, int level, int internalformat, int width, int height, int depth, int border, uint format, uint type, scope auto ref Optional!(T9) srcData) if (isTOrPointer!(T9, ArrayBufferView)) {
     WebGL2RenderingContextBase_texImage3D__uint_int_int_int_int_int_int_uint_uint_optional_ArrayBufferView(this.handle, target, level, internalformat, width, height, depth, border, format, type, !srcData.empty, *srcData.frontRef);
   }
-  void texImage3D(uint target, int level, int internalformat, int width, int height, int depth, int border, uint format, uint type, scope ref ArrayBufferView srcData, uint srcOffset) {
+  void texImage3D()(uint target, int level, int internalformat, int width, int height, int depth, int border, uint format, uint type, scope ref ArrayBufferView srcData, uint srcOffset) {
     WebGL2RenderingContextBase_texImage3D__uint_int_int_int_int_int_int_uint_uint_ArrayBufferView_uint(this.handle, target, level, internalformat, width, height, depth, border, format, type, srcData, srcOffset);
   }
-  void texSubImage2D(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, uint type, int pboOffset) {
+  void texSubImage2D()(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, uint type, int pboOffset) {
     WebGL2RenderingContextBase_texSubImage2D__uint_int_int_int_int_int_uint_uint_int(this.handle, target, level, xoffset, yoffset, width, height, format, type, pboOffset);
   }
-  void texSubImage2D(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, uint type, scope ref TexImageSource source) {
+  void texSubImage2D()(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, uint type, scope ref TexImageSource source) {
     WebGL2RenderingContextBase_texSubImage2D__uint_int_int_int_int_int_uint_uint_TexImageSource(this.handle, target, level, xoffset, yoffset, width, height, format, type, source);
   }
-  void texSubImage2D(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, uint type, scope ref ArrayBufferView srcData, uint srcOffset) {
+  void texSubImage2D()(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, uint type, scope ref ArrayBufferView srcData, uint srcOffset) {
     WebGL2RenderingContextBase_texSubImage2D__uint_int_int_int_int_int_uint_uint_ArrayBufferView_uint(this.handle, target, level, xoffset, yoffset, width, height, format, type, srcData, srcOffset);
   }
-  void texSubImage3D(uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, uint type, int pboOffset) {
+  void texSubImage3D()(uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, uint type, int pboOffset) {
     WebGL2RenderingContextBase_texSubImage3D__uint_int_int_int_int_int_int_int_uint_uint_int(this.handle, target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pboOffset);
   }
-  void texSubImage3D(uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, uint type, scope ref TexImageSource source) {
+  void texSubImage3D()(uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, uint type, scope ref TexImageSource source) {
     WebGL2RenderingContextBase_texSubImage3D__uint_int_int_int_int_int_int_int_uint_uint_TexImageSource(this.handle, target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, source);
   }
   void texSubImage3D(T10)(uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, uint type, scope auto ref Optional!(T10) srcData, uint srcOffset /* = 0 */) if (isTOrPointer!(T10, ArrayBufferView)) {
@@ -409,58 +409,58 @@ struct WebGL2RenderingContextBase {
   void texSubImage3D(T10)(uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, uint type, scope auto ref Optional!(T10) srcData) if (isTOrPointer!(T10, ArrayBufferView)) {
     WebGL2RenderingContextBase_texSubImage3D_0(this.handle, target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, !srcData.empty, *srcData.frontRef);
   }
-  void copyTexSubImage3D(uint target, int level, int xoffset, int yoffset, int zoffset, int x, int y, int width, int height) {
+  void copyTexSubImage3D()(uint target, int level, int xoffset, int yoffset, int zoffset, int x, int y, int width, int height) {
     WebGL2RenderingContextBase_copyTexSubImage3D(this.handle, target, level, xoffset, yoffset, zoffset, x, y, width, height);
   }
-  void compressedTexImage2D(uint target, int level, uint internalformat, int width, int height, int border, int offset) {
+  void compressedTexImage2D()(uint target, int level, uint internalformat, int width, int height, int border, int offset) {
     WebGL2RenderingContextBase_compressedTexImage2D__uint_int_uint_int_int_int_int(this.handle, target, level, internalformat, width, height, border, offset);
   }
-  void compressedTexImage2D(uint target, int level, uint internalformat, int width, int height, int border, scope ref ArrayBufferView srcData, uint srcOffset /* = 0 */, uint srcLengthOverride /* = 0 */) {
+  void compressedTexImage2D()(uint target, int level, uint internalformat, int width, int height, int border, scope ref ArrayBufferView srcData, uint srcOffset /* = 0 */, uint srcLengthOverride /* = 0 */) {
     WebGL2RenderingContextBase_compressedTexImage2D__uint_int_uint_int_int_int_ArrayBufferView_uint_uint(this.handle, target, level, internalformat, width, height, border, srcData, srcOffset, srcLengthOverride);
   }
-  void compressedTexImage2D(uint target, int level, uint internalformat, int width, int height, int border, scope ref ArrayBufferView srcData, uint srcOffset /* = 0 */) {
+  void compressedTexImage2D()(uint target, int level, uint internalformat, int width, int height, int border, scope ref ArrayBufferView srcData, uint srcOffset /* = 0 */) {
     WebGL2RenderingContextBase_compressedTexImage2D_0(this.handle, target, level, internalformat, width, height, border, srcData, srcOffset);
   }
-  void compressedTexImage2D(uint target, int level, uint internalformat, int width, int height, int border, scope ref ArrayBufferView srcData) {
+  void compressedTexImage2D()(uint target, int level, uint internalformat, int width, int height, int border, scope ref ArrayBufferView srcData) {
     WebGL2RenderingContextBase_compressedTexImage2D_1(this.handle, target, level, internalformat, width, height, border, srcData);
   }
-  void compressedTexImage3D(uint target, int level, uint internalformat, int width, int height, int depth, int border, int offset) {
+  void compressedTexImage3D()(uint target, int level, uint internalformat, int width, int height, int depth, int border, int offset) {
     WebGL2RenderingContextBase_compressedTexImage3D__uint_int_uint_int_int_int_int_int(this.handle, target, level, internalformat, width, height, depth, border, offset);
   }
-  void compressedTexImage3D(uint target, int level, uint internalformat, int width, int height, int depth, int border, scope ref ArrayBufferView srcData, uint srcOffset /* = 0 */, uint srcLengthOverride /* = 0 */) {
+  void compressedTexImage3D()(uint target, int level, uint internalformat, int width, int height, int depth, int border, scope ref ArrayBufferView srcData, uint srcOffset /* = 0 */, uint srcLengthOverride /* = 0 */) {
     WebGL2RenderingContextBase_compressedTexImage3D__uint_int_uint_int_int_int_int_ArrayBufferView_uint_uint(this.handle, target, level, internalformat, width, height, depth, border, srcData, srcOffset, srcLengthOverride);
   }
-  void compressedTexImage3D(uint target, int level, uint internalformat, int width, int height, int depth, int border, scope ref ArrayBufferView srcData, uint srcOffset /* = 0 */) {
+  void compressedTexImage3D()(uint target, int level, uint internalformat, int width, int height, int depth, int border, scope ref ArrayBufferView srcData, uint srcOffset /* = 0 */) {
     WebGL2RenderingContextBase_compressedTexImage3D_0(this.handle, target, level, internalformat, width, height, depth, border, srcData, srcOffset);
   }
-  void compressedTexImage3D(uint target, int level, uint internalformat, int width, int height, int depth, int border, scope ref ArrayBufferView srcData) {
+  void compressedTexImage3D()(uint target, int level, uint internalformat, int width, int height, int depth, int border, scope ref ArrayBufferView srcData) {
     WebGL2RenderingContextBase_compressedTexImage3D_1(this.handle, target, level, internalformat, width, height, depth, border, srcData);
   }
-  void compressedTexSubImage2D(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, int offset) {
+  void compressedTexSubImage2D()(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, int offset) {
     WebGL2RenderingContextBase_compressedTexSubImage2D__uint_int_int_int_int_int_uint_int(this.handle, target, level, xoffset, yoffset, width, height, format, offset);
   }
-  void compressedTexSubImage2D(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, scope ref ArrayBufferView srcData, uint srcOffset /* = 0 */, uint srcLengthOverride /* = 0 */) {
+  void compressedTexSubImage2D()(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, scope ref ArrayBufferView srcData, uint srcOffset /* = 0 */, uint srcLengthOverride /* = 0 */) {
     WebGL2RenderingContextBase_compressedTexSubImage2D__uint_int_int_int_int_int_uint_ArrayBufferView_uint_uint(this.handle, target, level, xoffset, yoffset, width, height, format, srcData, srcOffset, srcLengthOverride);
   }
-  void compressedTexSubImage2D(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, scope ref ArrayBufferView srcData, uint srcOffset /* = 0 */) {
+  void compressedTexSubImage2D()(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, scope ref ArrayBufferView srcData, uint srcOffset /* = 0 */) {
     WebGL2RenderingContextBase_compressedTexSubImage2D_0(this.handle, target, level, xoffset, yoffset, width, height, format, srcData, srcOffset);
   }
-  void compressedTexSubImage2D(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, scope ref ArrayBufferView srcData) {
+  void compressedTexSubImage2D()(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, scope ref ArrayBufferView srcData) {
     WebGL2RenderingContextBase_compressedTexSubImage2D_1(this.handle, target, level, xoffset, yoffset, width, height, format, srcData);
   }
-  void compressedTexSubImage3D(uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, int offset) {
+  void compressedTexSubImage3D()(uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, int offset) {
     WebGL2RenderingContextBase_compressedTexSubImage3D__uint_int_int_int_int_int_int_int_uint_int(this.handle, target, level, xoffset, yoffset, zoffset, width, height, depth, format, offset);
   }
-  void compressedTexSubImage3D(uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, scope ref ArrayBufferView srcData, uint srcOffset /* = 0 */, uint srcLengthOverride /* = 0 */) {
+  void compressedTexSubImage3D()(uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, scope ref ArrayBufferView srcData, uint srcOffset /* = 0 */, uint srcLengthOverride /* = 0 */) {
     WebGL2RenderingContextBase_compressedTexSubImage3D__uint_int_int_int_int_int_int_int_uint_ArrayBufferView_uint_uint(this.handle, target, level, xoffset, yoffset, zoffset, width, height, depth, format, srcData, srcOffset, srcLengthOverride);
   }
-  void compressedTexSubImage3D(uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, scope ref ArrayBufferView srcData, uint srcOffset /* = 0 */) {
+  void compressedTexSubImage3D()(uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, scope ref ArrayBufferView srcData, uint srcOffset /* = 0 */) {
     WebGL2RenderingContextBase_compressedTexSubImage3D_0(this.handle, target, level, xoffset, yoffset, zoffset, width, height, depth, format, srcData, srcOffset);
   }
-  void compressedTexSubImage3D(uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, scope ref ArrayBufferView srcData) {
+  void compressedTexSubImage3D()(uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, scope ref ArrayBufferView srcData) {
     WebGL2RenderingContextBase_compressedTexSubImage3D_1(this.handle, target, level, xoffset, yoffset, zoffset, width, height, depth, format, srcData);
   }
-  auto getFragDataLocation(scope ref WebGLProgram program, string name) {
+  auto getFragDataLocation()(scope ref WebGLProgram program, string name) {
     return WebGL2RenderingContextBase_getFragDataLocation(this.handle, program._parent, name);
   }
   void uniform1ui(T0)(scope auto ref Optional!(T0) location, uint v0) if (isTOrPointer!(T0, WebGLUniformLocation)) {
@@ -664,67 +664,67 @@ struct WebGL2RenderingContextBase {
   void uniformMatrix4fv(T0)(scope auto ref Optional!(T0) location, bool transpose, scope ref Float32List data) if (isTOrPointer!(T0, WebGLUniformLocation)) {
     WebGL2RenderingContextBase_uniformMatrix4fv_1(this.handle, !location.empty, location.front.handle, transpose, data);
   }
-  void vertexAttribI4i(uint index, int x, int y, int z, int w) {
+  void vertexAttribI4i()(uint index, int x, int y, int z, int w) {
     WebGL2RenderingContextBase_vertexAttribI4i(this.handle, index, x, y, z, w);
   }
-  void vertexAttribI4iv(uint index, scope ref Int32List values) {
+  void vertexAttribI4iv()(uint index, scope ref Int32List values) {
     WebGL2RenderingContextBase_vertexAttribI4iv(this.handle, index, values);
   }
-  void vertexAttribI4ui(uint index, uint x, uint y, uint z, uint w) {
+  void vertexAttribI4ui()(uint index, uint x, uint y, uint z, uint w) {
     WebGL2RenderingContextBase_vertexAttribI4ui(this.handle, index, x, y, z, w);
   }
-  void vertexAttribI4uiv(uint index, scope ref Uint32List values) {
+  void vertexAttribI4uiv()(uint index, scope ref Uint32List values) {
     WebGL2RenderingContextBase_vertexAttribI4uiv(this.handle, index, values);
   }
-  void vertexAttribIPointer(uint index, int size, uint type, int stride, int offset) {
+  void vertexAttribIPointer()(uint index, int size, uint type, int stride, int offset) {
     WebGL2RenderingContextBase_vertexAttribIPointer(this.handle, index, size, type, stride, offset);
   }
-  void vertexAttribDivisor(uint index, uint divisor) {
+  void vertexAttribDivisor()(uint index, uint divisor) {
     WebGL2RenderingContextBase_vertexAttribDivisor(this.handle, index, divisor);
   }
-  void drawArraysInstanced(uint mode, int first, int count, int instanceCount) {
+  void drawArraysInstanced()(uint mode, int first, int count, int instanceCount) {
     WebGL2RenderingContextBase_drawArraysInstanced(this.handle, mode, first, count, instanceCount);
   }
-  void drawElementsInstanced(uint mode, int count, uint type, int offset, int instanceCount) {
+  void drawElementsInstanced()(uint mode, int count, uint type, int offset, int instanceCount) {
     WebGL2RenderingContextBase_drawElementsInstanced(this.handle, mode, count, type, offset, instanceCount);
   }
-  void drawRangeElements(uint mode, uint start, uint end, int count, uint type, int offset) {
+  void drawRangeElements()(uint mode, uint start, uint end, int count, uint type, int offset) {
     WebGL2RenderingContextBase_drawRangeElements(this.handle, mode, start, end, count, type, offset);
   }
   void readPixels(T6)(int x, int y, int width, int height, uint format, uint type, scope auto ref Optional!(T6) dstData) if (isTOrPointer!(T6, ArrayBufferView)) {
     WebGL2RenderingContextBase_readPixels__int_int_int_int_uint_uint_optional_ArrayBufferView(this.handle, x, y, width, height, format, type, !dstData.empty, *dstData.frontRef);
   }
-  void readPixels(int x, int y, int width, int height, uint format, uint type, int offset) {
+  void readPixels()(int x, int y, int width, int height, uint format, uint type, int offset) {
     WebGL2RenderingContextBase_readPixels__int_int_int_int_uint_uint_int(this.handle, x, y, width, height, format, type, offset);
   }
-  void readPixels(int x, int y, int width, int height, uint format, uint type, scope ref ArrayBufferView dstData, uint dstOffset) {
+  void readPixels()(int x, int y, int width, int height, uint format, uint type, scope ref ArrayBufferView dstData, uint dstOffset) {
     WebGL2RenderingContextBase_readPixels__int_int_int_int_uint_uint_ArrayBufferView_uint(this.handle, x, y, width, height, format, type, dstData, dstOffset);
   }
-  void drawBuffers(scope ref Sequence!(uint) buffers) {
+  void drawBuffers()(scope ref Sequence!(uint) buffers) {
     WebGL2RenderingContextBase_drawBuffers(this.handle, buffers.handle);
   }
-  void clearBufferfv(uint buffer, int drawbuffer, scope ref Float32List values, uint srcOffset /* = 0 */) {
+  void clearBufferfv()(uint buffer, int drawbuffer, scope ref Float32List values, uint srcOffset /* = 0 */) {
     WebGL2RenderingContextBase_clearBufferfv(this.handle, buffer, drawbuffer, values, srcOffset);
   }
-  void clearBufferfv(uint buffer, int drawbuffer, scope ref Float32List values) {
+  void clearBufferfv()(uint buffer, int drawbuffer, scope ref Float32List values) {
     WebGL2RenderingContextBase_clearBufferfv_0(this.handle, buffer, drawbuffer, values);
   }
-  void clearBufferiv(uint buffer, int drawbuffer, scope ref Int32List values, uint srcOffset /* = 0 */) {
+  void clearBufferiv()(uint buffer, int drawbuffer, scope ref Int32List values, uint srcOffset /* = 0 */) {
     WebGL2RenderingContextBase_clearBufferiv(this.handle, buffer, drawbuffer, values, srcOffset);
   }
-  void clearBufferiv(uint buffer, int drawbuffer, scope ref Int32List values) {
+  void clearBufferiv()(uint buffer, int drawbuffer, scope ref Int32List values) {
     WebGL2RenderingContextBase_clearBufferiv_0(this.handle, buffer, drawbuffer, values);
   }
-  void clearBufferuiv(uint buffer, int drawbuffer, scope ref Uint32List values, uint srcOffset /* = 0 */) {
+  void clearBufferuiv()(uint buffer, int drawbuffer, scope ref Uint32List values, uint srcOffset /* = 0 */) {
     WebGL2RenderingContextBase_clearBufferuiv(this.handle, buffer, drawbuffer, values, srcOffset);
   }
-  void clearBufferuiv(uint buffer, int drawbuffer, scope ref Uint32List values) {
+  void clearBufferuiv()(uint buffer, int drawbuffer, scope ref Uint32List values) {
     WebGL2RenderingContextBase_clearBufferuiv_0(this.handle, buffer, drawbuffer, values);
   }
-  void clearBufferfi(uint buffer, int drawbuffer, float depth, int stencil) {
+  void clearBufferfi()(uint buffer, int drawbuffer, float depth, int stencil) {
     WebGL2RenderingContextBase_clearBufferfi(this.handle, buffer, drawbuffer, depth, stencil);
   }
-  auto createQuery() {
+  auto createQuery()() {
     return WebGL2RenderingContextBase_createQuery(this.handle);
   }
   void deleteQuery(T0)(scope auto ref Optional!(T0) query) if (isTOrPointer!(T0, WebGLQuery)) {
@@ -733,19 +733,19 @@ struct WebGL2RenderingContextBase {
   auto isQuery(T0)(scope auto ref Optional!(T0) query) if (isTOrPointer!(T0, WebGLQuery)) {
     return WebGL2RenderingContextBase_isQuery(this.handle, !query.empty, query.front._parent);
   }
-  void beginQuery(uint target, scope ref WebGLQuery query) {
+  void beginQuery()(uint target, scope ref WebGLQuery query) {
     WebGL2RenderingContextBase_beginQuery(this.handle, target, query._parent);
   }
-  void endQuery(uint target) {
+  void endQuery()(uint target) {
     WebGL2RenderingContextBase_endQuery(this.handle, target);
   }
-  auto getQuery(uint target, uint pname) {
+  auto getQuery()(uint target, uint pname) {
     return WebGL2RenderingContextBase_getQuery(this.handle, target, pname);
   }
-  auto getQueryParameter(scope ref WebGLQuery query, uint pname) {
+  auto getQueryParameter()(scope ref WebGLQuery query, uint pname) {
     return Any(WebGL2RenderingContextBase_getQueryParameter(this.handle, query._parent, pname));
   }
-  auto createSampler() {
+  auto createSampler()() {
     return WebGL2RenderingContextBase_createSampler(this.handle);
   }
   void deleteSampler(T0)(scope auto ref Optional!(T0) sampler) if (isTOrPointer!(T0, WebGLSampler)) {
@@ -757,16 +757,16 @@ struct WebGL2RenderingContextBase {
   void bindSampler(T1)(uint unit, scope auto ref Optional!(T1) sampler) if (isTOrPointer!(T1, WebGLSampler)) {
     WebGL2RenderingContextBase_bindSampler(this.handle, unit, !sampler.empty, sampler.front._parent);
   }
-  void samplerParameteri(scope ref WebGLSampler sampler, uint pname, int param) {
+  void samplerParameteri()(scope ref WebGLSampler sampler, uint pname, int param) {
     WebGL2RenderingContextBase_samplerParameteri(this.handle, sampler._parent, pname, param);
   }
-  void samplerParameterf(scope ref WebGLSampler sampler, uint pname, float param) {
+  void samplerParameterf()(scope ref WebGLSampler sampler, uint pname, float param) {
     WebGL2RenderingContextBase_samplerParameterf(this.handle, sampler._parent, pname, param);
   }
-  auto getSamplerParameter(scope ref WebGLSampler sampler, uint pname) {
+  auto getSamplerParameter()(scope ref WebGLSampler sampler, uint pname) {
     return Any(WebGL2RenderingContextBase_getSamplerParameter(this.handle, sampler._parent, pname));
   }
-  auto fenceSync(uint condition, uint flags) {
+  auto fenceSync()(uint condition, uint flags) {
     return WebGL2RenderingContextBase_fenceSync(this.handle, condition, flags);
   }
   auto isSync(T0)(scope auto ref Optional!(T0) sync) if (isTOrPointer!(T0, WebGLSync)) {
@@ -775,16 +775,16 @@ struct WebGL2RenderingContextBase {
   void deleteSync(T0)(scope auto ref Optional!(T0) sync) if (isTOrPointer!(T0, WebGLSync)) {
     WebGL2RenderingContextBase_deleteSync(this.handle, !sync.empty, sync.front._parent);
   }
-  auto clientWaitSync(scope ref WebGLSync sync, uint flags, uint timeout) {
+  auto clientWaitSync()(scope ref WebGLSync sync, uint flags, uint timeout) {
     return WebGL2RenderingContextBase_clientWaitSync(this.handle, sync._parent, flags, timeout);
   }
-  void waitSync(scope ref WebGLSync sync, uint flags, int timeout) {
+  void waitSync()(scope ref WebGLSync sync, uint flags, int timeout) {
     WebGL2RenderingContextBase_waitSync(this.handle, sync._parent, flags, timeout);
   }
-  auto getSyncParameter(scope ref WebGLSync sync, uint pname) {
+  auto getSyncParameter()(scope ref WebGLSync sync, uint pname) {
     return Any(WebGL2RenderingContextBase_getSyncParameter(this.handle, sync._parent, pname));
   }
-  auto createTransformFeedback() {
+  auto createTransformFeedback()() {
     return WebGL2RenderingContextBase_createTransformFeedback(this.handle);
   }
   void deleteTransformFeedback(T0)(scope auto ref Optional!(T0) tf) if (isTOrPointer!(T0, WebGLTransformFeedback)) {
@@ -796,22 +796,22 @@ struct WebGL2RenderingContextBase {
   void bindTransformFeedback(T1)(uint target, scope auto ref Optional!(T1) tf) if (isTOrPointer!(T1, WebGLTransformFeedback)) {
     WebGL2RenderingContextBase_bindTransformFeedback(this.handle, target, !tf.empty, tf.front._parent);
   }
-  void beginTransformFeedback(uint primitiveMode) {
+  void beginTransformFeedback()(uint primitiveMode) {
     WebGL2RenderingContextBase_beginTransformFeedback(this.handle, primitiveMode);
   }
-  void endTransformFeedback() {
+  void endTransformFeedback()() {
     WebGL2RenderingContextBase_endTransformFeedback(this.handle);
   }
-  void transformFeedbackVaryings(scope ref WebGLProgram program, scope ref Sequence!(string) varyings, uint bufferMode) {
+  void transformFeedbackVaryings()(scope ref WebGLProgram program, scope ref Sequence!(string) varyings, uint bufferMode) {
     WebGL2RenderingContextBase_transformFeedbackVaryings(this.handle, program._parent, varyings.handle, bufferMode);
   }
-  auto getTransformFeedbackVarying(scope ref WebGLProgram program, uint index) {
+  auto getTransformFeedbackVarying()(scope ref WebGLProgram program, uint index) {
     return WebGL2RenderingContextBase_getTransformFeedbackVarying(this.handle, program._parent, index);
   }
-  void pauseTransformFeedback() {
+  void pauseTransformFeedback()() {
     WebGL2RenderingContextBase_pauseTransformFeedback(this.handle);
   }
-  void resumeTransformFeedback() {
+  void resumeTransformFeedback()() {
     WebGL2RenderingContextBase_resumeTransformFeedback(this.handle);
   }
   void bindBufferBase(T2)(uint target, uint index, scope auto ref Optional!(T2) buffer) if (isTOrPointer!(T2, WebGLBuffer)) {
@@ -820,28 +820,28 @@ struct WebGL2RenderingContextBase {
   void bindBufferRange(T2)(uint target, uint index, scope auto ref Optional!(T2) buffer, int offset, int size) if (isTOrPointer!(T2, WebGLBuffer)) {
     WebGL2RenderingContextBase_bindBufferRange(this.handle, target, index, !buffer.empty, buffer.front._parent, offset, size);
   }
-  auto getIndexedParameter(uint target, uint index) {
+  auto getIndexedParameter()(uint target, uint index) {
     return Any(WebGL2RenderingContextBase_getIndexedParameter(this.handle, target, index));
   }
-  auto getUniformIndices(scope ref WebGLProgram program, scope ref Sequence!(string) uniformNames) {
+  auto getUniformIndices()(scope ref WebGLProgram program, scope ref Sequence!(string) uniformNames) {
     return WebGL2RenderingContextBase_getUniformIndices(this.handle, program._parent, uniformNames.handle);
   }
-  auto getActiveUniforms(scope ref WebGLProgram program, scope ref Sequence!(uint) uniformIndices, uint pname) {
+  auto getActiveUniforms()(scope ref WebGLProgram program, scope ref Sequence!(uint) uniformIndices, uint pname) {
     return Any(WebGL2RenderingContextBase_getActiveUniforms(this.handle, program._parent, uniformIndices.handle, pname));
   }
-  auto getUniformBlockIndex(scope ref WebGLProgram program, string uniformBlockName) {
+  auto getUniformBlockIndex()(scope ref WebGLProgram program, string uniformBlockName) {
     return WebGL2RenderingContextBase_getUniformBlockIndex(this.handle, program._parent, uniformBlockName);
   }
-  auto getActiveUniformBlockParameter(scope ref WebGLProgram program, uint uniformBlockIndex, uint pname) {
+  auto getActiveUniformBlockParameter()(scope ref WebGLProgram program, uint uniformBlockIndex, uint pname) {
     return Any(WebGL2RenderingContextBase_getActiveUniformBlockParameter(this.handle, program._parent, uniformBlockIndex, pname));
   }
-  auto getActiveUniformBlockName(scope ref WebGLProgram program, uint uniformBlockIndex) {
+  auto getActiveUniformBlockName()(scope ref WebGLProgram program, uint uniformBlockIndex) {
     return WebGL2RenderingContextBase_getActiveUniformBlockName(this.handle, program._parent, uniformBlockIndex);
   }
-  void uniformBlockBinding(scope ref WebGLProgram program, uint uniformBlockIndex, uint uniformBlockBinding) {
+  void uniformBlockBinding()(scope ref WebGLProgram program, uint uniformBlockIndex, uint uniformBlockBinding) {
     WebGL2RenderingContextBase_uniformBlockBinding(this.handle, program._parent, uniformBlockIndex, uniformBlockBinding);
   }
-  auto createVertexArray() {
+  auto createVertexArray()() {
     return WebGL2RenderingContextBase_createVertexArray(this.handle);
   }
   void deleteVertexArray(T0)(scope auto ref Optional!(T0) vertexArray) if (isTOrPointer!(T0, WebGLVertexArrayObject)) {

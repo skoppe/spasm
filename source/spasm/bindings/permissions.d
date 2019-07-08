@@ -17,10 +17,10 @@ struct DevicePermissionDescriptor {
   static auto create() {
     return DevicePermissionDescriptor(spasm_add__object());
   }
-  void deviceId(string deviceId) {
+  void deviceId()(string deviceId) {
     DevicePermissionDescriptor_deviceId_Set(this._parent, deviceId);
   }
-  auto deviceId() {
+  auto deviceId()() {
     return DevicePermissionDescriptor_deviceId_Get(this._parent);
   }
 }
@@ -34,10 +34,10 @@ struct MidiPermissionDescriptor {
   static auto create() {
     return MidiPermissionDescriptor(spasm_add__object());
   }
-  void sysex(bool sysex) {
+  void sysex()(bool sysex) {
     MidiPermissionDescriptor_sysex_Set(this._parent, sysex);
   }
-  auto sysex() {
+  auto sysex()() {
     return MidiPermissionDescriptor_sysex_Get(this._parent);
   }
 }
@@ -51,10 +51,10 @@ struct PermissionDescriptor {
   static auto create() {
     return PermissionDescriptor(spasm_add__object());
   }
-  void name(PermissionName name) {
+  void name()(PermissionName name) {
     PermissionDescriptor_name_Set(this.handle, name);
   }
-  auto name() {
+  auto name()() {
     return PermissionDescriptor_name_Get(this.handle);
   }
 }
@@ -88,22 +88,22 @@ struct PermissionSetParameters {
   static auto create() {
     return PermissionSetParameters(spasm_add__object());
   }
-  void descriptor(scope ref PermissionDescriptor descriptor) {
+  void descriptor()(scope ref PermissionDescriptor descriptor) {
     PermissionSetParameters_descriptor_Set(this.handle, descriptor.handle);
   }
-  auto descriptor() {
+  auto descriptor()() {
     return PermissionDescriptor(PermissionSetParameters_descriptor_Get(this.handle));
   }
-  void state(PermissionState state) {
+  void state()(PermissionState state) {
     PermissionSetParameters_state_Set(this.handle, state);
   }
-  auto state() {
+  auto state()() {
     return PermissionSetParameters_state_Get(this.handle);
   }
-  void oneRealm(bool oneRealm) {
+  void oneRealm()(bool oneRealm) {
     PermissionSetParameters_oneRealm_Set(this.handle, oneRealm);
   }
-  auto oneRealm() {
+  auto oneRealm()() {
     return PermissionSetParameters_oneRealm_Get(this.handle);
   }
 }
@@ -119,13 +119,13 @@ struct PermissionStatus {
   this(Handle h) {
     _parent = .EventTarget(h);
   }
-  auto state() {
+  auto state()() {
     return PermissionStatus_state_Get(this._parent);
   }
-  void onchange(EventHandler onchange) {
+  void onchange()(EventHandler onchange) {
     PermissionStatus_onchange_Set(this._parent, onchange);
   }
-  auto onchange() {
+  auto onchange()() {
     return PermissionStatus_onchange_Get(this._parent);
   }
 }
@@ -136,7 +136,7 @@ struct Permissions {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto query(scope ref JsObject permissionDesc) {
+  auto query()(scope ref JsObject permissionDesc) {
     return Promise!(PermissionStatus)(Permissions_query(this.handle, permissionDesc.handle));
   }
 }
@@ -150,10 +150,10 @@ struct PushPermissionDescriptor {
   static auto create() {
     return PushPermissionDescriptor(spasm_add__object());
   }
-  void userVisibleOnly(bool userVisibleOnly) {
+  void userVisibleOnly()(bool userVisibleOnly) {
     PushPermissionDescriptor_userVisibleOnly_Set(this._parent, userVisibleOnly);
   }
-  auto userVisibleOnly() {
+  auto userVisibleOnly()() {
     return PushPermissionDescriptor_userVisibleOnly_Get(this._parent);
   }
 }

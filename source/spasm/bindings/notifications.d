@@ -20,10 +20,10 @@ struct GetNotificationOptions {
   static auto create() {
     return GetNotificationOptions(spasm_add__object());
   }
-  void tag(string tag) {
+  void tag()(string tag) {
     GetNotificationOptions_tag_Set(this.handle, tag);
   }
-  auto tag() {
+  auto tag()() {
     return GetNotificationOptions_tag_Get(this.handle);
   }
 }
@@ -34,94 +34,94 @@ struct Notification {
   this(Handle h) {
     _parent = .EventTarget(h);
   }
-  void permission(NotificationPermission permission) {
+  void permission()(NotificationPermission permission) {
     Notification_permission_Set(this._parent, permission);
   }
-  auto permission() {
+  auto permission()() {
     return Notification_permission_Get(this._parent);
   }
-  auto requestPermission(NotificationPermissionCallback deprecatedCallback) {
+  auto requestPermission()(NotificationPermissionCallback deprecatedCallback) {
     return Promise!(NotificationPermission)(Notification_requestPermission(this._parent, deprecatedCallback));
   }
-  auto requestPermission() {
+  auto requestPermission()() {
     return Promise!(NotificationPermission)(Notification_requestPermission_0(this._parent));
   }
-  void maxActions(uint maxActions) {
+  void maxActions()(uint maxActions) {
     Notification_maxActions_Set(this._parent, maxActions);
   }
-  auto maxActions() {
+  auto maxActions()() {
     return Notification_maxActions_Get(this._parent);
   }
-  void onclick(EventHandler onclick) {
+  void onclick()(EventHandler onclick) {
     Notification_onclick_Set(this._parent, onclick);
   }
-  auto onclick() {
+  auto onclick()() {
     return Notification_onclick_Get(this._parent);
   }
-  void onshow(EventHandler onshow) {
+  void onshow()(EventHandler onshow) {
     Notification_onshow_Set(this._parent, onshow);
   }
-  auto onshow() {
+  auto onshow()() {
     return Notification_onshow_Get(this._parent);
   }
-  void onerror(EventHandler onerror) {
+  void onerror()(EventHandler onerror) {
     Notification_onerror_Set(this._parent, onerror);
   }
-  auto onerror() {
+  auto onerror()() {
     return Notification_onerror_Get(this._parent);
   }
-  void onclose(EventHandler onclose) {
+  void onclose()(EventHandler onclose) {
     Notification_onclose_Set(this._parent, onclose);
   }
-  auto onclose() {
+  auto onclose()() {
     return Notification_onclose_Get(this._parent);
   }
-  auto title() {
+  auto title()() {
     return Notification_title_Get(this._parent);
   }
-  auto dir() {
+  auto dir()() {
     return Notification_dir_Get(this._parent);
   }
-  auto lang() {
+  auto lang()() {
     return Notification_lang_Get(this._parent);
   }
-  auto body_() {
+  auto body_()() {
     return Notification_body_Get(this._parent);
   }
-  auto tag() {
+  auto tag()() {
     return Notification_tag_Get(this._parent);
   }
-  auto image() {
+  auto image()() {
     return Notification_image_Get(this._parent);
   }
-  auto icon() {
+  auto icon()() {
     return Notification_icon_Get(this._parent);
   }
-  auto badge() {
+  auto badge()() {
     return Notification_badge_Get(this._parent);
   }
-  auto vibrate() {
+  auto vibrate()() {
     return FrozenArray!(uint)(Notification_vibrate_Get(this._parent));
   }
-  auto timestamp() {
+  auto timestamp()() {
     return Notification_timestamp_Get(this._parent);
   }
-  auto renotify() {
+  auto renotify()() {
     return Notification_renotify_Get(this._parent);
   }
-  auto silent() {
+  auto silent()() {
     return Notification_silent_Get(this._parent);
   }
-  auto requireInteraction() {
+  auto requireInteraction()() {
     return Notification_requireInteraction_Get(this._parent);
   }
-  auto data() {
+  auto data()() {
     return Any(Notification_data_Get(this._parent));
   }
-  auto actions() {
+  auto actions()() {
     return FrozenArray!(NotificationAction)(Notification_actions_Get(this._parent));
   }
-  void close() {
+  void close()() {
     Notification_close(this._parent);
   }
 }
@@ -135,22 +135,22 @@ struct NotificationAction {
   static auto create() {
     return NotificationAction(spasm_add__object());
   }
-  void action(string action) {
+  void action()(string action) {
     NotificationAction_action_Set(this.handle, action);
   }
-  auto action() {
+  auto action()() {
     return NotificationAction_action_Get(this.handle);
   }
-  void title(string title) {
+  void title()(string title) {
     NotificationAction_title_Set(this.handle, title);
   }
-  auto title() {
+  auto title()() {
     return NotificationAction_title_Get(this.handle);
   }
-  void icon(string icon) {
+  void icon()(string icon) {
     NotificationAction_icon_Set(this.handle, icon);
   }
-  auto icon() {
+  auto icon()() {
     return NotificationAction_icon_Get(this.handle);
   }
 }
@@ -166,10 +166,10 @@ struct NotificationEvent {
   this(Handle h) {
     _parent = .ExtendableEvent(h);
   }
-  auto notification() {
+  auto notification()() {
     return Notification(NotificationEvent_notification_Get(this._parent));
   }
-  auto action() {
+  auto action()() {
     return NotificationEvent_action_Get(this._parent);
   }
 }
@@ -183,16 +183,16 @@ struct NotificationEventInit {
   static auto create() {
     return NotificationEventInit(spasm_add__object());
   }
-  void notification(scope ref Notification notification) {
+  void notification()(scope ref Notification notification) {
     NotificationEventInit_notification_Set(this._parent, notification.handle);
   }
-  auto notification() {
+  auto notification()() {
     return Notification(NotificationEventInit_notification_Get(this._parent));
   }
-  void action(string action) {
+  void action()(string action) {
     NotificationEventInit_action_Set(this._parent, action);
   }
-  auto action() {
+  auto action()() {
     return NotificationEventInit_action_Get(this._parent);
   }
 }
@@ -206,76 +206,76 @@ struct NotificationOptions {
   static auto create() {
     return NotificationOptions(spasm_add__object());
   }
-  void dir(NotificationDirection dir) {
+  void dir()(NotificationDirection dir) {
     NotificationOptions_dir_Set(this.handle, dir);
   }
-  auto dir() {
+  auto dir()() {
     return NotificationOptions_dir_Get(this.handle);
   }
-  void lang(string lang) {
+  void lang()(string lang) {
     NotificationOptions_lang_Set(this.handle, lang);
   }
-  auto lang() {
+  auto lang()() {
     return NotificationOptions_lang_Get(this.handle);
   }
-  void body_(string body_) {
+  void body_()(string body_) {
     NotificationOptions_body_Set(this.handle, body_);
   }
-  auto body_() {
+  auto body_()() {
     return NotificationOptions_body_Get(this.handle);
   }
-  void tag(string tag) {
+  void tag()(string tag) {
     NotificationOptions_tag_Set(this.handle, tag);
   }
-  auto tag() {
+  auto tag()() {
     return NotificationOptions_tag_Get(this.handle);
   }
-  void image(string image) {
+  void image()(string image) {
     NotificationOptions_image_Set(this.handle, image);
   }
-  auto image() {
+  auto image()() {
     return NotificationOptions_image_Get(this.handle);
   }
-  void icon(string icon) {
+  void icon()(string icon) {
     NotificationOptions_icon_Set(this.handle, icon);
   }
-  auto icon() {
+  auto icon()() {
     return NotificationOptions_icon_Get(this.handle);
   }
-  void badge(string badge) {
+  void badge()(string badge) {
     NotificationOptions_badge_Set(this.handle, badge);
   }
-  auto badge() {
+  auto badge()() {
     return NotificationOptions_badge_Get(this.handle);
   }
-  void vibrate(scope ref VibratePattern vibrate) {
+  void vibrate()(scope ref VibratePattern vibrate) {
     NotificationOptions_vibrate_Set(this.handle, vibrate);
   }
-  auto vibrate() {
+  auto vibrate()() {
     return NotificationOptions_vibrate_Get(this.handle);
   }
-  void timestamp(uint timestamp) {
+  void timestamp()(uint timestamp) {
     NotificationOptions_timestamp_Set(this.handle, timestamp);
   }
-  auto timestamp() {
+  auto timestamp()() {
     return NotificationOptions_timestamp_Get(this.handle);
   }
-  void renotify(bool renotify) {
+  void renotify()(bool renotify) {
     NotificationOptions_renotify_Set(this.handle, renotify);
   }
-  auto renotify() {
+  auto renotify()() {
     return NotificationOptions_renotify_Get(this.handle);
   }
-  void silent(bool silent) {
+  void silent()(bool silent) {
     NotificationOptions_silent_Set(this.handle, silent);
   }
-  auto silent() {
+  auto silent()() {
     return NotificationOptions_silent_Get(this.handle);
   }
-  void requireInteraction(bool requireInteraction) {
+  void requireInteraction()(bool requireInteraction) {
     NotificationOptions_requireInteraction_Set(this.handle, requireInteraction);
   }
-  auto requireInteraction() {
+  auto requireInteraction()() {
     return NotificationOptions_requireInteraction_Get(this.handle);
   }
   void data(T0)(scope auto ref T0 data) {
@@ -283,13 +283,13 @@ struct NotificationOptions {
     NotificationOptions_data_Set(this.handle, _handle_data);
     dropHandle!(T0)(_handle_data);
   }
-  auto data() {
+  auto data()() {
     return Any(NotificationOptions_data_Get(this.handle));
   }
-  void actions(scope ref Sequence!(NotificationAction) actions) {
+  void actions()(scope ref Sequence!(NotificationAction) actions) {
     NotificationOptions_actions_Set(this.handle, actions.handle);
   }
-  auto actions() {
+  auto actions()() {
     return Sequence!(NotificationAction)(NotificationOptions_actions_Get(this.handle));
   }
 }

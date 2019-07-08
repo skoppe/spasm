@@ -13,13 +13,13 @@ struct ByteLengthQueuingStrategy {
   this(Handle h) {
     _parent = .QueuingStrategy(h);
   }
-  void highWaterMark(double highWaterMark) {
+  void highWaterMark()(double highWaterMark) {
     ByteLengthQueuingStrategy_highWaterMark_Set(this._parent, highWaterMark);
   }
-  auto highWaterMark() {
+  auto highWaterMark()() {
     return ByteLengthQueuingStrategy_highWaterMark_Get(this._parent);
   }
-  auto size(scope ref ArrayBufferView chunk) {
+  auto size()(scope ref ArrayBufferView chunk) {
     return ByteLengthQueuingStrategy_size(this._parent, chunk);
   }
 }
@@ -30,10 +30,10 @@ struct CountQueuingStrategy {
   this(Handle h) {
     _parent = .QueuingStrategy(h);
   }
-  void highWaterMark(double highWaterMark) {
+  void highWaterMark()(double highWaterMark) {
     CountQueuingStrategy_highWaterMark_Set(this._parent, highWaterMark);
   }
-  auto highWaterMark() {
+  auto highWaterMark()() {
     return CountQueuingStrategy_highWaterMark_Get(this._parent);
   }
   auto size(T0)(scope auto ref T0 chunk) {
@@ -56,19 +56,19 @@ struct PipeOptions {
   void preventClose(T0)(scope auto ref Optional!(T0) preventClose) if (isTOrPointer!(T0, bool)) {
     PipeOptions_preventClose_Set(this.handle, !preventClose.empty, preventClose.front);
   }
-  auto preventClose() {
+  auto preventClose()() {
     return PipeOptions_preventClose_Get(this.handle);
   }
   void preventAbort(T0)(scope auto ref Optional!(T0) preventAbort) if (isTOrPointer!(T0, bool)) {
     PipeOptions_preventAbort_Set(this.handle, !preventAbort.empty, preventAbort.front);
   }
-  auto preventAbort() {
+  auto preventAbort()() {
     return PipeOptions_preventAbort_Get(this.handle);
   }
   void preventCancel(T0)(scope auto ref Optional!(T0) preventCancel) if (isTOrPointer!(T0, bool)) {
     PipeOptions_preventCancel_Set(this.handle, !preventCancel.empty, preventCancel.front);
   }
-  auto preventCancel() {
+  auto preventCancel()() {
     return PipeOptions_preventCancel_Get(this.handle);
   }
 }
@@ -85,13 +85,13 @@ struct QueuingStrategy {
   void highWaterMark(T0)(scope auto ref Optional!(T0) highWaterMark) if (isTOrPointer!(T0, double)) {
     QueuingStrategy_highWaterMark_Set(this.handle, !highWaterMark.empty, highWaterMark.front);
   }
-  auto highWaterMark() {
+  auto highWaterMark()() {
     return QueuingStrategy_highWaterMark_Get(this.handle);
   }
   void size(T0)(scope auto ref Optional!(T0) size) if (isTOrPointer!(T0, QueuingStrategySizeCallback)) {
     QueuingStrategy_size_Set(this.handle, !size.empty, size.front);
   }
-  auto size() {
+  auto size()() {
     return QueuingStrategy_size_Get(this.handle);
   }
 }
@@ -103,16 +103,16 @@ struct ReadableByteStreamController {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto byobRequest() {
+  auto byobRequest()() {
     return ReadableStreamBYOBRequest(ReadableByteStreamController_byobRequest_Get(this.handle));
   }
-  auto desiredSize() {
+  auto desiredSize()() {
     return ReadableByteStreamController_desiredSize_Get(this.handle);
   }
-  void close() {
+  void close()() {
     ReadableByteStreamController_close(this.handle);
   }
-  void enqueue(scope ref ArrayBufferView chunk) {
+  void enqueue()(scope ref ArrayBufferView chunk) {
     ReadableByteStreamController_enqueue(this.handle, chunk);
   }
   void error(T0)(scope auto ref T0 error) {
@@ -120,7 +120,7 @@ struct ReadableByteStreamController {
     ReadableByteStreamController_error(this.handle, _handle_error);
     dropHandle!(T0)(_handle_error);
   }
-  void error() {
+  void error()() {
     ReadableByteStreamController_error_0(this.handle);
   }
 }
@@ -132,7 +132,7 @@ struct ReadableStream {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto locked() {
+  auto locked()() {
     return ReadableStream_locked_Get(this.handle);
   }
   auto cancel(T0)(scope auto ref T0 reason) {
@@ -141,7 +141,7 @@ struct ReadableStream {
     dropHandle!(T0)(_handle_reason);
     return result;
   }
-  auto cancel() {
+  auto cancel()() {
     return Promise!(void)(ReadableStream_cancel_0(this.handle));
   }
   auto getReader(T0)(scope auto ref T0 options) {
@@ -150,7 +150,7 @@ struct ReadableStream {
     dropHandle!(T0)(_handle_options);
     return result;
   }
-  auto getReader() {
+  auto getReader()() {
     return ReadableStreamDefaultReader(ReadableStream_getReader__(this.handle));
   }
   auto pipeThrough(T0)(scope auto ref T0 pair, scope ref PipeOptions options) {
@@ -165,13 +165,13 @@ struct ReadableStream {
     dropHandle!(T0)(_handle_pair);
     return result;
   }
-  auto pipeTo(scope ref WritableStream dest, scope ref PipeOptions options) {
+  auto pipeTo()(scope ref WritableStream dest, scope ref PipeOptions options) {
     return Promise!(void)(ReadableStream_pipeTo(this.handle, dest.handle, options.handle));
   }
-  auto pipeTo(scope ref WritableStream dest) {
+  auto pipeTo()(scope ref WritableStream dest) {
     return Promise!(void)(ReadableStream_pipeTo_0(this.handle, dest.handle));
   }
-  auto tee() {
+  auto tee()() {
     return Sequence!(ReadableStream)(ReadableStream_tee(this.handle));
   }
 }
@@ -182,7 +182,7 @@ struct ReadableStreamBYOBReader {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto closed() {
+  auto closed()() {
     return Promise!(void)(ReadableStreamBYOBReader_closed_Get(this.handle));
   }
   auto cancel(T0)(scope auto ref T0 reason) {
@@ -191,13 +191,13 @@ struct ReadableStreamBYOBReader {
     dropHandle!(T0)(_handle_reason);
     return result;
   }
-  auto cancel() {
+  auto cancel()() {
     return Promise!(void)(ReadableStreamBYOBReader_cancel_0(this.handle));
   }
-  auto read(scope ref ArrayBufferView view) {
+  auto read()(scope ref ArrayBufferView view) {
     return Promise!(ReadableStreamReadResult)(ReadableStreamBYOBReader_read(this.handle, view));
   }
-  void releaseLock() {
+  void releaseLock()() {
     ReadableStreamBYOBReader_releaseLock(this.handle);
   }
 }
@@ -208,13 +208,13 @@ struct ReadableStreamBYOBRequest {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto view() {
+  auto view()() {
     return ReadableStreamBYOBRequest_view_Get(this.handle);
   }
-  void respond(uint bytesWritten) {
+  void respond()(uint bytesWritten) {
     ReadableStreamBYOBRequest_respond(this.handle, bytesWritten);
   }
-  void respondWithNewView(scope ref ArrayBufferView view) {
+  void respondWithNewView()(scope ref ArrayBufferView view) {
     ReadableStreamBYOBRequest_respondWithNewView(this.handle, view);
   }
 }
@@ -225,10 +225,10 @@ struct ReadableStreamDefaultController {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto desiredSize() {
+  auto desiredSize()() {
     return ReadableStreamDefaultController_desiredSize_Get(this.handle);
   }
-  void close() {
+  void close()() {
     ReadableStreamDefaultController_close(this.handle);
   }
   void enqueue(T0)(scope auto ref T0 chunk) {
@@ -241,7 +241,7 @@ struct ReadableStreamDefaultController {
     ReadableStreamDefaultController_error(this.handle, _handle_error);
     dropHandle!(T0)(_handle_error);
   }
-  void error() {
+  void error()() {
     ReadableStreamDefaultController_error_0(this.handle);
   }
 }
@@ -253,7 +253,7 @@ struct ReadableStreamDefaultReader {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto closed() {
+  auto closed()() {
     return Promise!(void)(ReadableStreamDefaultReader_closed_Get(this.handle));
   }
   auto cancel(T0)(scope auto ref T0 reason) {
@@ -262,13 +262,13 @@ struct ReadableStreamDefaultReader {
     dropHandle!(T0)(_handle_reason);
     return result;
   }
-  auto cancel() {
+  auto cancel()() {
     return Promise!(void)(ReadableStreamDefaultReader_cancel_0(this.handle));
   }
-  auto read() {
+  auto read()() {
     return Promise!(ReadableStreamReadResult)(ReadableStreamDefaultReader_read(this.handle));
   }
-  void releaseLock() {
+  void releaseLock()() {
     ReadableStreamDefaultReader_releaseLock(this.handle);
   }
 }
@@ -280,16 +280,16 @@ struct ReadableStreamReadResult {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  void done(bool done) {
+  void done()(bool done) {
     ReadableStreamReadResult_done_Set(this.handle, done);
   }
-  auto done() {
+  auto done()() {
     return ReadableStreamReadResult_done_Get(this.handle);
   }
-  void value(scope ref Any value) {
+  void value()(scope ref Any value) {
     ReadableStreamReadResult_value_Set(this.handle, value.handle);
   }
-  auto value() {
+  auto value()() {
     return Any(ReadableStreamReadResult_value_Get(this.handle));
   }
 }
@@ -300,10 +300,10 @@ struct TransformStream {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto readable() {
+  auto readable()() {
     return ReadableStream(TransformStream_readable_Get(this.handle));
   }
-  auto writable() {
+  auto writable()() {
     return WritableStream(TransformStream_writable_Get(this.handle));
   }
 }
@@ -314,7 +314,7 @@ struct TransformStreamDefaultController {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto desiredSize() {
+  auto desiredSize()() {
     return TransformStreamDefaultController_desiredSize_Get(this.handle);
   }
   void enqueue(T0)(scope auto ref T0 chunk) {
@@ -327,10 +327,10 @@ struct TransformStreamDefaultController {
     TransformStreamDefaultController_error(this.handle, _handle_reason);
     dropHandle!(T0)(_handle_reason);
   }
-  void error() {
+  void error()() {
     TransformStreamDefaultController_error_0(this.handle);
   }
-  void terminate() {
+  void terminate()() {
     TransformStreamDefaultController_terminate(this.handle);
   }
 }
@@ -349,19 +349,19 @@ struct Transformer {
   void start(T0)(scope auto ref Optional!(T0) start) if (isTOrPointer!(T0, TransformStreamDefaultControllerCallback)) {
     Transformer_start_Set(this.handle, !start.empty, start.front);
   }
-  auto start() {
+  auto start()() {
     return Transformer_start_Get(this.handle);
   }
   void transform(T0)(scope auto ref Optional!(T0) transform) if (isTOrPointer!(T0, TransformStreamDefaultControllerTransformCallback)) {
     Transformer_transform_Set(this.handle, !transform.empty, transform.front);
   }
-  auto transform() {
+  auto transform()() {
     return Transformer_transform_Get(this.handle);
   }
   void flush(T0)(scope auto ref Optional!(T0) flush) if (isTOrPointer!(T0, TransformStreamDefaultControllerCallback)) {
     Transformer_flush_Set(this.handle, !flush.empty, flush.front);
   }
-  auto flush() {
+  auto flush()() {
     return Transformer_flush_Get(this.handle);
   }
   void readableType(T0)(scope auto ref T0 readableType) {
@@ -369,7 +369,7 @@ struct Transformer {
     Transformer_readableType_Set(this.handle, _handle_readableType);
     dropHandle!(T0)(_handle_readableType);
   }
-  auto readableType() {
+  auto readableType()() {
     return Any(Transformer_readableType_Get(this.handle));
   }
   void writableType(T0)(scope auto ref T0 writableType) {
@@ -377,7 +377,7 @@ struct Transformer {
     Transformer_writableType_Set(this.handle, _handle_writableType);
     dropHandle!(T0)(_handle_writableType);
   }
-  auto writableType() {
+  auto writableType()() {
     return Any(Transformer_writableType_Get(this.handle));
   }
 }
@@ -394,31 +394,31 @@ struct UnderlyingByteSource {
   void start(T0)(scope auto ref Optional!(T0) start) if (isTOrPointer!(T0, ReadableByteStreamControllerCallback)) {
     UnderlyingByteSource_start_Set(this.handle, !start.empty, start.front);
   }
-  auto start() {
+  auto start()() {
     return UnderlyingByteSource_start_Get(this.handle);
   }
   void pull(T0)(scope auto ref Optional!(T0) pull) if (isTOrPointer!(T0, ReadableByteStreamControllerCallback)) {
     UnderlyingByteSource_pull_Set(this.handle, !pull.empty, pull.front);
   }
-  auto pull() {
+  auto pull()() {
     return UnderlyingByteSource_pull_Get(this.handle);
   }
   void cancel(T0)(scope auto ref Optional!(T0) cancel) if (isTOrPointer!(T0, ReadableStreamErrorCallback)) {
     UnderlyingByteSource_cancel_Set(this.handle, !cancel.empty, cancel.front);
   }
-  auto cancel() {
+  auto cancel()() {
     return UnderlyingByteSource_cancel_Get(this.handle);
   }
-  void type(string type) {
+  void type()(string type) {
     UnderlyingByteSource_type_Set(this.handle, type);
   }
-  auto type() {
+  auto type()() {
     return UnderlyingByteSource_type_Get(this.handle);
   }
   void autoAllocateChunkSize(T0)(scope auto ref Optional!(T0) autoAllocateChunkSize) if (isTOrPointer!(T0, uint)) {
     UnderlyingByteSource_autoAllocateChunkSize_Set(this.handle, !autoAllocateChunkSize.empty, autoAllocateChunkSize.front);
   }
-  auto autoAllocateChunkSize() {
+  auto autoAllocateChunkSize()() {
     return UnderlyingByteSource_autoAllocateChunkSize_Get(this.handle);
   }
 }
@@ -435,25 +435,25 @@ struct UnderlyingSink {
   void start(T0)(scope auto ref Optional!(T0) start) if (isTOrPointer!(T0, WritableStreamDefaultControllerStartCallback)) {
     UnderlyingSink_start_Set(this.handle, !start.empty, start.front);
   }
-  auto start() {
+  auto start()() {
     return UnderlyingSink_start_Get(this.handle);
   }
   void write(T0)(scope auto ref Optional!(T0) write) if (isTOrPointer!(T0, WritableStreamDefaultControllerWriteCallback)) {
     UnderlyingSink_write_Set(this.handle, !write.empty, write.front);
   }
-  auto write() {
+  auto write()() {
     return UnderlyingSink_write_Get(this.handle);
   }
   void close(T0)(scope auto ref Optional!(T0) close) if (isTOrPointer!(T0, WritableStreamDefaultControllerCloseCallback)) {
     UnderlyingSink_close_Set(this.handle, !close.empty, close.front);
   }
-  auto close() {
+  auto close()() {
     return UnderlyingSink_close_Get(this.handle);
   }
   void abort(T0)(scope auto ref Optional!(T0) abort) if (isTOrPointer!(T0, WritableStreamErrorCallback)) {
     UnderlyingSink_abort_Set(this.handle, !abort.empty, abort.front);
   }
-  auto abort() {
+  auto abort()() {
     return UnderlyingSink_abort_Get(this.handle);
   }
   void type(T0)(scope auto ref T0 type) {
@@ -461,7 +461,7 @@ struct UnderlyingSink {
     UnderlyingSink_type_Set(this.handle, _handle_type);
     dropHandle!(T0)(_handle_type);
   }
-  auto type() {
+  auto type()() {
     return Any(UnderlyingSink_type_Get(this.handle));
   }
 }
@@ -478,19 +478,19 @@ struct UnderlyingSource {
   void start(T0)(scope auto ref Optional!(T0) start) if (isTOrPointer!(T0, ReadableStreamDefaultControllerCallback)) {
     UnderlyingSource_start_Set(this.handle, !start.empty, start.front);
   }
-  auto start() {
+  auto start()() {
     return UnderlyingSource_start_Get(this.handle);
   }
   void pull(T0)(scope auto ref Optional!(T0) pull) if (isTOrPointer!(T0, ReadableStreamDefaultControllerCallback)) {
     UnderlyingSource_pull_Set(this.handle, !pull.empty, pull.front);
   }
-  auto pull() {
+  auto pull()() {
     return UnderlyingSource_pull_Get(this.handle);
   }
   void cancel(T0)(scope auto ref Optional!(T0) cancel) if (isTOrPointer!(T0, ReadableStreamErrorCallback)) {
     UnderlyingSource_cancel_Set(this.handle, !cancel.empty, cancel.front);
   }
-  auto cancel() {
+  auto cancel()() {
     return UnderlyingSource_cancel_Get(this.handle);
   }
   void type(T0)(scope auto ref T0 type) {
@@ -498,7 +498,7 @@ struct UnderlyingSource {
     UnderlyingSource_type_Set(this.handle, _handle_type);
     dropHandle!(T0)(_handle_type);
   }
-  auto type() {
+  auto type()() {
     return Any(UnderlyingSource_type_Get(this.handle));
   }
 }
@@ -509,7 +509,7 @@ struct WritableStream {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto locked() {
+  auto locked()() {
     return WritableStream_locked_Get(this.handle);
   }
   auto abort(T0)(scope auto ref T0 reason) {
@@ -518,10 +518,10 @@ struct WritableStream {
     dropHandle!(T0)(_handle_reason);
     return result;
   }
-  auto abort() {
+  auto abort()() {
     return Promise!(void)(WritableStream_abort_0(this.handle));
   }
-  auto getWriter() {
+  auto getWriter()() {
     return WritableStreamDefaultWriter(WritableStream_getWriter(this.handle));
   }
 }
@@ -537,7 +537,7 @@ struct WritableStreamDefaultController {
     WritableStreamDefaultController_error(this.handle, _handle_error);
     dropHandle!(T0)(_handle_error);
   }
-  void error() {
+  void error()() {
     WritableStreamDefaultController_error_0(this.handle);
   }
 }
@@ -551,13 +551,13 @@ struct WritableStreamDefaultWriter {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto closed() {
+  auto closed()() {
     return Promise!(void)(WritableStreamDefaultWriter_closed_Get(this.handle));
   }
-  auto desiredSize() {
+  auto desiredSize()() {
     return WritableStreamDefaultWriter_desiredSize_Get(this.handle);
   }
-  auto ready() {
+  auto ready()() {
     return Promise!(void)(WritableStreamDefaultWriter_ready_Get(this.handle));
   }
   auto abort(T0)(scope auto ref T0 reason) {
@@ -566,13 +566,13 @@ struct WritableStreamDefaultWriter {
     dropHandle!(T0)(_handle_reason);
     return result;
   }
-  auto abort() {
+  auto abort()() {
     return Promise!(void)(WritableStreamDefaultWriter_abort_0(this.handle));
   }
-  auto close() {
+  auto close()() {
     return Promise!(void)(WritableStreamDefaultWriter_close(this.handle));
   }
-  void releaseLock() {
+  void releaseLock()() {
     WritableStreamDefaultWriter_releaseLock(this.handle);
   }
   auto write(T0)(scope auto ref T0 chunk) {

@@ -17,10 +17,10 @@ struct TextDecodeOptions {
   static auto create() {
     return TextDecodeOptions(spasm_add__object());
   }
-  void stream(bool stream) {
+  void stream()(bool stream) {
     TextDecodeOptions_stream_Set(this.handle, stream);
   }
-  auto stream() {
+  auto stream()() {
     return TextDecodeOptions_stream_Get(this.handle);
   }
 }
@@ -31,22 +31,22 @@ struct TextDecoder {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto decode(scope ref BufferSource input, scope ref TextDecodeOptions options) {
+  auto decode()(scope ref BufferSource input, scope ref TextDecodeOptions options) {
     return TextDecoder_decode(this.handle, input, options.handle);
   }
-  auto decode(scope ref BufferSource input) {
+  auto decode()(scope ref BufferSource input) {
     return TextDecoder_decode_0(this.handle, input);
   }
-  auto decode() {
+  auto decode()() {
     return TextDecoder_decode_1(this.handle);
   }
-  auto encoding() {
+  auto encoding()() {
     return TextDecoderCommon_encoding_Get(this.handle);
   }
-  auto fatal() {
+  auto fatal()() {
     return TextDecoderCommon_fatal_Get(this.handle);
   }
-  auto ignoreBOM() {
+  auto ignoreBOM()() {
     return TextDecoderCommon_ignoreBOM_Get(this.handle);
   }
 }
@@ -60,16 +60,16 @@ struct TextDecoderOptions {
   static auto create() {
     return TextDecoderOptions(spasm_add__object());
   }
-  void fatal(bool fatal) {
+  void fatal()(bool fatal) {
     TextDecoderOptions_fatal_Set(this.handle, fatal);
   }
-  auto fatal() {
+  auto fatal()() {
     return TextDecoderOptions_fatal_Get(this.handle);
   }
-  void ignoreBOM(bool ignoreBOM) {
+  void ignoreBOM()(bool ignoreBOM) {
     TextDecoderOptions_ignoreBOM_Set(this.handle, ignoreBOM);
   }
-  auto ignoreBOM() {
+  auto ignoreBOM()() {
     return TextDecoderOptions_ignoreBOM_Get(this.handle);
   }
 }
@@ -80,19 +80,19 @@ struct TextDecoderStream {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto encoding() {
+  auto encoding()() {
     return TextDecoderCommon_encoding_Get(this.handle);
   }
-  auto fatal() {
+  auto fatal()() {
     return TextDecoderCommon_fatal_Get(this.handle);
   }
-  auto ignoreBOM() {
+  auto ignoreBOM()() {
     return TextDecoderCommon_ignoreBOM_Get(this.handle);
   }
-  auto readable() {
+  auto readable()() {
     return ReadableStream(GenericTransformStream_readable_Get(this.handle));
   }
-  auto writable() {
+  auto writable()() {
     return WritableStream(GenericTransformStream_writable_Get(this.handle));
   }
 }
@@ -103,13 +103,13 @@ struct TextEncoder {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto encode(string input /* = "" */) {
+  auto encode()(string input /* = "" */) {
     return Uint8Array(TextEncoder_encode(this.handle, input));
   }
-  auto encode() {
+  auto encode()() {
     return Uint8Array(TextEncoder_encode_0(this.handle));
   }
-  auto encoding() {
+  auto encoding()() {
     return TextEncoderCommon_encoding_Get(this.handle);
   }
 }
@@ -120,13 +120,13 @@ struct TextEncoderStream {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto encoding() {
+  auto encoding()() {
     return TextEncoderCommon_encoding_Get(this.handle);
   }
-  auto readable() {
+  auto readable()() {
     return ReadableStream(GenericTransformStream_readable_Get(this.handle));
   }
-  auto writable() {
+  auto writable()() {
     return WritableStream(GenericTransformStream_writable_Get(this.handle));
   }
 }

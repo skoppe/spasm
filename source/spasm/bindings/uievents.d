@@ -14,7 +14,7 @@ struct CompositionEvent {
   this(Handle h) {
     _parent = .UIEvent(h);
   }
-  auto data() {
+  auto data()() {
     return CompositionEvent_data_Get(this._parent);
   }
 }
@@ -28,10 +28,10 @@ struct CompositionEventInit {
   static auto create() {
     return CompositionEventInit(spasm_add__object());
   }
-  void data(string data) {
+  void data()(string data) {
     CompositionEventInit_data_Set(this._parent, data);
   }
-  auto data() {
+  auto data()() {
     return CompositionEventInit_data_Get(this._parent);
   }
 }
@@ -45,88 +45,88 @@ struct EventModifierInit {
   static auto create() {
     return EventModifierInit(spasm_add__object());
   }
-  void ctrlKey(bool ctrlKey) {
+  void ctrlKey()(bool ctrlKey) {
     EventModifierInit_ctrlKey_Set(this._parent, ctrlKey);
   }
-  auto ctrlKey() {
+  auto ctrlKey()() {
     return EventModifierInit_ctrlKey_Get(this._parent);
   }
-  void shiftKey(bool shiftKey) {
+  void shiftKey()(bool shiftKey) {
     EventModifierInit_shiftKey_Set(this._parent, shiftKey);
   }
-  auto shiftKey() {
+  auto shiftKey()() {
     return EventModifierInit_shiftKey_Get(this._parent);
   }
-  void altKey(bool altKey) {
+  void altKey()(bool altKey) {
     EventModifierInit_altKey_Set(this._parent, altKey);
   }
-  auto altKey() {
+  auto altKey()() {
     return EventModifierInit_altKey_Get(this._parent);
   }
-  void metaKey(bool metaKey) {
+  void metaKey()(bool metaKey) {
     EventModifierInit_metaKey_Set(this._parent, metaKey);
   }
-  auto metaKey() {
+  auto metaKey()() {
     return EventModifierInit_metaKey_Get(this._parent);
   }
-  void modifierAltGraph(bool modifierAltGraph) {
+  void modifierAltGraph()(bool modifierAltGraph) {
     EventModifierInit_modifierAltGraph_Set(this._parent, modifierAltGraph);
   }
-  auto modifierAltGraph() {
+  auto modifierAltGraph()() {
     return EventModifierInit_modifierAltGraph_Get(this._parent);
   }
-  void modifierCapsLock(bool modifierCapsLock) {
+  void modifierCapsLock()(bool modifierCapsLock) {
     EventModifierInit_modifierCapsLock_Set(this._parent, modifierCapsLock);
   }
-  auto modifierCapsLock() {
+  auto modifierCapsLock()() {
     return EventModifierInit_modifierCapsLock_Get(this._parent);
   }
-  void modifierFn(bool modifierFn) {
+  void modifierFn()(bool modifierFn) {
     EventModifierInit_modifierFn_Set(this._parent, modifierFn);
   }
-  auto modifierFn() {
+  auto modifierFn()() {
     return EventModifierInit_modifierFn_Get(this._parent);
   }
-  void modifierFnLock(bool modifierFnLock) {
+  void modifierFnLock()(bool modifierFnLock) {
     EventModifierInit_modifierFnLock_Set(this._parent, modifierFnLock);
   }
-  auto modifierFnLock() {
+  auto modifierFnLock()() {
     return EventModifierInit_modifierFnLock_Get(this._parent);
   }
-  void modifierHyper(bool modifierHyper) {
+  void modifierHyper()(bool modifierHyper) {
     EventModifierInit_modifierHyper_Set(this._parent, modifierHyper);
   }
-  auto modifierHyper() {
+  auto modifierHyper()() {
     return EventModifierInit_modifierHyper_Get(this._parent);
   }
-  void modifierNumLock(bool modifierNumLock) {
+  void modifierNumLock()(bool modifierNumLock) {
     EventModifierInit_modifierNumLock_Set(this._parent, modifierNumLock);
   }
-  auto modifierNumLock() {
+  auto modifierNumLock()() {
     return EventModifierInit_modifierNumLock_Get(this._parent);
   }
-  void modifierScrollLock(bool modifierScrollLock) {
+  void modifierScrollLock()(bool modifierScrollLock) {
     EventModifierInit_modifierScrollLock_Set(this._parent, modifierScrollLock);
   }
-  auto modifierScrollLock() {
+  auto modifierScrollLock()() {
     return EventModifierInit_modifierScrollLock_Get(this._parent);
   }
-  void modifierSuper(bool modifierSuper) {
+  void modifierSuper()(bool modifierSuper) {
     EventModifierInit_modifierSuper_Set(this._parent, modifierSuper);
   }
-  auto modifierSuper() {
+  auto modifierSuper()() {
     return EventModifierInit_modifierSuper_Get(this._parent);
   }
-  void modifierSymbol(bool modifierSymbol) {
+  void modifierSymbol()(bool modifierSymbol) {
     EventModifierInit_modifierSymbol_Set(this._parent, modifierSymbol);
   }
-  auto modifierSymbol() {
+  auto modifierSymbol()() {
     return EventModifierInit_modifierSymbol_Get(this._parent);
   }
-  void modifierSymbolLock(bool modifierSymbolLock) {
+  void modifierSymbolLock()(bool modifierSymbolLock) {
     EventModifierInit_modifierSymbolLock_Set(this._parent, modifierSymbolLock);
   }
-  auto modifierSymbolLock() {
+  auto modifierSymbolLock()() {
     return EventModifierInit_modifierSymbolLock_Get(this._parent);
   }
 }
@@ -137,7 +137,7 @@ struct FocusEvent {
   this(Handle h) {
     _parent = .UIEvent(h);
   }
-  auto relatedTarget() {
+  auto relatedTarget()() {
     return FocusEvent_relatedTarget_Get(this._parent);
   }
 }
@@ -154,7 +154,7 @@ struct FocusEventInit {
   void relatedTarget(T0)(scope auto ref Optional!(T0) relatedTarget) if (isTOrPointer!(T0, EventTarget)) {
     FocusEventInit_relatedTarget_Set(this._parent, !relatedTarget.empty, relatedTarget.front.handle);
   }
-  auto relatedTarget() {
+  auto relatedTarget()() {
     return FocusEventInit_relatedTarget_Get(this._parent);
   }
 }
@@ -165,13 +165,13 @@ struct InputEvent {
   this(Handle h) {
     _parent = .UIEvent(h);
   }
-  auto data() {
+  auto data()() {
     return InputEvent_data_Get(this._parent);
   }
-  auto isComposing() {
+  auto isComposing()() {
     return InputEvent_isComposing_Get(this._parent);
   }
-  auto inputType() {
+  auto inputType()() {
     return InputEvent_inputType_Get(this._parent);
   }
 }
@@ -188,19 +188,19 @@ struct InputEventInit {
   void data(T0)(scope auto ref Optional!(T0) data) if (isTOrPointer!(T0, string)) {
     InputEventInit_data_Set(this._parent, !data.empty, data.front);
   }
-  auto data() {
+  auto data()() {
     return InputEventInit_data_Get(this._parent);
   }
-  void isComposing(bool isComposing) {
+  void isComposing()(bool isComposing) {
     InputEventInit_isComposing_Set(this._parent, isComposing);
   }
-  auto isComposing() {
+  auto isComposing()() {
     return InputEventInit_isComposing_Get(this._parent);
   }
-  void inputType(string inputType) {
+  void inputType()(string inputType) {
     InputEventInit_inputType_Set(this._parent, inputType);
   }
-  auto inputType() {
+  auto inputType()() {
     return InputEventInit_inputType_Get(this._parent);
   }
 }
@@ -215,40 +215,40 @@ struct KeyboardEvent {
   enum uint DOM_KEY_LOCATION_LEFT = 0x01;
   enum uint DOM_KEY_LOCATION_RIGHT = 0x02;
   enum uint DOM_KEY_LOCATION_NUMPAD = 0x03;
-  auto key() {
+  auto key()() {
     return KeyboardEvent_key_Get(this._parent);
   }
-  auto code() {
+  auto code()() {
     return KeyboardEvent_code_Get(this._parent);
   }
-  auto location() {
+  auto location()() {
     return KeyboardEvent_location_Get(this._parent);
   }
-  auto ctrlKey() {
+  auto ctrlKey()() {
     return KeyboardEvent_ctrlKey_Get(this._parent);
   }
-  auto shiftKey() {
+  auto shiftKey()() {
     return KeyboardEvent_shiftKey_Get(this._parent);
   }
-  auto altKey() {
+  auto altKey()() {
     return KeyboardEvent_altKey_Get(this._parent);
   }
-  auto metaKey() {
+  auto metaKey()() {
     return KeyboardEvent_metaKey_Get(this._parent);
   }
-  auto repeat() {
+  auto repeat()() {
     return KeyboardEvent_repeat_Get(this._parent);
   }
-  auto isComposing() {
+  auto isComposing()() {
     return KeyboardEvent_isComposing_Get(this._parent);
   }
-  auto getModifierState(string keyArg) {
+  auto getModifierState()(string keyArg) {
     return KeyboardEvent_getModifierState(this._parent, keyArg);
   }
-  auto charCode() {
+  auto charCode()() {
     return KeyboardEvent_charCode_Get(this._parent);
   }
-  auto keyCode() {
+  auto keyCode()() {
     return KeyboardEvent_keyCode_Get(this._parent);
   }
 }
@@ -262,34 +262,34 @@ struct KeyboardEventInit {
   static auto create() {
     return KeyboardEventInit(spasm_add__object());
   }
-  void key(string key) {
+  void key()(string key) {
     KeyboardEventInit_key_Set(this._parent, key);
   }
-  auto key() {
+  auto key()() {
     return KeyboardEventInit_key_Get(this._parent);
   }
-  void code(string code) {
+  void code()(string code) {
     KeyboardEventInit_code_Set(this._parent, code);
   }
-  auto code() {
+  auto code()() {
     return KeyboardEventInit_code_Get(this._parent);
   }
-  void location(uint location) {
+  void location()(uint location) {
     KeyboardEventInit_location_Set(this._parent, location);
   }
-  auto location() {
+  auto location()() {
     return KeyboardEventInit_location_Get(this._parent);
   }
-  void repeat(bool repeat) {
+  void repeat()(bool repeat) {
     KeyboardEventInit_repeat_Set(this._parent, repeat);
   }
-  auto repeat() {
+  auto repeat()() {
     return KeyboardEventInit_repeat_Get(this._parent);
   }
-  void isComposing(bool isComposing) {
+  void isComposing()(bool isComposing) {
     KeyboardEventInit_isComposing_Set(this._parent, isComposing);
   }
-  auto isComposing() {
+  auto isComposing()() {
     return KeyboardEventInit_isComposing_Get(this._parent);
   }
 }
@@ -300,58 +300,58 @@ struct MouseEvent {
   this(Handle h) {
     _parent = .UIEvent(h);
   }
-  auto screenX() {
+  auto screenX()() {
     return MouseEvent_screenX_Get(this._parent);
   }
-  auto screenY() {
+  auto screenY()() {
     return MouseEvent_screenY_Get(this._parent);
   }
-  auto clientX() {
+  auto clientX()() {
     return MouseEvent_clientX_Get(this._parent);
   }
-  auto clientY() {
+  auto clientY()() {
     return MouseEvent_clientY_Get(this._parent);
   }
-  auto ctrlKey() {
+  auto ctrlKey()() {
     return MouseEvent_ctrlKey_Get(this._parent);
   }
-  auto shiftKey() {
+  auto shiftKey()() {
     return MouseEvent_shiftKey_Get(this._parent);
   }
-  auto altKey() {
+  auto altKey()() {
     return MouseEvent_altKey_Get(this._parent);
   }
-  auto metaKey() {
+  auto metaKey()() {
     return MouseEvent_metaKey_Get(this._parent);
   }
-  auto button() {
+  auto button()() {
     return MouseEvent_button_Get(this._parent);
   }
-  auto buttons() {
+  auto buttons()() {
     return MouseEvent_buttons_Get(this._parent);
   }
-  auto relatedTarget() {
+  auto relatedTarget()() {
     return MouseEvent_relatedTarget_Get(this._parent);
   }
-  auto getModifierState(string keyArg) {
+  auto getModifierState()(string keyArg) {
     return MouseEvent_getModifierState(this._parent, keyArg);
   }
-  auto pageX() {
+  auto pageX()() {
     return MouseEvent_pageX_Get(this._parent);
   }
-  auto pageY() {
+  auto pageY()() {
     return MouseEvent_pageY_Get(this._parent);
   }
-  auto x() {
+  auto x()() {
     return MouseEvent_x_Get(this._parent);
   }
-  auto y() {
+  auto y()() {
     return MouseEvent_y_Get(this._parent);
   }
-  auto offsetX() {
+  auto offsetX()() {
     return MouseEvent_offsetX_Get(this._parent);
   }
-  auto offsetY() {
+  auto offsetY()() {
     return MouseEvent_offsetY_Get(this._parent);
   }
 }
@@ -365,46 +365,46 @@ struct MouseEventInit {
   static auto create() {
     return MouseEventInit(spasm_add__object());
   }
-  void screenX(int screenX) {
+  void screenX()(int screenX) {
     MouseEventInit_screenX_Set(this._parent, screenX);
   }
-  auto screenX() {
+  auto screenX()() {
     return MouseEventInit_screenX_Get(this._parent);
   }
-  void screenY(int screenY) {
+  void screenY()(int screenY) {
     MouseEventInit_screenY_Set(this._parent, screenY);
   }
-  auto screenY() {
+  auto screenY()() {
     return MouseEventInit_screenY_Get(this._parent);
   }
-  void clientX(int clientX) {
+  void clientX()(int clientX) {
     MouseEventInit_clientX_Set(this._parent, clientX);
   }
-  auto clientX() {
+  auto clientX()() {
     return MouseEventInit_clientX_Get(this._parent);
   }
-  void clientY(int clientY) {
+  void clientY()(int clientY) {
     MouseEventInit_clientY_Set(this._parent, clientY);
   }
-  auto clientY() {
+  auto clientY()() {
     return MouseEventInit_clientY_Get(this._parent);
   }
-  void button(short button) {
+  void button()(short button) {
     MouseEventInit_button_Set(this._parent, button);
   }
-  auto button() {
+  auto button()() {
     return MouseEventInit_button_Get(this._parent);
   }
-  void buttons(ushort buttons) {
+  void buttons()(ushort buttons) {
     MouseEventInit_buttons_Set(this._parent, buttons);
   }
-  auto buttons() {
+  auto buttons()() {
     return MouseEventInit_buttons_Get(this._parent);
   }
   void relatedTarget(T0)(scope auto ref Optional!(T0) relatedTarget) if (isTOrPointer!(T0, EventTarget)) {
     MouseEventInit_relatedTarget_Set(this._parent, !relatedTarget.empty, relatedTarget.front.handle);
   }
-  auto relatedTarget() {
+  auto relatedTarget()() {
     return MouseEventInit_relatedTarget_Get(this._parent);
   }
 }
@@ -415,13 +415,13 @@ struct UIEvent {
   this(Handle h) {
     _parent = .Event(h);
   }
-  auto view() {
+  auto view()() {
     return UIEvent_view_Get(this._parent);
   }
-  auto detail() {
+  auto detail()() {
     return UIEvent_detail_Get(this._parent);
   }
-  auto which() {
+  auto which()() {
     return UIEvent_which_Get(this._parent);
   }
 }
@@ -438,13 +438,13 @@ struct UIEventInit {
   void view(T0)(scope auto ref Optional!(T0) view) if (isTOrPointer!(T0, Window)) {
     UIEventInit_view_Set(this._parent, !view.empty, view.front._parent);
   }
-  auto view() {
+  auto view()() {
     return UIEventInit_view_Get(this._parent);
   }
-  void detail(int detail) {
+  void detail()(int detail) {
     UIEventInit_detail_Set(this._parent, detail);
   }
-  auto detail() {
+  auto detail()() {
     return UIEventInit_detail_Get(this._parent);
   }
 }
@@ -458,16 +458,16 @@ struct WheelEvent {
   enum uint DOM_DELTA_PIXEL = 0x00;
   enum uint DOM_DELTA_LINE = 0x01;
   enum uint DOM_DELTA_PAGE = 0x02;
-  auto deltaX() {
+  auto deltaX()() {
     return WheelEvent_deltaX_Get(this._parent);
   }
-  auto deltaY() {
+  auto deltaY()() {
     return WheelEvent_deltaY_Get(this._parent);
   }
-  auto deltaZ() {
+  auto deltaZ()() {
     return WheelEvent_deltaZ_Get(this._parent);
   }
-  auto deltaMode() {
+  auto deltaMode()() {
     return WheelEvent_deltaMode_Get(this._parent);
   }
 }
@@ -481,28 +481,28 @@ struct WheelEventInit {
   static auto create() {
     return WheelEventInit(spasm_add__object());
   }
-  void deltaX(double deltaX) {
+  void deltaX()(double deltaX) {
     WheelEventInit_deltaX_Set(this._parent, deltaX);
   }
-  auto deltaX() {
+  auto deltaX()() {
     return WheelEventInit_deltaX_Get(this._parent);
   }
-  void deltaY(double deltaY) {
+  void deltaY()(double deltaY) {
     WheelEventInit_deltaY_Set(this._parent, deltaY);
   }
-  auto deltaY() {
+  auto deltaY()() {
     return WheelEventInit_deltaY_Get(this._parent);
   }
-  void deltaZ(double deltaZ) {
+  void deltaZ()(double deltaZ) {
     WheelEventInit_deltaZ_Set(this._parent, deltaZ);
   }
-  auto deltaZ() {
+  auto deltaZ()() {
     return WheelEventInit_deltaZ_Get(this._parent);
   }
-  void deltaMode(uint deltaMode) {
+  void deltaMode()(uint deltaMode) {
     WheelEventInit_deltaMode_Set(this._parent, deltaMode);
   }
-  auto deltaMode() {
+  auto deltaMode()() {
     return WheelEventInit_deltaMode_Get(this._parent);
   }
 }

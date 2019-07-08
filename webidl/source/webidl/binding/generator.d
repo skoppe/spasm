@@ -905,7 +905,7 @@ void dump(Appender)(ref Semantics semantics, DBindingFunction item, ref Appender
     a.put(getTemplatedTypeName(anyOrOptArgs[$-1].index));
     a.put(")");
   } else {
-    // a.put("()");
+    a.put("()");
   }
   a.put("(");
   if (item.type & FunctionType.OpIndexAssign) {
@@ -919,8 +919,6 @@ void dump(Appender)(ref Semantics semantics, DBindingFunction item, ref Appender
   if (optArgs.length > 0) {
     a.put("if (");
     foreach(idx, opt; optArgs) {
-      pragma(msg, typeof(idx));
-      pragma(msg, typeof(opt));
       a.put("isTOrPointer!(");
       a.put(getTemplatedTypeName(opt.index));
       a.put(", ");

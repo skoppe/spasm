@@ -16,118 +16,118 @@ struct SVGAElement {
   this(Handle h) {
     _parent = .SVGGraphicsElement(h);
   }
-  auto target() {
+  auto target()() {
     return SVGAnimatedString(SVGAElement_target_Get(this._parent));
   }
-  void download(string download) {
+  void download()(string download) {
     SVGAElement_download_Set(this._parent, download);
   }
-  auto download() {
+  auto download()() {
     return SVGAElement_download_Get(this._parent);
   }
-  void ping(string ping) {
+  void ping()(string ping) {
     SVGAElement_ping_Set(this._parent, ping);
   }
-  auto ping() {
+  auto ping()() {
     return SVGAElement_ping_Get(this._parent);
   }
-  void rel(string rel) {
+  void rel()(string rel) {
     SVGAElement_rel_Set(this._parent, rel);
   }
-  auto rel() {
+  auto rel()() {
     return SVGAElement_rel_Get(this._parent);
   }
-  auto relList() {
+  auto relList()() {
     return DOMTokenList(SVGAElement_relList_Get(this._parent));
   }
-  void hreflang(string hreflang) {
+  void hreflang()(string hreflang) {
     SVGAElement_hreflang_Set(this._parent, hreflang);
   }
-  auto hreflang() {
+  auto hreflang()() {
     return SVGAElement_hreflang_Get(this._parent);
   }
-  void type(string type) {
+  void type()(string type) {
     SVGAElement_type_Set(this._parent, type);
   }
-  auto type() {
+  auto type()() {
     return SVGAElement_type_Get(this._parent);
   }
-  void text(string text) {
+  void text()(string text) {
     SVGAElement_text_Set(this._parent, text);
   }
-  auto text() {
+  auto text()() {
     return SVGAElement_text_Get(this._parent);
   }
-  void referrerPolicy(string referrerPolicy) {
+  void referrerPolicy()(string referrerPolicy) {
     SVGAElement_referrerPolicy_Set(this._parent, referrerPolicy);
   }
-  auto referrerPolicy() {
+  auto referrerPolicy()() {
     return SVGAElement_referrerPolicy_Get(this._parent);
   }
-  auto href() {
+  auto href()() {
     return SVGAnimatedString(SVGURIReference_href_Get(this._parent));
   }
-  void href(string href) {
+  void href()(string href) {
     HTMLHyperlinkElementUtils_href_Set(this._parent, href);
   }
-  auto href() {
+  auto href()() {
     return HTMLHyperlinkElementUtils_href_Get(this._parent);
   }
-  auto origin() {
+  auto origin()() {
     return HTMLHyperlinkElementUtils_origin_Get(this._parent);
   }
-  void protocol(string protocol) {
+  void protocol()(string protocol) {
     HTMLHyperlinkElementUtils_protocol_Set(this._parent, protocol);
   }
-  auto protocol() {
+  auto protocol()() {
     return HTMLHyperlinkElementUtils_protocol_Get(this._parent);
   }
-  void username(string username) {
+  void username()(string username) {
     HTMLHyperlinkElementUtils_username_Set(this._parent, username);
   }
-  auto username() {
+  auto username()() {
     return HTMLHyperlinkElementUtils_username_Get(this._parent);
   }
-  void password(string password) {
+  void password()(string password) {
     HTMLHyperlinkElementUtils_password_Set(this._parent, password);
   }
-  auto password() {
+  auto password()() {
     return HTMLHyperlinkElementUtils_password_Get(this._parent);
   }
-  void host(string host) {
+  void host()(string host) {
     HTMLHyperlinkElementUtils_host_Set(this._parent, host);
   }
-  auto host() {
+  auto host()() {
     return HTMLHyperlinkElementUtils_host_Get(this._parent);
   }
-  void hostname(string hostname) {
+  void hostname()(string hostname) {
     HTMLHyperlinkElementUtils_hostname_Set(this._parent, hostname);
   }
-  auto hostname() {
+  auto hostname()() {
     return HTMLHyperlinkElementUtils_hostname_Get(this._parent);
   }
-  void port(string port) {
+  void port()(string port) {
     HTMLHyperlinkElementUtils_port_Set(this._parent, port);
   }
-  auto port() {
+  auto port()() {
     return HTMLHyperlinkElementUtils_port_Get(this._parent);
   }
-  void pathname(string pathname) {
+  void pathname()(string pathname) {
     HTMLHyperlinkElementUtils_pathname_Set(this._parent, pathname);
   }
-  auto pathname() {
+  auto pathname()() {
     return HTMLHyperlinkElementUtils_pathname_Get(this._parent);
   }
-  void search(string search) {
+  void search()(string search) {
     HTMLHyperlinkElementUtils_search_Set(this._parent, search);
   }
-  auto search() {
+  auto search()() {
     return HTMLHyperlinkElementUtils_search_Get(this._parent);
   }
-  void hash(string hash) {
+  void hash()(string hash) {
     HTMLHyperlinkElementUtils_hash_Set(this._parent, hash);
   }
-  auto hash() {
+  auto hash()() {
     return HTMLHyperlinkElementUtils_hash_Get(this._parent);
   }
 }
@@ -143,31 +143,31 @@ struct SVGAngle {
   enum ushort SVG_ANGLETYPE_DEG = 2;
   enum ushort SVG_ANGLETYPE_RAD = 3;
   enum ushort SVG_ANGLETYPE_GRAD = 4;
-  auto unitType() {
+  auto unitType()() {
     return SVGAngle_unitType_Get(this.handle);
   }
-  void value(float value) {
+  void value()(float value) {
     SVGAngle_value_Set(this.handle, value);
   }
-  auto value() {
+  auto value()() {
     return SVGAngle_value_Get(this.handle);
   }
-  void valueInSpecifiedUnits(float valueInSpecifiedUnits) {
+  void valueInSpecifiedUnits()(float valueInSpecifiedUnits) {
     SVGAngle_valueInSpecifiedUnits_Set(this.handle, valueInSpecifiedUnits);
   }
-  auto valueInSpecifiedUnits() {
+  auto valueInSpecifiedUnits()() {
     return SVGAngle_valueInSpecifiedUnits_Get(this.handle);
   }
-  void valueAsString(string valueAsString) {
+  void valueAsString()(string valueAsString) {
     SVGAngle_valueAsString_Set(this.handle, valueAsString);
   }
-  auto valueAsString() {
+  auto valueAsString()() {
     return SVGAngle_valueAsString_Get(this.handle);
   }
-  void newValueSpecifiedUnits(ushort unitType, float valueInSpecifiedUnits) {
+  void newValueSpecifiedUnits()(ushort unitType, float valueInSpecifiedUnits) {
     SVGAngle_newValueSpecifiedUnits(this.handle, unitType, valueInSpecifiedUnits);
   }
-  void convertToSpecifiedUnits(ushort unitType) {
+  void convertToSpecifiedUnits()(ushort unitType) {
     SVGAngle_convertToSpecifiedUnits(this.handle, unitType);
   }
 }
@@ -178,10 +178,10 @@ struct SVGAnimatedAngle {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto baseVal() {
+  auto baseVal()() {
     return SVGAngle(SVGAnimatedAngle_baseVal_Get(this.handle));
   }
-  auto animVal() {
+  auto animVal()() {
     return SVGAngle(SVGAnimatedAngle_animVal_Get(this.handle));
   }
 }
@@ -192,13 +192,13 @@ struct SVGAnimatedBoolean {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  void baseVal(bool baseVal) {
+  void baseVal()(bool baseVal) {
     SVGAnimatedBoolean_baseVal_Set(this.handle, baseVal);
   }
-  auto baseVal() {
+  auto baseVal()() {
     return SVGAnimatedBoolean_baseVal_Get(this.handle);
   }
-  auto animVal() {
+  auto animVal()() {
     return SVGAnimatedBoolean_animVal_Get(this.handle);
   }
 }
@@ -209,13 +209,13 @@ struct SVGAnimatedEnumeration {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  void baseVal(ushort baseVal) {
+  void baseVal()(ushort baseVal) {
     SVGAnimatedEnumeration_baseVal_Set(this.handle, baseVal);
   }
-  auto baseVal() {
+  auto baseVal()() {
     return SVGAnimatedEnumeration_baseVal_Get(this.handle);
   }
-  auto animVal() {
+  auto animVal()() {
     return SVGAnimatedEnumeration_animVal_Get(this.handle);
   }
 }
@@ -226,13 +226,13 @@ struct SVGAnimatedInteger {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  void baseVal(int baseVal) {
+  void baseVal()(int baseVal) {
     SVGAnimatedInteger_baseVal_Set(this.handle, baseVal);
   }
-  auto baseVal() {
+  auto baseVal()() {
     return SVGAnimatedInteger_baseVal_Get(this.handle);
   }
-  auto animVal() {
+  auto animVal()() {
     return SVGAnimatedInteger_animVal_Get(this.handle);
   }
 }
@@ -243,10 +243,10 @@ struct SVGAnimatedLength {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto baseVal() {
+  auto baseVal()() {
     return SVGLength(SVGAnimatedLength_baseVal_Get(this.handle));
   }
-  auto animVal() {
+  auto animVal()() {
     return SVGLength(SVGAnimatedLength_animVal_Get(this.handle));
   }
 }
@@ -257,10 +257,10 @@ struct SVGAnimatedLengthList {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto baseVal() {
+  auto baseVal()() {
     return SVGLengthList(SVGAnimatedLengthList_baseVal_Get(this.handle));
   }
-  auto animVal() {
+  auto animVal()() {
     return SVGLengthList(SVGAnimatedLengthList_animVal_Get(this.handle));
   }
 }
@@ -271,13 +271,13 @@ struct SVGAnimatedNumber {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  void baseVal(float baseVal) {
+  void baseVal()(float baseVal) {
     SVGAnimatedNumber_baseVal_Set(this.handle, baseVal);
   }
-  auto baseVal() {
+  auto baseVal()() {
     return SVGAnimatedNumber_baseVal_Get(this.handle);
   }
-  auto animVal() {
+  auto animVal()() {
     return SVGAnimatedNumber_animVal_Get(this.handle);
   }
 }
@@ -288,10 +288,10 @@ struct SVGAnimatedNumberList {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto baseVal() {
+  auto baseVal()() {
     return SVGNumberList(SVGAnimatedNumberList_baseVal_Get(this.handle));
   }
-  auto animVal() {
+  auto animVal()() {
     return SVGNumberList(SVGAnimatedNumberList_animVal_Get(this.handle));
   }
 }
@@ -302,10 +302,10 @@ struct SVGAnimatedPreserveAspectRatio {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto baseVal() {
+  auto baseVal()() {
     return SVGPreserveAspectRatio(SVGAnimatedPreserveAspectRatio_baseVal_Get(this.handle));
   }
-  auto animVal() {
+  auto animVal()() {
     return SVGPreserveAspectRatio(SVGAnimatedPreserveAspectRatio_animVal_Get(this.handle));
   }
 }
@@ -316,10 +316,10 @@ struct SVGAnimatedRect {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto baseVal() {
+  auto baseVal()() {
     return DOMRect(SVGAnimatedRect_baseVal_Get(this.handle));
   }
-  auto animVal() {
+  auto animVal()() {
     return DOMRectReadOnly(SVGAnimatedRect_animVal_Get(this.handle));
   }
 }
@@ -330,13 +330,13 @@ struct SVGAnimatedString {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  void baseVal(string baseVal) {
+  void baseVal()(string baseVal) {
     SVGAnimatedString_baseVal_Set(this.handle, baseVal);
   }
-  auto baseVal() {
+  auto baseVal()() {
     return SVGAnimatedString_baseVal_Get(this.handle);
   }
-  auto animVal() {
+  auto animVal()() {
     return SVGAnimatedString_animVal_Get(this.handle);
   }
 }
@@ -347,10 +347,10 @@ struct SVGAnimatedTransformList {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto baseVal() {
+  auto baseVal()() {
     return SVGTransformList(SVGAnimatedTransformList_baseVal_Get(this.handle));
   }
-  auto animVal() {
+  auto animVal()() {
     return SVGTransformList(SVGAnimatedTransformList_animVal_Get(this.handle));
   }
 }
@@ -364,28 +364,28 @@ struct SVGBoundingBoxOptions {
   static auto create() {
     return SVGBoundingBoxOptions(spasm_add__object());
   }
-  void fill(bool fill) {
+  void fill()(bool fill) {
     SVGBoundingBoxOptions_fill_Set(this.handle, fill);
   }
-  auto fill() {
+  auto fill()() {
     return SVGBoundingBoxOptions_fill_Get(this.handle);
   }
-  void stroke(bool stroke) {
+  void stroke()(bool stroke) {
     SVGBoundingBoxOptions_stroke_Set(this.handle, stroke);
   }
-  auto stroke() {
+  auto stroke()() {
     return SVGBoundingBoxOptions_stroke_Get(this.handle);
   }
-  void markers(bool markers) {
+  void markers()(bool markers) {
     SVGBoundingBoxOptions_markers_Set(this.handle, markers);
   }
-  auto markers() {
+  auto markers()() {
     return SVGBoundingBoxOptions_markers_Get(this.handle);
   }
-  void clipped(bool clipped) {
+  void clipped()(bool clipped) {
     SVGBoundingBoxOptions_clipped_Set(this.handle, clipped);
   }
-  auto clipped() {
+  auto clipped()() {
     return SVGBoundingBoxOptions_clipped_Get(this.handle);
   }
 }
@@ -396,13 +396,13 @@ struct SVGCircleElement {
   this(Handle h) {
     _parent = .SVGGeometryElement(h);
   }
-  auto cx() {
+  auto cx()() {
     return SVGAnimatedLength(SVGCircleElement_cx_Get(this._parent));
   }
-  auto cy() {
+  auto cy()() {
     return SVGAnimatedLength(SVGCircleElement_cy_Get(this._parent));
   }
-  auto r() {
+  auto r()() {
     return SVGAnimatedLength(SVGCircleElement_r_Get(this._parent));
   }
 }
@@ -429,520 +429,520 @@ struct SVGElement {
   this(Handle h) {
     _parent = .Element(h);
   }
-  auto className() {
+  auto className()() {
     return SVGAnimatedString(SVGElement_className_Get(this._parent));
   }
-  auto ownerSVGElement() {
+  auto ownerSVGElement()() {
     return SVGElement_ownerSVGElement_Get(this._parent);
   }
-  auto viewportElement() {
+  auto viewportElement()() {
     return SVGElement_viewportElement_Get(this._parent);
   }
-  void onabort(EventHandler onabort) {
+  void onabort()(EventHandler onabort) {
     GlobalEventHandlers_onabort_Set(this._parent, onabort);
   }
-  auto onabort() {
+  auto onabort()() {
     return GlobalEventHandlers_onabort_Get(this._parent);
   }
-  void onauxclick(EventHandler onauxclick) {
+  void onauxclick()(EventHandler onauxclick) {
     GlobalEventHandlers_onauxclick_Set(this._parent, onauxclick);
   }
-  auto onauxclick() {
+  auto onauxclick()() {
     return GlobalEventHandlers_onauxclick_Get(this._parent);
   }
-  void onblur(EventHandler onblur) {
+  void onblur()(EventHandler onblur) {
     GlobalEventHandlers_onblur_Set(this._parent, onblur);
   }
-  auto onblur() {
+  auto onblur()() {
     return GlobalEventHandlers_onblur_Get(this._parent);
   }
-  void oncancel(EventHandler oncancel) {
+  void oncancel()(EventHandler oncancel) {
     GlobalEventHandlers_oncancel_Set(this._parent, oncancel);
   }
-  auto oncancel() {
+  auto oncancel()() {
     return GlobalEventHandlers_oncancel_Get(this._parent);
   }
-  void oncanplay(EventHandler oncanplay) {
+  void oncanplay()(EventHandler oncanplay) {
     GlobalEventHandlers_oncanplay_Set(this._parent, oncanplay);
   }
-  auto oncanplay() {
+  auto oncanplay()() {
     return GlobalEventHandlers_oncanplay_Get(this._parent);
   }
-  void oncanplaythrough(EventHandler oncanplaythrough) {
+  void oncanplaythrough()(EventHandler oncanplaythrough) {
     GlobalEventHandlers_oncanplaythrough_Set(this._parent, oncanplaythrough);
   }
-  auto oncanplaythrough() {
+  auto oncanplaythrough()() {
     return GlobalEventHandlers_oncanplaythrough_Get(this._parent);
   }
-  void onchange(EventHandler onchange) {
+  void onchange()(EventHandler onchange) {
     GlobalEventHandlers_onchange_Set(this._parent, onchange);
   }
-  auto onchange() {
+  auto onchange()() {
     return GlobalEventHandlers_onchange_Get(this._parent);
   }
-  void onclick(EventHandler onclick) {
+  void onclick()(EventHandler onclick) {
     GlobalEventHandlers_onclick_Set(this._parent, onclick);
   }
-  auto onclick() {
+  auto onclick()() {
     return GlobalEventHandlers_onclick_Get(this._parent);
   }
-  void onclose(EventHandler onclose) {
+  void onclose()(EventHandler onclose) {
     GlobalEventHandlers_onclose_Set(this._parent, onclose);
   }
-  auto onclose() {
+  auto onclose()() {
     return GlobalEventHandlers_onclose_Get(this._parent);
   }
-  void oncontextmenu(EventHandler oncontextmenu) {
+  void oncontextmenu()(EventHandler oncontextmenu) {
     GlobalEventHandlers_oncontextmenu_Set(this._parent, oncontextmenu);
   }
-  auto oncontextmenu() {
+  auto oncontextmenu()() {
     return GlobalEventHandlers_oncontextmenu_Get(this._parent);
   }
-  void oncuechange(EventHandler oncuechange) {
+  void oncuechange()(EventHandler oncuechange) {
     GlobalEventHandlers_oncuechange_Set(this._parent, oncuechange);
   }
-  auto oncuechange() {
+  auto oncuechange()() {
     return GlobalEventHandlers_oncuechange_Get(this._parent);
   }
-  void ondblclick(EventHandler ondblclick) {
+  void ondblclick()(EventHandler ondblclick) {
     GlobalEventHandlers_ondblclick_Set(this._parent, ondblclick);
   }
-  auto ondblclick() {
+  auto ondblclick()() {
     return GlobalEventHandlers_ondblclick_Get(this._parent);
   }
-  void ondrag(EventHandler ondrag) {
+  void ondrag()(EventHandler ondrag) {
     GlobalEventHandlers_ondrag_Set(this._parent, ondrag);
   }
-  auto ondrag() {
+  auto ondrag()() {
     return GlobalEventHandlers_ondrag_Get(this._parent);
   }
-  void ondragend(EventHandler ondragend) {
+  void ondragend()(EventHandler ondragend) {
     GlobalEventHandlers_ondragend_Set(this._parent, ondragend);
   }
-  auto ondragend() {
+  auto ondragend()() {
     return GlobalEventHandlers_ondragend_Get(this._parent);
   }
-  void ondragenter(EventHandler ondragenter) {
+  void ondragenter()(EventHandler ondragenter) {
     GlobalEventHandlers_ondragenter_Set(this._parent, ondragenter);
   }
-  auto ondragenter() {
+  auto ondragenter()() {
     return GlobalEventHandlers_ondragenter_Get(this._parent);
   }
-  void ondragexit(EventHandler ondragexit) {
+  void ondragexit()(EventHandler ondragexit) {
     GlobalEventHandlers_ondragexit_Set(this._parent, ondragexit);
   }
-  auto ondragexit() {
+  auto ondragexit()() {
     return GlobalEventHandlers_ondragexit_Get(this._parent);
   }
-  void ondragleave(EventHandler ondragleave) {
+  void ondragleave()(EventHandler ondragleave) {
     GlobalEventHandlers_ondragleave_Set(this._parent, ondragleave);
   }
-  auto ondragleave() {
+  auto ondragleave()() {
     return GlobalEventHandlers_ondragleave_Get(this._parent);
   }
-  void ondragover(EventHandler ondragover) {
+  void ondragover()(EventHandler ondragover) {
     GlobalEventHandlers_ondragover_Set(this._parent, ondragover);
   }
-  auto ondragover() {
+  auto ondragover()() {
     return GlobalEventHandlers_ondragover_Get(this._parent);
   }
-  void ondragstart(EventHandler ondragstart) {
+  void ondragstart()(EventHandler ondragstart) {
     GlobalEventHandlers_ondragstart_Set(this._parent, ondragstart);
   }
-  auto ondragstart() {
+  auto ondragstart()() {
     return GlobalEventHandlers_ondragstart_Get(this._parent);
   }
-  void ondrop(EventHandler ondrop) {
+  void ondrop()(EventHandler ondrop) {
     GlobalEventHandlers_ondrop_Set(this._parent, ondrop);
   }
-  auto ondrop() {
+  auto ondrop()() {
     return GlobalEventHandlers_ondrop_Get(this._parent);
   }
-  void ondurationchange(EventHandler ondurationchange) {
+  void ondurationchange()(EventHandler ondurationchange) {
     GlobalEventHandlers_ondurationchange_Set(this._parent, ondurationchange);
   }
-  auto ondurationchange() {
+  auto ondurationchange()() {
     return GlobalEventHandlers_ondurationchange_Get(this._parent);
   }
-  void onemptied(EventHandler onemptied) {
+  void onemptied()(EventHandler onemptied) {
     GlobalEventHandlers_onemptied_Set(this._parent, onemptied);
   }
-  auto onemptied() {
+  auto onemptied()() {
     return GlobalEventHandlers_onemptied_Get(this._parent);
   }
-  void onended(EventHandler onended) {
+  void onended()(EventHandler onended) {
     GlobalEventHandlers_onended_Set(this._parent, onended);
   }
-  auto onended() {
+  auto onended()() {
     return GlobalEventHandlers_onended_Get(this._parent);
   }
   void onerror(T0)(scope auto ref Optional!(T0) onerror) if (isTOrPointer!(T0, OnErrorEventHandler)) {
     GlobalEventHandlers_onerror_Set(this._parent, !onerror.empty, onerror.front);
   }
-  auto onerror() {
+  auto onerror()() {
     return GlobalEventHandlers_onerror_Get(this._parent);
   }
-  void onfocus(EventHandler onfocus) {
+  void onfocus()(EventHandler onfocus) {
     GlobalEventHandlers_onfocus_Set(this._parent, onfocus);
   }
-  auto onfocus() {
+  auto onfocus()() {
     return GlobalEventHandlers_onfocus_Get(this._parent);
   }
-  void oninput(EventHandler oninput) {
+  void oninput()(EventHandler oninput) {
     GlobalEventHandlers_oninput_Set(this._parent, oninput);
   }
-  auto oninput() {
+  auto oninput()() {
     return GlobalEventHandlers_oninput_Get(this._parent);
   }
-  void oninvalid(EventHandler oninvalid) {
+  void oninvalid()(EventHandler oninvalid) {
     GlobalEventHandlers_oninvalid_Set(this._parent, oninvalid);
   }
-  auto oninvalid() {
+  auto oninvalid()() {
     return GlobalEventHandlers_oninvalid_Get(this._parent);
   }
-  void onkeydown(EventHandler onkeydown) {
+  void onkeydown()(EventHandler onkeydown) {
     GlobalEventHandlers_onkeydown_Set(this._parent, onkeydown);
   }
-  auto onkeydown() {
+  auto onkeydown()() {
     return GlobalEventHandlers_onkeydown_Get(this._parent);
   }
-  void onkeypress(EventHandler onkeypress) {
+  void onkeypress()(EventHandler onkeypress) {
     GlobalEventHandlers_onkeypress_Set(this._parent, onkeypress);
   }
-  auto onkeypress() {
+  auto onkeypress()() {
     return GlobalEventHandlers_onkeypress_Get(this._parent);
   }
-  void onkeyup(EventHandler onkeyup) {
+  void onkeyup()(EventHandler onkeyup) {
     GlobalEventHandlers_onkeyup_Set(this._parent, onkeyup);
   }
-  auto onkeyup() {
+  auto onkeyup()() {
     return GlobalEventHandlers_onkeyup_Get(this._parent);
   }
-  void onload(EventHandler onload) {
+  void onload()(EventHandler onload) {
     GlobalEventHandlers_onload_Set(this._parent, onload);
   }
-  auto onload() {
+  auto onload()() {
     return GlobalEventHandlers_onload_Get(this._parent);
   }
-  void onloadeddata(EventHandler onloadeddata) {
+  void onloadeddata()(EventHandler onloadeddata) {
     GlobalEventHandlers_onloadeddata_Set(this._parent, onloadeddata);
   }
-  auto onloadeddata() {
+  auto onloadeddata()() {
     return GlobalEventHandlers_onloadeddata_Get(this._parent);
   }
-  void onloadedmetadata(EventHandler onloadedmetadata) {
+  void onloadedmetadata()(EventHandler onloadedmetadata) {
     GlobalEventHandlers_onloadedmetadata_Set(this._parent, onloadedmetadata);
   }
-  auto onloadedmetadata() {
+  auto onloadedmetadata()() {
     return GlobalEventHandlers_onloadedmetadata_Get(this._parent);
   }
-  void onloadend(EventHandler onloadend) {
+  void onloadend()(EventHandler onloadend) {
     GlobalEventHandlers_onloadend_Set(this._parent, onloadend);
   }
-  auto onloadend() {
+  auto onloadend()() {
     return GlobalEventHandlers_onloadend_Get(this._parent);
   }
-  void onloadstart(EventHandler onloadstart) {
+  void onloadstart()(EventHandler onloadstart) {
     GlobalEventHandlers_onloadstart_Set(this._parent, onloadstart);
   }
-  auto onloadstart() {
+  auto onloadstart()() {
     return GlobalEventHandlers_onloadstart_Get(this._parent);
   }
-  void onmousedown(EventHandler onmousedown) {
+  void onmousedown()(EventHandler onmousedown) {
     GlobalEventHandlers_onmousedown_Set(this._parent, onmousedown);
   }
-  auto onmousedown() {
+  auto onmousedown()() {
     return GlobalEventHandlers_onmousedown_Get(this._parent);
   }
-  void onmouseenter(EventHandler onmouseenter) {
+  void onmouseenter()(EventHandler onmouseenter) {
     GlobalEventHandlers_onmouseenter_Set(this._parent, onmouseenter);
   }
-  auto onmouseenter() {
+  auto onmouseenter()() {
     return GlobalEventHandlers_onmouseenter_Get(this._parent);
   }
-  void onmouseleave(EventHandler onmouseleave) {
+  void onmouseleave()(EventHandler onmouseleave) {
     GlobalEventHandlers_onmouseleave_Set(this._parent, onmouseleave);
   }
-  auto onmouseleave() {
+  auto onmouseleave()() {
     return GlobalEventHandlers_onmouseleave_Get(this._parent);
   }
-  void onmousemove(EventHandler onmousemove) {
+  void onmousemove()(EventHandler onmousemove) {
     GlobalEventHandlers_onmousemove_Set(this._parent, onmousemove);
   }
-  auto onmousemove() {
+  auto onmousemove()() {
     return GlobalEventHandlers_onmousemove_Get(this._parent);
   }
-  void onmouseout(EventHandler onmouseout) {
+  void onmouseout()(EventHandler onmouseout) {
     GlobalEventHandlers_onmouseout_Set(this._parent, onmouseout);
   }
-  auto onmouseout() {
+  auto onmouseout()() {
     return GlobalEventHandlers_onmouseout_Get(this._parent);
   }
-  void onmouseover(EventHandler onmouseover) {
+  void onmouseover()(EventHandler onmouseover) {
     GlobalEventHandlers_onmouseover_Set(this._parent, onmouseover);
   }
-  auto onmouseover() {
+  auto onmouseover()() {
     return GlobalEventHandlers_onmouseover_Get(this._parent);
   }
-  void onmouseup(EventHandler onmouseup) {
+  void onmouseup()(EventHandler onmouseup) {
     GlobalEventHandlers_onmouseup_Set(this._parent, onmouseup);
   }
-  auto onmouseup() {
+  auto onmouseup()() {
     return GlobalEventHandlers_onmouseup_Get(this._parent);
   }
-  void onwheel(EventHandler onwheel) {
+  void onwheel()(EventHandler onwheel) {
     GlobalEventHandlers_onwheel_Set(this._parent, onwheel);
   }
-  auto onwheel() {
+  auto onwheel()() {
     return GlobalEventHandlers_onwheel_Get(this._parent);
   }
-  void onpause(EventHandler onpause) {
+  void onpause()(EventHandler onpause) {
     GlobalEventHandlers_onpause_Set(this._parent, onpause);
   }
-  auto onpause() {
+  auto onpause()() {
     return GlobalEventHandlers_onpause_Get(this._parent);
   }
-  void onplay(EventHandler onplay) {
+  void onplay()(EventHandler onplay) {
     GlobalEventHandlers_onplay_Set(this._parent, onplay);
   }
-  auto onplay() {
+  auto onplay()() {
     return GlobalEventHandlers_onplay_Get(this._parent);
   }
-  void onplaying(EventHandler onplaying) {
+  void onplaying()(EventHandler onplaying) {
     GlobalEventHandlers_onplaying_Set(this._parent, onplaying);
   }
-  auto onplaying() {
+  auto onplaying()() {
     return GlobalEventHandlers_onplaying_Get(this._parent);
   }
-  void onprogress(EventHandler onprogress) {
+  void onprogress()(EventHandler onprogress) {
     GlobalEventHandlers_onprogress_Set(this._parent, onprogress);
   }
-  auto onprogress() {
+  auto onprogress()() {
     return GlobalEventHandlers_onprogress_Get(this._parent);
   }
-  void onratechange(EventHandler onratechange) {
+  void onratechange()(EventHandler onratechange) {
     GlobalEventHandlers_onratechange_Set(this._parent, onratechange);
   }
-  auto onratechange() {
+  auto onratechange()() {
     return GlobalEventHandlers_onratechange_Get(this._parent);
   }
-  void onreset(EventHandler onreset) {
+  void onreset()(EventHandler onreset) {
     GlobalEventHandlers_onreset_Set(this._parent, onreset);
   }
-  auto onreset() {
+  auto onreset()() {
     return GlobalEventHandlers_onreset_Get(this._parent);
   }
-  void onresize(EventHandler onresize) {
+  void onresize()(EventHandler onresize) {
     GlobalEventHandlers_onresize_Set(this._parent, onresize);
   }
-  auto onresize() {
+  auto onresize()() {
     return GlobalEventHandlers_onresize_Get(this._parent);
   }
-  void onscroll(EventHandler onscroll) {
+  void onscroll()(EventHandler onscroll) {
     GlobalEventHandlers_onscroll_Set(this._parent, onscroll);
   }
-  auto onscroll() {
+  auto onscroll()() {
     return GlobalEventHandlers_onscroll_Get(this._parent);
   }
-  void onsecuritypolicyviolation(EventHandler onsecuritypolicyviolation) {
+  void onsecuritypolicyviolation()(EventHandler onsecuritypolicyviolation) {
     GlobalEventHandlers_onsecuritypolicyviolation_Set(this._parent, onsecuritypolicyviolation);
   }
-  auto onsecuritypolicyviolation() {
+  auto onsecuritypolicyviolation()() {
     return GlobalEventHandlers_onsecuritypolicyviolation_Get(this._parent);
   }
-  void onseeked(EventHandler onseeked) {
+  void onseeked()(EventHandler onseeked) {
     GlobalEventHandlers_onseeked_Set(this._parent, onseeked);
   }
-  auto onseeked() {
+  auto onseeked()() {
     return GlobalEventHandlers_onseeked_Get(this._parent);
   }
-  void onseeking(EventHandler onseeking) {
+  void onseeking()(EventHandler onseeking) {
     GlobalEventHandlers_onseeking_Set(this._parent, onseeking);
   }
-  auto onseeking() {
+  auto onseeking()() {
     return GlobalEventHandlers_onseeking_Get(this._parent);
   }
-  void onselect(EventHandler onselect) {
+  void onselect()(EventHandler onselect) {
     GlobalEventHandlers_onselect_Set(this._parent, onselect);
   }
-  auto onselect() {
+  auto onselect()() {
     return GlobalEventHandlers_onselect_Get(this._parent);
   }
-  void onstalled(EventHandler onstalled) {
+  void onstalled()(EventHandler onstalled) {
     GlobalEventHandlers_onstalled_Set(this._parent, onstalled);
   }
-  auto onstalled() {
+  auto onstalled()() {
     return GlobalEventHandlers_onstalled_Get(this._parent);
   }
-  void onsubmit(EventHandler onsubmit) {
+  void onsubmit()(EventHandler onsubmit) {
     GlobalEventHandlers_onsubmit_Set(this._parent, onsubmit);
   }
-  auto onsubmit() {
+  auto onsubmit()() {
     return GlobalEventHandlers_onsubmit_Get(this._parent);
   }
-  void onsuspend(EventHandler onsuspend) {
+  void onsuspend()(EventHandler onsuspend) {
     GlobalEventHandlers_onsuspend_Set(this._parent, onsuspend);
   }
-  auto onsuspend() {
+  auto onsuspend()() {
     return GlobalEventHandlers_onsuspend_Get(this._parent);
   }
-  void ontimeupdate(EventHandler ontimeupdate) {
+  void ontimeupdate()(EventHandler ontimeupdate) {
     GlobalEventHandlers_ontimeupdate_Set(this._parent, ontimeupdate);
   }
-  auto ontimeupdate() {
+  auto ontimeupdate()() {
     return GlobalEventHandlers_ontimeupdate_Get(this._parent);
   }
-  void ontoggle(EventHandler ontoggle) {
+  void ontoggle()(EventHandler ontoggle) {
     GlobalEventHandlers_ontoggle_Set(this._parent, ontoggle);
   }
-  auto ontoggle() {
+  auto ontoggle()() {
     return GlobalEventHandlers_ontoggle_Get(this._parent);
   }
-  void onvolumechange(EventHandler onvolumechange) {
+  void onvolumechange()(EventHandler onvolumechange) {
     GlobalEventHandlers_onvolumechange_Set(this._parent, onvolumechange);
   }
-  auto onvolumechange() {
+  auto onvolumechange()() {
     return GlobalEventHandlers_onvolumechange_Get(this._parent);
   }
-  void onwaiting(EventHandler onwaiting) {
+  void onwaiting()(EventHandler onwaiting) {
     GlobalEventHandlers_onwaiting_Set(this._parent, onwaiting);
   }
-  auto onwaiting() {
+  auto onwaiting()() {
     return GlobalEventHandlers_onwaiting_Get(this._parent);
   }
-  void ongotpointercapture(EventHandler ongotpointercapture) {
+  void ongotpointercapture()(EventHandler ongotpointercapture) {
     GlobalEventHandlers_ongotpointercapture_Set(this._parent, ongotpointercapture);
   }
-  auto ongotpointercapture() {
+  auto ongotpointercapture()() {
     return GlobalEventHandlers_ongotpointercapture_Get(this._parent);
   }
-  void onlostpointercapture(EventHandler onlostpointercapture) {
+  void onlostpointercapture()(EventHandler onlostpointercapture) {
     GlobalEventHandlers_onlostpointercapture_Set(this._parent, onlostpointercapture);
   }
-  auto onlostpointercapture() {
+  auto onlostpointercapture()() {
     return GlobalEventHandlers_onlostpointercapture_Get(this._parent);
   }
-  void onpointerdown(EventHandler onpointerdown) {
+  void onpointerdown()(EventHandler onpointerdown) {
     GlobalEventHandlers_onpointerdown_Set(this._parent, onpointerdown);
   }
-  auto onpointerdown() {
+  auto onpointerdown()() {
     return GlobalEventHandlers_onpointerdown_Get(this._parent);
   }
-  void onpointermove(EventHandler onpointermove) {
+  void onpointermove()(EventHandler onpointermove) {
     GlobalEventHandlers_onpointermove_Set(this._parent, onpointermove);
   }
-  auto onpointermove() {
+  auto onpointermove()() {
     return GlobalEventHandlers_onpointermove_Get(this._parent);
   }
-  void onpointerup(EventHandler onpointerup) {
+  void onpointerup()(EventHandler onpointerup) {
     GlobalEventHandlers_onpointerup_Set(this._parent, onpointerup);
   }
-  auto onpointerup() {
+  auto onpointerup()() {
     return GlobalEventHandlers_onpointerup_Get(this._parent);
   }
-  void onpointercancel(EventHandler onpointercancel) {
+  void onpointercancel()(EventHandler onpointercancel) {
     GlobalEventHandlers_onpointercancel_Set(this._parent, onpointercancel);
   }
-  auto onpointercancel() {
+  auto onpointercancel()() {
     return GlobalEventHandlers_onpointercancel_Get(this._parent);
   }
-  void onpointerover(EventHandler onpointerover) {
+  void onpointerover()(EventHandler onpointerover) {
     GlobalEventHandlers_onpointerover_Set(this._parent, onpointerover);
   }
-  auto onpointerover() {
+  auto onpointerover()() {
     return GlobalEventHandlers_onpointerover_Get(this._parent);
   }
-  void onpointerout(EventHandler onpointerout) {
+  void onpointerout()(EventHandler onpointerout) {
     GlobalEventHandlers_onpointerout_Set(this._parent, onpointerout);
   }
-  auto onpointerout() {
+  auto onpointerout()() {
     return GlobalEventHandlers_onpointerout_Get(this._parent);
   }
-  void onpointerenter(EventHandler onpointerenter) {
+  void onpointerenter()(EventHandler onpointerenter) {
     GlobalEventHandlers_onpointerenter_Set(this._parent, onpointerenter);
   }
-  auto onpointerenter() {
+  auto onpointerenter()() {
     return GlobalEventHandlers_onpointerenter_Get(this._parent);
   }
-  void onpointerleave(EventHandler onpointerleave) {
+  void onpointerleave()(EventHandler onpointerleave) {
     GlobalEventHandlers_onpointerleave_Set(this._parent, onpointerleave);
   }
-  auto onpointerleave() {
+  auto onpointerleave()() {
     return GlobalEventHandlers_onpointerleave_Get(this._parent);
   }
-  void ontouchstart(EventHandler ontouchstart) {
+  void ontouchstart()(EventHandler ontouchstart) {
     GlobalEventHandlers_ontouchstart_Set(this._parent, ontouchstart);
   }
-  auto ontouchstart() {
+  auto ontouchstart()() {
     return GlobalEventHandlers_ontouchstart_Get(this._parent);
   }
-  void ontouchend(EventHandler ontouchend) {
+  void ontouchend()(EventHandler ontouchend) {
     GlobalEventHandlers_ontouchend_Set(this._parent, ontouchend);
   }
-  auto ontouchend() {
+  auto ontouchend()() {
     return GlobalEventHandlers_ontouchend_Get(this._parent);
   }
-  void ontouchmove(EventHandler ontouchmove) {
+  void ontouchmove()(EventHandler ontouchmove) {
     GlobalEventHandlers_ontouchmove_Set(this._parent, ontouchmove);
   }
-  auto ontouchmove() {
+  auto ontouchmove()() {
     return GlobalEventHandlers_ontouchmove_Get(this._parent);
   }
-  void ontouchcancel(EventHandler ontouchcancel) {
+  void ontouchcancel()(EventHandler ontouchcancel) {
     GlobalEventHandlers_ontouchcancel_Set(this._parent, ontouchcancel);
   }
-  auto ontouchcancel() {
+  auto ontouchcancel()() {
     return GlobalEventHandlers_ontouchcancel_Get(this._parent);
   }
-  void oncopy(EventHandler oncopy) {
+  void oncopy()(EventHandler oncopy) {
     DocumentAndElementEventHandlers_oncopy_Set(this._parent, oncopy);
   }
-  auto oncopy() {
+  auto oncopy()() {
     return DocumentAndElementEventHandlers_oncopy_Get(this._parent);
   }
-  void oncut(EventHandler oncut) {
+  void oncut()(EventHandler oncut) {
     DocumentAndElementEventHandlers_oncut_Set(this._parent, oncut);
   }
-  auto oncut() {
+  auto oncut()() {
     return DocumentAndElementEventHandlers_oncut_Get(this._parent);
   }
-  void onpaste(EventHandler onpaste) {
+  void onpaste()(EventHandler onpaste) {
     DocumentAndElementEventHandlers_onpaste_Set(this._parent, onpaste);
   }
-  auto onpaste() {
+  auto onpaste()() {
     return DocumentAndElementEventHandlers_onpaste_Get(this._parent);
   }
-  auto correspondingElement() {
+  auto correspondingElement()() {
     return SVGElementInstance_correspondingElement_Get(this._parent);
   }
-  auto correspondingUseElement() {
+  auto correspondingUseElement()() {
     return SVGElementInstance_correspondingUseElement_Get(this._parent);
   }
-  auto dataset() {
+  auto dataset()() {
     return DOMStringMap(HTMLOrSVGElement_dataset_Get(this._parent));
   }
-  void nonce(string nonce) {
+  void nonce()(string nonce) {
     HTMLOrSVGElement_nonce_Set(this._parent, nonce);
   }
-  auto nonce() {
+  auto nonce()() {
     return HTMLOrSVGElement_nonce_Get(this._parent);
   }
-  void tabIndex(int tabIndex) {
+  void tabIndex()(int tabIndex) {
     HTMLOrSVGElement_tabIndex_Set(this._parent, tabIndex);
   }
-  auto tabIndex() {
+  auto tabIndex()() {
     return HTMLOrSVGElement_tabIndex_Get(this._parent);
   }
-  void focus(scope ref FocusOptions options) {
+  void focus()(scope ref FocusOptions options) {
     HTMLOrSVGElement_focus(this._parent, options.handle);
   }
-  void focus() {
+  void focus()() {
     HTMLOrSVGElement_focus_0(this._parent);
   }
-  void blur() {
+  void blur()() {
     HTMLOrSVGElement_blur(this._parent);
   }
-  auto style() {
+  auto style()() {
     return CSSStyleDeclaration(ElementCSSInlineStyle_style_Get(this._parent));
   }
 }
@@ -953,16 +953,16 @@ struct SVGEllipseElement {
   this(Handle h) {
     _parent = .SVGGeometryElement(h);
   }
-  auto cx() {
+  auto cx()() {
     return SVGAnimatedLength(SVGEllipseElement_cx_Get(this._parent));
   }
-  auto cy() {
+  auto cy()() {
     return SVGAnimatedLength(SVGEllipseElement_cy_Get(this._parent));
   }
-  auto rx() {
+  auto rx()() {
     return SVGAnimatedLength(SVGEllipseElement_rx_Get(this._parent));
   }
-  auto ry() {
+  auto ry()() {
     return SVGAnimatedLength(SVGEllipseElement_ry_Get(this._parent));
   }
 }
@@ -973,16 +973,16 @@ struct SVGForeignObjectElement {
   this(Handle h) {
     _parent = .SVGGraphicsElement(h);
   }
-  auto x() {
+  auto x()() {
     return SVGAnimatedLength(SVGForeignObjectElement_x_Get(this._parent));
   }
-  auto y() {
+  auto y()() {
     return SVGAnimatedLength(SVGForeignObjectElement_y_Get(this._parent));
   }
-  auto width() {
+  auto width()() {
     return SVGAnimatedLength(SVGForeignObjectElement_width_Get(this._parent));
   }
-  auto height() {
+  auto height()() {
     return SVGAnimatedLength(SVGForeignObjectElement_height_Get(this._parent));
   }
 }
@@ -1001,25 +1001,25 @@ struct SVGGeometryElement {
   this(Handle h) {
     _parent = .SVGGraphicsElement(h);
   }
-  auto pathLength() {
+  auto pathLength()() {
     return SVGAnimatedNumber(SVGGeometryElement_pathLength_Get(this._parent));
   }
-  auto isPointInFill(scope ref DOMPointInit point) {
+  auto isPointInFill()(scope ref DOMPointInit point) {
     return SVGGeometryElement_isPointInFill(this._parent, point.handle);
   }
-  auto isPointInFill() {
+  auto isPointInFill()() {
     return SVGGeometryElement_isPointInFill_0(this._parent);
   }
-  auto isPointInStroke(scope ref DOMPointInit point) {
+  auto isPointInStroke()(scope ref DOMPointInit point) {
     return SVGGeometryElement_isPointInStroke(this._parent, point.handle);
   }
-  auto isPointInStroke() {
+  auto isPointInStroke()() {
     return SVGGeometryElement_isPointInStroke_0(this._parent);
   }
-  auto getTotalLength() {
+  auto getTotalLength()() {
     return SVGGeometryElement_getTotalLength(this._parent);
   }
-  auto getPointAtLength(float distance) {
+  auto getPointAtLength()(float distance) {
     return DOMPoint(SVGGeometryElement_getPointAtLength(this._parent, distance));
   }
 }
@@ -1034,16 +1034,16 @@ struct SVGGradientElement {
   enum ushort SVG_SPREADMETHOD_PAD = 1;
   enum ushort SVG_SPREADMETHOD_REFLECT = 2;
   enum ushort SVG_SPREADMETHOD_REPEAT = 3;
-  auto gradientUnits() {
+  auto gradientUnits()() {
     return SVGAnimatedEnumeration(SVGGradientElement_gradientUnits_Get(this._parent));
   }
-  auto gradientTransform() {
+  auto gradientTransform()() {
     return SVGAnimatedTransformList(SVGGradientElement_gradientTransform_Get(this._parent));
   }
-  auto spreadMethod() {
+  auto spreadMethod()() {
     return SVGAnimatedEnumeration(SVGGradientElement_spreadMethod_Get(this._parent));
   }
-  auto href() {
+  auto href()() {
     return SVGAnimatedString(SVGURIReference_href_Get(this._parent));
   }
 }
@@ -1054,25 +1054,25 @@ struct SVGGraphicsElement {
   this(Handle h) {
     _parent = .SVGElement(h);
   }
-  auto transform() {
+  auto transform()() {
     return SVGAnimatedTransformList(SVGGraphicsElement_transform_Get(this._parent));
   }
-  auto getBBox(scope ref SVGBoundingBoxOptions options) {
+  auto getBBox()(scope ref SVGBoundingBoxOptions options) {
     return DOMRect(SVGGraphicsElement_getBBox(this._parent, options.handle));
   }
-  auto getBBox() {
+  auto getBBox()() {
     return DOMRect(SVGGraphicsElement_getBBox_0(this._parent));
   }
-  auto getCTM() {
+  auto getCTM()() {
     return SVGGraphicsElement_getCTM(this._parent);
   }
-  auto getScreenCTM() {
+  auto getScreenCTM()() {
     return SVGGraphicsElement_getScreenCTM(this._parent);
   }
-  auto requiredExtensions() {
+  auto requiredExtensions()() {
     return SVGStringList(SVGTests_requiredExtensions_Get(this._parent));
   }
-  auto systemLanguage() {
+  auto systemLanguage()() {
     return SVGStringList(SVGTests_systemLanguage_Get(this._parent));
   }
 }
@@ -1083,28 +1083,28 @@ struct SVGImageElement {
   this(Handle h) {
     _parent = .SVGGraphicsElement(h);
   }
-  auto x() {
+  auto x()() {
     return SVGAnimatedLength(SVGImageElement_x_Get(this._parent));
   }
-  auto y() {
+  auto y()() {
     return SVGAnimatedLength(SVGImageElement_y_Get(this._parent));
   }
-  auto width() {
+  auto width()() {
     return SVGAnimatedLength(SVGImageElement_width_Get(this._parent));
   }
-  auto height() {
+  auto height()() {
     return SVGAnimatedLength(SVGImageElement_height_Get(this._parent));
   }
-  auto preserveAspectRatio() {
+  auto preserveAspectRatio()() {
     return SVGAnimatedPreserveAspectRatio(SVGImageElement_preserveAspectRatio_Get(this._parent));
   }
   void crossOrigin(T0)(scope auto ref Optional!(T0) crossOrigin) if (isTOrPointer!(T0, string)) {
     SVGImageElement_crossOrigin_Set(this._parent, !crossOrigin.empty, crossOrigin.front);
   }
-  auto crossOrigin() {
+  auto crossOrigin()() {
     return SVGImageElement_crossOrigin_Get(this._parent);
   }
-  auto href() {
+  auto href()() {
     return SVGAnimatedString(SVGURIReference_href_Get(this._parent));
   }
 }
@@ -1126,31 +1126,31 @@ struct SVGLength {
   enum ushort SVG_LENGTHTYPE_IN = 8;
   enum ushort SVG_LENGTHTYPE_PT = 9;
   enum ushort SVG_LENGTHTYPE_PC = 10;
-  auto unitType() {
+  auto unitType()() {
     return SVGLength_unitType_Get(this.handle);
   }
-  void value(float value) {
+  void value()(float value) {
     SVGLength_value_Set(this.handle, value);
   }
-  auto value() {
+  auto value()() {
     return SVGLength_value_Get(this.handle);
   }
-  void valueInSpecifiedUnits(float valueInSpecifiedUnits) {
+  void valueInSpecifiedUnits()(float valueInSpecifiedUnits) {
     SVGLength_valueInSpecifiedUnits_Set(this.handle, valueInSpecifiedUnits);
   }
-  auto valueInSpecifiedUnits() {
+  auto valueInSpecifiedUnits()() {
     return SVGLength_valueInSpecifiedUnits_Get(this.handle);
   }
-  void valueAsString(string valueAsString) {
+  void valueAsString()(string valueAsString) {
     SVGLength_valueAsString_Set(this.handle, valueAsString);
   }
-  auto valueAsString() {
+  auto valueAsString()() {
     return SVGLength_valueAsString_Get(this.handle);
   }
-  void newValueSpecifiedUnits(ushort unitType, float valueInSpecifiedUnits) {
+  void newValueSpecifiedUnits()(ushort unitType, float valueInSpecifiedUnits) {
     SVGLength_newValueSpecifiedUnits(this.handle, unitType, valueInSpecifiedUnits);
   }
-  void convertToSpecifiedUnits(ushort unitType) {
+  void convertToSpecifiedUnits()(ushort unitType) {
     SVGLength_convertToSpecifiedUnits(this.handle, unitType);
   }
 }
@@ -1161,34 +1161,34 @@ struct SVGLengthList {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto length() {
+  auto length()() {
     return SVGLengthList_length_Get(this.handle);
   }
-  auto numberOfItems() {
+  auto numberOfItems()() {
     return SVGLengthList_numberOfItems_Get(this.handle);
   }
-  void clear() {
+  void clear()() {
     SVGLengthList_clear(this.handle);
   }
-  auto initialize(scope ref SVGLength newItem) {
+  auto initialize()(scope ref SVGLength newItem) {
     return SVGLength(SVGLengthList_initialize(this.handle, newItem.handle));
   }
-  auto getItem(uint index) {
+  auto getItem()(uint index) {
     return SVGLength(SVGLengthList_getItem_getter(this.handle, index));
   }
-  auto insertItemBefore(scope ref SVGLength newItem, uint index) {
+  auto insertItemBefore()(scope ref SVGLength newItem, uint index) {
     return SVGLength(SVGLengthList_insertItemBefore(this.handle, newItem.handle, index));
   }
-  auto replaceItem(scope ref SVGLength newItem, uint index) {
+  auto replaceItem()(scope ref SVGLength newItem, uint index) {
     return SVGLength(SVGLengthList_replaceItem(this.handle, newItem.handle, index));
   }
-  auto removeItem(uint index) {
+  auto removeItem()(uint index) {
     return SVGLength(SVGLengthList_removeItem(this.handle, index));
   }
-  auto appendItem(scope ref SVGLength newItem) {
+  auto appendItem()(scope ref SVGLength newItem) {
     return SVGLength(SVGLengthList_appendItem(this.handle, newItem.handle));
   }
-  void opIndexAssign(scope ref SVGLength newItem, uint index) {
+  void opIndexAssign()(scope ref SVGLength newItem, uint index) {
     SVGLengthList_setter__uint_Handle(this.handle, index, newItem.handle);
   }
   void opDispatch(uint index)(scope ref SVGLength newItem) {
@@ -1202,16 +1202,16 @@ struct SVGLineElement {
   this(Handle h) {
     _parent = .SVGGeometryElement(h);
   }
-  auto x1() {
+  auto x1()() {
     return SVGAnimatedLength(SVGLineElement_x1_Get(this._parent));
   }
-  auto y1() {
+  auto y1()() {
     return SVGAnimatedLength(SVGLineElement_y1_Get(this._parent));
   }
-  auto x2() {
+  auto x2()() {
     return SVGAnimatedLength(SVGLineElement_x2_Get(this._parent));
   }
-  auto y2() {
+  auto y2()() {
     return SVGAnimatedLength(SVGLineElement_y2_Get(this._parent));
   }
 }
@@ -1222,16 +1222,16 @@ struct SVGLinearGradientElement {
   this(Handle h) {
     _parent = .SVGGradientElement(h);
   }
-  auto x1() {
+  auto x1()() {
     return SVGAnimatedLength(SVGLinearGradientElement_x1_Get(this._parent));
   }
-  auto y1() {
+  auto y1()() {
     return SVGAnimatedLength(SVGLinearGradientElement_y1_Get(this._parent));
   }
-  auto x2() {
+  auto x2()() {
     return SVGAnimatedLength(SVGLinearGradientElement_x2_Get(this._parent));
   }
-  auto y2() {
+  auto y2()() {
     return SVGAnimatedLength(SVGLinearGradientElement_y2_Get(this._parent));
   }
 }
@@ -1248,43 +1248,43 @@ struct SVGMarkerElement {
   enum ushort SVG_MARKER_ORIENT_UNKNOWN = 0;
   enum ushort SVG_MARKER_ORIENT_AUTO = 1;
   enum ushort SVG_MARKER_ORIENT_ANGLE = 2;
-  auto refX() {
+  auto refX()() {
     return SVGAnimatedLength(SVGMarkerElement_refX_Get(this._parent));
   }
-  auto refY() {
+  auto refY()() {
     return SVGAnimatedLength(SVGMarkerElement_refY_Get(this._parent));
   }
-  auto markerUnits() {
+  auto markerUnits()() {
     return SVGAnimatedEnumeration(SVGMarkerElement_markerUnits_Get(this._parent));
   }
-  auto markerWidth() {
+  auto markerWidth()() {
     return SVGAnimatedLength(SVGMarkerElement_markerWidth_Get(this._parent));
   }
-  auto markerHeight() {
+  auto markerHeight()() {
     return SVGAnimatedLength(SVGMarkerElement_markerHeight_Get(this._parent));
   }
-  auto orientType() {
+  auto orientType()() {
     return SVGAnimatedEnumeration(SVGMarkerElement_orientType_Get(this._parent));
   }
-  auto orientAngle() {
+  auto orientAngle()() {
     return SVGAnimatedAngle(SVGMarkerElement_orientAngle_Get(this._parent));
   }
-  void orient(string orient) {
+  void orient()(string orient) {
     SVGMarkerElement_orient_Set(this._parent, orient);
   }
-  auto orient() {
+  auto orient()() {
     return SVGMarkerElement_orient_Get(this._parent);
   }
-  void setOrientToAuto() {
+  void setOrientToAuto()() {
     SVGMarkerElement_setOrientToAuto(this._parent);
   }
-  void setOrientToAngle(scope ref SVGAngle angle) {
+  void setOrientToAngle()(scope ref SVGAngle angle) {
     SVGMarkerElement_setOrientToAngle(this._parent, angle.handle);
   }
-  auto viewBox() {
+  auto viewBox()() {
     return SVGAnimatedRect(SVGFitToViewBox_viewBox_Get(this._parent));
   }
-  auto preserveAspectRatio() {
+  auto preserveAspectRatio()() {
     return SVGAnimatedPreserveAspectRatio(SVGFitToViewBox_preserveAspectRatio_Get(this._parent));
   }
 }
@@ -1303,10 +1303,10 @@ struct SVGNumber {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  void value(float value) {
+  void value()(float value) {
     SVGNumber_value_Set(this.handle, value);
   }
-  auto value() {
+  auto value()() {
     return SVGNumber_value_Get(this.handle);
   }
 }
@@ -1317,34 +1317,34 @@ struct SVGNumberList {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto length() {
+  auto length()() {
     return SVGNumberList_length_Get(this.handle);
   }
-  auto numberOfItems() {
+  auto numberOfItems()() {
     return SVGNumberList_numberOfItems_Get(this.handle);
   }
-  void clear() {
+  void clear()() {
     SVGNumberList_clear(this.handle);
   }
-  auto initialize(scope ref SVGNumber newItem) {
+  auto initialize()(scope ref SVGNumber newItem) {
     return SVGNumber(SVGNumberList_initialize(this.handle, newItem.handle));
   }
-  auto getItem(uint index) {
+  auto getItem()(uint index) {
     return SVGNumber(SVGNumberList_getItem_getter(this.handle, index));
   }
-  auto insertItemBefore(scope ref SVGNumber newItem, uint index) {
+  auto insertItemBefore()(scope ref SVGNumber newItem, uint index) {
     return SVGNumber(SVGNumberList_insertItemBefore(this.handle, newItem.handle, index));
   }
-  auto replaceItem(scope ref SVGNumber newItem, uint index) {
+  auto replaceItem()(scope ref SVGNumber newItem, uint index) {
     return SVGNumber(SVGNumberList_replaceItem(this.handle, newItem.handle, index));
   }
-  auto removeItem(uint index) {
+  auto removeItem()(uint index) {
     return SVGNumber(SVGNumberList_removeItem(this.handle, index));
   }
-  auto appendItem(scope ref SVGNumber newItem) {
+  auto appendItem()(scope ref SVGNumber newItem) {
     return SVGNumber(SVGNumberList_appendItem(this.handle, newItem.handle));
   }
-  void opIndexAssign(scope ref SVGNumber newItem, uint index) {
+  void opIndexAssign()(scope ref SVGNumber newItem, uint index) {
     SVGNumberList_setter__uint_Handle(this.handle, index, newItem.handle);
   }
   void opDispatch(uint index)(scope ref SVGNumber newItem) {
@@ -1366,34 +1366,34 @@ struct SVGPatternElement {
   this(Handle h) {
     _parent = .SVGElement(h);
   }
-  auto patternUnits() {
+  auto patternUnits()() {
     return SVGAnimatedEnumeration(SVGPatternElement_patternUnits_Get(this._parent));
   }
-  auto patternContentUnits() {
+  auto patternContentUnits()() {
     return SVGAnimatedEnumeration(SVGPatternElement_patternContentUnits_Get(this._parent));
   }
-  auto patternTransform() {
+  auto patternTransform()() {
     return SVGAnimatedTransformList(SVGPatternElement_patternTransform_Get(this._parent));
   }
-  auto x() {
+  auto x()() {
     return SVGAnimatedLength(SVGPatternElement_x_Get(this._parent));
   }
-  auto y() {
+  auto y()() {
     return SVGAnimatedLength(SVGPatternElement_y_Get(this._parent));
   }
-  auto width() {
+  auto width()() {
     return SVGAnimatedLength(SVGPatternElement_width_Get(this._parent));
   }
-  auto height() {
+  auto height()() {
     return SVGAnimatedLength(SVGPatternElement_height_Get(this._parent));
   }
-  auto viewBox() {
+  auto viewBox()() {
     return SVGAnimatedRect(SVGFitToViewBox_viewBox_Get(this._parent));
   }
-  auto preserveAspectRatio() {
+  auto preserveAspectRatio()() {
     return SVGAnimatedPreserveAspectRatio(SVGFitToViewBox_preserveAspectRatio_Get(this._parent));
   }
-  auto href() {
+  auto href()() {
     return SVGAnimatedString(SVGURIReference_href_Get(this._parent));
   }
 }
@@ -1404,34 +1404,34 @@ struct SVGPointList {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto length() {
+  auto length()() {
     return SVGPointList_length_Get(this.handle);
   }
-  auto numberOfItems() {
+  auto numberOfItems()() {
     return SVGPointList_numberOfItems_Get(this.handle);
   }
-  void clear() {
+  void clear()() {
     SVGPointList_clear(this.handle);
   }
-  auto initialize(scope ref DOMPoint newItem) {
+  auto initialize()(scope ref DOMPoint newItem) {
     return DOMPoint(SVGPointList_initialize(this.handle, newItem._parent));
   }
-  auto getItem(uint index) {
+  auto getItem()(uint index) {
     return DOMPoint(SVGPointList_getItem_getter(this.handle, index));
   }
-  auto insertItemBefore(scope ref DOMPoint newItem, uint index) {
+  auto insertItemBefore()(scope ref DOMPoint newItem, uint index) {
     return DOMPoint(SVGPointList_insertItemBefore(this.handle, newItem._parent, index));
   }
-  auto replaceItem(scope ref DOMPoint newItem, uint index) {
+  auto replaceItem()(scope ref DOMPoint newItem, uint index) {
     return DOMPoint(SVGPointList_replaceItem(this.handle, newItem._parent, index));
   }
-  auto removeItem(uint index) {
+  auto removeItem()(uint index) {
     return DOMPoint(SVGPointList_removeItem(this.handle, index));
   }
-  auto appendItem(scope ref DOMPoint newItem) {
+  auto appendItem()(scope ref DOMPoint newItem) {
     return DOMPoint(SVGPointList_appendItem(this.handle, newItem._parent));
   }
-  void opIndexAssign(scope ref DOMPoint newItem, uint index) {
+  void opIndexAssign()(scope ref DOMPoint newItem, uint index) {
     SVGPointList_setter__uint_Handle(this.handle, index, newItem._parent);
   }
   void opDispatch(uint index)(scope ref DOMPoint newItem) {
@@ -1445,10 +1445,10 @@ struct SVGPolygonElement {
   this(Handle h) {
     _parent = .SVGGeometryElement(h);
   }
-  auto points() {
+  auto points()() {
     return SVGPointList(SVGAnimatedPoints_points_Get(this._parent));
   }
-  auto animatedPoints() {
+  auto animatedPoints()() {
     return SVGPointList(SVGAnimatedPoints_animatedPoints_Get(this._parent));
   }
 }
@@ -1459,10 +1459,10 @@ struct SVGPolylineElement {
   this(Handle h) {
     _parent = .SVGGeometryElement(h);
   }
-  auto points() {
+  auto points()() {
     return SVGPointList(SVGAnimatedPoints_points_Get(this._parent));
   }
-  auto animatedPoints() {
+  auto animatedPoints()() {
     return SVGPointList(SVGAnimatedPoints_animatedPoints_Get(this._parent));
   }
 }
@@ -1487,16 +1487,16 @@ struct SVGPreserveAspectRatio {
   enum ushort SVG_MEETORSLICE_UNKNOWN = 0;
   enum ushort SVG_MEETORSLICE_MEET = 1;
   enum ushort SVG_MEETORSLICE_SLICE = 2;
-  void align_(ushort align_) {
+  void align_()(ushort align_) {
     SVGPreserveAspectRatio_align_Set(this.handle, align_);
   }
-  auto align_() {
+  auto align_()() {
     return SVGPreserveAspectRatio_align_Get(this.handle);
   }
-  void meetOrSlice(ushort meetOrSlice) {
+  void meetOrSlice()(ushort meetOrSlice) {
     SVGPreserveAspectRatio_meetOrSlice_Set(this.handle, meetOrSlice);
   }
-  auto meetOrSlice() {
+  auto meetOrSlice()() {
     return SVGPreserveAspectRatio_meetOrSlice_Get(this.handle);
   }
 }
@@ -1507,22 +1507,22 @@ struct SVGRadialGradientElement {
   this(Handle h) {
     _parent = .SVGGradientElement(h);
   }
-  auto cx() {
+  auto cx()() {
     return SVGAnimatedLength(SVGRadialGradientElement_cx_Get(this._parent));
   }
-  auto cy() {
+  auto cy()() {
     return SVGAnimatedLength(SVGRadialGradientElement_cy_Get(this._parent));
   }
-  auto r() {
+  auto r()() {
     return SVGAnimatedLength(SVGRadialGradientElement_r_Get(this._parent));
   }
-  auto fx() {
+  auto fx()() {
     return SVGAnimatedLength(SVGRadialGradientElement_fx_Get(this._parent));
   }
-  auto fy() {
+  auto fy()() {
     return SVGAnimatedLength(SVGRadialGradientElement_fy_Get(this._parent));
   }
-  auto fr() {
+  auto fr()() {
     return SVGAnimatedLength(SVGRadialGradientElement_fr_Get(this._parent));
   }
 }
@@ -1533,22 +1533,22 @@ struct SVGRectElement {
   this(Handle h) {
     _parent = .SVGGeometryElement(h);
   }
-  auto x() {
+  auto x()() {
     return SVGAnimatedLength(SVGRectElement_x_Get(this._parent));
   }
-  auto y() {
+  auto y()() {
     return SVGAnimatedLength(SVGRectElement_y_Get(this._parent));
   }
-  auto width() {
+  auto width()() {
     return SVGAnimatedLength(SVGRectElement_width_Get(this._parent));
   }
-  auto height() {
+  auto height()() {
     return SVGAnimatedLength(SVGRectElement_height_Get(this._parent));
   }
-  auto rx() {
+  auto rx()() {
     return SVGAnimatedLength(SVGRectElement_rx_Get(this._parent));
   }
-  auto ry() {
+  auto ry()() {
     return SVGAnimatedLength(SVGRectElement_ry_Get(this._parent));
   }
 }
@@ -1559,25 +1559,25 @@ struct SVGSVGElement {
   this(Handle h) {
     _parent = .SVGGraphicsElement(h);
   }
-  auto x() {
+  auto x()() {
     return SVGAnimatedLength(SVGSVGElement_x_Get(this._parent));
   }
-  auto y() {
+  auto y()() {
     return SVGAnimatedLength(SVGSVGElement_y_Get(this._parent));
   }
-  auto width() {
+  auto width()() {
     return SVGAnimatedLength(SVGSVGElement_width_Get(this._parent));
   }
-  auto height() {
+  auto height()() {
     return SVGAnimatedLength(SVGSVGElement_height_Get(this._parent));
   }
-  void currentScale(float currentScale) {
+  void currentScale()(float currentScale) {
     SVGSVGElement_currentScale_Set(this._parent, currentScale);
   }
-  auto currentScale() {
+  auto currentScale()() {
     return SVGSVGElement_currentScale_Get(this._parent);
   }
-  auto currentTranslate() {
+  auto currentTranslate()() {
     return DOMPointReadOnly(SVGSVGElement_currentTranslate_Get(this._parent));
   }
   auto getIntersectionList(T1)(scope ref DOMRectReadOnly rect, scope auto ref Optional!(T1) referenceElement) if (isTOrPointer!(T1, SVGElement)) {
@@ -1586,163 +1586,163 @@ struct SVGSVGElement {
   auto getEnclosureList(T1)(scope ref DOMRectReadOnly rect, scope auto ref Optional!(T1) referenceElement) if (isTOrPointer!(T1, SVGElement)) {
     return NodeList(SVGSVGElement_getEnclosureList(this._parent, rect.handle, !referenceElement.empty, referenceElement.front._parent));
   }
-  auto checkIntersection(scope ref SVGElement element, scope ref DOMRectReadOnly rect) {
+  auto checkIntersection()(scope ref SVGElement element, scope ref DOMRectReadOnly rect) {
     return SVGSVGElement_checkIntersection(this._parent, element._parent, rect.handle);
   }
-  auto checkEnclosure(scope ref SVGElement element, scope ref DOMRectReadOnly rect) {
+  auto checkEnclosure()(scope ref SVGElement element, scope ref DOMRectReadOnly rect) {
     return SVGSVGElement_checkEnclosure(this._parent, element._parent, rect.handle);
   }
-  void deselectAll() {
+  void deselectAll()() {
     SVGSVGElement_deselectAll(this._parent);
   }
-  auto createSVGNumber() {
+  auto createSVGNumber()() {
     return SVGNumber(SVGSVGElement_createSVGNumber(this._parent));
   }
-  auto createSVGLength() {
+  auto createSVGLength()() {
     return SVGLength(SVGSVGElement_createSVGLength(this._parent));
   }
-  auto createSVGAngle() {
+  auto createSVGAngle()() {
     return SVGAngle(SVGSVGElement_createSVGAngle(this._parent));
   }
-  auto createSVGPoint() {
+  auto createSVGPoint()() {
     return DOMPoint(SVGSVGElement_createSVGPoint(this._parent));
   }
-  auto createSVGMatrix() {
+  auto createSVGMatrix()() {
     return DOMMatrix(SVGSVGElement_createSVGMatrix(this._parent));
   }
-  auto createSVGRect() {
+  auto createSVGRect()() {
     return DOMRect(SVGSVGElement_createSVGRect(this._parent));
   }
-  auto createSVGTransform() {
+  auto createSVGTransform()() {
     return SVGTransform(SVGSVGElement_createSVGTransform(this._parent));
   }
-  auto createSVGTransformFromMatrix(scope ref DOMMatrixReadOnly matrix) {
+  auto createSVGTransformFromMatrix()(scope ref DOMMatrixReadOnly matrix) {
     return SVGTransform(SVGSVGElement_createSVGTransformFromMatrix(this._parent, matrix.handle));
   }
-  auto getElementById(string elementId) {
+  auto getElementById()(string elementId) {
     return Element(SVGSVGElement_getElementById(this._parent, elementId));
   }
-  auto suspendRedraw(uint maxWaitMilliseconds) {
+  auto suspendRedraw()(uint maxWaitMilliseconds) {
     return SVGSVGElement_suspendRedraw(this._parent, maxWaitMilliseconds);
   }
-  void unsuspendRedraw(uint suspendHandleID) {
+  void unsuspendRedraw()(uint suspendHandleID) {
     SVGSVGElement_unsuspendRedraw(this._parent, suspendHandleID);
   }
-  void unsuspendRedrawAll() {
+  void unsuspendRedrawAll()() {
     SVGSVGElement_unsuspendRedrawAll(this._parent);
   }
-  void forceRedraw() {
+  void forceRedraw()() {
     SVGSVGElement_forceRedraw(this._parent);
   }
-  auto viewBox() {
+  auto viewBox()() {
     return SVGAnimatedRect(SVGFitToViewBox_viewBox_Get(this._parent));
   }
-  auto preserveAspectRatio() {
+  auto preserveAspectRatio()() {
     return SVGAnimatedPreserveAspectRatio(SVGFitToViewBox_preserveAspectRatio_Get(this._parent));
   }
   enum ushort SVG_ZOOMANDPAN_UNKNOWN = 0;
   enum ushort SVG_ZOOMANDPAN_DISABLE = 1;
   enum ushort SVG_ZOOMANDPAN_MAGNIFY = 2;
-  void zoomAndPan(ushort zoomAndPan) {
+  void zoomAndPan()(ushort zoomAndPan) {
     SVGZoomAndPan_zoomAndPan_Set(this._parent, zoomAndPan);
   }
-  auto zoomAndPan() {
+  auto zoomAndPan()() {
     return SVGZoomAndPan_zoomAndPan_Get(this._parent);
   }
-  void onafterprint(EventHandler onafterprint) {
+  void onafterprint()(EventHandler onafterprint) {
     WindowEventHandlers_onafterprint_Set(this._parent, onafterprint);
   }
-  auto onafterprint() {
+  auto onafterprint()() {
     return WindowEventHandlers_onafterprint_Get(this._parent);
   }
-  void onbeforeprint(EventHandler onbeforeprint) {
+  void onbeforeprint()(EventHandler onbeforeprint) {
     WindowEventHandlers_onbeforeprint_Set(this._parent, onbeforeprint);
   }
-  auto onbeforeprint() {
+  auto onbeforeprint()() {
     return WindowEventHandlers_onbeforeprint_Get(this._parent);
   }
   void onbeforeunload(T0)(scope auto ref Optional!(T0) onbeforeunload) if (isTOrPointer!(T0, OnBeforeUnloadEventHandler)) {
     WindowEventHandlers_onbeforeunload_Set(this._parent, !onbeforeunload.empty, onbeforeunload.front);
   }
-  auto onbeforeunload() {
+  auto onbeforeunload()() {
     return WindowEventHandlers_onbeforeunload_Get(this._parent);
   }
-  void onhashchange(EventHandler onhashchange) {
+  void onhashchange()(EventHandler onhashchange) {
     WindowEventHandlers_onhashchange_Set(this._parent, onhashchange);
   }
-  auto onhashchange() {
+  auto onhashchange()() {
     return WindowEventHandlers_onhashchange_Get(this._parent);
   }
-  void onlanguagechange(EventHandler onlanguagechange) {
+  void onlanguagechange()(EventHandler onlanguagechange) {
     WindowEventHandlers_onlanguagechange_Set(this._parent, onlanguagechange);
   }
-  auto onlanguagechange() {
+  auto onlanguagechange()() {
     return WindowEventHandlers_onlanguagechange_Get(this._parent);
   }
-  void onmessage(EventHandler onmessage) {
+  void onmessage()(EventHandler onmessage) {
     WindowEventHandlers_onmessage_Set(this._parent, onmessage);
   }
-  auto onmessage() {
+  auto onmessage()() {
     return WindowEventHandlers_onmessage_Get(this._parent);
   }
-  void onmessageerror(EventHandler onmessageerror) {
+  void onmessageerror()(EventHandler onmessageerror) {
     WindowEventHandlers_onmessageerror_Set(this._parent, onmessageerror);
   }
-  auto onmessageerror() {
+  auto onmessageerror()() {
     return WindowEventHandlers_onmessageerror_Get(this._parent);
   }
-  void onoffline(EventHandler onoffline) {
+  void onoffline()(EventHandler onoffline) {
     WindowEventHandlers_onoffline_Set(this._parent, onoffline);
   }
-  auto onoffline() {
+  auto onoffline()() {
     return WindowEventHandlers_onoffline_Get(this._parent);
   }
-  void ononline(EventHandler ononline) {
+  void ononline()(EventHandler ononline) {
     WindowEventHandlers_ononline_Set(this._parent, ononline);
   }
-  auto ononline() {
+  auto ononline()() {
     return WindowEventHandlers_ononline_Get(this._parent);
   }
-  void onpagehide(EventHandler onpagehide) {
+  void onpagehide()(EventHandler onpagehide) {
     WindowEventHandlers_onpagehide_Set(this._parent, onpagehide);
   }
-  auto onpagehide() {
+  auto onpagehide()() {
     return WindowEventHandlers_onpagehide_Get(this._parent);
   }
-  void onpageshow(EventHandler onpageshow) {
+  void onpageshow()(EventHandler onpageshow) {
     WindowEventHandlers_onpageshow_Set(this._parent, onpageshow);
   }
-  auto onpageshow() {
+  auto onpageshow()() {
     return WindowEventHandlers_onpageshow_Get(this._parent);
   }
-  void onpopstate(EventHandler onpopstate) {
+  void onpopstate()(EventHandler onpopstate) {
     WindowEventHandlers_onpopstate_Set(this._parent, onpopstate);
   }
-  auto onpopstate() {
+  auto onpopstate()() {
     return WindowEventHandlers_onpopstate_Get(this._parent);
   }
-  void onrejectionhandled(EventHandler onrejectionhandled) {
+  void onrejectionhandled()(EventHandler onrejectionhandled) {
     WindowEventHandlers_onrejectionhandled_Set(this._parent, onrejectionhandled);
   }
-  auto onrejectionhandled() {
+  auto onrejectionhandled()() {
     return WindowEventHandlers_onrejectionhandled_Get(this._parent);
   }
-  void onstorage(EventHandler onstorage) {
+  void onstorage()(EventHandler onstorage) {
     WindowEventHandlers_onstorage_Set(this._parent, onstorage);
   }
-  auto onstorage() {
+  auto onstorage()() {
     return WindowEventHandlers_onstorage_Get(this._parent);
   }
-  void onunhandledrejection(EventHandler onunhandledrejection) {
+  void onunhandledrejection()(EventHandler onunhandledrejection) {
     WindowEventHandlers_onunhandledrejection_Set(this._parent, onunhandledrejection);
   }
-  auto onunhandledrejection() {
+  auto onunhandledrejection()() {
     return WindowEventHandlers_onunhandledrejection_Get(this._parent);
   }
-  void onunload(EventHandler onunload) {
+  void onunload()(EventHandler onunload) {
     WindowEventHandlers_onunload_Set(this._parent, onunload);
   }
-  auto onunload() {
+  auto onunload()() {
     return WindowEventHandlers_onunload_Get(this._parent);
   }
 }
@@ -1753,19 +1753,19 @@ struct SVGScriptElement {
   this(Handle h) {
     _parent = .SVGElement(h);
   }
-  void type(string type) {
+  void type()(string type) {
     SVGScriptElement_type_Set(this._parent, type);
   }
-  auto type() {
+  auto type()() {
     return SVGScriptElement_type_Get(this._parent);
   }
   void crossOrigin(T0)(scope auto ref Optional!(T0) crossOrigin) if (isTOrPointer!(T0, string)) {
     SVGScriptElement_crossOrigin_Set(this._parent, !crossOrigin.empty, crossOrigin.front);
   }
-  auto crossOrigin() {
+  auto crossOrigin()() {
     return SVGScriptElement_crossOrigin_Get(this._parent);
   }
-  auto href() {
+  auto href()() {
     return SVGAnimatedString(SVGURIReference_href_Get(this._parent));
   }
 }
@@ -1776,7 +1776,7 @@ struct SVGStopElement {
   this(Handle h) {
     _parent = .SVGElement(h);
   }
-  auto offset() {
+  auto offset()() {
     return SVGAnimatedNumber(SVGStopElement_offset_Get(this._parent));
   }
 }
@@ -1787,34 +1787,34 @@ struct SVGStringList {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto length() {
+  auto length()() {
     return SVGStringList_length_Get(this.handle);
   }
-  auto numberOfItems() {
+  auto numberOfItems()() {
     return SVGStringList_numberOfItems_Get(this.handle);
   }
-  void clear() {
+  void clear()() {
     SVGStringList_clear(this.handle);
   }
-  auto initialize(string newItem) {
+  auto initialize()(string newItem) {
     return SVGStringList_initialize(this.handle, newItem);
   }
-  auto getItem(uint index) {
+  auto getItem()(uint index) {
     return SVGStringList_getItem_getter(this.handle, index);
   }
-  auto insertItemBefore(string newItem, uint index) {
+  auto insertItemBefore()(string newItem, uint index) {
     return SVGStringList_insertItemBefore(this.handle, newItem, index);
   }
-  auto replaceItem(string newItem, uint index) {
+  auto replaceItem()(string newItem, uint index) {
     return SVGStringList_replaceItem(this.handle, newItem, index);
   }
-  auto removeItem(uint index) {
+  auto removeItem()(uint index) {
     return SVGStringList_removeItem(this.handle, index);
   }
-  auto appendItem(string newItem) {
+  auto appendItem()(string newItem) {
     return SVGStringList_appendItem(this.handle, newItem);
   }
-  void opIndexAssign(string newItem, uint index) {
+  void opIndexAssign()(string newItem, uint index) {
     SVGStringList_setter__uint_string(this.handle, index, newItem);
   }
   void opDispatch(uint index)(string newItem) {
@@ -1828,22 +1828,22 @@ struct SVGStyleElement {
   this(Handle h) {
     _parent = .SVGElement(h);
   }
-  void type(string type) {
+  void type()(string type) {
     SVGStyleElement_type_Set(this._parent, type);
   }
-  auto type() {
+  auto type()() {
     return SVGStyleElement_type_Get(this._parent);
   }
-  void media(string media) {
+  void media()(string media) {
     SVGStyleElement_media_Set(this._parent, media);
   }
-  auto media() {
+  auto media()() {
     return SVGStyleElement_media_Get(this._parent);
   }
-  void title(string title) {
+  void title()(string title) {
     SVGStyleElement_title_Set(this._parent, title);
   }
-  auto title() {
+  auto title()() {
     return SVGStyleElement_title_Get(this._parent);
   }
 }
@@ -1862,10 +1862,10 @@ struct SVGSymbolElement {
   this(Handle h) {
     _parent = .SVGGraphicsElement(h);
   }
-  auto viewBox() {
+  auto viewBox()() {
     return SVGAnimatedRect(SVGFitToViewBox_viewBox_Get(this._parent));
   }
-  auto preserveAspectRatio() {
+  auto preserveAspectRatio()() {
     return SVGAnimatedPreserveAspectRatio(SVGFitToViewBox_preserveAspectRatio_Get(this._parent));
   }
 }
@@ -1887,40 +1887,40 @@ struct SVGTextContentElement {
   enum ushort LENGTHADJUST_UNKNOWN = 0;
   enum ushort LENGTHADJUST_SPACING = 1;
   enum ushort LENGTHADJUST_SPACINGANDGLYPHS = 2;
-  auto textLength() {
+  auto textLength()() {
     return SVGAnimatedLength(SVGTextContentElement_textLength_Get(this._parent));
   }
-  auto lengthAdjust() {
+  auto lengthAdjust()() {
     return SVGAnimatedEnumeration(SVGTextContentElement_lengthAdjust_Get(this._parent));
   }
-  auto getNumberOfChars() {
+  auto getNumberOfChars()() {
     return SVGTextContentElement_getNumberOfChars(this._parent);
   }
-  auto getComputedTextLength() {
+  auto getComputedTextLength()() {
     return SVGTextContentElement_getComputedTextLength(this._parent);
   }
-  auto getSubStringLength(uint charnum, uint nchars) {
+  auto getSubStringLength()(uint charnum, uint nchars) {
     return SVGTextContentElement_getSubStringLength(this._parent, charnum, nchars);
   }
-  auto getStartPositionOfChar(uint charnum) {
+  auto getStartPositionOfChar()(uint charnum) {
     return DOMPoint(SVGTextContentElement_getStartPositionOfChar(this._parent, charnum));
   }
-  auto getEndPositionOfChar(uint charnum) {
+  auto getEndPositionOfChar()(uint charnum) {
     return DOMPoint(SVGTextContentElement_getEndPositionOfChar(this._parent, charnum));
   }
-  auto getExtentOfChar(uint charnum) {
+  auto getExtentOfChar()(uint charnum) {
     return DOMRect(SVGTextContentElement_getExtentOfChar(this._parent, charnum));
   }
-  auto getRotationOfChar(uint charnum) {
+  auto getRotationOfChar()(uint charnum) {
     return SVGTextContentElement_getRotationOfChar(this._parent, charnum);
   }
-  auto getCharNumAtPosition(scope ref DOMPointInit point) {
+  auto getCharNumAtPosition()(scope ref DOMPointInit point) {
     return SVGTextContentElement_getCharNumAtPosition(this._parent, point.handle);
   }
-  auto getCharNumAtPosition() {
+  auto getCharNumAtPosition()() {
     return SVGTextContentElement_getCharNumAtPosition_0(this._parent);
   }
-  void selectSubString(uint charnum, uint nchars) {
+  void selectSubString()(uint charnum, uint nchars) {
     SVGTextContentElement_selectSubString(this._parent, charnum, nchars);
   }
 }
@@ -1945,16 +1945,16 @@ struct SVGTextPathElement {
   enum ushort TEXTPATH_SPACINGTYPE_UNKNOWN = 0;
   enum ushort TEXTPATH_SPACINGTYPE_AUTO = 1;
   enum ushort TEXTPATH_SPACINGTYPE_EXACT = 2;
-  auto startOffset() {
+  auto startOffset()() {
     return SVGAnimatedLength(SVGTextPathElement_startOffset_Get(this._parent));
   }
-  auto method() {
+  auto method()() {
     return SVGAnimatedEnumeration(SVGTextPathElement_method_Get(this._parent));
   }
-  auto spacing() {
+  auto spacing()() {
     return SVGAnimatedEnumeration(SVGTextPathElement_spacing_Get(this._parent));
   }
-  auto href() {
+  auto href()() {
     return SVGAnimatedString(SVGURIReference_href_Get(this._parent));
   }
 }
@@ -1965,19 +1965,19 @@ struct SVGTextPositioningElement {
   this(Handle h) {
     _parent = .SVGTextContentElement(h);
   }
-  auto x() {
+  auto x()() {
     return SVGAnimatedLengthList(SVGTextPositioningElement_x_Get(this._parent));
   }
-  auto y() {
+  auto y()() {
     return SVGAnimatedLengthList(SVGTextPositioningElement_y_Get(this._parent));
   }
-  auto dx() {
+  auto dx()() {
     return SVGAnimatedLengthList(SVGTextPositioningElement_dx_Get(this._parent));
   }
-  auto dy() {
+  auto dy()() {
     return SVGAnimatedLengthList(SVGTextPositioningElement_dy_Get(this._parent));
   }
-  auto rotate() {
+  auto rotate()() {
     return SVGAnimatedNumberList(SVGTextPositioningElement_rotate_Get(this._parent));
   }
 }
@@ -2003,31 +2003,31 @@ struct SVGTransform {
   enum ushort SVG_TRANSFORM_ROTATE = 4;
   enum ushort SVG_TRANSFORM_SKEWX = 5;
   enum ushort SVG_TRANSFORM_SKEWY = 6;
-  auto type() {
+  auto type()() {
     return SVGTransform_type_Get(this.handle);
   }
-  auto matrix() {
+  auto matrix()() {
     return DOMMatrix(SVGTransform_matrix_Get(this.handle));
   }
-  auto angle() {
+  auto angle()() {
     return SVGTransform_angle_Get(this.handle);
   }
-  void setMatrix(scope ref DOMMatrixReadOnly matrix) {
+  void setMatrix()(scope ref DOMMatrixReadOnly matrix) {
     SVGTransform_setMatrix(this.handle, matrix.handle);
   }
-  void setTranslate(float tx, float ty) {
+  void setTranslate()(float tx, float ty) {
     SVGTransform_setTranslate(this.handle, tx, ty);
   }
-  void setScale(float sx, float sy) {
+  void setScale()(float sx, float sy) {
     SVGTransform_setScale(this.handle, sx, sy);
   }
-  void setRotate(float angle, float cx, float cy) {
+  void setRotate()(float angle, float cx, float cy) {
     SVGTransform_setRotate(this.handle, angle, cx, cy);
   }
-  void setSkewX(float angle) {
+  void setSkewX()(float angle) {
     SVGTransform_setSkewX(this.handle, angle);
   }
-  void setSkewY(float angle) {
+  void setSkewY()(float angle) {
     SVGTransform_setSkewY(this.handle, angle);
   }
 }
@@ -2038,43 +2038,43 @@ struct SVGTransformList {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  auto length() {
+  auto length()() {
     return SVGTransformList_length_Get(this.handle);
   }
-  auto numberOfItems() {
+  auto numberOfItems()() {
     return SVGTransformList_numberOfItems_Get(this.handle);
   }
-  void clear() {
+  void clear()() {
     SVGTransformList_clear(this.handle);
   }
-  auto initialize(scope ref SVGTransform newItem) {
+  auto initialize()(scope ref SVGTransform newItem) {
     return SVGTransform(SVGTransformList_initialize(this.handle, newItem.handle));
   }
-  auto getItem(uint index) {
+  auto getItem()(uint index) {
     return SVGTransform(SVGTransformList_getItem_getter(this.handle, index));
   }
-  auto insertItemBefore(scope ref SVGTransform newItem, uint index) {
+  auto insertItemBefore()(scope ref SVGTransform newItem, uint index) {
     return SVGTransform(SVGTransformList_insertItemBefore(this.handle, newItem.handle, index));
   }
-  auto replaceItem(scope ref SVGTransform newItem, uint index) {
+  auto replaceItem()(scope ref SVGTransform newItem, uint index) {
     return SVGTransform(SVGTransformList_replaceItem(this.handle, newItem.handle, index));
   }
-  auto removeItem(uint index) {
+  auto removeItem()(uint index) {
     return SVGTransform(SVGTransformList_removeItem(this.handle, index));
   }
-  auto appendItem(scope ref SVGTransform newItem) {
+  auto appendItem()(scope ref SVGTransform newItem) {
     return SVGTransform(SVGTransformList_appendItem(this.handle, newItem.handle));
   }
-  void opIndexAssign(scope ref SVGTransform newItem, uint index) {
+  void opIndexAssign()(scope ref SVGTransform newItem, uint index) {
     SVGTransformList_setter__uint_Handle(this.handle, index, newItem.handle);
   }
   void opDispatch(uint index)(scope ref SVGTransform newItem) {
     SVGTransformList_setter__uint_Handle(this.handle, index, newItem.handle);
   }
-  auto createSVGTransformFromMatrix(scope ref DOMMatrixReadOnly matrix) {
+  auto createSVGTransformFromMatrix()(scope ref DOMMatrixReadOnly matrix) {
     return SVGTransform(SVGTransformList_createSVGTransformFromMatrix(this.handle, matrix.handle));
   }
-  auto consolidate() {
+  auto consolidate()() {
     return SVGTransformList_consolidate(this.handle);
   }
 }
@@ -2104,25 +2104,25 @@ struct SVGUseElement {
   this(Handle h) {
     _parent = .SVGGraphicsElement(h);
   }
-  auto x() {
+  auto x()() {
     return SVGAnimatedLength(SVGUseElement_x_Get(this._parent));
   }
-  auto y() {
+  auto y()() {
     return SVGAnimatedLength(SVGUseElement_y_Get(this._parent));
   }
-  auto width() {
+  auto width()() {
     return SVGAnimatedLength(SVGUseElement_width_Get(this._parent));
   }
-  auto height() {
+  auto height()() {
     return SVGAnimatedLength(SVGUseElement_height_Get(this._parent));
   }
-  auto instanceRoot() {
+  auto instanceRoot()() {
     return SVGUseElement_instanceRoot_Get(this._parent);
   }
-  auto animatedInstanceRoot() {
+  auto animatedInstanceRoot()() {
     return SVGUseElement_animatedInstanceRoot_Get(this._parent);
   }
-  auto href() {
+  auto href()() {
     return SVGAnimatedString(SVGURIReference_href_Get(this._parent));
   }
 }
@@ -2141,19 +2141,19 @@ struct SVGViewElement {
   this(Handle h) {
     _parent = .SVGElement(h);
   }
-  auto viewBox() {
+  auto viewBox()() {
     return SVGAnimatedRect(SVGFitToViewBox_viewBox_Get(this._parent));
   }
-  auto preserveAspectRatio() {
+  auto preserveAspectRatio()() {
     return SVGAnimatedPreserveAspectRatio(SVGFitToViewBox_preserveAspectRatio_Get(this._parent));
   }
   enum ushort SVG_ZOOMANDPAN_UNKNOWN = 0;
   enum ushort SVG_ZOOMANDPAN_DISABLE = 1;
   enum ushort SVG_ZOOMANDPAN_MAGNIFY = 2;
-  void zoomAndPan(ushort zoomAndPan) {
+  void zoomAndPan()(ushort zoomAndPan) {
     SVGZoomAndPan_zoomAndPan_Set(this._parent, zoomAndPan);
   }
-  auto zoomAndPan() {
+  auto zoomAndPan()() {
     return SVGZoomAndPan_zoomAndPan_Get(this._parent);
   }
 }
@@ -2164,7 +2164,7 @@ struct ShadowAnimation {
   this(Handle h) {
     _parent = .Animation(h);
   }
-  auto sourceAnimation() {
+  auto sourceAnimation()() {
     return Animation(ShadowAnimation_sourceAnimation_Get(this._parent));
   }
 }

@@ -14,82 +14,82 @@ struct URL {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  void href(string href) {
+  void href()(string href) {
     URL_href_Set(this.handle, href);
   }
-  auto href() {
+  auto href()() {
     return URL_href_Get(this.handle);
   }
-  auto origin() {
+  auto origin()() {
     return URL_origin_Get(this.handle);
   }
-  void protocol(string protocol) {
+  void protocol()(string protocol) {
     URL_protocol_Set(this.handle, protocol);
   }
-  auto protocol() {
+  auto protocol()() {
     return URL_protocol_Get(this.handle);
   }
-  void username(string username) {
+  void username()(string username) {
     URL_username_Set(this.handle, username);
   }
-  auto username() {
+  auto username()() {
     return URL_username_Get(this.handle);
   }
-  void password(string password) {
+  void password()(string password) {
     URL_password_Set(this.handle, password);
   }
-  auto password() {
+  auto password()() {
     return URL_password_Get(this.handle);
   }
-  void host(string host) {
+  void host()(string host) {
     URL_host_Set(this.handle, host);
   }
-  auto host() {
+  auto host()() {
     return URL_host_Get(this.handle);
   }
-  void hostname(string hostname) {
+  void hostname()(string hostname) {
     URL_hostname_Set(this.handle, hostname);
   }
-  auto hostname() {
+  auto hostname()() {
     return URL_hostname_Get(this.handle);
   }
-  void port(string port) {
+  void port()(string port) {
     URL_port_Set(this.handle, port);
   }
-  auto port() {
+  auto port()() {
     return URL_port_Get(this.handle);
   }
-  void pathname(string pathname) {
+  void pathname()(string pathname) {
     URL_pathname_Set(this.handle, pathname);
   }
-  auto pathname() {
+  auto pathname()() {
     return URL_pathname_Get(this.handle);
   }
-  void search(string search) {
+  void search()(string search) {
     URL_search_Set(this.handle, search);
   }
-  auto search() {
+  auto search()() {
     return URL_search_Get(this.handle);
   }
-  auto searchParams() {
+  auto searchParams()() {
     return URLSearchParams(URL_searchParams_Get(this.handle));
   }
-  void hash(string hash) {
+  void hash()(string hash) {
     URL_hash_Set(this.handle, hash);
   }
-  auto hash() {
+  auto hash()() {
     return URL_hash_Get(this.handle);
   }
-  auto toJSON() {
+  auto toJSON()() {
     return URL_toJSON(this.handle);
   }
-  auto createObjectURL(scope ref Blob blob) {
+  auto createObjectURL()(scope ref Blob blob) {
     return URL_createObjectURL__Handle(this.handle, blob.handle);
   }
-  void revokeObjectURL(string url) {
+  void revokeObjectURL()(string url) {
     URL_revokeObjectURL(this.handle, url);
   }
-  auto createObjectURL(scope ref MediaSource mediaSource) {
+  auto createObjectURL()(scope ref MediaSource mediaSource) {
     return URL_createObjectURL__Handle(this.handle, mediaSource._parent);
   }
 }
@@ -100,25 +100,25 @@ struct URLSearchParams {
   this(Handle h) {
     this.handle = JsHandle(h);
   }
-  void append(string name, string value) {
+  void append()(string name, string value) {
     URLSearchParams_append(this.handle, name, value);
   }
-  void delete_(string name) {
+  void delete_()(string name) {
     URLSearchParams_delete(this.handle, name);
   }
-  auto get(string name) {
+  auto get()(string name) {
     return URLSearchParams_get(this.handle, name);
   }
-  auto getAll(string name) {
+  auto getAll()(string name) {
     return Sequence!(string)(URLSearchParams_getAll(this.handle, name));
   }
-  auto has(string name) {
+  auto has()(string name) {
     return URLSearchParams_has(this.handle, name);
   }
-  void set(string name, string value) {
+  void set()(string name, string value) {
     URLSearchParams_set(this.handle, name, value);
   }
-  void sort() {
+  void sort()() {
     URLSearchParams_sort(this.handle);
   }
 }

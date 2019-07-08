@@ -21,10 +21,10 @@ struct FullscreenOptions {
   static auto create() {
     return FullscreenOptions(spasm_add__object());
   }
-  void navigationUI(FullscreenNavigationUI navigationUI) {
+  void navigationUI()(FullscreenNavigationUI navigationUI) {
     FullscreenOptions_navigationUI_Set(this.handle, navigationUI);
   }
-  auto navigationUI() {
+  auto navigationUI()() {
     return FullscreenOptions_navigationUI_Get(this.handle);
   }
 }
