@@ -325,7 +325,7 @@ unittest {
 }
 
 unittest {
-  auto allocator = PoolAllocator(32, 128);
+  auto allocator = PoolAllocator(32, 128, null);
   void[] mem = allocator.allocate(16);
   assert(allocator.owns(mem) == Ternary(true));
   assert(allocator.deallocate(mem) == true);
