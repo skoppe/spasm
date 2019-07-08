@@ -7,8 +7,12 @@ import game.terminal;
 import game.game;
 import spasm.rt.array;
 import spasm.array;
-import std.range : chain, only;
+import std.range : only;
 import spasm.rt.memory;
+import game.chain;
+
+nothrow:
+@safe:
 
 enum Input {
   None = 0,
@@ -36,6 +40,7 @@ __gshared Game* gGame;
 __gshared int current_level = 1;
 
 struct Level {
+  nothrow:
   enum Block {empty=0, floor=1, wall=2, player=3, cpu=4, sentry=5}
   Player player;
   ubyte[] data;
@@ -48,7 +53,7 @@ struct Level {
   PointerArray!(SentryPlasma*) sPlasma;
   PointerArray!(Particle*) particles;
   PointerArray!(Explosion*) explosions;
-  void updateEntities(float tick, Input input, int mouseX, int mouseY) {
+  void updateEntities(float tick, Input input, int mouseX, int mouseY) @trusted {
     if (player.entity.dead || gGame.finished)
       return;
     player.update(this,tick,input,mouseX, mouseY);
@@ -98,7 +103,7 @@ struct Level {
       }
     }
   }
-  void render(ref Renderer renderer, float tick) {
+  void render(ref Renderer renderer, float tick) @trusted {
     if (!gGame.finished && !player.entity.dead)
       player.render(renderer);
     foreach(i; 0..player.entity.health)
@@ -148,12 +153,12 @@ struct Level {
   void remove(SentryPlasma* s) {
     sPlasma.removeItem(s);
   }
-  void rebootCpu() {
+  void rebootCpu() @trusted {
     cpus_rebooted++;
 
     enum reboot_message = only(
-				l(3,"REBOOTING..."),
-        l(13,"SUCCESS")
+                           l(3,"REBOOTING..."),
+                           l(13,"SUCCESS")
                                );
     enum stillOffline = " SYSTEM(S) STILL OFFLINE";
 
@@ -194,10 +199,10 @@ struct Level {
     particles.shrinkTo(0);
     explosions.shrinkTo(0);
   }
-  void nextLevel() {
+  void nextLevel() @trusted {
     gGame.loadNextLevel();
   }
-  void decodeLevel(ref Renderer renderer, int id = 0) {
+  void decodeLevel(ref Renderer renderer, int id = 0) @trusted {
     clearEntities();
     cpus_rebooted = 0;
     auto randomWallTile() {

@@ -2,6 +2,9 @@ module spasm.webgl.functions;
 
 import spasm.webgl.types;
 
+nothrow:
+@safe:
+
 extern (C) {
   // void glActiveTexture(GLenum texture );
   void glAttachShader(GLuint program, GLuint shader);

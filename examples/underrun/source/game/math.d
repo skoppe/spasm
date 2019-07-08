@@ -1,5 +1,8 @@
 module game.math;
 
+nothrow:
+@safe:
+
 extern(C){
   float atan2(float,float);
   float cos(float);

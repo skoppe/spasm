@@ -1,5 +1,8 @@
 module spasm.webgl.constants;
 
+nothrow:
+@safe:
+
 enum : ubyte {
     GL_FALSE                          = 0,
     GL_TRUE                           = 1,

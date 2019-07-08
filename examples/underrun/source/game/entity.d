@@ -5,10 +5,14 @@ import game.renderer;
 import game.math;
 import game.terminal;
 import spasm.rt.memory;
-import std.range : only;
 import game.audio;
+import std.range : only;
+
+nothrow:
+@safe:
 
 struct Entity {
+  nothrow:
   float x=0,y=0,z=0;
   float vx=0,vy=0,vz=0;
   float ax=0,ay=0,az=0;
@@ -62,6 +66,7 @@ void render(ref Renderer renderer, ref Entity entity) {
 }
 
 struct Spider {
+  nothrow:
   Entity entity;
   float animation_time = 0;
   float select_target_counter = 0;
@@ -124,7 +129,7 @@ struct Spider {
 			entity.vz *= -1.5;
 			other.receive_damage(level, 1);
   }
-  void kill(ref Level level) {
+  void kill(ref Level level) @trusted {
 		entity.kill();
     level.remove(&this);
     level.put(allocator.make!Explosion(Entity(entity.x, 0, entity.z, 0, 26)));
@@ -134,10 +139,11 @@ struct Spider {
 }
 
 struct ParticleSpawner {
+  nothrow:
   enum empty = false;
   Particle* p;
   float x, z;
-  void gen() {
+  void gen() @trusted {
     p = allocator.make!Particle(Entity(this.x, 0, this.z, 1, 30));
     p.entity.vx = (random() - 0.5) * 128;
     p.entity.vy = random() * 96;
@@ -156,6 +162,7 @@ struct ParticleSpawner {
 }
 
 struct Sentry {
+  nothrow:
   Entity entity;
   float select_target_counter = 0;
   float target_x, target_z;
@@ -170,7 +177,7 @@ struct Sentry {
     renderer.render(entity);
   }
 
-	void update(ref Level level, float elapsed) {
+	void update(ref Level level, float elapsed) @trusted {
 		auto txd = entity.x - target_x;
 		auto tzd = entity.z - target_z;
     auto xd = entity.x - level.player.entity.x;
@@ -216,7 +223,7 @@ struct Sentry {
       level.put(p);
 	}
 
-	void kill(ref Level level) {
+	void kill(ref Level level) @trusted {
     entity.kill();
     level.remove(&this);
     level.put(allocator.make!Explosion(Entity(entity.x, 0, entity.z, 0, 26)));
@@ -226,6 +233,7 @@ struct Sentry {
 }
 
 struct SentryPlasma {
+  nothrow:
   Entity entity;
   this(Entity entity, float angle) {
     this.entity = entity;
@@ -258,6 +266,7 @@ struct SentryPlasma {
 enum PI = 3.141592654f;
 
 struct Player {
+  nothrow:
   Entity entity;
   float last_shot = 0, last_damage = 0, bob = 0;
   int frame = 0;
@@ -265,7 +274,7 @@ struct Player {
     this.entity = entity;
 	}
 
-	void update(ref Level level, float elapsed, Input input, int mouseX, int mouseY) {
+	void update(ref Level level, float elapsed, Input input, int mouseX, int mouseY) @trusted {
 		enum speed = 128;
 
 		// movement
@@ -306,22 +315,21 @@ struct Player {
 		renderer.push_light(entity.x, 4, entity.z + 6, 1,0.5,0, 0.04);
 	}
 
-	void kill(ref Level level) {
+	void kill(ref Level level) @trusted {
     if (entity.dead)
       return;
 		entity.kill();
 		entity.y = 10;
 		entity.z += 5;
-		(*gTerminal).terminal_show_notice(
-                                      only(
-                                           l(0,"DEPLOYMENT FAILED"),
-                                           l(1,"RESTORING BACKUP...")
-                                           )
+    (*gTerminal).terminal_show_notice(only(
+                                       l(0,"DEPLOYMENT FAILED"),
+                                       l(1,"RESTORING BACKUP...")
+                                       )
                                       );
-		setTimeout(&gGame.loadLevel, 3000);
-	}
+    setTimeout(&gGame.loadLevel, 3000);
+  }
 
-	void receive_damage(ref Level level, int amount) {
+  void receive_damage(ref Level level, int amount) {
 		if (last_damage < 0) {
       // TODO
 			// audio_play(audio_sfx_hurt);
@@ -334,6 +342,7 @@ struct Player {
 }
 
 struct PlayerPlasma {
+  nothrow:
   Entity entity;
   this(Entity entity, float angle) {
     this.entity = entity;
@@ -353,12 +362,12 @@ struct PlayerPlasma {
     entity.kill();
     level.remove(&this);
   }
-  void check(ref Level level, Sentry* other) {
+  void check(ref Level level, Sentry* other) @trusted {
     gSoundPlayer.playHit();
     other.receive_damage(level, entity, 1);
     kill(level);
   }
-	void check(ref Level level, Spider* other) {
+	void check(ref Level level, Spider* other) @trusted {
     gSoundPlayer.playHit();
     other.receive_damage(level, entity, 1);
     kill(level);
@@ -366,6 +375,7 @@ struct PlayerPlasma {
 }
 
 struct Particle {
+  nothrow:
   Entity entity;
   float lifetime = 3;
   this(Entity entity) {
@@ -393,6 +403,7 @@ struct Particle {
 }
 
 struct Health {
+  nothrow:
   Entity entity;
   this(Entity entity) {
     this.entity = entity;
@@ -413,6 +424,7 @@ struct Health {
 }
 
 struct Explosion {
+  nothrow:
   Entity entity;
   float lifetime;
   this(Entity entity) {
@@ -435,6 +447,7 @@ struct Explosion {
 }
 
 struct Cpu {
+  nothrow:
   Entity entity;
   float animation_time = 0f;
   void update(ref Level level, float elapsed) {

@@ -7,11 +7,13 @@ import game.entity;
 import game.math;
 import std.range : only;
 
+nothrow:
+@safe:
+
 immutable GLuint max_verts = 1024 * 64;
 immutable GLint max_lights = 16;
 __gshared float camera_shake = 0f;
 
-extern(C) Handle getContext(Handle);
 extern(C) void glSetContext(Handle);
 
 auto compile_shader(int shader_type, string shader_source) {
@@ -28,6 +30,7 @@ auto enable_vertex_attrib(GLint shader_program, string attrib_name, int count, i
 };
 
 struct Renderer {
+  nothrow:
 	GLuint vertex_buffer;
 	GLuint shader_program;
 
@@ -107,7 +110,7 @@ struct Renderer {
     level_num_verts = num_verts;
   }
 
-  auto update_camera(ref Player player) {
+  auto update_camera(ref Player player) @trusted {
     // center camera on player, apply damping
     camera_x = camera_x * 0.92 - player.entity.x * 0.08;
     camera_y = camera_y * 0.92 - player.entity.y * 0.08;
@@ -118,7 +121,7 @@ struct Renderer {
     camera_x += camera_shake * (random()-0.5);
     camera_z += camera_shake * (random()-0.5);
   }
-  auto renderer_init(int width, int height) {
+  auto renderer_init(int width, int height) @trusted {
 
     buffer_data = allocator.make!(float[max_verts*8]);
     light_data = allocator.make!(float[max_lights*7]);

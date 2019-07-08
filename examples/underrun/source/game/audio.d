@@ -2,6 +2,10 @@ module game.audio;
 
 import game.math;
 import spasm.rt.memory;
+import std.algorithm : move;
+
+nothrow:
+@safe:
 
 enum WAVE_SPS = 44100;					// Samples per second
 enum MAX_TIME = 33; // maximum time, in millis, that the generator can use consecutively
@@ -34,6 +38,7 @@ __gshared SoundPlayer* gSoundPlayer;
 alias WaveForm = float function(float);
 
 struct Instrument {
+  nothrow:
   ubyte osc1_oct;
   ubyte osc1_det;
   ubyte osc1_detune;
@@ -66,11 +71,12 @@ struct Instrument {
 }
 
 struct Buffer {
+  nothrow:
   float[] left;
   float[] right;
 }
 
-auto generateBuffer(size_t samples) {
+auto generateBuffer(size_t samples) @trusted {
   return Buffer(
                 allocator.make!(float[])(samples),
                 allocator.make!(float[])(samples));
@@ -92,49 +98,58 @@ auto applyDelay(Buffer chnBuf, uint waveSamples, immutable Instrument* instr, ui
 import spasm.types;
 
 struct BaseAudioContext {
+  nothrow:
   JsHandle handle;
   alias handle this;
-  @property AudioDestinationNode destination() {
-    return AudioDestinationNode(JsHandle(baseAudioContextDestination(handle)));
+  this(Handle h) {
+    handle = JsHandle(h);
+  }
+  @property AudioDestinationNode destination() @trusted {
+    return AudioDestinationNode(baseAudioContextDestination(*handle.ptr));
   }
 }
 
 struct AudioContext {
+  nothrow:
   BaseAudioContext base;
-  this(JsHandle handle) {
-    base.handle = handle;
+  this(Handle handle) {
+    base = BaseAudioContext(handle);
   }
   alias base this;
 }
 
 struct Float32Array {
+  nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) { handle = JsHandle(h); }
 }
 
 struct AudioBuffer {
+  nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) { handle = JsHandle(h); }
 }
 
 struct AudioBufferSourceNode {
+  nothrow:
   JsHandle handle;
   alias handle this;
-  @disable this(this);
-  ~this() {
-    audioFree(handle);
+  this(Handle h) { handle = JsHandle(h); }
+  @property void loop(bool l) @trusted {
+    audioBufferSourceNodeLoopSet(*handle.ptr, l);
   }
-  @property void loop(bool l) {
-    audioBufferSourceNodeLoopSet(handle, l);
-  }
-  @property void buffer(AudioBuffer buffer) {
-    audioBufferSourceNodeBuffer(handle, buffer.handle);
+  @property void buffer(AudioBuffer buffer) @trusted {
+    audioBufferSourceNodeBuffer(*handle.ptr, *buffer.ptr);
   }
 }
 
 struct AudioDestinationNode {
+  nothrow:
   JsHandle handle;
   alias handle this;
+  this(Handle h) { handle = JsHandle(h); }
 }
 
 extern(C) Handle baseAudioContextDestination(Handle ctx);
@@ -143,66 +158,54 @@ extern(C) Handle windowNewAudioContext();
 extern(C) void audioBufferSourceNodeConnect(Handle node, Handle destination);
 extern(C) void audioBufferSourceNodeStart(Handle node);
 extern(C) void audioBufferSourceNodeBuffer(Handle node, Handle buffer);
-extern(C) void audioFree(Handle node);
 
-void connect(ref AudioBufferSourceNode node, AudioDestinationNode destination) {
-  audioBufferSourceNodeConnect(node.handle, destination.handle);
+void connect(ref AudioBufferSourceNode node, AudioDestinationNode destination) @trusted {
+  audioBufferSourceNodeConnect(*node.handle.ptr, *destination.handle.ptr);
 }
 
-void start(ref AudioBufferSourceNode node) {
-  audioBufferSourceNodeStart(node.handle);
+void start(ref AudioBufferSourceNode node) @trusted {
+  audioBufferSourceNodeStart(*node.handle.ptr);
 }
 
 AudioContext newAudioContext() {
-  return AudioContext(JsHandle(windowNewAudioContext()));
+  return AudioContext(windowNewAudioContext());
 }
 // TODO: can we combine both functions into one with pragma mangle and implicit conversions?
 extern(C) Handle baseAudioContextCreateBuffer(Handle ctx, uint numberOfChannels, uint length, float sampleRate);
 
-AudioBuffer createBuffer(ref BaseAudioContext ctx, uint numberOfChannels, uint length, float sampleRate) {
-  return AudioBuffer(JsHandle(baseAudioContextCreateBuffer(ctx.handle, numberOfChannels, length, sampleRate)));
+AudioBuffer createBuffer(ref BaseAudioContext ctx, uint numberOfChannels, uint length, float sampleRate) @trusted {
+  return AudioBuffer(baseAudioContextCreateBuffer(*ctx.handle.ptr, numberOfChannels, length, sampleRate));
 }
 
 extern(C) Handle baseAudioContextCreateBufferSource(Handle ctx);
 
-AudioBufferSourceNode createBufferSource(ref BaseAudioContext ctx) {
-  return AudioBufferSourceNode(JsHandle(baseAudioContextCreateBufferSource(ctx.handle)));
+AudioBufferSourceNode createBufferSource(ref BaseAudioContext ctx) @trusted {
+  return AudioBufferSourceNode(baseAudioContextCreateBufferSource(*ctx.handle.ptr));
 }
 
 extern(C) Handle audioBufferGetChannelData(Handle ctx, uint channel);
 
-Float32Array getChannelData(ref AudioBuffer buffer, uint channel) {
-  return Float32Array(JsHandle(audioBufferGetChannelData(buffer.handle, channel)));
+Float32Array getChannelData(ref AudioBuffer buffer, uint channel) @trusted {
+  return Float32Array(audioBufferGetChannelData(*buffer.handle.ptr, channel));
 }
 
 extern(C) void float32ArraySet(Handle ctx, float[] array);
 
-void set(Float32Array arr, float[] array) {
-  float32ArraySet(arr.handle, array);
+void set(Float32Array arr, float[] array) @trusted {
+  float32ArraySet(*arr.handle.ptr, array);
 }
 
-auto getAudioBuffer(ref AudioContext ctx, ref Buffer mixBuf) {
-	auto buffer = ctx.createBuffer(ctx.handle, mixBuf.left.length, WAVE_SPS); // Create Mono Source Buffer from Raw Binary
+auto getAudioBuffer(ref AudioContext ctx, ref Buffer mixBuf) @trusted {
+	auto buffer = ctx.createBuffer(*ctx.handle.ptr, mixBuf.left.length, WAVE_SPS); // Create Mono Source Buffer from Raw Binary
 	buffer.getChannelData(0).set(mixBuf.left);
 	buffer.getChannelData(1).set(mixBuf.right);
 	return buffer;
 }
 
-struct SoundGenerator {
-  private {
-    AudioContext ctx;
-    immutable Instrument* instr;
-    uint rowLen;
-    float panFreq;
-    float lfoFreq;
-  }
-  this(ref AudioContext ctx, immutable Instrument* instr, ulong rowLen) {
-    this.ctx = ctx;
-    this.instr = instr;
-    this.rowLen = rowLen || 5605;
-    this.panFreq = (cast(float)pow(2, instr.fx_pan_freq - 8)) / this.rowLen;
-    this.lfoFreq = (cast(float)pow(2, instr.lfo_freq - 8)) / this.rowLen;
-  }
+auto createAudioBuffer(scope ref AudioContext ctx, immutable Instrument* instr, uint rowLen, uint n) {
+  rowLen = rowLen || 5605;
+  float panFreq = (cast(float)pow(2, instr.fx_pan_freq - 8)) / rowLen;
+  float lfoFreq = (cast(float)pow(2, instr.lfo_freq - 8)) / rowLen;
   auto genSound(int n, ref Buffer chnBuf, uint currentpos) {
     float c1 = 0;
     float c2 = 0;
@@ -221,7 +224,7 @@ struct SoundGenerator {
       uint k = j + currentpos;
 
       // LFO
-      auto lfor = instr.lfo_waveform(cast(float)k * this.lfoFreq) * (cast(float)instr.lfo_amt) / 512 + 0.5;
+      auto lfor = instr.lfo_waveform(cast(float)k * lfoFreq) * (cast(float)instr.lfo_amt) / 512 + 0.5;
 
       // Envelope
       float e = 1;
@@ -279,7 +282,7 @@ struct SoundGenerator {
       default:
       }
       // Panning & master volume
-      t = osc_sin((cast(float)k) * this.panFreq) * (cast(float)instr.fx_pan_amt) / 512 + 0.5;
+      t = osc_sin((cast(float)k) * panFreq) * (cast(float)instr.fx_pan_amt) / 512 + 0.5;
       rsample *= 0.00476 * instr.env_master; // 39 / 8192 = 0.00476
 
       // Add to 16-bit channel buffer
@@ -293,17 +296,16 @@ struct SoundGenerator {
     }
   }
 
-  auto createAudioBuffer(uint n) {
-    size_t bufferSize = (instr.env_attack + instr.env_sustain + instr.env_release - 1) + (32 * this.rowLen);
-    auto buffer = generateBuffer(bufferSize);
-    genSound(n, buffer, 0);
-    applyDelay(buffer, bufferSize, instr, this.rowLen);
+  size_t bufferSize = (instr.env_attack + instr.env_sustain + instr.env_release - 1) + (32 * rowLen);
+  auto buffer = generateBuffer(bufferSize);
+  genSound(n, buffer, 0);
+  applyDelay(buffer, bufferSize, instr, rowLen);
 
-    return getAudioBuffer(this.ctx, buffer);
-  }
+  return getAudioBuffer(ctx, buffer);
 }
 
 struct SoundPlayer {
+  nothrow:
   AudioContext ctx;
   AudioBuffer terminal;
   AudioBuffer shoot;
@@ -311,7 +313,7 @@ struct SoundPlayer {
   AudioBuffer explode;
   private void play(ref AudioBuffer buffer, bool loop) {
     auto source = ctx.createBufferSource();
-    source.buffer = buffer;
+    source.buffer = buffer.move();
     source.loop = loop;
     source.connect(ctx.destination);
     source.start();
@@ -457,9 +459,8 @@ static immutable Instrument explodeFx ={
 		lfo_amt: 0,
 		lfo_waveform: &osc_sin
 };
-auto createSfx(ref AudioContext ctx, immutable Instrument* instrument, uint note) {
-  auto generator = SoundGenerator(ctx, instrument, 5606);
-  return generator.createAudioBuffer(note);
+auto createSfx(scope ref AudioContext ctx, immutable Instrument* instrument, uint note) {
+  return createAudioBuffer(ctx, instrument, 5606, note);
 }
 auto createSoundPlayer() {
   auto ctx = newAudioContext();
@@ -467,6 +468,6 @@ auto createSoundPlayer() {
   auto shoot = ctx.createSfx(&shootFx, 140);
   auto hit = ctx.createSfx(&hitFx, 134);
   auto explode = ctx.createSfx(&explodeFx, 114);
-  return SoundPlayer(ctx, terminal, shoot, hit, explode);
+  return SoundPlayer(ctx.move, terminal.move, shoot.move, hit.move, explode.move);
 }
 

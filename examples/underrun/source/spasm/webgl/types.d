@@ -1,5 +1,8 @@
 module spasm.webgl.types;
 
+nothrow:
+@safe:
+
 struct __GLsync;
 
 alias GLbyte = byte;

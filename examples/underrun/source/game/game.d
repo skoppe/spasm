@@ -8,44 +8,49 @@ import spasm.event;
 import spasm.dom;
 import spasm.rt.memory;
 import game.audio;
+import canvas;
+
+nothrow:
+@safe:
 
 extern(C) void load_image(string name, void delegate (Handle) cb);
 extern(C) void load_level(uint id, ubyte[] level, uint ctx, uint fun);
 extern(C) void scheduleFrame(uint ctx, uint fun);
-extern(C)
-export ubyte* allocString(uint bytes) {
-  import spasm.rt.memory;
-  void[] raw = allocator.allocate(bytes);
-  return cast(ubyte*)raw.ptr;
-}
+// extern(C)
+// export ubyte* allocString(uint bytes) {
+//   import spasm.rt.memory;
+//   void[] raw = allocator.allocate(bytes);
+//   return cast(ubyte*)raw.ptr;
+// }
 
 
 struct Game {
+  nothrow:
   Renderer renderer;
-  SoundPlayer sound;
   Level level;
   uint time_last = 0;
   Input input = Input.None;
-  JsHandle canvas;
+  Canvas* canvas;
   int width, height;
   int mouseX, mouseY;
   bool running;
   bool finished;
-  void init(JsHandle canvas, int w, int h) {
-    this.canvas = canvas;
-    glSetContext(canvas.getContext());
+  void init(int w, int h) @trusted {
+    import spasm.bindings.webgl;
+    auto context = canvas.node.getContext("webgl");
+    glSetContext(*context.front.trustedGet!WebGLRenderingContext.handle.ptr);
     renderer.renderer_init(w,h);
     width = w;
     height = h;
     load_image("q2", &this.textureLoaded);
     // TODO: simplify this manual call into addEventListenerTyped(&onKeydown)
-    document.addEventListenerTyped!"onKeydown"(this);
-    document.addEventListenerTyped!"onKeyup"(this);
-    canvas.addEventListenerTyped!"onMousemove"(this);
-    document.addEventListenerTyped!"onMousedown"(this);
-    document.addEventListenerTyped!"onMouseup"(this);
+    document.addEventListener("keydown",(event)=>processKey(event.as!KeyboardEvent.key.getKey, true));
+    document.addEventListener("keyup",(event)=>processKey(event.as!KeyboardEvent.key.getKey, false));
+    canvas.node.addEventListener("mousemove",(event)=>onMousemove(event.as!MouseEvent));
+    document.addEventListener("mousedown",(event){input |= Input.Shoot;});
+    document.addEventListener("mouseup",(event){input &= ~Input.Shoot;});
   }
-  void loadNextLevel() {
+  void loadNextLevel() @trusted {
     if (current_level == 3) {
       (*gTerminal).terminal_run_outro();
       finished = true;
@@ -54,17 +59,11 @@ struct Game {
     current_level++;
     loadLevel();
   }
-  void loadLevel() {
+  void loadLevel() @trusted {
     running = false;
     if (level.data.length == 0)
       level.data = allocator.make!(ubyte[64*64]);
     load_level(current_level, level.data, toTuple(&this.generateLevel).expand);
-  }
-  void onKeyup(KeyboardEvent event) {
-    processKey(event.key.getKey, false);
-  }
-  void onKeydown(KeyboardEvent event) {
-    processKey(event.key.getKey, true);
   }
   void processKey(Input key, bool pressed) {
     if (pressed)
@@ -72,19 +71,13 @@ struct Game {
     else if (key != Input.None)
       input &= ~key;
   }
-  void onMousedown(MouseEvent event) {
-    input |= Input.Shoot;
-  }
-  void onMouseup(MouseEvent event) {
-    input &= ~Input.Shoot;
-  }
-  void onMousemove(MouseEvent event) {
-    int clientWidth = canvas.getPropertyInt("clientWidth");
-    int clientHeight = canvas.getPropertyInt("clientHeight");
+  void onMousemove(scope MouseEvent* event) {
+    int clientWidth = canvas.node.clientWidth;
+    int clientHeight = canvas.node.clientHeight;
     mouseX = cast(int)(width * (cast(double)event.offsetX)/clientWidth);
     mouseY = cast(int)(height * (cast(double)event.offsetY)/clientHeight);
   }
-  extern(C) void textureLoaded(Handle image) {
+  extern(C) void textureLoaded(Handle image) @trusted {
     gTerminal.hide();
     renderer.renderer_bind_image(image);
     loadLevel();

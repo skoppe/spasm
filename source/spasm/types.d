@@ -69,6 +69,10 @@ struct JsHandle {
   alias handle this;
 }
 
+auto ptr(return scope ref JsHandle handle) @system {
+  return &handle.handle;
+}
+
 enum JsHandle invalidHandle = JsHandle(0);
 alias EventHandle = uint;
 

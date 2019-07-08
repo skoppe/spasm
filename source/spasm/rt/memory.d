@@ -48,6 +48,7 @@ version (unittest) {
     }
   } else {
     T* make(A, Args...)(A allocatorOld, Args args) {
+      import spasm.rt.allocator : PoolAllocatorList;
       static __gshared allocator = PoolAllocatorList!(T)();
       void[] raw = allocator.allocate(T.sizeof);
       auto t = cast(T*) raw.ptr;

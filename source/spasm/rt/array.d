@@ -36,7 +36,7 @@ struct PointerArray(T, Allocator = SpasmGCAllocator) if (is(T : U*, U)) {
   }
 
   /// ditto
-  pragma(inline, true) auto opSlice(this This)(size_t a, size_t b) @nogc
+  pragma(inline, true) auto opSlice(this This)(size_t a, size_t b) @nogc @trusted
   {
     alias ET = ContainerElementType!(This, T);
     return cast(ET[]) array.arr[a .. b];
@@ -81,13 +81,13 @@ struct PointerArray(T, Allocator = SpasmGCAllocator) if (is(T : U*, U)) {
   {
     array.arr[i .. j] = cast(void*)value;
   }
-  auto ref T front() pure @property
+  auto ref T front() pure @property @trusted
   {
     return cast(T)array.front();
   }
 
   /// Returns: the back element of the DynamicArray.
-  auto ref T back() pure @property
+  auto ref T back() pure @property @trusted
   {
     return cast(T)array.back();
   }
@@ -190,7 +190,7 @@ struct DynamicArray(T, Allocator = SpasmGCAllocator)
 		{
 			immutable size_t c = arr.length > 512 ? arr.length + 1024 : arr.length << 1;
 			void[] a = cast(void[]) arr;
-      import std.experimental.allocator.common : reallocate;
+      import stdx.allocator.common : reallocate;
 			allocator.reallocate(a, c * T.sizeof);
 			arr = cast(typeof(arr)) a;
 		}
@@ -308,7 +308,7 @@ struct DynamicArray(T, Allocator = SpasmGCAllocator)
 			if (c < n)
 				c = n;
 			void[] a = cast(void[]) arr;
-      import std.experimental.allocator.common : reallocate;
+      import stdx.allocator.common : reallocate;
       allocator.reallocate(a, c * T.sizeof);
 			arr = cast(typeof(arr)) a;
 		}

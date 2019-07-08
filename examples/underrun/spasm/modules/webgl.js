@@ -6,11 +6,6 @@ let addObject = spasm.addObject;
 let currentContext;
 
 export let jsExports = {
-    getContext(nodePtr) {
-        let c = objects[nodePtr];
-        contexts[nodePtr] = c.getContext('webgl') || c.getContext('experimental-webgl');
-        return nodePtr;
-    },
     glSetContext(ctxPtr) {
         currentContext = contexts[ctxPtr];
     },

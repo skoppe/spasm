@@ -8,52 +8,49 @@ import spasm.spa;
 import spasm.dom;
 import game.math;
 import game.terminal;
-import std.range : only, chain;
 import game.renderer;
 import game.level;
 import game.entity;
 import game.game;
 import game.audio;
+import canvas;
+
+nothrow:
+@safe:
 
 mixin Spa!App;
 
 struct App {
+  nothrow:
   @child Canvas canvas;
   @child Terminal terminal;
   Game game;
   SoundPlayer sound;
-  void onMount() {
+  void onMount() @trusted {
     sound = createSoundPlayer();
     gSoundPlayer = &sound;
     .gTerminal = &terminal;
     .gGame = &game;
     terminal_run_intro(terminal);
-    document.addEventListenerTyped!"onClick"(this);
+    document.addEventListener("click", &onClick);
   }
-  void onClick(MouseEvent event) {
-    document.removeEventListenerTyped!"onClick"(this);
+  void onClick(spasm.bindings.dom.Event event) {
+    document.removeEventListener("onClick", &onClick);
     gameStart();
   }
   void gameStart() {
     terminal.cancel();
     terminal.add("INITIATING...");
-    game.init(canvas.node, canvas.width, canvas.height);
+    game.init(canvas.width, canvas.height);
   }
-}
-
-struct Canvas {
-  mixin Slot!"toggle";
-  mixin Node!"canvas";
-  @prop id = "c";
-  @prop width = 320;
-  @prop height = 180;
 }
 
 extern(C)
 export
 @assumeUsed
-void jsCallback0(uint ctx, uint fun) {
+void jsCallback0(uint ctx, uint fun) @trusted {
   static struct Handler {
+    nothrow:
     union {
       void delegate() handle;
       struct {
@@ -71,8 +68,9 @@ void jsCallback0(uint ctx, uint fun) {
 extern(C)
 export
 @assumeUsed
-void jsCallback(uint ctx, uint fun, uint arg) {
+void jsCallback(uint ctx, uint fun, uint arg) @trusted {
   static struct Handler {
+    nothrow:
     union {
       void delegate(uint) handle;
       struct {

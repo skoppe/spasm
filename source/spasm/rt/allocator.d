@@ -350,11 +350,15 @@ static struct PoolAllocatorFactory {
 
 struct PoolAllocatorList(T) {
   enum blockSize = T.sizeof;
-  static void destructor(void* item) nothrow {
-    T* t = cast(T*)item;
-    t.__xdtor();
+  static if (hasMember!(T,"__xdtor")) {
+    static void destructor(void* item) nothrow {
+      T* t = cast(T*)item;
+      t.__xdtor();
+    }
+    auto allocator = AllocatorList!(PoolAllocatorFactory, WasmAllocator)(PoolAllocatorFactory(blockSize, &destructor));
+  } else {
+    auto allocator = AllocatorList!(PoolAllocatorFactory, WasmAllocator)(PoolAllocatorFactory(blockSize, null));
   }
-  auto allocator = AllocatorList!(PoolAllocatorFactory, WasmAllocator)(PoolAllocatorFactory(blockSize, &destructor));
   alias allocator this;
 }
 

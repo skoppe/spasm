@@ -1626,7 +1626,7 @@ struct EventInit {
     return EventInit_composed_Get(this.handle);
   }
 }
-alias EventListener = void delegate(Event);
+alias EventListener = void delegate(Event) @safe nothrow;
 struct EventListenerOptions {
   nothrow:
   JsHandle handle;
