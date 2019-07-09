@@ -106,10 +106,10 @@ unittest {
         this(Handle h) {
           this.handle = JsHandle(h);
         }
-        auto createDelay(double maxDelayTime /* = 1.0 */) {
+        auto createDelay()(double maxDelayTime /* = 1.0 */) {
           return DelayNode(Event_createDelay(this.handle, maxDelayTime));
         }
-        auto createDelay() {
+        auto createDelay()() {
           return DelayNode(Event_createDelay_0(this.handle));
         }
       }
@@ -146,7 +146,7 @@ unittest {
         this(Handle h) {
           this.handle = JsHandle(h);
         }
-        auto Event(string type, scope ref EventInit eventInitDict) {
+        auto Event()(string type, scope ref EventInit eventInitDict) {
           return .Event(AudioWorklet_Event(this.handle, type, eventInitDict.handle));
         }
       }
@@ -157,23 +157,23 @@ unittest {
         this(Handle h) {
           this.handle = JsHandle(h);
         }
-        auto type() {
+        auto type()() {
           return Event_type_Get(this.handle);
         }
-        void target(scope ref Optional!(EventTarget) target) {
+        void target(T0)(scope auto ref Optional!(T0) target) if (isTOrPointer!(T0, EventTarget)) {
           Event_target_Set(this.handle, !target.empty, target.front.handle);
         }
-        auto target() {
+        auto target()() {
           return Event_target_Get(this.handle);
         }
-        auto composedPath() {
+        auto composedPath()() {
           return Sequence!(EventTarget)(Event_composedPath(this.handle));
         }
         enum ushort NONE = 0;
-        void eventPhase(ushort eventPhase) {
+        void eventPhase()(ushort eventPhase) {
           Event_eventPhase_Set(this.handle, eventPhase);
         }
-        auto eventPhase() {
+        auto eventPhase()() {
           return Event_eventPhase_Get(this.handle);
         }
       }
@@ -184,7 +184,7 @@ unittest {
         this(Handle h) {
           this.handle = JsHandle(h);
         }
-        auto Event(string type, scope ref EventInit eventInitDict) {
+        auto Event()(string type, scope ref EventInit eventInitDict) {
           return .Event(Window_Event(this.handle, type, eventInitDict.handle));
         }
       }
@@ -201,27 +201,35 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
           AudioWorklet_Event: (ctx, typeLen, typePtr, eventInitDict) => {
+            setupMemory();
             return spasm.addObject(new spasm.objects[ctx].Event(spasm_decode_string(typeLen, typePtr), spasm.objects[eventInitDict]));
           },
           Event_type_Get: (rawResult, ctx) => {
+            setupMemory();
             spasm_encode_string(rawResult, spasm.objects[ctx].type);
           },
           Event_target_Set: (ctx, targetDefined, target) => {
+            setupMemory();
             spasm.objects[ctx].target = targetDefined ? spasm.objects[target] : undefined;
           },
           Event_target_Get: (rawResult, ctx) => {
+            setupMemory();
             spasm_encode_optional_Handle(rawResult, spasm.objects[ctx].target);
           },
           Event_composedPath: (ctx) => {
+            setupMemory();
             return spasm.addObject(spasm.objects[ctx].composedPath());
           },
           Event_eventPhase_Set: (ctx, eventPhase) => {
+            setupMemory();
             spasm.objects[ctx].eventPhase = eventPhase;
           },
           Event_eventPhase_Get: (ctx) => {
+            setupMemory();
             return spasm.objects[ctx].eventPhase;
           },
           Window_Event: (ctx, typeLen, typePtr, eventInitDict) => {
+            setupMemory();
             return spasm.addObject(new spasm.objects[ctx].Event(spasm_decode_string(typeLen, typePtr), spasm.objects[eventInitDict]));
           },
       ");
@@ -246,16 +254,16 @@ unittest {
         this(Handle h) {
           this.handle = JsHandle(h);
         }
-        void orientation(ImageOrientation orientation) {
+        void orientation()(ImageOrientation orientation) {
           Foo_orientation_Set(this.handle, orientation);
         }
-        auto orientation() {
+        auto orientation()() {
           return Foo_orientation_Get(this.handle);
         }
-        auto needs() {
+        auto needs()() {
           return Foo_needs(this.handle);
         }
-        void wants(ImageOrientation o) {
+        void wants()(ImageOrientation o) {
           Foo_wants(this.handle, o);
         }
       }
@@ -273,15 +281,19 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
     Foo_orientation_Set: (ctx, orientation) => {
+      setupMemory();
       spasm.objects[ctx].orientation = spasm_decode_ImageOrientation(orientation);
     },
     Foo_orientation_Get: (ctx) => {
+      setupMemory();
       return spasm_encode_ImageOrientation(spasm.objects[ctx].orientation);
     },
     Foo_needs: (ctx) => {
+      setupMemory();
       return spasm_encode_ImageOrientation(spasm.objects[ctx].needs());
     },
     Foo_wants: (ctx, o) => {
+      setupMemory();
       spasm.objects[ctx].wants(spasm_decode_ImageOrientation(o));
     },
 ");
@@ -315,10 +327,10 @@ unittest {
         this(Handle h) {
           _parent = .EventTarget(h);
         }
-        auto createPeriodicWave(scope ref Sequence!(float) real_, scope ref PeriodicWaveConstraints constraints) {
+        auto createPeriodicWave()(scope ref Sequence!(float) real_, scope ref PeriodicWaveConstraints constraints) {
           return PeriodicWave(BaseAudioContext_createPeriodicWave(this._parent, real_.handle, constraints.handle));
         }
-        auto createPeriodicWave(scope ref Sequence!(float) real_) {
+        auto createPeriodicWave()(scope ref Sequence!(float) real_) {
           return PeriodicWave(BaseAudioContext_createPeriodicWave_0(this._parent, real_.handle));
         }
       }
@@ -329,9 +341,11 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
 BaseAudioContext_createPeriodicWave: (ctx, real, constraints) => {
+  setupMemory();
   return spasm.addObject(spasm.objects[ctx].createPeriodicWave(spasm.objects[real], spasm.objects[constraints]));
 },
 BaseAudioContext_createPeriodicWave_0: (ctx, real) => {
+  setupMemory();
   return spasm.addObject(spasm.objects[ctx].createPeriodicWave(spasm.objects[real]));
 },
 ");
@@ -352,10 +366,10 @@ unittest {
         this(Handle h) {
           this.handle = JsHandle(h);
         }
-        void bar(uint number) {
+        void bar()(uint number) {
           Foo_bar(this.handle, number);
         }
-        void bar() {
+        void bar()() {
           Foo_bar_0(this.handle);
         }
       }
@@ -366,9 +380,11 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
 Foo_bar: (ctx, number) => {
+  setupMemory();
   spasm.objects[ctx].bar(number);
 },
 Foo_bar_0: (ctx) => {
+  setupMemory();
   spasm.objects[ctx].bar();
 },
 ");
@@ -389,7 +405,7 @@ unittest {
         this(Handle h) {
           this.handle = JsHandle(h);
         }
-        void bar(scope ref Optional!(uint) number, scope ref Optional!(Bar) constraints) {
+        void bar(T0, T1)(scope auto ref Optional!(T0) number, scope auto ref Optional!(T1) constraints) if (isTOrPointer!(T0, uint) && isTOrPointer!(T1, Bar)) {
           Foo_bar(this.handle, !number.empty, number.front, !constraints.empty, constraints.front.handle);
         }
       }
@@ -399,6 +415,7 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
     Foo_bar: (ctx, numberDefined, number, constraintsDefined, constraints) => {
+      setupMemory();
       spasm.objects[ctx].bar(numberDefined ? number : undefined, constraintsDefined ? spasm.objects[constraints] : undefined);
     },
 ");
@@ -421,13 +438,13 @@ unittest {
         this(Handle h) {
           _parent = .EventTarget(h);
         }
-        auto decodeAudioData(scope ref ArrayBuffer audioData, scope ref Optional!(DecodeSuccessCallback) successCallback, scope ref Optional!(DecodeErrorCallback) errorCallback) {
+        auto decodeAudioData(T1, T2)(scope ref ArrayBuffer audioData, scope auto ref Optional!(T1) successCallback, scope auto ref Optional!(T2) errorCallback) if (isTOrPointer!(T1, DecodeSuccessCallback) && isTOrPointer!(T2, DecodeErrorCallback)) {
           return Promise!(AudioBuffer)(BaseAudioContext_decodeAudioData(this._parent, audioData.handle, !successCallback.empty, successCallback.front, !errorCallback.empty, errorCallback.front));
         }
-        auto decodeAudioData(scope ref ArrayBuffer audioData, scope ref Optional!(DecodeSuccessCallback) successCallback) {
+        auto decodeAudioData(T1)(scope ref ArrayBuffer audioData, scope auto ref Optional!(T1) successCallback) if (isTOrPointer!(T1, DecodeSuccessCallback)) {
           return Promise!(AudioBuffer)(BaseAudioContext_decodeAudioData_0(this._parent, audioData.handle, !successCallback.empty, successCallback.front));
         }
-        auto decodeAudioData(scope ref ArrayBuffer audioData) {
+        auto decodeAudioData()(scope ref ArrayBuffer audioData) {
           return Promise!(AudioBuffer)(BaseAudioContext_decodeAudioData_1(this._parent, audioData.handle));
         }
       }
@@ -441,12 +458,15 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
 BaseAudioContext_decodeAudioData: (ctx, audioData, successCallbackDefined, successCallbackCtx, successCallbackPtr, errorCallbackDefined, errorCallbackCtx, errorCallbackPtr) => {
+  setupMemory();
   return spasm.addObject(spasm.objects[ctx].decodeAudioData(spasm.objects[audioData], successCallbackDefined ? (decodedData)=>{encode_handle(0, decodedData);spasm_indirect_function_get(successCallbackPtr)(successCallbackCtx, 0)} : undefined, errorCallbackDefined ? (error)=>{encode_handle(0, error);spasm_indirect_function_get(errorCallbackPtr)(errorCallbackCtx, 0)} : undefined));
 },
 BaseAudioContext_decodeAudioData_0: (ctx, audioData, successCallbackDefined, successCallbackCtx, successCallbackPtr) => {
+  setupMemory();
   return spasm.addObject(spasm.objects[ctx].decodeAudioData(spasm.objects[audioData], successCallbackDefined ? (decodedData)=>{encode_handle(0, decodedData);spasm_indirect_function_get(successCallbackPtr)(successCallbackCtx, 0)} : undefined));
 },
 BaseAudioContext_decodeAudioData_1: (ctx, audioData) => {
+  setupMemory();
   return spasm.addObject(spasm.objects[ctx].decodeAudioData(spasm.objects[audioData]));
 },
 ");
@@ -475,19 +495,19 @@ unittest {
         this(Handle h) {
           this.handle = JsHandle(h);
         }
-        void latencyHint(scope ref SumType!(AudioContextLatencyCategory, double) latencyHint) {
+        void latencyHint()(scope ref SumType!(AudioContextLatencyCategory, double) latencyHint) {
           AudioContextOptions_latencyHint_Set(this.handle, latencyHint);
         }
-        auto latencyHint() {
+        auto latencyHint()() {
           return AudioContextOptions_latencyHint_Get(this.handle);
         }
-        void sampleRate(scope ref Optional!(SumType!(bool, double)) sampleRate) {
-          AudioContextOptions_sampleRate_Set(this.handle, !sampleRate.empty, sampleRate.front);
+        void sampleRate(T0)(scope auto ref Optional!(T0) sampleRate) if (isTOrPointer!(T0, SumType!(bool, double))) {
+          AudioContextOptions_sampleRate_Set(this.handle, !sampleRate.empty, *sampleRate.frontRef);
         }
-        auto sampleRate() {
+        auto sampleRate()() {
           return AudioContextOptions_sampleRate_Get(this.handle);
         }
-        auto fooBar() {
+        auto fooBar()() {
           return AudioContextOptions_fooBar(this.handle);
         }
       }
@@ -502,18 +522,23 @@ unittest {
   // TODO: the optionals and unions returned from js should probably be stored in first extra param
   gen.generateJsExports.shouldBeLike("
     AudioContextOptions_latencyHint_Set: (ctx, latencyHint) => {
+      setupMemory();
       spasm.objects[ctx].latencyHint = spasm_decode_union2_AudioContextLatencyCategory_double(latencyHint);
     },
     AudioContextOptions_latencyHint_Get: (rawResult, ctx) => {
+      setupMemory();
       spasm_encode_union2_AudioContextLatencyCategory_double(rawResult, spasm.objects[ctx].latencyHint);
     },
     AudioContextOptions_sampleRate_Set: (ctx, sampleRateDefined, sampleRate) => {
+      setupMemory();
       spasm.objects[ctx].sampleRate = sampleRateDefined ? spasm_decode_union2_bool_double(sampleRate) : undefined;
     },
     AudioContextOptions_sampleRate_Get: (rawResult, ctx) => {
+      setupMemory();
       spasm_encode_optional_union2_bool_double(rawResult, spasm.objects[ctx].sampleRate);
     },
     AudioContextOptions_fooBar: (rawResult, ctx) => {
+      setupMemory();
       spasm_encode_union2_string_AudioContextLatencyCategory(rawResult, spasm.objects[ctx].fooBar());
     },
 ");
@@ -544,16 +569,16 @@ unittest {
         static auto create() {
           return AudioContextOptions(spasm_add__object());
         }
-        void latencyHint(scope ref SumType!(AudioContextLatencyCategory, double) latencyHint) {
+        void latencyHint()(scope ref SumType!(AudioContextLatencyCategory, double) latencyHint) {
           AudioContextOptions_latencyHint_Set(this.handle, latencyHint);
         }
-        auto latencyHint() {
+        auto latencyHint()() {
           return AudioContextOptions_latencyHint_Get(this.handle);
         }
-        void sampleRate(scope ref Optional!(SumType!(bool, double)) sampleRate) {
-          AudioContextOptions_sampleRate_Set(this.handle, !sampleRate.empty, sampleRate.front);
+        void sampleRate(T0)(scope auto ref Optional!(T0) sampleRate) if (isTOrPointer!(T0, SumType!(bool, double))) {
+          AudioContextOptions_sampleRate_Set(this.handle, !sampleRate.empty, *sampleRate.frontRef);
         }
-        auto sampleRate() {
+        auto sampleRate()() {
           return AudioContextOptions_sampleRate_Get(this.handle);
         }
       }
@@ -566,15 +591,19 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
     AudioContextOptions_latencyHint_Set: (ctx, latencyHint) => {
+      setupMemory();
       spasm.objects[ctx].latencyHint = spasm_decode_union2_AudioContextLatencyCategory_double(latencyHint);
     },
     AudioContextOptions_latencyHint_Get: (rawResult, ctx) => {
+      setupMemory();
       spasm_encode_union2_AudioContextLatencyCategory_double(rawResult, spasm.objects[ctx].latencyHint);
     },
     AudioContextOptions_sampleRate_Set: (ctx, sampleRateDefined, sampleRate) => {
+      setupMemory();
       spasm.objects[ctx].sampleRate = sampleRateDefined ? spasm_decode_union2_bool_double(sampleRate) : undefined;
     },
     AudioContextOptions_sampleRate_Get: (rawResult, ctx) => {
+      setupMemory();
       spasm_encode_optional_union2_bool_double(rawResult, spasm.objects[ctx].sampleRate);
     },
 ");
@@ -603,10 +632,10 @@ unittest {
         this(Handle h) {
           this.handle = JsHandle(h);
         }
-        void real_(string real_) {
+        void real_()(string real_) {
           double_real_Set(this.handle, real_);
         }
-        auto real_() {
+        auto real_()() {
           return double_real_Get(this.handle);
         }
       }
@@ -617,9 +646,11 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
     double_real_Set: (ctx, realLen, realPtr) => {
+      setupMemory();
       spasm.objects[ctx].real = spasm_decode_string(realLen, realPtr);
     },
     double_real_Get: (rawResult, ctx) => {
+      setupMemory();
       spasm_encode_string(rawResult, spasm.objects[ctx].real);
     },
 ");
@@ -643,10 +674,10 @@ unittest {
         static auto create() {
           return AudioTimestamp(spasm_add__object());
         }
-        void contextTime(double contextTime) {
+        void contextTime()(double contextTime) {
           AudioTimestamp_contextTime_Set(this.handle, contextTime);
         }
-        auto contextTime() {
+        auto contextTime()() {
           return AudioTimestamp_contextTime_Get(this.handle);
         }
       }
@@ -657,9 +688,11 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
     AudioTimestamp_contextTime_Set: (ctx, contextTime) => {
+      setupMemory();
       spasm.objects[ctx].contextTime = contextTime;
     },
     AudioTimestamp_contextTime_Get: (ctx) => {
+      setupMemory();
       return spasm.objects[ctx].contextTime;
     },
 ");
@@ -703,10 +736,10 @@ unittest {
         this(Handle h) {
           this.handle = JsHandle(h);
         }
-        void real_(double real_) {
+        void real_()(double real_) {
           double_real_Set(this.handle, real_);
         }
-        auto real_() {
+        auto real_()() {
           return double_real_Get(this.handle);
         }
       }
@@ -717,9 +750,11 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
     double_real_Set: (ctx, real) => {
+      setupMemory();
       spasm.objects[ctx].real = real;
     },
     double_real_Get: (ctx) => {
+      setupMemory();
       return spasm.objects[ctx].real;
     },
 ");
@@ -743,10 +778,10 @@ unittest {
         static auto create() {
           return AudioWorkletNodeOptions(spasm_add__object());
         }
-        void real_(scope ref Record!(string, double) real_) {
+        void real_()(scope ref Record!(string, double) real_) {
           AudioWorkletNodeOptions_real_Set(this.handle, real_.handle);
         }
-        auto real_() {
+        auto real_()() {
           return Record!(string, double)(AudioWorkletNodeOptions_real_Get(this.handle));
         }
       }
@@ -777,16 +812,16 @@ unittest {
         static auto create() {
           return AudioParamDescriptor(spasm_add__object());
         }
-        void maxValue(float maxValue) {
+        void maxValue()(float maxValue) {
           AudioParamDescriptor_maxValue_Set(this.handle, maxValue);
         }
-        auto maxValue() {
+        auto maxValue()() {
           return AudioParamDescriptor_maxValue_Get(this.handle);
         }
-        void minValue(float minValue) {
+        void minValue()(float minValue) {
           AudioParamDescriptor_minValue_Set(this.handle, minValue);
         }
-        auto minValue() {
+        auto minValue()() {
           return AudioParamDescriptor_minValue_Get(this.handle);
         }
       }
@@ -799,15 +834,19 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
     AudioParamDescriptor_maxValue_Set: (ctx, maxValue) => {
+      setupMemory();
       spasm.objects[ctx].maxValue = maxValue;
     },
     AudioParamDescriptor_maxValue_Get: (ctx) => {
+      setupMemory();
       return spasm.objects[ctx].maxValue;
     },
     AudioParamDescriptor_minValue_Set: (ctx, minValue) => {
+      setupMemory();
       spasm.objects[ctx].minValue = minValue;
     },
     AudioParamDescriptor_minValue_Get: (ctx) => {
+      setupMemory();
       return spasm.objects[ctx].minValue;
     },
 ");
@@ -920,16 +959,16 @@ unittest {
         this(Handle h) {
           _parent = .EventTarget(h);
         }
-        auto createPeriodicWave() {
+        auto createPeriodicWave()() {
           return BaseAudioContext_createPeriodicWave(this._parent);
         }
-        void name(scope ref Optional!(string) name) {
+        void name(T0)(scope auto ref Optional!(T0) name) if (isTOrPointer!(T0, string)) {
           BaseAudioContext_name_Set(this._parent, !name.empty, name.front);
         }
-        auto name() {
+        auto name()() {
           return BaseAudioContext_name_Get(this._parent);
         }
-        void foo(scope ref Optional!(string) title) {
+        void foo(T0)(scope auto ref Optional!(T0) title) if (isTOrPointer!(T0, string)) {
           BaseAudioContext_foo(this._parent, !title.empty, title.front);
         }
       }
@@ -942,15 +981,19 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
     BaseAudioContext_createPeriodicWave: (rawResult, ctx) => {
+      setupMemory();
       spasm_encode_optional_string(rawResult, spasm.objects[ctx].createPeriodicWave());
     },
     BaseAudioContext_name_Set: (ctx, nameDefined, nameLen, namePtr) => {
+      setupMemory();
       spasm.objects[ctx].name = nameDefined ? spasm_decode_string(nameLen, namePtr) : undefined;
     },
     BaseAudioContext_name_Get: (rawResult, ctx) => {
+      setupMemory();
       spasm_encode_optional_string(rawResult, spasm.objects[ctx].name);
     },
     BaseAudioContext_foo: (ctx, titleDefined, titleLen, titlePtr) => {
+      setupMemory();
       spasm.objects[ctx].foo(titleDefined ? spasm_decode_string(titleLen, titlePtr) : undefined);
     },
 ");
@@ -971,7 +1014,7 @@ unittest {
         this(Handle h) {
           _parent = .Event(h);
         }
-        auto clipboardData() {
+        auto clipboardData()() {
           return ClipboardEvent_clipboardData_Get(this._parent);
         }
       }
@@ -981,6 +1024,7 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
     ClipboardEvent_clipboardData_Get: (rawResult, ctx) => {
+      setupMemory();
       spasm_encode_optional_Handle(rawResult, spasm.objects[ctx].clipboardData);
     },
 ");
@@ -1004,10 +1048,10 @@ unittest {
         static auto create() {
           return FocusEventInit(spasm_add__object());
         }
-        void relatedTarget(scope ref Optional!(EventTarget) relatedTarget) {
+        void relatedTarget(T0)(scope auto ref Optional!(T0) relatedTarget) if (isTOrPointer!(T0, EventTarget)) {
           FocusEventInit_relatedTarget_Set(this.handle, !relatedTarget.empty, relatedTarget.front.handle);
         }
-        auto relatedTarget() {
+        auto relatedTarget()() {
           return FocusEventInit_relatedTarget_Get(this.handle);
         }
       }
@@ -1018,9 +1062,11 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
     FocusEventInit_relatedTarget_Set: (ctx, relatedTargetDefined, relatedTarget) => {
+      setupMemory();
       spasm.objects[ctx].relatedTarget = relatedTargetDefined ? spasm.objects[relatedTarget] : undefined;
     },
     FocusEventInit_relatedTarget_Get: (rawResult, ctx) => {
+      setupMemory();
       spasm_encode_optional_Handle(rawResult, spasm.objects[ctx].relatedTarget);
     },
 ");
@@ -1045,10 +1091,10 @@ unittest {
         this(Handle h) {
           this.handle = JsHandle(h);
         }
-        auto writable() {
+        auto writable()() {
           return WritableStream(GenericTransformStream_writable_Get(this.handle));
         }
-        auto readable() {
+        auto readable()() {
           return ReadbleStream(GenericTransformStream_readable_Get(this.handle));
         }
       }
@@ -1059,9 +1105,11 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
     GenericTransformStream_writable_Get: (ctx) => {
+      setupMemory();
       return spasm.addObject(spasm.objects[ctx].writable);
     },
     GenericTransformStream_readable_Get: (ctx) => {
+      setupMemory();
       return spasm.addObject(spasm.objects[ctx].readable);
     },
 ");
@@ -1082,7 +1130,7 @@ unittest {
         this(Handle h) {
           this.handle = JsHandle(h);
         }
-        auto datacube() {
+        auto datacube()() {
           return DOMStringMap(HTMLOrSVGElement_datacube_Get(this.handle));
         }
       }
@@ -1092,6 +1140,7 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
     HTMLOrSVGElement_datacube_Get: (ctx) => {
+      setupMemory();
       return spasm.addObject(spasm.objects[ctx].datacube);
     },
 ");
@@ -1118,25 +1167,25 @@ unittest {
         this(Handle h) {
           this.handle = JsHandle(h);
         }
-        auto opIndex(string name) {
+        auto opIndex()(string name) {
           return DOMStringMap_getter__string(this.handle, name);
         }
         auto opDispatch(string name)() {
           return DOMStringMap_getter__string(this.handle, name);
         }
-        void opIndexAssign(string value, string name) {
+        void opIndexAssign()(string value, string name) {
           DOMStringMap_setter__string_string(this.handle, name, value);
         }
         void opDispatch(string name)(string value) {
           DOMStringMap_setter__string_string(this.handle, name, value);
         }
-        void remove(string name) {
+        void remove()(string name) {
           DOMStringMap_deleter(this.handle, name);
         }
-        auto byKey(string name) {
+        auto byKey()(string name) {
           return DOMStringMap_byKey_getter(this.handle, name);
         }
-        void byKey(string name, string value) {
+        void byKey()(string name, string value) {
           DOMStringMap_byKey_setter(this.handle, name, value);
         }
       }
@@ -1150,18 +1199,23 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
     DOMStringMap_getter__string: (rawResult, ctx, nameLen, namePtr) => {
+      setupMemory();
       spasm_encode_string(rawResult, spasm.objects[ctx][spasm_decode_string(nameLen, namePtr)]);
     },
     DOMStringMap_setter__string_string: (ctx, nameLen, namePtr, valueLen, valuePtr) => {
+      setupMemory();
       spasm.objects[ctx][spasm_decode_string(nameLen, namePtr)] = spasm_decode_string(valueLen, valuePtr);
     },
     DOMStringMap_deleter: (ctx, nameLen, namePtr) => {
+      setupMemory();
       delete spasm.objects[ctx][spasm_decode_string(nameLen, namePtr)];
     },
     DOMStringMap_byKey_getter: (rawResult, ctx, nameLen, namePtr) => {
+      setupMemory();
       spasm_encode_string(rawResult, spasm.objects[ctx].byKey(spasm_decode_string(nameLen, namePtr)));
     },
     DOMStringMap_byKey_setter: (ctx, nameLen, namePtr, valueLen, valuePtr) => {
+      setupMemory();
       spasm.objects[ctx].byKey(spasm_decode_string(nameLen, namePtr), spasm_decode_string(valueLen, valuePtr));
     },
 ");
@@ -1216,7 +1270,7 @@ unittest {
         this(Handle h) {
           this.handle = JsHandle(h);
         }
-        auto requestAnimationFrame(FrameRequestCallback callback) {
+        auto requestAnimationFrame()(FrameRequestCallback callback) {
           return AnimationFrameProvider_requestAnimationFrame(this.handle, callback);
         }
       }
@@ -1228,6 +1282,7 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
     AnimationFrameProvider_requestAnimationFrame: (ctx, callbackCtx, callbackPtr) => {
+      setupMemory();
       return spasm.objects[ctx].requestAnimationFrame((time)=>{spasm_indirect_function_get(callbackPtr)(callbackCtx, time)});
     },");
 }
@@ -1250,19 +1305,19 @@ unittest {
         this(Handle h) {
           this.handle = JsHandle(h);
         }
-        auto decode(scope ref BufferSource input, scope ref TextDecodeOptions options) {
+        auto decode()(scope ref BufferSource input, scope ref TextDecodeOptions options) {
           return TextDecoder_decode(this.handle, input, options.handle);
         }
-        auto decode(scope ref BufferSource input) {
+        auto decode()(scope ref BufferSource input) {
           return TextDecoder_decode_0(this.handle, input);
         }
-        auto decode() {
+        auto decode()() {
           return TextDecoder_decode_1(this.handle);
         }
-        auto encode(scope ref TextDecodeOptions options) {
+        auto encode()(scope ref TextDecodeOptions options) {
           return TextDecoder_encode(this.handle, options.handle);
         }
-        auto encode() {
+        auto encode()() {
           return TextDecoder_encode_0(this.handle);
         }
       }
@@ -1276,18 +1331,23 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
 TextDecoder_decode: (rawResult, ctx, input, options) => {
+  setupMemory();
   spasm_encode_string(rawResult, spasm.objects[ctx].decode(spasm_decode_BufferSource(input), spasm.objects[options]));
 },
 TextDecoder_decode_0: (rawResult, ctx, input) => {
+  setupMemory();
   spasm_encode_string(rawResult, spasm.objects[ctx].decode(spasm_decode_BufferSource(input)));
 },
 TextDecoder_decode_1: (rawResult, ctx) => {
+  setupMemory();
   spasm_encode_string(rawResult, spasm.objects[ctx].decode());
 },
 TextDecoder_encode: (rawResult, ctx, options) => {
+  setupMemory();
   spasm_encode_BufferSource(rawResult, spasm.objects[ctx].encode(spasm.objects[options]));
 },
 TextDecoder_encode_0: (rawResult, ctx) => {
+  setupMemory();
   spasm_encode_BufferSource(rawResult, spasm.objects[ctx].encode());
 },
 ");
@@ -1313,10 +1373,10 @@ unittest {
         static auto create() {
           return RequestInit(spasm_add__object());
         }
-        void body_(scope ref Optional!(BodyInit) body_) {
-          RequestInit_body_Set(this.handle, !body_.empty, body_.front);
+        void body_(T0)(scope auto ref Optional!(T0) body_) if (isTOrPointer!(T0, BodyInit)) {
+          RequestInit_body_Set(this.handle, !body_.empty, *body_.frontRef);
         }
-        auto body_() {
+        auto body_()() {
           return RequestInit_body_Get(this.handle);
         }
       }
@@ -1327,9 +1387,11 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
     RequestInit_body_Set: (ctx, bodyDefined, body) => {
+      setupMemory();
       spasm.objects[ctx].body = bodyDefined ? spasm_decode_BodyInit(body) : undefined;
     },
     RequestInit_body_Get: (rawResult, ctx) => {
+      setupMemory();
       spasm_encode_optional_BodyInit(rawResult, spasm.objects[ctx].body);
     },
 ");
@@ -1351,7 +1413,7 @@ unittest {
         this(Handle h) {
           this.handle = JsHandle(h);
         }
-        auto bar(scope ref Sequence!(string) names) {
+        auto bar()(scope ref Sequence!(string) names) {
           return Foo_bar(this.handle, names.handle);
         }
       }
@@ -1361,6 +1423,7 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
     Foo_bar: (rawResult, ctx, names) => {
+      setupMemory();
       spasm_encode_optional_sequence(rawResult, spasm.objects[ctx].bar(spasm.objects[names]));
     },
 ");
@@ -1382,7 +1445,7 @@ unittest {
         this(Handle h) {
           this.handle = JsHandle(h);
         }
-        auto item(uint index) {
+        auto item()(uint index) {
           return Foo_item_getter(this.handle, index);
         }
       }
@@ -1392,6 +1455,7 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
     Foo_item_getter: (rawResult, ctx, index) => {
+      setupMemory();
       spasm_encode_optional_Handle(rawResult, spasm.objects[ctx].item(index));
     },
 ");
@@ -1419,13 +1483,13 @@ unittest {
         this(Handle h) {
           this.handle = JsHandle(h);
         }
-        auto name() {
+        auto name()() {
           return Foo_name(this.handle);
         }
-        auto fatal() {
+        auto fatal()() {
           return Foo_fatal_Get(this.handle);
         }
-        auto size() {
+        auto size()() {
           return Foo_size(this.handle);
         }
       }
@@ -1433,16 +1497,19 @@ unittest {
   gen.generateDImports.shouldBeLike(q{
       extern (C) string Foo_name(Handle);
       extern (C) bool Foo_fatal_Get(Handle);
-      extern (C) long Foo_size(Handle);
+      extern (C) int Foo_size(Handle);
     });
   gen.generateJsExports.shouldBeLike("
     Foo_name: (rawResult, ctx) => {
+      setupMemory();
       spasm_encode_string(rawResult, spasm.objects[ctx].name());
     },
     Foo_fatal_Get: (ctx) => {
+      setupMemory();
       return spasm.objects[ctx].fatal;
     },
     Foo_size: (ctx) => {
+      setupMemory();
       return spasm.objects[ctx].size();
     },
 ");
@@ -1461,7 +1528,7 @@ unittest {
       struct console {
         nothrow:
       static:
-        void clear() {
+        void clear()() {
           console_clear();
         }
       }
@@ -1471,6 +1538,7 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
     console_clear: () => {
+      setupMemory();
       console.clear();
     },
 ");
@@ -1610,7 +1678,7 @@ unittest {
           foo_log(_handle_data);
           dropHandle!(T0)(_handle_data);
         }
-        auto get() {
+        auto get()() {
           return Any(foo_get());
         }
       }
@@ -1621,9 +1689,11 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
     foo_log: (data) => {
+      setupMemory();
       foo.log(spasm.objects[data]);
     },
     foo_get: () => {
+      setupMemory();
       return spasm.addObject(foo.get());
     },
 ");
@@ -1648,10 +1718,10 @@ unittest {
         this(Handle h) {
           _parent = .EventTarget(h);
         }
-        void onerror(scope ref OnErrorEventHandler onerror) {
+        void onerror(T0)(scope auto ref Optional!(T0) onerror) if (isTOrPointer!(T0, OnErrorEventHandler)) {
           WorkerGlobalScope_onerror_Set(this._parent, !onerror.empty, onerror.front);
         }
-        auto onerror() {
+        auto onerror()() {
           return WorkerGlobalScope_onerror_Get(this._parent);
         }
       }
@@ -1662,9 +1732,11 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
 WorkerGlobalScope_onerror_Set: (ctx, onerrorDefined, onerrorCtx, onerrorPtr) => {
+  setupMemory();
   spasm.objects[ctx].onerror = onerrorDefined ? (event, source, lineno, colno, error)=>{spasm_encode_union2_Event_string(0, event);spasm_encode_string(12, source);encode_handle(20, error);return spasm_decode_Handle(spasm_indirect_function_get(onerrorPtr)(onerrorCtx, 0, 12, lineno, colno, 20))} : undefined;
 },
 WorkerGlobalScope_onerror_Get: (rawResult, ctx) => {
+  setupMemory();
   spasm_encode_optional_Handle(rawResult, spasm.objects[ctx].onerror);
 },
 ");
@@ -1687,22 +1759,25 @@ unittest {
         this(Handle h) {
           _parent = .XMLHttpRequestEventTarget(h);
         }
-        void send(scope ref Optional!(SumType!(Document, BodyInit)) body_ /* = no!(SumType!(Document, BodyInit)) */) {
-          XMLHttpRequest_send(this._parent, !body_.empty, body_.front);
+        void send(T0)(scope auto ref Optional!(T0) body_ /* = no!(SumType!(Document, BodyInit)) */) if (isTOrPointer!(T0, SumType!(Document, BodyInit))) {
+          XMLHttpRequest_send(this._parent, !body_.empty, *body_.frontRef);
         }
-        void send() {
+        void send()() {
           XMLHttpRequest_send_0(this._parent);
         }
-}    });
+      }
+    });
   gen.generateDImports.shouldBeLike(q{
       extern (C) void XMLHttpRequest_send(Handle, bool, scope ref SumType!(Document, BodyInit));
       extern (C) void XMLHttpRequest_send_0(Handle);
     });
   gen.generateJsExports.shouldBeLike("
 XMLHttpRequest_send: (ctx, bodyDefined, body) => {
+  setupMemory();
   spasm.objects[ctx].send(bodyDefined ? spasm_decode_union2_Document_BodyInit(body) : undefined);
 },
 XMLHttpRequest_send_0: (ctx) => {
+  setupMemory();
   spasm.objects[ctx].send();
 },
 ");
@@ -1726,7 +1801,7 @@ unittest {
         this(Handle h) {
           _parent = .Foo(h);
         }
-        auto writable() {
+        auto writable()() {
           return WritableStream(GenericTransformStream_writable_Get(this._parent));
         }
       }
@@ -1736,6 +1811,7 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
     GenericTransformStream_writable_Get: (ctx) => {
+      setupMemory();
       return spasm.addObject(spasm.objects[ctx].writable);
     },
 ");
@@ -1770,13 +1846,13 @@ unittest {
         this(Handle h) {
           this.handle = JsHandle(h);
         }
-        void stuff(scope ref SumType!(.ImageData, string) s) {
+        void stuff()(scope ref SumType!(.ImageData, string) s) {
           Window_stuff(this.handle, s);
         }
-        auto ImageData(uint sw, uint sh) {
+        auto ImageData()(uint sw, uint sh) {
           return .ImageData(Window_ImageData__uint_uint(this.handle, sw, sh));
         }
-        auto ImageData(scope ref Uint8ClampedArray data, uint sw, uint sh) {
+        auto ImageData()(scope ref Uint8ClampedArray data, uint sw, uint sh) {
           return .ImageData(Window_ImageData__Handle_uint_uint(this.handle, data.handle, sw, sh));
         }
       }
@@ -1788,12 +1864,15 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
 Window_stuff: (ctx, s) => {
+  setupMemory();
   spasm.objects[ctx].stuff(spasm_decode_union2_ImageData_string(s));
 },
 Window_ImageData__uint_uint: (ctx, sw, sh) => {
+  setupMemory();
   return spasm.addObject(new spasm.objects[ctx].ImageData(sw, sh));
 },
 Window_ImageData__Handle_uint_uint: (ctx, data, sw, sh) => {
+  setupMemory();
   return spasm.addObject(new spasm.objects[ctx].ImageData(spasm.objects[data], sw, sh));
 },
 ");
@@ -1836,22 +1915,22 @@ unittest {
         this(Handle h) {
           this.handle = JsHandle(h);
         }
-        void onabort(EventHandler onabort) {
+        void onabort()(EventHandler onabort) {
           GlobalEventHandlers_onabort_Set(this.handle, onabort);
         }
-        auto onabort() {
+        auto onabort()() {
           return GlobalEventHandlers_onabort_Get(this.handle);
         }
-        void ongotpointercapture(EventHandler ongotpointercapture) {
+        void ongotpointercapture()(EventHandler ongotpointercapture) {
           GlobalEventHandlers_ongotpointercapture_Set(this.handle, ongotpointercapture);
         }
-        auto ongotpointercapture() {
+        auto ongotpointercapture()() {
           return GlobalEventHandlers_ongotpointercapture_Get(this.handle);
         }
-        void ontouchstart(EventHandler ontouchstart) {
+        void ontouchstart()(EventHandler ontouchstart) {
           GlobalEventHandlers_ontouchstart_Set(this.handle, ontouchstart);
         }
-        auto ontouchstart() {
+        auto ontouchstart()() {
           return GlobalEventHandlers_ontouchstart_Get(this.handle);
         }
       }
@@ -1865,21 +1944,27 @@ unittest {
       extern (C) EventHandler GlobalEventHandlers_ontouchstart_Get(Handle);    });
   gen.generateJsExports.shouldBeLike("
 GlobalEventHandlers_onabort_Set: (ctx, onabortCtx, onabortPtr) => {
+  setupMemory();
   spasm.objects[ctx].onabort = (event)=>{encode_handle(0, event);return spasm_decode_Handle(spasm_indirect_function_get(onabortPtr)(onabortCtx, 0))};
 },
 GlobalEventHandlers_onabort_Get: (ctx) => {
+  setupMemory();
   return spasm.objects[ctx].onabort;
 },
 GlobalEventHandlers_ongotpointercapture_Set: (ctx, ongotpointercaptureCtx, ongotpointercapturePtr) => {
+  setupMemory();
   spasm.objects[ctx].ongotpointercapture = (event)=>{encode_handle(0, event);return spasm_decode_Handle(spasm_indirect_function_get(ongotpointercapturePtr)(ongotpointercaptureCtx, 0))};
 },
 GlobalEventHandlers_ongotpointercapture_Get: (ctx) => {
+  setupMemory();
   return spasm.objects[ctx].ongotpointercapture;
 },
 GlobalEventHandlers_ontouchstart_Set: (ctx, ontouchstartCtx, ontouchstartPtr) => {
+  setupMemory();
   spasm.objects[ctx].ontouchstart = (event)=>{encode_handle(0, event);return spasm_decode_Handle(spasm_indirect_function_get(ontouchstartPtr)(ontouchstartCtx, 0))};
 },
 GlobalEventHandlers_ontouchstart_Get: (ctx) => {
+  setupMemory();
   return spasm.objects[ctx].ontouchstart;
 },
 ");
@@ -1911,7 +1996,7 @@ unittest {
         this(Handle h) {
           this.handle = JsHandle(h);
         }
-        auto WebSocket(string url, scope ref SumType!(string, Sequence!(string)) protocols /* = [] */) {
+        auto WebSocket()(string url, scope ref SumType!(string, Sequence!(string)) protocols /* = [] */) {
           return .WebSocket(Window_WebSocket(this.handle, url, protocols));
         }
       }
@@ -1921,6 +2006,7 @@ unittest {
     });
   gen.generateJsExports.shouldBeLike("
 Window_WebSocket: (ctx, urlLen, urlPtr, protocols) => {
+  setupMemory();
   return spasm.addObject(new spasm.objects[ctx].WebSocket(spasm_decode_string(urlLen, urlPtr), spasm_decode_union2_string_sequence(protocols)));
 },
 ");
