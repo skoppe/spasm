@@ -123,8 +123,7 @@ version (SPASM_GC_DEBUG)
 extern(C) export @assumeUsed void renderGCStats() {
   import spasm.rt.allocator;
   import spasm.dom : document, addCss;
-  import spasm.node : invalidHandle;
-  import spasm.types : as;
+  import spasm.types : as, invalidHandle;
   import spasm.bindings.html : HTMLElement;
   import spasm.rt.array : text;
   import std.algorithm : each, sum, map;
