@@ -11,8 +11,8 @@ extern (C) export void _start()
   elem.innerHTML = "BLA BLA!";
   elem.addEventListener("mouseover",(event){
       console.log("onmouseover");
-      // console.log(event);
-      // console.log(event.as!MouseEvent.clientX);
+      console.log(event);
+      console.log(event.as!MouseEvent.clientX);
     });
 
   import std.algorithm : move;
