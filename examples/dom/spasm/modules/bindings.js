@@ -47,6 +47,10 @@ const setBool = (ptr, val) => (memory.heapi32u[ptr/4] = +val),
   };
 export let jsExports = {
   env: {
+    MouseEvent_clientX_Get: (ctx) => {
+      setupMemory();
+      return spasm.objects[ctx].clientX;
+    },
     Document_createElement_0: (ctx, localNameLen, localNamePtr) => {
       setupMemory();
       return spasm.addObject(spasm.objects[ctx].createElement(spasm_decode_string(localNameLen, localNamePtr)));
