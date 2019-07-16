@@ -7,9 +7,7 @@ import stdx.allocator.building_blocks.bitmapped_block : BitmappedBlock;
 import stdx.allocator.building_blocks.allocator_list : AllocatorList;
 import stdx.allocator.building_blocks.null_allocator : NullAllocator;
 import stdx.allocator.internal : Ternary;
-import stdx.allocator.common : chooseAtRuntime;
-import stdx.allocator.common : reallocate;
-import stdx.allocator.common : alignedReallocate;
+import stdx.allocator.common : chooseAtRuntime,reallocate,alignedReallocate,roundUpToMultipleOf,platformAlignment,divideRoundUp,trailingZeros;
 import std.typecons : Flag, Yes, No;
 
 alias Destructor = void function(void*);
@@ -81,26 +79,6 @@ version (unittest) {
 @nogc nothrow pure bool alignedAt(T)(T* ptr, uint alignment)
 {
   return cast(size_t) ptr % alignment == 0;
-}
-
-// NOTE: had to copy this from stdx.allocator.common
-@safe @nogc nothrow pure
-package uint trailingZeros(ulong x)
-{
-  uint result;
-  while (result < 64 && !(x & (1UL << result)))
-    {
-      ++result;
-    }
-  return result;
-}
-
-// NOTE: had to copy this from stdx.allocator.common
-@safe @nogc nothrow pure
-package size_t divideRoundUp()(size_t a, size_t b)
-{
-  assert(b);
-  return (a + b - 1) / b;
 }
 
 // NOTE: had to copy this from the BitmappedBlock
@@ -371,34 +349,6 @@ import std.traits : hasMember;
 static assert(hasMember!(WasmAllocator, "deallocate"));
 static assert(hasMember!(PoolAllocatorList!8, "deallocate"));
 static assert(hasMember!(PoolAllocatorList!16, "empty"));
-
-@safe @nogc nothrow pure size_t roundUpToMultipleOf(size_t s, uint base)
-{
-  assert(base);
-  auto rem = s % base;
-  return rem ? s + base - rem : s;
-}
-import std.algorithm.comparison : max;
-
-enum uint platformAlignment = max(double.alignof, real.alignof);
-
-/**
-   Returns the size in bytes of the state that needs to be allocated to hold an
-   object of type $(D T). $(D stateSize!T) is zero for $(D struct)s that are not
-   nested and have no nonstatic member variables.
-*/
-template stateSize(T)
-{
-  import std.traits : Fields, isNested;
-  static if (is(T == class) || is(T == interface))
-    enum stateSize = __traits(classInstanceSize, T);
-  else static if (is(T == struct) || is(T == union))
-    enum stateSize = Fields!T.length || isNested!T ? T.sizeof : 0;
-  else static if (is(T == void))
-    enum size_t stateSize = 0;
-  else
-    enum stateSize = T.sizeof;
-}
 
 private struct BitVector
 {
