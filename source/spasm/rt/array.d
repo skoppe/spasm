@@ -123,7 +123,7 @@ struct DynamicArray(T, Allocator = SpasmGCAllocator)
 
 	this(this) @disable;
 
-	private import spasm.rt.allocator: stateSize;
+	private import stdx.allocator.common : stateSize;
 
 	static if (is(typeof((T[] a, const T[] b) => a[0 .. b.length] = b[0 .. $])))
 	{
