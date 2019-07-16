@@ -10,6 +10,8 @@ subPackage "bootstrap-webpack"
 subPackage "webidl"
 dflags "-dip1000"
 
+toolchainRequirements dmd="no" gdc="no" ldc=">=1.15.0"
+
 configuration "library" {
               dflags "-mtriple=wasm32-unknown-unknown-wasm" "-betterC"
               lflags "-allow-undefined" "--export-table" "--export=domEvent" "--export=allocString" "-export=renderGCStats" "-export=markMemory" "-export=freeUnmarked"
