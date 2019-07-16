@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added ccsomview and csspseudo bindings (https://www.w3.org/TR/cssom-view-1/ and https://www.w3.org/TR/css-pseudo-4/)
 - Introduce env at jsExports. This is required for functions which exported or imported under a different module (e.g. WASI). **Breaking change for custom JS modules**
 - Introduce static `create` functions on TypedArray's (like Float32Array)
-- Drop support for ldc 1.13.0
+- Drop support for ldc 1.13.0 and ldc 1.14.0
 - Made JsHandle handle member package protected
 - Strongly type the Node mixin. Now the mixed-in node field has the corresponding HTMLElement type of the tag (e.g. `"canvas"`` -> `HTMLCanvaseElement`).
 - Rename `NamedJsHandle` to `NamedNode`
