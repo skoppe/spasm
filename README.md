@@ -20,7 +20,6 @@ As well as a small but powerful SPA framework, which includes CSS. Yes. CSS-in-w
   - [Writing your own js bindings](#Writing-your-own-js-bindings)
   - [Optimizing for size](#Optimizing-for-size)
   - [Limitations](#Limitations)
-  - [WIP](#WIP)
   - [Hot module reloading](#Hot-module-reloading)
     - [Enabling hmr for new projects](#Enabling-hmr-for-new-projects)
     - [Enabling hmr for existing projects](#Enabling-hmr-for-existing-projects)
@@ -125,12 +124,6 @@ wasm-opt -O3 -o main-optimized.wasm main.wasm
 ## Limitations
 
 This project uses betterC, which means there is no D runtime. This also means that most phobos functions don't work, as well any D features that rely on the D runtime. If you get any weird errors, this is probably the reason why.
-
-## WIP
-
-- Currently no memory is freed
-- Do hot module reloading
-- Render to string
 
 ## Hot module reloading
 
