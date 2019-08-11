@@ -17,6 +17,7 @@ As well as a small but powerful SPA framework, which includes CSS. Yes. CSS-in-w
   - [How to start](#How-to-start)
   - [Using the web bindings](#Using-the-web-bindings)
   - [How to compile your application](#How-to-compile-your-application)
+  - [Migrating from an older version](#migrating-from-an-older-version)
   - [Writing your own js bindings](#Writing-your-own-js-bindings)
   - [Optimizing for size](#Optimizing-for-size)
   - [Limitations](#Limitations)
@@ -73,6 +74,17 @@ Run `dub build --compiler=ldc2 --build=release` to compile your application, the
 You can also `npm run start` to start a webpack development server that serves your application on localhost:3000.
 
 - Note: I could not get it to build on my aged mac (el capitan). Instead I use the `dlang2/ldc-ubuntu:1.14.0` docker image to run ldc.
+
+- Note: if you have some issues please read the [BUILDING.md](BUILDING.md) file before opening an issue.
+
+## Migrating from an older version
+
+This project is still in it's beta phase (0.x.x):
+
+- any minor upgrade WILL contain breaking changes. There will be at least one beta release (0.x.0-beta.1)
+- any patch upgrade SHOULD NOT contain breaking changes.
+
+Please read the [CHANGELOG.md](CHANGELOG.md) for breaking changes, as well as [BUILDING.md](BUILDING.md) for supported compilers and open issues.
 
 ## Writing your own js bindings
 
@@ -155,7 +167,7 @@ And compile with `dub build --build=release --config=hmr`
 
 ### Enabling hmr for existing projects
 
-Update to `v0.1.14` and add the same configuration mentioned above but also rerun `dub run spasm:bootstrap-webpack` in your projects root folder. This will update your dev-server.js and your spa.js and spasm.js modules.
+Update to `>=0.2.x` and add the same configuration mentioned above but also rerun `dub run spasm:bootstrap-webpack` in your projects root folder. This will update your dev-server.js and your spa.js and spasm.js modules.
 
 ### How it works
 
