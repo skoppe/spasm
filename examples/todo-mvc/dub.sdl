@@ -5,5 +5,8 @@ copyright "Copyright © 2018, Sebastiaan Koppe"
 license "MIT"
 dependency "spasm" path="../.."
 dflags "-mtriple=wasm32-unknown-unknown-wasm" "-Oz" "-betterC" "-fvisibility=hidden" "-boundscheck=off"
+lflags "-strip-all"
+
+buildRequirements "allowWarnings"
 
 versions "SPASM_GC_DEBUG"

@@ -3,10 +3,10 @@
 	"versions": {
 		"bolts": "0.11.1",
 		"mir-core": "0.2.2",
-		"optional": "0.10.1",
+		"optional": "0.16.0",
 		"silly": "0.8.2",
 		"spasm": {"path":"../.."},
 		"stdx-allocator": "3.1.0-beta.2",
-		"unit-threaded": "0.10.2"
+		"unit-threaded": "0.10.3"
 	}
 }
