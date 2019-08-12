@@ -713,6 +713,18 @@ template tryMatch(handlers...)
 	}
 }
 
+/// Thrown by [tryMatch] when an unhandled type is encountered.
+version (unittest) {
+  class MatchException : Exception
+  {
+    pure @safe @nogc nothrow
+    this(string msg, string file = __FILE__, size_t line = __LINE__)
+    {
+      super(msg, file, line);
+    }
+  }
+}
+
 /**
  * Checks whether a handler can match a given type.
  *
