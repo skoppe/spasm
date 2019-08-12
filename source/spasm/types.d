@@ -530,6 +530,7 @@ struct ArrayPair(T,U) {
     this.handle = JsHandle(h);
   }
 }
+
 struct JsObject {
   nothrow:
   JsHandle handle;
@@ -541,6 +542,7 @@ struct JsObject {
     return Any(spasm_get__field(this.handle, name));
   }
 }
+
 struct Json {
   nothrow:
   JsHandle handle;

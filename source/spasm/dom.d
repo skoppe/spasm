@@ -298,17 +298,21 @@ auto setPointers(T, Ts...)(auto ref T t, auto ref Ts ts) {
   import std.meta : AliasSeq;
   import std.traits : hasUDA;
   static foreach(sym; T.tupleof) {{
+      static if (isPointer!(typeof(sym)))
+        alias ChildType = PointerTarget!(typeof(sym));
+      else
+        alias ChildType = typeof(sym);
       enum i = sym.stringof;
       enum isImmutable = is(typeof(sym) : immutable(T), T);
       enum isPublic = __traits(getProtection, sym) == "public";
-      static if (!isImmutable && !is(typeof(sym) : NamedNode!name, string name)) {
+      static if (!isImmutable && !is(ChildType : NamedNode!name, string name)) {
         static if (isPublic)
           setParamFromParent!(i)(t, ts);
         static if (!is(sym) && isAggregateType!T) {
           static if (is(typeof(sym) : DynamicArray!(Item), Item)) {
             // items in appenders need to be set via render functions
           } else {
-            static if (!isCallable!(typeof(sym)) && !isPointer!(typeof(sym))) {
+            static if (!isCallable!(typeof(sym))) {//} && !isPointer!(typeof(sym))) {
               import spasm.spa;
               alias Params = getUDAs!(sym, Parameters);
               static if (Params.length > 0) {
@@ -316,8 +320,12 @@ auto setPointers(T, Ts...)(auto ref T t, auto ref Ts ts) {
               }
               else
                 alias params = AliasSeq!();
-              static if (isAggregateType!(typeof(sym)))
-                setPointers(__traits(getMember, t, i), AliasSeq!(params, t, ts));
+              static if (isAggregateType!(ChildType)) {
+                static if (isPointer!(typeof(sym)))
+                  setPointers(*__traits(getMember, t, i), AliasSeq!(params, t, ts));
+                else
+                  setPointers(__traits(getMember, t, i), AliasSeq!(params, t, ts));
+              }
             }
           }
         }
@@ -359,13 +367,26 @@ auto callMember(string fun, T)(auto ref T t) {
     return __traits(getMember, t, fun)(__traits(getMember, t, params[0]),__traits(getMember, t, params[1]));
   }
   else {
-    pragma(msg, params.length);
     static assert(false, "Not implemented");
   }
 }
 
 auto renderIntoNode(T, Ts...)(Handle parent, auto ref T t, auto ref Ts ts) if (isPointer!T) {
   return renderIntoNode(parent, *t, ts);
+}
+
+ref auto getNode(T)(auto ref T t) {
+  static if (hasMember!(T, "node")) {
+    return t.node;
+  } else {
+    static if (isPointer!T) {
+      alias children = getSymbolsByUDA!(PointerTarget!T, child);
+    } else {
+      alias children = getSymbolsByUDA!(T, child);
+    }
+    static assert(children.length == 1);
+    return __traits(getMember, t, __traits(identifier, children[0])).getNode();
+  }
 }
 
 // NOTE: only trusted because of the one __gshared thing
@@ -382,6 +403,9 @@ auto renderIntoNode(T, Ts...)(Handle parent, auto ref T t, auto ref Ts ts) if (i
     bool shouldRender = true;
   if (shouldRender) {
     auto node = createNode(parent, t);
+    static if (hasMember!(T, "node")) {
+      t.node.node.handle.handle = node;
+    }
     alias StyleSet = getStyleSet!T;
     static foreach(sym; T.tupleof) {{
         enum i = sym.stringof;
@@ -420,13 +444,13 @@ auto renderIntoNode(T, Ts...)(Handle parent, auto ref T t, auto ref Ts ts) if (i
             static if (isCallable!(sym)) {
               auto result = callMember!(i)(t);
               if (result == true) {
-                node.applyStyles!(T, styles);
+               t.getNode.applyStyles!(T, styles);
               }
             } else static if (is(typeof(sym) == bool)) {
               if (__traits(getMember, t, i) == true)
-                node.applyStyles!(T, styles);
+                t.getNode.applyStyles!(T, styles);
             } else static if (hasUDA!(sym, child)) {
-              __traits(getMember, t, i).node.applyStyles!(T, styles);
+              getNode(__traits(getMember, t, i)).applyStyles!(T, styles);
             }
           }
         }
@@ -440,17 +464,17 @@ auto renderIntoNode(T, Ts...)(Handle parent, auto ref T t, auto ref Ts ts) if (i
             static assert(false, "we don't support @child functions");
           else static if (hasUDA!(sym, prop)) {
             auto result = callMember!(i)(t);
-            node.setPropertyTyped!name(result);
+            t.getNode.setPropertyTyped!name(result);
           } else static if (hasUDA!(sym, callback)) {
-            node.addEventListenerTyped!i(t);
+            t.getNode.addEventListenerTyped!i(t);
           } else static if (hasUDA!(sym, attr)) {
             auto result = callMember!(i)(t);
-            node.setAttributeTyped!name(result);
+            t.getNode.setAttributeTyped!name(result);
           } else static if (hasUDA!(sym, style)) {
               auto result = callMember!(i)(t);
               static foreach (style; getStyles!(sym)) {
                 __gshared static string className = GetCssClassName!(T, style);
-                node.changeClass(className,result);
+                t.getNode.changeClass(className,result);
               }
           } else static if (hasUDA!(sym, connect)) {
             alias connects = getUDAs!(sym, connect);
@@ -467,9 +491,6 @@ auto renderIntoNode(T, Ts...)(Handle parent, auto ref T t, auto ref Ts ts) if (i
           }
         }
       }}
-    static if (hasMember!(T, "node")) {
-      t.node.node.handle.handle = node;
-    }
 
     alias enumsWithApplyStyles = getSymbolsByUDA!(T, ApplyStyle);
     static foreach(member; enumsWithApplyStyles) {{
@@ -486,7 +507,7 @@ auto renderIntoNode(T, Ts...)(Handle parent, auto ref T t, auto ref Ts ts) if (i
             static if (__traits(identifier, Target) == "node") {
               node.addClass(styleTable[idx]);
             } else static if (hasUDA!(Target, child)) {
-              __traits(getMember, t, __traits(identifier, Target)).node.addClass(styleTable[idx]);
+              __traits(getMember, t, __traits(identifier, Target)).getNode.addClass(styleTable[idx]);
             } else
               static assert(false, "Can only have ApplyStyle point to node or to a child component");
           }
@@ -633,7 +654,7 @@ template update(alias field) {
       alias styles = getStyles!(field);
       static foreach(style; styles) {
         __gshared static string className = GetCssClassName!(Parent, style);
-        parent.node.changeClass(className,t);
+        parent.getNode.changeClass(className,t);
       }
       static if (hasUDA!(field, visible)) {
         alias udas = getUDAs!(field, visible);
@@ -750,7 +771,6 @@ void setParamFromParent(string name, T, Ts...)(ref T t, auto ref Ts ts) {
         }
         __traits(getMember, t, name) = &__traits(getMember, ts[index], name);
       }
-    } else static if (index > 0) {
     } else static if (isPointer!SourceType)
       __traits(getMember, t, name) = *__traits(getMember, ts[index], name);
     else

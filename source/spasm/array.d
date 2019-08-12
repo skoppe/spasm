@@ -8,7 +8,6 @@ import spasm.dom;
 import spasm.types;
 import std.range : only;
 import std.algorithm : joiner;
-import std.conv : text;
 import spasm.rt.array;
 
 nothrow:

@@ -43,7 +43,7 @@ string dumpState(T)(ref T app) {
       }
     }
   }
-  StringAppender sink;
+  StringAppender!() sink;
   sink.write('{');
   recurse(app, sink);
   sink.write('}');

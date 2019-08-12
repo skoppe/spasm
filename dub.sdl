@@ -4,7 +4,7 @@ authors "Sebastiaan Koppe"
 copyright "Copyright © 2018, Sebastiaan Koppe"
 license "MIT"
 dependency "stdx-allocator" version="~>3.1.0-beta.2"
-dependency "optional" version="~>0.10.0"
+dependency "optional" version="~>0.16.0"
 #target "library"
 subPackage "bootstrap-webpack"
 subPackage "webidl"
@@ -12,9 +12,12 @@ dflags "-dip1000"
 
 toolchainRequirements dmd="no" gdc="no" ldc=">=1.15.0"
 
+buildRequirements "allowWarnings" # required for ldc 1.16
+
 configuration "library" {
-              dflags "-mtriple=wasm32-unknown-unknown-wasm" "-betterC"
+              dflags "-mtriple=wasm32-unknown-unknown-wasm" "-betterC" "-fvisibility=hidden"
               lflags "-allow-undefined" "--export-table" "--export=domEvent" "--export=allocString" "-export=renderGCStats" "-export=markMemory" "-export=freeUnmarked"
+              importPaths "source" "includes"
               subConfiguration "stdx-allocator" "wasm"
 }
 
@@ -25,5 +28,4 @@ configuration "unittest" {
               sourcePaths "source" "tests"
               importPaths "source" "tests"
               mainSourceFile "tests/test_main.d"
-              excludedSourceFiles "spasm/bindings/*.d"
 }

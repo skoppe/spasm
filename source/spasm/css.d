@@ -376,7 +376,7 @@ unittest {
       auto color = "green";
     }
   }
-  GenerateCssSet!(Derived, Empty).should == `.ETbCNGQeD{background-color:blue;color:green}`;
+  GenerateCssSet!(Derived, Empty).should == `.ETbCNFQeD{background-color:blue;color:green}`;
 }
 
 template GenerateNestedCssClass(alias symbol) {
