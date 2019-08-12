@@ -10,7 +10,7 @@ build-1.15.0:
           ln -s $WERCKER_CACHE_DIR/dub ~/.dub
           make build
 
-build:
+build-1.16.0:
   box: dlang2/ldc-ubuntu:1.16.0
   steps:
     - script:
