@@ -260,7 +260,7 @@ public:
 	static foreach (i, T; Types) {
 		static if (isAssignable!T) {
 			/// Assigns a value to a `SumType`.
-			void opAssign()(auto ref T rhs)
+			@trusted void opAssign()(auto ref T rhs)
 			{
 				import std.functional: forward;
 
@@ -710,16 +710,6 @@ template tryMatch(handlers...)
 		if (is(Self : SumType!TypeArgs, TypeArgs...))
 	{
 		return self.matchImpl!(No.exhaustive, handlers);
-	}
-}
-
-/// Thrown by [tryMatch] when an unhandled type is encountered.
-class MatchException : Exception
-{
-	pure @safe @nogc nothrow
-	this(string msg, string file = __FILE__, size_t line = __LINE__)
-	{
-		super(msg, file, line);
 	}
 }
 
