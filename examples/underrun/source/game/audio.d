@@ -140,7 +140,7 @@ struct AudioBufferSourceNode {
   @property void loop(bool l) @trusted {
     audioBufferSourceNodeLoopSet(*handle.ptr, l);
   }
-  @property void buffer(AudioBuffer buffer) @trusted {
+  @property void buffer(scope ref AudioBuffer buffer) @trusted {
     audioBufferSourceNodeBuffer(*handle.ptr, *buffer.ptr);
   }
 }
@@ -159,7 +159,7 @@ extern(C) void audioBufferSourceNodeConnect(Handle node, Handle destination);
 extern(C) void audioBufferSourceNodeStart(Handle node);
 extern(C) void audioBufferSourceNodeBuffer(Handle node, Handle buffer);
 
-void connect(ref AudioBufferSourceNode node, AudioDestinationNode destination) @trusted {
+void connect(ref scope AudioBufferSourceNode node, scope AudioDestinationNode destination) @trusted {
   audioBufferSourceNodeConnect(*node.handle.ptr, *destination.handle.ptr);
 }
 
@@ -313,7 +313,7 @@ struct SoundPlayer {
   AudioBuffer explode;
   private void play(ref AudioBuffer buffer, bool loop) {
     auto source = ctx.createBufferSource();
-    source.buffer = buffer.move();
+    source.buffer = buffer;//.move();
     source.loop = loop;
     source.connect(ctx.destination);
     source.start();

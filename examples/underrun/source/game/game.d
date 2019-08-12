@@ -25,20 +25,22 @@ extern(C) void scheduleFrame(uint ctx, uint fun);
 
 
 struct Game {
+  import spasm.bindings.webgl;
   nothrow:
   Renderer renderer;
   Level level;
   uint time_last = 0;
   Input input = Input.None;
   Canvas* canvas;
+  WebGLRenderingContext context;
   int width, height;
   int mouseX, mouseY;
   bool running;
   bool finished;
   void init(int w, int h) @trusted {
-    import spasm.bindings.webgl;
-    auto context = canvas.node.getContext("webgl");
-    glSetContext(*context.front.trustedGet!WebGLRenderingContext.handle.ptr);
+    import std.algorithm : move;
+    this.context = canvas.node.getContext("webgl").front.trustedGet!WebGLRenderingContext.move;
+    glSetContext(*context.handle.ptr);
     renderer.renderer_init(w,h);
     width = w;
     height = h;

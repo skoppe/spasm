@@ -2,55 +2,56 @@ import {spasm, encoders, decoders} from './spasm.js';
 
 const addObject = spasm.addObject;
 export let jsExports = {
-    atan2(a,b) {
-        return Math.atan2(a,b);
-    },
-    cos(a) {
-        return Math.cos(a);
-    },
-    sin(a) {
-        return Math.sin(a);
-    },
-    sqrt(a) {
-        return Math.sqrt(a);
-    },
-    random() {
-        return Math.random();
-    },
-    pow(base, exp) {
-        return Math.pow(base, exp);
-    },
-    ldexpf(base, exp) {
-        return Math.pow(base, exp);
-    },
-    setTimeout(ctx, func, ms) {
-        return setTimeout(()=>{
-            spasm.instance.exports.jsCallback0(ctx, func);
-        },ms);
-    },
-    clearTimeout(id) {
-        clearTimeout(id);
-    },
-    load_image(len, offset, ctx, func) {
-        let img = new Image();
-        img.src = 'images/'+decoders.string(len,offset)+'.png';
-        img.onload = function(){
-            let ptr = addObject(this);
-            spasm.instance.exports.jsCallback(ctx,func,ptr);
-        };
-    },
-    load_level(id, bufLen, bufOffset, ctx, func) {
-        let img = new Image();
-        let level = new Uint8Array(spasm.memory.buffer, bufOffset, 64*64);
-        img.src = 'images/l'+id+'.png';
-        img.onload = function(){
-            const level_width = 64, level_height = 64;
-            var temp = document.createElement('canvas');
-            var empty=0, floor=1, wall=2, player=3, cpu=4, sentry=5;
-            temp.width = temp.height = level_width; // assume square levels
-            temp = temp.getContext('2d')
-            temp.drawImage(this, 0, 0);
-            temp =temp.getImageData(0, 0, level_width, level_height).data;
+    env:{
+        atan2(a,b) {
+            return Math.atan2(a,b);
+        },
+        cos(a) {
+            return Math.cos(a);
+        },
+        sin(a) {
+            return Math.sin(a);
+        },
+        sqrt(a) {
+            return Math.sqrt(a);
+        },
+        random() {
+            return Math.random();
+        },
+        pow(base, exp) {
+            return Math.pow(base, exp);
+        },
+        ldexpf(base, exp) {
+            return Math.pow(base, exp);
+        },
+        setTimeout(ctx, func, ms) {
+            return setTimeout(()=>{
+                spasm.instance.exports.jsCallback0(ctx, func);
+            },ms);
+        },
+        clearTimeout(id) {
+            clearTimeout(id);
+        },
+        load_image(len, offset, ctx, func) {
+            let img = new Image();
+            img.src = 'images/'+decoders.string(len,offset)+'.png';
+            img.onload = function(){
+                let ptr = addObject(this);
+                spasm.instance.exports.jsCallback(ctx,func,ptr);
+            };
+        },
+        load_level(id, bufLen, bufOffset, ctx, func) {
+            let img = new Image();
+            let level = new Uint8Array(spasm.memory.buffer, bufOffset, 64*64);
+            img.src = 'images/l'+id+'.png';
+            img.onload = function(){
+                const level_width = 64, level_height = 64;
+                var temp = document.createElement('canvas');
+                var empty=0, floor=1, wall=2, player=3, cpu=4, sentry=5;
+                temp.width = temp.height = level_width; // assume square levels
+                temp = temp.getContext('2d')
+                temp.drawImage(this, 0, 0);
+                temp =temp.getImageData(0, 0, level_width, level_height).data;
 
                 for (var y = 0, index = 0; y < level_height; y++) {
                     for (var x = 0; x < level_width; x++, index++) {
@@ -77,10 +78,11 @@ export let jsExports = {
                 spasm.instance.exports.jsCallback(ctx,func,bufOffset);
             };
         },
-    scheduleFrame(ctx, func) {
-        requestAnimationFrame(()=>{
-            let time = parseInt(performance.now(),10);
-            spasm.instance.exports.jsCallback(ctx, func, time);
-        })
+        scheduleFrame(ctx, func) {
+            requestAnimationFrame(()=>{
+                let time = parseInt(performance.now(),10);
+                spasm.instance.exports.jsCallback(ctx, func, time);
+            })
+        }
     }
 }
