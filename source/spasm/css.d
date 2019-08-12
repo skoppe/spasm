@@ -169,12 +169,19 @@ template GetCssClassName(Node, string style) {
 
 template getCssKeyValue(T, string defaultName) {
   alias symbol = Symbol!(T, defaultName);
-  alias names = getStringUDAs!(symbol);
-  static if (names.length > 0)
-    enum name = names[0];
-  else
-    enum name = defaultName;
-  enum getCssKeyValue = tuple(toCssProperty!name, __traits(getMember, T.init, defaultName));
+  static if (isAggregateType!(typeof(symbol))) {
+    alias Tchild = typeof(symbol);
+    alias names = FieldNameTuple!Tchild;
+    alias values = staticMap!(ApplyLeft!(.getCssKeyValue, Tchild), names);
+    enum getCssKeyValue = values;
+  } else {
+    alias names = getStringUDAs!(symbol);
+    static if (names.length > 0)
+      enum name = names[0];
+    else
+      enum name = defaultName;
+    enum getCssKeyValue = AliasSeq!(tuple(toCssProperty!name, __traits(getMember, T.init, defaultName)));
+  }
 }
 
 template toCssProperty(string str)
@@ -360,6 +367,16 @@ unittest {
 unittest {
   struct Empty{}
   GenerateCssSet!(Style, Empty).should == `.AGILZSwUB{background-color:blue}.AGILZSwUB:after{content:""}.AGILZSwUB.EDbAPAWCD:after{content:""}.AGILZSwUB:not(.BEfMCBUJD):after{content:""}.AGILZSwUB:hover:not(.EDbAPAWCD):before{content:""}.AGILZSwUB@media(hover: none){content:""}`;
+}
+unittest {
+  struct Empty{}
+  struct Derived {
+    struct root {
+      Style.root base;
+      auto color = "green";
+    }
+  }
+  GenerateCssSet!(Derived, Empty).should == `.ETbCNGQeD{background-color:blue;color:green}`;
 }
 
 template GenerateNestedCssClass(alias symbol) {
