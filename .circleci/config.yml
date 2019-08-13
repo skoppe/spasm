@@ -1,0 +1,12 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: dlang2/ldc-ubuntu:latest
+
+    steps:
+      - checkout
+
+      - run:
+          name: build ldc latest
+          command: make test
