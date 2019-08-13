@@ -1,12 +1,31 @@
 version: 2
 jobs:
-  build:
+  ldc-latest:
     docker:
       - image: dlang2/ldc-ubuntu:latest
-
     steps:
       - checkout
-
       - run:
           name: build ldc latest
           command: make test
+  dmd-nightly:
+    docker:
+      - image: dlang2/dmd-circleci:latest
+    steps:
+      - checkout
+      - run:
+          name: build dmd latest
+          command: make test
+workflows:
+  version: 2
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 6 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - ldc-latest
+      - dmd-nightly
