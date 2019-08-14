@@ -12,26 +12,7 @@ import std.typecons : Flag, Yes, No;
 
 alias Destructor = void function(void*);
 
-version (unittest) {
-  struct WasmAllocator {
-    enum uint alignment = platformAlignment;
-
-    static __gshared typeof(this) instance = WasmAllocator();
-
-    nothrow:
-    auto owns(void[] b) {
-      return Ternary.yes;
-    }
-
-    bool deallocate(void[] b) nothrow {
-      return true;
-    }
-
-    void[] allocate(size_t n) nothrow {
-      return new ubyte[n];
-    }
-  }
-} else {
+version (WebAssembly) {
   private __gshared void* begin, current, end;
   struct WasmAllocator {
     import spasm.intrinsics;
@@ -71,7 +52,29 @@ version (unittest) {
       end += (currentPages + pages) * wasmPageSize;
     }
   }
- }
+} else version (D_BetterC) {
+  import stdx.allocator.mallocator;
+  alias WasmAllocator = Mallocator;
+} else {
+  struct WasmAllocator {
+    enum uint alignment = platformAlignment;
+
+    static __gshared typeof(this) instance = WasmAllocator();
+
+    nothrow:
+    auto owns(void[] b) {
+      return Ternary.yes;
+    }
+
+    bool deallocate(void[] b) nothrow {
+      return true;
+    }
+
+    void[] allocate(size_t n) nothrow {
+      return new ubyte[n];
+    }
+  }
+}
 
 /**
    Returns `true` if `ptr` is aligned at `alignment`.

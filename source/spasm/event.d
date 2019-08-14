@@ -1,6 +1,7 @@
 module spasm.event;
 
 import spasm.types;
+version (LDC)
 import ldc.attributes;
 
 @trusted

@@ -1,5 +1,6 @@
 module spasm.spa;
 
+version (LDC)
 import ldc.attributes;
 public import spasm.types;
 public import spasm.dom;
@@ -59,7 +60,6 @@ mixin template Spa(Application) {
 }
 
 mixin template Spa(Application, Theme) {
-  import ldc.attributes;
   import spasm.rt.gc;
   __gshared Application application;
   pragma(mangle, "_start")

@@ -4,6 +4,7 @@ import spasm.rt.allocator : WasmAllocator;
 import stdx.allocator.building_blocks.null_allocator;
 private __gshared SpasmGCAllocator gcAllocator;
 
+version (LDC)
 import ldc.attributes;
 import spasm.intrinsics;
 import spasm.rt.gc;
@@ -11,7 +12,7 @@ import spasm.rt.gc;
 enum wasmPageSize = 64 * 1024;
 
 @safe nothrow void alloc_init(uint heap_base) {
-  version (unittest) {} else WasmAllocator.init(heap_base);
+  version (WebAssembly) WasmAllocator.init(heap_base);
 }
 
 version (unittest) {
@@ -75,8 +76,6 @@ extern (C) void * memset(void* ptr, int value, size_t num) {
     p[i] = val;
   return ptr;
 }
-
-private import ldc.intrinsics;
 
 extern(C) {
   int memcmp(void*a,void*b,size_t cnt) {
@@ -175,8 +174,11 @@ void _d_array_init_mem(void* a, size_t na, void* v, size_t nv)
     auto p = a;
     auto end = a + na*nv;
     while (p !is end) {
+      version (LDC)
         llvm_memcpy(p,v,nv,0);
-        p += nv;
+      else
+        memcpy(p,v,nv);
+      p += nv;
     }
 }
 
@@ -202,17 +204,21 @@ size_t _d_arraycast_len(size_t len, size_t elemsz, size_t newelemsz) {
 }
 
 // slice copy when assertions are enabled
-void _d_array_slice_copy(void* dst, size_t dstlen, void* src, size_t srclen, size_t elemsz)
-{
-    if (dstlen != 0) assert(dst);
-    if (dstlen != 0) assert(src);
-    if (dstlen != srclen)
-      assert(0);
-    else if (dst+dstlen*elemsz <= src || src+srclen*elemsz <= dst)
-        llvm_memcpy!size_t(dst, src, dstlen * elemsz, 0);
-    else
-      assert(0);
-}
+ void _d_array_slice_copy(void* dst, size_t dstlen, void* src, size_t srclen, size_t elemsz)
+ {
+   if (dstlen != 0) assert(dst);
+   if (dstlen != 0) assert(src);
+   if (dstlen != srclen)
+     assert(0);
+   else if (dst+dstlen*elemsz <= src || src+srclen*elemsz <= dst) {
+     version (LDC)
+       llvm_memcpy!size_t(dst, src, dstlen * elemsz, 0);
+     else
+       memcpy(dst, src, dstlen * elemsz);
+   }
+   else
+     assert(0);
+ }
 
  void _d_arraybounds(string file, int line) {
  }

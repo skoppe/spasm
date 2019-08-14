@@ -2,7 +2,7 @@ module spasm.rt.gc;
 
 import std.traits : isPointer, isBasicType, isCallable, PointerTarget;
 import std.meta : staticMap, Filter;
-import ldc.attributes;
+import spasm.types : assumeUsed;
 import spasm.rt.allocator : poolAllocatorIndex, MarkResult;
 
 nothrow:

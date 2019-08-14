@@ -5,7 +5,11 @@ nothrow:
 public import optional;
 public import spasm.sumtype;
 import std.traits : hasMember, isCallable, isBasicType;
-import ldc.attributes;
+version (LDC) {
+  public import ldc.attributes : assumeUsed;
+} else {
+  enum assumeUsed;
+}
 
 version (unittest) {
   @safe:

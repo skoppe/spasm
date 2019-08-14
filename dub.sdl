@@ -29,3 +29,9 @@ configuration "unittest" {
               importPaths "source" "tests"
               mainSourceFile "tests/test_main.d"
 }
+
+# this configuration only exists to compile spasm on dmd nightly, so to get warnings about druntime breaking changes early on
+configuration "dmd" {
+              dflags "-betterC"
+              targetType "executable"
+}
