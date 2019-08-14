@@ -33,5 +33,5 @@ configuration "unittest" {
 # this configuration only exists to compile spasm on dmd nightly, so to get warnings about druntime breaking changes early on
 configuration "dmd" {
               dflags "-betterC"
-              targetType "executable"
+              targetType "library"
 }
