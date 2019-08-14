@@ -175,7 +175,7 @@ void _d_array_init_mem(void* a, size_t na, void* v, size_t nv)
     auto end = a + na*nv;
     while (p !is end) {
       version (LDC) {
-        private import ldc.intrinsics;
+        import ldc.intrinsics;
         llvm_memcpy(p,v,nv,0);
       } else
         memcpy(p,v,nv);
@@ -213,7 +213,7 @@ size_t _d_arraycast_len(size_t len, size_t elemsz, size_t newelemsz) {
      assert(0);
    else if (dst+dstlen*elemsz <= src || src+srclen*elemsz <= dst) {
      version (LDC) {
-       private import ldc.intrinsics;
+       import ldc.intrinsics;
        llvm_memcpy!size_t(dst, src, dstlen * elemsz, 0);
      } else
        memcpy(dst, src, dstlen * elemsz);
