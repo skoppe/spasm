@@ -10,7 +10,7 @@ subPackage "bootstrap-webpack"
 subPackage "webidl"
 dflags "-dip1000"
 
-toolchainRequirements dmd="no" gdc="no" ldc=">=1.15.0"
+toolchainRequirements ldc=">=1.15.0"
 
 buildRequirements "allowWarnings" # required for ldc 1.16
 
