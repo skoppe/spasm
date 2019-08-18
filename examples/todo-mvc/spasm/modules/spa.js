@@ -64,7 +64,6 @@ export let jsExports = {
             return addPtr(document.querySelector("#root"));
         },
         createElement: (type) => {
-            console.log("createElement", getTagFromType(type));
             return addPtr(document.createElement(getTagFromType(type)));
         },
         setSelectionRange: (nodePtr, start, end) => {

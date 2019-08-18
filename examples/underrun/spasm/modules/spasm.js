@@ -121,7 +121,6 @@ let jsExports = {
         },
         spasm_removeObject: (ctx) => {
             freelist.push(ctx)
-            console.log("remove", objects[ctx]);
             delete objects[ctx]
         },
         DataView_Create: (len, offset) => {

@@ -39,7 +39,7 @@ const wss = new WebSocket.Server({ port: 3001 });
     let lastModified = 0;
     function isModified() {
         try {
-            const stat = fs.statSync('spasm-material');
+            const stat = fs.statSync('underrun');
             if (lastModified == stat.mtimeMs)
                 return false;
             lastModified = stat.mtimeMs;

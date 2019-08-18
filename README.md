@@ -104,7 +104,7 @@ export let jsExports = {
 };
 ```
 
-Manually put the file in the `./spasm/modules/index.js` or just run `dub spasm:webidl -- --bindgen` to automatically include it.
+Manually put the file in the `./spasm/modules/index.js` or just run `dub run spasm:webidl -- --bindgen` to automatically include it.
 
 The `./spasm/entry.js` and the `./spasm/modules/spasm.js` file will combine all exports and use them during the WebAssembly initialization.
 

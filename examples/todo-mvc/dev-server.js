@@ -36,14 +36,30 @@ const wss = new WebSocket.Server({ port: 3001 });
         }
     }
     let backoff = 0;
+    let lastModified = 0;
+    function isModified() {
+        try {
+            const stat = fs.statSync('todo-mvc-spasm-example');
+            if (lastModified == stat.mtimeMs)
+                return false;
+            lastModified = stat.mtimeMs;
+            return true;
+        } catch(e) {
+            return false;
+        }
+    }
     function doWatch() {
         try {
             let watcher = fs.watch('todo-mvc-spasm-example', (event, filename)=>{
-                if (event == 'change')
-                    notifyClients();
-                else if (event == 'rename') {
-                    if (exists('spasm-material')) {
+                if (event == 'change') {
+                    if (isModified()) {
                         notifyClients();
+                    }
+                }
+                else if (event == 'rename') {
+                    if (exists('todo-mvc-spasm-example')) {
+                        if (isModified())
+                            notifyClients();
                     } else {
                         watcher.close();
                         backoff = 100;
@@ -52,7 +68,8 @@ const wss = new WebSocket.Server({ port: 3001 });
                 }
             });
             if (backoff != 0) {
-                notifyClients();
+                if (isModified())
+                    notifyClients();
                 backoff = 0;
             }
         } catch (e) {
@@ -60,5 +77,6 @@ const wss = new WebSocket.Server({ port: 3001 });
             setTimeout(doWatch, backoff);
         }
     }
+    isModified();
     doWatch();
 })();

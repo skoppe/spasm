@@ -18,8 +18,6 @@ let addObject = (value) => {
 const setupMemory = (memory) => {
     spasm.memory = memory;
     spasm.buffer = memory.buffer;
-    spasm.heapi8u = new Uint8Array(memory.buffer);
-    spasm.heapi32u = new Uint32Array(memory.buffer);
 }
 const spasm = {
     lastPtr: 2,
@@ -122,7 +120,6 @@ let jsExports = {
             encoders.string(rawResult, getObject(ptr));
         },
         spasm_removeObject: (ctx) => {
-            console.log("removeObject", ctx);
             freelist.push(ctx)
             delete objects[ctx]
         },
