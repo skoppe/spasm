@@ -1,11 +1,12 @@
 {
 	"fileVersion": 1,
 	"versions": {
-		"bolts": "0.11.1",
+		"bolts": "1.3.0",
 		"mir-core": "0.2.2",
-		"optional": "0.16.0",
+		"optional": "1.0.0-beta.2",
 		"silly": "0.8.2",
 		"stdx-allocator": "3.1.0-beta.2",
-		"unit-threaded": "0.10.3"
+		"unit-threaded": "0.10.3",
+		"vibe-d": "0.8.2"
 	}
 }

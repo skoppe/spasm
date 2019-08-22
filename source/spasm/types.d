@@ -32,7 +32,7 @@ version (unittest) {
     Handle spasm_add__ubyte(ubyte);
     Handle spasm_add__string(scope ref string);
     Handle spasm_add__object();
-    void spasm_removeObject(Handle);
+    void spasm_removeObject(Handle) pure;
     Handle spasm_get__field(Handle, string);
     bool spasm_get__bool(Handle);
     int spasm_get__int(Handle);
@@ -60,7 +60,7 @@ alias Handle = uint;
 struct JsHandle {
   nothrow:
   package Handle handle;
-  ~this() {
+  ~this() pure {
     import spasm.types;
     if (handle > 2) {
       spasm_removeObject(handle);
@@ -189,7 +189,8 @@ enum NodeType {
   var = 105,
   video = 106,
   wbr = 107,
-  root = 1024 // Special element used in unittests
+  root = 1024, // Special element used in unittests
+  text = 1025 // a textnode
 }
 
 // deprecated("Use spasm.types.Child instead") enum child;
