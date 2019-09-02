@@ -30,8 +30,8 @@ version (unittest) {
     unittest_dom_nodes.put(rootNode);
     t.setPointers();
     spasm.dom.render(JsHandle(rootIdx + 1), t);
-    assert(t.node.node != invalidHandle);
-    assert(t.node.mounted == true);
+    // assert(t.getNamedNode().node != invalidHandle);
+    // assert(t.getNamedNode().mounted == true);
     return rootNode;
   }
   string renderToString(T)(auto ref T t) {

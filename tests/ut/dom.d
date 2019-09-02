@@ -116,4 +116,44 @@ unittest {
   node.renderToString().should == `<section><div count=5></div></section>`;
 }
 
+unittest {
+  alias ChildNode = NamedNode!"root"*;
+  static struct Parent {
+    mixin Node!"section";
+    @child ChildNode left;
+    @child ChildNode right;
+  }
+  static struct Div {
+    mixin Node!"div";
+    @prop string innerHTML;
+  }
+  static struct App {
+    @(param.left!left.right!right)
+    @child Parent parent;
+    Div left = { innerHTML: "l" };
+    @(param.innerHTML!"r")
+    Div right;
+  }
+  App app;
+  auto node = app.renderToNode;
+  node.renderToString().should == `<section><div innerHTML="l"></div><div innerHTML="r"></div></section>`;
 
+/+
+  // TODO: next to test are children of children
+  <Super>
+     <Middle>
+       <Parent left=left/>
+       <Left top=top/>
+     </Middle>
+     <Top/>
+  </Super>
+
+  // TODO: or children passed multiple levels (optional renaming)
+     <Super>
+       <Middle>
+         <Parent left=left/>
+       </Middle>
+       <Left/>
+     </Super>
+     +/
+}
