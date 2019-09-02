@@ -5,6 +5,7 @@ import spasm.dom;
 import spasm.ct;
 import std.traits : hasMember, isAggregateType;
 import std.traits : TemplateArgsOf, staticMap, isPointer, PointerTarget, getUDAs, EnumMembers, isInstanceOf, isBasicType;
+import std.traits : getSymbolsByUDA, getUDAs;
 import std.meta : Filter, AliasSeq, ApplyLeft, ApplyRight;
 import spasm.css;
 import spasm.node;
@@ -210,9 +211,9 @@ auto render(T, Ts...)(Handle parent, auto ref T t, auto ref Ts ts) {
     return;
   renderIntoNode(parent, t, ts);
   static if (hasMember!(T, "node")) {
-    if (!t.node.mounted) {
-      parent.appendChild(t.node.node);
-      t.node.mounted = true;
+    if (!t.getNamedNode().mounted) {
+      parent.appendChild(t.getNamedNode.node);
+      t.getNamedNode().mounted = true;
     }
   }
   t.propagateOnMount();
@@ -294,6 +295,87 @@ template createParameterTuple(Params...) {
   }
 }
 
+@trusted
+void setParamFromParent(string name, T, Ts...)(ref T t, auto ref Ts ts) {
+  import std.traits : PointerTarget, isPointer;
+  import std.meta : AliasSeq;
+  alias TargetType = typeof(getMember!(T, name));
+  static if (isPointer!(TargetType))
+    alias FieldType = PointerTarget!(TargetType);
+  else
+    alias FieldType = TargetType;
+  template matchesField(Parent) {
+    static if (!hasMember!(Parent,name))
+      enum matchesField = false;
+    else {
+      alias ItemTypeParent = AliasSeq!(__traits(parent, getMember!(Parent, name)))[0];
+      static if (is(T == ItemTypeParent))
+        enum matchesField = false;
+      else {
+        alias ItemType = typeof(getMember!(Parent, name));
+        enum matchesField = (is(ItemType == FieldType) || is (ItemType == FieldType*));
+      }
+    }
+  }
+  enum index = indexOfPred!(matchesField, AliasSeq!Ts);
+  static if (index >= ts.length) {
+    return;
+  } else {
+    alias SourceType = typeof(__traits(getMember, Ts[index], name));
+    static if(isPointer!TargetType) {
+      static if (isPointer!SourceType)
+        __traits(getMember, t, name) = __traits(getMember, ts[index], name);
+      else {
+        static if (is(Ts[index] : Tuple!Fields, Fields...)) {
+          static assert(!isBasicType!SourceType, "Cannot assign literal in param uda to a pointer, use member field or avoid use of pointer.");
+        }
+        __traits(getMember, t, name) = &__traits(getMember, ts[index], name);
+      }
+    } else static if (isPointer!SourceType)
+      __traits(getMember, t, name) = *__traits(getMember, ts[index], name);
+    else
+      __traits(getMember, t, name) = __traits(getMember, ts[index], name);
+  }
+}
+
+void setChildFromParent(string name, T, Ts...)(auto ref T t, auto ref Ts ts) {
+  template containsChild(Parent) {
+    enum containsChild = hasMember!(Parent, name);
+  }
+  enum index = indexOfPred!(containsChild, AliasSeq!Ts);
+  static if (index != -1) {
+    alias ChildMemberType = typeof(__traits(getMember, T, name));
+    alias Parent = Ts[index];
+    alias ParentMemberType = typeof(__traits(getMember, Parent, name));
+    static assert(__traits(hasMember, ParentMemberType, "node"), __traits(identifier, ParentMemberType) ~ " doesn't have a member 'node'.");
+    alias ParentMemberNodeType = typeof(ParentMemberType.node);
+    alias ChildMemberNodeType = typeof(ChildMemberType.node);
+    static assert(is(ParentMemberNodeType : NamedNode!type, string type), __traits(identifier, ParentMemberType) ~ "'s member 'node' needs to be of type NamedNode.");
+    // NOTE: for now we assert that the ChildMemberNodeType is an HTMLElement, it would be nice to
+    // allow the component to restrict the nodetype of child elements, in which case
+    // we need to check if ChildMemberNodeType is a supertype or the same as ParentMemberNodeType
+    // this way we could e.g. enforce a child of a Table component to be <tr>
+    import spasm.bindings.html : HTMLElement;
+    static assert(is(ChildMemberNodeType : HTMLElement));
+    auto ptr = &__traits(getMember, ts[index], name).node;
+    __traits(getMember, t, name) = cast(ChildMemberType)ptr;
+  }
+}
+
+void verifyChildParams(Super, string parentField, Params...)() {
+  import std.traits : hasUDA;
+  alias ParamsTuple = staticMap!(TemplateArgsOf, Params);
+  static foreach(Param; AliasSeq!ParamsTuple) {{
+      enum childName = __traits(identifier, Param.Field);
+      static if (!isValue!(Param.Field) && hasMember!(Super, childName)) {
+        enum childOffset = __traits(getMember, Super, childName).offsetof;
+        enum parentOffset = __traits(getMember, Super, parentField).offsetof;
+        static assert(!hasUDA!(__traits(getMember, Super, childName), child), "Propagated member '"~ childName~ "' cannot have @child attribute in struct "~ Super.stringof);
+        static assert(childOffset > parentOffset, "Propagated member '"~ childName~ "' needs to be declared after '"~parentField~ "' in struct "~ Super.stringof);
+      }
+    }}
+}
+
 auto setPointers(T, Ts...)(auto ref T t, auto ref Ts ts) {
   import std.meta : AliasSeq;
   import std.traits : hasUDA;
@@ -302,29 +384,35 @@ auto setPointers(T, Ts...)(auto ref T t, auto ref Ts ts) {
         alias ChildType = PointerTarget!(typeof(sym));
       else
         alias ChildType = typeof(sym);
-      enum i = sym.stringof;
+      enum i = sym.stringof; // TODO: can this be fieldName = __traits(identifier, sym) instead of i = sym.stringof ??
       enum isImmutable = is(typeof(sym) : immutable(T), T);
       enum isPublic = __traits(getProtection, sym) == "public";
-      static if (!isImmutable && !is(ChildType : NamedNode!name, string name)) {
-        static if (isPublic)
-          setParamFromParent!(i)(t, ts);
-        static if (!is(sym) && isAggregateType!T) {
-          static if (is(typeof(sym) : DynamicArray!(Item), Item)) {
-            // items in appenders need to be set via render functions
-          } else {
-            static if (!isCallable!(typeof(sym))) {//} && !isPointer!(typeof(sym))) {
-              import spasm.spa;
-              alias Params = getUDAs!(sym, Parameters);
-              static if (Params.length > 0) {
-                auto params = createParameterTuple!(Params)(AliasSeq!(t, ts));
-              }
-              else
-                alias params = AliasSeq!();
-              static if (isAggregateType!(ChildType)) {
-                static if (isPointer!(typeof(sym)))
-                  setPointers(*__traits(getMember, t, i), AliasSeq!(params, t, ts));
+      static if (!isImmutable) {
+        static if (is(ChildType : NamedNode!name, string name)) {
+          static if (i != "node")
+            setChildFromParent!(__traits(identifier, sym))(t, ts);
+        } else {
+          static if (isPublic)
+            setParamFromParent!(i)(t, ts);
+          static if (!is(sym) && isAggregateType!T) {
+            static if (is(typeof(sym) : DynamicArray!(Item), Item)) {
+              // items in appenders need to be set via render functions
+            } else {
+              static if (!isCallable!(typeof(sym))) {//} && !isPointer!(typeof(sym))) {
+                import spasm.spa;
+                alias Params = getUDAs!(sym, Parameters);
+                static if (Params.length > 0) {
+                  verifyChildParams!(T, i, Params);
+                  auto params = createParameterTuple!(Params)(AliasSeq!(t, ts));
+                }
                 else
-                  setPointers(__traits(getMember, t, i), AliasSeq!(params, t, ts));
+                  alias params = AliasSeq!();
+                static if (isAggregateType!(ChildType)) {
+                  static if (isPointer!(typeof(sym)))
+                    setPointers(*__traits(getMember, t, i), AliasSeq!(params, t, ts));
+                  else
+                    setPointers(__traits(getMember, t, i), AliasSeq!(params, t, ts));
+                }
               }
             }
           }
@@ -334,7 +422,6 @@ auto setPointers(T, Ts...)(auto ref T t, auto ref Ts ts) {
 }
 
 auto isChildVisible(string child, Parent)(auto ref Parent parent) {
-  import std.traits : getSymbolsByUDA, getUDAs;
   alias visiblePreds = getSymbolsByUDA!(Parent, visible);
   static foreach(sym; visiblePreds) {{
       alias vs = getUDAs!(sym, visible);
@@ -375,20 +462,82 @@ auto renderIntoNode(T, Ts...)(Handle parent, auto ref T t, auto ref Ts ts) if (i
   return renderIntoNode(parent, *t, ts);
 }
 
-ref auto getNode(T)(auto ref T t) {
-  static if (hasMember!(T, "node")) {
+ref auto getNamedNode(T)(auto ref T t) if (isPointer!T) {
+  return (*t).getNamedNode();
+}
+
+ref auto getNamedNode(T)(auto ref T t) if (!isPointer!T) {
+  import spasm.node : NamedNode;
+  static if (is(T : NamedNode!name, string name)) {
+    return t;
+  } else static if (hasMember!(T, "node")) {
     return t.node;
   } else {
-    static if (isPointer!T) {
-      alias children = getSymbolsByUDA!(PointerTarget!T, child);
-    } else {
-      alias children = getSymbolsByUDA!(T, child);
-    }
+    // static if (isPointer!T) {
+    //   alias children = getSymbolsByUDA!(PointerTarget!T, child);
+    // } else {
+    alias children = getSymbolsByUDA!(T, child);
+    // }
     static assert(children.length == 1);
-    return __traits(getMember, t, __traits(identifier, children[0])).getNode();
+    return __traits(getMember, t, __traits(identifier, children[0])).getNamedNode();
   }
 }
 
+template createNestedChildRenderFuncs(string memberName) {
+  auto createNestedChildRenderFuncs(T)(auto ref T t) {
+    import std.traits : hasUDA;
+    import std.typecons : tuple;
+    template isNestedChild(alias member) {
+      alias MemberType = typeof(member);
+      static if (!__traits(hasMember, MemberType, "node"))
+        enum isNestedChild = false;
+      else
+        enum isNestedChild = is(typeof(MemberType.node) : NamedNode!type, string type);
+    }
+    template extractName(alias param) {
+      alias extractName = param.Name;
+    }
+    template extractField(alias param) {
+      alias extractField = param.Field;
+    }
+    template isFieldNestedChild(alias param) {
+      enum isFieldNestedChild = isNestedChild!(extractField!(param));
+    }
+    auto createRenderFunc(alias param)() @trusted {
+      enum nestedChildName = __traits(identifier, extractField!(param));
+      return cast(NestedChildRenderFunc)(Handle parent) @safe {
+        render(parent, __traits(getMember, t, nestedChildName));
+      };
+    }
+    alias ParamsTuple = getAnnotatedParameters!(__traits(getMember, T, memberName));
+    alias ParamFieldsTuple = staticMap!(extractField, ParamsTuple);
+    alias nestedChildParams = Filter!(isFieldNestedChild, ParamsTuple);
+    alias Names = staticMap!(extractName, nestedChildParams);
+    static if (Names.length == 0)
+      return tuple();
+    else
+      return tuple!(Names)(staticMap!(createRenderFunc, nestedChildParams));
+  }
+}
+
+alias NestedChildRenderFunc = void delegate(uint) nothrow @safe;
+
+template renderNestedChild(string field) {
+  template hasRenderFunc(alias T) {
+    static if (!hasMember!(T, field))
+      enum hasRenderFunc = false;
+    else {
+      alias fieldType = typeof(__traits(getMember, T, field));
+      enum hasRenderFunc = is(fieldType : NestedChildRenderFunc);
+    }
+  }
+  auto renderNestedChild(T, Ts...)(Handle parent, auto ref T t, auto ref Ts ts) {
+    enum tupleIndex = indexOfPred!(hasRenderFunc, Ts);
+    static if (tupleIndex != -1) {
+      __traits(getMember, ts[tupleIndex], field)(parent);
+    }
+  }
+}
 // NOTE: only trusted because of the one __gshared thing
 @trusted auto renderIntoNode(T, Ts...)(Handle parent, auto ref T t, auto ref Ts ts) if (!isPointer!T) {
   import std.traits : hasUDA, getUDAs;
@@ -397,14 +546,14 @@ ref auto getNode(T)(auto ref T t) {
   import std.traits : isCallable, getSymbolsByUDA, isPointer;
   import std.conv : text;
   enum hasNode = hasMember!(T, "node");
-  static if (hasNode)
-    bool shouldRender = t.node.node == invalidHandle;
-  else
+  static if (hasNode) {
+    bool shouldRender = t.getNamedNode().node == invalidHandle;
+  } else
     bool shouldRender = true;
   if (shouldRender) {
     auto node = createNode(parent, t);
     static if (hasMember!(T, "node")) {
-      t.node.node.handle.handle = node;
+      t.getNamedNode().node.handle.handle = node;
     }
     alias StyleSet = getStyleSet!T;
     static foreach(sym; T.tupleof) {{
@@ -414,8 +563,7 @@ ref auto getNode(T)(auto ref T t) {
           alias styles = getStyles!(sym);
           static if (hasUDA!(sym, child)) {
             import spasm.spa;
-            alias Params = getUDAs!(sym, Parameters);
-              alias params = AliasSeq!();
+            alias params = AliasSeq!();
             if (isChildVisible!(i)(t)) {
               static if (is(typeof(sym) : DynamicArray!(Item*), Item)) {
                 foreach(ref item; __traits(getMember, t, i)) {
@@ -423,8 +571,11 @@ ref auto getNode(T)(auto ref T t) {
                   static if (is(typeof(t) == Array!Item))
                     t.assignEventListeners(*item);
                 }
+              } else static if (is(typeof(sym) : NamedNode!(name)*, string name)) {
+                renderNestedChild!(i)(node, t, ts);
               } else {
-                node.render(__traits(getMember, t, i), AliasSeq!(params));
+                auto nestedChildRenderFuncs = createNestedChildRenderFuncs!(i)(t);
+                node.render(__traits(getMember, t, i), AliasSeq!(params, nestedChildRenderFuncs));
               }
             }
           } else static if (hasUDA!(sym, prop)) {
@@ -444,13 +595,13 @@ ref auto getNode(T)(auto ref T t) {
             static if (isCallable!(sym)) {
               auto result = callMember!(i)(t);
               if (result == true) {
-               t.getNode.applyStyles!(T, styles);
+               t.getNamedNode.applyStyles!(T, styles);
               }
             } else static if (is(typeof(sym) == bool)) {
               if (__traits(getMember, t, i) == true)
-                t.getNode.applyStyles!(T, styles);
+                t.getNamedNode.applyStyles!(T, styles);
             } else static if (hasUDA!(sym, child)) {
-              getNode(__traits(getMember, t, i)).applyStyles!(T, styles);
+              getNamedNode(__traits(getMember, t, i)).applyStyles!(T, styles);
             }
           }
         }
@@ -464,17 +615,17 @@ ref auto getNode(T)(auto ref T t) {
             static assert(false, "we don't support @child functions");
           else static if (hasUDA!(sym, prop)) {
             auto result = callMember!(i)(t);
-            t.getNode.setPropertyTyped!name(result);
+            t.getNamedNode.setPropertyTyped!name(result);
           } else static if (hasUDA!(sym, callback)) {
-            t.getNode.addEventListenerTyped!i(t);
+            t.getNamedNode.addEventListenerTyped!i(t);
           } else static if (hasUDA!(sym, attr)) {
             auto result = callMember!(i)(t);
-            t.getNode.setAttributeTyped!name(result);
+            t.getNamedNode.setAttributeTyped!name(result);
           } else static if (hasUDA!(sym, style)) {
               auto result = callMember!(i)(t);
               static foreach (style; getStyles!(sym)) {
                 __gshared static string className = GetCssClassName!(T, style);
-                t.getNode.changeClass(className,result);
+                t.getNamedNode.changeClass(className,result);
               }
           } else static if (hasUDA!(sym, connect)) {
             alias connects = getUDAs!(sym, connect);
@@ -507,7 +658,7 @@ ref auto getNode(T)(auto ref T t) {
             static if (__traits(identifier, Target) == "node") {
               node.addClass(styleTable[idx]);
             } else static if (hasUDA!(Target, child)) {
-              __traits(getMember, t, __traits(identifier, Target)).getNode.addClass(styleTable[idx]);
+              __traits(getMember, t, __traits(identifier, Target)).getNamedNode.addClass(styleTable[idx]);
             } else
               static assert(false, "Can only have ApplyStyle point to node or to a child component");
           }
@@ -654,7 +805,7 @@ template update(alias field) {
       alias styles = getStyles!(field);
       static foreach(style; styles) {
         __gshared static string className = GetCssClassName!(Parent, style);
-        parent.getNode.changeClass(className,t);
+        parent.getNamedNode.changeClass(className,t);
       }
       static if (hasUDA!(field, visible)) {
         alias udas = getUDAs!(field, visible);
@@ -732,49 +883,6 @@ template symbolFromAliasThis(Parent, string name) {
   else {
     alias hasSymbol = ApplyRight!(hasMember, name);
     enum symbolFromAliasThis = anySatisfy!(hasSymbol, aliasThises);
-  }
-}
-
-@trusted
-void setParamFromParent(string name, T, Ts...)(ref T t, auto ref Ts ts) {
-  import std.traits : PointerTarget, isPointer;
-  import std.meta : AliasSeq;
-  alias TargetType = typeof(getMember!(T, name));
-  static if (isPointer!(TargetType))
-    alias FieldType = PointerTarget!(TargetType);
-  else
-    alias FieldType = TargetType;
-  template matchesField(Parent) {
-    static if (!hasMember!(Parent,name))
-      enum matchesField = false;
-    else {
-      alias ItemTypeParent = AliasSeq!(__traits(parent, getMember!(Parent, name)))[0];
-      static if (is(T == ItemTypeParent))
-        enum matchesField = false;
-      else {
-        alias ItemType = typeof(getMember!(Parent, name));
-        enum matchesField = (is(ItemType == FieldType) || is (ItemType == FieldType*));
-      }
-    }
-  }
-  enum index = indexOfPred!(matchesField, AliasSeq!Ts);
-  static if (index >= ts.length) {
-    return;
-  } else {
-    alias SourceType = typeof(__traits(getMember, Ts[index], name));
-    static if(isPointer!TargetType) {
-      static if (isPointer!SourceType)
-        __traits(getMember, t, name) = __traits(getMember, ts[index], name);
-      else {
-        static if (is(Ts[index] : Tuple!Fields, Fields...)) {
-          static assert(!isBasicType!SourceType, "Cannot assign literal in param uda to a pointer, use member field or avoid use of pointer.");
-        }
-        __traits(getMember, t, name) = &__traits(getMember, ts[index], name);
-      }
-    } else static if (isPointer!SourceType)
-      __traits(getMember, t, name) = *__traits(getMember, ts[index], name);
-    else
-      __traits(getMember, t, name) = __traits(getMember, ts[index], name);
   }
 }
 
