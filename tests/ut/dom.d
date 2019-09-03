@@ -137,7 +137,32 @@ unittest {
   App app;
   auto node = app.renderToNode;
   node.renderToString().should == `<section><div innerHTML="l"></div><div innerHTML="r"></div></section>`;
+}
 
+unittest {
+  alias ChildNode = NamedNode!"root"*;
+  static struct Parent {
+    mixin Node!"section";
+    @child ChildNode left;
+  }
+  static struct Left {
+    mixin Node!"div";
+    @child ChildNode top;
+  }
+  static struct Top {
+    mixin Node!"header";
+    @prop string innerHTML = "top";
+  }
+  static struct App {
+    @(param.left!left)
+    @child Parent parent;
+    @(param.top!top)
+    Left left;
+    Top top;
+  }
+  App app;
+  auto node = app.renderToNode;
+  node.renderToString().should == `<section><div><header innerHTML="top"></header></div></section>`;
 /+
   // TODO: next to test are children of children
   <Super>
