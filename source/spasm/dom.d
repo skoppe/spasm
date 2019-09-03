@@ -367,7 +367,8 @@ void verifyChildParams(Super, string parentField, Params...)() {
   alias ParamsTuple = staticMap!(TemplateArgsOf, Params);
   static foreach(Param; AliasSeq!ParamsTuple) {{
       enum childName = __traits(identifier, Param.Field);
-      static if (!isValue!(Param.Field) && hasMember!(Super, childName)) {
+      alias ChildMemberType = typeof(Param.Field);
+      static if (!isBasicType!(ChildMemberType) && !isValue!(Param.Field) && hasMember!(Super, childName)) {
         enum childOffset = __traits(getMember, Super, childName).offsetof;
         enum parentOffset = __traits(getMember, Super, parentField).offsetof;
         static assert(!hasUDA!(__traits(getMember, Super, childName), child), "Propagated member '"~ childName~ "' cannot have @child attribute in struct "~ Super.stringof);
@@ -473,11 +474,7 @@ ref auto getNamedNode(T)(auto ref T t) if (!isPointer!T) {
   } else static if (hasMember!(T, "node")) {
     return t.node;
   } else {
-    // static if (isPointer!T) {
-    //   alias children = getSymbolsByUDA!(PointerTarget!T, child);
-    // } else {
     alias children = getSymbolsByUDA!(T, child);
-    // }
     static assert(children.length == 1);
     return __traits(getMember, t, __traits(identifier, children[0])).getNamedNode();
   }
@@ -506,7 +503,8 @@ template createNestedChildRenderFuncs(string memberName) {
     auto createRenderFunc(alias param)() @trusted {
       enum nestedChildName = __traits(identifier, extractField!(param));
       return cast(NestedChildRenderFunc)(Handle parent) @safe {
-        render(parent, __traits(getMember, t, nestedChildName));
+        auto nestedChildRenderFuncs = .createNestedChildRenderFuncs!(nestedChildName)(t);
+        render(parent, __traits(getMember, t, nestedChildName), nestedChildRenderFuncs);
       };
     }
     alias ParamsTuple = getAnnotatedParameters!(__traits(getMember, T, memberName));
