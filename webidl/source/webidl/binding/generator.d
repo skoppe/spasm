@@ -578,23 +578,21 @@ void dumpJsArgument(Appender)(ref Semantics semantics, Argument arg, ref Appende
           offset += semantics.getSizeOf(type);
         } else if (!semantics.isPrimitive(type)) {
           a.put(["encode_handle(", offset.to!string, ", ", arg, ");"]);
+          offset += semantics.getSizeOf(type);
         }
       });
+    auto resultPtr = offset;
     bool needsClose = false;
     auto result = signature.tree.children[1];
-    if (result.matches[0] != "void") {
+    bool hasResult = result.matches[0] != "void";
+    bool resultIsPassedViaFirstArgument = hasResult && (semantics.isUnion(result) || semantics.isEnum(result) || semantics.isNullable(result) || semantics.isAny(result));
+    if (hasResult && !resultIsPassedViaFirstArgument)
       a.put("return ");
-      if (semantics.isUnion(result) || semantics.isEnum(result) || semantics.isNullable(result)) {
-        a.put("spasm_decode_");
-        result.mangleTypeJsImpl(a, semantics, MangleTypeJsContext(true));
-        a.put("(");
-        needsClose = true;
-      } else if (semantics.isAny(result)) {
-        a.put("spasm_decode_Handle(");
-        needsClose = true;
-      }
-    }
-    a.put(["spasm_indirect_function_get(", base, "Ptr)(", base, "Ctx"]);
+
+    a.put(["spasm_indirect_function_get(", base, "Ptr)("]);
+    if (resultIsPassedViaFirstArgument)
+      a.put([resultPtr.to!string, ", "]);
+    a.put([base, "Ctx"]);
     offset = 0;
     zip(arguments, types).enumerate.each!((t) {
         a.put(", ");
@@ -609,9 +607,18 @@ void dumpJsArgument(Appender)(ref Semantics semantics, Argument arg, ref Appende
         } else
           a.put(arg);
       });
-    if (needsClose)
-      a.put(")");
-    a.put(")}");
+    a.put(")");
+    if (resultIsPassedViaFirstArgument) {
+      a.put("; return ");
+      if (semantics.isUnion(result) || semantics.isEnum(result) || semantics.isNullable(result)) {
+        a.put("spasm_decode_");
+        result.mangleTypeJsImpl(a, semantics, MangleTypeJsContext(true));
+        a.put(["(", resultPtr.to!string, ")"]);
+      } else if (semantics.isAny(result)) {
+        a.put(["spasm_decode_Handle(", resultPtr.to!string, ")"]);
+      }
+    }
+    a.put("}");
   } else if (semantics.isPrimitive(arg.type)) {
     a.put(arg.name.friendlyJsName);
   } else {

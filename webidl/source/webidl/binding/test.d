@@ -1733,7 +1733,7 @@ unittest {
   gen.generateJsExports.shouldBeLike("
 WorkerGlobalScope_onerror_Set: (ctx, onerrorDefined, onerrorCtx, onerrorPtr) => {
   setupMemory();
-  spasm.objects[ctx].onerror = onerrorDefined ? (event, source, lineno, colno, error)=>{spasm_encode_union2_Event_string(0, event);spasm_encode_string(12, source);encode_handle(20, error);return spasm_decode_Handle(spasm_indirect_function_get(onerrorPtr)(onerrorCtx, 0, 12, lineno, colno, 20))} : undefined;
+  spasm.objects[ctx].onerror = onerrorDefined ? (event, source, lineno, colno, error)=>{spasm_encode_union2_Event_string(0, event);spasm_encode_string(12, source);encode_handle(20, error);spasm_indirect_function_get(onerrorPtr)(24, onerrorCtx, 0, 12, lineno, colno, 20); return spasm_decode_Handle(24)} : undefined;
 },
 WorkerGlobalScope_onerror_Get: (rawResult, ctx) => {
   setupMemory();
@@ -1945,7 +1945,7 @@ unittest {
   gen.generateJsExports.shouldBeLike("
 GlobalEventHandlers_onabort_Set: (ctx, onabortCtx, onabortPtr) => {
   setupMemory();
-  spasm.objects[ctx].onabort = (event)=>{encode_handle(0, event);return spasm_decode_Handle(spasm_indirect_function_get(onabortPtr)(onabortCtx, 0))};
+  spasm.objects[ctx].onabort = (event)=>{encode_handle(0, event);spasm_indirect_function_get(onabortPtr)(4, onabortCtx, 0); return spasm_decode_Handle(4)};
 },
 GlobalEventHandlers_onabort_Get: (ctx) => {
   setupMemory();
@@ -1953,7 +1953,7 @@ GlobalEventHandlers_onabort_Get: (ctx) => {
 },
 GlobalEventHandlers_ongotpointercapture_Set: (ctx, ongotpointercaptureCtx, ongotpointercapturePtr) => {
   setupMemory();
-  spasm.objects[ctx].ongotpointercapture = (event)=>{encode_handle(0, event);return spasm_decode_Handle(spasm_indirect_function_get(ongotpointercapturePtr)(ongotpointercaptureCtx, 0))};
+  spasm.objects[ctx].ongotpointercapture = (event)=>{encode_handle(0, event);spasm_indirect_function_get(ongotpointercapturePtr)(4, ongotpointercaptureCtx, 0); return spasm_decode_Handle(4)};
 },
 GlobalEventHandlers_ongotpointercapture_Get: (ctx) => {
   setupMemory();
@@ -1961,7 +1961,7 @@ GlobalEventHandlers_ongotpointercapture_Get: (ctx) => {
 },
 GlobalEventHandlers_ontouchstart_Set: (ctx, ontouchstartCtx, ontouchstartPtr) => {
   setupMemory();
-  spasm.objects[ctx].ontouchstart = (event)=>{encode_handle(0, event);return spasm_decode_Handle(spasm_indirect_function_get(ontouchstartPtr)(ontouchstartCtx, 0))};
+  spasm.objects[ctx].ontouchstart = (event)=>{encode_handle(0, event);spasm_indirect_function_get(ontouchstartPtr)(4, ontouchstartCtx, 0); return spasm_decode_Handle(4)};
 },
 GlobalEventHandlers_ontouchstart_Get: (ctx) => {
   setupMemory();
@@ -2018,4 +2018,65 @@ spasm_decode_union2_string_sequence = (ptr)=>{
     return spasm_decode_sequence(ptr+4);
   }
 }";
+}
+
+@("abi.callback.return")
+unittest {
+  auto gen = getGenerator(q{
+      callback AnyCallback = any (Event event);
+      callback IntCallback = int (Event event);
+      callback StringCallback = string (Event event);
+      callback InterfaceCallback = WebSocket (Event event);
+      callback VoidCallback = void (Event event);
+      interface WebSocket {};
+      interface Window {
+        attribute AnyCallback onany;
+        attribute IntCallback onint;
+        attribute stringCallback onstring;
+        attribute interfaceCallback oninterface;
+        attribute VoidCallback onvoid;
+      };
+    });
+  gen.generateJsExports.shouldBeLike("
+Window_onany_Set: (ctx, onanyCtx, onanyPtr) => {
+  setupMemory();
+  spasm.objects[ctx].onany = (event)=>{encode_handle(0, event);spasm_indirect_function_get(onanyPtr)(4, onanyCtx, 0); return spasm_decode_Handle(4)};
+},
+Window_onany_Get: (ctx) => {
+  setupMemory();
+  return spasm.objects[ctx].onany;
+},
+Window_onint_Set: (ctx, onintCtx, onintPtr) => {
+  setupMemory();
+  spasm.objects[ctx].onint = (event)=>{encode_handle(0, event);return spasm_indirect_function_get(onintPtr)(onintCtx, 0)};
+},
+Window_onint_Get: (ctx) => {
+  setupMemory();
+  return spasm.objects[ctx].onint;
+},
+Window_onstring_Set: (ctx, onstring) => {
+  setupMemory();
+  spasm.objects[ctx].onstring = spasm.objects[onstring];
+},
+Window_onstring_Get: (ctx) => {
+  setupMemory();
+  return spasm.addObject(spasm.objects[ctx].onstring);
+},
+Window_oninterface_Set: (ctx, oninterface) => {
+  setupMemory();
+  spasm.objects[ctx].oninterface = spasm.objects[oninterface];
+},
+Window_oninterface_Get: (ctx) => {
+  setupMemory();
+  return spasm.addObject(spasm.objects[ctx].oninterface);
+},
+Window_onvoid_Set: (ctx, onvoidCtx, onvoidPtr) => {
+  setupMemory();
+  spasm.objects[ctx].onvoid = (event)=>{encode_handle(0, event);spasm_indirect_function_get(onvoidPtr)(onvoidCtx, 0)};
+},
+Window_onvoid_Get: (ctx) => {
+  setupMemory();
+  return spasm.objects[ctx].onvoid;
+},
+");
 }
