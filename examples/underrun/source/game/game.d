@@ -16,13 +16,6 @@ nothrow:
 extern(C) void load_image(string name, void delegate (Handle) cb);
 extern(C) void load_level(uint id, ubyte[] level, uint ctx, uint fun);
 extern(C) void scheduleFrame(uint ctx, uint fun);
-// extern(C)
-// export ubyte* allocString(uint bytes) {
-//   import spasm.rt.memory;
-//   void[] raw = allocator.allocate(bytes);
-//   return cast(ubyte*)raw.ptr;
-// }
-
 
 struct Game {
   import spasm.bindings.webgl;
@@ -39,7 +32,7 @@ struct Game {
   bool finished;
   void init(int w, int h) @trusted {
     import std.algorithm : move;
-    this.context = canvas.node.getContext("webgl").front.trustedGet!WebGLRenderingContext.move;
+    this.context = canvas.node.getContext("webgl").front.get!WebGLRenderingContext.move;
     glSetContext(*context.handle.ptr);
     renderer.renderer_init(w,h);
     width = w;

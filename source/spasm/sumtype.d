@@ -194,6 +194,8 @@ private:
 	Tag tag;
 	Storage storage;
 
+public:
+
 	@trusted
 	ref inout(T) get(T)() inout
 		if (staticIndexOf!(T, Types) >= 0)
@@ -202,8 +204,6 @@ private:
 		assert(tag == tid);
 		return __traits(getMember, storage, Storage.memberName!T);
 	}
-
-public:
 
 	static foreach (tid, T; Types) {
 		/// Constructs a `SumType` holding a specific value.
