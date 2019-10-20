@@ -16,7 +16,7 @@ Authors: Paul Backus, Atila Neves
 +/
 module spasm.sumtype;
 
-/// $(H3 Basic usage)
+/+/// $(H3 Basic usage)
 version (D_BetterC) {} else
 @safe unittest {
     import std.math: approxEqual;
@@ -120,7 +120,7 @@ version (D_BetterC) {} else
     assert(horiz(u).approxEqual(1));
     assert(horiz(v).approxEqual(sqrt(0.5)));
 }
-
++/
 /// `This` placeholder, for use in self-referential types.
 public import std.variant: This;
 
@@ -194,16 +194,25 @@ private:
 	Tag tag;
 	Storage storage;
 
-public:
-
 	@trusted
 	ref inout(T) get(T)() inout
 		if (staticIndexOf!(T, Types) >= 0)
-	{
-		enum tid = staticIndexOf!(T, Types);
-		assert(tag == tid);
-		return __traits(getMember, storage, Storage.memberName!T);
-	}
+      {
+        enum tid = staticIndexOf!(T, Types);
+        assert(tag == tid);
+        return __traits(getMember, storage, Storage.memberName!T);
+      }
+
+public:
+
+	@trusted
+	ref inout(T) trustedGet(T)() inout
+		if (staticIndexOf!(T, Types) >= 0)
+      {
+        enum tid = staticIndexOf!(T, Types);
+        assert(tag == tid);
+        return __traits(getMember, storage, Storage.memberName!T);
+      }
 
 	static foreach (tid, T; Types) {
 		/// Constructs a `SumType` holding a specific value.
@@ -440,7 +449,7 @@ public:
 		}
 	}
 }
-
+/+
 // Construction
 @safe unittest {
 	alias MySum = SumType!(int, float);
@@ -726,17 +735,6 @@ version (D_BetterC) {} else
 	assert(!__traits(compiles, y = x));
 }
 
-// Github issue #22
-version (D_BetterC) {} else
-@safe unittest {
-	import std.typecons;
-	assert(__traits(compiles, {
-		static struct A {
-			SumType!(Nullable!int) a = Nullable!int.init;
-		}
-	}));
-}
-
 // Static arrays of structs with postblits
 version (D_BetterC) {} else
 @safe unittest {
@@ -908,10 +906,11 @@ version(none) {
 		assert(__traits(compiles, SumType!S(S(123))));
 	}
 }
-
++/
 /// True if `T` is an instance of `SumType`, otherwise false.
 enum isSumType(T) = is(T == SumType!Args, Args...);
 
+/+
 unittest {
 	static struct Wrapper
 	{
@@ -922,7 +921,7 @@ unittest {
 	assert(isSumType!(SumType!int));
 	assert(!isSumType!Wrapper);
 }
-
++/
 /**
  * Calls a type-appropriate function with the value held in a [SumType].
  *
@@ -963,7 +962,7 @@ template match(handlers...)
 		return self.matchImpl!(Yes.exhaustive, handlers);
 	}
 }
-
+/+
 /**
  * Attempts to call a type-appropriate function with the value held in a
  * [SumType], and throws on failure.
@@ -1016,7 +1015,7 @@ class MatchException : Exception
 		super(msg, file, line);
 	}
 }
-
++/
 /**
  * True if `handler` is a potential match for `T`, otherwise false.
  *
@@ -1026,16 +1025,16 @@ class MatchException : Exception
 enum bool canMatch(alias handler, T) = is(typeof((T arg) { handler(arg); }));
 
 // Includes all overloads of the given handler
-@safe unittest {
-	static struct OverloadSet
-	{
-		static void fun(int n) {}
-		static void fun(double d) {}
-	}
+// @safe unittest {
+// 	static struct OverloadSet
+// 	{
+// 		static void fun(int n) {}
+// 		static void fun(double d) {}
+// 	}
 
-	assert(canMatch!(OverloadSet.fun, int));
-	assert(canMatch!(OverloadSet.fun, double));
-}
+// 	assert(canMatch!(OverloadSet.fun, int));
+// 	assert(canMatch!(OverloadSet.fun, double));
+// }
 
 import std.typecons: Flag;
 
@@ -1107,7 +1106,7 @@ private template matchImpl(Flag!"exhaustive" exhaustive, handlers...)
 		assert(false); // unreached
 	}
 }
-
+/+
 // Matching
 @safe unittest {
 	alias MySum = SumType!(int, float);
@@ -1480,7 +1479,7 @@ unittest {
 
 	assert(__traits(compiles, D().match!(_ => true)));
 }
-
++/
 version(SumTypeTestBetterC) {
 	version(D_BetterC) {}
 	else static assert(false, "Must compile with -betterC to run betterC tests");

@@ -22,7 +22,7 @@ configuration "library" {
 }
 
 configuration "unittest" {
-              targetName "ut"
+              #targetName "ut"
               #targetType "executable"
               dependency "unit-threaded" version="*"
               sourcePaths "source" "tests/ut"
