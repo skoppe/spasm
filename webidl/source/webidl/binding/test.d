@@ -202,35 +202,35 @@ unittest {
   gen.generateJsExports.shouldBeLike("
           AudioWorklet_Event: (ctx, typeLen, typePtr, eventInitDict) => {
             setupMemory();
-            return spasm.addObject(new spasm.objects[ctx].Event(spasm_decode_string(typeLen, typePtr), spasm.objects[eventInitDict]));
+            return addObject(new objects[ctx].Event(spasm_decode_string(typeLen, typePtr), objects[eventInitDict]));
           },
           Event_type_Get: (rawResult, ctx) => {
             setupMemory();
-            spasm_encode_string(rawResult, spasm.objects[ctx].type);
+            spasm_encode_string(rawResult, objects[ctx].type);
           },
           Event_target_Set: (ctx, targetDefined, target) => {
             setupMemory();
-            spasm.objects[ctx].target = targetDefined ? spasm.objects[target] : undefined;
+            objects[ctx].target = targetDefined ? objects[target] : undefined;
           },
           Event_target_Get: (rawResult, ctx) => {
             setupMemory();
-            spasm_encode_optional_Handle(rawResult, spasm.objects[ctx].target);
+            spasm_encode_optional_Handle(rawResult, objects[ctx].target);
           },
           Event_composedPath: (ctx) => {
             setupMemory();
-            return spasm.addObject(spasm.objects[ctx].composedPath());
+            return addObject(objects[ctx].composedPath());
           },
           Event_eventPhase_Set: (ctx, eventPhase) => {
             setupMemory();
-            spasm.objects[ctx].eventPhase = eventPhase;
+            objects[ctx].eventPhase = eventPhase;
           },
           Event_eventPhase_Get: (ctx) => {
             setupMemory();
-            return spasm.objects[ctx].eventPhase;
+            return objects[ctx].eventPhase;
           },
           Window_Event: (ctx, typeLen, typePtr, eventInitDict) => {
             setupMemory();
-            return spasm.addObject(new spasm.objects[ctx].Event(spasm_decode_string(typeLen, typePtr), spasm.objects[eventInitDict]));
+            return addObject(new objects[ctx].Event(spasm_decode_string(typeLen, typePtr), objects[eventInitDict]));
           },
       ");
 }
@@ -282,19 +282,19 @@ unittest {
   gen.generateJsExports.shouldBeLike("
     Foo_orientation_Set: (ctx, orientation) => {
       setupMemory();
-      spasm.objects[ctx].orientation = spasm_decode_ImageOrientation(orientation);
+      objects[ctx].orientation = spasm_decode_ImageOrientation(orientation);
     },
     Foo_orientation_Get: (ctx) => {
       setupMemory();
-      return spasm_encode_ImageOrientation(spasm.objects[ctx].orientation);
+      return spasm_encode_ImageOrientation(objects[ctx].orientation);
     },
     Foo_needs: (ctx) => {
       setupMemory();
-      return spasm_encode_ImageOrientation(spasm.objects[ctx].needs());
+      return spasm_encode_ImageOrientation(objects[ctx].needs());
     },
     Foo_wants: (ctx, o) => {
       setupMemory();
-      spasm.objects[ctx].wants(spasm_decode_ImageOrientation(o));
+      objects[ctx].wants(spasm_decode_ImageOrientation(o));
     },
 ");
 }
@@ -342,11 +342,11 @@ unittest {
   gen.generateJsExports.shouldBeLike("
 BaseAudioContext_createPeriodicWave: (ctx, real, constraints) => {
   setupMemory();
-  return spasm.addObject(spasm.objects[ctx].createPeriodicWave(spasm.objects[real], spasm.objects[constraints]));
+  return addObject(objects[ctx].createPeriodicWave(objects[real], objects[constraints]));
 },
 BaseAudioContext_createPeriodicWave_0: (ctx, real) => {
   setupMemory();
-  return spasm.addObject(spasm.objects[ctx].createPeriodicWave(spasm.objects[real]));
+  return addObject(objects[ctx].createPeriodicWave(objects[real]));
 },
 ");
 }
@@ -381,11 +381,11 @@ unittest {
   gen.generateJsExports.shouldBeLike("
 Foo_bar: (ctx, number) => {
   setupMemory();
-  spasm.objects[ctx].bar(number);
+  objects[ctx].bar(number);
 },
 Foo_bar_0: (ctx) => {
   setupMemory();
-  spasm.objects[ctx].bar();
+  objects[ctx].bar();
 },
 ");
 }
@@ -416,7 +416,7 @@ unittest {
   gen.generateJsExports.shouldBeLike("
     Foo_bar: (ctx, numberDefined, number, constraintsDefined, constraints) => {
       setupMemory();
-      spasm.objects[ctx].bar(numberDefined ? number : undefined, constraintsDefined ? spasm.objects[constraints] : undefined);
+      objects[ctx].bar(numberDefined ? number : undefined, constraintsDefined ? objects[constraints] : undefined);
     },
 ");
 }
@@ -459,15 +459,15 @@ unittest {
   gen.generateJsExports.shouldBeLike("
 BaseAudioContext_decodeAudioData: (ctx, audioData, successCallbackDefined, successCallbackCtx, successCallbackPtr, errorCallbackDefined, errorCallbackCtx, errorCallbackPtr) => {
   setupMemory();
-  return spasm.addObject(spasm.objects[ctx].decodeAudioData(spasm.objects[audioData], successCallbackDefined ? (decodedData)=>{encode_handle(0, decodedData);spasm_indirect_function_get(successCallbackPtr)(successCallbackCtx, 0)} : undefined, errorCallbackDefined ? (error)=>{encode_handle(0, error);spasm_indirect_function_get(errorCallbackPtr)(errorCallbackCtx, 0)} : undefined));
+  return addObject(objects[ctx].decodeAudioData(objects[audioData], successCallbackDefined ? (decodedData)=>{encode_handle(0, decodedData);spasm_indirect_function_get(successCallbackPtr)(successCallbackCtx, 0)} : undefined, errorCallbackDefined ? (error)=>{encode_handle(0, error);spasm_indirect_function_get(errorCallbackPtr)(errorCallbackCtx, 0)} : undefined));
 },
 BaseAudioContext_decodeAudioData_0: (ctx, audioData, successCallbackDefined, successCallbackCtx, successCallbackPtr) => {
   setupMemory();
-  return spasm.addObject(spasm.objects[ctx].decodeAudioData(spasm.objects[audioData], successCallbackDefined ? (decodedData)=>{encode_handle(0, decodedData);spasm_indirect_function_get(successCallbackPtr)(successCallbackCtx, 0)} : undefined));
+  return addObject(objects[ctx].decodeAudioData(objects[audioData], successCallbackDefined ? (decodedData)=>{encode_handle(0, decodedData);spasm_indirect_function_get(successCallbackPtr)(successCallbackCtx, 0)} : undefined));
 },
 BaseAudioContext_decodeAudioData_1: (ctx, audioData) => {
   setupMemory();
-  return spasm.addObject(spasm.objects[ctx].decodeAudioData(spasm.objects[audioData]));
+  return addObject(objects[ctx].decodeAudioData(objects[audioData]));
 },
 ");
 }
@@ -523,23 +523,23 @@ unittest {
   gen.generateJsExports.shouldBeLike("
     AudioContextOptions_latencyHint_Set: (ctx, latencyHint) => {
       setupMemory();
-      spasm.objects[ctx].latencyHint = spasm_decode_union2_AudioContextLatencyCategory_double(latencyHint);
+      objects[ctx].latencyHint = spasm_decode_union2_AudioContextLatencyCategory_double(latencyHint);
     },
     AudioContextOptions_latencyHint_Get: (rawResult, ctx) => {
       setupMemory();
-      spasm_encode_union2_AudioContextLatencyCategory_double(rawResult, spasm.objects[ctx].latencyHint);
+      spasm_encode_union2_AudioContextLatencyCategory_double(rawResult, objects[ctx].latencyHint);
     },
     AudioContextOptions_sampleRate_Set: (ctx, sampleRateDefined, sampleRate) => {
       setupMemory();
-      spasm.objects[ctx].sampleRate = sampleRateDefined ? spasm_decode_union2_bool_double(sampleRate) : undefined;
+      objects[ctx].sampleRate = sampleRateDefined ? spasm_decode_union2_bool_double(sampleRate) : undefined;
     },
     AudioContextOptions_sampleRate_Get: (rawResult, ctx) => {
       setupMemory();
-      spasm_encode_optional_union2_bool_double(rawResult, spasm.objects[ctx].sampleRate);
+      spasm_encode_optional_union2_bool_double(rawResult, objects[ctx].sampleRate);
     },
     AudioContextOptions_fooBar: (rawResult, ctx) => {
       setupMemory();
-      spasm_encode_union2_string_AudioContextLatencyCategory(rawResult, spasm.objects[ctx].fooBar());
+      spasm_encode_union2_string_AudioContextLatencyCategory(rawResult, objects[ctx].fooBar());
     },
 ");
 }
@@ -592,19 +592,19 @@ unittest {
   gen.generateJsExports.shouldBeLike("
     AudioContextOptions_latencyHint_Set: (ctx, latencyHint) => {
       setupMemory();
-      spasm.objects[ctx].latencyHint = spasm_decode_union2_AudioContextLatencyCategory_double(latencyHint);
+      objects[ctx].latencyHint = spasm_decode_union2_AudioContextLatencyCategory_double(latencyHint);
     },
     AudioContextOptions_latencyHint_Get: (rawResult, ctx) => {
       setupMemory();
-      spasm_encode_union2_AudioContextLatencyCategory_double(rawResult, spasm.objects[ctx].latencyHint);
+      spasm_encode_union2_AudioContextLatencyCategory_double(rawResult, objects[ctx].latencyHint);
     },
     AudioContextOptions_sampleRate_Set: (ctx, sampleRateDefined, sampleRate) => {
       setupMemory();
-      spasm.objects[ctx].sampleRate = sampleRateDefined ? spasm_decode_union2_bool_double(sampleRate) : undefined;
+      objects[ctx].sampleRate = sampleRateDefined ? spasm_decode_union2_bool_double(sampleRate) : undefined;
     },
     AudioContextOptions_sampleRate_Get: (rawResult, ctx) => {
       setupMemory();
-      spasm_encode_optional_union2_bool_double(rawResult, spasm.objects[ctx].sampleRate);
+      spasm_encode_optional_union2_bool_double(rawResult, objects[ctx].sampleRate);
     },
 ");
 
@@ -647,11 +647,11 @@ unittest {
   gen.generateJsExports.shouldBeLike("
     double_real_Set: (ctx, realLen, realPtr) => {
       setupMemory();
-      spasm.objects[ctx].real = spasm_decode_string(realLen, realPtr);
+      objects[ctx].real = spasm_decode_string(realLen, realPtr);
     },
     double_real_Get: (rawResult, ctx) => {
       setupMemory();
-      spasm_encode_string(rawResult, spasm.objects[ctx].real);
+      spasm_encode_string(rawResult, objects[ctx].real);
     },
 ");
 }
@@ -689,11 +689,11 @@ unittest {
   gen.generateJsExports.shouldBeLike("
     AudioTimestamp_contextTime_Set: (ctx, contextTime) => {
       setupMemory();
-      spasm.objects[ctx].contextTime = contextTime;
+      objects[ctx].contextTime = contextTime;
     },
     AudioTimestamp_contextTime_Get: (ctx) => {
       setupMemory();
-      return spasm.objects[ctx].contextTime;
+      return objects[ctx].contextTime;
     },
 ");
 }
@@ -751,11 +751,11 @@ unittest {
   gen.generateJsExports.shouldBeLike("
     double_real_Set: (ctx, real) => {
       setupMemory();
-      spasm.objects[ctx].real = real;
+      objects[ctx].real = real;
     },
     double_real_Get: (ctx) => {
       setupMemory();
-      return spasm.objects[ctx].real;
+      return objects[ctx].real;
     },
 ");
 }
@@ -835,19 +835,19 @@ unittest {
   gen.generateJsExports.shouldBeLike("
     AudioParamDescriptor_maxValue_Set: (ctx, maxValue) => {
       setupMemory();
-      spasm.objects[ctx].maxValue = maxValue;
+      objects[ctx].maxValue = maxValue;
     },
     AudioParamDescriptor_maxValue_Get: (ctx) => {
       setupMemory();
-      return spasm.objects[ctx].maxValue;
+      return objects[ctx].maxValue;
     },
     AudioParamDescriptor_minValue_Set: (ctx, minValue) => {
       setupMemory();
-      spasm.objects[ctx].minValue = minValue;
+      objects[ctx].minValue = minValue;
     },
     AudioParamDescriptor_minValue_Get: (ctx) => {
       setupMemory();
-      return spasm.objects[ctx].minValue;
+      return objects[ctx].minValue;
     },
 ");
 }
@@ -982,19 +982,19 @@ unittest {
   gen.generateJsExports.shouldBeLike("
     BaseAudioContext_createPeriodicWave: (rawResult, ctx) => {
       setupMemory();
-      spasm_encode_optional_string(rawResult, spasm.objects[ctx].createPeriodicWave());
+      spasm_encode_optional_string(rawResult, objects[ctx].createPeriodicWave());
     },
     BaseAudioContext_name_Set: (ctx, nameDefined, nameLen, namePtr) => {
       setupMemory();
-      spasm.objects[ctx].name = nameDefined ? spasm_decode_string(nameLen, namePtr) : undefined;
+      objects[ctx].name = nameDefined ? spasm_decode_string(nameLen, namePtr) : undefined;
     },
     BaseAudioContext_name_Get: (rawResult, ctx) => {
       setupMemory();
-      spasm_encode_optional_string(rawResult, spasm.objects[ctx].name);
+      spasm_encode_optional_string(rawResult, objects[ctx].name);
     },
     BaseAudioContext_foo: (ctx, titleDefined, titleLen, titlePtr) => {
       setupMemory();
-      spasm.objects[ctx].foo(titleDefined ? spasm_decode_string(titleLen, titlePtr) : undefined);
+      objects[ctx].foo(titleDefined ? spasm_decode_string(titleLen, titlePtr) : undefined);
     },
 ");
 }
@@ -1025,7 +1025,7 @@ unittest {
   gen.generateJsExports.shouldBeLike("
     ClipboardEvent_clipboardData_Get: (rawResult, ctx) => {
       setupMemory();
-      spasm_encode_optional_Handle(rawResult, spasm.objects[ctx].clipboardData);
+      spasm_encode_optional_Handle(rawResult, objects[ctx].clipboardData);
     },
 ");
 }
@@ -1063,11 +1063,11 @@ unittest {
   gen.generateJsExports.shouldBeLike("
     FocusEventInit_relatedTarget_Set: (ctx, relatedTargetDefined, relatedTarget) => {
       setupMemory();
-      spasm.objects[ctx].relatedTarget = relatedTargetDefined ? spasm.objects[relatedTarget] : undefined;
+      objects[ctx].relatedTarget = relatedTargetDefined ? objects[relatedTarget] : undefined;
     },
     FocusEventInit_relatedTarget_Get: (rawResult, ctx) => {
       setupMemory();
-      spasm_encode_optional_Handle(rawResult, spasm.objects[ctx].relatedTarget);
+      spasm_encode_optional_Handle(rawResult, objects[ctx].relatedTarget);
     },
 ");
 }
@@ -1106,11 +1106,11 @@ unittest {
   gen.generateJsExports.shouldBeLike("
     GenericTransformStream_writable_Get: (ctx) => {
       setupMemory();
-      return spasm.addObject(spasm.objects[ctx].writable);
+      return addObject(objects[ctx].writable);
     },
     GenericTransformStream_readable_Get: (ctx) => {
       setupMemory();
-      return spasm.addObject(spasm.objects[ctx].readable);
+      return addObject(objects[ctx].readable);
     },
 ");
 }
@@ -1141,7 +1141,7 @@ unittest {
   gen.generateJsExports.shouldBeLike("
     HTMLOrSVGElement_datacube_Get: (ctx) => {
       setupMemory();
-      return spasm.addObject(spasm.objects[ctx].datacube);
+      return addObject(objects[ctx].datacube);
     },
 ");
 }
@@ -1200,23 +1200,23 @@ unittest {
   gen.generateJsExports.shouldBeLike("
     DOMStringMap_getter__string: (rawResult, ctx, nameLen, namePtr) => {
       setupMemory();
-      spasm_encode_string(rawResult, spasm.objects[ctx][spasm_decode_string(nameLen, namePtr)]);
+      spasm_encode_string(rawResult, objects[ctx][spasm_decode_string(nameLen, namePtr)]);
     },
     DOMStringMap_setter__string_string: (ctx, nameLen, namePtr, valueLen, valuePtr) => {
       setupMemory();
-      spasm.objects[ctx][spasm_decode_string(nameLen, namePtr)] = spasm_decode_string(valueLen, valuePtr);
+      objects[ctx][spasm_decode_string(nameLen, namePtr)] = spasm_decode_string(valueLen, valuePtr);
     },
     DOMStringMap_deleter: (ctx, nameLen, namePtr) => {
       setupMemory();
-      delete spasm.objects[ctx][spasm_decode_string(nameLen, namePtr)];
+      delete objects[ctx][spasm_decode_string(nameLen, namePtr)];
     },
     DOMStringMap_byKey_getter: (rawResult, ctx, nameLen, namePtr) => {
       setupMemory();
-      spasm_encode_string(rawResult, spasm.objects[ctx].byKey(spasm_decode_string(nameLen, namePtr)));
+      spasm_encode_string(rawResult, objects[ctx].byKey(spasm_decode_string(nameLen, namePtr)));
     },
     DOMStringMap_byKey_setter: (ctx, nameLen, namePtr, valueLen, valuePtr) => {
       setupMemory();
-      spasm.objects[ctx].byKey(spasm_decode_string(nameLen, namePtr), spasm_decode_string(valueLen, valuePtr));
+      objects[ctx].byKey(spasm_decode_string(nameLen, namePtr), spasm_decode_string(valueLen, valuePtr));
     },
 ");
 }
@@ -1283,7 +1283,7 @@ unittest {
   gen.generateJsExports.shouldBeLike("
     AnimationFrameProvider_requestAnimationFrame: (ctx, callbackCtx, callbackPtr) => {
       setupMemory();
-      return spasm.objects[ctx].requestAnimationFrame((time)=>{spasm_indirect_function_get(callbackPtr)(callbackCtx, time)});
+      return objects[ctx].requestAnimationFrame((time)=>{spasm_indirect_function_get(callbackPtr)(callbackCtx, time)});
     },");
 }
 
@@ -1332,23 +1332,23 @@ unittest {
   gen.generateJsExports.shouldBeLike("
 TextDecoder_decode: (rawResult, ctx, input, options) => {
   setupMemory();
-  spasm_encode_string(rawResult, spasm.objects[ctx].decode(spasm_decode_BufferSource(input), spasm.objects[options]));
+  spasm_encode_string(rawResult, objects[ctx].decode(spasm_decode_BufferSource(input), objects[options]));
 },
 TextDecoder_decode_0: (rawResult, ctx, input) => {
   setupMemory();
-  spasm_encode_string(rawResult, spasm.objects[ctx].decode(spasm_decode_BufferSource(input)));
+  spasm_encode_string(rawResult, objects[ctx].decode(spasm_decode_BufferSource(input)));
 },
 TextDecoder_decode_1: (rawResult, ctx) => {
   setupMemory();
-  spasm_encode_string(rawResult, spasm.objects[ctx].decode());
+  spasm_encode_string(rawResult, objects[ctx].decode());
 },
 TextDecoder_encode: (rawResult, ctx, options) => {
   setupMemory();
-  spasm_encode_BufferSource(rawResult, spasm.objects[ctx].encode(spasm.objects[options]));
+  spasm_encode_BufferSource(rawResult, objects[ctx].encode(objects[options]));
 },
 TextDecoder_encode_0: (rawResult, ctx) => {
   setupMemory();
-  spasm_encode_BufferSource(rawResult, spasm.objects[ctx].encode());
+  spasm_encode_BufferSource(rawResult, objects[ctx].encode());
 },
 ");
 }
@@ -1388,11 +1388,11 @@ unittest {
   gen.generateJsExports.shouldBeLike("
     RequestInit_body_Set: (ctx, bodyDefined, body) => {
       setupMemory();
-      spasm.objects[ctx].body = bodyDefined ? spasm_decode_BodyInit(body) : undefined;
+      objects[ctx].body = bodyDefined ? spasm_decode_BodyInit(body) : undefined;
     },
     RequestInit_body_Get: (rawResult, ctx) => {
       setupMemory();
-      spasm_encode_optional_BodyInit(rawResult, spasm.objects[ctx].body);
+      spasm_encode_optional_BodyInit(rawResult, objects[ctx].body);
     },
 ");
 }
@@ -1424,7 +1424,7 @@ unittest {
   gen.generateJsExports.shouldBeLike("
     Foo_bar: (rawResult, ctx, names) => {
       setupMemory();
-      spasm_encode_optional_sequence(rawResult, spasm.objects[ctx].bar(spasm.objects[names]));
+      spasm_encode_optional_sequence(rawResult, objects[ctx].bar(objects[names]));
     },
 ");
 }
@@ -1456,7 +1456,7 @@ unittest {
   gen.generateJsExports.shouldBeLike("
     Foo_item_getter: (rawResult, ctx, index) => {
       setupMemory();
-      spasm_encode_optional_Handle(rawResult, spasm.objects[ctx].item(index));
+      spasm_encode_optional_Handle(rawResult, objects[ctx].item(index));
     },
 ");
 }
@@ -1502,15 +1502,15 @@ unittest {
   gen.generateJsExports.shouldBeLike("
     Foo_name: (rawResult, ctx) => {
       setupMemory();
-      spasm_encode_string(rawResult, spasm.objects[ctx].name());
+      spasm_encode_string(rawResult, objects[ctx].name());
     },
     Foo_fatal_Get: (ctx) => {
       setupMemory();
-      return spasm.objects[ctx].fatal;
+      return objects[ctx].fatal;
     },
     Foo_size: (ctx) => {
       setupMemory();
-      return spasm.objects[ctx].size();
+      return objects[ctx].size();
     },
 ");
 }
@@ -1690,11 +1690,11 @@ unittest {
   gen.generateJsExports.shouldBeLike("
     foo_log: (data) => {
       setupMemory();
-      foo.log(spasm.objects[data]);
+      foo.log(objects[data]);
     },
     foo_get: () => {
       setupMemory();
-      return spasm.addObject(foo.get());
+      return addObject(foo.get());
     },
 ");
 }
@@ -1733,11 +1733,11 @@ unittest {
   gen.generateJsExports.shouldBeLike("
 WorkerGlobalScope_onerror_Set: (ctx, onerrorDefined, onerrorCtx, onerrorPtr) => {
   setupMemory();
-  spasm.objects[ctx].onerror = onerrorDefined ? (event, source, lineno, colno, error)=>{spasm_encode_union2_Event_string(0, event);spasm_encode_string(12, source);encode_handle(20, error);spasm_indirect_function_get(onerrorPtr)(24, onerrorCtx, 0, 12, lineno, colno, 20); return spasm_decode_Handle(24)} : undefined;
+  objects[ctx].onerror = onerrorDefined ? (event, source, lineno, colno, error)=>{spasm_encode_union2_Event_string(0, event);spasm_encode_string(12, source);encode_handle(20, error);spasm_indirect_function_get(onerrorPtr)(24, onerrorCtx, 0, 12, lineno, colno, 20); return spasm_decode_Handle(24)} : undefined;
 },
 WorkerGlobalScope_onerror_Get: (rawResult, ctx) => {
   setupMemory();
-  spasm_encode_optional_Handle(rawResult, spasm.objects[ctx].onerror);
+  spasm_encode_optional_Handle(rawResult, objects[ctx].onerror);
 },
 ");
 }
@@ -1774,11 +1774,11 @@ unittest {
   gen.generateJsExports.shouldBeLike("
 XMLHttpRequest_send: (ctx, bodyDefined, body) => {
   setupMemory();
-  spasm.objects[ctx].send(bodyDefined ? spasm_decode_union2_Document_BodyInit(body) : undefined);
+  objects[ctx].send(bodyDefined ? spasm_decode_union2_Document_BodyInit(body) : undefined);
 },
 XMLHttpRequest_send_0: (ctx) => {
   setupMemory();
-  spasm.objects[ctx].send();
+  objects[ctx].send();
 },
 ");
 }
@@ -1812,7 +1812,7 @@ unittest {
   gen.generateJsExports.shouldBeLike("
     GenericTransformStream_writable_Get: (ctx) => {
       setupMemory();
-      return spasm.addObject(spasm.objects[ctx].writable);
+      return addObject(objects[ctx].writable);
     },
 ");
 }
@@ -1865,15 +1865,15 @@ unittest {
   gen.generateJsExports.shouldBeLike("
 Window_stuff: (ctx, s) => {
   setupMemory();
-  spasm.objects[ctx].stuff(spasm_decode_union2_ImageData_string(s));
+  objects[ctx].stuff(spasm_decode_union2_ImageData_string(s));
 },
 Window_ImageData__uint_uint: (ctx, sw, sh) => {
   setupMemory();
-  return spasm.addObject(new spasm.objects[ctx].ImageData(sw, sh));
+  return addObject(new objects[ctx].ImageData(sw, sh));
 },
 Window_ImageData__Handle_uint_uint: (ctx, data, sw, sh) => {
   setupMemory();
-  return spasm.addObject(new spasm.objects[ctx].ImageData(spasm.objects[data], sw, sh));
+  return addObject(new objects[ctx].ImageData(objects[data], sw, sh));
 },
 ");
   gen.generateJsDecoders.shouldBeLike("
@@ -1945,27 +1945,27 @@ unittest {
   gen.generateJsExports.shouldBeLike("
 GlobalEventHandlers_onabort_Set: (ctx, onabortCtx, onabortPtr) => {
   setupMemory();
-  spasm.objects[ctx].onabort = (event)=>{encode_handle(0, event);spasm_indirect_function_get(onabortPtr)(4, onabortCtx, 0); return spasm_decode_Handle(4)};
+  objects[ctx].onabort = (event)=>{encode_handle(0, event);spasm_indirect_function_get(onabortPtr)(4, onabortCtx, 0); return spasm_decode_Handle(4)};
 },
 GlobalEventHandlers_onabort_Get: (ctx) => {
   setupMemory();
-  return spasm.objects[ctx].onabort;
+  return objects[ctx].onabort;
 },
 GlobalEventHandlers_ongotpointercapture_Set: (ctx, ongotpointercaptureCtx, ongotpointercapturePtr) => {
   setupMemory();
-  spasm.objects[ctx].ongotpointercapture = (event)=>{encode_handle(0, event);spasm_indirect_function_get(ongotpointercapturePtr)(4, ongotpointercaptureCtx, 0); return spasm_decode_Handle(4)};
+  objects[ctx].ongotpointercapture = (event)=>{encode_handle(0, event);spasm_indirect_function_get(ongotpointercapturePtr)(4, ongotpointercaptureCtx, 0); return spasm_decode_Handle(4)};
 },
 GlobalEventHandlers_ongotpointercapture_Get: (ctx) => {
   setupMemory();
-  return spasm.objects[ctx].ongotpointercapture;
+  return objects[ctx].ongotpointercapture;
 },
 GlobalEventHandlers_ontouchstart_Set: (ctx, ontouchstartCtx, ontouchstartPtr) => {
   setupMemory();
-  spasm.objects[ctx].ontouchstart = (event)=>{encode_handle(0, event);spasm_indirect_function_get(ontouchstartPtr)(4, ontouchstartCtx, 0); return spasm_decode_Handle(4)};
+  objects[ctx].ontouchstart = (event)=>{encode_handle(0, event);spasm_indirect_function_get(ontouchstartPtr)(4, ontouchstartCtx, 0); return spasm_decode_Handle(4)};
 },
 GlobalEventHandlers_ontouchstart_Get: (ctx) => {
   setupMemory();
-  return spasm.objects[ctx].ontouchstart;
+  return objects[ctx].ontouchstart;
 },
 ");
  gen.generateJsDecoders.shouldBeLike("spasm_decode_Handle = decode_handle");
@@ -2007,7 +2007,7 @@ unittest {
   gen.generateJsExports.shouldBeLike("
 Window_WebSocket: (ctx, urlLen, urlPtr, protocols) => {
   setupMemory();
-  return spasm.addObject(new spasm.objects[ctx].WebSocket(spasm_decode_string(urlLen, urlPtr), spasm_decode_union2_string_sequence(protocols)));
+  return addObject(new objects[ctx].WebSocket(spasm_decode_string(urlLen, urlPtr), spasm_decode_union2_string_sequence(protocols)));
 },
 ");
   gen.generateJsDecoders.should == "spasm_decode_sequence = decode_handle,
@@ -2040,43 +2040,43 @@ unittest {
   gen.generateJsExports.shouldBeLike("
 Window_onany_Set: (ctx, onanyCtx, onanyPtr) => {
   setupMemory();
-  spasm.objects[ctx].onany = (event)=>{encode_handle(0, event);spasm_indirect_function_get(onanyPtr)(4, onanyCtx, 0); return spasm_decode_Handle(4)};
+  objects[ctx].onany = (event)=>{encode_handle(0, event);spasm_indirect_function_get(onanyPtr)(4, onanyCtx, 0); return spasm_decode_Handle(4)};
 },
 Window_onany_Get: (ctx) => {
   setupMemory();
-  return spasm.objects[ctx].onany;
+  return objects[ctx].onany;
 },
 Window_onint_Set: (ctx, onintCtx, onintPtr) => {
   setupMemory();
-  spasm.objects[ctx].onint = (event)=>{encode_handle(0, event);return spasm_indirect_function_get(onintPtr)(onintCtx, 0)};
+  objects[ctx].onint = (event)=>{encode_handle(0, event);return spasm_indirect_function_get(onintPtr)(onintCtx, 0)};
 },
 Window_onint_Get: (ctx) => {
   setupMemory();
-  return spasm.objects[ctx].onint;
+  return objects[ctx].onint;
 },
 Window_onstring_Set: (ctx, onstring) => {
   setupMemory();
-  spasm.objects[ctx].onstring = spasm.objects[onstring];
+  objects[ctx].onstring = objects[onstring];
 },
 Window_onstring_Get: (ctx) => {
   setupMemory();
-  return spasm.addObject(spasm.objects[ctx].onstring);
+  return addObject(objects[ctx].onstring);
 },
 Window_oninterface_Set: (ctx, oninterface) => {
   setupMemory();
-  spasm.objects[ctx].oninterface = spasm.objects[oninterface];
+  objects[ctx].oninterface = objects[oninterface];
 },
 Window_oninterface_Get: (ctx) => {
   setupMemory();
-  return spasm.addObject(spasm.objects[ctx].oninterface);
+  return addObject(objects[ctx].oninterface);
 },
 Window_onvoid_Set: (ctx, onvoidCtx, onvoidPtr) => {
   setupMemory();
-  spasm.objects[ctx].onvoid = (event)=>{encode_handle(0, event);spasm_indirect_function_get(onvoidPtr)(onvoidCtx, 0)};
+  objects[ctx].onvoid = (event)=>{encode_handle(0, event);spasm_indirect_function_get(onvoidPtr)(onvoidCtx, 0)};
 },
 Window_onvoid_Get: (ctx) => {
   setupMemory();
-  return spasm.objects[ctx].onvoid;
+  return objects[ctx].onvoid;
 },
 ");
 }
