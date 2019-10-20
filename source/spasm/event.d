@@ -87,6 +87,9 @@ struct MouseEvent {
   mixin IntProperty!("offsetY");
 }
 
+struct FocusEvent {
+}
+
 template ToEvent(EventType type) {
   import spasm.ct : capitalize;
   static if (type == EventType.event)
@@ -123,6 +126,8 @@ EventType toEventType(Node)(ListenerType listener) {
       return EventType.keyboard;
     case dblclick:
       return EventType.mouse;
+    case focus:
+      return EventType.focus;
     case blur:
       return EventType.event;
     case mouseup:
