@@ -2,6 +2,8 @@
 import {spasm as spa, encoders as encoder, decoders as decoder} from '../modules/spasm.js';
 let spasm = spa;
 let memory = {};
+const objects = spasm.objects;
+const addObject = spasm.addObject;
 const setupMemory = () => {
     let buffer = spasm.memory.buffer;
     if (memory.heapi32s && !memory.heapi32s.length === 0)
@@ -34,8 +36,8 @@ const setBool = (ptr, val) => (memory.heapi32u[ptr/4] = +val),
       getFloat = (ptr) => memory.heapf32[ptr/4],
       getDouble = (ptr) => memory.heapf64[ptr/8],
       isDefined = (val) => (val != undefined && val != null),
-      encode_handle = (ptr, val) => { setUInt(ptr, spasm.addObject(val)); },
-      decode_handle = (ptr) => { return spasm.objects[getUInt(ptr)]; },
+      encode_handle = (ptr, val) => { setUInt(ptr, addObject(val)); },
+      decode_handle = (ptr) => { return objects[getUInt(ptr)]; },
       spasm_encode_string = encoder.string,
       spasm_decode_string = decoder.string,
       spasm_indirect_function_get = (ptr)=>spasm.instance.exports.__indirect_function_table.get(ptr),
@@ -49,39 +51,39 @@ export let jsExports = {
   env: {
     DOMTokenList_add: (ctx, tokensLen, tokensPtr) => {
       setupMemory();
-      spasm.objects[ctx].add(spasm_decode_string(tokensLen, tokensPtr));
+      objects[ctx].add(spasm_decode_string(tokensLen, tokensPtr));
     },
     Document_createElement_0: (ctx, localNameLen, localNamePtr) => {
       setupMemory();
-      return spasm.addObject(spasm.objects[ctx].createElement(spasm_decode_string(localNameLen, localNamePtr)));
+      return addObject(objects[ctx].createElement(spasm_decode_string(localNameLen, localNamePtr)));
     },
     Document_body_Get: (rawResult, ctx) => {
       setupMemory();
-      spasm_encode_optional_Handle(rawResult, spasm.objects[ctx].body);
+      spasm_encode_optional_Handle(rawResult, objects[ctx].body);
     },
     Element_classList_Get: (ctx) => {
       setupMemory();
-      return spasm.addObject(spasm.objects[ctx].classList);
+      return addObject(objects[ctx].classList);
     },
     Element_innerHTML_Set: (ctx, innerHTMLLen, innerHTMLPtr) => {
       setupMemory();
-      spasm.objects[ctx].innerHTML = spasm_decode_string(innerHTMLLen, innerHTMLPtr);
+      objects[ctx].innerHTML = spasm_decode_string(innerHTMLLen, innerHTMLPtr);
     },
     Node_appendChild: (ctx, node) => {
       setupMemory();
-      return spasm.addObject(spasm.objects[ctx].appendChild(spasm.objects[node]));
+      return addObject(objects[ctx].appendChild(objects[node]));
     },
     HTMLInputElement_checked_Get: (ctx) => {
       setupMemory();
-      return spasm.objects[ctx].checked;
+      return objects[ctx].checked;
     },
     HTMLInputElement_value_Get: (rawResult, ctx) => {
       setupMemory();
-      spasm_encode_string(rawResult, spasm.objects[ctx].value);
+      spasm_encode_string(rawResult, objects[ctx].value);
     },
     HTMLOrSVGElement_focus_0: (ctx) => {
       setupMemory();
-      spasm.objects[ctx].focus();
+      objects[ctx].focus();
     },
   }
 }

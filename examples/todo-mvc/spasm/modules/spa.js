@@ -10,7 +10,7 @@ const getTagFromType = (type) => {
     return tags[type];
 }
 
-let events = ['click','change','input','keydown','keyup','dblclick','blur','mousemove','mouseup','mousedown','keypress'];
+let events = ['click','change','input','keydown','keyup','dblclick','blur','mousemove','mouseup','mousedown','keypress','focus'];
 
 let currentEvent= null;
 
@@ -22,6 +22,12 @@ const eventHandler = (event) => {
     cbs.forEach(cb=>spasm.instance.exports.domEvent(id, cb.ctx, cb.fun, handlers.eventType));
     currentEvent = null;
 }
+
+const getProperty = (nodePtr, propLen, propOffset) => nodes[nodePtr][decoder.string(propLen, propOffset)];
+const addClass = (nodePtr, classLen, classOffset) => nodes[nodePtr].classList.add(decoder.string(classLen, classOffset));
+const removeClass = (nodePtr, classLen, classOffset) => nodes[nodePtr].classList.remove(decoder.string(classLen, classOffset));
+const setProperty = (nodePtr, propLen, propOffset, value) => nodes[nodePtr][decoder.string(propLen, propOffset)] = value;
+const setAttribute = (nodePtr, attrLen, attrOffset, value) => nodes[nodePtr].setAttribute(decoder.string(attrLen,attrOffset), value)
 
 export { nodes, addPtr };
 export let jsExports = {
@@ -39,27 +45,14 @@ export let jsExports = {
             document.getElementsByTagName('head')[0].appendChild(style);
             addPtr(style);
         },
-        addClass: (node, classLen, classOffset) => {
-            nodes[node].classList.add(decoder.string(classLen, classOffset));
-        },
-        removeClass: (node, classLen, classOffset) => {
-            nodes[node].classList.remove(decoder.string(classLen, classOffset));
-        },
-        changeClass: (node, classLen, classOffset, on) => {
-            if (on)
-                nodes[node].classList.add(decoder.string(classLen, classOffset));
-            else
-                nodes[node].classList.remove(decoder.string(classLen, classOffset));
-        },
+        addClass,
+        removeClass,
+        changeClass: (node, classLen, classOffset, on) => (on ? addClass : removeClass)(node, classLen, classOffset),
         unmount: (childPtr) => {
             var child = nodes[childPtr];
             child.parentNode.removeChild(child);
         },
-        removeChild: (childPtr) => {
-            var child = nodes[childPtr];
-            child.parentNode.removeChild(child);
-            // TODO: we can reuse the child node (it is cheaper than recreating a new one...)
-        },
+        removeChild: (childPtr) => jsExports.env.unmount(childPtr),
         getRoot: () => {
             return addPtr(document.querySelector("#root"));
         },
@@ -72,15 +65,8 @@ export let jsExports = {
         innerText: (nodePtr,textLen, textOffset) => {
             nodes[nodePtr].innerText = decoder.string(textLen,textOffset);
         },
-        setAttributeInt: (node, attrLen, attrOffset, value) => {
-            const attr = decoder.string(attrLen,attrOffset);
-            nodes[node].setAttribute(attr, value);
-        },
-        setAttribute: (node, attrLen, attrOffset, valueLen, valueOffset) => {
-            const attr = decoder.string(attrLen,attrOffset);
-            const value = decoder.string(valueLen,valueOffset);
-            nodes[node].setAttribute(attr, value);
-        },
+        setAttributeInt: setAttribute,
+        setAttribute: (nodePtr, attrLen, attrOffset, valueLen, valueOffset) => setAttribute(nodePtr, attrLen, attrOffset, decoder.string(valueLen,valueOffset)),
         addEventListener: (nodePtr, listenerType, ctx, fun, eventType) => {
             var listenerTypeStr = events[listenerType];
             var node = nodes[nodePtr];
@@ -114,43 +100,14 @@ export let jsExports = {
         getEventString: (resultRaw, propLen,propOffset) => {
             return encoder.string(resultRaw, currentEvent[decoder.string(propLen,propOffset)]);
         },
-        setPropertyBool: (nodePtr, propLen, propOffset, value) => {
-            const node = nodes[nodePtr];
-            const prop = decoder.string(propLen, propOffset);
-            if (node && node[prop] !== undefined)
-                node[prop] = value;
-        },
-        setPropertyInt: (nodePtr, propLen, propOffset, value) => {
-            jsExports.env.setPropertyBool(nodePtr, propLen, propOffset, value);
-        },
-        setProperty: (nodePtr, propLen, propOffset, valueLen, valueOffset) => {
-            const node = nodes[nodePtr];
-            const prop = decoder.string(propLen, propOffset);
-            if (node && node[prop] !== undefined) {
-                node[prop] = decoder.string(valueLen, valueOffset);
-            }
-        },
-        getPropertyInt: (nodePtr, propLen, propOffset) => {
-            const node = nodes[nodePtr];
-            const prop = decoder.string(propLen, propOffset);
-            if (!node || node[prop] === undefined)
-                return false;
-            return +node[prop];
-        },
-        getPropertyBool: (nodePtr, propLen, propOffset) => {
-            const node = nodes[nodePtr];
-            const prop = decoder.string(propLen, propOffset);
-            if (!node || node[prop] === undefined)
-                return false;
-            return !!node[prop];
-        },
-        getProperty: (resultRaw, nodePtr, propLen, propOffset) => {
-            const node = nodes[nodePtr];
-            const prop = decoder.string(propLen, propOffset);
-            if (!node || node[prop] === undefined)
-                return encoder.string(resultRaw,"");
-            return encoder.string(resultRaw,node[prop]);
-        },
+        setPropertyBool: setProperty,
+        setPropertyInt: setProperty,
+        setPropertyDouble: setProperty,
+        setProperty: (nodePtr, propLen, propOffset, valueLen, valueOffset) => setProperty(nodePtr, propLen, propOffset, decoder.string(valueLen, valueOffset)),
+        getPropertyInt: (nodePtr, propLen, propOffset) => +getProperty(nodePtr, propLen, propOffset),
+        getPropertyBool: (nodePtr, propLen, propOffset) => !!getProperty(nodePtr, propLen, propOffset),
+        getPropertyDouble: (nodePtr, propLen, propOffset) => +getProperty(nodePtr, propLen, propOffset),
+        getProperty: (resultRaw, nodePtr, propLen, propOffset) => encoder.string(resultRaw, getProperty(nodePtr, propLen, propOffset) || "")
     }
 }
 
