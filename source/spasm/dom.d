@@ -105,6 +105,9 @@ version (unittest) {
     void setPropertyInt(Handle node, string prop, int value) {
       node.getNode().setProperty(prop, value);
     }
+    void setPropertyDouble(Handle node, string prop, double value) {
+      node.getNode().setProperty(prop, value);
+    }
     void innerText(Handle nodePtr, string text) {
     }
     void removeClass(Handle node, string className) {
@@ -129,6 +132,9 @@ version (unittest) {
     Optional!bool getPropertyBool(Handle node, string prop) {
       return some(node.getNode().getProperty(prop).trustedGet!bool);
     }
+    Optional!double getPropertyDouble(Handle node, string prop) {
+      return some(node.getNode().getProperty(prop).trustedGet!double);
+    }
     void setSelectionRange(Handle node, uint start, uint end) {
     }
     void addCss(string css) {
@@ -147,6 +153,7 @@ version (unittest) {
     void setAttributeInt(Handle nodePtr, string attr, int value);
     void setPropertyBool(Handle nodePtr, string attr, bool value);
     void setPropertyInt(Handle nodePtr, string attr, int value);
+    void setPropertyDouble(Handle nodePtr, string attr, double value);
     void innerText(Handle nodePtr, string text);
     void removeClass(Handle node, string className);
     void changeClass(Handle node, string className, bool on);
@@ -156,6 +163,7 @@ version (unittest) {
     string getProperty(Handle node, string prop);
     int getPropertyInt(Handle node, string prop);
     bool getPropertyBool(Handle node, string prop);
+    void getPropertyDouble(Handle nodePtr, string prop);
     void setSelectionRange(Handle node, uint start, uint end);
     void addCss(string css);
   }
@@ -922,8 +930,10 @@ auto setPropertyTyped(string name, T)(Handle node, auto ref T t) {
   }
   else static if (is(T == bool))
     node.setPropertyBool(name, t);
-  else static if (isNumeric!(T))
+  else static if (isIntegral!(T))
     node.setPropertyInt(name, t);
+  else static if (isNumeric!(T))
+    node.setPropertyDouble(name, t);
   else
   {
     static if (__traits(compiles, __traits(getMember, api, name)))
