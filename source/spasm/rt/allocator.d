@@ -49,7 +49,7 @@ version (WebAssembly) {
       auto currentPages = wasmMemoryGrow(0);
       current = cast(void*)(currentPages * wasmPageSize);
       wasmMemoryGrow(pages);
-      end += (currentPages + pages) * wasmPageSize;
+      end = cast(void*)((currentPages + pages) * wasmPageSize);
     }
   }
 } else version (D_BetterC) {
