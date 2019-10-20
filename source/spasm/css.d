@@ -86,7 +86,10 @@ template getStyleSets(alias field) {
 }
 
 template getStyleSets(T) {
-  static if (isPointer!T) {
+  import spasm.array : List;
+  static if (is(T : List!(Item, tag), Item, string tag)) {
+    alias getStyleSets = .getStyleSets!(Item);
+  } else static if (isPointer!T) {
     alias getStyleSets = .getStyleSets!(PointerTarget!T);
   } else static if (isCallable!T) {
     import std.traits : ReturnType;
