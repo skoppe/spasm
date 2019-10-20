@@ -4,7 +4,7 @@ import spasm.types;
 import spasm.dom;
 import spasm.ct;
 import std.traits : hasMember, isAggregateType;
-import std.traits : TemplateArgsOf, staticMap, isPointer, PointerTarget, getUDAs, EnumMembers, isInstanceOf, isBasicType;
+import std.traits : TemplateArgsOf, staticMap, isPointer, PointerTarget, getUDAs, EnumMembers, isInstanceOf, isBasicType, isIntegral;
 import std.traits : getSymbolsByUDA, getUDAs;
 import std.meta : Filter, AliasSeq, ApplyLeft, ApplyRight;
 import spasm.css;
@@ -21,7 +21,7 @@ version (unittest) {
   import spasm.sumtype;
   import std.array : Appender;
   class UnittestDomNode {
-    alias Property = SumType!(string,int,bool);
+    alias Property = SumType!(string,int,bool,double);
     alias Attribute = SumType!(string,int);
     NodeType type;
     Handle handle;
@@ -30,13 +30,13 @@ version (unittest) {
     string[] classes;
     Appender!(UnittestDomNode[]) children;
     this(NodeType type, Handle handle) nothrow { this.type = type; this.handle = handle; }
-    void setAttribute(T)(string name, T value) nothrow {
+    void setAttribute(T)(string name, T value) nothrow @trusted {
       attributes[name] = Attribute(value);
     }
     Attribute getAttribute(string name) nothrow {
       return attributes[name];
     }
-    void setProperty(T)(string name, T value) nothrow {
+    void setProperty(T)(string name, T value) nothrow @trusted {
       properties[name] = Property(value);
     }
     Property getProperty(string name) nothrow {
@@ -54,7 +54,7 @@ version (unittest) {
           sink.formattedWrite(" class=\"%s\"", classes.join(" "));
         }
         foreach (kv; properties.byKeyValue()) {
-          sink.formattedWrite(" %s=%s", kv.key, kv.value.match!((string s)=>format(`"%s"`,s),(int i)=>i.to!string,(bool b)=>b ? "true" : "false"));
+          sink.formattedWrite(" %s=%s", kv.key, spasm.sumtype.match!((string s)=>format(`"%s"`,s),(i)=>i.to!string)(kv.value));
         }
         foreach (kv; attributes.byKeyValue()) {
           sink.formattedWrite(" %s=%s", kv.key, spasm.sumtype.match!((string s)=>format(`"%s"`,s),(int i)=>i.to!string)(kv.value));
@@ -123,21 +123,29 @@ version (unittest) {
       else if (!on)
         removeClass(node, className);
     }
-    Optional!string getProperty(Handle node, string prop) {
-      return some(node.getNode().getProperty(prop).trustedGet!string);
+    Optional!string getProperty(Handle node, string name) {
+      auto str = node.getNode().getProperty(name).tryMatch!((string s)=>s).assumeNoThrow();
+      return some(str);
     }
     Optional!int getPropertyInt(Handle node, string prop) {
-      return some(node.getNode().getProperty(prop).trustedGet!int);
+      return some(node.getNode().getProperty(prop).tryMatch!((int i)=>i).assumeNoThrow());
     }
     Optional!bool getPropertyBool(Handle node, string prop) {
-      return some(node.getNode().getProperty(prop).trustedGet!bool);
+      return some(node.getNode().getProperty(prop).tryMatch!((bool b)=>b).assumeNoThrow());
     }
     Optional!double getPropertyDouble(Handle node, string prop) {
-      return some(node.getNode().getProperty(prop).trustedGet!double);
+      return some(node.getNode().getProperty(prop).tryMatch!((double d)=>d).assumeNoThrow());
     }
     void setSelectionRange(Handle node, uint start, uint end) {
     }
     void addCss(string css) {
+    }
+  }
+  auto assumeNoThrow(Block)(lazy Block block) {
+    try {
+      return block();
+    } catch(Exception) {
+      assert(false);
     }
   }
 } else {

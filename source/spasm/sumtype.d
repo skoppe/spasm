@@ -121,112 +121,6 @@ version (D_BetterC) {} else
     assert(horiz(v).approxEqual(sqrt(0.5)));
 }
 
-/** $(H3 Arithmetic expression evaluator)
- *
- * This example makes use of the special placeholder type `This` to define a
- * [https://en.wikipedia.org/wiki/Recursive_data_type|recursive data type]: an
- * [https://en.wikipedia.org/wiki/Abstract_syntax_tree|abstract syntax tree] for
- * representing simple arithmetic expressions.
- */
-version (D_BetterC) {} else
-@safe unittest {
-    import std.functional: partial;
-    import std.traits: EnumMembers;
-    import std.typecons: Tuple;
-
-    enum Op : string
-    {
-        Plus  = "+",
-        Minus = "-",
-        Times = "*",
-        Div   = "/"
-    }
-
-    // An expression is either
-    //  - a number,
-    //  - a variable, or
-    //  - a binary operation combining two sub-expressions.
-    alias Expr = SumType!(
-        double,
-        string,
-        Tuple!(Op, "op", This*, "lhs", This*, "rhs")
-    );
-
-    // Shorthand for Tuple!(Op, "op", Expr*, "lhs", Expr*, "rhs"),
-    // the Tuple type above with Expr substituted for This.
-    alias BinOp = Expr.Types[2];
-
-    // Factory function for number expressions
-    pure @safe
-    Expr* num(double value)
-    {
-        return new Expr(value);
-    }
-
-    // Factory function for variable expressions
-    pure @safe
-    Expr* var(string name)
-    {
-        return new Expr(name);
-    }
-
-    // Factory function for binary operation expressions
-    pure @safe
-    Expr* binOp(Op op, Expr* lhs, Expr* rhs)
-    {
-        return new Expr(BinOp(op, lhs, rhs));
-    }
-
-    // Convenience wrappers for creating BinOp expressions
-    alias sum  = partial!(binOp, Op.Plus);
-    alias diff = partial!(binOp, Op.Minus);
-    alias prod = partial!(binOp, Op.Times);
-    alias quot = partial!(binOp, Op.Div);
-
-    // Evaluate expr, looking up variables in env
-    pure @safe nothrow
-    double eval(Expr expr, double[string] env)
-    {
-        return expr.match!(
-            (double num) => num,
-            (string var) => env[var],
-            (BinOp bop) {
-                double lhs = eval(*bop.lhs, env);
-                double rhs = eval(*bop.rhs, env);
-                final switch(bop.op) {
-                    static foreach(op; EnumMembers!Op) {
-                        case op:
-                            return mixin("lhs" ~ op ~ "rhs");
-                    }
-                }
-            }
-        );
-    }
-
-    // Return a "pretty-printed" representation of expr
-    @safe
-    string pprint(Expr expr)
-    {
-        import std.format;
-
-        return expr.match!(
-            (double num) => "%g".format(num),
-            (string var) => var,
-            (BinOp bop) => "(%s %s %s)".format(
-                pprint(*bop.lhs),
-                bop.op,
-                pprint(*bop.rhs)
-            )
-        );
-    }
-
-    Expr* myExpr = sum(var("a"), prod(num(2), var("b")));
-    double[string] myEnv = ["a":3, "b":4, "c":7];
-
-    assert(eval(*myExpr, myEnv) == 11);
-    assert(pprint(*myExpr) == "(a + (2 * b))");
-}
-
 /// `This` placeholder, for use in self-referential types.
 public import std.variant: This;
 
@@ -606,21 +500,6 @@ public:
 	}));
 }
 
-// Recursive types
-@safe unittest {
-	alias MySum = SumType!(This*);
-	assert(is(MySum.Types[0] == MySum*));
-}
-
-// Allowed types
-@safe unittest {
-	import std.meta: AliasSeq;
-
-	alias MySum = SumType!(int, float, This*);
-
-	assert(is(MySum.Types == AliasSeq!(int, float, MySum*)));
-}
-
 // Works alongside Algebraic
 version (D_BetterC) {} else
 @safe unittest {
@@ -781,32 +660,6 @@ version (D_BetterC) {} else
 	assert(Sum(Int(42)).text == Int(42).text, Sum(Int(42)).text);
 	assert(Sum(Double(33.3)).text == Double(33.3).text, Sum(Double(33.3)).text);
 	assert((const(Sum)(Int(42))).text == (const(Int)(42)).text, (const(Sum)(Int(42))).text);
-}
-
-// Github issue #16
-version (D_BetterC) {} else
-@safe unittest {
-	alias Node = SumType!(This[], string);
-
-	// override inference of @system attribute for cyclic functions
-	assert((() @trusted =>
-		Node([Node([Node("x")])])
-		==
-		Node([Node([Node("x")])])
-	)());
-}
-
-// Github issue #16 with const
-version (D_BetterC) {} else
-@safe unittest {
-	alias Node = SumType!(const(This)[], string);
-
-	// override inference of @system attribute for cyclic functions
-	assert((() @trusted =>
-		Node([Node([Node("x")])])
-		==
-		Node([Node([Node("x")])])
-	)());
 }
 
 // Stale pointers
@@ -1550,30 +1403,6 @@ unittest {
 
 	assert(a.match!(OverloadSet.fun) == "int");
 	assert(b.match!(OverloadSet.fun) == "double");
-}
-
-// Overload sets that include SumType arguments
-@safe unittest {
-	alias Inner = SumType!(int, double);
-	alias Outer = SumType!(Inner, string);
-
-	static struct OverloadSet
-	{
-		@safe:
-		static string fun(int i) { return "int"; }
-		static string fun(double d) { return "double"; }
-		static string fun(string s) { return "string"; }
-		static string fun(Inner i) { return i.match!fun; }
-		static string fun(Outer o) { return o.match!fun; }
-	}
-
-	Outer a = Inner(42);
-	Outer b = Inner(3.14);
-	Outer c = "foo";
-
-	assert(OverloadSet.fun(a) == "int");
-	assert(OverloadSet.fun(b) == "double");
-	assert(OverloadSet.fun(c) == "string");
 }
 
 // Overload sets with ref arguments
