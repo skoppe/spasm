@@ -177,11 +177,19 @@ import spasm.bindings.html : Window;
   return w;
 }
 
+void unmount(T)(auto ref T t) if (is(T : SumType!(Types), Types...)) {
+  t.match!(unmount);
+ }
+
 void unmount(T)(auto ref T t) if (hasMember!(T, "node")) {
   unmount(t.node.node);
   static if (hasMember!(T, "node"))
     t.node.mounted = false;
   t.propagateOnUnmount();
+ }
+
+auto removeChild(T)(T* t) if (is(T : SumType!(Types), Types...)) {
+  unmount(*t);
  }
 
 auto removeChild(T)(auto ref T t) if (hasMember!(T,"node")) {
@@ -196,27 +204,35 @@ auto focus(T)(auto ref T t) if (hasMember!(T,"node")) {
  }
 
 auto renderBefore(T, Ts...)(Handle parent, auto ref T t, Handle sibling, auto ref Ts ts) {
-  if (parent == invalidHandle)
-    return;
-  renderIntoNode(parent, t, ts);
-  static if (hasMember!(T, "node")) {
-    parent.insertBefore(t.node.node, sibling);
-    t.node.mounted = true;
+  static if (is(T : SumType!Types, Types...)) {
+    t.match!((scope ref i) => renderBefore(parent, i, sibling, ts));
+  } else {
+    if (parent == invalidHandle)
+      return;
+    renderIntoNode(parent, t, ts);
+    static if (hasMember!(T, "node")) {
+      parent.insertBefore(t.node.node, sibling);
+      t.node.mounted = true;
+    }
+    t.propagateOnMount();
   }
-  t.propagateOnMount();
 }
 
-auto render(T, Ts...)(Handle parent, auto ref T t, auto ref Ts ts) {
-  if (parent == invalidHandle)
-    return;
-  renderIntoNode(parent, t, ts);
-  static if (hasMember!(T, "node")) {
-    if (!t.getNamedNode().mounted) {
-      parent.appendChild(t.getNamedNode.node);
-      t.getNamedNode().mounted = true;
+auto render(T, Ts...)(Handle parent, auto ref T t, auto ref Ts ts) @trusted {
+  static if (is(T : SumType!Types, Types...)) {
+    t.match!((scope ref i) => render(parent, i, ts));
+  } else {
+    if (parent == invalidHandle)
+      return;
+    renderIntoNode(parent, t, ts);
+    static if (hasMember!(T, "node")) {
+      if (!t.getNamedNode().mounted) {
+        parent.appendChild(t.getNamedNode.node);
+        t.getNamedNode().mounted = true;
+      }
     }
+    t.propagateOnMount();
   }
-  t.propagateOnMount();
 }
 
 import std.traits : isFunction;
