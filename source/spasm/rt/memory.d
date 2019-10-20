@@ -48,14 +48,15 @@ version (unittest) {
       return t[0..size];
     }
   } else {
-    T* make(A, Args...)(A allocatorOld, Args args) {
+    T* make(A, Args...)(A allocatorOld, auto ref Args args) nothrow {
       import spasm.rt.allocator : PoolAllocatorList;
       static __gshared allocator = PoolAllocatorList!(T)();
       void[] raw = allocator.allocate(T.sizeof);
       auto t = cast(T*) raw.ptr;
       *t = T.init;
       static if (Args.length) {
-        *t = T(args);
+        import core.lifetime: forward;
+        *t = T(forward!args);
       }
       return t;
     }
