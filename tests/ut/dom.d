@@ -163,22 +163,4 @@ unittest {
   App app;
   auto node = app.renderToNode;
   node.renderToString().should == `<section><div><header innerHTML="top"></header></div></section>`;
-/+
-  // TODO: next to test are children of children
-  <Super>
-     <Middle>
-       <Parent left=left/>
-       <Left top=top/>
-     </Middle>
-     <Top/>
-  </Super>
-
-  // TODO: or children passed multiple levels (optional renaming)
-     <Super>
-       <Middle>
-         <Parent left=left/>
-       </Middle>
-       <Left/>
-     </Super>
-     +/
 }
