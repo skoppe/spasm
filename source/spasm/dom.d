@@ -664,6 +664,7 @@ template renderNestedChild(string field) {
               static if (is(c: connect!(a,b), alias a, alias b)) {
                 mixin("t."~a~"."~replace!(b,'.','_')~".add(del);");
               } else static if (is(c : connect!field, alias field)) {
+                static assert(__traits(compiles, mixin("t."~field)), "Cannot find property "~field~" on "~T.stringof~" in @connect");
                 mixin("t."~field~".add(del);");
               } else static if (is(c : connect!field, string field)) {
                 mixin("t."~field~".add(del);");
