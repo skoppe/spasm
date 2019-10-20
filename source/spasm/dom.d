@@ -670,7 +670,10 @@ template renderNestedChild(string field) {
         alias ApplyStyles = getUDAs!(member, ApplyStyle);
         static foreach(s; ApplyStyles) {
           static if (is(s == ApplyStyle!Target, alias Target)) {
-            alias EnumType = typeof(member);
+            static if (isFunction!member)
+              alias EnumType = ReturnType!member;
+            else
+              alias EnumType = typeof(member);
             alias GetUDAs = ApplyRight!(ApplyLeft!(getEnumUDAs, EnumType), style);
             alias table = staticMap!(GetUDAs, __traits(allMembers, EnumType));
             alias GetCssClass = ApplyLeft!(GetCssClassName, T);
