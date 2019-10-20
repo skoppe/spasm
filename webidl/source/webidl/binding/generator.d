@@ -622,7 +622,7 @@ void dumpJsArgument(Appender)(ref Semantics semantics, Argument arg, ref Appende
   } else if (semantics.isPrimitive(arg.type)) {
     a.put(arg.name.friendlyJsName);
   } else {
-    a.put(["spasm.objects[",arg.name.friendlyJsName,"]"]);
+    a.put(["objects[",arg.name.friendlyJsName,"]"]);
   }
   if (semantics.isNullable(arg.type)) {
     a.put(" : undefined");
@@ -685,7 +685,7 @@ void dump(Appender)(ref Context context, JsExportFunction item, ref Appender a) 
       else
         a.put("(");
     } else if (!semantics.isPrimitive(item.result)) {
-      a.put(["spasm.addObject("]);
+      a.put(["addObject("]);
       needsClose = true;
     }
   }
@@ -696,7 +696,7 @@ void dump(Appender)(ref Context context, JsExportFunction item, ref Appender a) 
   else {
     if (item.type & FunctionType.ExposedConstructor)
       a.put("new ");
-    a.put("spasm.objects[ctx]");
+    a.put("objects[ctx]");
   }
   if (item.type & (FunctionType.Getter | FunctionType.Setter | FunctionType.Deleter)) {
     a.put("[");
@@ -828,7 +828,7 @@ string generateJsGlobalBindings(IR ir, string[] jsExportFilters, ref IndentedStr
     bool returns = resultDecoder != "void" && resultDecoder != "";
     app.putLn(["promise_then_", mangled,": (handle, ctx, ptr) => {"]);
     app.indent();
-    app.putLn("return spasm.addObject(spasm.objects[handle].then((r)=>{");
+    app.putLn("return addObject(objects[handle].then((r)=>{");
     app.indent();
     if (argEncoder != "" && argEncoder != "void")
       app.putLn([argEncoder, "(0,r);"]);
@@ -2910,6 +2910,8 @@ string generateSingleJsBinding(IR ir, string[] filtered = []) {
   app.putLn("import {spasm as spa, encoders as encoder, decoders as decoder} from '../modules/spasm.js';");
   app.putLn("let spasm = spa;");
   app.putLn("let memory = {};");
+  app.putLn("const objects = spasm.objects;");
+  app.putLn("const addObject = spasm.addObject;");
   app.putLn("const setupMemory = () => {");
   app.putLn("    let buffer = spasm.memory.buffer;");
   app.putLn("    if (memory.heapi32s && !memory.heapi32s.length === 0)");
@@ -2945,8 +2947,8 @@ string generateSingleJsBinding(IR ir, string[] filtered = []) {
   app.putLn("      getFloat = (ptr) => memory.heapf32[ptr/4],");
   app.putLn("      getDouble = (ptr) => memory.heapf64[ptr/8],");
   app.putLn("      isDefined = (val) => (val != undefined && val != null),");
-  app.putLn("      encode_handle = (ptr, val) => { setUInt(ptr, spasm.addObject(val)); },");
-  app.putLn("      decode_handle = (ptr) => { return spasm.objects[getUInt(ptr)]; },");
+  app.putLn("      encode_handle = (ptr, val) => { setUInt(ptr, addObject(val)); },");
+  app.putLn("      decode_handle = (ptr) => { return objects[getUInt(ptr)]; },");
   app.putLn("      spasm_encode_string = encoder.string,");
   app.putLn("      spasm_decode_string = decoder.string,");
   app.put("      spasm_indirect_function_get = (ptr)=>spasm.instance.exports.__indirect_function_table.get(ptr)");
