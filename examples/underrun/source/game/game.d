@@ -32,7 +32,7 @@ struct Game {
   bool finished;
   void init(int w, int h) @trusted {
     import std.algorithm : move;
-    this.context = canvas.node.getContext("webgl").front.get!WebGLRenderingContext.move;
+    this.context = canvas.node.getContext("webgl").front.trustedGet!WebGLRenderingContext.move;
     glSetContext(*context.handle.ptr);
     renderer.renderer_init(w,h);
     width = w;

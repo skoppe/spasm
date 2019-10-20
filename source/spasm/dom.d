@@ -124,28 +124,21 @@ version (unittest) {
         removeClass(node, className);
     }
     Optional!string getProperty(Handle node, string name) {
-      auto str = node.getNode().getProperty(name).tryMatch!((string s)=>s).assumeNoThrow();
+      auto str = node.getNode().getProperty(name).trustedGet!string;
       return some(str);
     }
     Optional!int getPropertyInt(Handle node, string prop) {
-      return some(node.getNode().getProperty(prop).tryMatch!((int i)=>i).assumeNoThrow());
+      return some(node.getNode().getProperty(prop).trustedGet!int);
     }
     Optional!bool getPropertyBool(Handle node, string prop) {
-      return some(node.getNode().getProperty(prop).tryMatch!((bool b)=>b).assumeNoThrow());
+      return some(node.getNode().getProperty(prop).trustedGet!bool);
     }
     Optional!double getPropertyDouble(Handle node, string prop) {
-      return some(node.getNode().getProperty(prop).tryMatch!((double d)=>d).assumeNoThrow());
+      return some(node.getNode().getProperty(prop).trustedGet!double);
     }
     void setSelectionRange(Handle node, uint start, uint end) {
     }
     void addCss(string css) {
-    }
-  }
-  auto assumeNoThrow(Block)(lazy Block block) {
-    try {
-      return block();
-    } catch(Exception) {
-      assert(false);
     }
   }
 } else {
