@@ -2910,8 +2910,9 @@ string generateSingleJsBinding(IR ir, string[] filtered = []) {
   app.putLn("const addObject = spasm.addObject;");
   app.putLn("const setupMemory = () => {");
   app.putLn("    let buffer = spasm.memory.buffer;");
-  app.putLn("    if (memory.heapi32s && !memory.heapi32s.length === 0)");
+  app.putLn("    if (memory.buffer == buffer)");
   app.putLn("        return;");
+  app.putLn("    memory.buffer = buffer;");
   app.putLn("    memory.heapi32s = new Int32Array(buffer)");
   app.putLn("    memory.heapi32u = new Uint32Array(buffer)");
   app.putLn("    memory.heapi16s = new Int16Array(buffer)");
