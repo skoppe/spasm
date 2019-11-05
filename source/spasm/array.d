@@ -98,8 +98,9 @@ struct Updater(T) {
         return;
       }
       // TODO: here we can use replaceChild
-      if (list.items[i].node.marked)
+      if (list.items[i].node.marked) {
         unmount(*list.items[i]);
+      }
       if (idx+1 < list.items.length) {
         if (list.items[i+1] == t) {
           list.items.remove(i);
@@ -108,12 +109,12 @@ struct Updater(T) {
           list.items[i] = t;
           list.items.assignEventListeners(*t);
           if (list.items[i+1].node.marked)
-            list.node.renderBefore((*list.items[i]).node.handle, list.items[i+1].node);
+            list.node.renderBefore((*list.items[i]), list.items[i+1].node);
           else {
             size_t off = 2;
             while (i+off < list.items.length) {
               if (list.items[i+off].node.marked) {
-                list.node.renderBefore((*list.items[i]).node.handle, list.items[i+off].node);
+                list.node.renderBefore((*list.items[i]), list.items[i+off].node);
                 return;
               }
               off+=1;
