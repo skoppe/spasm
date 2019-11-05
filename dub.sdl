@@ -27,7 +27,7 @@ configuration "unittest" {
               dependency "unit-threaded" version="*"
               sourcePaths "source" "tests/ut"
               importPaths "source" "tests/ut"
-              mainSourceFile "tests/test_main.d"
+              mainSourceFile "tests/ut/test_main.d"
 }
 
 # this configuration only exists to compile spasm on dmd nightly, so to get warnings about druntime breaking changes early on

@@ -20,11 +20,14 @@ nothrow:
 version (unittest) {
   import spasm.sumtype;
   import std.array : Appender;
+  import std.algorithm : remove, countUntil;
+  import std.array : insertInPlace;
   class UnittestDomNode {
     alias Property = SumType!(string,int,bool,double);
     alias Attribute = SumType!(string,int);
     NodeType type;
     Handle handle;
+    UnittestDomNode parent;
     Property[string] properties;
     Attribute[string] attributes;
     string[] classes;
@@ -72,6 +75,13 @@ version (unittest) {
     assert(node > 0);
     return unittest_dom_nodes.data[node - 1];
   }
+  private auto assumeNoException(Block)(lazy Block block) {
+    try {
+      block();
+    } catch(Exception e) {
+      assert(0, e.msg);
+    }
+  }
   extern(C) {
     Handle createElement(NodeType type) {
       uint idx = cast(uint)unittest_dom_nodes.data.length;
@@ -84,14 +94,50 @@ version (unittest) {
     void setProperty(Handle node, string prop, string value) {
       node.getNode().setProperty(prop, value);
     }
-    void removeChild(Handle childPtr) {
+    void removeChild(Handle childPtr) @trusted {
+      import std.algorithm : remove;
+      import std.algorithm : countUntil;
+      auto child = childPtr.getNode();
+      auto childIdx = child.parent.children.data.countUntil!(c => c is child);
+      assert(childIdx >= 0);
+      child.parent.children.data.remove(childIdx);
+      child.parent.children.shrinkTo(child.parent.children.data.length - 1).assumeNoException();
     }
     void unmount(Handle childPtr) {
+      removeChild(childPtr);
     }
-    void appendChild(Handle parentPtr, Handle childPtr) {
-      parentPtr.getNode().children.put(childPtr.getNode());
+    void appendChild(Handle parentPtr, Handle childPtr) @trusted {
+      auto parent = parentPtr.getNode();
+      auto child = childPtr.getNode();
+      if (child.parent) {
+        auto childIdx = child.parent.children.data.countUntil!(c => c is child);
+        if (childIdx > 0) {
+          child.parent.children.data.remove(childIdx);
+          child.parent.children.shrinkTo(child.parent.children.data.length - 1).assumeNoException();
+        }
+      }
+      child.parent = parent;
+      parent.children.put(child);
     }
-    void insertBefore(Handle parentPtr, Handle childPtr, Handle sibling) {
+    void insertBefore(Handle parentPtr, Handle childPtr, Handle siblingPtr) @trusted {
+      auto parent = parentPtr.getNode();
+      auto child = childPtr.getNode();
+      auto sibling = siblingPtr.getNode();
+      if (child.parent) {
+        auto childIdx = child.parent.children.data.countUntil!(c => c is child);
+        if (childIdx > 0) {
+          child.parent.children.data.remove(childIdx);
+          child.parent.children.shrinkTo(child.parent.children.data.length - 1).assumeNoException();
+        }
+      }
+      child.parent = parent;
+      auto siblingIdx = parent.children.data.countUntil!(c => c is sibling);
+      assert(siblingIdx >= 0);
+      parent.children.put(child);
+      auto arr = parent.children.data;
+      foreach(i; 0 .. arr.length - siblingIdx)
+        arr[arr.length - 1 - i] = arr[arr.length - 2 - i];
+      arr[siblingIdx] = child;
     }
     void setAttribute(Handle node, string attr, string value) {
       node.getNode().setAttribute(attr, value);
