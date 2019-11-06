@@ -1,0 +1,24 @@
+name: Run all D Tests
+on: [push, pull_request]
+
+jobs:
+    test:
+        name: Dub Tests
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                dc: [ldc-latest, ldc-1.18.0, ldc-1.17.0, ldc-1.16.0, ldc-1.15.0]
+        runs-on: ${{ matrix.os }}
+        steps:
+            - uses: actions/checkout@v1
+
+            - name: Install D compiler
+              uses: mihails-strasuns/setup-dlang@v0.3.0
+              with:
+                  compiler: ${{ matrix.dc }}
+
+            - name: Run tests
+              run: make test
+              
+            - name: Build
+              run: make build
