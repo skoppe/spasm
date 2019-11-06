@@ -8,7 +8,8 @@ import ldc.attributes;
 extern(C)
 export
 @assumeUsed
-void domEvent(JsHandle node, uint ctx, uint fun, EventType type) {
+nothrow
+void domEvent(uint ctx, uint fun, EventType type) {
   // NOTE: since all the Event structs (MouseEvent, KeyboardEvent)
   // are all just empty structs with only static functions,
   // the type signature of the delegate doesn't really matter much,
@@ -20,7 +21,7 @@ void domEvent(JsHandle node, uint ctx, uint fun, EventType type) {
   {
     union
     {
-      void delegate(Event) handle;
+      void delegate(Event) nothrow handle;
       struct
       {
         void* contextPtr;

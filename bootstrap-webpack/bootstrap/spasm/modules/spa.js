@@ -15,11 +15,10 @@ let events = ['click','change','input','keydown','keyup','dblclick','blur','mous
 let currentEvent= null;
 
 const eventHandler = (event) => {
-    const id = event.currentTarget.wasmId;
     const handlers = event.currentTarget.wasmEvents[event.type];
     const cbs = handlers.cbs;
     currentEvent = event;
-    cbs.forEach(cb=>spasm.instance.exports.domEvent(id, cb.ctx, cb.fun, handlers.eventType));
+    cbs.forEach(cb=>spasm.instance.exports.domEvent(cb.ctx, cb.fun, handlers.eventType));
     currentEvent = null;
 }
 
