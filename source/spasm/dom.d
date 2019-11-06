@@ -934,6 +934,8 @@ template update(alias field) {
     updateChildren!(field)(parent);
   }
   static void update(Parent)(scope auto ref Parent parent) {
+    if (!parent.node.mounted)
+      return;
     static if (isPointer!Parent)
       updateDom(*parent, __traits(getMember, parent, field.stringof));
     else
@@ -941,6 +943,8 @@ template update(alias field) {
   }
   static void update(Parent, T)(scope auto ref Parent parent, T t) {
     mixin("parent."~field.stringof~" = t;");
+    if (!parent.node.mounted)
+      return;
     static if (isPointer!Parent)
       updateDom(*parent, t);
     else
