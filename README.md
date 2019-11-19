@@ -1,6 +1,9 @@
 # Spasm
 
 [![wercker status](https://app.wercker.com/status/523c1525f55fb8389c21b5fba56b9b54/s/master "wercker status")](https://app.wercker.com/project/byKey/523c1525f55fb8389c21b5fba56b9b54)
+<img src="https://img.shields.io/badge/ldc--1.16-supported-brightgreen"/>
+<img src="https://img.shields.io/badge/ldc--1.17-supported-brightgreen"/>
+<img src="https://img.shields.io/badge/ldc--1.18-supported-brightgreen"/>
 
 Spasm is a library to develop single page applications in D that compile to webassembly.
 
