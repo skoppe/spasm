@@ -1,16 +1,5 @@
 box: dlang2/ldc-ubuntu:latest
 
-build-1.15.0:
-  box: dlang2/ldc-ubuntu:1.15.0
-  steps:
-    - script:
-        name: build ldc 1.15.0
-        code: |
-          mkdir -p $WERCKER_CACHE_DIR/dub
-          ln -s $WERCKER_CACHE_DIR/dub ~/.dub
-          # make test - skipped since ldc 1.15 has issues with BitVector.rep during unittest
-          make build
-
 build-1.16.0:
   box: dlang2/ldc-ubuntu:1.16.0
   steps:

@@ -25,8 +25,8 @@ configuration "unittest" {
               targetName "ut"
               #targetType "executable"
               dependency "unit-threaded" version="*"
-              sourcePaths "source" "tests"
-              importPaths "source" "tests"
+              sourcePaths "source" "tests/ut"
+              importPaths "source" "tests/ut"
               mainSourceFile "tests/test_main.d"
 }
 
