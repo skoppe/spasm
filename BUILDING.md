@@ -2,7 +2,7 @@
 
 A simple `dub build --build=release` should just work.
 
-The only supported compiler is ldc >= 1.15.0.
+The only supported compiler is ldc >= 1.16.0.
 
 # Dub 
 
