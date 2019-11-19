@@ -12,7 +12,7 @@ Dub doesn't know how to handle wasm files so it will put the wrong file extensio
 
 On windows you will need to add the `--combined` flag to dub.
 
-# ldc 1.15.0
+# ldc 1.17.0
 
 Works as intended.
 
@@ -24,6 +24,6 @@ ldc 1.16.0 produces some bloat due to the visibility not being set on compiler g
 
 You can get the same behavior as in ldc 1.15.0 by removing the `--export-dynamic` in the `ldc2.conf` file in your ldc installation. Alternatively you can put a custom `ldc2.conf` in your projects root folder (from where you execute `dub`).
 
-# ldc 1.17.0
+# ldc 1.15.0
 
 Works as intended.
