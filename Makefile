@@ -3,10 +3,10 @@ build: build-spasm build-webidl build-examples
 test: test-spasm test-webidl
 
 test-spasm:
-	dub test
+	dub test --registry=https://dub.bytecraft.nl
 
 test-webidl:
-	cd webidl && dub test --compiler=ldc2
+	cd webidl && dub test --compiler=ldc2 --registry=https://dub.bytecraft.nl
 
 build-spasm:
 	dub build --compiler=ldc2 --build=release --build-mode=allAtOnce --registry=https://dub.bytecraft.nl
