@@ -1,4 +1,4 @@
-name: Run all D Tests
+name: build
 on: [push, pull_request]
 
 jobs:
