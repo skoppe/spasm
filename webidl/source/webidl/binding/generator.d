@@ -156,7 +156,7 @@ void toDImport(virtual!Node node, StructNode parent, Semantics semantics, Indent
   foreach(child; node.children) {
     auto fun = cast(FunctionNode)child;
     if (fun) {
-      string name = mangleName(node.name, fun.name, fun.manglePostfix);
+      string name = mangleJsName(node, fun);
       if (auto p = name in names)
         continue;
       if (filter.length > 0 && !filter.canFind(name))
@@ -175,7 +175,7 @@ void toDImport(virtual!Node node, StructNode parent, Semantics semantics, Indent
   foreach(child; node.children) {
     auto fun = cast(FunctionNode)child;
     if (fun) {
-      string name = mangleName(node.name, fun.name, fun.manglePostfix);
+      string name = mangleJsName(node, fun);
       if (auto p = name in names)
         continue;
       names[name] = true;
@@ -224,7 +224,7 @@ void toDImport(virtual!Node node, StructNode parent, Semantics semantics, Indent
   foreach(child; node.children) {
     auto fun = cast(FunctionNode)child;
     if (fun) {
-      string name = mangleName(node.name, fun.name, fun.manglePostfix);
+      string name = mangleJsName(dummyParent, fun);
       if (auto p = name in names)
         continue;
       names[name] = true;
@@ -288,7 +288,7 @@ class MixinNode : Node {
   foreach(child; node.children) {
     auto fun = cast(FunctionNode)child;
     if (fun) {
-      string name = mangleName(dummyParent.name, fun.name, fun.manglePostfix);
+      string name = mangleJsName(dummyParent, fun);
       if (auto p = name in names)
         continue;
       if (filter.length > 0 && !filter.canFind(name))
@@ -1293,6 +1293,10 @@ string toCamelCase(string s) {
   auto app = appender!string;
   app.putCamelCase(s);
   return app.data;
+}
+
+string mangleJsName(StructNode node, FunctionNode fun) {
+  return mangleName(node.name, fun.customName != "" ? fun.customName : fun.name, fun.manglePostfix);
 }
 
 string mangleName(string typeName, string name, string appendix = "") {
