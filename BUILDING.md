@@ -1,6 +1,6 @@
 # Building
 
-A simple `dub build --build=release` should just work.
+A simple `dub build --build=release --build-mode=allAtOnce` should just work.
 
 The only supported compiler is ldc >= 1.16.0.
 
@@ -12,7 +12,7 @@ Dub doesn't know how to handle wasm files so it will put the wrong file extensio
 
 On windows you will need to add the `--combined` flag to dub.
 
-# ldc 1.18.0
+# ldc 1.20.0 - ldc 1.18.0
 
 The new separate compilation feature that dub got for ldc causes an unrecognized flag (`--no-as-needed`) to be propagated. The short term fix is adding the `--build-mode=allAtOnce` to the dub invocation.
 

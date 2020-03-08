@@ -67,7 +67,7 @@ Make sure to run `dub run spasm:webidl -- --bindgen` after compiling to ensure a
 
 ## How to compile your application
 
-Make sure to have at least ldc 1.16.0 installed. Also, make sure that `ldc2 --version` returns the `wasm32` among its target types. If not, you may need to install ldc from official sources or run one in docker (e.g. `dlang2/ldc-ubuntu:1.14.0`).
+Make sure to have at least ldc 1.16.0 installed. Also, make sure that `ldc2 --version` returns the `wasm32` among its target types. If not, you may need to install ldc from official sources or run one in docker (e.g. `dlang2/ldc-ubuntu:1.20.0`).
 
 Run `dub build --compiler=ldc2 --build=release` to compile your application, then run `npx webpack` to generate the `index.html`.
 
@@ -143,7 +143,7 @@ The spa framework in Spasm has basic support for hot module reloading. Style cha
 
 ### Enabling hmr for new projects
 
-Make sure you use spasm `v0.1.14` and add the following to your `dub.sdl`:
+Make sure you use spasm `v0.2.0-beta.6` and add the following to your `dub.sdl`:
 
 ```
 configuration "hmr" {
