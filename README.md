@@ -50,7 +50,7 @@ Not only are your applications fast, they are also small. The [todo-mvc example]
 
 ## How to start
 
-Make sure to have at least ldc 1.15.0 installed.
+Make sure to have at least ldc 1.16.0 installed.
 
 - run `dub init <my-project> spasm`, this will create a folder named `<my-project>` with a dub file and the latest spasm added as dependency
 - add `dflags "-betterC"` to your dub.sdl or add `"dflags": ["-betterC"]` to your dub.json
@@ -67,13 +67,13 @@ Make sure to run `dub run spasm:webidl -- --bindgen` after compiling to ensure a
 
 ## How to compile your application
 
-Make sure to have at least ldc 1.14.0 installed. Also, make sure that `ldc2 --version` returns the `wasm32` among its target types. If not, you may need to install ldc from official sources or run one in docker (e.g. `dlang2/ldc-ubuntu:1.14.0`).
+Make sure to have at least ldc 1.16.0 installed. Also, make sure that `ldc2 --version` returns the `wasm32` among its target types. If not, you may need to install ldc from official sources or run one in docker (e.g. `dlang2/ldc-ubuntu:1.14.0`).
 
 Run `dub build --compiler=ldc2 --build=release` to compile your application, then run `npx webpack` to generate the `index.html`.
 
 You can also `npm run start` to start a webpack development server that serves your application on localhost:3000.
 
-- Note: I could not get it to build on my aged mac (el capitan). Instead I use the `dlang2/ldc-ubuntu:1.14.0` docker image to run ldc.
+- Note: I could not get it to build on my aged mac (el capitan). Instead I use the `dlang2/ldc-ubuntu:1.20.0` docker image to run ldc.
 
 - Note: if you have some issues please read the [BUILDING.md](BUILDING.md) file before opening an issue.
 
