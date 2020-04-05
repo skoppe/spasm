@@ -2,7 +2,7 @@
 
 A simple `dub build --build=release --build-mode=allAtOnce` should just work.
 
-The only supported compiler is ldc >= 1.16.0.
+The only supported compiler is ldc >= 1.17.0.
 
 # Dub 
 
@@ -20,7 +20,7 @@ The new separate compilation feature that dub got for ldc causes an unrecognized
 
 Works as intended.
 
-# ldc 1.16.0
+# ldc 1.16.0 (support is dropped, but it may still compile)
 
 ldc 1.16.0 requires the "allowWarnings" buildRequirements in your project's dub.json/sdl file.
 

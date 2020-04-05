@@ -51,7 +51,7 @@ Not only are your applications fast, they are also small. The [todo-mvc example]
 
 ## How to start
 
-Make sure to have at least ldc 1.16.0 installed.
+Make sure to have at least ldc 1.17.0 installed.
 
 - run `dub init <my-project> spasm`, this will create a folder named `<my-project>` with a dub file and the latest spasm added as dependency
 - add `dflags "-betterC"` to your dub.sdl or add `"dflags": ["-betterC"]` to your dub.json
@@ -68,7 +68,7 @@ Make sure to run `dub run spasm:webidl -- --bindgen` after compiling to ensure a
 
 ## How to compile your application
 
-Make sure to have at least ldc 1.16.0 installed. Also, make sure that `ldc2 --version` returns the `wasm32` among its target types. If not, you may need to install ldc from official sources or run one in docker (e.g. `dlang2/ldc-ubuntu:1.20.0`).
+Make sure to have at least ldc 1.17.0 installed. Also, make sure that `ldc2 --version` returns the `wasm32` among its target types. If not, you may need to install ldc from official sources or run one in docker (e.g. `dlang2/ldc-ubuntu:1.20.0`).
 
 Run `dub build --compiler=ldc2 --build=release` to compile your application, then run `npx webpack` to generate the `index.html`.
 
