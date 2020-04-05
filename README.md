@@ -1,6 +1,6 @@
 # Spasm
 
-<img src="https://github.com/skoppe/spasm/workflows/build/badge.svg"/>&nbsp;<img src="https://img.shields.io/badge/ldc%201.16%20--%201.20%20-supported-brightgreen"/>
+<img src="https://github.com/skoppe/spasm/workflows/build/badge.svg"/>&nbsp;<img src="https://img.shields.io/badge/ldc%201.17%20--%201.20%20-supported-brightgreen"/>
 
 Spasm is a library to develop single page applications in D that compile to webassembly.
 
