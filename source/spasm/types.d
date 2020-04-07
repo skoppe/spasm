@@ -192,13 +192,123 @@ enum NodeType {
   root = 1024 // Special element used in unittests
 }
 
-// deprecated("Use spasm.types.Child instead") enum child;
-enum child;
-enum prop;
+/**
+ * User defined attribute to register the symbol as event handler to the event
+ * listener of the same name as the symbol.
+ *
+ * Examples:
+ * ---
+ * @callback void onClick(MouseEvent event) {
+ *   this.update.textContent = "ouch!";
+ * }
+ * ---
+ */
 enum callback;
+
+// deprecated("Use spasm.types.Child instead") enum child;
+/**
+ * User defined attribute to attach to children that should be embedded into the
+ * DOM as child nodes.
+ *
+ * Using `@child` on a `DynamicArray!(Item*)` makes all items embed as children.
+ *
+ * Otherwise the given symbol will be embedded as child.
+ */
+enum child;
+
+/**
+ * User defined attribute to attach to any member field or member function to
+ * set the value. On rendering or updating this causes the property on this node
+ * with the same name as the symbol on which this UDA is attached on to change
+ * value to what the symbol evaluates to.
+ *
+ * Property means this property name on the native JavaScript object will be
+ * changed.
+ *
+ * Incompatible with @child (will not match in that case)
+ *
+ * Examples:
+ * ---
+ * struct SaveButton {
+ *   mixin Node!"button";
+ *   mixin Slot!"click";
+ *
+ *   @prop string innerText = "Save";
+ *
+ *   @callback void onClick(MouseEvent event) {
+ *     this.emit(click);
+ *   }
+ * }
+ * ---
+ */
+enum prop;
+
+/**
+ * User defined attribute to attach to any member field or member function to
+ * set the value. On rendering or updating this causes the attribute for this
+ * node with the same name as the symbol on which this UDA is attached on to
+ * change value to what the symbol evaluates to.
+ *
+ * Attribute means a DOM attribute on a node which is set using setAttribute.
+ *
+ * Incompatible with @prop and @child (will not match in those cases)
+ *
+ * Examples:
+ * ---
+ * struct Checkbox {
+ *   mixin Node!"input";
+ *   @attr string type = "checkbox";
+ * }
+ * ---
+ */
 enum attr;
-struct connect(field...) {};
-struct visible(alias condition) {};
+
+/** 
+ * User defined attribute to attach to member functions to call
+ * `this.<args>.add(&func)` when rendering this into a node.
+ *
+ * Supports 2 kinds of overloads:
+ *   `@connect!"someMember.someEvent"` with an arbitrary string to add this
+ *     function into. Most commonly some kind of `"button.click"` string.
+ *   `@connect!("someMember", "someEvent")` which is the same as using a single
+ *     string but writes a dot after the first argument and replaces all dots in
+ *     the second argument with underscores.
+ *
+ * Examples:
+ * ---
+ * struct App {
+ *   @child Button addButton;
+ *   @connect!"addButton.click" void addClick() {
+ *     Item* item = allocator.make!Item;
+ *     item.innerText = "Item";
+ *     this.items.put(item);
+ *     this.update!(items);
+ *   }
+ * }
+ * ---
+ */
+struct connect(field...) {}
+
+/**
+ * User defined attribute to attach to a member boolean field or a member
+ * function evaluating to a boolean value to make the given argument field
+ * appear or disappear.
+ *
+ * `visible` actually removes and readds the nodes when mounting or updating.
+ *
+ * Params:
+ *   target = the name of the member that is supposed to be hidden/shown based
+ *            on the value. `true` means it is shown, `false` means it's hidden.
+ *
+ * Examples:
+ * ---
+ * struct App {
+ *   @child Dialog loginDialog;
+ *   @visible!"loginDialog" bool showLoginDialog;
+ * }
+ * ---
+ */
+struct visible(alias target) {}
 
 template isTOrPointer(T, Target) {
   enum isTOrPointer = is(T : Target) || is(T : Target*);
