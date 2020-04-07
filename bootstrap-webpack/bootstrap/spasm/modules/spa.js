@@ -66,6 +66,7 @@ export let jsExports = {
         innerText: (nodePtr,textLen, textOffset) => {
             nodes[nodePtr].innerText = decoder.string(textLen,textOffset);
         },
+        setAttributeBool: setAttribute,
         setAttributeInt: setAttribute,
         setAttribute: (nodePtr, attrLen, attrOffset, valueLen, valueOffset) => setAttribute(nodePtr, attrLen, attrOffset, decoder.string(valueLen,valueOffset)),
         addEventListener: (nodePtr, listenerType, ctx, fun, eventType) => {
