@@ -967,9 +967,7 @@ auto setAttributeTyped(string name, T)(Handle node, auto ref T t) {
   static if (isPointer!T) {
     if (t !is null)
       node.setAttributeTyped!name(*t);
-  } else static if (is(T == bool))
-    node.setAttributeBool(name, t);
-  else static if (is(T : int)) {
+  } else static if (is(T : int)) {
     node.setAttributeInt(name, t);
   } else {
     node.setAttribute(name, t);
