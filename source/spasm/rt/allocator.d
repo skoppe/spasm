@@ -7,7 +7,7 @@ import stdx.allocator.building_blocks.bitmapped_block : BitmappedBlock;
 import stdx.allocator.building_blocks.allocator_list : AllocatorList;
 import stdx.allocator.building_blocks.null_allocator : NullAllocator;
 import stdx.allocator.internal : Ternary;
-import stdx.allocator.common : chooseAtRuntime,reallocate,alignedReallocate,roundUpToMultipleOf,platformAlignment,divideRoundUp,trailingZeros;
+import stdx.allocator.common : chooseAtRuntime,reallocate,alignedReallocate,roundUpToMultipleOf,platformAlignment,divideRoundUp,trailingZeros,roundUpToAlignment;
 import std.typecons : Flag, Yes, No;
 
 alias Destructor = void function(void*);
@@ -27,17 +27,18 @@ version (WebAssembly) {
     }
 
     @trusted static void init(uint heap_base) {
-      begin = cast(void*)heap_base;
+      begin = cast(void*)(heap_base.roundUpToAlignment(alignment));
       current = begin;
       end = cast(void*)(wasmMemorySize * wasmPageSize);
     }
 
     void[] allocate(size_t n) {
-      if (current + n > end)
-        grow(1 + n / wasmPageSize);
+      const rounded = n.roundUpToAlignment(alignment);
+      if (current + rounded > end)
+        grow(1 + rounded / wasmPageSize);
       void* mem = current;
-      current += n;
-      return mem[0..n];
+      current += rounded;
+      return mem[0..rounded];
     }
 
     // NOTE: temporary until we front this with a FreeTree
