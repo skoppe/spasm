@@ -24,7 +24,7 @@ version (unittest) {
   import std.array : insertInPlace;
   class UnittestDomNode {
     alias Property = SumType!(string,int,bool,double);
-    alias Attribute = SumType!(string,int);
+    alias Attribute = SumType!(string,int,bool);
     NodeType type;
     Handle handle;
     UnittestDomNode parent;
@@ -60,7 +60,7 @@ version (unittest) {
           sink.formattedWrite(" %s=%s", kv.key, spasm.sumtype.match!((string s)=>format(`"%s"`,s),(i)=>i.to!string)(kv.value));
         }
         foreach (kv; attributes.byKeyValue()) {
-          sink.formattedWrite(" %s=%s", kv.key, spasm.sumtype.match!((string s)=>format(`"%s"`,s),(int i)=>i.to!string)(kv.value));
+          sink.formattedWrite(" %s=%s", kv.key, spasm.sumtype.match!((string s)=>format(`"%s"`,s),(i)=>i.to!string)(kv.value));
         }
         sink(">");
       }
@@ -145,6 +145,9 @@ version (unittest) {
     void setAttributeInt(Handle node, string attr, int value) {
       node.getNode().setAttribute(attr, value);
     }
+    void setAttributeBool(Handle node, string attr, bool value) {
+      node.getNode().setAttribute(attr, value);
+    }
     void setPropertyBool(Handle node, string prop, bool value) {
       node.getNode().setProperty(prop, value);
     }
@@ -198,6 +201,7 @@ version (unittest) {
     void insertBefore(Handle parentPtr, Handle childPtr, Handle sibling);
     void setAttribute(Handle nodePtr, string attr, string value);
     void setAttributeInt(Handle nodePtr, string attr, int value);
+    void setAttributeBool(Handle nodePtr, string attr, bool value);
     void setPropertyBool(Handle nodePtr, string attr, bool value);
     void setPropertyInt(Handle nodePtr, string attr, int value);
     void setPropertyDouble(Handle nodePtr, string attr, double value);
@@ -703,9 +707,8 @@ template renderNestedChild(string field) {
               static if (is(c: connect!(a,b), alias a, alias b)) {
                 mixin("t."~a~"."~replace!(b,'.','_')~".add(del);");
               } else static if (is(c : connect!field, alias field)) {
-                static assert(__traits(compiles, mixin("t."~field)), "Cannot find property "~field~" on "~T.stringof~" in @connect");
-                mixin("t."~field~".add(del);");
-              } else static if (is(c : connect!field, string field)) {
+                static assert(__traits(compiles, mixin("t."~field)),
+                  "Cannot find property "~field~" on "~T.stringof~" in @connect");
                 mixin("t."~field~".add(del);");
               }
             }
@@ -968,9 +971,9 @@ auto setAttributeTyped(string name, T)(Handle node, auto ref T t) {
   static if (isPointer!T) {
     if (t !is null)
       node.setAttributeTyped!name(*t);
-  } else static if (is(T == bool))
+  } else static if (is(T == bool)) {
     node.setAttributeBool(name, t);
-  else static if (is(T : int)) {
+  } else static if (is(T : int)) {
     node.setAttributeInt(name, t);
   } else {
     node.setAttribute(name, t);
